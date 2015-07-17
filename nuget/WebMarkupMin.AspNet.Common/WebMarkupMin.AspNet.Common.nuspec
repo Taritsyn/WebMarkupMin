@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+	<metadata>
+		<id>WebMarkupMin.AspNet.Common</id>
+		<version>2.0.0-alpha1</version>
+		<title>Web Markup Minifier: ASP.NET Common</title>
+		<authors>Andrey Taritsyn</authors>
+		<owners>Andrey Taritsyn</owners>
+		<licenseUrl>http://raw.githubusercontent.com/Taritsyn/WebMarkupMin/master/LICENSE</licenseUrl>
+		<projectUrl>http://github.com/Taritsyn/WebMarkupMin</projectUrl>
+		<iconUrl>http://download-codeplex.sec.s-msft.com/Download?ProjectName=webmarkupmin&amp;DownloadId=644208</iconUrl>
+		<requireLicenseAcceptance>true</requireLicenseAcceptance>
+		<description>WebMarkupMin.AspNet.Common is auxiliary package, that contains classes and interfaces for all ASP.NET extensions.</description>
+		<summary>WebMarkupMin.AspNet.Common is auxiliary package, that contains classes and interfaces for all ASP.NET extensions.</summary>
+		<copyright>Copyright (c) 2013-2015 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
+		<language>en-US</language>
+		<tags>WebMarkupMin ASP.NET Markup HTML XHTML XML Minification Minifier Minify</tags>
+		<dependencies>
+			<group targetFramework=".NETFramework4.0">
+				<dependency id="WebMarkupMin.Core" version="2.0.0-alpha1" />
+			</group>
+			<group targetFramework="DNX4.5.1">
+				<dependency id="WebMarkupMin.Core" version="2.0.0-alpha1" />
+			</group>
+			<group targetFramework="DNXCore5.0">
+				<dependency id="WebMarkupMin.Core" version="2.0.0-alpha1" />
+			</group>
+		</dependencies>
+		<frameworkAssemblies>
+			<frameworkAssembly assemblyName="mscorlib" targetFramework="DNX4.5.1" />
+			<frameworkAssembly assemblyName="System" targetFramework="DNX4.5.1" />
+			<frameworkAssembly assemblyName="System.Core" targetFramework="DNX4.5.1" />
+			<frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework="DNX4.5.1" />
+		</frameworkAssemblies>
+		<references>
+			<reference file="WebMarkupMin.AspNet.Common.dll" />
+		</references>
+	</metadata>
+</package>

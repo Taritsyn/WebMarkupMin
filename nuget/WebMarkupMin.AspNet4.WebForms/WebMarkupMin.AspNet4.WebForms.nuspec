@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+	<metadata>
+		<id>WebMarkupMin.AspNet4.WebForms</id>
+		<version>2.0.0-alpha1</version>
+		<title>Web Markup Minifier: ASP.NET 4.X Web Forms</title>
+		<authors>Andrey Taritsyn</authors>
+		<owners>Andrey Taritsyn</owners>
+		<licenseUrl>http://raw.githubusercontent.com/Taritsyn/WebMarkupMin/master/LICENSE</licenseUrl>
+		<projectUrl>http://github.com/Taritsyn/WebMarkupMin</projectUrl>
+		<iconUrl>http://download-codeplex.sec.s-msft.com/Download?ProjectName=webmarkupmin&amp;DownloadId=644208</iconUrl>
+		<requireLicenseAcceptance>true</requireLicenseAcceptance>
+		<description>WebMarkupMin.AspNet4.WebForms contains 5 Web Forms page classes: `MinifiedHtmlPage` (supports HTML minification only), `MinifiedXhtmlPage` (supports XHTML minification only), `CompressedPage` (supports HTTP compression only), `MinifiedAndCompressedHtmlPage` (supports HTML minification and HTTP compression) and `MinifiedAndCompressedXhtmlPage` (supports XHTML minification and HTTP compression); and 5 master page classes: `MinifiedHtmlMasterPage` (supports HTML minification only), `MinifiedXhtmlMasterPage` (supports XHTML minification only), `CompressedMasterPage` (supports HTTP compression only), `MinifiedAndCompressedHtmlMasterPage` (supports HTML minification and HTTP compression) and `MinifiedAndCompressedXhtmlMasterPage` (supports XHTML minification and HTTP compression).
+
+Сlasses of the Web Forms pages and master pages cannot be used together.</description>
+		<summary>WebMarkupMin.AspNet4.WebForms contains 5 Web Forms page classes: `MinifiedHtmlPage` (supports HTML minification only), `MinifiedXhtmlPage` (supports XHTML minification only), `CompressedPage` (supports HTTP compression only), `MinifiedAndCompressedHtmlPage` (supports HTML minification and HTTP compression) and `MinifiedAndCompressedXhtmlPage` (supports XHTML minification and HTTP compression); and 5 master page classes: `MinifiedHtmlMasterPage` (supports HTML minification only), `MinifiedXhtmlMasterPage` (supports XHTML minification only), `CompressedMasterPage` (supports HTTP compression only), `MinifiedAndCompressedHtmlMasterPage` (supports HTML minification and HTTP compression) and `MinifiedAndCompressedXhtmlMasterPage` (supports XHTML minification and HTTP compression).</summary>
+		<copyright>Copyright (c) 2013-2015 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
+		<language>en-US</language>
+		<tags>WebMarkupMin ASP.NET WebForms Markup HTML XHTML Minification Minifier Minify</tags>
+		<dependencies>
+			<dependency id="WebMarkupMin.AspNet4.Common" version="2.0.0-alpha1" />
+		</dependencies>
+		<references>
+			<reference file="WebMarkupMin.AspNet4.WebForms.dll" />
+		</references>
+	</metadata>
+</package>

@@ -10,5 +10,17 @@ Also supports minification of views of popular JavaScript template engines: [Kno
 
 In addition, there are several modules that integrate this library into ASP.NET: WebMarkupMin.AspNet4.HttpModules (for ASP.NET Core 4.X and ASP.NET Web Pages), WebMarkupMin.AspNet4.Mvc (for ASP.NET MVC 3, 4 or 5), WebMarkupMin.AspNet4.WebForms (for ASP.NET Web Forms 4.X) and WebMarkupMin.AspNet5 (for ASP.NET 5).
 
+## NuGet Packages
+### Core
+ * [WebMarkupMin: Core](http://nuget.org/packages/WebMarkupMin.Core/2.0.0-alpha1)
+### External JS and CSS minifiers
+ * [WebMarkupMin: MS Ajax](http://nuget.org/packages/WebMarkupMin.MsAjax/2.0.0-alpha1)
+ * [WebMarkupMin: YUI](http://nuget.org/packages/WebMarkupMin.Yui/2.0.0-alpha1)
+### ASP.NET Extensions
+ * [WebMarkupMin: ASP.NET 4.X HTTP modules](http://nuget.org/packages/WebMarkupMin.AspNet4.HttpModules/2.0.0-alpha1)
+ * [WebMarkupMin: ASP.NET 4.X MVC](http://nuget.org/packages/WebMarkupMin.AspNet4.Mvc/2.0.0-alpha1)
+ * [WebMarkupMin: ASP.NET 4.X Web Forms](http://nuget.org/packages/WebMarkupMin.AspNet4.WebForms/2.0.0-alpha1)
+ * [WebMarkupMin: ASP.NET 5](http://nuget.org/packages/WebMarkupMin.AspNet5/2.0.0-alpha1)
+
 ## Documentation
 Is still under development. See demonstration projects in the `samples` directory.

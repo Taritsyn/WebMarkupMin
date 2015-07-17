@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+	<metadata>
+		<id>WebMarkupMin.AspNet4.HttpModules</id>
+		<version>2.0.0-alpha1</version>
+		<title>Web Markup Minifier: ASP.NET 4.X HTTP modules</title>
+		<authors>Andrey Taritsyn</authors>
+		<owners>Andrey Taritsyn</owners>
+		<licenseUrl>http://raw.githubusercontent.com/Taritsyn/WebMarkupMin/master/LICENSE</licenseUrl>
+		<projectUrl>http://github.com/Taritsyn/WebMarkupMin</projectUrl>
+		<iconUrl>http://download-codeplex.sec.s-msft.com/Download?ProjectName=webmarkupmin&amp;DownloadId=644208</iconUrl>
+		<requireLicenseAcceptance>true</requireLicenseAcceptance>
+		<description>WebMarkupMin.AspNet4.HttpModules contains 4 HTTP-modules: `HtmlMinificationModule` (for minification of HTML code), `XhtmlMinificationModule` (for minification of XHTML code), `XmlMinificationModule` (for minification of XML code) and `HttpCompressionModule` (for compression of text content by using GZIP or Deflate).</description>
+		<summary>WebMarkupMin.AspNet4.HttpModules contains 4 HTTP-modules: `HtmlMinificationModule` (for minification of HTML code), `XhtmlMinificationModule` (for minification of XHTML code), `XmlMinificationModule` (for minification of XML code) and `HttpCompressionModule` (for compression of text content by using GZIP or Deflate).</summary>
+		<copyright>Copyright (c) 2013-2015 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
+		<language>en-US</language>
+		<tags>WebMarkupMin ASP.NET HTTP-modules Markup HTML XHTML XML Minification Minifier Minify</tags>
+		<dependencies>
+			<dependency id="WebMarkupMin.AspNet4.Common" version="2.0.0-alpha1" />
+		</dependencies>
+		<references>
+			<reference file="WebMarkupMin.AspNet4.HttpModules.dll" />
+		</references>
+	</metadata>
+</package>
