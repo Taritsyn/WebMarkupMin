@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5CF180F1-8A21-4DA6-9550-85F6210389A4}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebMarkupMin.Sample.AspNet4.Mvc4</RootNamespace>
+    <AssemblyName>WebMarkupMin.Sample.AspNet4.Mvc4</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET40</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;NET40</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebMarkupMinConfig.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HtmlMinifierController.cs" />
+    <Compile Include="Controllers\XhtmlMinifierController.cs" />
+    <Compile Include="Controllers\XmlMinifierController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Helpers\CommonExtensions.cs" />
+    <Compile Include="Infrastructure\Helpers\HelperConstants.cs" />
+    <Compile Include="Infrastructure\Helpers\ContentExtensions.cs" />
+    <Compile Include="Infrastructure\Helpers\InputExtensions.cs" />
+    <Compile Include="Infrastructure\Helpers\LabelExtensions.cs" />
+    <Compile Include="Infrastructure\Routing\HyphenatedRootRouteConstraint.cs" />
+    <Compile Include="Infrastructure\Routing\HyphenatedRouteHandler.cs" />
+    <Compile Include="Infrastructure\Routing\RouteHelpers.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\bebas-neue\bebas-neue-webfont.svg" />
+    <Content Include="fonts\league-gothic\league-gothic-webfont.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Gruntfile.js" />
+    <Content Include="images\0.gif" />
+    <Content Include="images\clear-text.png" />
+    <Content Include="images\icons\32x32\facebook.png" />
+    <Content Include="images\icons\32x32\google-plus.png" />
+    <Content Include="images\icons\32x32\linkedin.png" />
+    <Content Include="images\icons\32x32\rss.png" />
+    <Content Include="images\icons\32x32\social-media-icons-32.png" />
+    <Content Include="images\icons\32x32\twitter.png" />
+    <Content Include="images\icons\48x48\error.png" />
+    <Content Include="images\icons\48x48\warning.png" />
+    <Content Include="images\webmarkupmin-logo.png" />
+    <Content Include="scripts\build\common-scripts.js" />
+    <Content Include="scripts\build\common-scripts.min.js" />
+    <Content Include="scripts\build\minification-form-scripts.js" />
+    <Content Include="scripts\build\minification-form-scripts.min.js" />
+    <Content Include="scripts\build\modernizr.min.js" />
+    <Content Include="scripts\common.js" />
+    <Content Include="scripts\lib\bootstrap\affix.js" />
+    <Content Include="scripts\lib\bootstrap\alert.js" />
+    <Content Include="scripts\lib\bootstrap\button.js" />
+    <Content Include="scripts\lib\bootstrap\carousel.js" />
+    <Content Include="scripts\lib\bootstrap\collapse.js" />
+    <Content Include="scripts\lib\bootstrap\dropdown.js" />
+    <Content Include="scripts\lib\bootstrap\modal.js" />
+    <Content Include="scripts\lib\bootstrap\popover.js" />
+    <Content Include="scripts\lib\bootstrap\scrollspy.js" />
+    <Content Include="scripts\lib\bootstrap\tab.js" />
+    <Content Include="scripts\lib\bootstrap\tooltip.js" />
+    <Content Include="scripts\lib\bootstrap\transition.js" />
+    <Content Include="scripts\lib\jquery-compat\jquery.js" />
+    <Content Include="scripts\lib\jquery-compat\jquery.min.js" />
+    <Content Include="scripts\lib\jquery.validate.js" />
+    <Content Include="scripts\lib\jquery.validate.unobtrusive.js" />
+    <Content Include="scripts\lib\jquery\jquery.js" />
+    <Content Include="scripts\lib\jquery\jquery.min.js" />
+    <Content Include="scripts\lib\modernizr.js" />
+    <Content Include="scripts\minification-form.js" />
+    <Content Include="scripts\_references.js" />
+    <Content Include="styles\build\app.css" />
+    <Content Include="styles\build\common-styles.css" />
+    <Content Include="styles\build\common-styles.min.css" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.Net40.csproj">
+      <Project>{bf6ef6dd-9e9c-428e-92a9-24968c4f7ffe}</Project>
+      <Name>WebMarkupMin.AspNet.Common.Net40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\WebMarkupMin.AspNet4.Common\WebMarkupMin.AspNet4.Common.Net40.csproj">
+      <Project>{3f7995d0-393c-40b9-b16a-51f8499c3565}</Project>
+      <Name>WebMarkupMin.AspNet4.Common.Net40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\WebMarkupMin.AspNet4.Mvc\WebMarkupMin.AspNet4.Mvc.Net40.csproj">
+      <Project>{88dd173d-0bd0-4841-9d6e-211e2c49fbb4}</Project>
+      <Name>WebMarkupMin.AspNet4.Mvc.Net40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\WebMarkupMin.Core\WebMarkupMin.Core.Net40.csproj">
+      <Project>{5148cf68-cc23-4fee-aa0e-2eee01bdabf7}</Project>
+      <Name>WebMarkupMin.Core.Net40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\WebMarkupMin.MsAjax\WebMarkupMin.MsAjax.Net40.csproj">
+      <Project>{c2cf53b0-e2c5-4acf-8248-8fabf99fdffe}</Project>
+      <Name>WebMarkupMin.MsAjax.Net40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\WebMarkupMin.Yui\WebMarkupMin.Yui.Net40.csproj">
+      <Project>{ab138bb6-cb90-4be4-9e24-864eef4ed581}</Project>
+      <Name>WebMarkupMin.Yui.Net40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebMarkupMin.Sample.Logic\WebMarkupMin.Sample.Logic.Net40.csproj">
+      <Project>{8842eef0-e7f6-4e34-b4be-e620abf35e2d}</Project>
+      <Name>WebMarkupMin.Sample.Logic.Net40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebMarkupMin.Sample.Resources\WebMarkupMin.Sample.Resources.Net40.csproj">
+      <Project>{8e7e319a-0718-4be1-82f9-fb8578d5c260}</Project>
+      <Name>WebMarkupMin.Sample.Resources.Net40</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\bebas-neue\bebas-neue-webfont.eot" />
+    <Content Include="fonts\bebas-neue\bebas-neue-webfont.ttf" />
+    <Content Include="fonts\bebas-neue\bebas-neue-webfont.woff" />
+    <Content Include="fonts\league-gothic\league-gothic-webfont.eot" />
+    <Content Include="fonts\league-gothic\league-gothic-webfont.ttf" />
+    <Content Include="fonts\league-gothic\league-gothic-webfont.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="scripts\build\common-scripts.js.map" />
+    <Content Include="scripts\build\common-scripts.min.js.map" />
+    <Content Include="scripts\build\modernizr.min.js.map" />
+    <Content Include="scripts\lib\jquery-compat\jquery.min.map" />
+    <Content Include="scripts\lib\jquery\jquery.min.map" />
+    <Content Include="styles\app.less" />
+    <Content Include="styles\bootstrap-custom-variables.less" />
+    <Content Include="styles\build\app.css.map" />
+    <Content Include="styles\build\common-styles.css.map" />
+    <Content Include="styles\build\common-styles.min.css.map" />
+    <Content Include="styles\buttons.less" />
+    <Content Include="styles\code.less" />
+    <Content Include="styles\fonts.less" />
+    <Content Include="styles\forms.less" />
+    <Content Include="styles\icons.less" />
+    <Content Include="styles\layout.less" />
+    <Content Include="styles\lib\bootstrap\alerts.less" />
+    <Content Include="styles\lib\bootstrap\badges.less" />
+    <Content Include="styles\lib\bootstrap\bootstrap.less" />
+    <Content Include="styles\lib\bootstrap\breadcrumbs.less" />
+    <Content Include="styles\lib\bootstrap\button-groups.less" />
+    <Content Include="styles\lib\bootstrap\buttons.less" />
+    <Content Include="styles\lib\bootstrap\carousel.less" />
+    <Content Include="styles\lib\bootstrap\close.less" />
+    <Content Include="styles\lib\bootstrap\code.less" />
+    <Content Include="styles\lib\bootstrap\component-animations.less" />
+    <Content Include="styles\lib\bootstrap\dropdowns.less" />
+    <Content Include="styles\lib\bootstrap\forms.less" />
+    <Content Include="styles\lib\bootstrap\glyphicons.less" />
+    <Content Include="styles\lib\bootstrap\grid.less" />
+    <Content Include="styles\lib\bootstrap\input-groups.less" />
+    <Content Include="styles\lib\bootstrap\jumbotron.less" />
+    <Content Include="styles\lib\bootstrap\labels.less" />
+    <Content Include="styles\lib\bootstrap\list-group.less" />
+    <Content Include="styles\lib\bootstrap\media.less" />
+    <Content Include="styles\lib\bootstrap\mixins.less" />
+    <Content Include="styles\lib\bootstrap\mixins\alerts.less" />
+    <Content Include="styles\lib\bootstrap\mixins\background-variant.less" />
+    <Content Include="styles\lib\bootstrap\mixins\border-radius.less" />
+    <Content Include="styles\lib\bootstrap\mixins\buttons.less" />
+    <Content Include="styles\lib\bootstrap\mixins\center-block.less" />
+    <Content Include="styles\lib\bootstrap\mixins\clearfix.less" />
+    <Content Include="styles\lib\bootstrap\mixins\forms.less" />
+    <Content Include="styles\lib\bootstrap\mixins\gradients.less" />
+    <Content Include="styles\lib\bootstrap\mixins\grid-framework.less" />
+    <Content Include="styles\lib\bootstrap\mixins\grid.less" />
+    <Content Include="styles\lib\bootstrap\mixins\hide-text.less" />
+    <Content Include="styles\lib\bootstrap\mixins\image.less" />
+    <Content Include="styles\lib\bootstrap\mixins\labels.less" />
+    <Content Include="styles\lib\bootstrap\mixins\list-group.less" />
+    <Content Include="styles\lib\bootstrap\mixins\nav-divider.less" />
+    <Content Include="styles\lib\bootstrap\mixins\nav-vertical-align.less" />
+    <Content Include="styles\lib\bootstrap\mixins\opacity.less" />
+    <Content Include="styles\lib\bootstrap\mixins\pagination.less" />
+    <Content Include="styles\lib\bootstrap\mixins\panels.less" />
+    <Content Include="styles\lib\bootstrap\mixins\progress-bar.less" />
+    <Content Include="styles\lib\bootstrap\mixins\reset-filter.less" />
+    <Content Include="styles\lib\bootstrap\mixins\resize.less" />
+    <Content Include="styles\lib\bootstrap\mixins\responsive-visibility.less" />
+    <Content Include="styles\lib\bootstrap\mixins\size.less" />
+    <Content Include="styles\lib\bootstrap\mixins\tab-focus.less" />
+    <Content Include="styles\lib\bootstrap\mixins\table-row.less" />
+    <Content Include="styles\lib\bootstrap\mixins\text-emphasis.less" />
+    <Content Include="styles\lib\bootstrap\mixins\text-overflow.less" />
+    <Content Include="styles\lib\bootstrap\mixins\vendor-prefixes.less" />
+    <Content Include="styles\lib\bootstrap\modals.less" />
+    <Content Include="styles\lib\bootstrap\navbar.less" />
+    <Content Include="styles\lib\bootstrap\navs.less" />
+    <Content Include="styles\lib\bootstrap\normalize.less" />
+    <Content Include="styles\lib\bootstrap\pager.less" />
+    <Content Include="styles\lib\bootstrap\pagination.less" />
+    <Content Include="styles\lib\bootstrap\panels.less" />
+    <Content Include="styles\lib\bootstrap\popovers.less" />
+    <Content Include="styles\lib\bootstrap\print.less" />
+    <Content Include="styles\lib\bootstrap\progress-bars.less" />
+    <Content Include="styles\lib\bootstrap\responsive-embed.less" />
+    <Content Include="styles\lib\bootstrap\responsive-utilities.less" />
+    <Content Include="styles\lib\bootstrap\scaffolding.less" />
+    <Content Include="styles\lib\bootstrap\tables.less" />
+    <Content Include="styles\lib\bootstrap\theme.less" />
+    <Content Include="styles\lib\bootstrap\thumbnails.less" />
+    <Content Include="styles\lib\bootstrap\tooltip.less" />
+    <Content Include="styles\lib\bootstrap\type.less" />
+    <Content Include="styles\lib\bootstrap\utilities.less" />
+    <Content Include="styles\lib\bootstrap\variables.less" />
+    <Content Include="styles\lib\bootstrap\wells.less" />
+    <Content Include="styles\minification-form.less" />
+    <Content Include="styles\mixins.less" />
+    <Content Include="styles\navbar.less" />
+    <Content Include="styles\page-socials.less" />
+    <Content Include="styles\type.less" />
+    <Content Include="styles\variables.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\ChangeLog.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Minifiers.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\HtmlMinifier\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_MinificationErrorList.cshtml" />
+    <Content Include="Views\Shared\_MinificationInputOutput.cshtml" />
+    <Content Include="Views\Shared\_MinificationStatistics.cshtml" />
+    <Content Include="Views\Shared\_MinificationWarningList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\XhtmlMinifier\Index.cshtml" />
+    <Content Include="Views\XmlMinifier\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".bowerrc" />
+    <Content Include="bower.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="package.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="scripts\build\minification-form-scripts.js.map" />
+    <Content Include="scripts\build\minification-form-scripts.min.js.map" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>14391</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:22214/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -1,0 +1,50 @@
+﻿@using WebMarkupMin.Sample.AspNet4.Mvc4.Infrastructure.Helpers;
+@using WebMarkupMin.Sample.Logic.Models;
+@using WebMarkupMin.Sample.Resources;
+
+@model MarkupMinificationViewModelBase
+
+<section class="minification-input">
+	<div class="form-group">
+		@Html.CustomLabelFor(m => m.SourceCode, true, true)
+		<div class="textarea-wrapper">
+			@(Html.TextAreaFor(m => m.SourceCode,
+				new { @class = "form-control minification-input-field",
+					data_control_type = "minification-input-field", rows = 12, cols = 80 }))
+		</div>
+		@Html.ValidationMessageFor(m => m.SourceCode)
+	</div>
+	<div class="form-group">
+		<button type="submit" class="btn" data-control-type="minify-button">@MinificationStrings.ButtonText_Minify</button>
+	</div>
+</section>
+
+@if (Model.Result != null)
+{
+	<section class="minification-output">
+	@if (Model.Result.Errors.Count == 0)
+	{
+		@Html.Partial("_MinificationStatistics", Model.Result.Statistics)
+		
+		<div class="form-group">
+			@Html.CustomLabelFor(m => m.Result.MinifiedContent, true, true)
+			@(Html.TextAreaFor(m => m.Result.MinifiedContent,
+				new { @class = "form-control minification-output-field",
+					data_control_type = "minification-output-field", rows = 12, cols = 80, @readonly = "readonly" }))
+		</div>
+	}
+
+	@if (Model.Result.Errors.Count > 0 || Model.Result.Warnings.Count > 0)
+	{
+		if (Model.Result.Errors.Count > 0)
+		{
+			@Html.Partial("_MinificationErrorList", Model.Result.Errors)
+		}
+		
+		if (Model.Result.Warnings.Count > 0)
+		{
+			@Html.Partial("_MinificationWarningList", Model.Result.Warnings)
+		}
+	}
+	</section>
+}

@@ -1,0 +1,16 @@
+﻿@using System.Configuration;
+
+@using WebMarkupMin.Sample.Logic.Services;
+
+@{
+	var fileContentService = new FileContentService(
+		ConfigurationManager.AppSettings["webmarkupmin:Samples:TextContentDirectoryPath"]);
+
+	Page.Title = "Home Page";
+	Page.Body = fileContentService.GetFileContent("index.html");
+}
+
+<div class="l-main-content">
+	<h2>Project Description</h2>
+	@Html.Raw(Page.Body)
+</div>

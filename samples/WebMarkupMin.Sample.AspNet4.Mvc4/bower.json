@@ -1,0 +1,10 @@
+{
+	"name": "WebMarkupMin.Sample.AspNet4.Mvc4",
+	"dependencies": {
+		"modernizr": "2.8.3",
+		"jquery-compat": "jquery#1.10.2",
+		"jquery": "jquery#2.0.3",
+		"jquery-validation": "1.13.1",
+		"bootstrap": "3.3.0"
+	}
+}

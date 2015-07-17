@@ -1,0 +1,70 @@
+﻿@using System.Web.Optimization;
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="no-js ie6 ielt8"> <![endif]-->
+<!--[if IE 7 ]> <html class="no-js ie7 ielt8"> <![endif]-->
+<!--[if IE 8 ]> <html class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<title>@if (!string.IsNullOrEmpty(Page.Title)) {<text>@Page.Title | </text>}WebMarkupMin Sample ASP.NET 4.0 Web Pages 2 Site</title>
+		<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon">
+		@Styles.Render("~/Bundles/CommonStyles")
+		@Scripts.Render("~/Bundles/Modernizr")
+	</head>
+	<body>
+		<div class="l-wrapper">
+			<!-- Header -->
+			<header class="l-header">
+				<div class="l-constrained">
+					<h1 class="logo">
+						<a href="~/">WebMarkupMin</a>
+					</h1>
+					<!-- Navigation -->
+					<nav class="primary-nav navbar navbar-default" role="navigation">
+						<!-- Menu -->
+						<ul class="nav navbar-nav" role="menu">
+							<li role="menuitem"><a href="~/">Home</a></li>
+							<li role="menuitem"><a href="~/ChangeLog">Change log</a></li>
+							<li role="menuitem"><a href="~/Contact">Contact</a></li>
+						</ul>
+						<!-- /Menu -->
+					</nav>
+					<!-- /Navigation -->
+				</div>
+			</header>
+			<!-- /Header -->
+
+			<!-- Content -->
+			<div class="l-content">
+				<div class="l-constrained">
+					@RenderBody()
+				</div>
+			</div>
+			<!-- /Content -->
+
+			<div class="l-push"></div>
+		</div>
+
+		<!-- Footer -->
+		<footer class="l-footer" role="contentinfo">
+			<div class="l-constrained">
+				<div class="l-copyright">
+					<p>&copy; @DateTime.Now.Year <a href="http://www.taritsyn.ru" target="_blank">Andrey Taritsyn</a>
+					</p>
+				</div>
+				<div class="l-social">
+					<ul>
+						<li><a href="http://www.facebook.com/taritsyn" target="_blank" class="icon icon-32 icon-facebook">Facebook</a></li>
+						<li><a href="http://twitter.com/andrey_taritsyn" target="_blank" class="icon icon-32 icon-twitter">Twitter</a></li>
+						<li><a href="http://www.linkedin.com/in/taritsyn" target="_blank" class="icon icon-32 icon-linkedin">LinkedIn</a></li>
+						<li><a href="http://plus.google.com/104102250252560157369" target="_blank" class="icon icon-32 icon-google-plus">Google plus</a></li>
+					</ul>
+				</div>
+			</div>
+		</footer>
+
+		@Scripts.Render("~/Bundles/Jquery", "~/Bundles/CommonScripts")
+		@RenderSection("scripts", required: false)
+	</body>
+</html>

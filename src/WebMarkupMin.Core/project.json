@@ -1,0 +1,34 @@
+﻿{
+	"version": "2.0.0-alpha1",
+	"description": "",
+	"authors": [ "" ],
+	"tags": [ "" ],
+	"projectUrl": "",
+	"licenseUrl": "",
+
+	"dependencies": {
+	},
+
+	"frameworks": {
+		"dnx451": { },
+		"dnxcore50": {
+			"dependencies": {
+				"System.Collections": "4.0.10-beta-23029",
+				"System.Globalization": "4.0.10-beta-23029",
+				"System.IO": "4.0.10-beta-23029",
+				"System.IO.Compression": "4.0.0-beta-23029",
+				"System.Linq": "4.0.0-beta-23029",
+				"System.Reflection": "4.0.10-beta-23029",
+				"System.Resources.ResourceManager": "4.0.0-beta-23029",
+				"System.Runtime.Extensions": "4.0.10-beta-23029",
+				"System.Text.Encoding": "4.0.10-beta-23029",
+				"System.Text.RegularExpressions": "4.0.10-beta-23029",
+				"System.Threading": "4.0.10-beta-23029"
+			}
+		}
+	},
+
+	"scripts": {
+		"prebuild": "../../build resx"
+	}
+}

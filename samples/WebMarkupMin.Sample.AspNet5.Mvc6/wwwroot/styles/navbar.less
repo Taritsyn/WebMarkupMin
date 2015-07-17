@@ -1,0 +1,85 @@
+﻿//
+// Navbars
+// --------------------------------------------------
+
+
+// Wrapper and base class
+//
+// Provide a static navbar from which we expand to create full-width, fixed, and
+// other navbar variations.
+
+.navbar {
+  border: none;
+  border-radius: 0;
+}
+
+// Navbar nav links
+//
+// Builds on top of the `.nav` components with it's own modifier class to make
+// the nav the full height of the horizontal nav (above 768px).
+
+.navbar-nav {
+  float: left;
+  margin: 0;
+
+  > li {
+    > a {
+      float: none;
+      // Vertically center the text given @navbar-height
+      padding: ((@navbar-height - @line-height-computed) / 2) 15px ((@navbar-height - @line-height-computed) / 2);
+      border: 1px solid transparent;
+      font-family: "League Gothic";
+      font-size: 2.0em;
+      text-decoration: none;
+      text-transform: uppercase;
+      outline: none;
+    }
+  }
+}
+
+// Dropdown menus
+
+.navbar-nav .dropdown-toggle .caret {
+  margin-left: 2px;
+  margin-top: 8px;
+  vertical-align: top;
+}
+
+.no-js .navbar-nav .dropdown-toggle .caret {
+	display: none;
+}
+
+// Menu position and menu carets
+.navbar-nav > li {
+  float: left;
+
+  &.open > .dropdown-toggle {
+    border-top-color: @navbar-default-dropdown-border-color;
+    border-left-color: @navbar-default-dropdown-border-color;
+    border-right-color: @navbar-default-dropdown-border-color;
+    .border-top-radius(2px);
+    background-color: @navbar-default-link-open-bg !important;
+    color: @navbar-default-link-open-color;
+  }
+
+  > .dropdown-menu {
+    margin-top: -2px;
+    border-color: @navbar-default-dropdown-border-color;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 0;
+    .border-bottom-radius(2px);
+    .no-box-shadow;
+    background-color: @navbar-default-link-open-bg;
+
+    > li > a,
+    > .active > a {
+      color: @navbar-default-dropdown-link-color;
+
+      &:hover,
+      &:focus {
+        color: @navbar-default-dropdown-link-hover-color;
+        background-color: @navbar-default-dropdown-link-hover-bg;
+      }
+    }
+  }
+}

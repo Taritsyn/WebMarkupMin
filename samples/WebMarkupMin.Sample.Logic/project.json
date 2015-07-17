@@ -1,0 +1,27 @@
+﻿{
+	"version": "2.0.0-alpha1",
+	"description": "",
+	"authors": [ "" ],
+	"tags": [ "" ],
+	"projectUrl": "",
+	"licenseUrl": "",
+
+	"dependencies": {
+		"AutoMapper": "4.0.0-ci1061",
+		"Microsoft.AspNet.Mvc.Core": "6.0.0-beta5",
+		"WebMarkupMin.Core": "2.0.0-alpha1",
+		"WebMarkupMin.Sample.Resources": "2.0.0-alpha1"
+	},
+
+	"frameworks": {
+		"dnx451": {
+			"dependencies": {
+				"WebMarkupMin.MsAjax": "2.0.0-*",
+				"WebMarkupMin.Yui": "2.0.0-*"
+			}
+		},
+		"dnxcore50": {
+			"dependencies": { }
+		}
+	}
+}

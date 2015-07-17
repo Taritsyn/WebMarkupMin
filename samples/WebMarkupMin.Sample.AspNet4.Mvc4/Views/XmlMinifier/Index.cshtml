@@ -1,0 +1,43 @@
+﻿@using WebMarkupMin.Sample.AspNet4.Mvc4.Infrastructure.Helpers;
+@using WebMarkupMin.Sample.Logic.Models
+@using WebMarkupMin.Sample.Resources
+
+@model XmlMinificationViewModel
+
+@{
+	ViewBag.Title = "XML Minifier";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("index", "xml-minifier", FormMethod.Post, new { data_form_type = "minification-form" }))
+{
+	<div class="minification-form">
+		<div class="minification-input-output">
+			@Html.Partial("_MinificationInputOutput", Model)
+		</div>
+		<div class="minification-settings">
+			<div class="minification-settings-inner">
+				<fieldset>
+					<legend>@XmlMinificationStrings.ControlGroup_Options</legend>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.MinifyWhitespace)
+					</div>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.RemoveXmlComments)
+					</div>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.RenderEmptyTagsWithSpace)
+					</div>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.CollapseTagsWithoutContent)
+					</div>
+				</fieldset>
+			</div>
+		</div>
+	</div>
+}
+
+@section Scripts {
+	<script src="~/scripts/build/minification-form-scripts.min.js"></script>
+}

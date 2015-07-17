@@ -1,0 +1,16 @@
+﻿@using System.Configuration;
+
+@using WebMarkupMin.Sample.Logic.Services;
+
+@{
+	var fileContentService = new FileContentService(
+		ConfigurationManager.AppSettings["webmarkupmin:Samples:TextContentDirectoryPath"]);
+
+	Page.Title = "Change log";
+	Page.Body = fileContentService.GetFileContent("change-log.html");
+}
+
+<div class="l-main-content">
+	<h2>@Page.Title</h2>
+	@Html.Raw(Page.Body)
+</div>

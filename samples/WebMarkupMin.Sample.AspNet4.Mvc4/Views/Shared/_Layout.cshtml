@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="no-js ie6 ielt8"> <![endif]-->
+<!--[if IE 7 ]> <html class="no-js ie7 ielt8"> <![endif]-->
+<!--[if IE 8 ]> <html class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<title>@if (!string.IsNullOrEmpty(ViewBag.Title)) {<text>@ViewBag.Title | </text>}WebMarkupMin Sample ASP.NET 4.0 MVC 4 Site</title>
+		<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon">
+		<link href="~/styles/build/common-styles.min.css" rel="stylesheet"/>
+		<script src="~/scripts/build/modernizr.min.js"></script>
+    </head>
+	<body>
+		<div class="l-wrapper">
+			<!-- Header -->
+			<header class="l-header">
+				<div class="l-constrained">
+					<h1 class="logo">
+						@Html.ActionLink("WebMarkupMin", "Index", "Home")
+					</h1>
+					<!-- Navigation -->
+					<nav class="primary-nav navbar navbar-default" role="navigation">
+						<!-- Menu -->
+						<ul class="nav navbar-nav" role="menu">
+							<li role="menuitem">@Html.ActionLink("Home", "index", "home")</li>
+							<li class="dropdown" role="menuitem">
+								<a href="@Url.Action("minifiers", "home")" class="dropdown-toggle" data-toggle="dropdown">Minifiers <b class="caret"></b></a>
+								<ul class="dropdown-menu" role="menu">
+									<li role="menuitem">@Html.ActionLink("HTML Minifier", "index", "html-minifier")</li>
+									<li role="menuitem">@Html.ActionLink("XHTML Minifier", "index", "xhtml-minifier")</li>
+									<li role="menuitem">@Html.ActionLink("XML Minifier", "index", "xml-minifier")</li>
+								</ul>
+							</li>
+							<li role="menuitem">@Html.ActionLink("Change log", "change-log", "home")</li>
+							<li role="menuitem">@Html.ActionLink("Contact", "contact", "home")</li>
+						</ul>
+						<!-- /Menu -->
+					</nav>
+					<!-- /Navigation -->
+				</div>
+			</header>
+			<!-- /Header -->
+
+			<!-- Content -->
+			<div class="l-content">
+				<div class="l-constrained">
+					@RenderBody()
+				</div>
+			</div>
+			<!-- /Content -->
+
+			<div class="l-push"></div>
+		</div>
+
+		<!-- Footer -->
+		<footer class="l-footer" role="contentinfo">
+			<div class="l-constrained">
+				<div class="l-copyright">
+					<p>&copy; @DateTime.Now.Year <a href="http://www.taritsyn.ru" target="_blank">Andrey Taritsyn</a></p>
+				</div>
+				<div class="l-social">
+					<ul>
+						<li><a href="http://www.facebook.com/taritsyn" target="_blank" class="icon icon-32 icon-facebook">Facebook</a></li>
+						<li><a href="http://twitter.com/andrey_taritsyn" target="_blank" class="icon icon-32 icon-twitter">Twitter</a></li>
+						<li><a href="http://www.linkedin.com/in/taritsyn" target="_blank" class="icon icon-32 icon-linkedin">LinkedIn</a></li>
+						<li><a href="http://plus.google.com/104102250252560157369" target="_blank" class="icon icon-32 icon-google-plus">Google plus</a></li>
+					</ul>
+				</div>
+			</div>
+		</footer>
+		<!-- /Footer -->
+
+		<!--[if lt IE 9]>
+			<script src="~/scripts/lib/jquery-compat/jquery.min.js"></script>
+		<![endif]-->
+
+		<!--[if gte IE 9]><!-->
+			<script src="~/scripts/lib/jquery/jquery.min.js"></script>
+		<!--<![endif]-->
+
+		<script src="~/scripts/build/common-scripts.min.js"></script>
+		@RenderSection("scripts", required: false)
+	</body>
+</html>

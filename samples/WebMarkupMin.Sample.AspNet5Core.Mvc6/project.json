@@ -1,0 +1,49 @@
+{
+	"webroot": "wwwroot",
+	"version": "2.0.0-alpha1",
+
+	"dependencies": {
+		"Microsoft.AspNet.Diagnostics": "1.0.0-beta5",
+		"Microsoft.AspNet.Mvc": "6.0.0-beta5",
+		"Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta5",
+		"Microsoft.AspNet.Server.IIS": "1.0.0-beta5",
+		"Microsoft.AspNet.Server.Kestrel": "1.0.0-beta5",
+		"Microsoft.AspNet.Server.WebListener": "1.0.0-beta5",
+		"Microsoft.AspNet.StaticFiles": "1.0.0-beta5",
+		"Microsoft.AspNet.Tooling.Razor": "1.0.0-beta5",
+		"Microsoft.Framework.Configuration.Json": "1.0.0-beta5",
+		"Microsoft.Framework.Logging": "1.0.0-beta5",
+		"Microsoft.Framework.Logging.Console": "1.0.0-beta5",
+		"Kestrel": "1.0.0-beta5",
+		"WebMarkupMin.AspNet5": "2.0.0-alpha1",
+		"WebMarkupMin.Sample.Logic": "2.0.0-alpha1",
+		"WebMarkupMin.Sample.Resources": "2.0.0-alpha1"
+	},
+
+	"commands": {
+		"kestrel": "Microsoft.AspNet.Hosting --server Kestrel --config hosting.ini",
+		"web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --config hosting.ini"
+	},
+
+	"frameworks": {
+		"dnxcore50": {
+			"dependencies": {
+			}
+		}
+	},
+
+	"exclude": [
+		"wwwroot",
+		"node_modules",
+		"bower_components"
+	],
+	"publishExclude": [
+		"node_modules",
+		"bower_components",
+		"**.xproj",
+		"**.user",
+		"**.vspscc"
+	],
+	"scripts": {
+	}
+}

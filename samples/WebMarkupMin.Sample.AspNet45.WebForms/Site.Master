@@ -1,0 +1,71 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebMarkupMin.Sample.AspNet45.WebForms.Site" %>
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="no-js ie6 ielt8"> <![endif]-->
+<!--[if IE 7 ]> <html class="no-js ie7 ielt8"> <![endif]-->
+<!--[if IE 8 ]> <html class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+	<head runat="server">
+		<meta charset="utf-8">
+		<title><%: (!string.IsNullOrEmpty(Page.Title)) ? Page.Title + " | " : string.Empty %>WebMarkupMin Sample ASP.NET 4.5 WebForms Site</title>
+		<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon">
+		<%: Styles.Render("~/Bundles/CommonStyles") %>
+		<%: Scripts.Render("~/Bundles/Modernizr") %>
+		<asp:ContentPlaceHolder ID="head" runat="server" />
+	</head>
+	<body>
+		<div class="l-wrapper">
+			<form id="frmMain" runat="server" class="l-form">
+				<!-- Header -->
+				<header class="l-header">
+					<div class="l-constrained">
+						<h1 class="logo">
+							<a runat="server" href="~/">WebMarkupMin</a>
+						</h1>
+						<!-- Navigation -->
+						<nav class="primary-nav navbar navbar-default" role="navigation">
+							<!-- Menu -->
+							<ul class="nav navbar-nav" role="menu">
+								<li role="menuitem"><a runat="server" href="~/">Home</a></li>
+								<li role="menuitem"><a runat="server" href="~/ChangeLog">Change log</a></li>
+								<li role="menuitem"><a runat="server" href="~/Contact">Contact</a></li>
+							</ul>
+							<!-- /Menu -->
+						</nav>
+						<!-- /Navigation -->
+					</div>
+				</header>
+				<!-- /Header -->
+
+				<!-- Content -->
+				<div class="l-content">
+					<div class="l-constrained">
+						<asp:ContentPlaceHolder ID="mainContent" runat="server" />
+					</div>
+				</div>
+				<!-- /Content -->
+
+				<div class="l-push"></div>
+			</form>
+		</div>
+
+		<!-- Footer -->
+		<footer class="l-footer" role="contentinfo">
+			<div class="l-constrained">
+				<div class="l-copyright">
+					<p>&copy; <%: DateTime.Now.Year %> <a href="http://www.taritsyn.ru" target="_blank">Andrey Taritsyn</a></p>
+				</div>
+				<div class="l-social">
+					<ul>
+						<li><a href="http://www.facebook.com/taritsyn" target="_blank" class="icon icon-32 icon-facebook">Facebook</a></li>
+						<li><a href="http://twitter.com/andrey_taritsyn" target="_blank" class="icon icon-32 icon-twitter">Twitter</a></li>
+						<li><a href="http://www.linkedin.com/in/taritsyn" target="_blank" class="icon icon-32 icon-linkedin">LinkedIn</a></li>
+						<li><a href="http://plus.google.com/104102250252560157369" target="_blank" class="icon icon-32 icon-google-plus">Google plus</a></li>
+					</ul>
+				</div>
+			</div>
+		</footer>
+
+		<%: Scripts.Render("~/Bundles/Jquery", "~/Bundles/CommonScripts") %>
+	</body>
+</html>

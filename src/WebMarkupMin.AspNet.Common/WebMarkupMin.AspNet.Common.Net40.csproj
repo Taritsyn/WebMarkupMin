@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BF6EF6DD-9E9C-428E-92A9-24968C4F7FFE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebMarkupMin.AspNet.Common</RootNamespace>
+    <AssemblyName>WebMarkupMin.AspNet.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET40</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NET40</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\WebMarkupMin.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Compressors\CompressorExtensions.cs" />
+    <Compile Include="Compressors\DeflateCompressor.cs" />
+    <Compile Include="Compressors\GZipCompressor.cs" />
+    <Compile Include="Compressors\ICompressor.cs" />
+    <Compile Include="Compressors\NullCompressor.cs" />
+    <Compile Include="EncodingTokenConstants.cs" />
+    <Compile Include="CommonHtmlMinificationManagerBase.cs" />
+    <Compile Include="HtmlMinificationManagerBase.cs" />
+    <Compile Include="HttpCompressionManagerBase.cs" />
+    <Compile Include="ICommonHtmlMinificationManager.cs" />
+    <Compile Include="IHtmlMinificationManager.cs" />
+    <Compile Include="IHttpCompressionManager.cs" />
+    <Compile Include="IMarkupMinificationManager.cs" />
+    <Compile Include="MarkupMinificationManagerExtensions.cs" />
+    <Compile Include="IXhtmlMinificationManager.cs" />
+    <Compile Include="IXmlMinificationManager.cs" />
+    <Compile Include="MarkupMinificationManagerBase.cs" />
+    <Compile Include="MediaTypeConstants.cs" />
+    <Compile Include="MediaTypeGroupConstants.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UrlMatchers\ExactUrlMatcher.cs" />
+    <Compile Include="UrlMatchers\IUrlMatcher.cs" />
+    <Compile Include="UrlMatchers\RegexUrlMatcher.cs" />
+    <Compile Include="UrlMatchers\WildcardUrlMatcher.cs" />
+    <Compile Include="WebMarkupMinConfigurationBase.cs" />
+    <Compile Include="WebMarkupMinConfigurationBaseExtensions.cs" />
+    <Compile Include="XhtmlMinificationManagerBase.cs" />
+    <Compile Include="XmlMinificationManagerBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebMarkupMin.Core\WebMarkupMin.Core.Net40.csproj">
+      <Project>{5148cf68-cc23-4fee-aa0e-2eee01bdabf7}</Project>
+      <Name>WebMarkupMin.Core.Net40</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\WebMarkupMin.snk">
+      <Link>WebMarkupMin.snk</Link>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

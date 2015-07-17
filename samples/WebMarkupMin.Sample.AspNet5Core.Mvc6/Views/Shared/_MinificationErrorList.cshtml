@@ -1,0 +1,16 @@
+﻿@using WebMarkupMin.Core;
+@using WebMarkupMin.Sample.AspNet5Core.Mvc6.Infrastructure.Helpers;
+
+@model IList<MinificationErrorInfo>
+
+<h3 class="minification-error-header">Found <strong>@Model.Count</strong> error(s):</h3>
+<ul class="minification-error-list list-unstyled">
+@foreach (var error in Model)
+{
+	<li>
+		Line @error.LineNumber, Column @error.ColumnNumber:
+		<strong>@error.Category.</strong> @Html.EncodedReplace(@error.Message, "\n\r?", "<br />")
+		<pre>@error.SourceFragment</pre>
+	</li>
+}
+</ul>

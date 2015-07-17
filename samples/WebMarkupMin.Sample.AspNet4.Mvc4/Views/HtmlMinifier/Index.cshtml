@@ -1,0 +1,134 @@
+﻿@using WebMarkupMin.Sample.AspNet4.Mvc4.Infrastructure.Helpers;
+@using WebMarkupMin.Sample.Logic.Models;
+@using WebMarkupMin.Sample.Resources;
+
+@model HtmlMinificationViewModel
+
+@{
+	ViewBag.Title = "HTML Minifier";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("index", "html-minifier", FormMethod.Post, new { data_form_type = "minification-form" }))
+{
+	<div class="minification-form">
+		<div class="minification-input-output">
+			@Html.Partial("_MinificationInputOutput", Model)
+		</div>
+		<div class="minification-settings">
+			<div class="minification-settings-inner">
+				<fieldset>
+					<legend>@CommonHtmlMinificationStrings.ControlGroup_SpacesCommentsAndCdataSections</legend>
+					<div class="form-group">
+						@(Html.DropDownListFor(m => m.Settings.WhitespaceMinificationMode,
+							Model.Settings.WhitespaceMinificationModeList, new { @class = "form-control" }))
+					</div>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.RemoveHtmlComments)
+					</div>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.RemoveHtmlCommentsFromScriptsAndStyles)
+					</div>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.RemoveCdataSectionsFromScriptsAndStyles)
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>@CommonHtmlMinificationStrings.ControlGroup_DoctypeTagsAndAttributes</legend>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.UseShortDoctype)
+					</div>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.UseMetaCharsetTag)
+					</div>
+					<div class="form-group">
+						@(Html.DropDownListFor(m => m.Settings.EmptyTagRenderMode, Model.Settings.EmptyTagRenderModeList,
+							new { @class="form-control" }))
+					</div>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.RemoveOptionalEndTags)
+					</div>
+					<div class="checkbox checkbox-unsafe">
+						@(Html.CheckBoxWithLabelFor(m => m.Settings.RemoveTagsWithoutContent))
+					</div>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.CollapseBooleanAttributes)
+					</div>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.RemoveEmptyAttributes)
+					</div>
+					<div class="form-group">
+						@(Html.DropDownListFor(m => m.Settings.AttributeQuotesRemovalMode,
+							Model.Settings.AttributeQuotesRemovalModeList, new { @class="form-control" }))
+					</div>
+					<div class="checkbox checkbox-unsafe">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.RemoveRedundantAttributes)
+					</div>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.RemoveJsTypeAttributes)
+					</div>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.RemoveCssTypeAttributes)
+					</div>
+					<div class="checkbox checkbox-unsafe">
+						@(Html.CheckBoxWithLabelFor(m => m.Settings.RemoveHttpProtocolFromAttributes))
+					</div>
+					<div class="checkbox checkbox-unsafe">
+						@(Html.CheckBoxWithLabelFor(m => m.Settings.RemoveHttpsProtocolFromAttributes))
+					</div>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.RemoveJsProtocolFromAttributes)
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>@CommonHtmlMinificationStrings.ControlGroup_EmbeddedAndInlineCss</legend>
+					<div class="form-group">
+						@(Html.DropDownListFor(m => m.Settings.CssMinifierName, Model.Settings.AvailableCssMinifierList,
+							new { @class="form-control" }))
+					</div>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.MinifyEmbeddedCssCode)
+					</div>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.MinifyInlineCssCode)
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>@CommonHtmlMinificationStrings.ControlGroup_EmbeddedAndInlineJavaScript</legend>
+					<div class="form-group">
+						@(Html.DropDownListFor(m => m.Settings.JsMinifierName, Model.Settings.AvailableJsMinifierList,
+							new { @class="form-control" }))
+					</div>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.MinifyEmbeddedJsCode)
+					</div>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.MinifyInlineJsCode)
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>@CommonHtmlMinificationStrings.ControlGroup_JavaScriptTemplating</legend>
+					<div class="form-group">
+						@(Html.TextBoxFor(m => m.Settings.ProcessableScriptTypeList,
+							new { @class = "form-control", placeholder = CommonHtmlMinificationStrings.DisplayName_ProcessableScriptTypeList }))
+					</div>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.MinifyKnockoutBindingExpressions)
+					</div>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.MinifyAngularBindingExpressions)
+					</div>
+					<div class="form-group">
+						@(Html.TextBoxFor(m => m.Settings.CustomAngularDirectiveList,
+							new { @class = "form-control", placeholder = CommonHtmlMinificationStrings.DisplayName_CustomAngularDirectiveList }))
+					</div>
+				</fieldset>
+			</div>
+		</div>
+	</div>
+}
+
+@section Scripts {
+	<script src="~/scripts/build/minification-form-scripts.min.js"></script>
+}

@@ -1,0 +1,262 @@
+﻿<p>An overview of new features and fixes</p>
+
+<h3>2.0.0 Alpha 1 - July 17, 2015</h3>
+<ul>
+	<li>Removed dependency on <code>System.Configuration.dll</code> (no longer supported configuration by using the <code>Web.config</code> and <code>App.config</code> files)</li>
+	<li>In WebMarkupMin.Core package added support of DNX 4.5.1 and DNX Core 5.0</li>
+	<li>In WebMarkupMin.MsAjax and WebMarkupMin.Yui packages added support of DNX 4.5.1</li>
+	<li>WebMarkupMin.Web package was split into 2 packages: WebMarkupMin.AspNet4.Common and WebMarkupMin.AspNet4.HttpModules</li>
+	<li>WebMarkupMin.Mvc package has been replaced by WebMarkupMin.AspNet4.Mvc package</li>
+	<li>WebMarkupMin.WebForms package has been replaced by WebMarkupMin.AspNet4.WebForms package</li>
+	<li>Created WebMarkupMin.AspNet5 package, that contains middleware for ASP.NET 5</li>
+	<li>WebMarkupMin.ConfigurationIntelliSense package is no longer required for the current version of WebMarkupMin</li>
+</ul>
+
+<h3>0.9.12 - April 1, 2015</h3>
+<ul>
+	<li>Fixed a <a href="http://webmarkupmin.codeplex.com/workitem/16" target="_blank">bug #16</a> «Minify AngularJS binding expressions causes exception with `ngRepeat`»</li>
+</ul>
+
+<h3>0.9.11 - January 31, 2015</h3>
+<ul>
+	<li><code>WebMarkupMin.Configuration.xsd</code> file has been moved from the WebMarkupMin.Core package to the WebMarkupMin.ConfigurationIntelliSense package</li>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 5.14</li>
+	<li>In configuration settings of the Microsoft Ajax CSS minifier-adapter changed the default value for <code>ColorNames</code> property (instead of <code>Strict</code> now is used <code>Hex</code>)</li>
+</ul>
+
+<h3>0.9.10 - December 20, 2014</h3>
+<ul>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 5.13</li>
+</ul>
+
+<h3>0.9.9 - November 25, 2014</h3>
+<ul>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 5.12</li>
+	<li>In configuration settings of the Microsoft Ajax CSS minifier-adapter added new property - <code>RemoveEmptyBlocks</code> (default <code>true</code>)</li>
+</ul>
+
+<h3>0.9.8 - October 26, 2014</h3>
+<ul>
+	<li>To the list of built-in Angular directives, that contain expressions, added new directives: <code>ngMaxlength</code>, <code>ngMessages</code>, <code>ngMinlength</code>, <code>ngModel</code>, <code>ngOptions</code>, <code>ngPattern</code>, <code>ngRequired</code>, <code>ngSwipeLeft</code>, <code>ngSwipeRight</code> and <code>ngValue</code></li>
+</ul>
+
+<h3>0.9.7 - October 9, 2014</h3>
+<ul>
+	<li>Optimized some regular expressions</li>
+	<li>Added instructions for processing the following tags: <code>dialog</code>, <code>main</code>, <code>menuitem</code> and <code>template</code></li>
+</ul>
+
+<h3>0.9.6 - September 30, 2014</h3>
+<ul>
+	<li>Fixed a <a href="http://webmarkupmin.codeplex.com/workitem/13" target="_blank">bug #13</a> «jQuery conditional loading causes "Remain not closed conditional comment." exception»</li>
+</ul>
+
+<h3>0.9.5 - September 29, 2014</h3>
+<ul>
+	<li>In WebMarkupMin.Yui added support of the YUI Compressor for .NET 2.7.0</li>
+</ul>
+
+<h3>0.9.4 - September 27, 2014</h3>
+<ul>
+	<li>From WebMarkupMin.Core removed dependency on <code>System.Web.dll</code></li>
+	<li>In WebMarkupMin.Core, WebMarkupMin.MsAjax and WebMarkupMin.Yui assemblies is now targeted on the .NET Framework 4 Client Profile</li>
+</ul>
+
+<h3>0.9.3 - September 14, 2014</h3>
+<ul>
+	<li>Fixed a bug that occurred when processing of embedded KnockoutJS templates starting with a containerless comment</li>
+</ul>
+
+<h3>0.9.2 - September 11, 2014</h3>
+<ul>
+	<li>In web extensions settings was added one new property - <code>DisableCopyrightHttpHeaders</code> (default <code>false</code>)</li>
+</ul>
+
+<h3>0.9.1 - September 10, 2014</h3>
+<ul>
+	<li>Fixed a bug that occurred when reading the values of new properties (<code>ProcessableScriptTypeList</code>, <code>MinifyKnockoutBindingExpressions</code>, <code>MinifyAngularBindingExpressions</code> and <code>CustomAngularDirectiveList</code>) from <code>Web.config</code> and <code>App.config</code> files</li>
+</ul>
+
+<h3>0.9.0 - September 9, 2014</h3>
+<ul>
+	<li>Added support of <a href="http://knockoutjs.com/" target="_blank">KnockoutJS</a>, <a href="http://www.telerik.com/kendo-ui" target="_blank">Kendo UI MVVM</a> and <a href="http://angularjs.org/" target="_blank">AngularJS</a> templates minification</li>
+	<li>In HTML/XHTML settings were added the following 4 properties: <code>ProcessableScriptTypeList</code> (default is empty), <code>MinifyKnockoutBindingExpressions</code> (default <code>false</code>), <code>MinifyAngularBindingExpressions</code> (default <code>false</code>) and <code>CustomAngularDirectiveList</code> (default is empty)</li>
+	<li>Fixed a <a href="http://webmarkupmin.codeplex.com/workitem/6" target="_blank">bug #6</a> «HtmlMinifier adds '=' to custom boolean attributes»</li>
+	<li>Fixed a <a href="http://webmarkupmin.codeplex.com/workitem/9" target="_blank">bug #9</a> «Error when compressing Knockout.js template section»</li>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 5.11</li>
+	<li>In WebMarkupMin.Yui added support of YUI Compressor for .NET 2.5.0</li>
+</ul>
+
+<h3>0.9.0 Beta 4 - September 8, 2014</h3>
+<ul>
+	<li>In HTML/XHTML settings <code>MinifyDataBindings</code> property was divided into two properties: <code>MinifyKnockoutBindingExpressions</code> (default <code>false</code>) and <code>MinifyAngularBindingExpressions</code> (default <code>false</code>), and also added one new property - <code>CustomAngularDirectiveList</code> (default is empty)</li>
+	<li>In WebMarkupMin.Yui added support of YUI Compressor for .NET 2.5.0</li>
+</ul>
+
+<h3>0.9.0 Beta 3 - July 24, 2014</h3>
+<ul>
+	<li>In HTML/XHTML settings was replaced 2 properties: <code>MinifyEmbeddedJsTemplates</code> by <code>ProcessableScriptTypeList</code> (default is empty) and <code>MinifyDataBindAttributes</code> by <code>MinifyDataBindings</code> (default <code>true</code>)</li>
+</ul>
+
+<h3>0.9.0 Beta 2 - July 10, 2014</h3>
+<ul>
+	<li>Fixed a <a href="http://webmarkupmin.codeplex.com/workitem/6" target="_blank">bug #6</a> «HtmlMinifier adds '=' to custom boolean attributes»</li>
+	<li>Now in the HTML/XHTML Minifier during removing HTML comments are preserved AngularJS comment directives</li>
+	<li>Now the <code>MinifyEmbeddedJsTemplates</code> configuration property also applies to the embedded AngularJS templates</li>
+</ul>
+
+<h3>0.9.0 Beta 1 - July 3, 2014</h3>
+<ul>
+	<li>In HTML/XHTML settings were added the following two properties: <code>MinifyEmbeddedJsTemplates</code> and <code>MinifyDataBindAttributes</code></li>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 5.11</li>
+</ul>
+
+<h3>0.8.22 - May 28, 2014</h3>
+<ul>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 5.10</li>
+</ul>
+
+<h3>0.8.21 - May 27, 2014</h3>
+<ul>
+	<li>In WebMarkupMin.Core fixed an error, that occurred during generation of the source fragments for errors and warnings</li>
+</ul>
+
+<h3>0.8.20 - May 18, 2014</h3>
+<ul>
+	<li>In WebMarkupMin.Core fixed a <a href="http://webmarkupmin.codeplex.com/workitem/8" target="_blank">bug #8</a> «Minify HTML File & Conditional comments conflict»</li>
+</ul>
+
+<h3>0.8.19 - April 29, 2014</h3>
+<ul>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 5.9</li>
+	<li>In configuration settings of the Microsoft Ajax JS minifier-adapter added new property - <code>AmdSupport</code> (default <code>false</code>)</li>
+</ul>
+
+<h3>0.8.18 - March 15, 2014</h3>
+<ul>
+	<li>In WebMarkupMin.Core was made refactoring</li>
+</ul>
+
+<h3>0.8.17 - March 4, 2014</h3>
+<ul>
+	<li>In WebMarkupMin.Yui added support of YUI Compressor for .NET 2.4.0.0</li>
+</ul>
+
+<h3>0.8.16 - March 1, 2014</h3>
+<ul>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 5.8</li>
+</ul>
+
+<h3>0.8.15 - January 23, 2014</h3>
+<ul>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 5.7</li>
+</ul>
+
+<h3>0.8.14 - December 4, 2013</h3>
+<ul>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 5.4</li>
+</ul>
+
+<h3>0.8.13 - November 26, 2013</h3>
+<ul>
+	<li>In WebMarkupMin.Core fixed a <a href="http://webmarkupmin.codeplex.com/workitem/5" target="_blank">bug #5</a> «HtmlMinifier converts attribute spaces to &amp;#32; when running in ASP.Net».</li>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 5.3</li>
+</ul>
+
+<h3>0.8.12 - October 3, 2013</h3>
+<ul>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 5.2</li>
+</ul>
+
+<h3>0.8.11 - September 17, 2013</h3>
+<ul>
+	<li>In WebMarkupMin.Core added support of Douglas Crockford's JSMin version of March 29 2013</li>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 5.1</li>
+</ul>
+
+<h3>0.8.10 - August 5, 2013</h3>
+<ul>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 4.97</li>
+	<li>In WebMarkupMin.Yui added support of YUI Compressor for .NET 2.3.0.0</li>
+</ul>
+
+<h3>0.8.9 - July 17, 2013</h3>
+<ul>
+	<li>Now in the HTML/XHTML Minifier during removing HTML comments are preserved Knockout containerless comments</li>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 4.96</li>
+	<li>In WebMarkupMin.Yui added support of YUI Compressor for .NET 2.2.1.0</li>
+</ul>
+
+<h3>0.8.8 - June 18, 2013</h3>
+<ul>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 4.94</li>
+</ul>
+
+<h3>0.8.7 - June 5, 2013</h3>
+<ul>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 4.93</li>
+	<li>In configuration settings of the Microsoft Ajax JS minifier-adapter added one new property - <code>AlwaysEscapeNonAscii</code></li>
+</ul>
+
+<h3>0.8.6 - May 30, 2013</h3>
+<ul>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 4.92</li>
+	<li>In configuration settings of the Microsoft Ajax CSS and JS minifier-adapters added 2 new properties: <code>IgnoreAllErrors</code> and <code>LineBreakThreshold</code></li>
+	<li>In configuration settings of the Microsoft Ajax JS minifier-adapter added 7 new properties: <code>ConstStatementsMozilla</code>, <code>ErrorIfNotInlineSafe</code>, <code>EvalLiteralExpressions</code>, <code>IgnorePreprocessorDefines</code>, <code>ManualRenamesProperties</code>, <code>QuoteObjectLiteralProperties</code> and <code>ReorderScopeDeclarations</code>, and removed one property - <code>MinifyCode</code></li>
+</ul>
+
+<h3>0.8.5 - May 11, 2013</h3>
+<ul>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 4.91</li>
+</ul>
+
+<h3>0.8.4 - April 26, 2013</h3>
+<ul>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 4.90</li>
+</ul>
+
+<h3>0.8.3 - April 24, 2013</h3>
+<ul>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 4.89</li>
+</ul>
+
+<h3>0.8.2 - April 22, 2013</h3>
+<ul>
+	<li>In the XML Minifier improved whitespace minification</li>
+	<li>Now in the WebMarkupMin.WebForms during the minification of markup is checked excess of the maximum response size</li>
+</ul>
+
+<h3>0.8.1 - April 20, 2013</h3>
+<ul>
+	<li>In WebMarkupMin.Core optimized memory usage</li>
+	<li>Added new module WebMarkupMin.WebForms, that responsible for integration with ASP.NET Web Forms</li>
+</ul>
+
+<h3>0.8.0 - April 15, 2013</h3>
+<ul>
+	<li>In 2-3 times has increased speed of the HTML and XHTML minification, and in 10-15 times speed of the XML minification</li>
+	<li>In HTML/XHTML settings were added the following three properties: <code>UseShortDoctype</code>, <code>UseMetaCharsetTag</code> and <code>RemoveJsProtocolFromAttributes</code></li>
+	<li>In HTML settings the <code>RemoveJsTypeAttributes</code> and <code>RemoveCssTypeAttributes</code> properties now have default values equals to <code>true</code>, because they are now considered is safe</li>
+	<li>In XML settings was added one new property - the <code>CollapseTagsWithoutContent</code>, and was renamed the <code>RemoveComments</code> property to <code>RemoveXmlComments</code></li>
+</ul>
+
+<h3>0.7.3 Beta 1 - April 2, 2013</h3>
+<ul>
+	<li>In HTML/XHTML settings the <code>MinifyWhitespace</code> boolean property was replaced by the <code>WhitespaceMinificationMode</code> property, which can take 4 possible values​​: <code>None</code>, <code>Safe</code>, <code>Medium</code> and <code>Aggressive</code></li>
+	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 4.86</li>
+</ul>
+
+<h3>0.7.2 Alpha 1 - March 28, 2013</h3>
+<ul>
+	<li>Implemented safe removal of the optional end tags</li>
+</ul>
+
+<h3>0.7.1 Alpha 1 - March 26, 2013</h3>
+<ul>
+	<li>Improved processing of invalid characters in the start tags</li>
+</ul>
+
+<h3>0.7.0 Alpha 1 - March 25, 2013</h3>
+<ul>
+	<li>Initial version uploaded</li>
+</ul>
