@@ -25,7 +25,7 @@ namespace WebMarkupMin.AspNet5
 		/// <summary>
 		/// The next middleware in the pipeline
 		/// </summary>
-		private RequestDelegate _next;
+		private readonly RequestDelegate _next;
 
 		/// <summary>
 		/// WebMarkupMin configuration
@@ -35,12 +35,12 @@ namespace WebMarkupMin.AspNet5
 		/// <summary>
 		/// List of markup minification manager
 		/// </summary>
-		private IList<IMarkupMinificationManager> _minificationManagers;
+		private readonly IList<IMarkupMinificationManager> _minificationManagers;
 
 		/// <summary>
 		/// HTTP compression manager
 		/// </summary>
-		private IHttpCompressionManager _compressionManager;
+		private readonly IHttpCompressionManager _compressionManager;
 
 
 		/// <summary>
@@ -112,12 +112,14 @@ namespace WebMarkupMin.AspNet5
 				int cacheSize = cacheBytes.Length;
 				bool isProcessed = false;
 
+				response.Body = originalStream;
+
 				if (request.Method == "GET" && response.StatusCode == 200
 					&& _options.IsAllowableResponseSize(cacheSize))
 				{
 					string contentType = response.ContentType;
 					string mediaType = null;
-					Encoding encoding = null;
+					Encoding encoding = Encoding.GetEncoding(0);
 
 					if (contentType != null)
 					{
@@ -169,27 +171,37 @@ namespace WebMarkupMin.AspNet5
 						}
 					}
 
-					if (isProcessed)
-					{
-						byte[] output = encoding.GetBytes(processedContent);
-						await originalStream.WriteAsync(output, 0, output.GetLength(0));
-					}
-
 					if (useCompression && _compressionManager.IsSupportedMediaType(mediaType))
 					{
 						string acceptEncoding = request.Headers["Accept-Encoding"];
 
-                        ICompressor compressor = _compressionManager.CreateCompressor(acceptEncoding);
-						response.Body = compressor.Compress(originalStream);
+						ICompressor compressor = _compressionManager.CreateCompressor(acceptEncoding);
+						Stream compressedStream = compressor.Compress(originalStream);
 						compressor.AppendHttpHeaders(response.Headers.Append);
 
+						using (var writer = new StreamWriter(compressedStream, encoding))
+						{
+							await writer.WriteAsync(processedContent);
+						}
+
 						isProcessed = true;
-                    }
+					}
+					else
+					{
+						if (isProcessed)
+						{
+							using (var writer = new StreamWriter(originalStream, encoding))
+							{
+								await writer.WriteAsync(processedContent);
+							}
+						}
+					}
 				}
 
 				if (!isProcessed)
 				{
-					await originalStream.WriteAsync(cacheBytes, 0, cacheSize);
+					cacheStream.Seek(0, SeekOrigin.Begin);
+					await cacheStream.CopyToAsync(originalStream);
 				}
 
 				cacheStream.SetLength(0);

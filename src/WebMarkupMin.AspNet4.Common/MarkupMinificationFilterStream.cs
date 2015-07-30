@@ -159,8 +159,10 @@ namespace WebMarkupMin.AspNet4.Common
 						});
 					}
 
-					byte[] output = _encoding.GetBytes(minificationResult.MinifiedContent);
-					_stream.Write(output, 0, output.GetLength(0));
+					using (var writer = new StreamWriter(_stream, _encoding))
+					{
+						writer.Write(minificationResult.MinifiedContent);
+					}
 
 					isMinified = true;
 				}
@@ -168,7 +170,8 @@ namespace WebMarkupMin.AspNet4.Common
 
 			if (!isMinified)
 			{
-				_stream.Write(cacheBytes, 0, cacheSize);
+				_cacheStream.Seek(0, SeekOrigin.Begin);
+				_cacheStream.CopyTo(_stream);
 			}
 
 			_cacheStream.SetLength(0);

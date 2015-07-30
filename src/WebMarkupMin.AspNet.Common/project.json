@@ -1,13 +1,17 @@
 {
-	"version": "2.0.0-alpha1",
+	"version": "2.0.0-alpha2",
 	"description": "",
 	"authors": [ "" ],
 	"tags": [ "" ],
 	"projectUrl": "",
 	"licenseUrl": "",
 
+	"compilationOptions": {
+		"keyFile": "../../WebMarkupMin.snk"
+	},
+
 	"dependencies": {
-		"WebMarkupMin.Core": "2.0.0-alpha1"
+		"WebMarkupMin.Core": "2.0.0-alpha2"
 	},
 
 	"frameworks": {

@@ -1,23 +1,23 @@
 {
     "webroot": "wwwroot",
-    "version": "2.0.0-alpha1",
+    "version": "2.0.0-alpha2",
 
     "dependencies": {
-        "Microsoft.AspNet.Diagnostics": "1.0.0-beta5",
-        "Microsoft.AspNet.Mvc": "6.0.0-beta5",
-        "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta5",
-        "Microsoft.AspNet.Server.IIS": "1.0.0-beta5",
-        "Microsoft.AspNet.Server.Kestrel": "1.0.0-beta5",
-        "Microsoft.AspNet.Server.WebListener": "1.0.0-beta5",
-        "Microsoft.AspNet.StaticFiles": "1.0.0-beta5",
-        "Microsoft.AspNet.Tooling.Razor": "1.0.0-beta5",
-        "Microsoft.Framework.Configuration.Json": "1.0.0-beta5",
-        "Microsoft.Framework.Logging": "1.0.0-beta5",
-        "Microsoft.Framework.Logging.Console": "1.0.0-beta5",
-        "Kestrel": "1.0.0-beta5",
-        "WebMarkupMin.AspNet5": "2.0.0-alpha1",
-        "WebMarkupMin.Sample.Logic": "2.0.0-alpha1",
-        "WebMarkupMin.Sample.Resources": "2.0.0-alpha1"
+        "Microsoft.AspNet.Diagnostics": "1.0.0-beta6",
+        "Microsoft.AspNet.Mvc": "6.0.0-beta6",
+        "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta6",
+        "Microsoft.AspNet.Server.IIS": "1.0.0-beta6",
+        "Microsoft.AspNet.Server.Kestrel": "1.0.0-beta6",
+        "Microsoft.AspNet.Server.WebListener": "1.0.0-beta6",
+        "Microsoft.AspNet.StaticFiles": "1.0.0-beta6",
+        "Microsoft.AspNet.Tooling.Razor": "1.0.0-beta6",
+        "Microsoft.Framework.Configuration.Json": "1.0.0-beta6",
+        "Microsoft.Framework.Logging": "1.0.0-beta6",
+        "Microsoft.Framework.Logging.Console": "1.0.0-beta6",
+        "Kestrel": "1.0.0-beta6",
+        "WebMarkupMin.AspNet5": "2.0.0-alpha2",
+        "WebMarkupMin.Sample.Logic": "2.0.0-alpha2",
+        "WebMarkupMin.Sample.Resources": "2.0.0-alpha2"
     },
 
     "commands": {

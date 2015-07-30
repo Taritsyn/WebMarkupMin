@@ -21,7 +21,7 @@ namespace WebMarkupMin.MsAjax.Resources
 		private static Lazy<ResourceManager> _resourceManager =
 			new Lazy<ResourceManager>(() => new ResourceManager(
 				"WebMarkupMin.MsAjax.Resources.Strings",
-#if DNXCORE50 || DNX451
+#if DOTNET || NET || DNXCORE50 || DNX451
 				typeof(Strings).GetTypeInfo().Assembly
 #elif NET40
 				typeof(Strings).Assembly

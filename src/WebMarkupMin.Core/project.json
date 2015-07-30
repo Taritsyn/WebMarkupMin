@@ -1,29 +1,34 @@
 ﻿{
-	"version": "2.0.0-alpha1",
+	"version": "2.0.0-alpha2",
 	"description": "",
 	"authors": [ "" ],
 	"tags": [ "" ],
 	"projectUrl": "",
 	"licenseUrl": "",
 
+	"compilationOptions": {
+		"keyFile": "../../WebMarkupMin.snk"
+	},
+
 	"dependencies": {
 	},
 
 	"frameworks": {
-		"dnx451": { },
-		"dnxcore50": {
+		"dnx451": {
+		},
+		"dotnet": {
 			"dependencies": {
-				"System.Collections": "4.0.10-beta-23029",
-				"System.Globalization": "4.0.10-beta-23029",
-				"System.IO": "4.0.10-beta-23029",
-				"System.IO.Compression": "4.0.0-beta-23029",
-				"System.Linq": "4.0.0-beta-23029",
-				"System.Reflection": "4.0.10-beta-23029",
-				"System.Resources.ResourceManager": "4.0.0-beta-23029",
-				"System.Runtime.Extensions": "4.0.10-beta-23029",
-				"System.Text.Encoding": "4.0.10-beta-23029",
-				"System.Text.RegularExpressions": "4.0.10-beta-23029",
-				"System.Threading": "4.0.10-beta-23029"
+				"System.Collections": "4.0.10-beta-23109",
+				"System.Globalization": "4.0.10-beta-23109",
+				"System.IO": "4.0.10-beta-23109",
+				"System.IO.Compression": "4.0.0-beta-23109",
+				"System.Linq": "4.0.0-beta-23109",
+				"System.Reflection": "4.0.10-beta-23109",
+				"System.Resources.ResourceManager": "4.0.0-beta-23109",
+				"System.Runtime.Extensions": "4.0.10-beta-23109",
+				"System.Text.Encoding": "4.0.10-beta-23109",
+				"System.Text.RegularExpressions": "4.0.10-beta-23109",
+				"System.Threading": "4.0.10-beta-23109"
 			}
 		}
 	},

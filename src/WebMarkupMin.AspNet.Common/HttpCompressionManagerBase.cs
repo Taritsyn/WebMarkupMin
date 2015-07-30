@@ -41,10 +41,7 @@ namespace WebMarkupMin.AspNet.Common
 				}
 			}
 
-			if (compressor == null)
-			{
-				compressor = new NullCompressor();
-			}
+			compressor = compressor ?? new NullCompressor();
 
 			return compressor;
 		}
