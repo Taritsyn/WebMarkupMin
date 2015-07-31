@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-               README file for Web Markup Minifier: Core v2.0.0 Alpha 1
+               README file for Web Markup Minifier: Core v2.0.0 Alpha 2
 
    --------------------------------------------------------------------------------
 
@@ -44,9 +44,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Added support of DNX 4.5.1 and DNX Core 5.0;
-   2. Removed dependency on `System.Configuration.dll` (no longer supported
-      configuration by using the Web.config and App.config files).
+   Added support of ASP.NET 5 beta 6.
 
    =============
    DOCUMENTATION

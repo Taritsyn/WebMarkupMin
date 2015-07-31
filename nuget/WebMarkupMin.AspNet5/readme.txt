@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-             README file for Web Markup Minifier: ASP.NET 5 v2.0.0 Alpha 1
+             README file for Web Markup Minifier: ASP.NET 5 v2.0.0 Alpha 2
 
    --------------------------------------------------------------------------------
 
@@ -12,6 +12,11 @@
    DESCRIPTION
    ===========
    WebMarkupMin.AspNet5 contains one ASP.NET 5 Middleware - `WebMarkupMinMiddleware`.
+
+   =============
+   RELEASE NOTES
+   =============
+   Added support of ASP.NET 5 beta 6.
 
    =============
    DOCUMENTATION

@@ -14,8 +14,8 @@ xcopy %project_source_dir%\bin\Release\%project_name%.dll lib\net40-client\
 xcopy %project_artifacts_dir%\Release\dnx451\%project_name%.dll lib\dnx451\ /E
 xcopy %project_artifacts_dir%\Release\dnx451\%project_name%.xml lib\dnx451\ /E
 
-%dnx_runtime% --appbase %project_source_dir% %dnx_package_manager% build %project_source_dir% --framework dnxcore50 --configuration Release --out %project_artifacts_dir%
-xcopy %project_artifacts_dir%\Release\dnxcore50\%project_name%.dll lib\dnxcore50\ /E
-xcopy %project_artifacts_dir%\Release\dnxcore50\%project_name%.xml lib\dnxcore50\ /E
+%dnx_runtime% --appbase %project_source_dir% %dnx_package_manager% build %project_source_dir% --framework dotnet --configuration Release --out %project_artifacts_dir%
+xcopy %project_artifacts_dir%\Release\dotnet\%project_name%.dll lib\dotnet\ /E
+xcopy %project_artifacts_dir%\Release\dotnet\%project_name%.xml lib\dotnet\ /E
 
 %nuget_package_manager% pack ..\%project_name%\%project_name%.nuspec
