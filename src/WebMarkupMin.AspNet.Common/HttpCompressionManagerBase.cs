@@ -31,13 +31,13 @@ namespace WebMarkupMin.AspNet.Common
 			if (acceptEncoding != null)
 			{
 				acceptEncoding = acceptEncoding.ToLowerInvariant();
-				if (acceptEncoding.Contains(EncodingTokenConstants.GZip))
-				{
-					compressor = new GZipCompressor();
-				}
-				else if (acceptEncoding.Contains(EncodingTokenConstants.Deflate))
+				if (acceptEncoding.Contains(EncodingTokenConstants.Deflate))
 				{
 					compressor = new DeflateCompressor();
+				}
+				else if (acceptEncoding.Contains(EncodingTokenConstants.GZip))
+				{
+					compressor = new GZipCompressor();
 				}
 			}
 
