@@ -1,28 +1,16 @@
 @echo off
 cd %~dp0
 
-SETLOCAL
-SET CACHED_NUGET=%LocalAppData%\NuGet\NuGet.exe
-
-IF EXIST %CACHED_NUGET% goto copynuget
-echo Downloading latest version of NuGet.exe...
-IF NOT EXIST %LocalAppData%\NuGet md %LocalAppData%\NuGet
-@powershell -NoProfile -ExecutionPolicy unrestricted -Command "$ProgressPreference = 'SilentlyContinue'; Invoke-WebRequest 'https://www.nuget.org/nuget.exe' -OutFile '%CACHED_NUGET%'"
-
-:copynuget
-IF EXIST .nuget\nuget.exe goto restore
-md .nuget
-copy %CACHED_NUGET% .nuget\nuget.exe > nul
+setlocal
+set local_nuget_package_manager=.nuget\NuGet.exe
+set local_nuget_config_file=.nuget\NuGet.Config
+set package_dir=packages
 
 :restore
-IF EXIST packages\KoreBuild goto run
-IF DEFINED BUILDCMD_RELEASE (
-	.nuget\NuGet.exe install KoreBuild -version 0.2.1-%BUILDCMD_RELEASE% -ExcludeVersion -o packages -nocache -pre
-) ELSE (
-	.nuget\NuGet.exe install KoreBuild -ExcludeVersion -o packages -nocache -pre
-)
-.nuget\NuGet.exe install Sake -version 0.2.0 -o packages -ExcludeVersion
+if exist %package_dir%\KoreBuild goto run
+%local_nuget_package_manager% install KoreBuild -Version 0.2.1-beta6 -O %package_dir% -ConfigFile %local_nuget_config_file% -ExcludeVersion -NoCache -Pre
+%local_nuget_package_manager% install Sake -Version 0.2.0 -O %package_dir% -ExcludeVersion
 
 :run
-CALL packages\KoreBuild\build\dnvm use default -runtime CLR -arch x86
-packages\Sake\tools\Sake.exe -I packages\KoreBuild\build -f makefile.shade %*
+call %package_dir%\KoreBuild\build\dnvm use default -runtime CLR -arch x86
+%package_dir%\Sake\tools\Sake.exe -I %package_dir%\KoreBuild\build -f makefile.shade %*

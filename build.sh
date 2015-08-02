@@ -1,39 +1,16 @@
 #!/bin/bash
 
-if test `uname` = Darwin; then
-    cachedir=~/Library/Caches/KBuild
-else
-    if [ -z $XDG_DATA_HOME ]; then
-        cachedir=$HOME/.local/share
-    else
-        cachedir=$XDG_DATA_HOME;
-    fi
-fi
-mkdir -p $cachedir
+local_nuget_package_manager=.nuget\NuGet.exe
+local_nuget_config_file=.nuget\NuGet.Config
+package_dir=packages
 
-url=https://www.nuget.org/nuget.exe
-
-if test ! -f $cachedir/nuget.exe; then
-    wget -O $cachedir/nuget.exe $url 2>/dev/null || curl -o $cachedir/nuget.exe --location $url /dev/null
+if test ! -d $package_dir/KoreBuild; then
+  mono $local_nuget_package_manager install KoreBuild -Version 0.2.1-beta6 -O $package_dir -ConfigFile $local_nuget_config_file -ExcludeVersion -NoCache -Pre
+  mono $local_nuget_package_manager install Sake -Version 0.2.0 -O $package_dir -ExcludeVersion
 fi
 
-if test ! -e .nuget; then
-    mkdir .nuget
-    cp $cachedir/nuget.exe .nuget/nuget.exe
+if ! type dnvm > /dev/null 2>&1; then
+    source packages/KoreBuild/build/dnvm.sh
 fi
 
-if test ! -d packages/KoreBuild; then
-    mono .nuget/nuget.exe install KoreBuild -ExcludeVersion -o packages -nocache -pre
-    mono .nuget/nuget.exe install Sake -version 0.2.0 -o packages -ExcludeVersion
-fi
-
-# if ! type dnvm > /dev/null 2>&1; then
-#    source packages/KoreBuild/build/dnvm.sh
-# fi
-
-# if ! type dnx > /dev/null 2>&1; then
-#     dnvm upgrade
-# fi
-
-mono packages/Sake/tools/Sake.exe -I packages/KoreBuild/build -f makefile.shade "$@"
-
+mono $package_dir/Sake/tools/Sake.exe -I $package_dir/KoreBuild/build -f makefile.shade "$@"
