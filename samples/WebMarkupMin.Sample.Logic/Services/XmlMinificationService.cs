@@ -9,11 +9,7 @@ namespace WebMarkupMin.Sample.Logic.Services
 	{
 		static XmlMinificationService()
 		{
-			Mapper.CreateMap<XmlMinificationSettings, XmlMinificationSettingsViewModel>();
-			Mapper.CreateMap<XmlMinificationSettingsViewModel, XmlMinificationSettings>();
-
-			Mapper.CreateMap<MinificationStatistics, MinificationStatisticsViewModel>();
-			Mapper.CreateMap<MarkupMinificationResult, MarkupMinificationResultViewModel>();
+			MappingInitializer.Initialize();
 		}
 
 

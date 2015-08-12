@@ -7,17 +7,17 @@
 	"licenseUrl": "",
 
 	"dependencies": {
-		"WebMarkupMin.Core": "2.0.0-alpha2",
-		"xunit": "2.1.0-beta3-build3029",
-		"xunit.runner.dnx": "2.1.0-beta3-build99"
+		"xunit": "2.1.0-beta4-build3109",
+		"xunit.runner.dnx": "2.1.0-beta4-build134",
+		"WebMarkupMin.Core": "2.0.0-alpha2"
 	},
 
 	"commands": {
-		"test": "xunit.runner.dnx",
-		"run": "xunit.runner.dnx"
+		"test": "xunit.runner.dnx"
 	},
 
 	"frameworks": {
-		"dnx451": { }
+		"dnx451": { },
+		"dnxcore50": { }
 	}
 }

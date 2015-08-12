@@ -7,7 +7,7 @@
 	"licenseUrl": "",
 
 	"dependencies": {
-		"AutoMapper": "4.0.0-ci1061",
+		"AutoMapper": "4.0.0-alpha1",
 		"Microsoft.AspNet.Mvc.Core": "6.0.0-beta6",
 		"Microsoft.AspNet.Mvc.ViewFeatures": "6.0.0-beta6",
 		"WebMarkupMin.Core": "2.0.0-alpha2",

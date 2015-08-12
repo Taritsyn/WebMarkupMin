@@ -14,11 +14,7 @@ namespace WebMarkupMin.Sample.Logic.Services
 
 		static XhtmlMinificationService()
 		{
-			Mapper.CreateMap<XhtmlMinificationSettings, XhtmlMinificationSettingsViewModel>();
-			Mapper.CreateMap<XhtmlMinificationSettingsViewModel, XhtmlMinificationSettings>();
-
-			Mapper.CreateMap<MinificationStatistics, MinificationStatisticsViewModel>();
-			Mapper.CreateMap<MarkupMinificationResult, MarkupMinificationResultViewModel>();
+			MappingInitializer.Initialize();
 		}
 
 #if NET40
