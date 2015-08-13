@@ -1,7 +1,7 @@
 #!/bin/bash
 
 local_nuget_package_manager=.nuget\NuGet.exe
-local_nuget_config_file=.nuget\NuGet.Config
+local_nuget_config_file=.nuget\BuildNuGet.Config
 package_dir=packages
 
 if test ! -d $package_dir/KoreBuild; then

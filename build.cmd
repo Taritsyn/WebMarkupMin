@@ -3,7 +3,7 @@ cd %~dp0
 
 setlocal
 set local_nuget_package_manager=.nuget\NuGet.exe
-set local_nuget_config_file=.nuget\NuGet.Config
+set local_nuget_config_file=.nuget\BuildNuGet.Config
 set package_dir=packages
 
 :restore
