@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-          README file for Web Markup Minifier: ASP.NET Common v2.0.0 Alpha 2
+           README file for Web Markup Minifier: ASP.NET Common v2.0.0 Beta 1
 
    --------------------------------------------------------------------------------
 
@@ -17,9 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Added support of ASP.NET 5 beta 6;
-   2. Now during HTTP compression the deflate algorithm has a higher priority than
-      the gzip algorithm.
+   .NET Core Libraries (CoreFX) have been upgraded to stable versions.
 
    =============
    DOCUMENTATION

@@ -1,6 +1,11 @@
 Change log
 ==========
 
+## August 13, 2015 - v2.0.0 Beta 1
+ * .NET Core Libraries (CoreFX) have been upgraded to stable versions
+ * Added support of xUnit.net 2.1 Beta 4
+ * Fixed a problems with the NuGet package restore
+
 ## July 31, 2015 - v2.0.0 Alpha 2
  * Added support of ASP.NET 5 beta 6
  * Now during HTTP compression the deflate algorithm has a higher priority than the gzip algorithm
