@@ -1,4 +1,5 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebMarkupMin.Sample.AspNet45.WebForms.Site" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs"
+	Inherits="WebMarkupMin.Sample.AspNet45.WebForms.Site" %>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]> <html class="no-js ie6 ielt8"> <![endif]-->
 <!--[if IE 7 ]> <html class="no-js ie7 ielt8"> <![endif]-->

@@ -37,7 +37,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-using WebMarkupMin.Core.Constants;
 using WebMarkupMin.Core.Helpers;
 using WebMarkupMin.Core.Loggers;
 using WebMarkupMin.Core.Parsers;

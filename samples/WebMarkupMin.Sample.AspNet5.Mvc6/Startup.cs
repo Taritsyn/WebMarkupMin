@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 
 using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Diagnostics;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
@@ -15,7 +14,7 @@ using WebMarkupMin.MsAjax;
 using WebMarkupMin.Sample.Logic.Services;
 using WebMarkupMin.Yui;
 
-namespace WebMarkupMin.Sample.AspNet5Core.Mvc6
+namespace WebMarkupMin.Sample.AspNet5.Mvc6
 {
 	public class Startup
 	{
@@ -44,8 +43,7 @@ namespace WebMarkupMin.Sample.AspNet5Core.Mvc6
 			services.AddInstance(Configuration);
 
 			// Add WebMarkupMin services to the services container.
-			services.AddWebMarkupMin()
-				.ConfigureWebMarkupMin(options => {
+			services.AddWebMarkupMin(options => {
 					options.AllowMinificationInDevelopmentEnvironment = true;
 					options.AllowCompressionInDevelopmentEnvironment = true;
 				})

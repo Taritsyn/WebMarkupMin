@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-using WebMarkupMin.Core.Constants;
 using WebMarkupMin.Core.Loggers;
 using WebMarkupMin.Core.Parsers;
 using WebMarkupMin.Core.Resources;

@@ -12,7 +12,7 @@ namespace WebMarkupMin.AspNet5
 		/// <summary>
 		/// Hosting environment
 		/// </summary>
-		public IHostingEnvironment _hostingEnvironment;
+		private readonly IHostingEnvironment _hostingEnvironment;
 
 
 		/// <summary>

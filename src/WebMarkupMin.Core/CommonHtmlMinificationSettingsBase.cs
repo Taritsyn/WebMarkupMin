@@ -373,7 +373,6 @@ namespace WebMarkupMin.Core
 				RemoveHtmlComments = true;
 				RemoveHtmlCommentsFromScriptsAndStyles = true;
 				RemoveEmptyAttributes = true;
-				RemoveRedundantAttributes = false;
 				RemoveJsProtocolFromAttributes = true;
 				MinifyEmbeddedCssCode = true;
 				MinifyInlineCssCode = true;
@@ -386,7 +385,6 @@ namespace WebMarkupMin.Core
 				RemoveHtmlComments = false;
 				RemoveHtmlCommentsFromScriptsAndStyles = false;
 				RemoveEmptyAttributes = false;
-				RemoveRedundantAttributes = false;
 				RemoveJsProtocolFromAttributes = false;
 				MinifyEmbeddedCssCode = false;
 				MinifyInlineCssCode = false;
@@ -394,6 +392,7 @@ namespace WebMarkupMin.Core
 				MinifyInlineJsCode = false;
 			}
 			RemoveTagsWithoutContent = false;
+			RemoveRedundantAttributes = false;
 			RemoveHttpProtocolFromAttributes = false;
 			RemoveHttpsProtocolFromAttributes = false;
 

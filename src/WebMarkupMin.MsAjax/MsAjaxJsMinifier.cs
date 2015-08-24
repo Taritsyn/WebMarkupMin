@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -26,7 +25,7 @@ namespace WebMarkupMin.MsAjax
 		/// <summary>
 		/// Microsoft JS Minifier settings
 		/// </summary>
-		private MsAjaxJsMinificationSettings _settings;
+		private readonly MsAjaxJsMinificationSettings _settings;
 
 		/// <summary>
 		/// Gets a value indicating the minifier supports inline code minification

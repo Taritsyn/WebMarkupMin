@@ -120,9 +120,6 @@
   <data name="ButtonText_Minify" xml:space="preserve">
     <value>Minify</value>
   </data>
-  <data name="DisplayName_CompressionRatio" xml:space="preserve">
-    <value>Compression ratio</value>
-  </data>
   <data name="DisplayName_MinificationDuration" xml:space="preserve">
     <value>Minification duration</value>
   </data>

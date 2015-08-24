@@ -6,7 +6,7 @@ using WebMarkupMin.Sample.Logic.Services;
 
 namespace WebMarkupMin.Sample.AspNet45.WebForms
 {
-	public class Default : MinifiedAndCompressedHtmlPage
+	public partial class Default : MinifiedAndCompressedHtmlPage
 	{
 		public string Body
 		{

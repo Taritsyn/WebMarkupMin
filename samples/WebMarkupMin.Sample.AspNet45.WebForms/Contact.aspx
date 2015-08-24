@@ -1,4 +1,5 @@
-﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="WebMarkupMin.Sample.AspNet45.WebForms.Contact" %>
+﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
+	CodeBehind="Contact.aspx.cs" Inherits="WebMarkupMin.Sample.AspNet45.WebForms.Contact" %>
 <%@ OutputCache CacheProfile="CacheCompressedContent5Minutes" VaryByParam="*" %>
 <asp:Content ContentPlaceHolderID="mainContent" runat="server">
 	<div class="l-main-content">

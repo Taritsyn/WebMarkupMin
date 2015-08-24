@@ -12,7 +12,7 @@ namespace WebMarkupMin.AspNet5
 		/// <summary>
 		/// Collection of service descriptors
 		/// </summary>
-		private IServiceCollection _services;
+		private readonly IServiceCollection _services;
 
 
 		/// <summary>

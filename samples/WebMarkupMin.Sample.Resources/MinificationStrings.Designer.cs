@@ -68,14 +68,6 @@ namespace WebMarkupMin.Sample.Resources
 		}
 
 		/// <summary>
-		/// Looks up a localized string similar to "Compression ratio"
-		/// </summary>
-		public static string DisplayName_CompressionRatio
-		{
-			get { return GetString("DisplayName_CompressionRatio"); }
-		}
-
-		/// <summary>
 		/// Looks up a localized string similar to "Minification duration"
 		/// </summary>
 		public static string DisplayName_MinificationDuration

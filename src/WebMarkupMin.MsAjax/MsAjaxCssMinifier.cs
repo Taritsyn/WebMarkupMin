@@ -21,7 +21,7 @@ namespace WebMarkupMin.MsAjax
 		/// <summary>
 		/// Microsoft CSS Minifier settings
 		/// </summary>
-		private MsAjaxCssMinificationSettings _settings;
+		private readonly MsAjaxCssMinificationSettings _settings;
 
 		/// <summary>
 		/// Gets a value indicating the minifier supports inline code minification

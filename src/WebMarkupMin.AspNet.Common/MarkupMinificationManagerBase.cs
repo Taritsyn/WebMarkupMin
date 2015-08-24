@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using WebMarkupMin.AspNet.Common.UrlMatchers;
 using WebMarkupMin.Core;

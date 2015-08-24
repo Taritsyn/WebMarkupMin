@@ -1,4 +1,4 @@
-﻿namespace WebMarkupMin.Core.Constants
+﻿namespace WebMarkupMin.Core.Loggers
 {
 	/// <summary>
 	/// Log category constants

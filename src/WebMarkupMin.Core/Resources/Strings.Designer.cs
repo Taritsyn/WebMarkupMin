@@ -60,35 +60,11 @@ namespace WebMarkupMin.Core.Resources
 		}
 
 		/// <summary>
-		/// Looks up a localized string similar to "You do not specified a name of assembly."
-		/// </summary>
-		public static string Common_AssemblyNameIsEmpty
-		{
-			get { return GetString("Common_AssemblyNameIsEmpty"); }
-		}
-
-		/// <summary>
 		/// Looks up a localized string similar to "Can not convert value '{0}' of enumeration type '{1}' to value of enumeration type '{2}'."
 		/// </summary>
 		public static string Common_EnumValueConversionFailed
 		{
 			get { return GetString("Common_EnumValueConversionFailed"); }
-		}
-
-		/// <summary>
-		/// Looks up a localized string similar to "During instantiate an object of type '{0}' from assembly '{1}' error occurred."
-		/// </summary>
-		public static string Common_InstanceCreationFailed
-		{
-			get { return GetString("Common_InstanceCreationFailed"); }
-		}
-
-		/// <summary>
-		/// Looks up a localized string similar to "You do not specified a type name."
-		/// </summary>
-		public static string Common_TypeNameIsEmpty
-		{
-			get { return GetString("Common_TypeNameIsEmpty"); }
 		}
 
 		/// <summary>
@@ -105,46 +81,6 @@ namespace WebMarkupMin.Core.Resources
 		public static string Common_ValueIsNull
 		{
 			get { return GetString("Common_ValueIsNull"); }
-		}
-
-		/// <summary>
-		/// Looks up a localized string similar to "{0}-minifier with name '{1}' is not registered in configuration file."
-		/// </summary>
-		public static string Configuration_CodeMinifierNotRegistered
-		{
-			get { return GetString("Configuration_CodeMinifierNotRegistered"); }
-		}
-
-		/// <summary>
-		/// Looks up a localized string similar to "Default {0}-minifier not specified."
-		/// </summary>
-		public static string Configuration_DefaultCodeMinifierNotSpecified
-		{
-			get { return GetString("Configuration_DefaultCodeMinifierNotSpecified"); }
-		}
-
-		/// <summary>
-		/// Looks up a localized string similar to "Default logger not specified."
-		/// </summary>
-		public static string Configuration_DefaultLoggerNotSpecified
-		{
-			get { return GetString("Configuration_DefaultLoggerNotSpecified"); }
-		}
-
-		/// <summary>
-		/// Looks up a localized string similar to "Logger with name '{0}' is not registered in configuration file."
-		/// </summary>
-		public static string Configuration_LoggerNotRegistered
-		{
-			get { return GetString("Configuration_LoggerNotRegistered"); }
-		}
-
-		/// <summary>
-		/// Looks up a localized string similar to "Reloading of {0} minifier settings from the configuration file is prohibited."
-		/// </summary>
-		public static string Configuration_ReloadingCodeMinifierSettingsProhibited
-		{
-			get { return GetString("Configuration_ReloadingCodeMinifierSettingsProhibited"); }
 		}
 
 		/// <summary>
@@ -217,14 +153,6 @@ namespace WebMarkupMin.Core.Resources
 		public static string ErrorMessage_InvalidCharactersInStartTag
 		{
 			get { return GetString("ErrorMessage_InvalidCharactersInStartTag"); }
-		}
-
-		/// <summary>
-		/// Looks up a localized string similar to "In the text node of XML document found invalid characters."
-		/// </summary>
-		public static string ErrorMessage_InvalidCharactersInXmlTextNode
-		{
-			get { return GetString("ErrorMessage_InvalidCharactersInXmlTextNode"); }
 		}
 
 		/// <summary>

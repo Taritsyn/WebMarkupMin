@@ -13,12 +13,12 @@ namespace WebMarkupMin.AspNet5
 		/// <summary>
 		/// CSS minifier factory
 		/// </summary>
-		private ICssMinifierFactory _cssMinifierFactory;
+		private readonly ICssMinifierFactory _cssMinifierFactory;
 
 		/// <summary>
 		/// JS minifier factory
 		/// </summary>
-		private IJsMinifierFactory _jsMinifierFactory;
+		private readonly IJsMinifierFactory _jsMinifierFactory;
 
 
 		/// <summary>

@@ -17,7 +17,7 @@ namespace WebMarkupMin.Sample.Logic.Services
 	{
 		private readonly string _textContentDirectoryPath;
 #if DNXCORE50 || DNX451
-		private IApplicationEnvironment _applicationEnvironment { get; set; }
+		private readonly IApplicationEnvironment _applicationEnvironment;
 #endif
 
 

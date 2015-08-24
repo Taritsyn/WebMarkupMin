@@ -18,7 +18,7 @@ namespace WebMarkupMin.Yui
 		/// <summary>
 		/// Settings of YUI JS Minifier
 		/// </summary>
-		private YuiJsMinificationSettings _settings;
+		private readonly YuiJsMinificationSettings _settings;
 
 		/// <summary>
 		/// Gets a value indicating the minifier supports inline code minification

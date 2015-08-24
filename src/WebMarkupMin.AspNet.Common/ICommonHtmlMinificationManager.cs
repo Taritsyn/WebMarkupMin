@@ -9,18 +9,18 @@ namespace WebMarkupMin.AspNet.Common
 		where TSettings : class, new()
 	{
 		/// <summary>
-		/// Gets or sets a JS minifier factory
+		/// Gets or sets a CSS minifier factory
 		/// </summary>
-		IJsMinifierFactory JsMinifierFactory
+		ICssMinifierFactory CssMinifierFactory
 		{
 			get;
 			set;
 		}
 
 		/// <summary>
-		/// Gets or sets a CSS minifier factory
+		/// Gets or sets a JS minifier factory
 		/// </summary>
-		ICssMinifierFactory CssMinifierFactory
+		IJsMinifierFactory JsMinifierFactory
 		{
 			get;
 			set;
