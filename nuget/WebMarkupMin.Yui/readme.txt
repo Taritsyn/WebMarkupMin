@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                README file for Web Markup Minifier: YUI v2.0.0 Beta 1
+                README file for Web Markup Minifier: YUI v2.0.0 Beta 2
 
    --------------------------------------------------------------------------------
 
@@ -15,6 +15,11 @@
    of CSS code) and `YuiJsMinifier` (for minification of JS code). These adapters
    perform minification using the YUI Compressor for .NET
    (http://github.com/PureKrome/YUICompressor.NET).
+
+   =============
+   RELEASE NOTES
+   =============
+   Was made refactoring.
 
    =============
    DOCUMENTATION

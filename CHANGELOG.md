@@ -1,6 +1,10 @@
 Change log
 ==========
 
+## August 24, 2015 - v2.0.0 Beta 2
+ * Was made refactoring
+ * In WebMarkupMin.AspNet4.Mvc now the `CompressContentAttribute` action filter can be applied to the controllers
+
 ## August 13, 2015 - v2.0.0 Beta 1
  * .NET Core Libraries (CoreFX) have been upgraded to stable versions
  * Added support of xUnit.net 2.1 Beta 4

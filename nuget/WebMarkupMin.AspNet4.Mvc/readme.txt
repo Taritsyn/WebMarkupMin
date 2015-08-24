@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-          README file for Web Markup Minifier: ASP.NET 4.X MVC v2.0.0 Beta 1
+          README file for Web Markup Minifier: ASP.NET 4.X MVC v2.0.0 Beta 2
 
    --------------------------------------------------------------------------------
 
@@ -16,6 +16,12 @@
    code), `MinifyXmlAttribute` (for minification of XML code) and
    `CompressContentAttribute` (for compression of text content by using GZIP or
    Deflate).
+
+   =============
+   RELEASE NOTES
+   =============
+   Now the `CompressContentAttribute` action filter can be applied to the
+   controllers.
 
    =============
    DOCUMENTATION

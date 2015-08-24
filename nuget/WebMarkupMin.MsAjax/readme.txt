@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-              README file for Web Markup Minifier: MS Ajax v2.0.0 Beta 1
+              README file for Web Markup Minifier: MS Ajax v2.0.0 Beta 2
 
    --------------------------------------------------------------------------------
 
@@ -15,6 +15,11 @@
    minification of CSS code) and `MsAjaxJsMinifier` (for minification of JS code).
    These adapters perform minification using the Microsoft Ajax Minifier
    (http://ajaxmin.codeplex.com).
+
+   =============
+   RELEASE NOTES
+   =============
+   Was made refactoring.
 
    =============
    DOCUMENTATION

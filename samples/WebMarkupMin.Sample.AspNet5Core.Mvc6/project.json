@@ -1,6 +1,6 @@
 {
 	"webroot": "wwwroot",
-	"version": "2.0.0-beta1",
+	"version": "2.0.0-beta2",
 
 	"dependencies": {
 		"Microsoft.AspNet.Diagnostics": "1.0.0-beta6",
@@ -15,9 +15,9 @@
 		"Microsoft.Framework.Logging": "1.0.0-beta6",
 		"Microsoft.Framework.Logging.Console": "1.0.0-beta6",
 		"Kestrel": "1.0.0-beta6",
-		"WebMarkupMin.AspNet5": "2.0.0-beta1",
-		"WebMarkupMin.Sample.Logic": "2.0.0-beta1",
-		"WebMarkupMin.Sample.Resources": "2.0.0-beta1"
+		"WebMarkupMin.AspNet5": "2.0.0-beta2",
+		"WebMarkupMin.Sample.Logic": "2.0.0-beta2",
+		"WebMarkupMin.Sample.Resources": "2.0.0-beta2"
 	},
 
 	"commands": {

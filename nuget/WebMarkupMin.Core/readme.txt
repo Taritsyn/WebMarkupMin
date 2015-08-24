@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                README file for Web Markup Minifier: Core v2.0.0 Beta 1
+                README file for Web Markup Minifier: Core v2.0.0 Beta 2
 
    --------------------------------------------------------------------------------
 
@@ -44,7 +44,7 @@
    =============
    RELEASE NOTES
    =============
-   .NET Core Libraries (CoreFX) have been upgraded to stable versions.
+   Was made refactoring.
 
    =============
    DOCUMENTATION
