@@ -3,7 +3,7 @@
 namespace WebMarkupMin.AspNet4.Mvc
 {
 	/// <summary>
-	/// Represents an attribute that is used to HTML minification of action result
+	/// Represents an attribute, that applies HTML minification to the action result
 	/// </summary>
 	public sealed class MinifyHtmlAttribute : MinifyMarkupAttribute
 	{

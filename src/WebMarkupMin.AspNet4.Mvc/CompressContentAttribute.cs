@@ -10,10 +10,9 @@ using WebMarkupMin.AspNet4.Common;
 namespace WebMarkupMin.AspNet4.Mvc
 {
 	/// <summary>
-	/// Attribute that can be added to controller methods to force content
-	/// to be GZip encoded if the client supports it
+	/// Represents an attribute, that applies HTTP compression to the action result
 	/// </summary>
-	[AttributeUsage(AttributeTargets.Method)]
+	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 	public class CompressContentAttribute : ActionFilterAttribute
 	{
 		/// <summary>

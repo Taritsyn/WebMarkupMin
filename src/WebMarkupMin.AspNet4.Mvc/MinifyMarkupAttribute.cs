@@ -9,7 +9,7 @@ using WebMarkupMin.AspNet4.Common;
 namespace WebMarkupMin.AspNet4.Mvc
 {
 	/// <summary>
-	/// Base class of attribute that is used to markup minification of action result
+	/// Base class of attribute, that applies markup minification to the action result
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 	public abstract class MinifyMarkupAttribute : ActionFilterAttribute
