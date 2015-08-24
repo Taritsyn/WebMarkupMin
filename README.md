@@ -26,4 +26,4 @@ In addition, there are several modules that integrate this library into ASP.NET:
  * [WebMarkupMin: ASP.NET 5](http://nuget.org/packages/WebMarkupMin.AspNet5/2.0.0-beta1) (supports DNX 4.5.1 and DNX Core 5.0)
 
 ## Documentation
-Is still under development. See demonstration projects in the `samples` directory.
+Documentation is located on the [wiki](http://github.com/Taritsyn/WebMarkupMin/wiki) of this Repo.
