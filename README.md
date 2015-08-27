@@ -27,3 +27,6 @@ In addition, there are several modules that integrate this library into ASP.NET:
 
 ## Documentation
 Documentation is located on the [wiki](http://github.com/Taritsyn/WebMarkupMin/wiki) of this Repo.
+
+## Mailing List 
+If you want to get information about new releases, then join to the [WebMarkupMin group](https://groups.google.com/forum/#!forum/webmarkupmin) on Google Groups.
