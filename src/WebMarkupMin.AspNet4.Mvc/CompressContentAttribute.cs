@@ -52,9 +52,9 @@ namespace WebMarkupMin.AspNet4.Mvc
 			HttpResponseBase response = context.Response;
 			string mediaType = response.ContentType;
 
-			if (_compressionManager.IsSupportedMediaType(mediaType))
+			if (response.Filter != null && _compressionManager.IsSupportedMediaType(mediaType))
 			{
-				context.Items["originalResponseFilter"] = context.Response.Filter;
+				context.Items["originalResponseFilter"] = response.Filter;
 
 				string acceptEncoding = request.Headers["Accept-Encoding"];
 
