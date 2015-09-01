@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-          README file for Web Markup Minifier: ASP.NET 4.X MVC v2.0.0 Beta 2
+          README file for Web Markup Minifier: ASP.NET 4.X MVC v2.0.0 Beta 3
 
    --------------------------------------------------------------------------------
 
@@ -20,8 +20,8 @@
    =============
    RELEASE NOTES
    =============
-   Now the `CompressContentAttribute` action filter can be applied to the
-   controllers.
+   Fixed a bug “Filtering is not allowed.”, that caused by joint usage of the
+   WebMarkupMin's action filters and the nopCommerce's widgets.
 
    =============
    DOCUMENTATION

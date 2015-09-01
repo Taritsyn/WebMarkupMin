@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## September 1, 2015 - v2.0.0 Beta 3
+ * In WebMarkupMin.AspNet4.Mvc fixed a bug “Filtering is not allowed.”, that caused by joint usage of the WebMarkupMin's action filters and the nopCommerce's widgets
+
 ## August 24, 2015 - v2.0.0 Beta 2
  * Was made refactoring
  * In WebMarkupMin.AspNet4.Mvc now the `CompressContentAttribute` action filter can be applied to the controllers
