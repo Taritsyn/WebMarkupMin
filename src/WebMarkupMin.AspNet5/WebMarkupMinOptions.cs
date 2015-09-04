@@ -8,7 +8,7 @@ namespace WebMarkupMin.AspNet5
 	/// WebMarkupMin options
 	/// </summary>
 	public class WebMarkupMinOptions : WebMarkupMinConfigurationBase
-    {
+	{
 		/// <summary>
 		/// Gets or sets a flag for whether to allow markup minification
 		/// if the current hosting environment name is development
@@ -46,6 +46,6 @@ namespace WebMarkupMin.AspNet5
 		{
 			AllowMinificationInDevelopmentEnvironment = false;
 			AllowCompressionInDevelopmentEnvironment = false;
-        }
+		}
 	}
 }

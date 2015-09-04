@@ -8,7 +8,7 @@ namespace WebMarkupMin.AspNet.Common.UrlMatchers
 	/// Exact URL matcher
 	/// </summary>
 	public sealed class ExactUrlMatcher : IUrlMatcher
-    {
+	{
 		/// <summary>
 		/// Exemplary URL
 		/// </summary>

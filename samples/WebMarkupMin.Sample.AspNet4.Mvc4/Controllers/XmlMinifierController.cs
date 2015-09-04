@@ -5,19 +5,19 @@ using WebMarkupMin.Sample.Logic.Services;
 
 namespace WebMarkupMin.Sample.AspNet4.Mvc4.Controllers
 {
-    public class XmlMinifierController : Controller
-    {
-	    private readonly XmlMinificationService _minificationService;
+	public class XmlMinifierController : Controller
+	{
+		private readonly XmlMinificationService _minificationService;
 
 
-	    public XmlMinifierController()
+		public XmlMinifierController()
 			: this(new XmlMinificationService())
-	    { }
+		{ }
 
-	    public XmlMinifierController(XmlMinificationService minificationService)
-	    {
-		    _minificationService = minificationService;
-	    }
+		public XmlMinifierController(XmlMinificationService minificationService)
+		{
+			_minificationService = minificationService;
+		}
 
 
 		[HttpGet]
@@ -48,5 +48,5 @@ namespace WebMarkupMin.Sample.AspNet4.Mvc4.Controllers
 
 			return View(model);
 		}
-    }
+	}
 }

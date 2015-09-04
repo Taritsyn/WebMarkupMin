@@ -6,7 +6,7 @@ namespace WebMarkupMin.AspNet.Common
 	/// Defines a interface of HTTP compression manager
 	/// </summary>
 	public interface IHttpCompressionManager
-    {
+	{
 		/// <summary>
 		/// Creates a instance of compressor
 		/// </summary>

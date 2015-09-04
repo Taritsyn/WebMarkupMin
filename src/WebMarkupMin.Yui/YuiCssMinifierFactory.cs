@@ -6,7 +6,7 @@ namespace WebMarkupMin.Yui
 	/// YUI CSS Minifier factory
 	/// </summary>
 	public sealed class YuiCssMinifierFactory : ICssMinifierFactory
-    {
+	{
 		/// <summary>
 		/// Gets or sets a minification settings used to configure the YUI CSS Minifier
 		/// </summary>

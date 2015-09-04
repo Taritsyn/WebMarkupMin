@@ -30,7 +30,7 @@
    JavaScript minifier based on the Douglas Crockford's JSMin
    (http://github.com/douglascrockford/JSMin) and built-in CSS minifier based on
    the Mads Kristensen's Efficient stylesheet minifier
-   (http://madskristensen.net/post/Efficient-stylesheet-minification-in-C.aspx).
+   (http://madskristensen.net/post/Efficient-stylesheet-minification-in-C).
    The above mentioned minifiers produce only the most simple minifications of
    CSS and JavaScript code, but you can always install additional modules that
    support the more powerful algorithms of minification: WebMarkupMin.MsAjax

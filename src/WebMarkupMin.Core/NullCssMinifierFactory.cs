@@ -4,7 +4,7 @@
 	/// Null CSS minifier factory
 	/// </summary>
 	public sealed class NullCssMinifierFactory : ICssMinifierFactory
-    {
+	{
 		/// <summary>
 		/// Creates a instance of Null CSS minifier
 		/// </summary>
@@ -12,6 +12,6 @@
 		public ICssMinifier CreateMinifier()
 		{
 			return new NullCssMinifier();
-        }
+		}
 	}
 }

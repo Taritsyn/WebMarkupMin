@@ -11,5 +11,5 @@
 		/// <param name="url">URL</param>
 		/// <returns>true if the matching rule finds a match; otherwise, false.</returns>
 		bool IsMatch(string url);
-    }
+	}
 }

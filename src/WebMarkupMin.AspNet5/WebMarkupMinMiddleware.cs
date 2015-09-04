@@ -60,19 +60,19 @@ namespace WebMarkupMin.AspNet5
 			var minificationManagers = new List<IMarkupMinificationManager>();
 
 			var htmlMinificationManager = services.GetService<IHtmlMinificationManager>();
-            if (htmlMinificationManager != null)
+			if (htmlMinificationManager != null)
 			{
 				minificationManagers.Add(htmlMinificationManager);
 			}
 
 			var xhtmlMinificationManager = services.GetService<IXhtmlMinificationManager>();
-            if (xhtmlMinificationManager != null)
+			if (xhtmlMinificationManager != null)
 			{
 				minificationManagers.Add(xhtmlMinificationManager);
 			}
 
 			var xmlMinificationManager = services.GetService<IXmlMinificationManager>();
-            if (xmlMinificationManager != null)
+			if (xmlMinificationManager != null)
 			{
 				minificationManagers.Add(xmlMinificationManager);
 			}
@@ -84,7 +84,7 @@ namespace WebMarkupMin.AspNet5
 			{
 				_compressionManager = compressionManager;
 			}
-        }
+		}
 
 
 		public async Task Invoke(HttpContext context)
@@ -134,7 +134,7 @@ namespace WebMarkupMin.AspNet5
 
 					string currentUrl = request.Path.Value;
 					QueryString queryString = request.QueryString;
-                    if (queryString.HasValue)
+					if (queryString.HasValue)
 					{
 						currentUrl += queryString.Value;
 					}

@@ -3,8 +3,8 @@
 /* htmlparser.js
  * May 21, 2012
  *
- * HTML Parser By John Resig  (http://ejohn.org)
- * Modified by Juriy "kangax" Zaytsev  (http://kangax.github.com)
+ * HTML Parser By John Resig (http://ejohn.org)
+ * Modified by Juriy "kangax" Zaytsev (http://github.com/kangax)
  * Original code by Erik Arvidsson, Mozilla Public License
  * http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
  */
@@ -341,7 +341,7 @@ namespace WebMarkupMin.Core.Parsers
 		};
 
 		/// <summary>
-		///  List of tags with border attribute
+		/// List of tags with border attribute
 		/// </summary>
 		private static readonly HashSet<string> _tagsWithBorderAttribute = new HashSet<string>
 		{
@@ -1135,7 +1135,7 @@ namespace WebMarkupMin.Core.Parsers
 					|| type == HtmlConditionalCommentType.RevealedValidatingSimplified)
 				{
 					if (stackedType != HtmlConditionalCommentType.RevealedValidating
-					    && stackedType != HtmlConditionalCommentType.RevealedValidatingSimplified)
+						&& stackedType != HtmlConditionalCommentType.RevealedValidatingSimplified)
 					{
 						throw new HtmlParsingException(
 							Strings.ErrorMessage_InvalidEndIfConditionalComment,
@@ -1201,7 +1201,7 @@ namespace WebMarkupMin.Core.Parsers
 
 					if (tagFlags.EmbeddedCode
 						|| lastConditionalCommentType == HtmlConditionalCommentType.RevealedValidating
-					    || lastConditionalCommentType == HtmlConditionalCommentType.RevealedValidatingSimplified)
+						|| lastConditionalCommentType == HtmlConditionalCommentType.RevealedValidatingSimplified)
 					{
 						_tagStack.Add(tag);
 					}

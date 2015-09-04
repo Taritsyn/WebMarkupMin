@@ -5,40 +5,43 @@ using System.Collections.Generic;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Rendering;
+using Microsoft.Dnx.Runtime;
 using Microsoft.Framework.Configuration;
 using Microsoft.Net.Http.Headers;
-using Microsoft.Framework.Runtime;
 
 using WebMarkupMin.Sample.Logic.Models;
 using WebMarkupMin.Sample.Logic.Services;
 
 namespace WebMarkupMin.Sample.AspNet5.Mvc6.Controllers
 {
-    public class HomeController : Controller
-    {
+	public class HomeController : Controller
+	{
 		private readonly FileContentService _fileContentService;
 
 		private readonly SitemapService _sitemapService;
 
 
 		public HomeController(
-			IConfiguration configuration,
+			IConfigurationRoot configuration,
 			IApplicationEnvironment applicationEnvironment,
 			SitemapService sitemapService)
 		{
-			_fileContentService = new FileContentService(
-				configuration.Get("webmarkupmin:Samples:TextContentDirectoryPath"),
-				applicationEnvironment);
+			string textContentDirectoryPath = configuration
+				.GetSection("webmarkupmin")
+				.GetSection("Samples")["TextContentDirectoryPath"]
+				;
+
+			_fileContentService = new FileContentService(textContentDirectoryPath, applicationEnvironment);
 			_sitemapService = sitemapService;
-        }
+		}
 
 
 		public IActionResult Index()
-        {
+		{
 			ViewBag.Body = new HtmlString(_fileContentService.GetFileContent("index.html"));
 
-            return View();
-        }
+			return View();
+		}
 
 		[Route("minifiers")]
 		public IActionResult Minifiers()
@@ -56,11 +59,11 @@ namespace WebMarkupMin.Sample.AspNet5.Mvc6.Controllers
 
 		[Route("contact")]
 		public IActionResult Contact()
-        {
+		{
 			ViewBag.Body = new HtmlString(_fileContentService.GetFileContent("contact.html"));
 
 			return View();
-        }
+		}
 
 		[Route("sitemap")]
 		public IActionResult Sitemap()
@@ -91,7 +94,7 @@ namespace WebMarkupMin.Sample.AspNet5.Mvc6.Controllers
 			IServiceProvider services = Context.RequestServices;
 
 			var urlHelper = new UrlHelper(
-				(IScopedInstance<ActionContext>)services.GetService(typeof(IScopedInstance<ActionContext>)),
+				(IActionContextAccessor)services.GetService(typeof(IActionContextAccessor)),
 				(IActionSelector)services.GetService(typeof(IActionSelector)));
 			string url = urlHelper.Action(actionName, controllerName);
 

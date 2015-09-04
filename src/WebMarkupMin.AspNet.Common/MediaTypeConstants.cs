@@ -4,7 +4,7 @@
 	/// Media-types constants
 	/// </summary>
 	public static class MediaTypeConstants
-    {
+	{
 		public static readonly string TextHtml = "text/html";
 
 		public static readonly string ApplicationXhtml = "application/xhtml+xml";

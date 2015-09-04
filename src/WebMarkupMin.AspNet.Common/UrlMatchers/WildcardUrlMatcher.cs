@@ -9,7 +9,7 @@ namespace WebMarkupMin.AspNet.Common.UrlMatchers
 	/// Wildcard URL matcher
 	/// </summary>
 	public sealed class WildcardUrlMatcher : IUrlMatcher
-    {
+	{
 		/// <summary>
 		/// Regular expression
 		/// </summary>
@@ -35,7 +35,7 @@ namespace WebMarkupMin.AspNet.Common.UrlMatchers
 			}
 
 			string regexPattern = WildcardPatternToRegexPattern(pattern);
-            RegexOptions options = RegexOptions.CultureInvariant | RegexOptions.Singleline;
+			RegexOptions options = RegexOptions.CultureInvariant | RegexOptions.Singleline;
 			if (!caseSensitive)
 			{
 				options = options | RegexOptions.IgnoreCase;

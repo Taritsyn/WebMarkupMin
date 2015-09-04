@@ -1,5 +1,5 @@
 {
-	"version": "2.0.0-beta2",
+	"version": "2.0.0-beta4",
 	"description": "",
 	"authors": [ "" ],
 	"tags": [ "" ],
@@ -8,7 +8,7 @@
 
 	"dependencies": {
 		"YUICompressor.NET": "2.7.0",
-		"WebMarkupMin.Core": "2.0.0-beta2"
+		"WebMarkupMin.Core": "2.0.0-beta4"
 	},
 
 	"frameworks": {

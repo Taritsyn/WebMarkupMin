@@ -1,10 +1,10 @@
 ﻿/* This minifier based on the code of Efficient stylesheet minifier
- * (http://madskristensen.net/post/Efficient-stylesheet-minification-in-C.aspx)
+ * (http://madskristensen.net/post/Efficient-stylesheet-minification-in-C)
  */
 
 /* Feb 28, 2010
  *
- * Copyright (c) 2010 Mads Kristensen  (http://madskristensen.net)
+ * Copyright (c) 2010 Mads Kristensen (http://madskristensen.net)
  */
 
 using System.Text;

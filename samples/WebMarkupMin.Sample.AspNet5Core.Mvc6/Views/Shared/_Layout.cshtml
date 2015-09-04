@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using WebMarkupMin.Sample.AspNet5Core.Mvc6.Infrastructure.TagHelpers
+<!DOCTYPE html>
 <!--[if lt IE 7 ]> <html class="no-js ie6 ielt8"> <![endif]-->
 <!--[if IE 7 ]> <html class="no-js ie7 ielt8"> <![endif]-->
 <!--[if IE 8 ]> <html class="no-js ie8"> <![endif]-->
@@ -16,7 +17,7 @@
 			<link rel="stylesheet" href="~/styles/build/common-styles.min.css" asp-file-version="true" />
 			<script src="~/scripts/build/modernizr.min.js" asp-file-version="true"></script>
 		</environment>
-    </head>
+	</head>
 	<body>
 		<div class="l-wrapper">
 			<!-- Header -->
@@ -78,17 +79,35 @@
 		<!-- /Footer -->
 
 		<environment names="Development">
-			<script src="~/scripts/lib/jquery/jquery.js" asp-file-version="true"></script>
-			<script src="~/scripts/lib/bootstrap/dropdown.js" asp-file-version="true"></script>
-			<script src="~/scripts/common.js" asp-file-version="true"></script>
+			<conditional-comment type="ConditionalCommentType.Hidden" expression="lt IE 9">
+				<script src="~/scripts/lib/jquery-compat/jquery.js" asp-append-version="true"></script>
+			</conditional-comment>
+
+			<conditional-comment type="ConditionalCommentType.RevealedValidating" expression="gte IE 9">
+				<script src="~/scripts/lib/jquery/jquery.js" asp-append-version="true"></script>
+			</conditional-comment>
+
+			<script src="~/scripts/lib/bootstrap/dropdown.js" asp-append-version="true"></script>
+			<script src="~/scripts/common.js" asp-append-version="true"></script>
 		</environment>
 		<environment names="Staging,Production">
-			<script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"
-				asp-fallback-src-include="~/scripts/lib/jquery/jquery.min.js"
-				asp-fallback-test="window.jquery"
-				asp-file-version="true">
-			</script>
-			<script src="~/scripts/build/common-scripts.min.js" asp-file-version="true"></script>
+			<conditional-comment type="ConditionalCommentType.Hidden" expression="lt IE 9">
+				<script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"
+					asp-fallback-src-include="~/scripts/lib/jquery-compat/jquery.min.js"
+					asp-fallback-test="window.jquery"
+					asp-append-version="true">
+				</script>
+			</conditional-comment>
+
+			<conditional-comment type="ConditionalCommentType.RevealedValidating" expression="gte IE 9">
+				<script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"
+					asp-fallback-src-include="~/scripts/lib/jquery/jquery.min.js"
+					asp-fallback-test="window.jquery"
+					asp-append-version="true">
+				</script>
+			</conditional-comment>
+
+			<script src="~/scripts/build/common-scripts.min.js" asp-append-version="true"></script>
 		</environment>
 
 		@RenderSection("scripts", required: false)

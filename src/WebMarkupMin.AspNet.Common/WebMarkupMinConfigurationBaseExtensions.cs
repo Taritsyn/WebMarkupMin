@@ -4,7 +4,7 @@
 	/// WebMarkupMin configuration extensions
 	/// </summary>
 	public static class WebMarkupMinConfigurationBaseExtensions
-    {
+	{
 		/// <summary>
 		/// Checks whether the response size is not exceeded the limit
 		/// </summary>

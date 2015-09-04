@@ -9,7 +9,7 @@ namespace WebMarkupMin.AspNet4.WebForms
 	/// <summary>
 	/// Web Forms page with support of HTTP compression
 	/// </summary>
-    public class CompressedPage : Page
+	public class CompressedPage : Page
 	{
 		/// <summary>
 		/// Compressed component
@@ -62,5 +62,5 @@ namespace WebMarkupMin.AspNet4.WebForms
 			base.OnError(e);
 			_compressedComponent.OnError(e);
 		}
-    }
+	}
 }

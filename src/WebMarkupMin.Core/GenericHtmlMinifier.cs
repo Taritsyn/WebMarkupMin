@@ -1,11 +1,11 @@
 ﻿/* This minifier based on the code of Experimental HTML Minifier
- * (http://kangax.github.com/html-minifier/) version 0.4.4.
+ * (http://github.com/kangax/html-minifier/) version 0.4.4.
  */
 
 /* htmlminifier.js
  * May 14, 2012
  *
- * Copyright (c) 2010 Juriy "kangax" Zaytsev  (http://kangax.github.com)
+ * Copyright (c) 2010 Juriy "kangax" Zaytsev (http://github.com/kangax)
  *
  * Licensed under the MIT license.
  *
@@ -1731,7 +1731,7 @@ namespace WebMarkupMin.Core
 							result = MinifyKnockoutBindingExpression(context, attribute);
 						}
 						else if (tagName == "meta" && attributeName == "content"
-						         && attributes.Any(a => a.Name == "name" && a.Value.Trim().IgnoreCaseEquals("keywords")))
+							&& attributes.Any(a => a.Name == "name" && a.Value.Trim().IgnoreCaseEquals("keywords")))
 						{
 							result = result.Trim();
 							result = Utils.CollapseWhitespace(result);
@@ -2351,7 +2351,7 @@ namespace WebMarkupMin.Core
 						string message = error.Message.Trim();
 
 						WriteError(LogCategoryConstants.JsMinificationError, message, _fileContext,
-						           absoluteErrorCoordinates.LineNumber, absoluteErrorCoordinates.ColumnNumber, sourceFragment);
+							absoluteErrorCoordinates.LineNumber, absoluteErrorCoordinates.ColumnNumber, sourceFragment);
 					}
 
 					foreach (MinificationErrorInfo warning in minificationResult.Warnings)
@@ -2364,7 +2364,7 @@ namespace WebMarkupMin.Core
 						string message = warning.Message.Trim();
 
 						WriteWarning(LogCategoryConstants.JsMinificationWarning, message, _fileContext,
-						             absoluteErrorCoordinates.LineNumber, absoluteErrorCoordinates.ColumnNumber, sourceFragment);
+							absoluteErrorCoordinates.LineNumber, absoluteErrorCoordinates.ColumnNumber, sourceFragment);
 					}
 				}
 

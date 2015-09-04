@@ -6,7 +6,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 	/// Defines a interface of HTTP compressor
 	/// </summary>
 	public interface ICompressor
-    {
+	{
 		/// <summary>
 		/// Gets a encoding token
 		/// </summary>
@@ -19,5 +19,5 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		/// <param name="stream">The stream</param>
 		/// <returns>The compressed stream</returns>
 		Stream Compress(Stream stream);
-    }
+	}
 }

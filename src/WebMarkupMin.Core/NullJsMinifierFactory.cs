@@ -4,7 +4,7 @@
 	/// Null JS minifier factory
 	/// </summary>
 	public sealed class NullJsMinifierFactory : IJsMinifierFactory
-    {
+	{
 		/// <summary>
 		/// Creates a instance of Null JS minifier
 		/// </summary>
@@ -12,6 +12,6 @@
 		public IJsMinifier CreateMinifier()
 		{
 			return new NullJsMinifier();
-        }
+		}
 	}
 }

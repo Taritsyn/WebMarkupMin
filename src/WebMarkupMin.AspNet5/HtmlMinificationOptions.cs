@@ -10,7 +10,7 @@ namespace WebMarkupMin.AspNet5
 	/// </summary>
 	public sealed class HtmlMinificationOptions
 		: CommonHtmlMinificationOptionsBase<HtmlMinificationSettings>
-    {
+	{
 		/// <summary>
 		/// Constructs a instance of HTML minification options
 		/// </summary>

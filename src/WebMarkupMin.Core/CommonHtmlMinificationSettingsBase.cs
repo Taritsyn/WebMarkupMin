@@ -249,7 +249,7 @@ namespace WebMarkupMin.Core
 
 		/// <summary>
 		/// Gets or sets a flag for whether to minify the KnockoutJS binding expressions
-		//  in <code>data-bind</code> attributes and containerless comments
+		/// in <code>data-bind</code> attributes and containerless comments
 		/// </summary>
 		public bool MinifyKnockoutBindingExpressions
 		{
@@ -259,7 +259,7 @@ namespace WebMarkupMin.Core
 
 		/// <summary>
 		/// Gets or sets a flag for whether to minify the AngularJS binding expressions
-		//  in Mustache-style tags (<code>{{}}</code>) and directives
+		/// in Mustache-style tags (<code>{{}}</code>) and directives
 		/// </summary>
 		public bool MinifyAngularBindingExpressions
 		{

@@ -27,7 +27,7 @@ namespace WebMarkupMin.AspNet.Common
 		public override IMarkupMinifier CreateMinifier()
 		{
 			HtmlMinificationSettings settings = MinificationSettings;
-            ICssMinifier cssMinifier = CssMinifierFactory.CreateMinifier();
+			ICssMinifier cssMinifier = CssMinifierFactory.CreateMinifier();
 			IJsMinifier jsMinifier = JsMinifierFactory.CreateMinifier();
 
 			var minifier = new HtmlMinifier(settings, cssMinifier, jsMinifier, _logger);

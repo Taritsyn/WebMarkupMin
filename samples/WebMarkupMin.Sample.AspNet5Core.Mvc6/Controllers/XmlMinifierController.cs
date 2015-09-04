@@ -7,14 +7,14 @@ namespace WebMarkupMin.Sample.AspNet5Core.Mvc6.Controllers
 {
 	[Route("minifiers/xml-minifier")]
 	public class XmlMinifierController : Controller
-    {
-	    private readonly XmlMinificationService _minificationService;
+	{
+		private readonly XmlMinificationService _minificationService;
 
 
-	    public XmlMinifierController(XmlMinificationService minificationService)
-	    {
-		    _minificationService = minificationService;
-	    }
+		public XmlMinifierController(XmlMinificationService minificationService)
+		{
+			_minificationService = minificationService;
+		}
 
 
 		[HttpGet]
@@ -37,5 +37,5 @@ namespace WebMarkupMin.Sample.AspNet5Core.Mvc6.Controllers
 
 			return View(model);
 		}
-    }
+	}
 }

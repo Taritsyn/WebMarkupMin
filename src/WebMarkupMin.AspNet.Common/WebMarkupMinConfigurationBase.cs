@@ -4,7 +4,7 @@
 	/// Base class of WebMarkupMin configuration
 	/// </summary>
 	public abstract class WebMarkupMinConfigurationBase
-    {
+	{
 		/// <summary>
 		/// Gets or sets a flag for whether to disable markup minification
 		/// </summary>

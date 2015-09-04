@@ -6,7 +6,7 @@ namespace WebMarkupMin.Yui
 	/// YUI JS Minifier factory
 	/// </summary>
 	public sealed class YuiJsMinifierFactory : IJsMinifierFactory
-    {
+	{
 		/// <summary>
 		/// Gets or sets a minification settings used to configure the YUI JS Minifier
 		/// </summary>

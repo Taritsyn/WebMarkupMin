@@ -8,8 +8,8 @@ using WebMarkupMin.Yui;
 
 namespace WebMarkupMin.Sample.Logic.Services
 {
-    public sealed class JsMinifierFactory
-    {
+	public sealed class JsMinifierFactory
+	{
 #if NET40
 		private static readonly Lazy<JsMinifierFactory> _instance =
 			new Lazy<JsMinifierFactory>(() => new JsMinifierFactory());
@@ -20,8 +20,8 @@ namespace WebMarkupMin.Sample.Logic.Services
 		}
 
 
-	    private JsMinifierFactory()
-	    { }
+		private JsMinifierFactory()
+		{ }
 
 
 #endif

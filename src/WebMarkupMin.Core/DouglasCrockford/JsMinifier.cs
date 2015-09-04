@@ -8,7 +8,7 @@
 /* jsmin.c
    2013-03-29
 
-Copyright (c) 2002 Douglas Crockford  (www.crockford.com)
+Copyright (c) 2002 Douglas Crockford (www.crockford.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -39,14 +39,14 @@ namespace WebMarkupMin.Core.DouglasCrockford
 	/// <summary>
 	/// The JavaScript Minifier
 	/// </summary>
-    internal sealed class JsMinifier
-    {
-        const int EOF = -1;
+	internal sealed class JsMinifier
+	{
+		const int EOF = -1;
 
 		private StringReader _reader;
 		private StringWriter _writer;
 
-        private int _theA;
+		private int _theA;
 		private int _theB;
 		private int _theLookahead = EOF;
 		private int _theX = EOF;
@@ -415,8 +415,8 @@ namespace WebMarkupMin.Core.DouglasCrockford
 		/// </summary>
 		/// <param name="c">The character</param>
 		private void Put(int c)
-        {
-            _writer.Write((char)c);
+		{
+			_writer.Write((char)c);
 		}
 		#endregion
 	}

@@ -6,15 +6,15 @@ using WebMarkupMin.Sample.Logic.Services;
 namespace WebMarkupMin.Sample.AspNet5.Mvc6.Controllers
 {
 	[Route("minifiers/xhtml-minifier")]
-    public class XhtmlMinifierController : Controller
-    {
-	    private readonly XhtmlMinificationService _minificationService;
+	public class XhtmlMinifierController : Controller
+	{
+		private readonly XhtmlMinificationService _minificationService;
 
 
-	    public XhtmlMinifierController(XhtmlMinificationService minificationService)
-	    {
-		    _minificationService = minificationService;
-	    }
+		public XhtmlMinifierController(XhtmlMinificationService minificationService)
+		{
+			_minificationService = minificationService;
+		}
 
 
 		[HttpGet]
@@ -23,7 +23,7 @@ namespace WebMarkupMin.Sample.AspNet5.Mvc6.Controllers
 			var model = _minificationService.GetInitializationData();
 
 			return View(model);
-        }
+		}
 
 		[HttpPost]
 		public IActionResult Index(XhtmlMinificationViewModel model)
@@ -37,5 +37,5 @@ namespace WebMarkupMin.Sample.AspNet5.Mvc6.Controllers
 
 			return View(model);
 		}
-    }
+	}
 }

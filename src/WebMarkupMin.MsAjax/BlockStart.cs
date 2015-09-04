@@ -11,7 +11,7 @@
 		/// Example:
 		/// <code>if (condition)
 		/// {
-		///     ...
+		///		...
 		/// }</code>
 		/// </summary>
 		NewLine = 0,
@@ -20,7 +20,7 @@
 		/// Output the opening curly-brace block-start character at the end of the previous line.
 		/// Example:
 		/// <code>if (condition) {
-		///     ...
+		///		...
 		/// }</code>
 		/// </summary>
 		SameLine,

@@ -5,14 +5,14 @@ using WebMarkupMin.Sample.Logic.Services;
 
 namespace WebMarkupMin.Sample.AspNet4.Mvc4.Controllers
 {
-    public class HtmlMinifierController : Controller
-    {
-	    private readonly HtmlMinificationService _minificationService;
+	public class HtmlMinifierController : Controller
+	{
+		private readonly HtmlMinificationService _minificationService;
 
 
-	    public HtmlMinifierController()
+		public HtmlMinifierController()
 			: this(new HtmlMinificationService())
-	    { }
+		{ }
 
 		public HtmlMinifierController(HtmlMinificationService minificationService)
 		{
@@ -24,7 +24,7 @@ namespace WebMarkupMin.Sample.AspNet4.Mvc4.Controllers
 		[CompressContent]
 		[MinifyHtml]
 		[OutputCache(CacheProfile = "CacheCompressedContent5Minutes")]
-        public ActionResult Index()
+		public ActionResult Index()
 		{
 			var model = _minificationService.GetInitializationData();
 

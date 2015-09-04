@@ -6,9 +6,9 @@ using WebMarkupMin.Sample.Logic.Services;
 namespace WebMarkupMin.Sample.AspNet5Core.Mvc6.Controllers
 {
 	[Route("minifiers/html-minifier")]
-    public class HtmlMinifierController : Controller
-    {
-	    private readonly HtmlMinificationService _minificationService;
+	public class HtmlMinifierController : Controller
+	{
+		private readonly HtmlMinificationService _minificationService;
 
 
 		public HtmlMinifierController(HtmlMinificationService minificationService)

@@ -5,5 +5,5 @@
 	/// to when WebMarkupMin is loaded.
 	/// </summary>
 	public class WebMarkupMinMarkerService
-    { }
+	{ }
 }

@@ -21,12 +21,12 @@ var scriptDirPath = webRootPath + '/scripts';
 //#region Clean
 //#region Clean libraries
 gulp.task('clean-style-libraries', function () {
-	del.sync([styleDirPath + '/lib/*'])
+	del.sync([styleDirPath + '/lib/*']);
 });
 
 gulp.task('clean-script-libraries', function () {
 	del.sync([scriptDirPath + '/lib/*',
-		'!' + scriptDirPath + '/lib/jquery.validate.unobtrusive.js'])
+		'!' + scriptDirPath + '/lib/jquery.validate.unobtrusive.js']);
 });
 
 gulp.task('clean-libraries', ['clean-style-libraries', 'clean-script-libraries'], function () { });
@@ -34,11 +34,11 @@ gulp.task('clean-libraries', ['clean-style-libraries', 'clean-script-libraries']
 
 //#region Clean builded assets
 gulp.task('clean-builded-styles', function () {
-	del.sync([styleDirPath + '/build/*'])
+	del.sync([styleDirPath + '/build/*']);
 });
 
 gulp.task('clean-builded-scripts', function () {
-	del.sync([scriptDirPath + '/build/*'])
+	del.sync([scriptDirPath + '/build/*']);
 });
 
 gulp.task('clean-builded-assets', ['clean-builded-styles', 'clean-builded-scripts'], function () { });
@@ -119,7 +119,7 @@ gulp.task('build-common-styles', ['clean-builded-styles'], function () {
 		.pipe(sourcemaps.init())
 		.pipe(less({
 			relativeUrls: true,
-			rootpath: '/styles/',
+			rootpath: '/styles/'
 		}))
 		.pipe(autoprefixer(autoprefixerOptions))
 		.pipe(sourcemaps.write('./'))
@@ -133,7 +133,7 @@ gulp.task('build-common-styles', ['clean-builded-styles'], function () {
 		;
 });
 
-gulp.task('build-styles', ['build-common-styles'], function () { })
+gulp.task('build-styles', ['build-common-styles'], function () { });
 //#endregion
 
 //#region Build scripts
@@ -178,10 +178,10 @@ gulp.task('build-minification-form-scripts', ['clean-builded-scripts'], function
 });
 
 gulp.task('build-scripts', ['build-modernizr-scripts', 'build-common-scripts',
-	'build-minification-form-scripts'], function () { })
+	'build-minification-form-scripts'], function () { });
 //#endregion
 
-gulp.task('build-assets', ['build-styles', 'build-scripts'], function () { })
+gulp.task('build-assets', ['build-styles', 'build-scripts'], function () { });
 //#endregion
 
 //#region Watch assets
@@ -192,10 +192,10 @@ gulp.task('watch-styles', function () {
 
 gulp.task('watch-scripts', function () {
 	return gulp.watch([scriptDirPath + '/**/*.js', '!' + scriptDirPath + '/{lib,build}/**/*.*'],
-		['build-scripts'])
+		['build-scripts']);
 });
 
-gulp.task('watch-assets', ['watch-styles', 'watch-scripts'])
+gulp.task('watch-assets', ['watch-styles', 'watch-scripts']);
 //#endregion
 
 //Set a default tasks

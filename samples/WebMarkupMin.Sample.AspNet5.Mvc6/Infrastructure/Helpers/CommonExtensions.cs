@@ -4,8 +4,8 @@ using Microsoft.AspNet.Mvc.Rendering;
 
 namespace WebMarkupMin.Sample.AspNet5.Mvc6.Infrastructure.Helpers
 {
-    public static class CommonExtensions
-    {
+	public static class CommonExtensions
+	{
 		public static HtmlString EncodedReplace(this IHtmlHelper htmlHelper, string input,
 			string pattern, string replacement)
 		{

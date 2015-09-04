@@ -9,7 +9,7 @@ namespace WebMarkupMin.AspNet.Common.UrlMatchers
 	/// Regular expression URL matcher
 	/// </summary>
 	public sealed class RegexUrlMatcher : IUrlMatcher
-    {
+	{
 		/// <summary>
 		/// Regular expression
 		/// </summary>

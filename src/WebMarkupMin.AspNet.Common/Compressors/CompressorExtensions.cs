@@ -6,7 +6,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 	/// HTTP compressor extensions
 	/// </summary>
 	public static class CompressorExtensions
-    {
+	{
 		/// <summary>
 		/// Appends a HTTP headers
 		/// </summary>

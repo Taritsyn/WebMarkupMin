@@ -57,6 +57,6 @@ namespace WebMarkupMin.AspNet5
 		{
 			IncludedPages = new List<IUrlMatcher>();
 			ExcludedPages = new List<IUrlMatcher>();
-        }
+		}
 	}
 }

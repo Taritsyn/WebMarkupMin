@@ -7,7 +7,7 @@ namespace WebMarkupMin.AspNet.Common
 	/// Media-type groups constants
 	/// </summary>
 	public static class MediaTypeGroupConstants
-    {
+	{
 		public static readonly ReadOnlyCollection<string> Html = new List<string>
 			{
 				MediaTypeConstants.TextHtml

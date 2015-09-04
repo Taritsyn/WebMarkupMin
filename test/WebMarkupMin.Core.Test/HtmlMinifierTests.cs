@@ -1387,10 +1387,10 @@ namespace WebMarkupMin.Core.Test
 				;
 			const string targetOutput17A = input17;
 			const string targetOutput17B = "<ul>" +
-			    "<li data-ng-repeat=\"customer in customers\"> " +
+				"<li data-ng-repeat=\"customer in customers\"> " +
 				"{{\t  customer.name  \t}} - {{\t  customer.city  \t}} " +
-			    "</li>" +
-			    "</ul>"
+				"</li>" +
+				"</ul>"
 				;
 			const string targetOutput17C = "<ul>" +
 				"<li data-ng-repeat=\"customer in customers\">" +
@@ -1778,7 +1778,7 @@ namespace WebMarkupMin.Core.Test
 				"<![endif]-->\n" +
 				"<!--[if gt IE 8]>--> <html class=\"no-js\" " +
 				"data-text-direction=\"left-to-right\">\n" +
-				"<!--<![endif]-->\n" + 
+				"<!--<![endif]-->\n" +
 				"</html>"
 				;
 
@@ -3863,41 +3863,41 @@ namespace WebMarkupMin.Core.Test
 				"</table>"
 				;
 			const string targetOutput4 = "<table class=\"table\">\n" +
-			    "	<thead>\n" +
-			    "		<tr>\n" +
-			    "			<th>Month\n" +
-			    "			<th>Savings\n" +
-			    "		\n" +
-			    "	\n" +
-			    "	<tbody id=\"firstQuarter\">\n" +
-			    "		<tr>\n" +
-			    "			<td>Jan\n" +
-			    "			<td>$2800\n" +
-			    "		\n" +
-			    "		<tr>\n" +
-			    "			<td>Feb\n" +
-			    "			<td>$3000\n" +
-			    "		\n" +
-			    "		<tr>\n" +
-			    "			<td>Mar\n" +
-			    "			<td>$2950\n" +
-			    "		\n" +
-			    "	\n" +
-			    "	<tbody id=\"secondQuarter\">\n" +
-			    "		<tr>\n" +
-			    "			<td>Apr\n" +
-			    "			<td>$2900\n" +
-			    "		\n" +
-			    "		<tr>\n" +
-			    "			<td>May\n" +
-			    "			<td>$3050\n" +
-			    "		\n" +
-			    "		<tr>\n" +
-			    "			<td>Jun\n" +
-			    "			<td>$3010\n" +
-			    "		\n" +
+				"	<thead>\n" +
+				"		<tr>\n" +
+				"			<th>Month\n" +
+				"			<th>Savings\n" +
+				"		\n" +
 				"	\n" +
-			    "</table>"
+				"	<tbody id=\"firstQuarter\">\n" +
+				"		<tr>\n" +
+				"			<td>Jan\n" +
+				"			<td>$2800\n" +
+				"		\n" +
+				"		<tr>\n" +
+				"			<td>Feb\n" +
+				"			<td>$3000\n" +
+				"		\n" +
+				"		<tr>\n" +
+				"			<td>Mar\n" +
+				"			<td>$2950\n" +
+				"		\n" +
+				"	\n" +
+				"	<tbody id=\"secondQuarter\">\n" +
+				"		<tr>\n" +
+				"			<td>Apr\n" +
+				"			<td>$2900\n" +
+				"		\n" +
+				"		<tr>\n" +
+				"			<td>May\n" +
+				"			<td>$3050\n" +
+				"		\n" +
+				"		<tr>\n" +
+				"			<td>Jun\n" +
+				"			<td>$3010\n" +
+				"		\n" +
+				"	\n" +
+				"</table>"
 				;
 
 
@@ -4180,8 +4180,8 @@ namespace WebMarkupMin.Core.Test
 			const string targetOutput21 = "";
 
 			const string input22 = "<div>\n" +
-			    "\t<p>\t\n  </p>\n" +
-			    "</div>"
+				"\t<p>\t\n  </p>\n" +
+				"</div>"
 				;
 			const string targetOutput22 = "<div>\n" +
 				"\t\n" +
@@ -5117,14 +5117,14 @@ namespace WebMarkupMin.Core.Test
 				;
 			const string targetOutput4A = input4;
 			const string targetOutput4B = "<script type=\"text/ng-template\" id=\"questionnaire\">" +
-			    "<div class=\"question\">" +
-			    "<span>{{question.number}}.</span>&nbsp; " +
-			    "<span>{{question.question}}</span> -&nbsp; " +
-			    "<span>{{question.type}}</span>" +
-			    "<div class=\"answer\" ng-include=\"'templates/'+question.type+'.html'\">" +
-			    "</div>" +
-			    "</div>" +
-			    "</script>"
+				"<div class=\"question\">" +
+				"<span>{{question.number}}.</span>&nbsp; " +
+				"<span>{{question.question}}</span> -&nbsp; " +
+				"<span>{{question.type}}</span>" +
+				"<div class=\"answer\" ng-include=\"'templates/'+question.type+'.html'\">" +
+				"</div>" +
+				"</div>" +
+				"</script>"
 				;
 
 			// Act
@@ -5298,11 +5298,11 @@ namespace WebMarkupMin.Core.Test
 				;
 			const string targetOutput2A = input2;
 			const string targetOutput2B = "<ul>\n" +
-			    "	<li>This item always appears</li>\n" +
-			    "	<!--ko if:someExpressionGoesHere-->\n" +
-			    "		<li>I want to make this item present/absent dynamically</li>\n" +
-			    "	<!--/ko-->\n" +
-			    "</ul>"
+				"	<li>This item always appears</li>\n" +
+				"	<!--ko if:someExpressionGoesHere-->\n" +
+				"		<li>I want to make this item present/absent dynamically</li>\n" +
+				"	<!--/ko-->\n" +
+				"</ul>"
 				;
 
 			const string input3 = "<!--ko compose: { view: 'myView.html',\n" +
@@ -5672,7 +5672,7 @@ namespace WebMarkupMin.Core.Test
 			const string targetOutput15B = "<li ng-repeat=\"item in items track by $id(item)\">{{item}}</li>";
 
 			const string input16 = "<li data-ng-repeat=\"customer in customers | filter:nameText | orderBy:'name'\">\n" +
-			    "	{{customer.name}} - {{customer.city}}\n" +
+				"	{{customer.name}} - {{customer.city}}\n" +
 				"</li>"
 				;
 			const string targetOutput16A = input16;

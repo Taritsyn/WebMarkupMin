@@ -6,7 +6,7 @@ namespace WebMarkupMin.MsAjax
 	/// Microsoft Ajax JS Minifier factory
 	/// </summary>
 	public sealed class MsAjaxJsMinifierFactory : IJsMinifierFactory
-    {
+	{
 		/// <summary>
 		/// Gets or sets a minification settings used to configure the Microsoft Ajax JS Minifier
 		/// </summary>

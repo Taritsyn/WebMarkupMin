@@ -7,7 +7,7 @@ using WebMarkupMin.AspNet.Common;
 
 namespace WebMarkupMin.AspNet5
 {
-    public class WebMarkupMinServicesBuilder
+	public class WebMarkupMinServicesBuilder
 	{
 		/// <summary>
 		/// Collection of service descriptors

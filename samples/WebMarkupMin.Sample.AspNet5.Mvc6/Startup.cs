@@ -2,10 +2,10 @@ using System.Collections.Generic;
 
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+using Microsoft.Dnx.Runtime;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
-using Microsoft.Framework.Runtime;
 
 using WebMarkupMin.AspNet.Common.UrlMatchers;
 using WebMarkupMin.AspNet5;
@@ -18,7 +18,7 @@ namespace WebMarkupMin.Sample.AspNet5.Mvc6
 {
 	public class Startup
 	{
-		public IConfiguration Configuration
+		public IConfigurationRoot Configuration
 		{
 			get;
 			set;
@@ -103,6 +103,7 @@ namespace WebMarkupMin.Sample.AspNet5.Mvc6
 		{
 			loggerFactory.MinimumLevel = LogLevel.Information;
 			loggerFactory.AddConsole();
+			loggerFactory.AddDebug();
 
 			// Configure the HTTP request pipeline.
 

@@ -6,7 +6,7 @@ namespace WebMarkupMin.Sample.Logic.Models
 	/// Minification statistics
 	/// </summary>
 	public sealed class MinificationStatisticsViewModel
-    {
+	{
 		/// <summary>
 		/// Gets a size of original code in bytes
 		/// </summary>
@@ -134,5 +134,5 @@ namespace WebMarkupMin.Sample.Logic.Models
 
 			return formattedSize;
 		}
-    }
+	}
 }

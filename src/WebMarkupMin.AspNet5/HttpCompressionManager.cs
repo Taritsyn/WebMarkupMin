@@ -6,5 +6,5 @@ namespace WebMarkupMin.AspNet5
 	/// HTTP compression manager
 	/// </summary>
 	public sealed class HttpCompressionManager : HttpCompressionManagerBase
-    { }
+	{ }
 }

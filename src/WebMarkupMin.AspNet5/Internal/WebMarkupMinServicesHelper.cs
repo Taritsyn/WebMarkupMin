@@ -8,7 +8,7 @@ namespace WebMarkupMin.AspNet5.Internal
 	/// Helper class which contains WebMarkupMinServices related helpers
 	/// </summary>
 	internal static class WebMarkupMinServicesHelper
-    {
+	{
 		/// <summary>
 		/// Throws <see cref="InvalidOperationException"/> when <see cref="WebMarkupMinMarkerService"/>
 		/// is not present in the list of services

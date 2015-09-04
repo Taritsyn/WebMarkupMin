@@ -8,7 +8,7 @@ namespace WebMarkupMin.AspNet5
 	/// Sets up default options for <see cref="WebMarkupMinOptions"/>
 	/// </summary>
 	public class WebMarkupMinOptionsSetup : ConfigureOptions<WebMarkupMinOptions>
-    {
+	{
 		/// <summary>
 		/// Hosting environment
 		/// </summary>

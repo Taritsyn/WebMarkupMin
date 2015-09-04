@@ -6,7 +6,7 @@ namespace WebMarkupMin.AspNet5
 	/// WebMarkupMin options extensions
 	/// </summary>
 	public static class WebMarkupMinOptionsExtensions
-    {
+	{
 		/// <summary>
 		/// Checks whether the markup minification is enabled
 		/// </summary>

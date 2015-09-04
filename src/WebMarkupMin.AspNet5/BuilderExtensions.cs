@@ -26,6 +26,6 @@ namespace WebMarkupMin.AspNet5
 			WebMarkupMinServicesHelper.ThrowIfWebMarkupMinNotRegistered(services);
 
 			return app.UseMiddleware<WebMarkupMinMiddleware>();
-        }
+		}
 	}
 }

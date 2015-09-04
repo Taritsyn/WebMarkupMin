@@ -2,7 +2,7 @@
 using System.IO;
 
 #if DNXCORE50 || DNX451
-using Microsoft.Framework.Runtime;
+using Microsoft.Dnx.Runtime;
 #elif NET40
 using System.Web;
 #else

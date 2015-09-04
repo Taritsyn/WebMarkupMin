@@ -54,6 +54,6 @@ namespace WebMarkupMin.AspNet.Common
 		public bool IsSupportedMediaType(string mediaType)
 		{
 			return _textBasedContentTypePrefixRegex.IsMatch(mediaType);
-        }
+		}
 	}
 }

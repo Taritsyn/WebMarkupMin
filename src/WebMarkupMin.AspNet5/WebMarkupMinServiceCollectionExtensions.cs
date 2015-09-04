@@ -10,8 +10,8 @@ using WebMarkupMin.Core.Loggers;
 
 namespace WebMarkupMin.AspNet5
 {
-    public static class WebMarkupMinServiceCollectionExtensions
-    {
+	public static class WebMarkupMinServiceCollectionExtensions
+	{
 		/// <summary>
 		/// Configures a set of <see cref="WebMarkupMinOptions"/> for the application
 		/// </summary>

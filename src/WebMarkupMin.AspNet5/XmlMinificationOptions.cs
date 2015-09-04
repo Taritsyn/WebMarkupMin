@@ -9,7 +9,7 @@ namespace WebMarkupMin.AspNet5
 	/// XML minification options
 	/// </summary>
 	public sealed class XmlMinificationOptions : MarkupMinificationOptionsBase<XmlMinificationSettings>
-    {
+	{
 		/// <summary>
 		/// Constructs a instance of XML minification options
 		/// </summary>
