@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-             README file for Web Markup Minifier: ASP.NET 5 v2.0.0 Beta 2
+             README file for Web Markup Minifier: ASP.NET 5 v2.0.0 Beta 4
 
    --------------------------------------------------------------------------------
 
@@ -16,9 +16,9 @@
    =============
    RELEASE NOTES
    =============
-   Was made refactoring.
+   Added support of ASP.NET 5 Beta 7.
 
    =============
    DOCUMENTATION
    =============
-   See more detailed information on GitHub - http://github.com/Taritsyn/WebMarkupMin
+   See documentation on GitHub - http://github.com/Taritsyn/WebMarkupMin/wiki

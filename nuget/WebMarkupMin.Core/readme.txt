@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                README file for Web Markup Minifier: Core v2.0.0 Beta 2
+                README file for Web Markup Minifier: Core v2.0.0 Beta 4
 
    --------------------------------------------------------------------------------
 
@@ -18,7 +18,7 @@
 
    WebMarkupMin absorbed the best of existing solutions from non-microsoft
    platforms: Juriy Zaytsev's Experimental HTML Minifier
-   (http://kangax.github.com/html-minifier/) (written in JavaScript) and Sergiy
+   (http://github.com/kangax/html-minifier/) (written in JavaScript) and Sergiy
    Kovalchuk's HtmlCompressor (http://code.google.com/p/htmlcompressor/) (written
    in Java).
 
@@ -44,9 +44,9 @@
    =============
    RELEASE NOTES
    =============
-   Was made refactoring.
+   Added support of ASP.NET 5 Beta 7.
 
    =============
    DOCUMENTATION
    =============
-   See more detailed information on GitHub - http://github.com/Taritsyn/WebMarkupMin
+   See documentation on GitHub - http://github.com/Taritsyn/WebMarkupMin/wiki

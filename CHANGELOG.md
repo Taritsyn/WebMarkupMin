@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## September 4, 2015 - v2.0.0 Beta 4
+ * Added support of ASP.NET 5 Beta 7
+
 ## September 1, 2015 - v2.0.0 Beta 3
  * In WebMarkupMin.AspNet4.Mvc fixed a bug “Filtering is not allowed.”, that caused by joint usage of the WebMarkupMin's action filters and the nopCommerce's widgets
 
@@ -14,7 +17,7 @@ Change log
  * Fixed a problems with the NuGet package restore
 
 ## July 31, 2015 - v2.0.0 Alpha 2
- * Added support of ASP.NET 5 beta 6
+ * Added support of ASP.NET 5 Beta 6
  * Now during HTTP compression the deflate algorithm has a higher priority than the gzip algorithm
 
 ## July 17, 2015 - v2.0.0 Alpha 1

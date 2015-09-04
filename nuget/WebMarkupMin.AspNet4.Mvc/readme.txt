@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-          README file for Web Markup Minifier: ASP.NET 4.X MVC v2.0.0 Beta 3
+          README file for Web Markup Minifier: ASP.NET 4.X MVC v2.0.0 Beta 4
 
    --------------------------------------------------------------------------------
 
@@ -18,12 +18,6 @@
    Deflate).
 
    =============
-   RELEASE NOTES
-   =============
-   Fixed a bug “Filtering is not allowed.”, that caused by joint usage of the
-   WebMarkupMin's action filters and the nopCommerce's widgets.
-
-   =============
    DOCUMENTATION
    =============
-   See more detailed information on GitHub - http://github.com/Taritsyn/WebMarkupMin
+   See documentation on GitHub - http://github.com/Taritsyn/WebMarkupMin/wiki

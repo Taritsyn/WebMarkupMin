@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                README file for Web Markup Minifier: YUI v2.0.0 Beta 2
+                README file for Web Markup Minifier: YUI v2.0.0 Beta 4
 
    --------------------------------------------------------------------------------
 
@@ -17,11 +17,6 @@
    (http://github.com/PureKrome/YUICompressor.NET).
 
    =============
-   RELEASE NOTES
-   =============
-   Was made refactoring.
-
-   =============
    DOCUMENTATION
    =============
-   See more detailed information on GitHub - http://github.com/Taritsyn/WebMarkupMin
+   See documentation on GitHub - http://github.com/Taritsyn/WebMarkupMin/wiki

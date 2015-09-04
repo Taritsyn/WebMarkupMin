@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-           README file for Web Markup Minifier: ASP.NET Common v2.0.0 Beta 2
+           README file for Web Markup Minifier: ASP.NET Common v2.0.0 Beta 4
 
    --------------------------------------------------------------------------------
 
@@ -15,11 +15,6 @@
    interfaces for all ASP.NET extensions.
 
    =============
-   RELEASE NOTES
-   =============
-   Was made refactoring.
-
-   =============
    DOCUMENTATION
    =============
-   See more detailed information on GitHub - http://github.com/Taritsyn/WebMarkupMin
+   See documentation on GitHub - http://github.com/Taritsyn/WebMarkupMin/wiki
