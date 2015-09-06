@@ -10,12 +10,12 @@
 		<title>@if (!string.IsNullOrEmpty(ViewBag.Title)) {<text>@ViewBag.Title | </text>}WebMarkupMin Sample ASP.NET 5 Core MVC 6 Site</title>
 		<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon">
 		<environment names="Development">
-			<link rel="stylesheet" href="~/styles/build/app.css" asp-file-version="true" />
-			<script src="~/scripts/lib/modernizr.js" asp-file-version="true"></script>
+			<link rel="stylesheet" href="~/styles/build/app.css" asp-append-version="true" />
+			<script src="~/scripts/lib/modernizr.js" asp-append-version="true"></script>
 		</environment>
 		<environment names="Staging,Production">
-			<link rel="stylesheet" href="~/styles/build/common-styles.min.css" asp-file-version="true" />
-			<script src="~/scripts/build/modernizr.min.js" asp-file-version="true"></script>
+			<link rel="stylesheet" href="~/styles/build/common-styles.min.css" asp-append-version="true" />
+			<script src="~/scripts/build/modernizr.min.js" asp-append-version="true"></script>
 		</environment>
 	</head>
 	<body>
