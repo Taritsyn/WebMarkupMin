@@ -30,5 +30,5 @@ Requires NuGet Package Manager version 2.8.6 or higher.
 ## Documentation
 Documentation is located on the [wiki](http://github.com/Taritsyn/WebMarkupMin/wiki) of this Repo.
 
-## Mailing List 
-If you want to get information about new releases, then join to the [WebMarkupMin group](https://groups.google.com/forum/#!forum/webmarkupmin) on Google Groups.
+## Previous Versions
+Source code and documentation for previous versions of WebMarkupMin are located on [CodePlex](http://webmarkupmin.codeplex.com/).
