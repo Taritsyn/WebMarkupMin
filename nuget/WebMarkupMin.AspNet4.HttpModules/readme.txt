@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-      README file for Web Markup Minifier: ASP.NET 4.X HTTP modules v2.0.0 Beta 4
+      README file for Web Markup Minifier: ASP.NET 4.X HTTP modules v2.0.0 Beta 5
 
    --------------------------------------------------------------------------------
 
