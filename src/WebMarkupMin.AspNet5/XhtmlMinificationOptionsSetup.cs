@@ -42,14 +42,12 @@ namespace WebMarkupMin.AspNet5
 		public static void ConfigureXhtmlMinificationOptions(XhtmlMinificationOptions options)
 		{ }
 
-		public override void Configure(
-			[NotNull] XhtmlMinificationOptions options,
-			string name = "")
+		public override void Configure([NotNull] XhtmlMinificationOptions options)
 		{
 			options.CssMinifierFactory = _cssMinifierFactory;
 			options.JsMinifierFactory = _jsMinifierFactory;
 
-			base.Configure(options, name);
+			base.Configure(options);
 		}
 	}
 }

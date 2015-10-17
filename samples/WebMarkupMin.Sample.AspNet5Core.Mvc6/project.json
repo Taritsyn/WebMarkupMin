@@ -1,34 +1,34 @@
 {
 	"webroot": "wwwroot",
-	"version": "2.0.0-beta4",
+	"version": "2.0.0-beta5",
 
 	"dependencies": {
-		"Microsoft.AspNet.Diagnostics": "1.0.0-beta7",
-		"Microsoft.AspNet.Mvc": "6.0.0-beta7",
-		"Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta7",
-		"Microsoft.AspNet.Server.IIS": "1.0.0-beta7",
-		"Microsoft.AspNet.Server.Kestrel": "1.0.0-beta7",
-		"Microsoft.AspNet.Server.WebListener": "1.0.0-beta7",
-		"Microsoft.AspNet.StaticFiles": "1.0.0-beta7",
-		"Microsoft.AspNet.Tooling.Razor": "1.0.0-beta7",
-		"Microsoft.Framework.Configuration.Json": "1.0.0-beta7",
-		"Microsoft.Framework.Logging": "1.0.0-beta7",
-		"Microsoft.Framework.Logging.Console": "1.0.0-beta7",
-		"Microsoft.Framework.Logging.Debug" : "1.0.0-beta7",
-		"WebMarkupMin.AspNet5": "2.0.0-beta4",
-		"WebMarkupMin.Sample.Logic": "2.0.0-beta4",
-		"WebMarkupMin.Sample.Resources": "2.0.0-beta4"
+		"Microsoft.AspNet.Diagnostics": "1.0.0-beta8",
+		"Microsoft.AspNet.IISPlatformHandler": "1.0.0-beta8",
+		"Microsoft.AspNet.Mvc": "6.0.0-beta8",
+		"Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta8",
+		"Microsoft.AspNet.Server.Kestrel": "1.0.0-beta8",
+		"Microsoft.AspNet.Server.WebListener": "1.0.0-beta8",
+		"Microsoft.AspNet.StaticFiles": "1.0.0-beta8",
+		"Microsoft.AspNet.Tooling.Razor": "1.0.0-beta8",
+		"Microsoft.Framework.Configuration.Json": "1.0.0-beta8",
+		"Microsoft.Framework.Logging": "1.0.0-beta8",
+		"Microsoft.Framework.Logging.Console": "1.0.0-beta8",
+		"Microsoft.Framework.Logging.Debug" : "1.0.0-beta8",
+		"WebMarkupMin.AspNet5": "2.0.0-beta5",
+		"WebMarkupMin.Sample.Logic": "2.0.0-beta5",
+		"WebMarkupMin.Sample.Resources": "2.0.0-beta5"
 	},
 
 	"commands": {
 		"kestrel": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.Kestrel --config hosting.ini",
-		"web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --config hosting.ini"
+		"web": "Microsoft.AspNet.Server.Kestrel"
 	},
 
 	"frameworks": {
 		"dnxcore50": {
 			"dependencies": {
-				"System.Runtime.Serialization.Primitives": "4.0.11-beta-23225"
+				"System.Runtime.Serialization.Primitives": "4.0.11-beta-23409"
 			}
 		}
 	},

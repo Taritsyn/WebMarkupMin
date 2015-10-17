@@ -1,10 +1,11 @@
-﻿using System;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using System.Collections.Generic;
 
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;
+using Microsoft.AspNet.Mvc.Infrastructure;
 using Microsoft.AspNet.Mvc.Rendering;
+using Microsoft.AspNet.Mvc.Routing;
 using Microsoft.Dnx.Runtime;
 using Microsoft.Framework.Configuration;
 using Microsoft.Net.Http.Headers;
@@ -91,17 +92,15 @@ namespace WebMarkupMin.Sample.AspNet5Core.Mvc6.Controllers
 		[NonAction]
 		private string GetAbsoluteUrl(string controllerName, string actionName)
 		{
-			IServiceProvider services = Context.RequestServices;
-
 			var urlHelper = new UrlHelper(
-				(IActionContextAccessor)services.GetService(typeof(IActionContextAccessor)),
-				(IActionSelector)services.GetService(typeof(IActionSelector)));
+				(IActionContextAccessor)Resolver.GetService(typeof(IActionContextAccessor)),
+				(IActionSelector)Resolver.GetService(typeof(IActionSelector)));
 			string url = urlHelper.Action(actionName, controllerName);
 
 			string absoluteUrl = string.Empty;
 			if (url != null)
 			{
-				HttpRequest request = Context.Request;
+				HttpRequest request = ActionContext.HttpContext.Request;
 				absoluteUrl = request.Scheme + "://" + request.Host + url;
 			}
 

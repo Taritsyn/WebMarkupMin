@@ -19,7 +19,7 @@ namespace WebMarkupMin.AspNet5
 		{
 			_logger = logger;
 
-			XmlMinificationOptions minificationOptions = options.Options;
+			XmlMinificationOptions minificationOptions = options.Value;
 			MinificationSettings = minificationOptions.MinificationSettings;
 			SupportedMediaTypes = minificationOptions.SupportedMediaTypes;
 			IncludedPages = minificationOptions.IncludedPages;

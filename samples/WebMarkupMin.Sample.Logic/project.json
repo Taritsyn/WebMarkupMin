@@ -1,5 +1,5 @@
 ﻿{
-	"version": "2.0.0-beta4",
+	"version": "2.0.0-beta5",
 	"description": "",
 	"authors": [ "" ],
 	"tags": [ "" ],
@@ -8,17 +8,17 @@
 
 	"dependencies": {
 		"AutoMapper": "4.0.0-alpha1",
-		"Microsoft.AspNet.Mvc.Core": "6.0.0-beta7",
-		"Microsoft.AspNet.Mvc.ViewFeatures": "6.0.0-beta7",
-		"WebMarkupMin.Core": "2.0.0-beta4",
-		"WebMarkupMin.Sample.Resources": "2.0.0-beta4"
+		"Microsoft.AspNet.Mvc.Core": "6.0.0-beta8",
+		"Microsoft.AspNet.Mvc.ViewFeatures": "6.0.0-beta8",
+		"WebMarkupMin.Core": "2.0.0-beta5",
+		"WebMarkupMin.Sample.Resources": "2.0.0-beta5"
 	},
 
 	"frameworks": {
 		"dnx451": {
 			"dependencies": {
-				"WebMarkupMin.MsAjax": "2.0.0-beta4",
-				"WebMarkupMin.Yui": "2.0.0-beta4"
+				"WebMarkupMin.MsAjax": "2.0.0-beta5",
+				"WebMarkupMin.Yui": "2.0.0-beta5"
 			}
 		},
 		"dnxcore50": {

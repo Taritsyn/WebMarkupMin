@@ -9,6 +9,7 @@ using Microsoft.AspNet.Http;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Internal;
 using Microsoft.Framework.OptionsModel;
+using Microsoft.Framework.Primitives;
 using Microsoft.Net.Http.Headers;
 
 using WebMarkupMin.AspNet.Common;
@@ -55,7 +56,7 @@ namespace WebMarkupMin.AspNet5
 			[NotNull] IServiceProvider services)
 		{
 			_next = next;
-			_options = options.Options;
+			_options = options.Value;
 
 			var minificationManagers = new List<IMarkupMinificationManager>();
 
@@ -141,6 +142,10 @@ namespace WebMarkupMin.AspNet5
 
 					string content = encoding.GetString(cacheBytes);
 					string processedContent = content;
+					Action<string, string> appendHttpHeader = (key, value) =>
+					{
+						response.Headers.Append(key, new StringValues(value));
+					};
 
 					if (useMinification)
 					{
@@ -157,7 +162,7 @@ namespace WebMarkupMin.AspNet5
 									processedContent = minificationResult.MinifiedContent;
 									if (_options.IsPoweredByHttpHeadersEnabled())
 									{
-										minificationManager.AppendPoweredByHttpHeader(response.Headers.Append);
+										minificationManager.AppendPoweredByHttpHeader(appendHttpHeader);
 									}
 
 									isProcessed = true;
@@ -177,7 +182,7 @@ namespace WebMarkupMin.AspNet5
 
 						ICompressor compressor = _compressionManager.CreateCompressor(acceptEncoding);
 						Stream compressedStream = compressor.Compress(originalStream);
-						compressor.AppendHttpHeaders(response.Headers.Append);
+						compressor.AppendHttpHeaders(appendHttpHeader);
 
 						using (var writer = new StreamWriter(compressedStream, encoding))
 						{

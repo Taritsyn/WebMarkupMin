@@ -470,6 +470,11 @@
 		<xs:all>
 			<xs:element name="jsEngine" type="JsEngineSettings_SchemaType" minOccurs="0" maxOccurs="1" />
 		</xs:all>
+		<xs:attribute name="experimentalAsyncFunctions" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to enable experimental support for ES7 async functions</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 		<xs:attribute name="newLine" use="optional" default="CrLf">
 			<xs:annotation>
 				<xs:documentation>End of line sequence, that used when emitting files: 'CRLF' (dos) or 'LF' (unix)</xs:documentation>
@@ -493,7 +498,7 @@
 		</xs:attribute>
 		<xs:attribute name="noEmitOnError" type="Boolean_SchemaType" use="optional" default="false">
 			<xs:annotation>
-				<xs:documentation>Flag for whether to do not emit outputs if any type checking errors were reported</xs:documentation>
+				<xs:documentation>Flag for whether to do not emit outputs if any errors were reported</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="noImplicitAny" type="Boolean_SchemaType" use="optional" default="false">
@@ -516,9 +521,19 @@
 				<xs:documentation>Flag for whether to do not emit comments to output</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+		<xs:attribute name="skipDefaultLibCheck" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to skip a default library checking</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 		<xs:attribute name="stripInternal" type="Boolean_SchemaType" use="optional" default="false">
 			<xs:annotation>
 				<xs:documentation>Flag for whether to do not emit declarations for code that has an `@internal` annotation</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="suppressExcessPropertyErrors" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to suppress excess property checks for object literals</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="suppressImplicitAnyIndexErrors" type="Boolean_SchemaType" use="optional" default="false">
@@ -660,11 +675,6 @@
 		<xs:attribute name="cascade" type="Boolean_SchemaType" use="optional" default="true">
 			<xs:annotation>
 				<xs:documentation>Flag for whether to create nice visual cascade of prefixes</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="safe" type="Boolean_SchemaType" use="optional" default="false">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to enable the special safe mode to parse broken CSS</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="remove" type="Boolean_SchemaType" use="optional" default="true">
@@ -1626,7 +1636,7 @@ to preserve references to external symbols.</xs:documentation>
 				<xs:documentation>Flag for whether to hoist function declarations</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="keepFunctionArgs" type="Boolean_SchemaType" use="optional" default="false">
+		<xs:attribute name="keepFunctionArgs" type="Boolean_SchemaType" use="optional" default="true">
 			<xs:annotation>
 				<xs:documentation>Flag for whether to prevent the compressor from discarding unused function arguments</xs:documentation>
 			</xs:annotation>

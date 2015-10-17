@@ -32,12 +32,11 @@ namespace WebMarkupMin.AspNet5
 		{ }
 
 		public override void Configure(
-			[NotNull] WebMarkupMinOptions options,
-			string name = "")
+			[NotNull] WebMarkupMinOptions options)
 		{
 			options.HostingEnvironment = _hostingEnvironment;
 
-			base.Configure(options, name);
+			base.Configure(options);
 		}
 	}
 }

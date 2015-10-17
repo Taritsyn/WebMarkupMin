@@ -4,7 +4,7 @@ using Microsoft.AspNet.Razor.Runtime.TagHelpers;
 
 namespace WebMarkupMin.Sample.AspNet5.Mvc6.Infrastructure.TagHelpers
 {
-	[TargetElement("conditional-comment")]
+	[HtmlTargetElement("conditional-comment")]
 	public class ConditionalCommentTagHelper : TagHelper
 	{
 		[HtmlAttributeName("type")]
