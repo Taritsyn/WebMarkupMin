@@ -58,7 +58,7 @@ namespace {0}
 		private static Lazy<ResourceManager> _resourceManager =
 			new Lazy<ResourceManager>(() => new ResourceManager(
 				""{0}.{1}"",
-#if DOTNET || NET || DNXCORE50 || DNX451
+#if DOTNET5_4 || NET451 || DNXCORE50 || DNX451
 				typeof({1}).GetTypeInfo().Assembly
 #elif NET40
 				typeof({1}).Assembly

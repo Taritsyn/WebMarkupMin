@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Hosting;
-using Microsoft.Framework.Internal;
-using Microsoft.Framework.OptionsModel;
+using Microsoft.Extensions.Internal;
+using Microsoft.Extensions.OptionsModel;
 
 namespace WebMarkupMin.AspNet5
 {

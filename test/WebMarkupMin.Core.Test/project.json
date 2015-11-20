@@ -1,5 +1,5 @@
 ﻿{
-	"version": "2.0.0-beta5",
+	"version": "2.0.0-rc1",
 	"description": "",
 	"authors": [ "" ],
 	"tags": [ "" ],
@@ -8,8 +8,8 @@
 
 	"dependencies": {
 		"xunit": "2.1.0",
-		"xunit.runner.dnx": "2.1.0-beta6-build191",
-		"WebMarkupMin.Core": "2.0.0-beta5"
+		"xunit.runner.dnx": "2.1.0-rc1-build204",
+		"WebMarkupMin.Core": "2.0.0-rc1"
 	},
 
 	"commands": {

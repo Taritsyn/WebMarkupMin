@@ -1,23 +1,26 @@
 {
-	"webroot": "wwwroot",
-	"version": "2.0.0-beta5",
+	"version": "2.0.0-rc1",
+	"compilationOptions": {
+		"emitEntryPoint": true
+	},
 
 	"dependencies": {
-		"Microsoft.AspNet.Diagnostics": "1.0.0-beta8",
-		"Microsoft.AspNet.IISPlatformHandler": "1.0.0-beta8",
-		"Microsoft.AspNet.Mvc": "6.0.0-beta8",
-		"Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta8",
-		"Microsoft.AspNet.Server.Kestrel": "1.0.0-beta8",
-		"Microsoft.AspNet.Server.WebListener": "1.0.0-beta8",
-		"Microsoft.AspNet.StaticFiles": "1.0.0-beta8",
-		"Microsoft.AspNet.Tooling.Razor": "1.0.0-beta8",
-		"Microsoft.Framework.Configuration.Json": "1.0.0-beta8",
-		"Microsoft.Framework.Logging": "1.0.0-beta8",
-		"Microsoft.Framework.Logging.Console": "1.0.0-beta8",
-		"Microsoft.Framework.Logging.Debug" : "1.0.0-beta8",
-		"WebMarkupMin.AspNet5": "2.0.0-beta5",
-		"WebMarkupMin.Sample.Logic": "2.0.0-beta5",
-		"WebMarkupMin.Sample.Resources": "2.0.0-beta5"
+		"Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",
+		"Microsoft.AspNet.IISPlatformHandler": "1.0.0-rc1-final",
+		"Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+		"Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-rc1-final",
+		"Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
+		"Microsoft.AspNet.Server.WebListener": "1.0.0-rc1-final",
+		"Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final",
+		"Microsoft.AspNet.Tooling.Razor": "1.0.0-rc1-final",
+		"Microsoft.Extensions.Configuration.FileProviderExtensions": "1.0.0-rc1-final",
+		"Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",
+		"Microsoft.Extensions.Logging": "1.0.0-rc1-final",
+		"Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
+		"Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
+		"WebMarkupMin.AspNet5": "2.0.0-rc1",
+		"WebMarkupMin.Sample.Logic": "2.0.0-rc1",
+		"WebMarkupMin.Sample.Resources": "2.0.0-rc1"
 	},
 
 	"commands": {

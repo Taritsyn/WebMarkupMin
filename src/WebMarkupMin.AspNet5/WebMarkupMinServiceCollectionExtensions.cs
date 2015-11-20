@@ -1,8 +1,8 @@
 ﻿using System;
 
-using Microsoft.Framework.DependencyInjection;
-using Microsoft.Framework.Internal;
-using Microsoft.Framework.OptionsModel;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Internal;
+using Microsoft.Extensions.OptionsModel;
 
 using WebMarkupMin.AspNet5.Internal;
 using WebMarkupMin.Core;

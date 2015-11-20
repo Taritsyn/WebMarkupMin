@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
-#if !DOTNET && !DNXCORE50
+#if !DOTNET5_4
 [assembly: Guid("b1f01041-b81b-4b0d-b05f-348c0b641e98")]
 #endif
 

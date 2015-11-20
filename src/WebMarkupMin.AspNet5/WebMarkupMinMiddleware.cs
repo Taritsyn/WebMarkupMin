@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Http;
-using Microsoft.Framework.DependencyInjection;
-using Microsoft.Framework.Internal;
-using Microsoft.Framework.OptionsModel;
-using Microsoft.Framework.Primitives;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Internal;
+using Microsoft.Extensions.OptionsModel;
+using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;
 
 using WebMarkupMin.AspNet.Common;

@@ -1,5 +1,5 @@
 {
-	"version": "2.0.0-beta5",
+	"version": "2.0.0-rc1",
 	"description": "",
 	"authors": [ "" ],
 	"tags": [ "" ],
@@ -8,14 +8,10 @@
 
 	"dependencies": {
 		"YUICompressor.NET": "2.7.0",
-		"WebMarkupMin.Core": "2.0.0-beta5"
+		"WebMarkupMin.Core": "2.0.0-rc1"
 	},
 
 	"frameworks": {
-		"dnx451": { }
-	},
-
-	"scripts": {
-		"prebuild": "../../build resx"
+		"net451": { }
 	}
 }

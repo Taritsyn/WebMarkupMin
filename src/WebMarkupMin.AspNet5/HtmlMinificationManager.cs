@@ -1,4 +1,4 @@
-﻿using Microsoft.Framework.OptionsModel;
+﻿using Microsoft.Extensions.OptionsModel;
 
 using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.Core.Loggers;

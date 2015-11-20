@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Microsoft.AspNet.Razor.Runtime.TagHelpers;
+using Microsoft.AspNet.Razor.TagHelpers;
 
 namespace WebMarkupMin.Sample.AspNet5.Mvc6.Infrastructure.TagHelpers
 {

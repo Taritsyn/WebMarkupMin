@@ -1,7 +1,7 @@
 ﻿using System;
 
 using Microsoft.AspNet.Builder;
-using Microsoft.Framework.Internal;
+using Microsoft.Extensions.Internal;
 
 using WebMarkupMin.AspNet5.Internal;
 

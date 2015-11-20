@@ -1,5 +1,5 @@
 {
-	"version": "2.0.0-beta5",
+	"version": "2.0.0-rc1",
 	"description": "",
 	"authors": [ "" ],
 	"tags": [ "" ],
@@ -11,11 +11,11 @@
 	},
 
 	"dependencies": {
-		"WebMarkupMin.Core": "2.0.0-beta5"
+		"WebMarkupMin.Core": "2.0.0-rc1"
 	},
 
 	"frameworks": {
-		"dnx451": { },
-		"dotnet": { }
+		"net451": { },
+		"dotnet5.4": { }
 	}
 }

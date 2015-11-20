@@ -1,5 +1,5 @@
-﻿using Microsoft.Framework.Internal;
-using Microsoft.Framework.OptionsModel;
+﻿using Microsoft.Extensions.Internal;
+using Microsoft.Extensions.OptionsModel;
 
 using WebMarkupMin.Core;
 

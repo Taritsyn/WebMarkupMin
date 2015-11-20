@@ -15,16 +15,16 @@ use-standard-lifecycle
 #resx description='Converts .resx files to .Designer.cs' target='initialize'
 	@{
 		string currentDirPath;
-		string dnxAppDirPath = Environment.GetEnvironmentVariable("DNX_APPBASE");
+		string originalCurrentDirPath = Environment.GetEnvironmentVariable("original_current_dir");
 		string vsProjectDirPath= Environment.GetEnvironmentVariable("VS_PROJECT_DIR");
 		
-		if (!string.IsNullOrEmpty(dnxAppDirPath))
-		{
-			currentDirPath = dnxAppDirPath;
-		}
-		else if (!string.IsNullOrEmpty(vsProjectDirPath))
+		if (!string.IsNullOrEmpty(vsProjectDirPath))
 		{
 			currentDirPath = vsProjectDirPath;
+		}
+		else if (!string.IsNullOrEmpty(originalCurrentDirPath))
+		{
+			currentDirPath = originalCurrentDirPath;
 		}
 		else
 		{

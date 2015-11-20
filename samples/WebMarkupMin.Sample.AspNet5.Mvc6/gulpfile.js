@@ -1,4 +1,6 @@
 /// <binding BeforeBuild='build-assets' Clean='clean-builded-assets' ProjectOpened='copy-libraries, watch-assets' />
+"use strict";
+
 // include plug-ins
 var gulp = require('gulp');
 var del = require('del');
@@ -13,7 +15,7 @@ var uglify = require('gulp-uglify');
 var watch = require('gulp-watch');
 
 var project = require("./project.json");
-var webRootPath = project.webroot;
+var webRootPath = "./wwwroot";
 var bowerDirPath = "bower_components";
 var styleDirPath = webRootPath + '/styles';
 var scriptDirPath = webRootPath + '/scripts';

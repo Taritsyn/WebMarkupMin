@@ -21,7 +21,7 @@ namespace WebMarkupMin.Sample.Resources
 		private static Lazy<ResourceManager> _resourceManager =
 			new Lazy<ResourceManager>(() => new ResourceManager(
 				"WebMarkupMin.Sample.Resources.XhtmlMinificationStrings",
-#if DOTNET || NET || DNXCORE50 || DNX451
+#if DOTNET5_4 || NET451 || DNXCORE50 || DNX451
 				typeof(XhtmlMinificationStrings).GetTypeInfo().Assembly
 #elif NET40
 				typeof(XhtmlMinificationStrings).Assembly
