@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## November 20, 2015 - v2.0.0 RC 1
+ * Added support of .NET Core and ASP.NET 5 RC 1
+
 ## October 17, 2015 - v2.0.0 Beta 5
  * Added support of ASP.NET 5 Beta 8
 
