@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.RegularExpressions;
 
 using WebMarkupMin.Core.Resources;
@@ -63,6 +64,27 @@ namespace WebMarkupMin.Core.Utilities
 		internal static string RemoveEndingSemicolon(string value)
 		{
 			return _endingSemicolonWithSpacesRegex.Replace(value, string.Empty);
+		}
+
+		/// <summary>
+		/// Removes a BOM from text content
+		/// </summary>
+		internal static string RemoveByteOrderMark(string value)
+		{
+			if (value == null)
+			{
+				throw new ArgumentNullException("value");
+			}
+
+			string bomPreamble = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
+			if (value.IndexOf(bomPreamble, StringComparison.OrdinalIgnoreCase) == -1)
+			{
+				return value;
+			}
+
+			string result = value.Replace(bomPreamble, string.Empty);
+
+			return result;
 		}
 
 		/// <summary>

@@ -429,6 +429,7 @@ namespace WebMarkupMin.Core
 			bool generateStatistics)
 		{
 			MinificationStatistics statistics = null;
+			string cleanedContent = Utils.RemoveByteOrderMark(content);
 			string minifiedContent = string.Empty;
 			var errors = new List<MinificationErrorInfo>();
 			var warnings = new List<MinificationErrorInfo>();
@@ -443,10 +444,10 @@ namespace WebMarkupMin.Core
 					if (generateStatistics)
 					{
 						statistics = new MinificationStatistics(_encoding);
-						statistics.Init(content);
+						statistics.Init(cleanedContent);
 					}
 
-					_result = new StringBuilder(content.Length);
+					_result = new StringBuilder(cleanedContent.Length);
 					_buffer = new List<string>();
 					_errors = new List<MinificationErrorInfo>();
 					_warnings = new List<MinificationErrorInfo>();
@@ -455,7 +456,7 @@ namespace WebMarkupMin.Core
 					_currentTag = null;
 					_currentText = string.Empty;
 
-					_htmlParser.Parse(content);
+					_htmlParser.Parse(cleanedContent);
 
 					FlushBuffer();
 

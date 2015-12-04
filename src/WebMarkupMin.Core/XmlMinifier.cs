@@ -168,6 +168,7 @@ namespace WebMarkupMin.Core
 			bool generateStatistics)
 		{
 			MinificationStatistics statistics = null;
+			string cleanedContent = Utils.RemoveByteOrderMark(content);
 			string minifiedContent = string.Empty;
 			var errors = new List<MinificationErrorInfo>();
 
@@ -178,16 +179,16 @@ namespace WebMarkupMin.Core
 					if (generateStatistics)
 					{
 						statistics = new MinificationStatistics(encoding);
-						statistics.Init(content);
+						statistics.Init(cleanedContent);
 					}
 
-					_result = new StringBuilder(content.Length);
+					_result = new StringBuilder(cleanedContent.Length);
 					_buffer = new List<string>();
 					_errors = new List<MinificationErrorInfo>();
 					_currentNodeType = XmlNodeType.Unknown;
 					_currentText = string.Empty;
 
-					_xmlParser.Parse(content);
+					_xmlParser.Parse(cleanedContent);
 
 					FlushBuffer();
 
