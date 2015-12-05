@@ -4,7 +4,7 @@ using Xunit;
 
 namespace WebMarkupMin.Core.Test
 {
-	public class XhtmlMinifierTests
+	public class XhtmlMinifierTests : MarkupMinifierTestsBase
 	{
 		#region Processing XML nodes
 		[Fact]

@@ -69,6 +69,8 @@ namespace WebMarkupMin.Core.Utilities
 		/// <summary>
 		/// Removes a BOM from text content
 		/// </summary>
+		/// <param name="value">String value</param>
+		/// <returns>String value without BOM</returns>
 		internal static string RemoveByteOrderMark(string value)
 		{
 			if (value == null)
