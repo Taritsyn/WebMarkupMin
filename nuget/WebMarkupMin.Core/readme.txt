@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                 README file for Web Markup Minifier: Core v2.0.0 RC 1
+                 README file for Web Markup Minifier: Core v2.0.0 RC 2
 
    --------------------------------------------------------------------------------
 
@@ -44,7 +44,7 @@
    =============
    RELEASE NOTES
    =============
-   Added support of .NET Core 5 RC 1.
+   Now during minification removes the byte order mark (BOM).
 
    =============
    DOCUMENTATION
