@@ -52,7 +52,9 @@ namespace WebMarkupMin.AspNet4.Mvc
 			HttpResponseBase response = context.Response;
 			string mediaType = response.ContentType;
 
-			if (response.Filter != null && _compressionManager.IsSupportedMediaType(mediaType))
+			if (response.Filter != null
+				&& response.StatusCode == 200
+				&& _compressionManager.IsSupportedMediaType(mediaType))
 			{
 				context.Items["originalResponseFilter"] = response.Filter;
 

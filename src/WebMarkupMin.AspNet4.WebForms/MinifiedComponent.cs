@@ -86,7 +86,8 @@ namespace WebMarkupMin.AspNet4.WebForms
 					string mediaType = response.ContentType;
 					string currentUrl = request.RawUrl;
 
-					if (_configuration.IsAllowableResponseSize(responseSize)
+					if (response.StatusCode == 200
+						&& _configuration.IsAllowableResponseSize(responseSize)
 						&& _minificationManager.IsSupportedMediaType(mediaType)
 						&& _minificationManager.IsProcessablePage(currentUrl))
 					{
