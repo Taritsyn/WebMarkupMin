@@ -21,8 +21,8 @@ In addition, there are several modules that integrate this library into ASP.NET:
 
 ### ASP.NET Extensions
  * [WebMarkupMin: ASP.NET 4.X HTTP modules](http://nuget.org/packages/WebMarkupMin.AspNet4.HttpModules/2.0.0-rc1) (supports .NET Framework 4.X)
- * [WebMarkupMin: ASP.NET 4.X MVC](http://nuget.org/packages/WebMarkupMin.AspNet4.Mvc/2.0.0-rc1) (supports .NET Framework 4.X)
- * [WebMarkupMin: ASP.NET 4.X Web Forms](http://nuget.org/packages/WebMarkupMin.AspNet4.WebForms/2.0.0-rc1) (supports .NET Framework 4.X)
+ * [WebMarkupMin: ASP.NET 4.X MVC](http://nuget.org/packages/WebMarkupMin.AspNet4.Mvc/2.0.0-rc3) (supports .NET Framework 4.X)
+ * [WebMarkupMin: ASP.NET 4.X Web Forms](http://nuget.org/packages/WebMarkupMin.AspNet4.WebForms/2.0.0-rc3) (supports .NET Framework 4.X)
  * [WebMarkupMin: ASP.NET 5](http://nuget.org/packages/WebMarkupMin.AspNet5/2.0.0-rc1) (supports DNX 4.5.1 and DNX Core 5.0)
 
 Requires NuGet Package Manager version 2.8.6 or higher.

@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## February 23, 2016 - v2.0.0 RC 3
+ * Now in WebMarkupMin.AspNet4.Mvc and WebMarkupMin.AspNet4.WebForms the responses with status codes are not equal to 200 is not minified and compressed
+
 ## December 5, 2015 - v2.0.0 RC 2
  * Now during minification removes the byte order mark (BOM)
 
