@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## March 17, 2016 - v2.0.0 RC 4
+ * Fixed a [error #3](https://github.com/Taritsyn/WebMarkupMin/issues/3) “NullReferenceException with FileContentResult in ASP.vNext RC1”
+
 ## February 23, 2016 - v2.0.0 RC 3
  * Now in WebMarkupMin.AspNet4.Mvc and WebMarkupMin.AspNet4.WebForms the responses with status codes are not equal to 200 is not minified and compressed
 

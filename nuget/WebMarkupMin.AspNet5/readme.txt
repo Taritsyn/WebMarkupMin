@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-              README file for Web Markup Minifier: ASP.NET 5 v2.0.0 RC 1
+              README file for Web Markup Minifier: ASP.NET 5 v2.0.0 RC 4
 
    --------------------------------------------------------------------------------
 
@@ -16,7 +16,7 @@
    =============
    RELEASE NOTES
    =============
-   Added support of ASP.NET 5 RC 1.
+   Fixed a error #3 “NullReferenceException with FileContentResult in ASP.vNext RC1”.
 
    =============
    DOCUMENTATION
