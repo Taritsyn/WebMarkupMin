@@ -120,7 +120,7 @@ namespace WebMarkupMin.AspNet5
 				{
 					string contentType = response.ContentType;
 					string mediaType = null;
-					Encoding encoding = Encoding.GetEncoding(0);
+					Encoding encoding = null;
 
 					if (contentType != null)
 					{
@@ -132,6 +132,8 @@ namespace WebMarkupMin.AspNet5
 							encoding = mediaTypeHeader.Encoding;
 						}
 					}
+
+					encoding = encoding ?? Encoding.GetEncoding(0);
 
 					string currentUrl = request.Path.Value;
 					QueryString queryString = request.QueryString;
