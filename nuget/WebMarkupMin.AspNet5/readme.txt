@@ -1,11 +1,11 @@
 
 
    --------------------------------------------------------------------------------
-              README file for Web Markup Minifier: ASP.NET 5 v2.0.0 RC 4
+              README file for Web Markup Minifier: ASP.NET 5 v2.0.0 RC 5
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2015 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2016 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========
@@ -16,7 +16,7 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a error #3 “NullReferenceException with FileContentResult in ASP.vNext RC1”.
+   Fixed a error #6 “Incompatible with DeveloperExceptionPageMiddleware (ASP.NET 5)”.
 
    =============
    DOCUMENTATION

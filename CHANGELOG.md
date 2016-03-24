@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## March 24, 2016 - v2.0.0 RC 5
+ * Fixed a [error #6](https://github.com/Taritsyn/WebMarkupMin/issues/6) “Incompatible with DeveloperExceptionPageMiddleware (ASP.NET 5)”
+
 ## March 17, 2016 - v2.0.0 RC 4
  * Fixed a [error #3](https://github.com/Taritsyn/WebMarkupMin/issues/3) “NullReferenceException with FileContentResult in ASP.vNext RC1”
 

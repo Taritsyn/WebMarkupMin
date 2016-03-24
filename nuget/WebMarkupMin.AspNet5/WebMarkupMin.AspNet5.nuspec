@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>WebMarkupMin.AspNet5</id>
-		<version>2.0.0-rc4</version>
+		<version>2.0.0-rc5</version>
 		<title>Web Markup Minifier: ASP.NET 5</title>
 		<authors>Andrey Taritsyn</authors>
 		<owners>Andrey Taritsyn</owners>
@@ -12,8 +12,8 @@
 		<requireLicenseAcceptance>true</requireLicenseAcceptance>
 		<description>WebMarkupMin.AspNet5 contains one ASP.NET 5 Middleware - `WebMarkupMinMiddleware`.</description>
 		<summary>WebMarkupMin.AspNet5 contains one ASP.NET 5 Middleware - `WebMarkupMinMiddleware`.</summary>
-		<releaseNotes>Fixed a error #3 “NullReferenceException with FileContentResult in ASP.vNext RC1”.</releaseNotes>
-		<copyright>Copyright (c) 2013-2015 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
+		<releaseNotes>Fixed a error #6 “Incompatible with DeveloperExceptionPageMiddleware (ASP.NET 5)”.</releaseNotes>
+		<copyright>Copyright (c) 2013-2016 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
 		<language>en-US</language>
 		<tags>WebMarkupMin ASP.NET Middleware Markup HTML XHTML XML Minification Minifier Minify</tags>
 		<dependencies>
