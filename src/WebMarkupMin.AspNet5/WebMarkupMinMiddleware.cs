@@ -107,7 +107,17 @@ namespace WebMarkupMin.AspNet5
 				Stream originalStream = response.Body;
 				response.Body = cacheStream;
 
-				await _next.Invoke(context);
+				try
+				{
+					await _next.Invoke(context);
+				}
+				catch (Exception)
+				{
+					response.Body = originalStream;
+					cacheStream.SetLength(0);
+
+					throw;
+				}
 
 				byte[] cacheBytes = cacheStream.ToArray();
 				int cacheSize = cacheBytes.Length;

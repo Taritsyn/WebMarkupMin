@@ -89,6 +89,11 @@ namespace WebMarkupMin.Sample.AspNet5Core.Mvc6.Controllers
 			};
 		}
 
+		public IActionResult Error()
+		{
+			return View();
+		}
+
 		[NonAction]
 		private string GetAbsoluteUrl(string controllerName, string actionName)
 		{
