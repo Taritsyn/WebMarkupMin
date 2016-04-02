@@ -43,7 +43,7 @@
 		/// </summary>
 		public bool IsEmpty
 		{
-			get { return (LineNumber == 0 && ColumnNumber == 0); }
+			get { return LineNumber == 0 && ColumnNumber == 0; }
 		}
 
 

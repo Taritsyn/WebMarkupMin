@@ -108,7 +108,7 @@ namespace WebMarkupMin.Sample.Resources
 		}
 
 		/// <summary>
-		/// Looks up a localized string similar to "List of custom Angular directives with expressions"
+		/// Looks up a localized string similar to "List of custom Angular 1.X directives with expressions"
 		/// </summary>
 		public static string DisplayName_CustomAngularDirectiveList
 		{
@@ -124,7 +124,7 @@ namespace WebMarkupMin.Sample.Resources
 		}
 
 		/// <summary>
-		/// Looks up a localized string similar to "Minify Angular binding expressions"
+		/// Looks up a localized string similar to "Minify Angular binding 1.X expressions"
 		/// </summary>
 		public static string DisplayName_MinifyAngularBindingExpressions
 		{

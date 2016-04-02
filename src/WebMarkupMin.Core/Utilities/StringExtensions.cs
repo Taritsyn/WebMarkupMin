@@ -36,12 +36,12 @@ namespace WebMarkupMin.Core.Utilities
 			int count = value.Length;
 			int sourceLength = source.Length;
 
-			if ((sourceLength - startIndex) < count)
+			if (sourceLength - startIndex < count)
 			{
 				return false;
 			}
 
-			return (source.IndexOf(value, startIndex, count, comparisonType) == startIndex);
+			return source.IndexOf(value, startIndex, count, comparisonType) == startIndex;
 		}
 
 		/// <summary>

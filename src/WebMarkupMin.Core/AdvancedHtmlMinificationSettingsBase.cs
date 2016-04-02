@@ -15,6 +15,16 @@
 		}
 
 		/// <summary>
+		/// Gets or sets a flag for whether to preserve case of tag and attribute names
+		/// (useful for Angular 2 templates)
+		/// </summary>
+		public bool PreserveCase
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets a render mode of HTML empty tag
 		/// </summary>
 		public HtmlEmptyTagRenderMode EmptyTagRenderMode

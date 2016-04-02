@@ -410,6 +410,7 @@ namespace WebMarkupMin.Core.DouglasCrockford
 		}
 
 		#region Methods for substitution methods of the C language
+
 		/// <summary>
 		/// Puts a character to output stream
 		/// </summary>
@@ -418,6 +419,7 @@ namespace WebMarkupMin.Core.DouglasCrockford
 		{
 			_writer.Write((char)c);
 		}
+
 		#endregion
 	}
 }

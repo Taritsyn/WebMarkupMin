@@ -14,6 +14,7 @@ namespace WebMarkupMin.Core.Parsers
 	internal sealed class XmlParser
 	{
 		#region Regular expressions for parsing tags and attributes
+
 		private const string NAME_PATTERN = @"[\w-:.]+";
 
 		private static readonly Regex _processingInstructionRegex =
@@ -28,6 +29,7 @@ namespace WebMarkupMin.Core.Parsers
 		private static readonly Regex _attributeRegex = new Regex(@"(?<attributeName>" + NAME_PATTERN + ")" +
 			@"\s*=\s*" +
 			@"(""(?<attributeValue>[^""]*?)""|'(?<attributeValue>[^']*?)')");
+
 		#endregion
 
 		/// <summary>
@@ -172,6 +174,7 @@ namespace WebMarkupMin.Core.Parsers
 		}
 
 		#region Processing methods
+
 		/// <summary>
 		/// Process a XML declaration and processing instructions
 		/// </summary>
@@ -427,9 +430,11 @@ namespace WebMarkupMin.Core.Parsers
 
 			_innerContext.IncreasePosition(text.Length);
 		}
+
 		#endregion
 
 		#region Parsing methods
+
 		/// <summary>
 		/// Parses a attributes
 		/// </summary>
@@ -461,7 +466,10 @@ namespace WebMarkupMin.Core.Parsers
 
 			return attributes;
 		}
+
 		#endregion
+
+		#region Internal types
 
 		/// <summary>
 		/// Stacked XML tag
@@ -498,5 +506,7 @@ namespace WebMarkupMin.Core.Parsers
 				Coordinates = coordinates;
 			}
 		}
+
+		#endregion
 	}
 }

@@ -84,6 +84,14 @@ namespace WebMarkupMin.Sample.Resources
 		}
 
 		/// <summary>
+		/// Looks up a localized string similar to "Preserve case of tag and attribute names"
+		/// </summary>
+		public static string DisplayName_PreserveCase
+		{
+			get { return GetString("DisplayName_PreserveCase"); }
+		}
+
+		/// <summary>
 		/// Looks up a localized string similar to "Remove CDATA sections from scripts and styles"
 		/// </summary>
 		public static string DisplayName_RemoveCdataSectionsFromScriptsAndStyles

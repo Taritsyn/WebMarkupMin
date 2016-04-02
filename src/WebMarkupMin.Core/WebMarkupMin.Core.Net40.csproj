@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="AdvancedHtmlMinificationSettingsBase.cs" />
     <Compile Include="CodeMinificationResult.cs" />
-    <Compile Include="CodeMinifierInfo.cs" />
     <Compile Include="CodeProcessingException.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -60,7 +59,7 @@
     <Compile Include="Helpers\AngularHelpers.cs" />
     <Compile Include="Helpers\JsonHelpers.cs" />
     <Compile Include="Helpers\KnockoutHelpers.cs" />
-    <Compile Include="Helpers\MustacheStyleTagHelpers.cs" />
+    <Compile Include="Helpers\TemplateTagHelpers.cs" />
     <Compile Include="HtmlAttrbuteQuotesRemoveMode.cs">
       <SubType>Code</SubType>
     </Compile>

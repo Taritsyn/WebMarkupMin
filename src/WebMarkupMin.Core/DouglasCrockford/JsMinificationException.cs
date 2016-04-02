@@ -8,8 +8,8 @@ namespace WebMarkupMin.Core.DouglasCrockford
 	internal sealed class JsMinificationException : Exception
 	{
 		/// <summary>
-		/// Initializes a new instance of the WebMarkupMin.Core.DouglasCrockford.JsMinificationException
-		/// class with a specified error message
+		/// Initializes a new instance of the <see cref="JsMinificationException"/> class
+		/// with a specified error message
 		/// </summary>
 		/// <param name="message">The message that describes the error</param>
 		public JsMinificationException(string message)
@@ -17,8 +17,8 @@ namespace WebMarkupMin.Core.DouglasCrockford
 		{ }
 
 		/// <summary>
-		/// Initializes a new instance of the WebMarkupMin.Core.DouglasCrockford.JsMinificationException
-		/// class with a specified error message and a reference to the inner exception that is the cause of
+		/// Initializes a new instance of the <see cref="JsMinificationException"/> class
+		/// with a specified error message and a reference to the inner exception that is the cause of
 		/// this exception
 		/// </summary>
 		/// <param name="message">The error message that explains the reason for the exception</param>

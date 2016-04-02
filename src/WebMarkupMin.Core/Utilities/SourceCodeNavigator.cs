@@ -151,7 +151,7 @@ namespace WebMarkupMin.Core.Utilities
 
 			do
 			{
-				startLinePosition = (lineBreakPosition == int.MinValue) ?
+				startLinePosition = lineBreakPosition == int.MinValue ?
 					fragmentStartPosition : lineBreakPosition + lineBreakLength;
 				int lineLength = fragmentEndPosition - startLinePosition + 1;
 

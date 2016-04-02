@@ -37,15 +37,16 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the WebMarkupMin.Core.CodeProcessingException class
+		/// Initializes a new instance of the <see cref="CodeProcessingException"/> class
 		/// with a specified error message
 		/// </summary>
 		/// <param name="message">Error message that explains the reason for the exception</param>
-		protected CodeProcessingException(string message) : this(message, 0, 0, string.Empty, null)
+		protected CodeProcessingException(string message)
+			: this(message, 0, 0, string.Empty, null)
 		{ }
 
 		/// <summary>
-		/// Initializes a new instance of the WebMarkupMin.Core.CodeProcessingException class
+		/// Initializes a new instance of the <see cref="CodeProcessingException"/> class
 		/// with a specified error message and reference to the inner exception that is
 		/// the cause of this exception
 		/// </summary>
@@ -56,7 +57,7 @@ namespace WebMarkupMin.Core
 		{ }
 
 		/// <summary>
-		/// Initializes a new instance of the WebMarkupMin.Core.CodeProcessingException class
+		/// Initializes a new instance of the <see cref="CodeProcessingException"/> class
 		/// with a specified error message, node coordinates and source fragment
 		/// </summary>
 		/// <param name="message">Error message that explains the reason for the exception</param>
@@ -67,7 +68,7 @@ namespace WebMarkupMin.Core
 		{ }
 
 		/// <summary>
-		/// Initializes a new instance of the WebMarkupMin.Core.CodeProcessingException class
+		/// Initializes a new instance of the <see cref="CodeProcessingException"/> class
 		/// with a specified error message, line number, column number and source fragment
 		/// </summary>
 		/// <param name="message">Error message that explains the reason for the exception</param>
@@ -79,7 +80,7 @@ namespace WebMarkupMin.Core
 		{ }
 
 		/// <summary>
-		/// Initializes a new instance of the WebMarkupMin.Core.CodeProcessingException class
+		/// Initializes a new instance of the <see cref="CodeProcessingException"/> class
 		/// with a specified error message, node coordinates, source fragment
 		/// and reference to the inner exception that is the cause of this exception
 		/// </summary>
@@ -94,7 +95,7 @@ namespace WebMarkupMin.Core
 		{ }
 
 		/// <summary>
-		/// Initializes a new instance of the WebMarkupMin.Core.CodeProcessingException class
+		/// Initializes a new instance of the <see cref="CodeProcessingException"/> class
 		/// with a specified error message, line number, column number, source fragment
 		/// and reference to the inner exception that is the cause of this exception
 		/// </summary>

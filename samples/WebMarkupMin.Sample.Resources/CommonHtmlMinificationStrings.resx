@@ -136,13 +136,13 @@
     <value>CSS minifier</value>
   </data>
   <data name="DisplayName_CustomAngularDirectiveList" xml:space="preserve">
-    <value>List of custom Angular directives with expressions</value>
+    <value>List of custom Angular 1.X directives with expressions</value>
   </data>
   <data name="DisplayName_JsMinifierName" xml:space="preserve">
     <value>JavaScript minifier</value>
   </data>
   <data name="DisplayName_MinifyAngularBindingExpressions" xml:space="preserve">
-    <value>Minify Angular binding expressions</value>
+    <value>Minify Angular binding 1.X expressions</value>
   </data>
   <data name="DisplayName_MinifyEmbeddedCssCode" xml:space="preserve">
     <value>Minify embedded CSS code</value>

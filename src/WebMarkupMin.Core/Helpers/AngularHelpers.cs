@@ -56,7 +56,7 @@ namespace WebMarkupMin.Core.Helpers
 				int position = m.Index;
 				string letter = m.Groups["letter"].Value;
 
-				return (position > 0) ? letter.ToUpperInvariant() : letter;
+				return position > 0 ? letter.ToUpperInvariant() : letter;
 			});
 
 			return result;
@@ -69,8 +69,8 @@ namespace WebMarkupMin.Core.Helpers
 		/// <returns>Result of check (true - is class directive; false - is not class directive)</returns>
 		public static bool IsClassDirective(string className)
 		{
-			bool isClassDirective = (_ngClassDirectiveRegex.IsMatch(className)
-				&& (className.IndexOf(':') != -1 || className.IndexOf(';') != -1));
+			bool isClassDirective = _ngClassDirectiveRegex.IsMatch(className)
+				&& (className.IndexOf(':') != -1 || className.IndexOf(';') != -1);
 
 			return isClassDirective;
 		}

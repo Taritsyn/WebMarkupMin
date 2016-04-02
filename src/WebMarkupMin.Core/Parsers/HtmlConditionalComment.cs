@@ -25,7 +25,7 @@
 
 
 		/// <summary>
-		/// Constructs instance of HTML tag
+		/// Constructs instance of HTML conditional comment
 		/// </summary>
 		/// <param name="expression">Conditional expression</param>
 		/// <param name="type">Conditional comment type</param>

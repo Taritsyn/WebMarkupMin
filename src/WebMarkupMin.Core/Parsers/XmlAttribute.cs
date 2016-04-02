@@ -101,8 +101,8 @@ namespace WebMarkupMin.Core.Parsers
 
 		private static bool ContainsXmlAttributeEncodingChars(string value)
 		{
-			bool result = (value.IndexOf('"') != -1 || value.IndexOf('&') != -1
-				|| value.IndexOf('<') != -1 || value.IndexOf('>') != -1);
+			bool result = value.IndexOf('"') != -1 || value.IndexOf('&') != -1
+				|| value.IndexOf('<') != -1 || value.IndexOf('>') != -1;
 
 			return result;
 		}

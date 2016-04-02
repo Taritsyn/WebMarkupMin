@@ -59,6 +59,7 @@ namespace WebMarkupMin.Core
 		const string CSS_CONTENT_TYPE = "text/css";
 
 		#region Regular expressions
+
 		private static readonly Regex _noindexCommentRegex = new Regex(@"^(?<closingSlash>/)?noindex$",
 			RegexOptions.IgnoreCase);
 		private static readonly Regex _metaContentTypeTagValueRegex =
@@ -100,9 +101,13 @@ namespace WebMarkupMin.Core
 
 		private static readonly Regex _relExternalAttributeRegex = new Regex(@"^(?:alternate\s+)?external$",
 			RegexOptions.IgnoreCase);
+
+		private static readonly Regex _customTagAndAttributeNameRegex = new Regex(@"[^a-zA-Z0-9]");
+
 		#endregion
 
 		#region Lists of tags and attributes
+
 		private static readonly HashSet<string> _emptyAttributesForRemoval = new HashSet<string>
 		{
 			"class", "id", "name", "style", "title", "lang", "dir"
@@ -143,6 +148,7 @@ namespace WebMarkupMin.Core
 			"table",
 			"ul"
 		};
+
 		#endregion
 
 		/// <summary>
@@ -317,7 +323,7 @@ namespace WebMarkupMin.Core
 			_processableScriptTypes = new HashSet<string>(_settings.ProcessableScriptTypeCollection);
 
 			IList<string> customAngularDirectivesWithExpressions = _settings.CustomAngularDirectiveCollection.ToList();
-			_angularDirectivesWithExpressions = (customAngularDirectivesWithExpressions.Count > 0) ?
+			_angularDirectivesWithExpressions = customAngularDirectivesWithExpressions.Count > 0 ?
 				Utils.UnionHashSets(_builtinAngularDirectivesWithExpressions, customAngularDirectivesWithExpressions)
 				:
 				_builtinAngularDirectivesWithExpressions
@@ -355,9 +361,9 @@ namespace WebMarkupMin.Core
 				{
 					_innerXmlMinifier = new XmlMinifier(new XmlMinificationSettings
 					{
-						MinifyWhitespace = (_settings.WhitespaceMinificationMode != WhitespaceMinificationMode.None),
+						MinifyWhitespace = _settings.WhitespaceMinificationMode != WhitespaceMinificationMode.None,
 						RemoveXmlComments = _settings.RemoveHtmlComments,
-						RenderEmptyTagsWithSpace = (_settings.EmptyTagRenderMode != HtmlEmptyTagRenderMode.Slash)
+						RenderEmptyTagsWithSpace = _settings.EmptyTagRenderMode != HtmlEmptyTagRenderMode.Slash
 					});
 				}
 
@@ -482,13 +488,6 @@ namespace WebMarkupMin.Core
 					_tagsWithNotRemovableWhitespaceQueue.Clear();
 					_currentTag = null;
 
-					if (_errors.Count == 0)
-					{
-						_logger.Info(LogCategoryConstants.HtmlMinificationSuccess,
-							string.Format(Strings.SuccesMessage_MarkupMinificationComplete, "HTML"),
-							_fileContext, statistics);
-					}
-
 					errors.AddRange(_errors);
 					warnings.AddRange(_warnings);
 
@@ -499,10 +498,18 @@ namespace WebMarkupMin.Core
 				}
 			}
 
+			if (errors.Count == 0)
+			{
+				_logger.Info(LogCategoryConstants.HtmlMinificationSuccess,
+					string.Format(Strings.SuccesMessage_MarkupMinificationComplete, "HTML"),
+					fileContext, statistics);
+			}
+
 			return new MarkupMinificationResult(minifiedContent, errors, warnings, statistics);
 		}
 
 		#region Handlers
+
 		/// <summary>
 		/// XML declaration handler
 		/// </summary>
@@ -749,24 +756,21 @@ namespace WebMarkupMin.Core
 		private void StartTagHandler(MarkupParsingContext context, HtmlTag tag)
 		{
 			HtmlNodeType previousNodeType = _currentNodeType;
-			string previousTagName = string.Empty;
-			if (_currentTag != null)
-			{
-				previousTagName = _currentTag.Name;
-			}
+			HtmlTag previousTag = _currentTag ?? HtmlTag.Empty;
 
-			if (_settings.UseMetaCharsetTag && IsMetaContentTypeTag(tag.Name, tag.Attributes))
+			if (_settings.UseMetaCharsetTag && IsMetaContentTypeTag(tag))
 			{
 				tag = UpgradeToMetaCharsetTag(tag);
 			}
 
+			string tagName = tag.Name;
+			string tagNameInLowercase = tag.NameInLowercase;
+			HtmlTagFlags tagFlags = tag.Flags;
+			IList<HtmlAttribute> attributes = tag.Attributes;
+
 			_currentNodeType = HtmlNodeType.StartTag;
 			_currentTag = tag;
 			_currentText = string.Empty;
-
-			string tagName = tag.Name;
-			IList<HtmlAttribute> attributes = tag.Attributes;
-			HtmlTagFlags tagFlags = tag.Flags;
 
 			// Set whitespace flags for nested tags (for example <span> within a <pre>)
 			WhitespaceMinificationMode whitespaceMinificationMode = _settings.WhitespaceMinificationMode;
@@ -776,7 +780,7 @@ namespace WebMarkupMin.Core
 				{
 					// Processing of whitespace, that followed before the start tag
 					bool allowTrimEnd = false;
-					if (tagFlags.Invisible || tagFlags.NonIndependent)
+					if (tagFlags.HasFlag(HtmlTagFlags.Invisible) || tagFlags.HasFlag(HtmlTagFlags.NonIndependent))
 					{
 						allowTrimEnd = true;
 					}
@@ -785,7 +789,7 @@ namespace WebMarkupMin.Core
 						if (whitespaceMinificationMode == WhitespaceMinificationMode.Medium
 							|| whitespaceMinificationMode == WhitespaceMinificationMode.Aggressive)
 						{
-							allowTrimEnd = tagFlags.Block;
+							allowTrimEnd = tagFlags.HasFlag(HtmlTagFlags.Block);
 						}
 					}
 
@@ -795,35 +799,39 @@ namespace WebMarkupMin.Core
 					}
 				}
 
-				if (!CanMinifyWhitespace(tagName))
+				if (!CanMinifyWhitespace(tag))
 				{
-					_tagsWithNotRemovableWhitespaceQueue.Enqueue(tagName);
+					_tagsWithNotRemovableWhitespaceQueue.Enqueue(tagNameInLowercase);
 				}
 			}
 
 			if (_settings.RemoveOptionalEndTags
 				&& previousNodeType != HtmlNodeType.StartTag
-				&& !IsSafeOptionalEndTag(previousTagName))
+				&& !IsSafeOptionalEndTag(previousTag))
 			{
-				if (CanRemoveOptionalEndTagByNextTagName(previousTagName, tagName))
+				if (CanRemoveOptionalEndTagByNextTag(previousTag, tag))
 				{
-					RemoveLastEndTagFromBuffer(previousTagName);
+					RemoveLastEndTagFromBuffer(previousTag);
 				}
 
 				FlushBuffer();
 			}
 
 			_buffer.Add("<");
-			_buffer.Add(tagName);
+			_buffer.Add(_settings.PreserveCase ? tagName : tagNameInLowercase);
 
 			int attributeCount = attributes.Count;
 
 			for (int attributeIndex = 0; attributeIndex < attributeCount; attributeIndex++)
 			{
-				_buffer.Add(BuildAttributeString(context, tag, attributes[attributeIndex]));
+				string attributeString = BuildAttributeString(context, tag, attributes[attributeIndex]);
+				if (attributeString.Length > 0)
+				{
+					_buffer.Add(attributeString);
+				}
 			}
 
-			if (tagFlags.Empty)
+			if (tagFlags.HasFlag(HtmlTagFlags.Empty))
 			{
 				if (_settings.EmptyTagRenderMode == HtmlEmptyTagRenderMode.Slash)
 				{
@@ -838,25 +846,15 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Start tags handler
+		/// End tags handler
 		/// </summary>
 		/// <param name="context">Markup parsing context</param>
 		/// <param name="tag">HTML tag</param>
 		private void EndTagHandler(MarkupParsingContext context, HtmlTag tag)
 		{
 			HtmlNodeType previousNodeType = _currentNodeType;
-			string previousTagName;
-			IList<HtmlAttribute> previousTagAttributes;
-			if (_currentTag != null)
-			{
-				previousTagName = _currentTag.Name;
-				previousTagAttributes = _currentTag.Attributes;
-			}
-			else
-			{
-				previousTagName = string.Empty;
-				previousTagAttributes = new List<HtmlAttribute>();
-			}
+			HtmlTag previousTag = _currentTag ?? HtmlTag.Empty;
+			string previousTagNameInLowercase = previousTag.NameInLowercase;
 			string previousText = _currentText;
 
 			_currentNodeType = HtmlNodeType.EndTag;
@@ -864,16 +862,17 @@ namespace WebMarkupMin.Core
 			_currentText = string.Empty;
 
 			string tagName = tag.Name;
+			string tagNameInLowercase = tag.NameInLowercase;
 			HtmlTagFlags tagFlags = tag.Flags;
 
 			WhitespaceMinificationMode whitespaceMinificationMode = _settings.WhitespaceMinificationMode;
 			if (whitespaceMinificationMode != WhitespaceMinificationMode.None)
 			{
-				if (_tagsWithNotRemovableWhitespaceQueue.Count == 0 && !tagFlags.EmbeddedCode)
+				if (_tagsWithNotRemovableWhitespaceQueue.Count == 0 && !tagFlags.HasFlag(HtmlTagFlags.EmbeddedCode))
 				{
 					// Processing of whitespace, that followed before the end tag
 					bool allowTrimEnd = false;
-					if (tagFlags.Invisible)
+					if (tagFlags.HasFlag(HtmlTagFlags.Invisible))
 					{
 						allowTrimEnd = true;
 					}
@@ -881,11 +880,14 @@ namespace WebMarkupMin.Core
 					{
 						if (whitespaceMinificationMode == WhitespaceMinificationMode.Medium)
 						{
-							allowTrimEnd = tagFlags.Block;
+							allowTrimEnd = tagFlags.HasFlag(HtmlTagFlags.Block);
 						}
 						else if (whitespaceMinificationMode == WhitespaceMinificationMode.Aggressive)
 						{
-							allowTrimEnd = (tagFlags.Block || tagFlags.Inline || tagFlags.InlineBlock);
+							allowTrimEnd = tagFlags.HasFlag(HtmlTagFlags.Block)
+								|| tagFlags.HasFlag(HtmlTagFlags.Inline)
+								|| tagFlags.HasFlag(HtmlTagFlags.InlineBlock)
+								;
 						}
 					}
 
@@ -896,7 +898,8 @@ namespace WebMarkupMin.Core
 				}
 
 				// Check if current tag is in a whitespace queue
-				if (_tagsWithNotRemovableWhitespaceQueue.Count > 0 && tagName == _tagsWithNotRemovableWhitespaceQueue.Last())
+				if (_tagsWithNotRemovableWhitespaceQueue.Count > 0
+					&& tagNameInLowercase == _tagsWithNotRemovableWhitespaceQueue.Last())
 				{
 					_tagsWithNotRemovableWhitespaceQueue.Dequeue();
 				}
@@ -904,30 +907,32 @@ namespace WebMarkupMin.Core
 
 			if (_settings.RemoveOptionalEndTags
 				&& (previousNodeType == HtmlNodeType.EndTag
-					|| (previousTagName != tagName && string.IsNullOrWhiteSpace(previousText)))
-				&& !IsSafeOptionalEndTag(previousTagName))
+					|| (previousTagNameInLowercase != tagNameInLowercase && string.IsNullOrWhiteSpace(previousText)))
+				&& !IsSafeOptionalEndTag(previousTag))
 			{
-
-				if (CanRemoveOptionalTagByParentTagName(previousTagName, tagName))
+				if (CanRemoveOptionalTagByParentTag(previousTag, tag))
 				{
-					RemoveLastEndTagFromBuffer(previousTagName);
+					RemoveLastEndTagFromBuffer(previousTag);
 				}
 			}
 
-			bool isElementEmpty = (string.IsNullOrWhiteSpace(previousText) && previousTagName == tagName
-				&& previousNodeType != HtmlNodeType.EndTag);
+			bool isElementEmpty = string.IsNullOrWhiteSpace(previousText)
+				&& previousTagNameInLowercase == tagNameInLowercase
+				&& previousNodeType != HtmlNodeType.EndTag;
 			if (_settings.RemoveTagsWithoutContent && isElementEmpty
-				&& CanRemoveTagWithoutContent(previousTagName, previousTagAttributes))
+				&& CanRemoveTagWithoutContent(previousTag))
 			{
 				// Remove last "element" from buffer, return
-				if (RemoveLastStartTagFromBuffer(tagName))
+				if (RemoveLastStartTagFromBuffer(tag))
 				{
 					FlushBuffer();
 					return;
 				}
 			}
 
-			if (_settings.RemoveOptionalEndTags && tagFlags.OptionalEndTag && IsSafeOptionalEndTag(tagName))
+			if (_settings.RemoveOptionalEndTags
+				&& tagFlags.HasFlag(HtmlTagFlags.OptionalEndTag)
+				&& IsSafeOptionalEndTag(tag))
 			{
 				// Leave only start tag in buffer
 				FlushBuffer();
@@ -936,7 +941,7 @@ namespace WebMarkupMin.Core
 
 			// Add end tag to buffer
 			_buffer.Add("</");
-			_buffer.Add(tagName);
+			_buffer.Add(_settings.PreserveCase ? tagName : tagNameInLowercase);
 			_buffer.Add(">");
 		}
 
@@ -948,48 +953,37 @@ namespace WebMarkupMin.Core
 		private void TextHandler(MarkupParsingContext context, string text)
 		{
 			HtmlNodeType nodeType = _currentNodeType;
-			string tagName;
-			HtmlTagFlags tagFlags;
-			IList<HtmlAttribute> attributes;
-			if (_currentTag != null)
-			{
-				tagName = _currentTag.Name;
-				tagFlags = _currentTag.Flags;
-				attributes = _currentTag.Attributes;
-			}
-			else
-			{
-				tagName = string.Empty;
-				tagFlags = new HtmlTagFlags();
-				attributes = new List<HtmlAttribute>();
-			}
+			HtmlTag tag = _currentTag ?? HtmlTag.Empty;
+			string tagNameInLowercase = tag.NameInLowercase;
+			HtmlTagFlags tagFlags = tag.Flags;
+			IList<HtmlAttribute> attributes = tag.Attributes;
 
 			WhitespaceMinificationMode whitespaceMinificationMode = _settings.WhitespaceMinificationMode;
 
-			if (nodeType == HtmlNodeType.StartTag && tagFlags.EmbeddedCode)
+			if (nodeType == HtmlNodeType.StartTag && tagFlags.HasFlag(HtmlTagFlags.EmbeddedCode))
 			{
-				switch (tagName)
+				switch (tagNameInLowercase)
 				{
 					case "script":
 					case "style":
 						string contentType = attributes
-							.Where(a => a.Name == "type")
+							.Where(a => a.NameInLowercase == "type")
 							.Select(a => a.Value)
 							.FirstOrDefault()
 							;
 
-						if (tagName == "script")
+						if (tagNameInLowercase == "script")
 						{
 							if (string.IsNullOrWhiteSpace(contentType))
 							{
 								string language = attributes
-									.Where(a => a.Name == "language")
+									.Where(a => a.NameInLowercase == "language")
 									.Select(a => a.Value)
 									.FirstOrDefault()
 									;
 
 								if (!string.IsNullOrWhiteSpace(language)
-									&& language.Trim().ToLowerInvariant() == "vbscript")
+									&& language.Trim().IgnoreCaseEquals("vbscript"))
 								{
 									contentType = VBS_CONTENT_TYPE;
 								}
@@ -997,7 +991,7 @@ namespace WebMarkupMin.Core
 
 							text = ProcessEmbeddedScriptContent(context, text, contentType);
 						}
-						else if (tagName == "style")
+						else if (tagNameInLowercase == "style")
 						{
 							text = ProcessEmbeddedStyleContent(context, text, contentType);
 						}
@@ -1022,7 +1016,7 @@ namespace WebMarkupMin.Core
 							// Processing of starting whitespace
 							text = text.TrimStart();
 						}
-						else if ((context.Position + text.Length) == context.Length)
+						else if (context.Position + text.Length == context.Length)
 						{
 							// Processing of ending whitespace
 							text = text.TrimEnd();
@@ -1031,7 +1025,8 @@ namespace WebMarkupMin.Core
 						{
 							// Processing of whitespace, that followed after the start tag
 							bool allowTrimStart = false;
-							if (tagFlags.Invisible || (tagFlags.NonIndependent && tagFlags.Empty))
+							if (tagFlags.HasFlag(HtmlTagFlags.Invisible)
+								|| (tagFlags.HasFlag(HtmlTagFlags.NonIndependent) && tagFlags.HasFlag(HtmlTagFlags.Empty)))
 							{
 								allowTrimStart = true;
 							}
@@ -1039,12 +1034,13 @@ namespace WebMarkupMin.Core
 							{
 								if (whitespaceMinificationMode == WhitespaceMinificationMode.Medium)
 								{
-									allowTrimStart = tagFlags.Block;
+									allowTrimStart = tagFlags.HasFlag(HtmlTagFlags.Block);
 								}
 								else if (whitespaceMinificationMode == WhitespaceMinificationMode.Aggressive)
 								{
-									allowTrimStart = (tagFlags.Block
-										|| ((tagFlags.Inline || tagFlags.InlineBlock) && !tagFlags.Empty));
+									allowTrimStart = tagFlags.HasFlag(HtmlTagFlags.Block)
+										|| ((tagFlags.HasFlag(HtmlTagFlags.Inline) || tagFlags.HasFlag(HtmlTagFlags.InlineBlock))
+											&& !tagFlags.HasFlag(HtmlTagFlags.Empty));
 								}
 							}
 
@@ -1057,7 +1053,7 @@ namespace WebMarkupMin.Core
 						{
 							// Processing of whitespace, that followed after the end tag
 							bool allowTrimStart = false;
-							if (tagFlags.Invisible || tagFlags.NonIndependent)
+							if (tagFlags.HasFlag(HtmlTagFlags.Invisible) || tagFlags.HasFlag(HtmlTagFlags.NonIndependent))
 							{
 								allowTrimStart = true;
 							}
@@ -1066,7 +1062,7 @@ namespace WebMarkupMin.Core
 								if (whitespaceMinificationMode == WhitespaceMinificationMode.Medium
 									|| whitespaceMinificationMode == WhitespaceMinificationMode.Aggressive)
 								{
-									allowTrimStart = tagFlags.Block;
+									allowTrimStart = tagFlags.HasFlag(HtmlTagFlags.Block);
 								}
 							}
 
@@ -1087,7 +1083,7 @@ namespace WebMarkupMin.Core
 							text = Utils.CollapseWhitespace(text);
 						}
 					}
-					else if (nodeType == HtmlNodeType.StartTag && tagName == "textarea"
+					else if (nodeType == HtmlNodeType.StartTag && tagNameInLowercase == "textarea"
 						&& string.IsNullOrWhiteSpace(text))
 					{
 						text = string.Empty;
@@ -1126,9 +1122,11 @@ namespace WebMarkupMin.Core
 			_buffer.Add(processedExpression);
 			_buffer.Add(endDelimiter);
 		}
+
 		#endregion
 
 		#region Buffer helpers
+
 		/// <summary>
 		/// Flush a HTML minification buffer
 		/// </summary>
@@ -1180,8 +1178,8 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Removes a last end tag from the HTML minification buffer
 		/// </summary>
-		/// <param name="endTagName">End tag name</param>
-		private void RemoveLastEndTagFromBuffer(string endTagName)
+		/// <param name="endTag">End tag</param>
+		private void RemoveLastEndTagFromBuffer(HtmlTag endTag)
 		{
 			int bufferItemCount = _buffer.Count;
 			if (bufferItemCount == 0)
@@ -1194,7 +1192,7 @@ namespace WebMarkupMin.Core
 			if (lastEndTagBeginAngleBracketIndex != -1)
 			{
 				string lastEndTagName = _buffer[lastEndTagBeginAngleBracketIndex + 1];
-				if (lastEndTagName == endTagName)
+				if (lastEndTagName.IgnoreCaseEquals(endTag.NameInLowercase))
 				{
 					int lastEndTagEndAngleBracketIndex = _buffer.IndexOf(">", lastEndTagBeginAngleBracketIndex);
 					if (lastEndTagEndAngleBracketIndex != -1)
@@ -1226,11 +1224,11 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Removes a last start tag name from the HTML minification buffer
+		/// Removes a last start tag from the HTML minification buffer
 		/// </summary>
-		/// <param name="startTagName">Start tag name</param>
+		/// <param name="startTag">Start tag</param>
 		/// <returns>Result of removing (true - has removed; false - has not removed)</returns>
-		private bool RemoveLastStartTagFromBuffer(string startTagName)
+		private bool RemoveLastStartTagFromBuffer(HtmlTag startTag)
 		{
 			int bufferItemCount = _buffer.Count;
 			if (bufferItemCount == 0)
@@ -1244,7 +1242,7 @@ namespace WebMarkupMin.Core
 			if (lastStartTagBeginAngleBracketIndex != -1)
 			{
 				string lastTagName = _buffer[lastStartTagBeginAngleBracketIndex + 1];
-				if (lastTagName == startTagName)
+				if (lastTagName.IgnoreCaseEquals(startTag.NameInLowercase))
 				{
 					int lastStartTagEndAngleBracketIndex = _buffer.IndexOf(">", lastStartTagBeginAngleBracketIndex);
 					if (lastStartTagEndAngleBracketIndex != -1)
@@ -1278,29 +1276,29 @@ namespace WebMarkupMin.Core
 
 			return isEndTagRemoved;
 		}
+
 		#endregion
 
 		/// <summary>
 		/// Builds a string representation of the attribute
 		/// </summary>
 		/// <param name="context">Markup parsing context</param>
-		/// <param name="attribute">HTML attribute</param>
-		/// <param name="tag">HTML tag</param>
+		/// <param name="tag">Tag</param>
+		/// <param name="attribute">Attribute</param>
 		/// <returns>String representation of the attribute</returns>
 		private string BuildAttributeString(MarkupParsingContext context, HtmlTag tag, HtmlAttribute attribute)
 		{
-			string tagName = tag.Name;
-			HtmlTagFlags tagFlags = tag.Flags;
-			IList<HtmlAttribute> attributes = tag.Attributes;
-
+			string tagNameInLowercase = tag.NameInLowercase;
 			string attributeString;
 			string attributeName = attribute.Name;
+			string attributeNameInLowercase = attribute.NameInLowercase;
 			string attributeValue = attribute.Value;
 			bool attributeHasValue = attribute.HasValue;
+			bool attributeHasEmptyValue = !attributeHasValue || attributeValue.Length == 0;
 			HtmlAttributeType attributeType = attribute.Type;
 			bool useHtmlSyntax = !_settings.UseXhtmlSyntax;
 
-			if (useHtmlSyntax && IsXmlAttribute(attributeName))
+			if (useHtmlSyntax && IsXmlAttribute(attribute))
 			{
 				string sourceCode = context.SourceCode;
 				SourceCodeNodeCoordinates attributeCoordinates = attribute.NameCoordinates;
@@ -1311,243 +1309,34 @@ namespace WebMarkupMin.Core
 					SourceCodeNavigator.GetSourceFragment(sourceCode, attributeCoordinates));
 			}
 
-			if ((_settings.RemoveRedundantAttributes && IsAttributeRedundant(tagName, attributeName, attributeValue, attributes))
-				|| (_settings.RemoveJsTypeAttributes && IsJavaScriptTypeAttribute(tagName, attributeName, attributeValue))
-				|| (_settings.RemoveCssTypeAttributes && IsCssTypeAttribute(tagName, attributeName, attributeValue, attributes))
-				|| (useHtmlSyntax && CanRemoveXmlAttribute(tagName, attributeName)))
+			if ((_settings.RemoveRedundantAttributes && IsAttributeRedundant(tag, attribute))
+				|| (_settings.RemoveJsTypeAttributes && IsJavaScriptTypeAttribute(tag, attribute))
+				|| (_settings.RemoveCssTypeAttributes && IsCssTypeAttribute(tag, attribute))
+				|| (useHtmlSyntax && CanRemoveXmlAttribute(tag, attribute)))
 			{
 				attributeString = string.Empty;
 				return attributeString;
 			}
 
-			bool isCustomBooleanAttribute = (!attributeHasValue && attributeType == HtmlAttributeType.Text);
-			if (isCustomBooleanAttribute && useHtmlSyntax)
+			bool isCustomBooleanAttribute = !attributeHasValue && attributeType == HtmlAttributeType.Text;
+			if (isCustomBooleanAttribute)
 			{
-				attributeString = " " + attributeName;
-				return attributeString;
-			}
-
-			if (attributeType == HtmlAttributeType.Boolean)
-			{
-				if (_settings.CollapseBooleanAttributes)
+				if (useHtmlSyntax)
 				{
-					attributeString = " " + attributeName;
+					attributeString = InnerBuildAttributeString(tag, attribute, true, false);
 					return attributeString;
 				}
 
-				attributeValue = attributeName;
+				attribute.Value = string.Empty;
 			}
-			else if (isCustomBooleanAttribute)
+			else if (attributeType != HtmlAttributeType.Event
+				&& !attributeHasEmptyValue
+				&& TemplateTagHelpers.ContainsTag(attributeValue))
 			{
-				attributeValue = string.Empty;
-			}
-			else
-			{
-				attributeValue = CleanAttributeValue(context, tag, attribute);
-
-				if (_settings.RemoveEmptyAttributes
-					&& CanRemoveEmptyAttribute(tagName, attributeName, attributeValue, attributeType))
-				{
-					attributeString = string.Empty;
-					return attributeString;
-				}
-			}
-
-			bool addQuotes = !CanRemoveAttributeQuotes(tagFlags, attributeValue, _settings.AttributeQuotesRemovalMode);
-			attributeString = InnerBuildAttributeString(attributeName, attributeValue, addQuotes);
-
-			return attributeString;
-		}
-
-		private static string InnerBuildAttributeString(string attributeName, string attributeValue, bool addQuotes)
-		{
-			string attributeString;
-			string encodedAttributeValue = HtmlAttribute.HtmlAttributeEncode(attributeValue, HtmlAttributeQuotesType.Double);
-
-			if (addQuotes)
-			{
-				attributeString = string.Concat(" ", attributeName, "=", "\"", encodedAttributeValue, "\"");
-			}
-			else
-			{
-				attributeString = string.Concat(" ", attributeName, "=", encodedAttributeValue);
-			}
-
-			return attributeString;
-		}
-
-		/// <summary>
-		/// Determines whether the list of attributes contains the specified attribute
-		/// </summary>
-		/// <param name="attributes">List of attributes</param>
-		/// <param name="attributeName">Attribute name</param>
-		/// <returns>Result of check (true - contains; false - not contains)</returns>
-		private static bool ContainsAttribute(IEnumerable<HtmlAttribute> attributes, string attributeName)
-		{
-			bool result = (attributes.Any(a => a.Name == attributeName));
-
-			return result;
-		}
-
-		/// <summary>
-		/// Determines whether a list of attributes contains the <code>rel</code> attribute with
-		/// value, that equals to "external" or "alternate external"
-		/// </summary>
-		/// <param name="attributes">List of attributes</param>
-		/// <returns>Result of check (true - contains; false - does not contain)</returns>
-		private static bool ContainsRelExternalAttribute(IEnumerable<HtmlAttribute> attributes)
-		{
-			bool containsRelExternalAttribute = attributes.Any(a => a.Name == "rel"
-				 && _relExternalAttributeRegex.IsMatch(a.Value));
-
-			return containsRelExternalAttribute;
-		}
-
-		/// <summary>
-		/// Checks whether it is possible to remove the attribute quotes
-		/// </summary>
-		/// <param name="tagFlags">HTML tag flags</param>
-		/// <param name="attributeValue">Attribute value</param>
-		/// <param name="attributeQuotesRemovalMode">Removal mode of HTML attribute quotes</param>
-		/// <returns>Result of check (true - can remove; false - cannot remove)</returns>
-		private static bool CanRemoveAttributeQuotes(HtmlTagFlags tagFlags, string attributeValue,
-			HtmlAttributeQuotesRemovalMode attributeQuotesRemovalMode)
-		{
-			bool result = false;
-
-			if (!tagFlags.Xml && attributeQuotesRemovalMode != HtmlAttributeQuotesRemovalMode.KeepQuotes)
-			{
-				if (!attributeValue.EndsWith("/"))
-				{
-					if (attributeQuotesRemovalMode == HtmlAttributeQuotesRemovalMode.Html4)
-					{
-						result = _html4AttributeValueNotRequireQuotesRegex.IsMatch(attributeValue);
-					}
-					else if (attributeQuotesRemovalMode == HtmlAttributeQuotesRemovalMode.Html5)
-					{
-						result = _html5AttributeValueNotRequireQuotesRegex.IsMatch(attributeValue);
-					}
-				}
-			}
-
-			return result;
-		}
-
-		/// <summary>
-		/// Checks whether the attribute is redundant
-		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <param name="attributeName">Attribute name</param>
-		/// <param name="attributeValue">Attribute value</param>
-		/// <param name="attributes">List of attributes</param>
-		/// <returns>Result of check (true - is redundant; false - is not redundant)</returns>
-		private static bool IsAttributeRedundant(string tagName, string attributeName,
-			string attributeValue, IList<HtmlAttribute> attributes)
-		{
-			string processedAttributeValue = attributeValue.Trim();
-
-			return (
-				(tagName == "script"
-					&& ((attributeName == "language" && processedAttributeValue.IgnoreCaseEquals("javascript"))
-					|| (attributeName == "charset" && !ContainsAttribute(attributes, "src"))))
-				|| (tagName == "link" && attributeName == "charset" && attributes.Any(
-					a => a.Name == "rel" && a.Value.Trim().IgnoreCaseEquals("stylesheet")))
-				|| (tagName == "form" && attributeName == "method" && processedAttributeValue.IgnoreCaseEquals("get"))
-				|| (tagName == "input" && attributeName == "type" && processedAttributeValue.IgnoreCaseEquals("text"))
-				|| (tagName == "a" && attributeName == "name" && attributes.Any(
-					a => a.Name == "id" && a.Value == attributeValue))
-				|| (tagName == "area" && attributeName == "shape" && processedAttributeValue.IgnoreCaseEquals("rect"))
-			);
-		}
-
-		/// <summary>
-		/// Checks whether attribute is the attribute <svgContent>type</svgContent> of
-		/// tag <svgContent>script</svgContent>, that containing JavaScript svgContent
-		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <param name="attributeName">Attribute name</param>
-		/// <param name="attributeValue">Attribute value</param>
-		/// <returns>Result of check</returns>
-		private static bool IsJavaScriptTypeAttribute(string tagName, string attributeName, string attributeValue)
-		{
-			return (tagName == "script" && attributeName == "type" && attributeValue.Trim().IgnoreCaseEquals(JS_CONTENT_TYPE));
-		}
-
-		/// <summary>
-		/// Checks whether attribute is the attribute <svgContent>type</svgContent> of tag <svgContent>link</svgContent>
-		/// or <svgContent>style</svgContent>, that containing CSS svgContent
-		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <param name="attributeName">Attribute name</param>
-		/// <param name="attributeValue">Attribute value</param>
-		/// <param name="attributes">List of attributes</param>
-		/// <returns>Result of check</returns>
-		private static bool IsCssTypeAttribute(string tagName, string attributeName, string attributeValue,
-			IEnumerable<HtmlAttribute> attributes)
-		{
-			bool isCssTypeAttribute = false;
-
-			if (tagName == "link" || tagName == "style")
-			{
-				string processedAttributeValue = attributeValue.Trim();
-
-				if (attributeName == "type" && processedAttributeValue.IgnoreCaseEquals(CSS_CONTENT_TYPE))
-				{
-					if (tagName == "link")
-					{
-						isCssTypeAttribute = (attributes.Any(a => a.Name == "rel"
-							&& a.Value.Trim().IgnoreCaseEquals("stylesheet")));
-					}
-					else if (tagName == "style")
-					{
-						isCssTypeAttribute = true;
-					}
-				}
-			}
-
-			return isCssTypeAttribute;
-		}
-
-		/// <summary>
-		/// Checks whether the attribute is XML-based
-		/// </summary>
-		/// <param name="attributeName">Attribute name</param>
-		/// <returns>Result of check (true - XML-based; false - not XML-based)</returns>
-		private static bool IsXmlAttribute(string attributeName)
-		{
-			bool isXmlAttribute = (attributeName.StartsWith("xml:", StringComparison.Ordinal)
-				|| attributeName.StartsWith("xmlns:", StringComparison.Ordinal));
-
-			return isXmlAttribute;
-		}
-
-		/// <summary>
-		/// Cleans a attribute value
-		/// </summary>
-		/// <param name="context">Markup parsing context</param>
-		/// <param name="tag">HTML tag</param>
-		/// <param name="attribute">HTML attribute</param>
-		/// <returns>Processed attribute value</returns>
-		private string CleanAttributeValue(MarkupParsingContext context, HtmlTag tag, HtmlAttribute attribute)
-		{
-			string attributeValue = attribute.Value;
-			if (attributeValue.Length == 0)
-			{
-				return attributeValue;
-			}
-
-			string result = attributeValue;
-			string tagName = tag.Name;
-			IList<HtmlAttribute> attributes = tag.Attributes;
-			string attributeName = attribute.Name;
-			HtmlAttributeType attributeType = attribute.Type;
-
-			if (attributeType != HtmlAttributeType.Event && MustacheStyleTagHelpers.ContainsMustacheStyleTag(result))
-			{
-				// Processing of Angular Mustache-style tags
+				// Processing of template tags
 				var attributeValueBuilder = new StringBuilder();
 
-				MustacheStyleTagHelpers.ParseMarkup(result,
+				TemplateTagHelpers.ParseMarkup(attributeValue,
 					(localContext, expression, startDelimiter, endDelimiter) =>
 					{
 						string processedExpression = expression;
@@ -1573,7 +1362,7 @@ namespace WebMarkupMin.Core
 					}
 				);
 
-				result = attributeValueBuilder.ToString();
+				string processedAttributeValue = attributeValueBuilder.ToString();
 				attributeValueBuilder.Clear();
 
 				switch (attributeType)
@@ -1581,174 +1370,125 @@ namespace WebMarkupMin.Core
 					case HtmlAttributeType.Uri:
 					case HtmlAttributeType.Numeric:
 					case HtmlAttributeType.ClassName:
-						result = result.Trim();
+						processedAttributeValue = processedAttributeValue.Trim();
 						break;
 					case HtmlAttributeType.Style:
-						result = result.Trim();
-						result = Utils.RemoveEndingSemicolon(result);
+						processedAttributeValue = processedAttributeValue.Trim();
+						processedAttributeValue = Utils.RemoveEndingSemicolon(processedAttributeValue);
 						break;
 					default:
 						if (_settings.MinifyAngularBindingExpressions)
 						{
-							string elementDirectiveName = AngularHelpers.NormalizeDirectiveName(tagName);
-							if (elementDirectiveName == "ngPluralize" && attributeName == "when")
+							string elementDirectiveName = AngularHelpers.NormalizeDirectiveName(tagNameInLowercase);
+							if (elementDirectiveName == "ngPluralize" && attributeNameInLowercase == "when")
 							{
-								result = MinifyAngularBindingExpression(context, attribute.ValueCoordinates, result);
+								processedAttributeValue = MinifyAngularBindingExpression(context, attribute.ValueCoordinates,
+									processedAttributeValue);
 							}
 						}
 
 						break;
 				}
+
+				attribute.Value = processedAttributeValue;
+			}
+			else if (attributeType == HtmlAttributeType.Boolean)
+			{
+				if (_settings.CollapseBooleanAttributes)
+				{
+					attributeString = InnerBuildAttributeString(tag, attribute, true, false);
+					return attributeString;
+				}
+
+				attribute.Value = attributeName;
 			}
 			else
 			{
-				switch (attributeType)
+				if (!attributeHasEmptyValue)
 				{
-					case HtmlAttributeType.Uri:
-						result = result.Trim();
+					attribute.Value = CleanAttributeValue(context, tag, attribute);
+				}
 
-						if (result.StartsWith(HTTP_PROTOCOL, StringComparison.OrdinalIgnoreCase))
-						{
-							if (_settings.RemoveHttpProtocolFromAttributes && !ContainsRelExternalAttribute(attributes))
-							{
-								int httpProtocolLength = HTTP_PROTOCOL.Length;
-								result = result.Substring(httpProtocolLength);
-							}
-						}
-						else if (result.StartsWith(HTTPS_PROTOCOL, StringComparison.OrdinalIgnoreCase))
-						{
-							if (_settings.RemoveHttpsProtocolFromAttributes && !ContainsRelExternalAttribute(attributes))
-							{
-								int httpsProtocolLength = HTTPS_PROTOCOL.Length;
-								result = result.Substring(httpsProtocolLength);
-							}
-						}
-						else if (result == "href" && result.StartsWith(JS_PROTOCOL, StringComparison.OrdinalIgnoreCase))
-						{
-							result = ProcessInlineScriptContent(context, attribute);
-						}
+				if (_settings.RemoveEmptyAttributes && CanRemoveEmptyAttribute(tag, attribute))
+				{
+					attributeString = string.Empty;
+					return attributeString;
+				}
+			}
 
-						break;
-					case HtmlAttributeType.Numeric:
-						result = result.Trim();
-						break;
-					case HtmlAttributeType.ClassName:
-						if (AngularHelpers.IsClassDirective(result))
-						{
-							// Processing of Angular class directives
-							string ngOriginalDirectiveName = string.Empty;
-							string ngNormalizedDirectiveName = string.Empty;
-							string ngExpression;
-							var ngDirectives = new Dictionary<string, string>();
+			bool addQuotes = !CanRemoveAttributeQuotes(tag, attribute, _settings.AttributeQuotesRemovalMode);
+			attributeString = InnerBuildAttributeString(tag, attribute, false, addQuotes);
 
-							AngularHelpers.ParseClassDirective(result,
-								(localContext, originalDirectiveName, normalizedDirectiveName) =>
-								{
-									ngOriginalDirectiveName = originalDirectiveName;
-									ngNormalizedDirectiveName = normalizedDirectiveName;
-									ngExpression = null;
+			return attributeString;
+		}
 
-									ngDirectives.Add(ngOriginalDirectiveName, ngExpression);
-								},
-								(localContext, expression) =>
-								{
-									ngExpression = expression;
-									if (_settings.MinifyAngularBindingExpressions
-										&& ContainsAngularBindingExpression(ngNormalizedDirectiveName))
-									{
-										ngExpression = MinifyAngularBindingExpression(context,
-											attribute.ValueCoordinates, localContext.NodeCoordinates,
-											expression);
-									}
+		private string InnerBuildAttributeString(HtmlTag tag, HtmlAttribute attribute, bool omitValue, bool addQuotes)
+		{
+			string attributeString;
+			string displayAttributeName = _settings.PreserveCase || tag.Flags.HasFlag(HtmlTagFlags.Xml) ?
+				attribute.Name : attribute.NameInLowercase;
+			string encodedAttributeValue = HtmlAttribute.HtmlAttributeEncode(attribute.Value, HtmlAttributeQuotesType.Double);
 
-									ngDirectives[ngOriginalDirectiveName] = ngExpression;
-								},
-								localContext =>
-								{
-									if (ngDirectives[ngOriginalDirectiveName] == null)
-									{
-										ngDirectives[ngOriginalDirectiveName] = string.Empty;
-									}
-								}
-							);
+			if (!omitValue)
+			{
+				if (addQuotes)
+				{
+					attributeString = string.Concat(" ", displayAttributeName, "=", "\"", encodedAttributeValue, "\"");
+				}
+				else
+				{
+					attributeString = string.Concat(" ", displayAttributeName, "=", encodedAttributeValue);
+				}
+			}
+			else
+			{
+				attributeString = string.Concat(" ", displayAttributeName);
+			}
 
-							int directiveCount = ngDirectives.Count;
-							if (directiveCount > 0)
-							{
-								var directiveBuilder = new StringBuilder();
-								int directiveIndex = 0;
-								int lastDirectiveIndex = directiveCount - 1;
-								string previousExpression = null;
+			return attributeString;
+		}
 
-								foreach (var directive in ngDirectives)
-								{
-									string directiveName = directive.Key;
-									string expression = directive.Value;
+		/// <summary>
+		/// Determines whether a list of attributes contains the <code>rel</code> attribute with
+		/// value, that equals to "external" or "alternate external"
+		/// </summary>
+		/// <param name="attributes">List of attributes</param>
+		/// <returns>Result of check (true - contains; false - does not contain)</returns>
+		private static bool ContainsRelExternalAttribute(IList<HtmlAttribute> attributes)
+		{
+			bool containsRelExternalAttribute = attributes.Any(a => a.NameInLowercase == "rel"
+				 && _relExternalAttributeRegex.IsMatch(a.Value));
 
-									if (directiveIndex > 0 && (expression == null || previousExpression == null))
-									{
-										directiveBuilder.Append(" ");
-									}
+			return containsRelExternalAttribute;
+		}
 
-									directiveBuilder.Append(directiveName);
-									if (!string.IsNullOrWhiteSpace(expression))
-									{
-										directiveBuilder.AppendFormat(":{0}", expression);
-									}
+		/// <summary>
+		/// Checks whether it is possible to remove the attribute quotes
+		/// </summary>
+		/// <param name="tag">Tag</param>
+		/// <param name="attribute">Attribute</param>
+		/// <param name="attributeQuotesRemovalMode">Removal mode of HTML attribute quotes</param>
+		/// <returns>Result of check (true - can remove; false - cannot remove)</returns>
+		private static bool CanRemoveAttributeQuotes(HtmlTag tag, HtmlAttribute attribute,
+			HtmlAttributeQuotesRemovalMode attributeQuotesRemovalMode)
+		{
+			HtmlTagFlags tagFlags = tag.Flags;
+			string attributeValue = attribute.Value;
+			bool result = false;
 
-									if (directiveIndex < lastDirectiveIndex && expression != null)
-									{
-										directiveBuilder.Append(";");
-									}
-
-									previousExpression = expression;
-									directiveIndex++;
-								}
-
-								result = directiveBuilder.ToString();
-								directiveBuilder.Clear();
-							}
-							else
-							{
-								result = string.Empty;
-							}
-						}
-						else
-						{
-							result = result.Trim();
-							result = Utils.CollapseWhitespace(result);
-						}
-
-						break;
-					case HtmlAttributeType.Style:
-						result = ProcessInlineStyleContent(context, attribute);
-						break;
-					case HtmlAttributeType.Event:
-						result = ProcessInlineScriptContent(context, attribute);
-						break;
-					default:
-						if (attributeName == "data-bind" && _settings.MinifyKnockoutBindingExpressions)
-						{
-							result = MinifyKnockoutBindingExpression(context, attribute);
-						}
-						else if (tagName == "meta" && attributeName == "content"
-							&& attributes.Any(a => a.Name == "name" && a.Value.Trim().IgnoreCaseEquals("keywords")))
-						{
-							result = result.Trim();
-							result = Utils.CollapseWhitespace(result);
-							result = _separatingCommaWithSpacesRegex.Replace(result, ",");
-							result = _endingCommaWithSpacesRegex.Replace(result, string.Empty);
-						}
-						else
-						{
-							if (_settings.MinifyAngularBindingExpressions
-								&& CanMinifyAngularBindingExpressionInAttribute(tagName, attributeName, attributes))
-							{
-								result = MinifyAngularBindingExpression(context, attribute.ValueCoordinates, result);
-							}
-						}
-
-						break;
+			if (!tagFlags.HasFlag(HtmlTagFlags.Xml)
+				&& attributeQuotesRemovalMode != HtmlAttributeQuotesRemovalMode.KeepQuotes)
+			{
+				if (!attributeValue.EndsWith("/"))
+				{
+					if (attributeQuotesRemovalMode == HtmlAttributeQuotesRemovalMode.Html4)
+					{
+						result = _html4AttributeValueNotRequireQuotesRegex.IsMatch(attributeValue);
+					}
+					else if (attributeQuotesRemovalMode == HtmlAttributeQuotesRemovalMode.Html5)
+					{
+						result = _html5AttributeValueNotRequireQuotesRegex.IsMatch(attributeValue);
+					}
 				}
 			}
 
@@ -1756,28 +1496,299 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
+		/// Checks whether the attribute is redundant
+		/// </summary>
+		/// <param name="tag">Tag</param>
+		/// <param name="attribute">Attribute</param>
+		/// <returns>Result of check (true - is redundant; false - is not redundant)</returns>
+		private static bool IsAttributeRedundant(HtmlTag tag, HtmlAttribute attribute)
+		{
+			string tagNameInLowercase = tag.NameInLowercase;
+			IList<HtmlAttribute> attributes = tag.Attributes;
+			string attributeNameInLowercase = attribute.NameInLowercase;
+			string attributeValue = attribute.Value;
+			string processedAttributeValue = attributeValue.Trim();
+
+			return (
+				(tagNameInLowercase == "script"
+					&& ((attributeNameInLowercase == "language" && processedAttributeValue.IgnoreCaseEquals("javascript"))
+					|| (attributeNameInLowercase == "charset" && attributes.All(a => a.NameInLowercase != "src"))))
+				|| (tagNameInLowercase == "link" && attributeNameInLowercase == "charset" && attributes.Any(
+					a => a.NameInLowercase == "rel" && a.Value.Trim().IgnoreCaseEquals("stylesheet")))
+				|| (tagNameInLowercase == "form" && attributeNameInLowercase == "method"
+					&& processedAttributeValue.IgnoreCaseEquals("get"))
+				|| (tagNameInLowercase == "input" && attributeNameInLowercase == "type"
+					&& processedAttributeValue.IgnoreCaseEquals("text"))
+				|| (tagNameInLowercase == "a" && attributeNameInLowercase == "name" && attributes.Any(
+					a => a.NameInLowercase == "id" && a.Value == attributeValue))
+				|| (tagNameInLowercase == "area" && attributeNameInLowercase == "shape"
+					&& processedAttributeValue.IgnoreCaseEquals("rect"))
+			);
+		}
+
+		/// <summary>
+		/// Checks whether attribute is the attribute <code>type</code> of
+		/// tag <code>script</code>, that containing JavaScript code
+		/// </summary>
+		/// <param name="tag">Tag</param>
+		/// <param name="attribute">Attribute</param>
+		/// <returns>Result of check</returns>
+		private static bool IsJavaScriptTypeAttribute(HtmlTag tag, HtmlAttribute attribute)
+		{
+			return tag.NameInLowercase == "script" && attribute.NameInLowercase == "type"
+				&& attribute.Value.Trim().IgnoreCaseEquals(JS_CONTENT_TYPE);
+		}
+
+		/// <summary>
+		/// Checks whether attribute is the attribute <code>type</code> of tag <code>link</code>
+		/// or <code>style</code>, that containing CSS code
+		/// </summary>
+		/// <param name="tag">Tag</param>
+		/// <param name="attribute">Attribute</param>
+		/// <returns>Result of check</returns>
+		private static bool IsCssTypeAttribute(HtmlTag tag, HtmlAttribute attribute)
+		{
+			string tagNameInLowercase = tag.NameInLowercase;
+			string attributeNameInLowercase = attribute.NameInLowercase;
+			string attributeValue = attribute.Value;
+			IList<HtmlAttribute> attributes = tag.Attributes;
+			bool isCssTypeAttribute = false;
+
+			if (tagNameInLowercase == "link" || tagNameInLowercase == "style")
+			{
+				string processedAttributeValue = attributeValue.Trim();
+
+				if (attributeNameInLowercase == "type" && processedAttributeValue.IgnoreCaseEquals(CSS_CONTENT_TYPE))
+				{
+					if (tagNameInLowercase == "link")
+					{
+						isCssTypeAttribute = attributes.Any(a => a.NameInLowercase == "rel"
+							&& a.Value.Trim().IgnoreCaseEquals("stylesheet"));
+					}
+					else if (tagNameInLowercase == "style")
+					{
+						isCssTypeAttribute = true;
+					}
+				}
+			}
+
+			return isCssTypeAttribute;
+		}
+
+		/// <summary>
+		/// Checks whether the attribute is XML-based
+		/// </summary>
+		/// <param name="attribute">Attribute</param>
+		/// <returns>Result of check (true - XML-based; false - not XML-based)</returns>
+		private static bool IsXmlAttribute(HtmlAttribute attribute)
+		{
+			string attributeNameInLowercase = attribute.NameInLowercase;
+			bool isXmlAttribute = attributeNameInLowercase.StartsWith("xml:", StringComparison.Ordinal)
+				|| attributeNameInLowercase.StartsWith("xmlns:", StringComparison.Ordinal);
+
+			return isXmlAttribute;
+		}
+
+		/// <summary>
+		/// Cleans a attribute value
+		/// </summary>
+		/// <param name="context">Markup parsing context</param>
+		/// <param name="tag">Tag</param>
+		/// <param name="attribute">Attribute</param>
+		/// <returns>Processed attribute value</returns>
+		private string CleanAttributeValue(MarkupParsingContext context, HtmlTag tag, HtmlAttribute attribute)
+		{
+			string attributeValue = attribute.Value;
+			if (attributeValue.Length == 0)
+			{
+				return attributeValue;
+			}
+
+			string processedAttributeValue = attributeValue;
+			string tagNameInLowercase = tag.NameInLowercase;
+			IList<HtmlAttribute> attributes = tag.Attributes;
+			string attributeNameInLowercase = attribute.NameInLowercase;
+			HtmlAttributeType attributeType = attribute.Type;
+
+			switch (attributeType)
+			{
+				case HtmlAttributeType.Uri:
+					processedAttributeValue = processedAttributeValue.Trim();
+
+					if (processedAttributeValue.StartsWith(HTTP_PROTOCOL, StringComparison.OrdinalIgnoreCase))
+					{
+						if (_settings.RemoveHttpProtocolFromAttributes && !ContainsRelExternalAttribute(attributes))
+						{
+							int httpProtocolLength = HTTP_PROTOCOL.Length;
+							processedAttributeValue = processedAttributeValue.Substring(httpProtocolLength);
+						}
+					}
+					else if (processedAttributeValue.StartsWith(HTTPS_PROTOCOL, StringComparison.OrdinalIgnoreCase))
+					{
+						if (_settings.RemoveHttpsProtocolFromAttributes && !ContainsRelExternalAttribute(attributes))
+						{
+							int httpsProtocolLength = HTTPS_PROTOCOL.Length;
+							processedAttributeValue = processedAttributeValue.Substring(httpsProtocolLength);
+						}
+					}
+					else if (attributeNameInLowercase == "href"
+						&& processedAttributeValue.StartsWith(JS_PROTOCOL, StringComparison.OrdinalIgnoreCase))
+					{
+						processedAttributeValue = ProcessInlineScriptContent(context, attribute);
+					}
+
+					break;
+				case HtmlAttributeType.Numeric:
+					processedAttributeValue = processedAttributeValue.Trim();
+					break;
+				case HtmlAttributeType.ClassName:
+					if (AngularHelpers.IsClassDirective(processedAttributeValue))
+					{
+						// Processing of Angular class directives
+						string ngOriginalDirectiveName = string.Empty;
+						string ngNormalizedDirectiveName = string.Empty;
+						string ngExpression;
+						var ngDirectives = new Dictionary<string, string>();
+
+						AngularHelpers.ParseClassDirective(processedAttributeValue,
+							(localContext, originalDirectiveName, normalizedDirectiveName) =>
+							{
+								ngOriginalDirectiveName = originalDirectiveName;
+								ngNormalizedDirectiveName = normalizedDirectiveName;
+								ngExpression = null;
+
+								ngDirectives.Add(ngOriginalDirectiveName, ngExpression);
+							},
+							(localContext, expression) =>
+							{
+								ngExpression = expression;
+								if (_settings.MinifyAngularBindingExpressions
+									&& ContainsAngularBindingExpression(ngNormalizedDirectiveName))
+								{
+									ngExpression = MinifyAngularBindingExpression(context,
+										attribute.ValueCoordinates, localContext.NodeCoordinates,
+										expression);
+								}
+
+								ngDirectives[ngOriginalDirectiveName] = ngExpression;
+							},
+							localContext =>
+							{
+								if (ngDirectives[ngOriginalDirectiveName] == null)
+								{
+									ngDirectives[ngOriginalDirectiveName] = string.Empty;
+								}
+							}
+						);
+
+						int directiveCount = ngDirectives.Count;
+						if (directiveCount > 0)
+						{
+							var directiveBuilder = new StringBuilder();
+							int directiveIndex = 0;
+							int lastDirectiveIndex = directiveCount - 1;
+							string previousExpression = null;
+
+							foreach (var directive in ngDirectives)
+							{
+								string directiveName = directive.Key;
+								string expression = directive.Value;
+
+								if (directiveIndex > 0 && (expression == null || previousExpression == null))
+								{
+									directiveBuilder.Append(" ");
+								}
+
+								directiveBuilder.Append(directiveName);
+								if (!string.IsNullOrWhiteSpace(expression))
+								{
+									directiveBuilder.AppendFormat(":{0}", expression);
+								}
+
+								if (directiveIndex < lastDirectiveIndex && expression != null)
+								{
+									directiveBuilder.Append(";");
+								}
+
+								previousExpression = expression;
+								directiveIndex++;
+							}
+
+							processedAttributeValue = directiveBuilder.ToString();
+							directiveBuilder.Clear();
+						}
+						else
+						{
+							processedAttributeValue = string.Empty;
+						}
+					}
+					else
+					{
+						processedAttributeValue = processedAttributeValue.Trim();
+						processedAttributeValue = Utils.CollapseWhitespace(processedAttributeValue);
+					}
+
+					break;
+				case HtmlAttributeType.Style:
+					processedAttributeValue = ProcessInlineStyleContent(context, attribute);
+					break;
+				case HtmlAttributeType.Event:
+					processedAttributeValue = ProcessInlineScriptContent(context, attribute);
+					break;
+				default:
+					if (attributeNameInLowercase == "data-bind" && _settings.MinifyKnockoutBindingExpressions)
+					{
+						processedAttributeValue = MinifyKnockoutBindingExpression(context, attribute);
+					}
+					else if (tagNameInLowercase == "meta" && attributeNameInLowercase == "content"
+						&& attributes.Any(a => a.NameInLowercase == "name" && a.Value.Trim().IgnoreCaseEquals("keywords")))
+					{
+						processedAttributeValue = processedAttributeValue.Trim();
+						processedAttributeValue = Utils.CollapseWhitespace(processedAttributeValue);
+						processedAttributeValue = _separatingCommaWithSpacesRegex.Replace(processedAttributeValue, ",");
+						processedAttributeValue = _endingCommaWithSpacesRegex.Replace(processedAttributeValue, string.Empty);
+					}
+					else
+					{
+						if (_settings.MinifyAngularBindingExpressions
+							&& CanMinifyAngularBindingExpressionInAttribute(tag, attribute))
+						{
+							processedAttributeValue = MinifyAngularBindingExpression(context, attribute.ValueCoordinates,
+								processedAttributeValue);
+						}
+					}
+
+					break;
+			}
+
+			return processedAttributeValue;
+		}
+
+		/// <summary>
 		/// Checks whether remove an the attribute, that has empty value
 		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <param name="attributeName">Attribute name</param>
-		/// <param name="attributeValue">Attribute value</param>
-		/// <param name="attributeType">Attribute type</param>
+		/// <param name="tag">Tag</param>
+		/// <param name="attribute">Attribute</param>
 		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
-		private static bool CanRemoveEmptyAttribute(string tagName, string attributeName, string attributeValue,
-			HtmlAttributeType attributeType)
+		private static bool CanRemoveEmptyAttribute(HtmlTag tag, HtmlAttribute attribute)
 		{
+			string tagNameInLowercase = tag.NameInLowercase;
+			string attributeNameInLowercase = attribute.NameInLowercase;
+			string attributeValue = attribute.Value;
+			HtmlAttributeType attributeType = attribute.Type;
+
 			bool result = false;
-			bool isZeroLengthString = (attributeValue.Length == 0);
+			bool isZeroLengthString = attributeValue.Length == 0;
 
 			if (isZeroLengthString || string.IsNullOrWhiteSpace(attributeValue))
 			{
-				if (tagName == "input" && attributeName == "value")
+				if (tagNameInLowercase == "input" && attributeNameInLowercase == "value")
 				{
 					result = isZeroLengthString;
 				}
 				else if (attributeType == HtmlAttributeType.Event
-					|| (tagName == "form" && attributeName == "action")
-					|| _emptyAttributesForRemoval.Contains(attributeName))
+					|| (tagNameInLowercase == "form" && attributeNameInLowercase == "action")
+					|| _emptyAttributesForRemoval.Contains(attributeNameInLowercase))
 				{
 					result = true;
 				}
@@ -1789,24 +1800,27 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Checks whether remove an the XML-based attribute
 		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <param name="attributeName">Attribute name</param>
+		/// <param name="tag">Tag</param>
+		/// <param name="attribute">Attribute</param>
 		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
-		private static bool CanRemoveXmlAttribute(string tagName, string attributeName)
+		private static bool CanRemoveXmlAttribute(HtmlTag tag, HtmlAttribute attribute)
 		{
-			return (attributeName == "xmlns" && (tagName == "html" || tagName == "svg" || tagName == "math"));
+			string tagNameInLowercase = tag.NameInLowercase;
+			string attributeNameInLowercase = attribute.NameInLowercase;
+
+			return attributeNameInLowercase == "xmlns"
+				&& (tagNameInLowercase == "html" || tagNameInLowercase == "svg" || tagNameInLowercase == "math");
 		}
 
 		/// <summary>
 		/// Checks whether the tag is a META content-type tag
 		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <param name="attributes">List of attributes</param>
+		/// <param name="tag">Tag</param>
 		/// <returns>Result of check (true - is META content-type tag; false - is not META content-type tag)</returns>
-		private static bool IsMetaContentTypeTag(string tagName, IEnumerable<HtmlAttribute> attributes)
+		private static bool IsMetaContentTypeTag(HtmlTag tag)
 		{
-			return (tagName == "meta" && attributes.Any(
-				a => a.Name == "http-equiv" && a.Value.Trim().IgnoreCaseEquals("content-type")));
+			return tag.NameInLowercase == "meta" && tag.Attributes.Any(
+				a => a.NameInLowercase == "http-equiv" && a.Value.Trim().IgnoreCaseEquals("content-type"));
 		}
 
 		/// <summary>
@@ -1818,7 +1832,7 @@ namespace WebMarkupMin.Core
 		{
 			HtmlTag upgradedTag = tag;
 
-			HtmlAttribute contentAttribute = tag.Attributes.SingleOrDefault(a => a.Name == "content");
+			HtmlAttribute contentAttribute = tag.Attributes.SingleOrDefault(a => a.NameInLowercase == "content");
 			if (contentAttribute != null)
 			{
 				string content = contentAttribute.Value.Trim();
@@ -1828,9 +1842,13 @@ namespace WebMarkupMin.Core
 					if (contentMatch.Success)
 					{
 						string charset = contentMatch.Groups["charset"].Value;
-						upgradedTag = new HtmlTag(tag.Name,
-							new List<HtmlAttribute> {new HtmlAttribute("charset", charset, HtmlAttributeType.Text)},
-							tag.Flags);
+						upgradedTag = new HtmlTag(tag.Name, tag.NameInLowercase,
+							new List<HtmlAttribute>
+							{
+								new HtmlAttribute("charset", "charset", charset, HtmlAttributeType.Text)
+							},
+							tag.Flags
+						);
 					}
 				}
 			}
@@ -1841,58 +1859,60 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Checks whether the optional end tag is safe
 		/// </summary>
-		/// <param name="tagName">Tag name</param>
+		/// <param name="tag">Tag</param>
 		/// <returns>Result of check (true - is safe; false - is unsafe)</returns>
-		private static bool IsSafeOptionalEndTag(string tagName)
+		private static bool IsSafeOptionalEndTag(HtmlTag tag)
 		{
-			return _safeOptionalEndTags.Contains(tagName);
+			return _safeOptionalEndTags.Contains(tag.NameInLowercase);
 		}
 
 		/// <summary>
 		/// Checks whether remove an the optional end tag
 		/// </summary>
-		/// <param name="optionalEndTagName">Optional end tag name</param>
-		/// <param name="nextTagName">Next tag name</param>
+		/// <param name="optionalEndTag">Optional end tag</param>
+		/// <param name="nextTag">Next tag</param>
 		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
-		private static bool CanRemoveOptionalEndTagByNextTagName(string optionalEndTagName, string nextTagName)
+		private static bool CanRemoveOptionalEndTagByNextTag(HtmlTag optionalEndTag, HtmlTag nextTag)
 		{
+			string optionalEndTagNameInLowercase = optionalEndTag.NameInLowercase;
+			string nextTagNameInLowercase = nextTag.NameInLowercase;
 			bool canRemove;
 
-			switch (optionalEndTagName)
+			switch (optionalEndTagNameInLowercase)
 			{
 				case "p":
-					canRemove = _tagsFollowingAfterParagraphOptionalEndTag.Contains(nextTagName);
+					canRemove = _tagsFollowingAfterParagraphOptionalEndTag.Contains(nextTagNameInLowercase);
 					break;
 				case "li":
-					canRemove = (nextTagName == "li");
+					canRemove = nextTagNameInLowercase == "li";
 					break;
 				case "thead":
 				case "tbody":
-					canRemove = (nextTagName == "tbody" || nextTagName == "tfoot");
+					canRemove = nextTagNameInLowercase == "tbody" || nextTagNameInLowercase == "tfoot";
 					break;
 				case "tfoot":
-					canRemove = (nextTagName == "tbody");
+					canRemove = nextTagNameInLowercase == "tbody";
 					break;
 				case "tr":
-					canRemove = (nextTagName == "tr");
+					canRemove = nextTagNameInLowercase == "tr";
 					break;
 				case "td":
 				case "th":
-					canRemove = (nextTagName == "td" || nextTagName == "th");
+					canRemove = nextTagNameInLowercase == "td" || nextTagNameInLowercase == "th";
 					break;
 				case "option":
-					canRemove = (nextTagName == "option" || nextTagName == "optgroup");
+					canRemove = nextTagNameInLowercase == "option" || nextTagNameInLowercase == "optgroup";
 					break;
 				case "optgroup":
-					canRemove = (nextTagName == "optgroup");
+					canRemove = nextTagNameInLowercase == "optgroup";
 					break;
 				case "dt":
 				case "dd":
-					canRemove = (nextTagName == "dt" || nextTagName == "dd");
+					canRemove = nextTagNameInLowercase == "dt" || nextTagNameInLowercase == "dd";
 					break;
 				case "rt":
 				case "rp":
-					canRemove = (nextTagName == "rt" || nextTagName == "rp");
+					canRemove = nextTagNameInLowercase == "rt" || nextTagNameInLowercase == "rp";
 					break;
 				default:
 					canRemove = false;
@@ -1905,47 +1925,50 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Checks whether remove an the optional end tag
 		/// </summary>
-		/// <param name="optionalEndTagName">Optional end tag name</param>
-		/// <param name="parentTagName">Parent tag name</param>
+		/// <param name="optionalEndTag">Optional end tag</param>
+		/// <param name="parentTag">Parent tag</param>
 		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
-		private static bool CanRemoveOptionalTagByParentTagName(string optionalEndTagName, string parentTagName)
+		private static bool CanRemoveOptionalTagByParentTag(HtmlTag optionalEndTag, HtmlTag parentTag)
 		{
+			string optionalEndTagNameInLowercase = optionalEndTag.NameInLowercase;
+			string parentTagNameInLowercase = parentTag.NameInLowercase;
 			bool canRemove;
 
-			switch (optionalEndTagName)
+			switch (optionalEndTagNameInLowercase)
 			{
 				case "p":
-					canRemove = (parentTagName != "a");
+					canRemove = parentTagNameInLowercase != "a";
 					break;
 				case "li":
-					canRemove = (parentTagName == "ul" || parentTagName == "ol" || parentTagName == "menu");
+					canRemove = parentTagNameInLowercase == "ul" || parentTagNameInLowercase == "ol"
+						|| parentTagNameInLowercase == "menu";
 					break;
 				case "tbody":
 				case "tfoot":
-					canRemove = (parentTagName == "table");
+					canRemove = parentTagNameInLowercase == "table";
 					break;
 				case "tr":
-					canRemove = (parentTagName == "table" || parentTagName == "thead"
-						|| parentTagName == "tbody" || parentTagName == "tfoot");
+					canRemove = parentTagNameInLowercase == "table" || parentTagNameInLowercase == "thead"
+						|| parentTagNameInLowercase == "tbody" || parentTagNameInLowercase == "tfoot";
 					break;
 				case "td":
 				case "th":
-					canRemove = (parentTagName == "tr");
+					canRemove = parentTagNameInLowercase == "tr";
 					break;
 				case "option":
-					canRemove = (parentTagName == "select" || parentTagName == "optgroup"
-						|| parentTagName == "datalist");
+					canRemove = parentTagNameInLowercase == "select" || parentTagNameInLowercase == "optgroup"
+						|| parentTagNameInLowercase == "datalist";
 					break;
 				case "optgroup":
-					canRemove = (parentTagName == "select");
+					canRemove = parentTagNameInLowercase == "select";
 					break;
 				case "dt":
 				case "dd":
-					canRemove = (parentTagName == "dl");
+					canRemove = parentTagNameInLowercase == "dl";
 					break;
 				case "rt":
 				case "rp":
-					canRemove = (parentTagName == "ruby");
+					canRemove = parentTagNameInLowercase == "ruby";
 					break;
 				default:
 					canRemove = false;
@@ -1958,24 +1981,27 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Checks whether remove an the tag, that has empty content
 		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <param name="attributes">List of attributes</param>
+		/// <param name="tag">Tag</param>
 		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
-		private static bool CanRemoveTagWithoutContent(string tagName, IEnumerable<HtmlAttribute> attributes)
+		private static bool CanRemoveTagWithoutContent(HtmlTag tag)
 		{
-			return !(_unremovableEmptyTags.Contains(tagName)
-				|| attributes.Any(a => a.Name.StartsWith("data-") || a.Name.StartsWith("ng-")
-					|| (_unremovableEmptyTagAttributes.Contains(a.Name) && !string.IsNullOrWhiteSpace(a.Value))));
+			string tagNameInLowercase = tag.NameInLowercase;
+			IList<HtmlAttribute> attributes = tag.Attributes;
+
+			return !(_customTagAndAttributeNameRegex.IsMatch(tagNameInLowercase)
+				|| _unremovableEmptyTags.Contains(tagNameInLowercase)
+				|| attributes.Any(a => _customTagAndAttributeNameRegex.IsMatch(a.NameInLowercase)
+					|| (_unremovableEmptyTagAttributes.Contains(a.NameInLowercase) && !string.IsNullOrWhiteSpace(a.Value))));
 		}
 
 		/// <summary>
 		/// Checks whether to minify whitespaces in text content of tag
 		/// </summary>
-		/// <param name="tagName">Tag name</param>
+		/// <param name="tag">Tag</param>
 		/// <returns>Result of check (true - can minify whitespaces; false - can not minify whitespaces)</returns>
-		private static bool CanMinifyWhitespace(string tagName)
+		private static bool CanMinifyWhitespace(HtmlTag tag)
 		{
-			return !_tagsWithNotRemovableWhitespace.Contains(tagName);
+			return !_tagsWithNotRemovableWhitespace.Contains(tag.NameInLowercase);
 		}
 
 		/// <summary>
@@ -1988,12 +2014,12 @@ namespace WebMarkupMin.Core
 		private string ProcessEmbeddedScriptContent(MarkupParsingContext context, string content, string contentType)
 		{
 			string processedScriptContent = content;
-			string processedContentType = (!string.IsNullOrWhiteSpace(contentType)) ?
+			string processedContentType = !string.IsNullOrWhiteSpace(contentType) ?
 				contentType.Trim().ToLowerInvariant() : JS_CONTENT_TYPE;
 			bool isJavaScript = _jsContentTypes.Contains(processedContentType);
-			bool isVbScript = (processedContentType == VBS_CONTENT_TYPE);
+			bool isVbScript = processedContentType == VBS_CONTENT_TYPE;
 
-			bool minifyWhitespace = (_settings.WhitespaceMinificationMode != WhitespaceMinificationMode.None);
+			bool minifyWhitespace = _settings.WhitespaceMinificationMode != WhitespaceMinificationMode.None;
 
 			if (isJavaScript || isVbScript)
 			{
@@ -2193,9 +2219,9 @@ namespace WebMarkupMin.Core
 		/// <returns>Processed embedded style content</returns>
 		private string ProcessEmbeddedStyleContent(MarkupParsingContext context, string content, string contentType)
 		{
-			string processedContentType = (!string.IsNullOrWhiteSpace(contentType)) ?
+			string processedContentType = !string.IsNullOrWhiteSpace(contentType) ?
 				contentType.Trim().ToLowerInvariant() : CSS_CONTENT_TYPE;
-			bool minifyWhitespace = (_settings.WhitespaceMinificationMode != WhitespaceMinificationMode.None);
+			bool minifyWhitespace = _settings.WhitespaceMinificationMode != WhitespaceMinificationMode.None;
 			bool removeHtmlComments = _settings.RemoveHtmlCommentsFromScriptsAndStyles;
 			bool removeCdataSections = _settings.RemoveCdataSectionsFromScriptsAndStyles;
 
@@ -2317,7 +2343,7 @@ namespace WebMarkupMin.Core
 		private string ProcessInlineScriptContent(MarkupParsingContext context, HtmlAttribute attribute)
 		{
 			string scriptContent = attribute.Value;
-			bool forHrefAttribute = (attribute.Name == "href");
+			bool forHrefAttribute = attribute.NameInLowercase == "href";
 
 			string result = scriptContent;
 
@@ -2534,6 +2560,7 @@ namespace WebMarkupMin.Core
 		}
 
 		#region Knockout helpers
+
 		/// <summary>
 		/// Minify a Knockout binding expression
 		/// </summary>
@@ -2607,9 +2634,11 @@ namespace WebMarkupMin.Core
 
 			return result;
 		}
+
 		#endregion
 
 		#region Angular helpers
+
 		/// <summary>
 		/// Determines whether a directive contains the Angular binding expression
 		/// </summary>
@@ -2617,8 +2646,8 @@ namespace WebMarkupMin.Core
 		/// <returns>Result of check (true - contains; false - not contains)</returns>
 		private bool ContainsAngularBindingExpression(string directiveName)
 		{
-			bool result = (!string.IsNullOrEmpty(directiveName)
-				&& _angularDirectivesWithExpressions.Contains(directiveName));
+			bool result = !string.IsNullOrEmpty(directiveName)
+				&& _angularDirectivesWithExpressions.Contains(directiveName);
 
 			return result;
 		}
@@ -2626,29 +2655,31 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Checks whether to minify the Angular binding expression in attribute
 		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <param name="attributeName">Attribute name</param>
-		/// <param name="attributes">List of attributes</param>
+		/// <param name="tag">Tag</param>
+		/// <param name="attribute">Attribute</param>
 		/// <returns>Result of check (true - can minify expression; false - can not minify expression)</returns>
-		private bool CanMinifyAngularBindingExpressionInAttribute(string tagName, string attributeName,
-			IEnumerable<HtmlAttribute> attributes)
+		private bool CanMinifyAngularBindingExpressionInAttribute(HtmlTag tag, HtmlAttribute attribute)
 		{
+			string tagNameInLowercase = tag.NameInLowercase;
+			string attributeNameInLowercase = attribute.NameInLowercase;
+			IList<HtmlAttribute> attributes = tag.Attributes;
+
 			bool canMinify = false;
-			string elementDirectiveName = AngularHelpers.NormalizeDirectiveName(tagName);
+			string elementDirectiveName = AngularHelpers.NormalizeDirectiveName(tagNameInLowercase);
 
 			switch (elementDirectiveName)
 			{
 				case "ngPluralize":
-					canMinify = (attributeName == "count" || attributeName == "when");
+					canMinify = attributeNameInLowercase == "count" || attributeNameInLowercase == "when";
 					break;
 				case "ngMessages":
-					canMinify = (attributeName == "for");
+					canMinify = attributeNameInLowercase == "for";
 					break;
 			}
 
 			if (!canMinify)
 			{
-				string attributeDirectiveName = AngularHelpers.NormalizeDirectiveName(attributeName);
+				string attributeDirectiveName = AngularHelpers.NormalizeDirectiveName(attributeNameInLowercase);
 				canMinify = ContainsAngularBindingExpression(attributeDirectiveName);
 
 				if (!canMinify)
@@ -2657,8 +2688,8 @@ namespace WebMarkupMin.Core
 					{
 						case "ngTrueValue":
 						case "ngFalseValue":
-							canMinify = (tagName == "input" && attributes.Any(
-								a => a.Name == "type" && a.Value.Trim().IgnoreCaseEquals("checkbox")));
+							canMinify = tagNameInLowercase == "input" && attributes.Any(
+								a => a.NameInLowercase == "type" && a.Value.Trim().IgnoreCaseEquals("checkbox"));
 							break;
 					}
 				}
@@ -2738,6 +2769,7 @@ namespace WebMarkupMin.Core
 
 			return result;
 		}
+
 		#endregion
 
 		private static SourceCodeNodeCoordinates CalculateAbsoluteInlineCodeErrorCoordinates(

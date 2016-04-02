@@ -46,7 +46,8 @@
 		/// <summary>
 		/// Constructs instance of XML minification settings
 		/// </summary>
-		public XmlMinificationSettings() : this(false)
+		public XmlMinificationSettings()
+			: this(false)
 		{ }
 
 		/// <summary>

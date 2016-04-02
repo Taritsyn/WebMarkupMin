@@ -211,23 +211,24 @@ namespace WebMarkupMin.Core
 				{
 					_result.Clear();
 					_buffer.Clear();
+
+					errors.AddRange(_errors);
+					_errors.Clear();
 				}
 
-				if (_errors.Count == 0)
+				if (errors.Count == 0)
 				{
 					_logger.Info(LogCategoryConstants.XmlMinificationSuccess,
 						string.Format(Strings.SuccesMessage_MarkupMinificationComplete, "XML"),
 						fileContext, statistics);
 				}
-
-				errors.AddRange(_errors);
-				_errors.Clear();
 			}
 
 			return new MarkupMinificationResult(minifiedContent, errors, statistics);
 		}
 
 		#region Handlers
+
 		/// <summary>
 		/// XML declaration handler
 		/// </summary>
@@ -462,7 +463,7 @@ namespace WebMarkupMin.Core
 					// Processing starting whitespace
 					text = text.TrimStart();
 				}
-				else if ((context.Position + text.Length) == context.Length)
+				else if (context.Position + text.Length == context.Length)
 				{
 					// Processing ending whitespace
 					text = text.TrimEnd();
@@ -486,9 +487,11 @@ namespace WebMarkupMin.Core
 				_buffer.Add(text);
 			}
 		}
+
 		#endregion
 
 		#region Buffer helpers
+
 		/// <summary>
 		/// Transform a last start tag to empty tag
 		/// </summary>
@@ -559,6 +562,7 @@ namespace WebMarkupMin.Core
 				_buffer.Clear();
 			}
 		}
+
 		#endregion
 
 		/// <summary>

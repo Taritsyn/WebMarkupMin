@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Removal mode of HTML attribute quotes
 	/// </summary>
-	public enum HtmlAttributeQuotesRemovalMode
+	public enum HtmlAttributeQuotesRemovalMode : byte
 	{
 		/// <summary>
 		/// Keep quotes

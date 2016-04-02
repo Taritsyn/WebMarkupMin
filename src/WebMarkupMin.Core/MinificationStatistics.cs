@@ -196,7 +196,7 @@ namespace WebMarkupMin.Core
 			decimal compressionRatio = 0;
 			if (minifiedSize > 0)
 			{
-				compressionRatio = Math.Round(((decimal)minifiedSize / originalSize) * 100, 2);
+				compressionRatio = Math.Round((decimal)minifiedSize / originalSize * 100, 2);
 			}
 
 			return compressionRatio;

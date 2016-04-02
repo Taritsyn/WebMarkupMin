@@ -28,6 +28,13 @@ namespace WebMarkupMin.Sample.Logic.Models
 			set;
 		}
 
+		[Display(Name = "DisplayName_PreserveCase", ResourceType = typeof(HtmlMinificationStrings))]
+		public bool PreserveCase
+		{
+			get;
+			set;
+		}
+
 		[Display(Name = "DisplayName_EmptyTagRenderMode", ResourceType = typeof(HtmlMinificationStrings))]
 		public HtmlEmptyTagRenderMode EmptyTagRenderMode
 		{

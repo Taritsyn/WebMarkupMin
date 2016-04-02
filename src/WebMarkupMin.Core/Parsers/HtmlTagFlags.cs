@@ -1,89 +1,61 @@
-﻿namespace WebMarkupMin.Core.Parsers
+﻿using System;
+
+namespace WebMarkupMin.Core.Parsers
 {
 	/// <summary>
 	/// HTML tag flags
 	/// </summary>
-	internal class HtmlTagFlags
+	[Flags]
+	internal enum HtmlTagFlags : ushort
 	{
 		/// <summary>
-		/// Flag whether the tag is invisible
+		/// No flags are set
 		/// </summary>
-		public bool Invisible
-		{
-			get;
-			set;
-		}
+		None = 0,
 
 		/// <summary>
-		/// Flag whether the tag is empty
+		/// Tag is invisible
 		/// </summary>
-		public bool Empty
-		{
-			get;
-			set;
-		}
+		Invisible = 1,
 
 		/// <summary>
-		/// Flag whether the tag is block
+		/// Tag is empty
 		/// </summary>
-		public bool Block
-		{
-			get;
-			set;
-		}
+		Empty = 2,
 
 		/// <summary>
-		/// Flag whether the tag is inline
+		/// Tag is block
 		/// </summary>
-		public bool Inline
-		{
-			get;
-			set;
-		}
+		Block = 4,
 
 		/// <summary>
-		/// Flag whether the tag is inline-block
+		/// Tag is inline
 		/// </summary>
-		public bool InlineBlock
-		{
-			get;
-			set;
-		}
+		Inline = 8,
 
 		/// <summary>
-		/// Flag whether the tag is non-independent
+		/// Tag is inline-block
 		/// </summary>
-		public bool NonIndependent
-		{
-			get;
-			set;
-		}
+		InlineBlock = 16,
 
 		/// <summary>
-		/// Flag whether the tag has end tag, thant can be omitted
+		/// Tag is non-independent
 		/// </summary>
-		public bool OptionalEndTag
-		{
-			get;
-			set;
-		}
+		NonIndependent = 32,
 
 		/// <summary>
-		/// Flag whether the tag can contain embedded code
+		/// Tag has end tag, thant can be omitted
 		/// </summary>
-		public bool EmbeddedCode
-		{
-			get;
-			set;
-		}
+		OptionalEndTag = 64,
 
 		/// <summary>
-		/// Flag whether the tag is XML-based
+		/// Tag can contain embedded code
 		/// </summary>
-		public bool Xml
-		{
-			get;
-			set;
-		}
+		EmbeddedCode = 128,
+
+		/// <summary>
+		/// Tag is XML-based
+		/// </summary>
+		Xml = 256
 	}
 }

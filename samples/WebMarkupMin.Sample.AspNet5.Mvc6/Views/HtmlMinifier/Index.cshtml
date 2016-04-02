@@ -52,6 +52,12 @@
 						</label>
 					</div>
 					<div class="checkbox">
+						<label asp-for="Settings.PreserveCase">
+							<input asp-for="Settings.PreserveCase" />
+							@Html.DisplayNameFor(m => m.Settings.PreserveCase)
+						</label>
+					</div>
+					<div class="checkbox">
 						<label asp-for="Settings.UseMetaCharsetTag">
 							<input asp-for="Settings.UseMetaCharsetTag" />
 							@Html.DisplayNameFor(m => m.Settings.UseMetaCharsetTag)

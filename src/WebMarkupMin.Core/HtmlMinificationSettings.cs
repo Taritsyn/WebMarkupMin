@@ -24,6 +24,7 @@
 			{
 				RemoveCdataSectionsFromScriptsAndStyles = true;
 				UseShortDoctype = true;
+				PreserveCase = false;
 				UseMetaCharsetTag = true;
 				EmptyTagRenderMode = HtmlEmptyTagRenderMode.NoSlash;
 				RemoveOptionalEndTags = true;
@@ -36,6 +37,7 @@
 			{
 				RemoveCdataSectionsFromScriptsAndStyles = false;
 				UseShortDoctype = false;
+				PreserveCase = false;
 				UseMetaCharsetTag = false;
 				EmptyTagRenderMode = HtmlEmptyTagRenderMode.NoSlash;
 				RemoveOptionalEndTags = false;

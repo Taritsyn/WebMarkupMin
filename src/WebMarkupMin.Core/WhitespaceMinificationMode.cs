@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Mode of whitespace minification
 	/// </summary>
-	public enum WhitespaceMinificationMode
+	public enum WhitespaceMinificationMode : byte
 	{
 		/// <summary>
 		/// Keep whitespace

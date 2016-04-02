@@ -3,7 +3,7 @@
 	/// <summary>
 	/// HTML node types
 	/// </summary>
-	internal enum HtmlNodeType
+	internal enum HtmlNodeType : byte
 	{
 		Unknown = 0,
 		XmlDeclaration,

@@ -3,7 +3,7 @@
 	/// <summary>
 	/// HTML attribute quotes types
 	/// </summary>
-	internal enum HtmlAttributeQuotesType
+	internal enum HtmlAttributeQuotesType : byte
 	{
 		/// <summary>
 		/// Double quotes

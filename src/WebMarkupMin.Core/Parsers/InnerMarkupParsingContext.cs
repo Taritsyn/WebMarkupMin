@@ -51,7 +51,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// </summary>
 		public int RemainderLength
 		{
-			get { return (_sourceCode.Length - _position); }
+			get { return _sourceCode.Length - _position; }
 		}
 
 		/// <summary>

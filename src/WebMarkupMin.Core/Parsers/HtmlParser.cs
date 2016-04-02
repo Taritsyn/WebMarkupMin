@@ -25,373 +25,10 @@ namespace WebMarkupMin.Core.Parsers
 	/// </summary>
 	internal sealed class HtmlParser
 	{
-		#region Invisible tags
-		/// <summary>
-		/// List of invisible tags
-		/// </summary>
-		private static readonly HashSet<string> _invisibleTags = Utils.UnionHashSets(
-			// HTML5
-			new []
-			{
-				"base", "body",
-				"datalist", "dialog",
-				"head", "html",
-				"link",
-				"meta",
-				"param",
-				"script", "source", "style",
-				"template", "title", "track"
-			},
-
-			// Deprecated
-			new []
-			{
-				"basefont", "bgsound"
-			}
-		);
-		#endregion
-
-		#region Empty tags
-		/// <summary>
-		/// List of empty tags
-		/// </summary>
-		private static readonly HashSet<string> _emptyTags = Utils.UnionHashSets(
-			// HTML5
-			new []
-			{
-				"area",
-				"base", "basefont", "br",
-				"col",
-				"embed",
-				"frame",
-				"hr",
-				"img", "input",
-				"link",
-				"meta",
-				"param",
-				"source",
-				"track"
-			},
-
-			// Deprecated
-			new []
-			{
-				"isindex"
-			}
-		);
-		#endregion
-
-		#region Block tags
-		/// <summary>
-		/// List of block tags
-		/// </summary>
-		private static readonly HashSet<string> _blockTags = Utils.UnionHashSets(
-			// HTML5
-			new []
-			{
-				"address", "article", "aside",
-				"blockquote",
-				"caption", "col", "colgroup", "command",
-				"dd", "details", "dialog", "div", "dl", "dt",
-				"fieldset", "figcaption", "figure", "footer", "form",
-				"h1", "h2", "h3", "h4", "h5", "h6", "header", "hgroup", "hr",
-				"legend", "li",
-				"main", "menu", "menuitem",
-				"noscript",
-				"ol",
-				"p", "pre",
-				"section", "summary",
-				"table", "tbody", "td", "tfoot", "th", "thead", "tr",
-				"ul"
-			},
-
-			// Deprecated
-			new []
-			{
-				"center", "dir", "frame", "frameset", "isindex", "marquee", "noframes"
-			}
-		);
-		#endregion
-
-		#region Inline tags
-		/// <summary>
-		/// List of inline tags
-		/// </summary>
-		private static readonly HashSet<string> _inlineTags = Utils.UnionHashSets(
-			// HTML5
-			new []
-			{
-				"a", "abbr",
-				"b", "bdi", "bdo", "br",
-				"cite", "code",
-				"data", "dfn",
-				"em",
-				"i", "img", "input",
-				"kbd", "keygen",
-				"label",
-				"mark", "meter",
-				"optgroup", "option", "output",
-				"progress",
-				"q",
-				"rp", "rt", "ruby",
-				"samp", "select", "small", "span", "strong", "sub", "sup",
-				"textarea", "time",
-				"var",
-				"wbr"
-			},
-
-			// Deprecated
-			new []
-			{
-				"acronym", "big", "blink", "font", "nobr", "s", "strike", "tt", "u"
-			}
-		);
-		#endregion
-
-		#region Inline-block tags
-		/// <summary>
-		/// List of inline-block tags
-		/// </summary>
-		private static readonly HashSet<string> _inlineBlockTags = Utils.UnionHashSets(
-			// HTML5
-			new []
-			{
-				"area", "audio",
-				"button",
-				"canvas",
-				"del",
-				"embed",
-				"iframe", "ins",
-				"map", "math",
-				"object",
-				"script", "svg",
-				"video"
-			},
-
-			// Deprecated
-			new []
-			{
-				"applet"
-			}
-		);
-		#endregion
-
-		#region Non-independent tags
-		/// <summary>
-		/// List of non-independent tags
-		/// </summary>
-		private static readonly HashSet<string> _nonIndependentTags = new HashSet<string>
-		{
-			"area",
-			"caption", "col", "colgroup", "command",
-			"dd", "dt",
-			"figcaption", "frame",
-			"legend", "li",
-			"menuitem",
-			"optgroup", "option",
-			"param",
-			"rp", "rt",
-			"source",
-			"tbody", "td", "tfoot", "th", "thead", "tr", "track"
-		};
-		#endregion
-
-		#region Optional end tags
-		/// <summary>
-		/// List of end tags, that can be omitted
-		/// </summary>
-		private static readonly HashSet<string> _optionalEndTags = new HashSet<string>
-		{
-			"body",
-			"colgroup",
-			"dd", "dt",
-			"head", "html",
-			"li",
-			"optgroup", "option",
-			"p",
-			"rp", "rt",
-			"tbody", "td", "tfoot", "th", "thead", "tr"
-		};
-		#endregion
-
-		#region Tags with embedded code
-		/// <summary>
-		/// List of the tags, that can contain embedded code
-		/// </summary>
-		private static readonly HashSet<string> _tagsWithEmbeddedCode = new HashSet<string>
-		{
-			"script", "style", "svg", "math"
-		};
-		#endregion
-
-		#region XML-based tags
-		/// <summary>
-		/// List of the XML-based tags
-		/// </summary>
-		private static readonly HashSet<string> _xmlBasedTags = new HashSet<string>
-		{
-			"svg", "math"
-		};
-		#endregion
-
-		#region Boolean attributes
-		/// <summary>
-		/// List of boolean attributes
-		/// </summary>
-		private static readonly HashSet<string> _booleanAttributes = Utils.UnionHashSets(
-			// HTML5
-			new []
-			{
-				"allowfullscreen", "async", "autofocus", "autoplay",
-				"challenge", "checked", "controls",
-				"default", "defer", "disabled",
-				"formnovalidate",
-				"hidden",
-				"indeterminate", "inert", "ismap", "itemscope",
-				"loop",
-				"multiple", "muted",
-				"novalidate",
-				"open",
-				"pubdate",
-				"readonly", "required", "reversed",
-				"scoped", "seamless", "selected", "sortable",
-				"typemustmatch"
-			},
-
-			// Deprecated
-			new []
-			{
-				"compact", "declare", "nohref", "noresize", "noshade", "nowrap", "truespeed"
-			}
-		);
-		#endregion
-
-		#region Event attributes
-		/// <summary>
-		/// Regular expression for event attribute name
-		/// </summary>
-		private static readonly Regex _eventAttributeNameRegex = new Regex("^on[a-z]+$", RegexOptions.IgnoreCase);
-		#endregion
-
-		#region Tags with URI based attributes
-		/// <summary>
-		/// List of tags with href attribute
-		/// </summary>
-		private static readonly HashSet<string> _tagsWithHrefAttribute = new HashSet<string>
-		{
-			"a", "area", "base", "link"
-		};
-
-		/// <summary>
-		/// List of tags with src attribute
-		/// </summary>
-		private static readonly HashSet<string> _tagsWithSrcAttribute = new HashSet<string>
-		{
-			"audio", "embed", "frame", "iframe", "img", "input", "script", "source", "track", "video"
-		};
-
-		/// <summary>
-		/// List of tags with cite attribute
-		/// </summary>
-		private static readonly HashSet<string> _tagsWithCiteAttribute = new HashSet<string>
-		{
-			"blockquote", "del", "ins", "q"
-		};
-
-		/// <summary>
-		/// List of tags with longdesc attribute
-		/// </summary>
-		private static readonly HashSet<string> _tagsWithLongdescAttribute = new HashSet<string>
-		{
-			"frame", "iframe", "img"
-		};
-
-		/// <summary>
-		/// URI based params
-		/// </summary>
-		private static readonly HashSet<string> _uriBasedParams = new HashSet<string>
-		{
-			"movie", "pluginspage"
-		};
-		#endregion
-
-		#region Tags with numeric attributes
-		/// <summary>
-		/// List of tags with width attribute
-		/// </summary>
-		private static readonly HashSet<string> _tagsWithWidthAttribute = new HashSet<string>
-		{
-			"applet",
-			"canvas", "col", "colgroup",
-			"embed",
-			"hr",
-			"iframe", "img", "input",
-			"object",
-			"pre",
-			"table", "td", "th",
-			"video"
-		};
-
-		/// <summary>
-		/// List of tags with height attribute
-		/// </summary>
-		private static readonly HashSet<string> _tagsWithHeightAttribute = new HashSet<string>
-		{
-			"applet", "canvas", "embed", "iframe", "img", "input", "object", "td", "th", "video"
-		};
-
-		/// <summary>
-		/// List of tags with border attribute
-		/// </summary>
-		private static readonly HashSet<string> _tagsWithBorderAttribute = new HashSet<string>
-		{
-			"img", "object", "table"
-		};
-
-		/// <summary>
-		/// List of tags with size attribute
-		/// </summary>
-		private static readonly HashSet<string> _tagsWithSizeAttribute = new HashSet<string>
-		{
-			"basefont", "font", "hr", "input", "select"
-		};
-
-		/// <summary>
-		/// List of tags with max attribute
-		/// </summary>
-		private static readonly HashSet<string> _tagsWithMaxAttribute = new HashSet<string>
-		{
-			"input", "meter", "progress"
-		};
-
-		/// <summary>
-		/// List of tags with min attribute
-		/// </summary>
-		private static readonly HashSet<string> _tagsWithMinAttribute = new HashSet<string>
-		{
-			"input", "meter"
-		};
-
-		/// <summary>
-		/// List of tags with value attribute
-		/// </summary>
-		private static readonly HashSet<string> _tagsWithValueAttribute = new HashSet<string>
-		{
-			"li", "meter", "progress"
-		};
-
-		/// <summary>
-		/// List of tags with charoff attribute
-		/// </summary>
-		private static readonly HashSet<string> _tagsWithCharoffAttribute = new HashSet<string>
-		{
-			"col", "colgroup", "tbody", "td", "tfoot", "th", "thead", "tr"
-		};
-		#endregion
-
 		#region Regular expressions for parsing tags and attributes
-		private const string TAG_NAME_PATTERN = @"[a-zA-Z0-9-_:]+";
-		private const string ATTR_NAME_PATTERN = @"[a-zA-Z0-9-_:.]+";
+
+		private const string TAG_NAME_PATTERN = @"[a-zA-Z0-9][a-zA-Z0-9-_:]*";
+		private const string ATTR_NAME_PATTERN = @"[^\s""'<>/=]+";
 
 		private static readonly Regex _xmlDeclarationRegex = new Regex(@"^<\?xml\s*[^>]+?\s*\?>", RegexOptions.IgnoreCase);
 		private static readonly Regex _startTagRegex = new Regex(@"^<(?<tagName>" + TAG_NAME_PATTERN + ")" +
@@ -512,7 +149,7 @@ namespace WebMarkupMin.Core.Parsers
 						HtmlTag lastStackedTag = _tagStack.LastOrDefault();
 
 						// Make sure we're not in a tag, that contains embedded code
-						if (lastStackedTag == null || !lastStackedTag.Flags.EmbeddedCode)
+						if (lastStackedTag == null || !lastStackedTag.Flags.HasFlag(HtmlTagFlags.EmbeddedCode))
 						{
 							if (content.CustomStartsWith("<", _innerContext.Position, StringComparison.Ordinal))
 							{
@@ -613,6 +250,14 @@ namespace WebMarkupMin.Core.Parsers
 
 					// Clean up any remaining tags
 					ParseEndTag();
+
+					// Check whether there were not closed conditional comment
+					if (_conditionalCommentStack.Count > 0)
+					{
+						throw new HtmlParsingException(
+							Strings.ErrorMessage_NotClosedConditionalComment,
+							_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
+					}
 				}
 				catch (HtmlParsingException)
 				{
@@ -623,23 +268,15 @@ namespace WebMarkupMin.Core.Parsers
 					_tagStack.Clear();
 					_tagFlagsCache.Clear();
 					_tagWithEmbeddedRegexCache.Clear();
-
-					// Check whether there were not closed conditional comment
-					if (_conditionalCommentStack.Count > 0)
-					{
-						throw new HtmlParsingException(
-							Strings.ErrorMessage_NotClosedConditionalComment,
-							_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
-					}
-
+					_conditionalCommentStack.Clear();
 					_context = null;
 					_innerContext = null;
-					_conditionalCommentStack.Clear();
 				}
 			}
 		}
 
 		#region Processing methods
+
 		/// <summary>
 		/// Process a XML declaration
 		/// </summary>
@@ -845,9 +482,10 @@ namespace WebMarkupMin.Core.Parsers
 				var groups = revealedValidatingIfCommentMatch.Groups;
 				string expression = groups["expression"].Value.Trim();
 				string ltAndPling = groups["ltAndPling"].Value;
-				var type = (ltAndPling.Length > 0) ?
+				var type = ltAndPling.Length > 0 ?
 					HtmlConditionalCommentType.RevealedValidating
-					: HtmlConditionalCommentType.RevealedValidatingSimplified
+					:
+					HtmlConditionalCommentType.RevealedValidatingSimplified
 					;
 
 				ParseIfConditionalComment(expression, type);
@@ -899,9 +537,10 @@ namespace WebMarkupMin.Core.Parsers
 			{
 				GroupCollection groups = match.Groups;
 				string startTagName = groups["tagName"].Value;
+				string startTagNameInLowercase = startTagName;
 				if (Utils.ContainsUppercaseCharacters(startTagName))
 				{
-					startTagName = startTagName.ToLowerInvariant();
+					startTagNameInLowercase = startTagName.ToLowerInvariant();
 				}
 
 				Group invalidCharactersGroup = groups["invalidCharacters"];
@@ -918,7 +557,7 @@ namespace WebMarkupMin.Core.Parsers
 				}
 
 				string startTag = match.Value;
-				bool isEmptyTag = (groups["emptyTagSlash"].Value.Length > 0);
+				bool isEmptyTag = groups["emptyTagSlash"].Value.Length > 0;
 
 				Group attributesGroup = groups["attributes"];
 				var attributesCoordinates = SourceCodeNodeCoordinates.Empty;
@@ -947,7 +586,8 @@ namespace WebMarkupMin.Core.Parsers
 						nodeCoordinates, lineBreakCount, charRemainderCount);
 				}
 
-				ParseStartTag(startTagName, attributesString, attributesCoordinates, isEmptyTag);
+				ParseStartTag(startTagName, startTagNameInLowercase, attributesString, attributesCoordinates,
+					isEmptyTag);
 
 				_innerContext.IncreasePosition(startTag.Length);
 				isProcessed = true;
@@ -971,12 +611,13 @@ namespace WebMarkupMin.Core.Parsers
 			{
 				string endTag = match.Value;
 				string endTagName = match.Groups["tagName"].Value;
+				string endTagNameInLowercase = endTagName;
 				if (Utils.ContainsUppercaseCharacters(endTagName))
 				{
-					endTagName = endTagName.ToLowerInvariant();
+					endTagNameInLowercase = endTagName.ToLowerInvariant();
 				}
 
-				ParseEndTag(endTagName);
+				ParseEndTag(endTagName, endTagNameInLowercase);
 
 				_innerContext.IncreasePosition(endTag.Length);
 				isProcessed = true;
@@ -997,16 +638,18 @@ namespace WebMarkupMin.Core.Parsers
 			if (stackedTag != null)
 			{
 				string stackedTagName = stackedTag.Name;
+				string stackedTagNameInLowercase = stackedTag.NameInLowercase;
 				Regex stackedTagRegex;
-				if (_tagWithEmbeddedRegexCache.ContainsKey(stackedTagName))
+
+				if (_tagWithEmbeddedRegexCache.ContainsKey(stackedTagNameInLowercase))
 				{
-					stackedTagRegex = _tagWithEmbeddedRegexCache[stackedTagName];
+					stackedTagRegex = _tagWithEmbeddedRegexCache[stackedTagNameInLowercase];
 				}
 				else
 				{
-					stackedTagRegex = new Regex(@"([\s\S]*?)</" + Regex.Escape(stackedTagName) + @"\s*>",
+					stackedTagRegex = new Regex(@"([\s\S]*?)</" + Regex.Escape(stackedTagNameInLowercase) + @"\s*>",
 						RegexOptions.IgnoreCase);
-					_tagWithEmbeddedRegexCache[stackedTagName] = stackedTagRegex;
+					_tagWithEmbeddedRegexCache[stackedTagNameInLowercase] = stackedTagRegex;
 				}
 
 				var stackedTagMatch = stackedTagRegex.Match(content, _innerContext.Position, contentRemainderLength);
@@ -1018,7 +661,7 @@ namespace WebMarkupMin.Core.Parsers
 					_handlers.Text(_context, text);
 				}
 
-				ParseEndTag(stackedTagName);
+				ParseEndTag(stackedTagName, stackedTagNameInLowercase);
 
 				_innerContext.IncreasePosition(htmlFragment.Length);
 			}
@@ -1043,9 +686,9 @@ namespace WebMarkupMin.Core.Parsers
 				text = content.Substring(_innerContext.Position);
 			}
 
-			if (MustacheStyleTagHelpers.ContainsMustacheStyleTag(text))
+			if (TemplateTagHelpers.ContainsTag(text))
 			{
-				MustacheStyleTagHelpers.ParseMarkup(text,
+				TemplateTagHelpers.ParseMarkup(text,
 					(localContext, expression, startDelimiter, endDelimiter) =>
 					{
 						if (_handlers.TemplateTag != null)
@@ -1076,9 +719,11 @@ namespace WebMarkupMin.Core.Parsers
 				_innerContext.IncreasePosition(text.Length);
 			}
 		}
+
 		#endregion
 
 		#region Parsing methods
+
 		/// <summary>
 		/// Parses a If conditional comment
 		/// </summary>
@@ -1160,37 +805,39 @@ namespace WebMarkupMin.Core.Parsers
 		/// Parses a start tag
 		/// </summary>
 		/// <param name="tagName">Tag name</param>
+		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
 		/// <param name="attributesString">String representation of the attribute list</param>
 		/// <param name="attributesCoordinates">Attributes coordinates</param>
 		/// <param name="isEmptyTag">Flag that tag is empty</param>
-		private void ParseStartTag(string tagName, string attributesString,
+		private void ParseStartTag(string tagName, string tagNameInLowercase, string attributesString,
 			SourceCodeNodeCoordinates attributesCoordinates, bool isEmptyTag)
 		{
-			HtmlTagFlags tagFlags = GetFlagsByTagName(tagName);
+			HtmlTagFlags tagFlags = GetTagFlagsByName(tagNameInLowercase);
 
-			if (tagFlags.OptionalEndTag)
+			if (tagFlags.HasFlag(HtmlTagFlags.OptionalEndTag))
 			{
 				HtmlTag lastStackedTag = _tagStack.LastOrDefault();
-				if (lastStackedTag != null && lastStackedTag.Name == tagName)
+				if (lastStackedTag != null && lastStackedTag.NameInLowercase == tagNameInLowercase)
 				{
-					ParseEndTag(lastStackedTag.Name);
+					ParseEndTag(lastStackedTag.Name, lastStackedTag.NameInLowercase);
 				}
 				else
 				{
-					if (tagName == "body" && _tagStack.Any(t => t.Name == "head"))
+					if (tagNameInLowercase == "body" && _tagStack.Any(t => t.NameInLowercase == "head"))
 					{
-						ParseEndTag("head");
+						HtmlTag headTag = _tagStack.Single(t => t.NameInLowercase == "head");
+						ParseEndTag(headTag.Name, headTag.NameInLowercase);
 					}
 				}
 			}
 
-			if (tagFlags.Empty)
+			if (tagFlags.HasFlag(HtmlTagFlags.Empty))
 			{
 				isEmptyTag = true;
 			}
 
-			var attributes = ParseAttributes(tagName, tagFlags, attributesString, attributesCoordinates);
-			var tag = new HtmlTag(tagName, attributes, tagFlags);
+			var attributes = ParseAttributes(tagName, tagNameInLowercase, attributesString, attributesCoordinates);
+			var tag = new HtmlTag(tagName, tagNameInLowercase, attributes, tagFlags);
 
 			if (!isEmptyTag)
 			{
@@ -1199,7 +846,7 @@ namespace WebMarkupMin.Core.Parsers
 					HtmlConditionalComment lastConditionalComment = _conditionalCommentStack.Peek();
 					HtmlConditionalCommentType lastConditionalCommentType = lastConditionalComment.Type;
 
-					if (tagFlags.EmbeddedCode
+					if (tagFlags.HasFlag(HtmlTagFlags.EmbeddedCode)
 						|| lastConditionalCommentType == HtmlConditionalCommentType.RevealedValidating
 						|| lastConditionalCommentType == HtmlConditionalCommentType.RevealedValidatingSimplified)
 					{
@@ -1222,11 +869,11 @@ namespace WebMarkupMin.Core.Parsers
 		/// Parses a attributes
 		/// </summary>
 		/// <param name="tagName">Tag name</param>
-		/// <param name="tagFlags">Tag flags</param>
+		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
 		/// <param name="attributesString">String representation of the attribute list</param>
 		/// <param name="attributesCoordinates">Attributes coordinates</param>
 		/// <returns>List of attributes</returns>
-		private IList<HtmlAttribute> ParseAttributes(string tagName, HtmlTagFlags tagFlags,
+		private IList<HtmlAttribute> ParseAttributes(string tagName, string tagNameInLowercase,
 			string attributesString, SourceCodeNodeCoordinates attributesCoordinates)
 		{
 			var attributes = new List<HtmlAttribute>();
@@ -1247,23 +894,14 @@ namespace WebMarkupMin.Core.Parsers
 				Group attributeValueGroup = groups["attributeValue"];
 
 				string attributeName = attributeNameGroup.Value;
-				if (!tagFlags.Xml && Utils.ContainsUppercaseCharacters(attributeName))
+				string attributeNameInLowercase = attributeName;
+				if (Utils.ContainsUppercaseCharacters(attributeName))
 				{
-					attributeName = attributeName.ToLowerInvariant();
+					attributeNameInLowercase = attributeName.ToLowerInvariant();
 				}
-
-				var attributeType = HtmlAttributeType.Unknown;
-				if (IsBooleanAttribute(attributeName))
-				{
-					attributeType = HtmlAttributeType.Boolean;
-				}
-
 				string attributeValue = null;
-				if (attributeType == HtmlAttributeType.Boolean)
-				{
-					attributeValue = attributeName;
-				}
-				else if (attributeEqualSignGroup.Success)
+
+				if (attributeEqualSignGroup.Success)
 				{
 					if (attributeValueGroup.Success)
 					{
@@ -1321,36 +959,11 @@ namespace WebMarkupMin.Core.Parsers
 					currentPosition = attributeValuePosition;
 				}
 
-				if (attributeType == HtmlAttributeType.Unknown)
-				{
-					if (attributeName == "class")
-					{
-						attributeType = HtmlAttributeType.ClassName;
-					}
-					else if (attributeName == "style")
-					{
-						attributeType = HtmlAttributeType.Style;
-					}
-					else if (IsEventAttribute(attributeName))
-					{
-						attributeType = HtmlAttributeType.Event;
-					}
-					else if (IsNumericAttribute(tagName, attributeName))
-					{
-						attributeType = HtmlAttributeType.Numeric;
-					}
-					else if (IsUriBasedAttribute(tagName, attributeName, attributes))
-					{
-						attributeType = HtmlAttributeType.Uri;
-					}
-					else
-					{
-						attributeType = HtmlAttributeType.Text;
-					}
-				}
+				HtmlAttributeType attributeType = GetAttributeType(tagNameInLowercase, attributeNameInLowercase,
+					attributes);
 
-				attributes.Add(new HtmlAttribute(attributeName, attributeValue, attributeType,
-					attributeNameCoordinates, attributeValueCoordinates));
+				attributes.Add(new HtmlAttribute(attributeName, attributeNameInLowercase, attributeValue,
+					attributeType, attributeNameCoordinates, attributeValueCoordinates));
 			}
 
 			return attributes;
@@ -1359,8 +972,17 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Parses a end tag
 		/// </summary>
+		private void ParseEndTag()
+		{
+			ParseEndTag(null, null);
+		}
+
+		/// <summary>
+		/// Parses a end tag
+		/// </summary>
 		/// <param name="tagName">Tag name</param>
-		private void ParseEndTag(string tagName = null)
+		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
+		private void ParseEndTag(string tagName, string tagNameInLowercase)
 		{
 			int endTagIndex = 0;
 			int lastTagIndex = _tagStack.Count - 1;
@@ -1371,7 +993,7 @@ namespace WebMarkupMin.Core.Parsers
 			{
 				for (endTagIndex = lastTagIndex; endTagIndex >= 0; endTagIndex--)
 				{
-					if (_tagStack[endTagIndex].Name == tagName)
+					if (_tagStack[endTagIndex].NameInLowercase == tagNameInLowercase)
 					{
 						break;
 					}
@@ -1386,7 +1008,18 @@ namespace WebMarkupMin.Core.Parsers
 					for (int tagIndex = lastTagIndex; tagIndex >= endTagIndex; tagIndex--)
 					{
 						HtmlTag startTag = _tagStack[tagIndex];
-						var endTag = new HtmlTag(startTag.Name, startTag.Flags);
+						string startTagNameInLowercase = startTag.NameInLowercase;
+
+						string endTagName;
+						if (tagNameNotEmpty && tagNameInLowercase == startTagNameInLowercase)
+						{
+							endTagName = tagName;
+						}
+						else
+						{
+							endTagName = startTag.Name;
+						}
+						var endTag = new HtmlTag(endTagName, startTagNameInLowercase, startTag.Flags);
 
 						endTagHandler(_context, endTag);
 					}
@@ -1404,310 +1037,793 @@ namespace WebMarkupMin.Core.Parsers
 			}
 			else if (tagNameNotEmpty && _conditionalCommentOpened)
 			{
-				var endTag = new HtmlTag(tagName, GetFlagsByTagName(tagName));
+				var endTag = new HtmlTag(tagName, tagNameInLowercase, GetTagFlagsByName(tagNameInLowercase));
 				if (endTagHandler != null)
 				{
 					endTagHandler(_context, endTag);
 				}
 			}
 		}
+
 		#endregion
 
 		#region Determining methods
+
 		/// <summary>
 		/// Gets a HTML tag flags by tag name
 		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <returns>HTML tag flags</returns>
-		private HtmlTagFlags GetFlagsByTagName(string tagName)
+		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
+		/// <returns>Tag flags</returns>
+		private HtmlTagFlags GetTagFlagsByName(string tagNameInLowercase)
 		{
 			HtmlTagFlags tagFlags;
 
-			if (_tagFlagsCache.ContainsKey(tagName))
+			if (_tagFlagsCache.ContainsKey(tagNameInLowercase))
 			{
-				tagFlags = _tagFlagsCache[tagName];
+				tagFlags = _tagFlagsCache[tagNameInLowercase];
 			}
 			else
 			{
-				tagFlags = new HtmlTagFlags
+				tagFlags = HtmlTagFlags.None;
+				if (HtmlTagFlagsHelpers.IsInvisibleTag(tagNameInLowercase))
 				{
-					Invisible = IsInvisibleTag(tagName),
-					Empty = IsEmptyTag(tagName),
-					Block = IsBlockTag(tagName),
-					Inline = IsInlineTag(tagName),
-					InlineBlock = IsInlineBlockTag(tagName),
-					NonIndependent = IsNonIndependentTag(tagName),
-					OptionalEndTag = IsOptionalEndTag(tagName),
-					EmbeddedCode = IsTagWithEmbeddedCode(tagName),
-					Xml = IsXmlBasedTag(tagName)
-				};
-				_tagFlagsCache[tagName] = tagFlags;
+					tagFlags |= HtmlTagFlags.Invisible;
+				}
+				if (HtmlTagFlagsHelpers.IsEmptyTag(tagNameInLowercase))
+				{
+					tagFlags |= HtmlTagFlags.Empty;
+				}
+				if (HtmlTagFlagsHelpers.IsBlockTag(tagNameInLowercase))
+				{
+					tagFlags |= HtmlTagFlags.Block;
+				}
+				if (HtmlTagFlagsHelpers.IsInlineTag(tagNameInLowercase))
+				{
+					tagFlags |= HtmlTagFlags.Inline;
+				}
+				if (HtmlTagFlagsHelpers.IsInlineBlockTag(tagNameInLowercase))
+				{
+					tagFlags |= HtmlTagFlags.InlineBlock;
+				}
+				if (HtmlTagFlagsHelpers.IsNonIndependentTag(tagNameInLowercase))
+				{
+					tagFlags |= HtmlTagFlags.NonIndependent;
+				}
+				if (HtmlTagFlagsHelpers.IsOptionalEndTag(tagNameInLowercase))
+				{
+					tagFlags |= HtmlTagFlags.OptionalEndTag;
+				}
+				if (HtmlTagFlagsHelpers.IsTagWithEmbeddedCode(tagNameInLowercase))
+				{
+					tagFlags |= HtmlTagFlags.EmbeddedCode;
+				}
+				if (HtmlTagFlagsHelpers.IsXmlBasedTag(tagNameInLowercase))
+				{
+					tagFlags |= HtmlTagFlags.Xml;
+				}
+
+				_tagFlagsCache[tagNameInLowercase] = tagFlags;
 			}
 
 			return tagFlags;
 		}
 
 		/// <summary>
-		/// Checks whether the tag is invisible
+		/// Gets a HTML attribute type
 		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <returns>Result of check (true - invisible; false - not invisible)</returns>
-		private static bool IsInvisibleTag(string tagName)
-		{
-			return _invisibleTags.Contains(tagName);
-		}
-
-		/// <summary>
-		/// Checks whether the tag is empty
-		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <returns>Result of check (true - empty; false - not empty)</returns>
-		private static bool IsEmptyTag(string tagName)
-		{
-			return _emptyTags.Contains(tagName);
-		}
-
-		/// <summary>
-		/// Checks whether the tag is block
-		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <returns>Result of check (true - block; false - not block)</returns>
-		private static bool IsBlockTag(string tagName)
-		{
-			return _blockTags.Contains(tagName);
-		}
-
-		/// <summary>
-		/// Checks whether the tag is inline
-		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <returns>Result of check (true - inline; false - not inline)</returns>
-		private static bool IsInlineTag(string tagName)
-		{
-			return _inlineTags.Contains(tagName);
-		}
-
-		/// <summary>
-		/// Checks whether the tag is inline-block
-		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <returns>Result of check (true - inline-block; false - not inline-block)</returns>
-		private static bool IsInlineBlockTag(string tagName)
-		{
-			return _inlineBlockTags.Contains(tagName);
-		}
-
-		/// <summary>
-		/// Checks whether the tag is non-independent
-		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <returns>Result of check (true - non-independent; false - independent)</returns>
-		private static bool IsNonIndependentTag(string tagName)
-		{
-			return _nonIndependentTags.Contains(tagName);
-		}
-
-		/// <summary>
-		/// Checks whether the tag has end tag, thant can be omitted
-		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <returns>Result of check (true - end tag is optional; false - end tag is required)</returns>
-		private static bool IsOptionalEndTag(string tagName)
-		{
-			return _optionalEndTags.Contains(tagName);
-		}
-
-		/// <summary>
-		/// Checks whether the tag can contain embedded code
-		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <returns>Result of check (true - can contain embedded code; false - cannot contain embedded code)</returns>
-		private static bool IsTagWithEmbeddedCode(string tagName)
-		{
-			return _tagsWithEmbeddedCode.Contains(tagName);
-		}
-
-		/// <summary>
-		/// Checks whether the tag is XML-based
-		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <returns>Result of check (true - is XML-based; false - is not XML-based)</returns>
-		private static bool IsXmlBasedTag(string tagName)
-		{
-			return _xmlBasedTags.Contains(tagName);
-		}
-
-		/// <summary>
-		/// Checks whether the attribute is boolean
-		/// </summary>
-		/// <param name="attributeName">Attribute name</param>
-		/// <returns>Result of check (true - boolean; false - not boolean)</returns>
-		private static bool IsBooleanAttribute(string attributeName)
-		{
-			return _booleanAttributes.Contains(attributeName);
-		}
-
-		/// <summary>
-		/// Checks whether the attribute is numeric
-		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <param name="attributeName">Attribute name</param>
-		/// <returns>Result of check (true - numeric; false - not numeric)</returns>
-		public static bool IsNumericAttribute(string tagName, string attributeName)
-		{
-			bool isNumeric;
-
-			switch (attributeName)
-			{
-				case "tabindex":
-					isNumeric = true;
-					break;
-				case "width":
-					isNumeric = _tagsWithWidthAttribute.Contains(tagName);
-					break;
-				case "height":
-					isNumeric = _tagsWithHeightAttribute.Contains(tagName);
-					break;
-				case "colspan":
-				case "rowspan":
-					isNumeric = (tagName == "td" || tagName == "th");
-					break;
-				case "maxlength":
-					isNumeric = (tagName == "input" || tagName == "textarea");
-					break;
-				case "size":
-					isNumeric = _tagsWithSizeAttribute.Contains(tagName);
-					break;
-				case "cols":
-				case "rows":
-					isNumeric = (tagName == "textarea" || tagName == "frameset");
-					break;
-				case "max":
-					isNumeric = _tagsWithMaxAttribute.Contains(tagName);
-					break;
-				case "min":
-					isNumeric = _tagsWithMinAttribute.Contains(tagName);
-					break;
-				case "step":
-					isNumeric = (tagName == "input");
-					break;
-				case "value":
-					isNumeric = _tagsWithValueAttribute.Contains(tagName);
-					break;
-				case "high":
-				case "low":
-				case "optimum":
-					isNumeric = (tagName == "meter");
-					break;
-				case "start":
-					isNumeric = (tagName == "ol");
-					break;
-				case "span":
-					isNumeric = (tagName == "colgroup" || tagName == "col");
-					break;
-				case "border":
-					isNumeric = _tagsWithBorderAttribute.Contains(tagName);
-					break;
-				case "cellpadding":
-				case "cellspacing":
-					isNumeric = (tagName == "table");
-					break;
-				case "charoff":
-					isNumeric = _tagsWithCharoffAttribute.Contains(tagName);
-					break;
-				case "hspace":
-				case "vspace":
-					isNumeric = (tagName == "img" || tagName == "object" || tagName == "applet");
-					break;
-				case "frameborder":
-				case "marginwidth":
-				case "marginheight":
-					isNumeric = (tagName == "iframe" || tagName == "frame");
-					break;
-				default:
-					isNumeric = false;
-					break;
-			}
-
-			return isNumeric;
-		}
-
-		/// <summary>
-		/// Checks whether the attribute is URI-based
-		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <param name="attributeName">Attribute name</param>
+		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
+		/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
 		/// <param name="attributes">List of attributes</param>
-		/// <returns>Result of check (true - URI-based; false - not URI-based)</returns>
-		private static bool IsUriBasedAttribute(string tagName, string attributeName, IEnumerable<HtmlAttribute> attributes)
+		/// <returns>Attribute type</returns>
+		private HtmlAttributeType GetAttributeType(string tagNameInLowercase, string attributeNameInLowercase,
+			IList<HtmlAttribute> attributes)
 		{
-			bool isUriBased;
-
-			switch (attributeName)
+			HtmlAttributeType attributeType;
+			if (attributeNameInLowercase == "class")
 			{
-				case "href":
-					isUriBased = _tagsWithHrefAttribute.Contains(tagName);
-					break;
-				case "src":
-					isUriBased = _tagsWithSrcAttribute.Contains(tagName);
-					break;
-				case "action":
-					isUriBased = (tagName == "form");
-					break;
-				case "cite":
-					isUriBased = _tagsWithCiteAttribute.Contains(tagName);
-					break;
-				case "manifest":
-					isUriBased = (tagName == "html");
-					break;
-				case "longdesc":
-					isUriBased = _tagsWithLongdescAttribute.Contains(tagName);
-					break;
-				case "formaction":
-					isUriBased = (tagName == "button" || tagName == "input");
-					break;
-				case "poster":
-					isUriBased = (tagName == "video");
-					break;
-				case "icon":
-					isUriBased = (tagName == "command");
-					break;
-				case "data":
-					isUriBased = (tagName == "object");
-					break;
-				case "codebase":
-				case "archive":
-					isUriBased = (tagName == "object" || tagName == "applet");
-					break;
-				case "code":
-					isUriBased = (tagName == "applet");
-					break;
-				case "profile":
-					isUriBased = (tagName == "head");
-					break;
-				case "value":
-					isUriBased = (tagName == "param" && attributes.Any(a => a.Name == "name"
-						&& _uriBasedParams.Contains(a.Value.Trim().ToLowerInvariant())));
-					break;
-				default:
-					isUriBased = false;
-					break;
+				attributeType = HtmlAttributeType.ClassName;
+			}
+			else if (attributeNameInLowercase == "style")
+			{
+				attributeType = HtmlAttributeType.Style;
+			}
+			else if (HtmlAttributeTypeHelpers.IsBooleanAttribute(attributeNameInLowercase))
+			{
+				attributeType = HtmlAttributeType.Boolean;
+			}
+			else if (HtmlAttributeTypeHelpers.IsEventAttribute(attributeNameInLowercase))
+			{
+				attributeType = HtmlAttributeType.Event;
+			}
+			else if (HtmlAttributeTypeHelpers.IsNumericAttribute(tagNameInLowercase, attributeNameInLowercase))
+			{
+				attributeType = HtmlAttributeType.Numeric;
+			}
+			else if (HtmlAttributeTypeHelpers.IsUriBasedAttribute(tagNameInLowercase, attributeNameInLowercase,
+				attributes))
+			{
+				attributeType = HtmlAttributeType.Uri;
+			}
+			else
+			{
+				attributeType = HtmlAttributeType.Text;
 			}
 
-			return isUriBased;
+			return attributeType;
+		}
+
+		#endregion
+
+		#region Internal types
+
+		/// <summary>
+		/// HTML tag flags helpers
+		/// </summary>
+		private static class HtmlTagFlagsHelpers
+		{
+			#region Invisible tags
+
+			/// <summary>
+			/// List of invisible tags
+			/// </summary>
+			private static readonly HashSet<string> _invisibleTags = Utils.UnionHashSets(
+				// HTML5
+				new []
+				{
+					"base", "body",
+					"datalist", "dialog",
+					"head", "html",
+					"link",
+					"meta",
+					"param",
+					"script", "source", "style",
+					"template", "title", "track"
+				},
+
+				// Deprecated
+				new []
+				{
+					"basefont", "bgsound"
+				}
+			);
+
+			#endregion
+
+			#region Empty tags
+
+			/// <summary>
+			/// List of empty tags
+			/// </summary>
+			private static readonly HashSet<string> _emptyTags = Utils.UnionHashSets(
+				// HTML5
+				new []
+				{
+					"area",
+					"base", "basefont", "br",
+					"col",
+					"embed",
+					"frame",
+					"hr",
+					"img", "input",
+					"link",
+					"meta",
+					"param",
+					"source",
+					"track"
+				},
+
+				// Deprecated
+				new []
+				{
+					"isindex"
+				}
+			);
+
+			#endregion
+
+			#region Block tags
+
+			/// <summary>
+			/// List of block tags
+			/// </summary>
+			private static readonly HashSet<string> _blockTags = Utils.UnionHashSets(
+				// HTML5
+				new []
+				{
+					"address", "article", "aside",
+					"blockquote",
+					"caption", "col", "colgroup", "command",
+					"dd", "details", "dialog", "div", "dl", "dt",
+					"fieldset", "figcaption", "figure", "footer", "form",
+					"h1", "h2", "h3", "h4", "h5", "h6", "header", "hgroup", "hr",
+					"legend", "li",
+					"main", "menu", "menuitem",
+					"noscript",
+					"ol",
+					"p", "pre",
+					"section", "summary",
+					"table", "tbody", "td", "tfoot", "th", "thead", "tr",
+					"ul"
+				},
+
+				// Deprecated
+				new []
+				{
+					"center", "dir", "frame", "frameset", "isindex", "marquee", "noframes"
+				}
+			);
+
+			#endregion
+
+			#region Inline tags
+
+			/// <summary>
+			/// List of inline tags
+			/// </summary>
+			private static readonly HashSet<string> _inlineTags = Utils.UnionHashSets(
+				// HTML5
+				new []
+				{
+					"a", "abbr",
+					"b", "bdi", "bdo", "br",
+					"cite", "code",
+					"data", "dfn",
+					"em",
+					"i", "img", "input",
+					"kbd", "keygen",
+					"label",
+					"mark", "meter",
+					"optgroup", "option", "output",
+					"progress",
+					"q",
+					"rp", "rt", "ruby",
+					"samp", "select", "small", "span", "strong", "sub", "sup",
+					"textarea", "time",
+					"var",
+					"wbr"
+				},
+
+				// Deprecated
+				new []
+				{
+					"acronym", "big", "blink", "font", "nobr", "s", "strike", "tt", "u"
+				}
+			);
+
+			#endregion
+
+			#region Inline-block tags
+
+			/// <summary>
+			/// List of inline-block tags
+			/// </summary>
+			private static readonly HashSet<string> _inlineBlockTags = Utils.UnionHashSets(
+				// HTML5
+				new []
+				{
+					"area", "audio",
+					"button",
+					"canvas",
+					"del",
+					"embed",
+					"iframe", "ins",
+					"map", "math",
+					"object",
+					"script", "svg",
+					"video"
+				},
+
+				// Deprecated
+				new []
+				{
+					"applet"
+				}
+			);
+
+			#endregion
+
+			#region Non-independent tags
+
+			/// <summary>
+			/// List of non-independent tags
+			/// </summary>
+			private static readonly HashSet<string> _nonIndependentTags = new HashSet<string>
+			{
+				"area",
+				"caption", "col", "colgroup", "command",
+				"dd", "dt",
+				"figcaption", "frame",
+				"legend", "li",
+				"menuitem",
+				"optgroup", "option",
+				"param",
+				"rp", "rt",
+				"source",
+				"tbody", "td", "tfoot", "th", "thead", "tr", "track"
+			};
+
+			#endregion
+
+			#region Optional end tags
+
+			/// <summary>
+			/// List of end tags, that can be omitted
+			/// </summary>
+			private static readonly HashSet<string> _optionalEndTags = new HashSet<string>
+			{
+				"body",
+				"colgroup",
+				"dd", "dt",
+				"head", "html",
+				"li",
+				"optgroup", "option",
+				"p",
+				"rp", "rt",
+				"tbody", "td", "tfoot", "th", "thead", "tr"
+			};
+
+			#endregion
+
+			#region Tags with embedded code
+
+			/// <summary>
+			/// List of the tags, that can contain embedded code
+			/// </summary>
+			private static readonly HashSet<string> _tagsWithEmbeddedCode = new HashSet<string>
+			{
+				"script", "style", "svg", "math"
+			};
+
+			#endregion
+
+			#region XML-based tags
+
+			/// <summary>
+			/// List of the XML-based tags
+			/// </summary>
+			private static readonly HashSet<string> _xmlBasedTags = new HashSet<string>
+			{
+				"svg", "math"
+			};
+
+			#endregion
+
+
+			/// <summary>
+			/// Checks whether the tag is invisible
+			/// </summary>
+			/// <param name="tagNameInLowercase">Tag name in lowercase</param>
+			/// <returns>Result of check (true - invisible; false - not invisible)</returns>
+			public static bool IsInvisibleTag(string tagNameInLowercase)
+			{
+				return _invisibleTags.Contains(tagNameInLowercase);
+			}
+
+			/// <summary>
+			/// Checks whether the tag is empty
+			/// </summary>
+			/// <param name="tagNameInLowercase">Tag name in lowercase</param>
+			/// <returns>Result of check (true - empty; false - not empty)</returns>
+			public static bool IsEmptyTag(string tagNameInLowercase)
+			{
+				return _emptyTags.Contains(tagNameInLowercase);
+			}
+
+			/// <summary>
+			/// Checks whether the tag is block
+			/// </summary>
+			/// <param name="tagNameInLowercase">Tag name in lowercase</param>
+			/// <returns>Result of check (true - block; false - not block)</returns>
+			public static bool IsBlockTag(string tagNameInLowercase)
+			{
+				return _blockTags.Contains(tagNameInLowercase);
+			}
+
+			/// <summary>
+			/// Checks whether the tag is inline
+			/// </summary>
+			/// <param name="tagNameInLowercase">Tag name in lowercase</param>
+			/// <returns>Result of check (true - inline; false - not inline)</returns>
+			public static bool IsInlineTag(string tagNameInLowercase)
+			{
+				return _inlineTags.Contains(tagNameInLowercase);
+			}
+
+			/// <summary>
+			/// Checks whether the tag is inline-block
+			/// </summary>
+			/// <param name="tagNameInLowercase">Tag name in lowercase</param>
+			/// <returns>Result of check (true - inline-block; false - not inline-block)</returns>
+			public static bool IsInlineBlockTag(string tagNameInLowercase)
+			{
+				return _inlineBlockTags.Contains(tagNameInLowercase);
+			}
+
+			/// <summary>
+			/// Checks whether the tag is non-independent
+			/// </summary>
+			/// <param name="tagNameInLowercase">Tag name in lowercase</param>
+			/// <returns>Result of check (true - non-independent; false - independent)</returns>
+			public static bool IsNonIndependentTag(string tagNameInLowercase)
+			{
+				return _nonIndependentTags.Contains(tagNameInLowercase);
+			}
+
+			/// <summary>
+			/// Checks whether the tag has end tag, thant can be omitted
+			/// </summary>
+			/// <param name="tagNameInLowercase">Tag name in lowercase</param>
+			/// <returns>Result of check (true - end tag is optional; false - end tag is required)</returns>
+			public static bool IsOptionalEndTag(string tagNameInLowercase)
+			{
+				return _optionalEndTags.Contains(tagNameInLowercase);
+			}
+
+			/// <summary>
+			/// Checks whether the tag can contain embedded code
+			/// </summary>
+			/// <param name="tagNameInLowercase">Tag name in lowercase</param>
+			/// <returns>Result of check (true - can contain embedded code; false - cannot contain embedded code)</returns>
+			public static bool IsTagWithEmbeddedCode(string tagNameInLowercase)
+			{
+				return _tagsWithEmbeddedCode.Contains(tagNameInLowercase);
+			}
+
+			/// <summary>
+			/// Checks whether the tag is XML-based
+			/// </summary>
+			/// <param name="tagNameInLowercase">Tag name in lowercase</param>
+			/// <returns>Result of check (true - is XML-based; false - is not XML-based)</returns>
+			public static bool IsXmlBasedTag(string tagNameInLowercase)
+			{
+				return _xmlBasedTags.Contains(tagNameInLowercase);
+			}
 		}
 
 		/// <summary>
-		/// Checks whether the attribute is event
+		/// HTML attribute type helpers
 		/// </summary>
-		/// <param name="attributeName">Attribute name</param>
-		/// <returns>Result of check (true - event; false - not event)</returns>
-		private static bool IsEventAttribute(string attributeName)
+		private static class HtmlAttributeTypeHelpers
 		{
-			bool isEventAttribute = _eventAttributeNameRegex.IsMatch(attributeName);
+			#region Boolean attributes
 
-			return isEventAttribute;
+			/// <summary>
+			/// List of boolean attributes
+			/// </summary>
+			private static readonly HashSet<string> _booleanAttributes = Utils.UnionHashSets(
+				// HTML5
+				new []
+				{
+					"allowfullscreen", "async", "autofocus", "autoplay",
+					"challenge", "checked", "controls",
+					"default", "defer", "disabled",
+					"formnovalidate",
+					"hidden",
+					"indeterminate", "inert", "ismap", "itemscope",
+					"loop",
+					"multiple", "muted",
+					"novalidate",
+					"open",
+					"pubdate",
+					"readonly", "required", "reversed",
+					"scoped", "seamless", "selected", "sortable",
+					"typemustmatch"
+				},
+
+				// Deprecated
+				new []
+				{
+					"compact", "declare", "nohref", "noresize", "noshade", "nowrap", "truespeed"
+				}
+			);
+
+			#endregion
+
+			#region Event attributes
+
+			/// <summary>
+			/// Regular expression for event attribute name
+			/// </summary>
+			private static readonly Regex _eventAttributeNameRegex = new Regex("^on[a-z]{3,}$", RegexOptions.IgnoreCase);
+
+			#endregion
+
+			#region Tags with URI based attributes
+
+			/// <summary>
+			/// List of tags with href attribute
+			/// </summary>
+			private static readonly HashSet<string> _tagsWithHrefAttribute = new HashSet<string>
+			{
+				"a", "area", "base", "link"
+			};
+
+			/// <summary>
+			/// List of tags with src attribute
+			/// </summary>
+			private static readonly HashSet<string> _tagsWithSrcAttribute = new HashSet<string>
+			{
+				"audio", "embed", "frame", "iframe", "img", "input", "script", "source", "track", "video"
+			};
+
+			/// <summary>
+			/// List of tags with cite attribute
+			/// </summary>
+			private static readonly HashSet<string> _tagsWithCiteAttribute = new HashSet<string>
+			{
+				"blockquote", "del", "ins", "q"
+			};
+
+			/// <summary>
+			/// List of tags with longdesc attribute
+			/// </summary>
+			private static readonly HashSet<string> _tagsWithLongdescAttribute = new HashSet<string>
+			{
+				"frame", "iframe", "img"
+			};
+
+			/// <summary>
+			/// URI based params
+			/// </summary>
+			private static readonly HashSet<string> _uriBasedParams = new HashSet<string>
+			{
+				"movie", "pluginspage"
+			};
+
+			#endregion
+
+			#region Tags with numeric attributes
+
+			/// <summary>
+			/// List of tags with width attribute
+			/// </summary>
+			private static readonly HashSet<string> _tagsWithWidthAttribute = new HashSet<string>
+			{
+				"applet",
+				"canvas", "col", "colgroup",
+				"embed",
+				"hr",
+				"iframe", "img", "input",
+				"object",
+				"pre",
+				"table", "td", "th",
+				"video"
+			};
+
+			/// <summary>
+			/// List of tags with height attribute
+			/// </summary>
+			private static readonly HashSet<string> _tagsWithHeightAttribute = new HashSet<string>
+			{
+				"applet", "canvas", "embed", "iframe", "img", "input", "object", "td", "th", "video"
+			};
+
+			/// <summary>
+			/// List of tags with border attribute
+			/// </summary>
+			private static readonly HashSet<string> _tagsWithBorderAttribute = new HashSet<string>
+			{
+				"img", "object", "table"
+			};
+
+			/// <summary>
+			/// List of tags with size attribute
+			/// </summary>
+			private static readonly HashSet<string> _tagsWithSizeAttribute = new HashSet<string>
+			{
+				"basefont", "font", "hr", "input", "select"
+			};
+
+			/// <summary>
+			/// List of tags with max attribute
+			/// </summary>
+			private static readonly HashSet<string> _tagsWithMaxAttribute = new HashSet<string>
+			{
+				"input", "meter", "progress"
+			};
+
+			/// <summary>
+			/// List of tags with min attribute
+			/// </summary>
+			private static readonly HashSet<string> _tagsWithMinAttribute = new HashSet<string>
+			{
+				"input", "meter"
+			};
+
+			/// <summary>
+			/// List of tags with value attribute
+			/// </summary>
+			private static readonly HashSet<string> _tagsWithValueAttribute = new HashSet<string>
+			{
+				"li", "meter", "progress"
+			};
+
+			/// <summary>
+			/// List of tags with charoff attribute
+			/// </summary>
+			private static readonly HashSet<string> _tagsWithCharoffAttribute = new HashSet<string>
+			{
+				"col", "colgroup", "tbody", "td", "tfoot", "th", "thead", "tr"
+			};
+
+			#endregion
+
+
+			/// <summary>
+			/// Checks whether the attribute is boolean
+			/// </summary>
+			/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
+			/// <returns>Result of check (true - boolean; false - not boolean)</returns>
+			public static bool IsBooleanAttribute(string attributeNameInLowercase)
+			{
+				return _booleanAttributes.Contains(attributeNameInLowercase);
+			}
+
+			/// <summary>
+			/// Checks whether the attribute is numeric
+			/// </summary>
+			/// <param name="tagNameInLowercase">Tag name in lowercase</param>
+			/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
+			/// <returns>Result of check (true - numeric; false - not numeric)</returns>
+			public static bool IsNumericAttribute(string tagNameInLowercase, string attributeNameInLowercase)
+			{
+				bool isNumeric;
+
+				switch (attributeNameInLowercase)
+				{
+					case "tabindex":
+						isNumeric = true;
+						break;
+					case "width":
+						isNumeric = _tagsWithWidthAttribute.Contains(tagNameInLowercase);
+						break;
+					case "height":
+						isNumeric = _tagsWithHeightAttribute.Contains(tagNameInLowercase);
+						break;
+					case "colspan":
+					case "rowspan":
+						isNumeric = tagNameInLowercase == "td" || tagNameInLowercase == "th";
+						break;
+					case "maxlength":
+						isNumeric = tagNameInLowercase == "input" || tagNameInLowercase == "textarea";
+						break;
+					case "size":
+						isNumeric = _tagsWithSizeAttribute.Contains(tagNameInLowercase);
+						break;
+					case "cols":
+					case "rows":
+						isNumeric = tagNameInLowercase == "textarea" || tagNameInLowercase == "frameset";
+						break;
+					case "max":
+						isNumeric = _tagsWithMaxAttribute.Contains(tagNameInLowercase);
+						break;
+					case "min":
+						isNumeric = _tagsWithMinAttribute.Contains(tagNameInLowercase);
+						break;
+					case "step":
+						isNumeric = tagNameInLowercase == "input";
+						break;
+					case "value":
+						isNumeric = _tagsWithValueAttribute.Contains(tagNameInLowercase);
+						break;
+					case "high":
+					case "low":
+					case "optimum":
+						isNumeric = tagNameInLowercase == "meter";
+						break;
+					case "start":
+						isNumeric = tagNameInLowercase == "ol";
+						break;
+					case "span":
+						isNumeric = tagNameInLowercase == "colgroup" || tagNameInLowercase == "col";
+						break;
+					case "border":
+						isNumeric = _tagsWithBorderAttribute.Contains(tagNameInLowercase);
+						break;
+					case "cellpadding":
+					case "cellspacing":
+						isNumeric = tagNameInLowercase == "table";
+						break;
+					case "charoff":
+						isNumeric = _tagsWithCharoffAttribute.Contains(tagNameInLowercase);
+						break;
+					case "hspace":
+					case "vspace":
+						isNumeric = tagNameInLowercase == "img" || tagNameInLowercase == "object"
+							|| tagNameInLowercase == "applet";
+						break;
+					case "frameborder":
+					case "marginwidth":
+					case "marginheight":
+						isNumeric = tagNameInLowercase == "iframe" || tagNameInLowercase == "frame";
+						break;
+					default:
+						isNumeric = false;
+						break;
+				}
+
+				return isNumeric;
+			}
+
+			/// <summary>
+			/// Checks whether the attribute is URI-based
+			/// </summary>
+			/// <param name="tagNameInLowercase">Tag name in lowercase</param>
+			/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
+			/// <param name="attributes">List of attributes</param>
+			/// <returns>Result of check (true - URI-based; false - not URI-based)</returns>
+			public static bool IsUriBasedAttribute(string tagNameInLowercase, string attributeNameInLowercase,
+				IList<HtmlAttribute> attributes)
+			{
+				bool isUriBased;
+
+				switch (attributeNameInLowercase)
+				{
+					case "href":
+						isUriBased = _tagsWithHrefAttribute.Contains(tagNameInLowercase);
+						break;
+					case "src":
+						isUriBased = _tagsWithSrcAttribute.Contains(tagNameInLowercase);
+						break;
+					case "action":
+						isUriBased = tagNameInLowercase == "form";
+						break;
+					case "cite":
+						isUriBased = _tagsWithCiteAttribute.Contains(tagNameInLowercase);
+						break;
+					case "manifest":
+						isUriBased = tagNameInLowercase == "html";
+						break;
+					case "longdesc":
+						isUriBased = _tagsWithLongdescAttribute.Contains(tagNameInLowercase);
+						break;
+					case "formaction":
+						isUriBased = tagNameInLowercase == "button" || tagNameInLowercase == "input";
+						break;
+					case "poster":
+						isUriBased = tagNameInLowercase == "video";
+						break;
+					case "icon":
+						isUriBased = tagNameInLowercase == "command";
+						break;
+					case "data":
+						isUriBased = tagNameInLowercase == "object";
+						break;
+					case "codebase":
+					case "archive":
+						isUriBased = tagNameInLowercase == "object" || tagNameInLowercase == "applet";
+						break;
+					case "code":
+						isUriBased = tagNameInLowercase == "applet";
+						break;
+					case "profile":
+						isUriBased = tagNameInLowercase == "head";
+						break;
+					case "value":
+						isUriBased = tagNameInLowercase == "param" && attributes.Any(a => a.NameInLowercase == "name"
+							&& _uriBasedParams.Contains(a.Value.Trim().ToLowerInvariant()));
+						break;
+					default:
+						isUriBased = false;
+						break;
+				}
+
+				return isUriBased;
+			}
+
+			/// <summary>
+			/// Checks whether the attribute is event
+			/// </summary>
+			/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
+			/// <returns>Result of check (true - event; false - not event)</returns>
+			public static bool IsEventAttribute(string attributeNameInLowercase)
+			{
+				bool isEventAttribute = _eventAttributeNameRegex.IsMatch(attributeNameInLowercase);
+
+				return isEventAttribute;
+			}
 		}
+
 		#endregion
 	}
 }

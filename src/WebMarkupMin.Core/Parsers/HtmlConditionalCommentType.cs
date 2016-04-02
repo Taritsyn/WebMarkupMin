@@ -3,7 +3,7 @@
 	/// <summary>
 	/// HTML conditional comment types
 	/// </summary>
-	internal enum HtmlConditionalCommentType
+	internal enum HtmlConditionalCommentType : byte
 	{
 		Hidden,
 		Revealed,

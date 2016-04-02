@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Render mode of HTML empty tag
 	/// </summary>
-	public enum HtmlEmptyTagRenderMode
+	public enum HtmlEmptyTagRenderMode : byte
 	{
 		/// <summary>
 		/// Without slash

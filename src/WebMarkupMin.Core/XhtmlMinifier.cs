@@ -35,6 +35,7 @@ namespace WebMarkupMin.Core
 					RemoveHtmlCommentsFromScriptsAndStyles = settings.RemoveHtmlCommentsFromScriptsAndStyles,
 					RemoveCdataSectionsFromScriptsAndStyles = false,
 					UseShortDoctype = settings.UseShortDoctype,
+					PreserveCase = false,
 					UseMetaCharsetTag = settings.UseMetaCharsetTag,
 					EmptyTagRenderMode = settings.RenderEmptyTagsWithSpace ?
 						HtmlEmptyTagRenderMode.SpaceAndSlash : HtmlEmptyTagRenderMode.Slash,

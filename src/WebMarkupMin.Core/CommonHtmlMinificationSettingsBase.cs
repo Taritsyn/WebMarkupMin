@@ -59,7 +59,7 @@ namespace WebMarkupMin.Core
 		/// Gets or sets a flag for whether to remove tags without content
 		/// (except for <code>textarea</code>, <code>tr</code>, <code>th</code> and <code>td</code> tags,
 		/// and tags with <code>class</code>, <code>id</code>, <code>name</code>, <code>role</code>,
-		/// <code>src</code> and <code>data-*</code> attributes)
+		/// <code>src</code> and custom attributes)
 		/// </summary>
 		public bool RemoveTagsWithoutContent
 		{
@@ -258,7 +258,7 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Gets or sets a flag for whether to minify the AngularJS binding expressions
+		/// Gets or sets a flag for whether to minify the AngularJS 1.X binding expressions
 		/// in Mustache-style tags (<code>{{}}</code>) and directives
 		/// </summary>
 		public bool MinifyAngularBindingExpressions
@@ -269,12 +269,12 @@ namespace WebMarkupMin.Core
 
 		#region Custom Angular directives with expressions
 		/// <summary>
-		/// Collection of names of custom AngularJS directives, that contain expressions
+		/// Collection of names of custom AngularJS 1.X directives, that contain expressions
 		/// </summary>
 		private readonly HashSet<string> _customAngularDirectives;
 
 		/// <summary>
-		/// Gets a collection of names of custom AngularJS directives, that contain expressions
+		/// Gets a collection of names of custom AngularJS 1.X directives, that contain expressions
 		/// </summary>
 		public IEnumerable<string> CustomAngularDirectiveCollection
 		{
@@ -285,9 +285,9 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Sets a names of custom AngularJS directives
+		/// Sets a names of custom AngularJS 1.X directives
 		/// </summary>
-		/// <param name="directiveNames">Collection of names of custom AngularJS directives</param>
+		/// <param name="directiveNames">Collection of names of custom AngularJS 1.X directives</param>
 		public int SetCustomAngularDirectives(IEnumerable<string> directiveNames)
 		{
 			_customAngularDirectives.Clear();
@@ -304,9 +304,9 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Adds a name of custom AngularJS directive to the list
+		/// Adds a name of custom AngularJS 1.X directive to the list
 		/// </summary>
-		/// <param name="directiveName">Name of custom AngularJS directive</param>
+		/// <param name="directiveName">Name of custom AngularJS 1.X directive</param>
 		/// <returns>true - valid directive name; false - invalid directive name</returns>
 		public bool AddCustomAngularDirective(string directiveName)
 		{
@@ -322,7 +322,7 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Gets or sets a comma-separated list of names of custom AngularJS
+		/// Gets or sets a comma-separated list of names of custom AngularJS 1.X
 		/// directives (e.g. <code>"myDir, btfCarousel"</code>), that contain expressions
 		/// </summary>
 		public string CustomAngularDirectiveList

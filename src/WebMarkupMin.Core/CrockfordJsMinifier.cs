@@ -7,7 +7,7 @@ namespace WebMarkupMin.Core
 {
 	/// <summary>
 	/// Minifier, which produces minifiction of JS-code
-	/// by using C# port of Douglas Crockford's JSMin (version of May 22 2007)
+	/// by using C# port of Douglas Crockford's JSMin (version of March 29, 2013)
 	/// </summary>
 	public sealed class CrockfordJsMinifier : IJsMinifier
 	{
@@ -22,7 +22,7 @@ namespace WebMarkupMin.Core
 
 		/// <summary>
 		/// Produces code minifiction of JS content by using C# port of
-		/// Douglas Crockford's JSMin (version of May 22 2007)
+		/// Douglas Crockford's JSMin
 		/// </summary>
 		/// <param name="content">JS content</param>
 		/// <param name="isInlineCode">Flag whether the content is inline code</param>
@@ -34,7 +34,7 @@ namespace WebMarkupMin.Core
 
 		/// <summary>
 		/// Produces code minifiction of JS content by using C# port of
-		/// Douglas Crockford's JSMin (version of May 22 2007)
+		/// Douglas Crockford's JSMin
 		/// </summary>
 		/// <param name="content">JS content</param>
 		/// <param name="isInlineCode">Flag whether the content is inline code</param>

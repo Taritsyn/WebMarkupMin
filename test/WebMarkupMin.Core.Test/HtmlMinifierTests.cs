@@ -137,6 +137,33 @@ namespace WebMarkupMin.Core.Test
 				"</html>"
 				;
 
+			const string input18 = "<meta http-equiv=\"X-UA-Compatible\" content=\"chrome=1\">\n" +
+				"<link href='http://example.com/rss' rel='alternate' type='application/rss+xml' " +
+				"Вакансии — ФИГАЧИМ='Все вакансии'>\n" +
+				"<title>Вакансии — ФИГАЧИМ</title>"
+				;
+			const string targetOutput18 = "<meta http-equiv=\"X-UA-Compatible\" content=\"chrome=1\">\n" +
+				"<link href=\"http://example.com/rss\" rel=\"alternate\" type=\"application/rss+xml\" " +
+				"вакансии — фигачим=\"Все вакансии\">\n" +
+				"<title>Вакансии — ФИГАЧИМ</title>"
+				;
+
+			const string input19 = "<a href=\"/?source=upload-main\" class=\"b-link\"[object Object]>" +
+				"<i class=\"b-ico b-ico-upload\"></i>" +
+				"</a>"
+				;
+			const string targetOutput19 = "<a href=\"/?source=upload-main\" class=\"b-link\" [object object]>" +
+				"<i class=\"b-ico b-ico-upload\"></i>" +
+				"</a>"
+				;
+
+			const string input20 = "<form action='/s/ref=nb_sb_noss' method='get' role='search'" +
+				" accept-charset='utf-8', class='nav-searchbar-inner'></form>"
+				;
+			const string targetOutput20 = "<form action=\"/s/ref=nb_sb_noss\" method=\"get\" role=\"search\"" +
+				" accept-charset=\"utf-8\" , class=\"nav-searchbar-inner\"></form>"
+				;
+
 			// Act
 			string output1 = minifier.Minify(input1).MinifiedContent;
 			string output2 = minifier.Minify(input2).MinifiedContent;
@@ -155,6 +182,9 @@ namespace WebMarkupMin.Core.Test
 			string output15 = minifier.Minify(input15).MinifiedContent;
 			string output16 = minifier.Minify(input16).MinifiedContent;
 			string output17 = minifier.Minify(input17).MinifiedContent;
+			string output18 = minifier.Minify(input18).MinifiedContent;
+			string output19 = minifier.Minify(input19).MinifiedContent;
+			string output20 = minifier.Minify(input20).MinifiedContent;
 
 			// Assert
 			Assert.Equal(input1, output1);
@@ -174,6 +204,9 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(input15, output15);
 			Assert.Equal(targetOutput16, output16);
 			Assert.Equal(targetOutput17, output17);
+			Assert.Equal(targetOutput18, output18);
+			Assert.Equal(targetOutput19, output19);
+			Assert.Equal(targetOutput20, output20);
 		}
 
 		[Fact]
@@ -231,23 +264,18 @@ namespace WebMarkupMin.Core.Test
 				"недвижимость и квартиры в Москве и РФ \"Хата.ру\" – Аналитика и цены на недвижимость онлайн, " +
 				"прогнозы, исследования, обзоры и статьи.\">"
 				;
-			const string input4 = "<meta http-equiv=\"X-UA-Compatible\" content=\"chrome=1\">\n" +
-				"<link href='http://example.com/rss' rel='alternate' type='application/rss+xml' " +
-				"Вакансии — ФИГАЧИМ='Все вакансии'>\n" +
-				"<title>Вакансии — ФИГАЧИМ</title>"
-				;
-			const string input5 = "<img src=\"http://files.example.com/img/88900173ct.jpg\" width=\"100\" " +
+			const string input4 = "<img src=\"http://files.example.com/img/88900173ct.jpg\" width=\"100\" " +
 				"title=\"Программирование на COBOL, 14-е издание, I том (файл PDF) \" / " +
 				"alt=\"Программирование на COBOL, 14-е издание, I том (файл PDF)\" />"
 				;
-			const string input6 = "<A HREF='/cgi-bin/user.cgi?user=O'Connor'>O'Connor</A>";
-			const string input7 = "<noscript>\r" +
+			const string input5 = "<A HREF='/cgi-bin/user.cgi?user=O'Connor'>O'Connor</A>";
+			const string input6 = "<noscript>\r" +
 				"	<div>\r" +
 				"		<img src=\"//mk.tyndex.ru/watch/6740060\" style=\"position:absolute; left:-9999px;\" alt=\"\"\" />\r" +
 				"	</div>\r" +
 				"</noscript>"
 				;
-			const string input8 = "<table class='grayblock' style='width:100%'>\r\n" +
+			const string input7 = "<table class='grayblock' style='width:100%'>\r\n" +
 				"	<tbody>\r\n" +
 				"		<tr valign='middle'>\r\n" +
 				"			<td><a href='/r7165'><img width='55' border='0' height='55' " +
@@ -259,25 +287,18 @@ namespace WebMarkupMin.Core.Test
 				"	</tbody>\r\n" +
 				"</table>"
 				;
-			const string input9 = "<li>\n" +
+			const string input8 = "<li>\n" +
 				"	<a data-bind=\"href:'@Url.Action(\"GetInvoices\", \"ListUsers\")'+'/?eMail='+ Login\">Invoices</a>\n" +
 				"</li>"
 				;
-			const string input10 = "<header\"></header>";
-			const string input11 = "<a href=\"/?source=upload-main\" class=\"b-link\"[object Object]>" +
-				"<i class=\"b-ico b-ico-upload\"></i>" +
-				"</a>"
-				;
-			const string input12 = "<table>\n" +
+			const string input9 = "<header\"></header>";
+			const string input10 = "<table>\n" +
 				"	<tr>\n" +
 				"		<td></td>\n" +
 				"	</tr>\n" +
 				"</table."
 				;
-			const string input13 ="<form action='/s/ref=nb_sb_noss' method='get' role='search'" +
-				" accept-charset='utf-8', class='nav-searchbar-inner'></form>"
-				;
-			const string input14 = "<link id=\"favicon\" rel=?\"shortcut icon\" type=?\"image/?png\" href=?\"#\">";
+			const string input11 = "<link id=\"favicon\" rel=?\"shortcut icon\" type=?\"image/?png\" href=?\"#\">";
 
 			// Act
 			IList<MinificationErrorInfo> errors1 = minifier.Minify(input1).Errors;
@@ -291,9 +312,6 @@ namespace WebMarkupMin.Core.Test
 			IList<MinificationErrorInfo> errors9 = minifier.Minify(input9).Errors;
 			IList<MinificationErrorInfo> errors10 = minifier.Minify(input10).Errors;
 			IList<MinificationErrorInfo> errors11 = minifier.Minify(input11).Errors;
-			IList<MinificationErrorInfo> errors12 = minifier.Minify(input12).Errors;
-			IList<MinificationErrorInfo> errors13 = minifier.Minify(input13).Errors;
-			IList<MinificationErrorInfo> errors14 = minifier.Minify(input14).Errors;
 
 			// Assert
 			Assert.Equal(1, errors1.Count);
@@ -309,73 +327,95 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(205, errors3[0].ColumnNumber);
 
 			Assert.Equal(1, errors4.Count);
-			Assert.Equal(2, errors4[0].LineNumber);
-			Assert.Equal(112, errors4[0].ColumnNumber);
+			Assert.Equal(1, errors4[0].LineNumber);
+			Assert.Equal(135, errors4[0].ColumnNumber);
 
 			Assert.Equal(1, errors5.Count);
 			Assert.Equal(1, errors5[0].LineNumber);
-			Assert.Equal(135, errors5[0].ColumnNumber);
+			Assert.Equal(41, errors5[0].ColumnNumber);
 
 			Assert.Equal(1, errors6.Count);
-			Assert.Equal(1, errors6[0].LineNumber);
-			Assert.Equal(41, errors6[0].ColumnNumber);
+			Assert.Equal(3, errors6[0].LineNumber);
+			Assert.Equal(90, errors6[0].ColumnNumber);
 
 			Assert.Equal(1, errors7.Count);
-			Assert.Equal(3, errors7[0].LineNumber);
-			Assert.Equal(90, errors7[0].ColumnNumber);
+			Assert.Equal(4, errors7[0].LineNumber);
+			Assert.Equal(135, errors7[0].ColumnNumber);
 
 			Assert.Equal(1, errors8.Count);
-			Assert.Equal(4, errors8[0].LineNumber);
-			Assert.Equal(135, errors8[0].ColumnNumber);
+			Assert.Equal(2, errors8[0].LineNumber);
+			Assert.Equal(80, errors8[0].ColumnNumber);
 
 			Assert.Equal(1, errors9.Count);
-			Assert.Equal(2, errors9[0].LineNumber);
-			Assert.Equal(80, errors9[0].ColumnNumber);
+			Assert.Equal(1, errors9[0].LineNumber);
+			Assert.Equal(8, errors9[0].ColumnNumber);
 
 			Assert.Equal(1, errors10.Count);
-			Assert.Equal(1, errors10[0].LineNumber);
-			Assert.Equal(8, errors10[0].ColumnNumber);
+			Assert.Equal(5, errors10[0].LineNumber);
+			Assert.Equal(1, errors10[0].ColumnNumber);
 
 			Assert.Equal(1, errors11.Count);
 			Assert.Equal(1, errors11[0].LineNumber);
-			Assert.Equal(60, errors11[0].ColumnNumber);
-
-			Assert.Equal(1, errors12.Count);
-			Assert.Equal(5, errors12[0].LineNumber);
-			Assert.Equal(1, errors12[0].ColumnNumber);
-
-			Assert.Equal(1, errors13.Count);
-			Assert.Equal(1, errors13[0].LineNumber);
-			Assert.Equal(83, errors13[0].ColumnNumber);
-
-			Assert.Equal(1, errors14.Count);
-			Assert.Equal(1, errors14[0].LineNumber);
-			Assert.Equal(68, errors14[0].ColumnNumber);
+			Assert.Equal(68, errors11[0].ColumnNumber);
 		}
 
 		[Fact]
-		public void CaseNormalizationIsCorrect()
+		public void ParsingAngular2TemplatesIsCorrect()
 		{
 			// Arrange
-			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
+			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true){ PreserveCase = true });
 
-			const string input1 = "<P>Some text...</p>";
-			const string targetOutput1 = "<p>Some text...</p>";
-
-			const string input2 = "<DIV>Some text..</DIV>";
-			const string targetOutput2 = "<div>Some text..</div>";
-
-			const string input3 = "<DIV title=\"Some title...\">Some text..</DiV>";
-			const string targetOutput3 = "<div title=\"Some title...\">Some text..</div>";
-
-			const string input4 = "<DIV TITLE=\"Some title...\">Some text..</DIV>";
-			const string targetOutput4 = "<div title=\"Some title...\">Some text..</div>";
-
-			const string input5 = "<DIV tItLe=\"Some title...\">Some text..</DIV>";
-			const string targetOutput5 = "<div title=\"Some title...\">Some text..</div>";
-
-			const string input6 = "<DiV tItLe=\"Some title...\">Some text..</DIV>";
-			const string targetOutput6 = "<div title=\"Some title...\">Some text..</div>";
+			const string input1 = "<input [value]=\"\t  firstName  \t\" [placeholder]=\"\t  firstNamePlaceholder  \t\">";
+			const string input2 = "<input bind-value=\"\t  firstName  \t\" bind-placeholder=\"\t  firstNamePlaceholder  \t\">";
+			const string input3 = "<div [ngClass]=\"{ selected: isSelected }\"></div>";
+			const string input4 = "<div bind-ngClass=\"{ selected: isSelected }\"></div>";
+			const string input5 = "<hero-detail prefix=\"You are my\" [hero]=\"\t  currentHero  \t\"></hero-detail>";
+			const string input6 = "<hero-detail prefix=\"You are my\" bind-hero=\"\t  currentHero  \t\"></hero-detail>";
+			const string input7 = "<div [textContent]=\"'News has the following title: ' + title\"></div>";
+			const string input8 = "<div bind-textContent=\"'News has the following title: ' + title\"></div>";
+			const string input9 = "<button [attr.aria-label]=\"\t  actionName  \t\">Perform action</button>";
+			const string input10 = "<button bind-attr.aria-label=\"\t  actionName  \t\">Perform action</button>";
+			const string input11 = "<div class=\"special\" [class.special]=\"\t  !isSpecial  \t\"></div>";
+			const string input12 = "<div class=\"special\" bind-class.special=\"\t  !isSpecial  \t\"></div>";
+			const string input13 = "<button [style.fontSize.%]=\"\t  !isSpecial ? 150  :  50  \t\">Small</button>";
+			const string input14 = "<button bind-style.fontSize.%=\"\t  !isSpecial ? 150  :  50  \t\">Small</button>";
+			const string input15 = "<button (click)=\"\t  onSave()  \t\">Save</button>";
+			const string input16 = "<div (^click)=\"\t  onSave()  \t\">\n" +
+				"	<span>Save</span>\n" +
+				"</div>"
+				;
+			const string input17 = "<button on-click=\"\t  onSave()  \t\">Save</button>";
+			const string input18 = "<div (myClick)=\"\t  clickMessage = $event;  \t\">click with myClick</div>";
+			const string input19 = "<div on-myClick=\"\t  clickMessage = $event;  \t\">click with myClick</div>";
+			const string input20 = "<hero-detail (deleteRequest)=\"\t  deleteHero($event);  \t\"></hero-detail>";
+			const string input21 = "<hero-detail on-deleteRequest=\"\t  deleteHero($event);  \t\"></hero-detail>";
+			const string input22 = "<input [value]=\"\t  currentHero.firstName  \t\"" +
+				" (input)=\"\t  currentHero.firstName = $event.target.value;  \t\">"
+				;
+			const string input23 = "<input bind-value=\"\t  currentHero.firstName  \t\"" +
+				" on-input=\"\t  currentHero.firstName = $event.target.value;  \t\">"
+				;
+			const string input24 = "<input [ngModel]=\"\t  currentHero.firstName  \t\"" +
+				" (ngModelChange)=\"\t  currentHero.firstName = $event;  \t\">"
+				;
+			const string input25 = "<input bind-ngModel=\"\t  currentHero.firstName  \t\"" +
+				" on-ngModelChange=\"\t  currentHero.firstName = $event;  \t\">"
+				;
+			const string input26 = "<input [(ngModel)]=\"\t  currentHero.firstName  \t\">";
+			const string input27 = "<input bindon-ngModel=\"\t  currentHero.firstName  \t\">";
+			const string input28 = "<hero-detail *ngIf=\"currentHero\" [hero]=\"currentHero\"></hero-detail>";
+			const string input29 = "<hero-detail template=\"ngIf:currentHero\" [hero]=\"currentHero\"></hero-detail>";
+			const string input30 = "<video #moviePlayer>\n" +
+				"	<button (click)=\"moviePlayer.play()\"></button>\n" +
+				"</video>"
+				;
+			const string input31 = "<video var-moviePlayer>\n" +
+				"	<button (click)=\"moviePlayer.play()\"></button>\n" +
+				"</video>"
+				;
+			const string input32 = "<p>Employer: {{\t  employer?.companyName  \t}}</p>";
+			const string input33 = "<p>My birthday is {{\t  birthday  |  date:\"MM/dd/yy\"  \t}}</p>";
+			const string input34 = "<p>Message: {{\t  delayedMessage  |  async  \t}}</p>";
 
 			// Act
 			string output1 = minifier.Minify(input1).MinifiedContent;
@@ -384,14 +424,297 @@ namespace WebMarkupMin.Core.Test
 			string output4 = minifier.Minify(input4).MinifiedContent;
 			string output5 = minifier.Minify(input5).MinifiedContent;
 			string output6 = minifier.Minify(input6).MinifiedContent;
+			string output7 = minifier.Minify(input7).MinifiedContent;
+			string output8 = minifier.Minify(input8).MinifiedContent;
+			string output9 = minifier.Minify(input9).MinifiedContent;
+			string output10 = minifier.Minify(input10).MinifiedContent;
+			string output11 = minifier.Minify(input11).MinifiedContent;
+			string output12 = minifier.Minify(input12).MinifiedContent;
+			string output13 = minifier.Minify(input13).MinifiedContent;
+			string output14 = minifier.Minify(input14).MinifiedContent;
+			string output15 = minifier.Minify(input15).MinifiedContent;
+			string output16 = minifier.Minify(input16).MinifiedContent;
+			string output17 = minifier.Minify(input17).MinifiedContent;
+			string output18 = minifier.Minify(input18).MinifiedContent;
+			string output19 = minifier.Minify(input19).MinifiedContent;
+			string output20 = minifier.Minify(input20).MinifiedContent;
+			string output21 = minifier.Minify(input21).MinifiedContent;
+			string output22 = minifier.Minify(input22).MinifiedContent;
+			string output23 = minifier.Minify(input23).MinifiedContent;
+			string output24 = minifier.Minify(input24).MinifiedContent;
+			string output25 = minifier.Minify(input25).MinifiedContent;
+			string output26 = minifier.Minify(input26).MinifiedContent;
+			string output27 = minifier.Minify(input27).MinifiedContent;
+			string output28 = minifier.Minify(input28).MinifiedContent;
+			string output29 = minifier.Minify(input29).MinifiedContent;
+			string output30 = minifier.Minify(input30).MinifiedContent;
+			string output31 = minifier.Minify(input31).MinifiedContent;
+			string output32 = minifier.Minify(input32).MinifiedContent;
+			string output33 = minifier.Minify(input33).MinifiedContent;
+			string output34 = minifier.Minify(input34).MinifiedContent;
 
 			// Assert
-			Assert.Equal(targetOutput1, output1);
-			Assert.Equal(targetOutput2, output2);
-			Assert.Equal(targetOutput3, output3);
-			Assert.Equal(targetOutput4, output4);
-			Assert.Equal(targetOutput5, output5);
-			Assert.Equal(targetOutput6, output6);
+			Assert.Equal(input1, output1);
+			Assert.Equal(input2, output2);
+			Assert.Equal(input3, output3);
+			Assert.Equal(input4, output4);
+			Assert.Equal(input5, output5);
+			Assert.Equal(input6, output6);
+			Assert.Equal(input7, output7);
+			Assert.Equal(input8, output8);
+			Assert.Equal(input9, output9);
+			Assert.Equal(input10, output10);
+			Assert.Equal(input11, output11);
+			Assert.Equal(input12, output12);
+			Assert.Equal(input13, output13);
+			Assert.Equal(input14, output14);
+			Assert.Equal(input15, output15);
+			Assert.Equal(input16, output16);
+			Assert.Equal(input17, output17);
+			Assert.Equal(input18, output18);
+			Assert.Equal(input19, output19);
+			Assert.Equal(input20, output20);
+			Assert.Equal(input21, output21);
+			Assert.Equal(input22, output22);
+			Assert.Equal(input23, output23);
+			Assert.Equal(input24, output24);
+			Assert.Equal(input25, output25);
+			Assert.Equal(input26, output26);
+			Assert.Equal(input27, output27);
+			Assert.Equal(input28, output28);
+			Assert.Equal(input29, output29);
+			Assert.Equal(input30, output30);
+			Assert.Equal(input31, output31);
+			Assert.Equal(input32, output32);
+			Assert.Equal(input33, output33);
+			Assert.Equal(input34, output34);
+		}
+
+		[Fact]
+		public void ParsingAureliaTemplatesIsCorrect()
+		{
+			// Arrange
+			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
+
+			const string input1 = "<input type=\"text\" value.bind=\"firstName\">";
+			const string input2 = "<img src.bind=\"\t  typeof data.thumbnail !== 'undefined' ? data.thumbnail  :  '';  \t\">";
+			const string input3 = "<ul>\n" +
+				"	<li repeat.for=\"post of posts\">\n" +
+				"		<img src.bind=\"post.data.thumbnail\">\n" +
+				"	</li>\n" +
+				"</ul>"
+				;
+			const string input4 = "<form submit.trigger=\"\t  submit();  \t\"></form>";
+			const string input5 = "<ul>\n" +
+				"	<li repeat.for=\"navItem of router.navigation\" class=\"${\t  navItem.isActive ? 'active'  :  '';  \t}\">\n" +
+				"		<a href=\"http://mysite.com${\t  navItem.href  \t}\">\n" +
+				"			${\t  navItem.title  \t}\n" +
+				"		</a>\n" +
+				"	</li>\n" +
+				"</ul>"
+				;
+
+			// Act
+			string output1 = minifier.Minify(input1).MinifiedContent;
+			string output2 = minifier.Minify(input2).MinifiedContent;
+			string output3 = minifier.Minify(input3).MinifiedContent;
+			string output4 = minifier.Minify(input4).MinifiedContent;
+			string output5 = minifier.Minify(input5).MinifiedContent;
+
+			// Assert
+			Assert.Equal(input1, output1);
+			Assert.Equal(input2, output2);
+			Assert.Equal(input3, output3);
+			Assert.Equal(input4, output4);
+			Assert.Equal(input5, output5);
+		}
+
+		[Fact]
+		public void ParsingPolymerTemplatesIsCorrect()
+		{
+			// Arrange
+			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
+
+			const string input1 = "<dom-module id=\"host-element\">\n" +
+				"	<template>\n" +
+				"		<child-element name=\"{{myName}}\"></child-element>\n" +
+				"	</template>\n" +
+				"</dom-module>"
+				;
+			const string input2 = "<span>Name: {{lastname}}, {{firstname}}</span>";
+			const string input3 = "<div>{{user.manager.name}}</div>";
+			const string input4 = "<div class=\"result\">\n" +
+				"	{{ amount * fromCurrencyRelativeValue / toCurrencyRelativeValue }}\n" +
+				"</div>"
+				;
+			const string input5 = "<span>{{doThisOnce()}}</span>";
+			const string input6 = "My name is <span>{{computeFullName(first, last)}}</span>";
+			const string input7 = "<span>{{translate('Hello\\, nice to meet you', first, last)}}</span>";
+			const string input8 = "<span>{{array.0}}</span>";
+			const string input9 = "<div>[[arrayItem(myArray.*, 0, 'name')]]</div>";
+			const string input10 = "<custom-element some-prop=\"{{value}}\"></custom-element>";
+			const string input11 = "<custom-element some-prop=\"[[value]]\"></custom-element>";
+			const string input12 = "<user-view first=\"{{user.first}}\" last=\"{{user.last}}\"></user-view>";
+			const string input13 = "<input value=\"{{hostValue::input}}\">";
+			const string input14 = "<input value=\"{{user.name.first::input}}\">";
+			const string input15 = "<input type=\"checkbox\" checked=\"{{hostChecked::change}}\">";
+			const string input16 = "<video url=\"/video/movie.mp4\" current-time=\"{{hostTime::timeupdate}}\"></video>";
+			const string input17 = "<my-element value=\"{{hostValue::value-changed}}\"></my-element>";
+			const string input18 = "<div hidden=\"{{!enabled}}\"></div>";
+			const string input19 = "<div class$=\"{{foo}}\"></div>";
+			const string input20 = "<div style$=\"{{background}}\"></div>";
+			const string input21 = "<img src$=\"https://www.example.com/profiles/{{userId}}.jpg\">";
+			const string input22 = "<label for$=\"{{bar}}\"></label>";
+			const string input23 = "<div data-bar$=\"{{baz}}\"></div>";
+			const string input24 = "<my-element selected$=\"{{value}}\"></my-element>";
+			const string input25 = "<template is=\"dom-repeat\" items=\"{{employees}}\">\n" +
+				"	<div># <span>{{index}}</span></div>\n" +
+				"	<div>First name: <span>{{item.first}}</span></div>\n" +
+				"	<div>Last name: <span>{{item.last}}</span></div>\n" +
+				"</template>"
+				;
+			const string input26 = "<template is=\"dom-repeat\" items=\"{{employees}}\" as=\"employee\" filter=\"{{computeFilter(searchString)}}\">\n" +
+				"	<div>{{employee.lastname}}, {{employee.firstname}}</div>\n" +
+				"</template>"
+				;
+			const string input27 = "<array-selector id=\"selector\" items=\"{{employees}}\" selected=\"{{selected}}\" multi toggle></array-selector>";
+			const string input28 = "<template is=\"dom-if\" if=\"{{user.isAdmin}}\">\n"+
+				"	Only admins will see this.\n" +
+				"	<div>{{user.secretAdminStuff}}</div>\n" +
+				"</template>"
+				;
+
+			// Act
+			string output1 = minifier.Minify(input1).MinifiedContent;
+			string output2 = minifier.Minify(input2).MinifiedContent;
+			string output3 = minifier.Minify(input3).MinifiedContent;
+			string output4 = minifier.Minify(input4).MinifiedContent;
+			string output5 = minifier.Minify(input5).MinifiedContent;
+			string output6 = minifier.Minify(input6).MinifiedContent;
+			string output7 = minifier.Minify(input7).MinifiedContent;
+			string output8 = minifier.Minify(input8).MinifiedContent;
+			string output9 = minifier.Minify(input9).MinifiedContent;
+			string output10 = minifier.Minify(input10).MinifiedContent;
+			string output11 = minifier.Minify(input11).MinifiedContent;
+			string output12 = minifier.Minify(input12).MinifiedContent;
+			string output13 = minifier.Minify(input13).MinifiedContent;
+			string output14 = minifier.Minify(input14).MinifiedContent;
+			string output15 = minifier.Minify(input15).MinifiedContent;
+			string output16 = minifier.Minify(input16).MinifiedContent;
+			string output17 = minifier.Minify(input17).MinifiedContent;
+			string output18 = minifier.Minify(input18).MinifiedContent;
+			string output19 = minifier.Minify(input19).MinifiedContent;
+			string output20 = minifier.Minify(input20).MinifiedContent;
+			string output21 = minifier.Minify(input21).MinifiedContent;
+			string output22 = minifier.Minify(input22).MinifiedContent;
+			string output23 = minifier.Minify(input23).MinifiedContent;
+			string output24 = minifier.Minify(input24).MinifiedContent;
+			string output25 = minifier.Minify(input25).MinifiedContent;
+			string output26 = minifier.Minify(input26).MinifiedContent;
+			string output27 = minifier.Minify(input27).MinifiedContent;
+			string output28 = minifier.Minify(input28).MinifiedContent;
+
+			// Assert
+			Assert.Equal(input1, output1);
+			Assert.Equal(input2, output2);
+			Assert.Equal(input3, output3);
+			Assert.Equal(input4, output4);
+			Assert.Equal(input5, output5);
+			Assert.Equal(input6, output6);
+			Assert.Equal(input7, output7);
+			Assert.Equal(input8, output8);
+			Assert.Equal(input9, output9);
+			Assert.Equal(input10, output10);
+			Assert.Equal(input11, output11);
+			Assert.Equal(input12, output12);
+			Assert.Equal(input13, output13);
+			Assert.Equal(input14, output14);
+			Assert.Equal(input15, output15);
+			Assert.Equal(input16, output16);
+			Assert.Equal(input17, output17);
+			Assert.Equal(input18, output18);
+			Assert.Equal(input19, output19);
+			Assert.Equal(input20, output20);
+			Assert.Equal(input21, output21);
+			Assert.Equal(input22, output22);
+			Assert.Equal(input23, output23);
+			Assert.Equal(input24, output24);
+			Assert.Equal(input25, output25);
+			Assert.Equal(input26, output26);
+			Assert.Equal(input27, output27);
+			Assert.Equal(input28, output28);
+		}
+
+		[Fact]
+		public void CaseNormalizationIsCorrect()
+		{
+			// Arrange
+			var preservingCaseMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true) { PreserveCase = true });
+			var changingCaseMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true) { PreserveCase = false });
+
+			const string input1 = "<P>Some text...</p>";
+			const string targetOutput1A = input1;
+			const string targetOutput1B = "<p>Some text...</p>";
+
+			const string input2 = "<DIV>Some text..</DIV>";
+			const string targetOutput2A = input2;
+			const string targetOutput2B = "<div>Some text..</div>";
+
+			const string input3 = "<DIV title=\"Some title...\">Some text..</DiV>";
+			const string targetOutput3A = input3;
+			const string targetOutput3B = "<div title=\"Some title...\">Some text..</div>";
+
+			const string input4 = "<DIV TITLE=\"Some title...\">Some text..</DIV>";
+			const string targetOutput4A = input4;
+			const string targetOutput4B = "<div title=\"Some title...\">Some text..</div>";
+
+			const string input5 = "<DIV tItLe=\"Some title...\">Some text..</DIV>";
+			const string targetOutput5A = input5;
+			const string targetOutput5B = "<div title=\"Some title...\">Some text..</div>";
+
+			const string input6 = "<DiV tItLe=\"Some title...\">Some text..</DIV>";
+			const string targetOutput6A = input6;
+			const string targetOutput6B = "<div title=\"Some title...\">Some text..</div>";
+
+			// Act
+			string output1A = preservingCaseMinifier.Minify(input1).MinifiedContent;
+			string output1B = changingCaseMinifier.Minify(input1).MinifiedContent;
+
+			string output2A = preservingCaseMinifier.Minify(input2).MinifiedContent;
+			string output2B = changingCaseMinifier.Minify(input2).MinifiedContent;
+
+			string output3A = preservingCaseMinifier.Minify(input3).MinifiedContent;
+			string output3B = changingCaseMinifier.Minify(input3).MinifiedContent;
+
+			string output4A = preservingCaseMinifier.Minify(input4).MinifiedContent;
+			string output4B = changingCaseMinifier.Minify(input4).MinifiedContent;
+
+			string output5A = preservingCaseMinifier.Minify(input5).MinifiedContent;
+			string output5B = changingCaseMinifier.Minify(input5).MinifiedContent;
+
+			string output6A = preservingCaseMinifier.Minify(input6).MinifiedContent;
+			string output6B = changingCaseMinifier.Minify(input6).MinifiedContent;
+
+			// Assert
+			Assert.Equal(targetOutput1A, output1A);
+			Assert.Equal(targetOutput1B, output1B);
+
+			Assert.Equal(targetOutput2A, output2A);
+			Assert.Equal(targetOutput2B, output2B);
+
+			Assert.Equal(targetOutput3A, output3A);
+			Assert.Equal(targetOutput3B, output3B);
+
+			Assert.Equal(targetOutput4A, output4A);
+			Assert.Equal(targetOutput4B, output4B);
+
+			Assert.Equal(targetOutput5A, output5A);
+			Assert.Equal(targetOutput5B, output5B);
+
+			Assert.Equal(targetOutput6A, output6A);
+			Assert.Equal(targetOutput6B, output6B);
 		}
 
 		[Fact]
@@ -4246,6 +4569,12 @@ namespace WebMarkupMin.Core.Test
 			const string input23 = "<div ng-app></div>";
 			const string targetOutput23 = input23;
 
+			const string input24 = "<div aurelia-app></div>";
+			const string targetOutput24 = input24;
+
+			const string input25 = "<router-view></router-view>";
+			const string targetOutput25 = input25;
+
 			// Act
 			string output1 = removingTagsWithoutContentMinifier.Minify(input1).MinifiedContent;
 			string output2 = removingTagsWithoutContentMinifier.Minify(input2).MinifiedContent;
@@ -4270,6 +4599,8 @@ namespace WebMarkupMin.Core.Test
 			string output21 = removingTagsWithoutContentMinifier.Minify(input21).MinifiedContent;
 			string output22 = removingTagsWithoutContentMinifier.Minify(input22).MinifiedContent;
 			string output23 = removingTagsWithoutContentMinifier.Minify(input23).MinifiedContent;
+			string output24 = removingTagsWithoutContentMinifier.Minify(input24).MinifiedContent;
+			string output25 = removingTagsWithoutContentMinifier.Minify(input25).MinifiedContent;
 
 			// Assert
 			Assert.Equal(input1, output1);
@@ -4295,6 +4626,8 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(targetOutput21, output21);
 			Assert.Equal(targetOutput22, output22);
 			Assert.Equal(targetOutput23, output23);
+			Assert.Equal(targetOutput24, output24);
+			Assert.Equal(targetOutput25, output25);
 		}
 		#endregion
 
@@ -5025,7 +5358,9 @@ namespace WebMarkupMin.Core.Test
 			const string targetOutput3B = "<p onclick=\"switchHPLeaders(this, 'rus'); return false\">Some text…</p>";
 
 			const string input4 = "<p title=\"javascript:(function(){ /* Some code… */ })()\">Some text…</p>";
-			const string input5 = "<a href=\"javascript:webCall('qsd07cggfg3bjg6gkl',null,'poll:true');\">Call from Web site</a>";
+
+			const string input5 = "<a href=\"javascript:webCall('qsd07cggfg3bjg6gkl', null, 'poll:true');\">Call from Web site</a>";
+			const string targetOutput5 = "<a href=\"javascript:webCall('qsd07cggfg3bjg6gkl', null, 'poll:true')\">Call from Web site</a>";
 
 			// Act
 			string output1A = keepingJsProtocolMinifier.Minify(input1).MinifiedContent;
@@ -5056,8 +5391,8 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(input4, output4A);
 			Assert.Equal(input4, output4B);
 
-			Assert.Equal(input5, output5A);
-			Assert.Equal(input5, output5B);
+			Assert.Equal(targetOutput5, output5A);
+			Assert.Equal(targetOutput5, output5B);
 		}
 		#endregion
 

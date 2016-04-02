@@ -3,7 +3,7 @@
 	/// <summary>
 	/// HTML attribute types
 	/// </summary>
-	internal enum HtmlAttributeType
+	internal enum HtmlAttributeType : byte
 	{
 		Unknown = 0,
 		Boolean,

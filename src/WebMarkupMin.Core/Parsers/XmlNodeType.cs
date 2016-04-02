@@ -3,7 +3,7 @@
 	/// <summary>
 	/// XML node types
 	/// </summary>
-	internal enum XmlNodeType
+	internal enum XmlNodeType : byte
 	{
 		Unknown = 0,
 		XmlDeclaration,

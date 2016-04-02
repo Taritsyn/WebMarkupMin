@@ -30,6 +30,15 @@ namespace WebMarkupMin.Core.Parsers
 		}
 
 		/// <summary>
+		/// Gets a name in lowercase
+		/// </summary>
+		public string NameInLowercase
+		{
+			get;
+			private set;
+		}
+
+		/// <summary>
 		/// Gets or sets a value
 		/// </summary>
 		public string Value
@@ -96,24 +105,27 @@ namespace WebMarkupMin.Core.Parsers
 		/// Constructs instance of HTML attribute
 		/// </summary>
 		/// <param name="name">Name</param>
+		/// <param name="nameInLowercase">Name in lowercase</param>
 		/// <param name="value">Value</param>
 		/// <param name="type">Type</param>
-		public HtmlAttribute(string name, string value, HtmlAttributeType type)
-			: this(name, value, type, SourceCodeNodeCoordinates.Empty, SourceCodeNodeCoordinates.Empty)
+		public HtmlAttribute(string name, string nameInLowercase, string value, HtmlAttributeType type)
+			: this(name, nameInLowercase, value, type, SourceCodeNodeCoordinates.Empty, SourceCodeNodeCoordinates.Empty)
 		{ }
 
 		/// <summary>
 		/// Constructs instance of HTML attribute
 		/// </summary>
 		/// <param name="name">Name</param>
+		/// <param name="nameInLowercase">Name in lowercase</param>
 		/// <param name="value">Value</param>
 		/// <param name="type">Type</param>
 		/// <param name="nameCoordinates">Coordinates of name</param>
 		/// <param name="valueCoordinates">Coordinates of value</param>
-		public HtmlAttribute(string name, string value, HtmlAttributeType type,
+		public HtmlAttribute(string name, string nameInLowercase, string value, HtmlAttributeType type,
 			SourceCodeNodeCoordinates nameCoordinates, SourceCodeNodeCoordinates valueCoordinates)
 		{
 			Name = name;
+			NameInLowercase = nameInLowercase;
 			Value = value;
 			Type = type;
 			NameCoordinates = nameCoordinates;
@@ -200,7 +212,7 @@ namespace WebMarkupMin.Core.Parsers
 
 		private static bool ContainsHtmlAttributeEncodingChars(string value, char quoteCharValue)
 		{
-			bool result = (value.IndexOf(quoteCharValue) != -1 || value.IndexOf('&') != -1 || value.IndexOf('<') != -1);
+			bool result = value.IndexOf(quoteCharValue) != -1 || value.IndexOf('&') != -1 || value.IndexOf('<') != -1;
 
 			return result;
 		}

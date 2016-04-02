@@ -36,7 +36,7 @@ namespace WebMarkupMin.Core
 
 		/// <summary>
 		/// Produces code minifiction of CSS content by using
-		/// Mads Kristensen's CSS minifier (version of Feb 28 2010)
+		/// Mads Kristensen's CSS minifier
 		/// </summary>
 		/// <param name="content">CSS content</param>
 		/// <param name="isInlineCode">Flag whether the content is inline code</param>
@@ -48,7 +48,7 @@ namespace WebMarkupMin.Core
 
 		/// <summary>
 		/// Produces code minifiction of CSS content by using
-		/// Mads Kristensen's CSS minifier (version of Feb 28 2010)
+		/// Mads Kristensen's CSS minifier
 		/// </summary>
 		/// <param name="content">CSS content</param>
 		/// <param name="isInlineCode">Flag whether the content is inline code</param>
