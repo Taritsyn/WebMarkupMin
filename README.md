@@ -13,7 +13,7 @@ In addition, there are several modules that integrate this library into ASP.NET:
 ## NuGet Packages
 
 ### Core
- * [WebMarkupMin: Core](http://nuget.org/packages/WebMarkupMin.Core/2.0.0-rc2) (supports .NET Framework 4.X and .NET Platform 5.4)
+ * [WebMarkupMin: Core](http://nuget.org/packages/WebMarkupMin.Core/2.0.0-rc6) (supports .NET Framework 4.X and .NET Platform 5.4)
 
 ### External JS and CSS minifiers
  * [WebMarkupMin: MS Ajax](http://nuget.org/packages/WebMarkupMin.MsAjax/2.0.0-rc1) (supports .NET Framework 4.X)
@@ -23,7 +23,7 @@ In addition, there are several modules that integrate this library into ASP.NET:
  * [WebMarkupMin: ASP.NET 4.X HTTP modules](http://nuget.org/packages/WebMarkupMin.AspNet4.HttpModules/2.0.0-rc1) (supports .NET Framework 4.X)
  * [WebMarkupMin: ASP.NET 4.X MVC](http://nuget.org/packages/WebMarkupMin.AspNet4.Mvc/2.0.0-rc3) (supports .NET Framework 4.X)
  * [WebMarkupMin: ASP.NET 4.X Web Forms](http://nuget.org/packages/WebMarkupMin.AspNet4.WebForms/2.0.0-rc3) (supports .NET Framework 4.X)
- * [WebMarkupMin: ASP.NET 5](http://nuget.org/packages/WebMarkupMin.AspNet5/2.0.0-rc1) (supports DNX 4.5.1 and DNX Core 5.0)
+ * [WebMarkupMin: ASP.NET 5](http://nuget.org/packages/WebMarkupMin.AspNet5/2.0.0-rc5) (supports DNX 4.5.1 and DNX Core 5.0)
 
 Requires NuGet Package Manager version 2.8.6 or higher.
 

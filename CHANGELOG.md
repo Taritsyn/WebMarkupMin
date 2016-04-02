@@ -1,6 +1,10 @@
 Change log
 ==========
 
+## April 2, 2016 - v2.0.0 RC 6
+ * In configuration settings of HTML minifier was added one new property - `PreserveCase` (default `false`)
+ * Fixed a errors that occurred when processing of Angular 2, Aurelia and Polymer templates
+
 ## March 24, 2016 - v2.0.0 RC 5
  * Fixed a [error #6](https://github.com/Taritsyn/WebMarkupMin/issues/6) “Incompatible with DeveloperExceptionPageMiddleware (ASP.NET 5)”
 

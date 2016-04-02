@@ -1,5 +1,5 @@
 ﻿{
-	"version": "2.0.0-rc1",
+	"version": "2.0.0-rc6",
 	"description": "",
 	"authors": [ "" ],
 	"tags": [ "" ],
@@ -10,7 +10,7 @@
 		"Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final",
 		"xunit": "2.1.0",
 		"xunit.runner.dnx": "2.1.0-rc1-build204",
-		"WebMarkupMin.Core": "2.0.0-rc2"
+		"WebMarkupMin.Core": "2.0.0-rc6"
 	},
 
 	"commands": {
