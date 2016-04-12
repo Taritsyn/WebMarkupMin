@@ -124,7 +124,7 @@ namespace WebMarkupMin.Sample.Resources
 		}
 
 		/// <summary>
-		/// Looks up a localized string similar to "Minify Angular binding 1.X expressions"
+		/// Looks up a localized string similar to "Minify Angular 1.X binding expressions"
 		/// </summary>
 		public static string DisplayName_MinifyAngularBindingExpressions
 		{

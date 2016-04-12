@@ -4,20 +4,21 @@ using System.Text;
 
 using Xunit;
 
-namespace WebMarkupMin.Core.Test
+namespace WebMarkupMin.Core.Test.Html
 {
-	public class HtmlMinifierTests : MarkupMinifierTestsBase
+	public class MinificationTests : FileSystemTestsBase
 	{
 		private readonly string _htmlFilesDirectoryPath;
 
 
-		public HtmlMinifierTests()
+		public MinificationTests()
 		{
 			_htmlFilesDirectoryPath = Path.GetFullPath(Path.Combine(_baseDirectoryPath, @"files/html/"));
 		}
 
 
 		#region Removing BOM
+
 		[Fact]
 		public void RemovingBomAtStartIsCorrect()
 		{
@@ -59,591 +60,59 @@ namespace WebMarkupMin.Core.Test
 			// Assert
 			Assert.Equal(targetOutputBytes, outputBytes);
 		}
+
 		#endregion
 
-		#region Parsing
+		#region Encoding attribute values
+
 		[Fact]
-		public void ParsingNonTrivialMarkupIsCorrect()
+		public void EncodingAttributeValuesIsCorrect()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
 
-			const string input1 = "<p title=\"&lt;/p>\">Some text...</p>";
-			const string input2 = "<p title=\" &lt;!-- Some comment... --> \">Some text...</p>";
-			const string input3 = "<p title=\" &lt;![CDATA[\tSome data...\t]]> \">Some text...</p>";
+			const string input1 = "<input value='<a href=\"/product.asp?id=12&category=5&returnUrl=%2Fdefault.asp\">" +
+				"Show product</a>'>";
+			const string targetOutput1 = "<input value=\"&lt;a href=&#34;/product.asp?id=12&amp;category=5" +
+				"&amp;returnUrl=%2Fdefault.asp&#34;>Show product&lt;/a>\">";
 
-			const string input4 = "<button data-dismiss=alert>Some text...</button>";
-			const string targetOutput4 = "<button data-dismiss=\"alert\">Some text...</button>";
+			const string input2 = "<input value=\"<a href='/product.asp?id=12&category=5&returnUrl=%2Fdefault.asp'>" +
+				"Show product</a>\">";
+			const string targetOutput2 = "<input value=\"&lt;a href='/product.asp?id=12&amp;category=5&amp;returnUrl=%2Fdefault.asp'>" +
+				"Show product&lt;/a>\">";
 
-			const string input5 = "<option xml:lang=ru value=ru lang=ru>" +
-				"&#x420;&#x43E;&#x441;&#x441;&#x438;&#x44F; (Russia)</option>";
-			const string targetOutput5 = "<option xml:lang=\"ru\" value=\"ru\" lang=\"ru\">" +
-				"&#x420;&#x43E;&#x441;&#x441;&#x438;&#x44F; (Russia)</option>";
-
-			const string input6 = "<aside>" +
-				"	<div id=\"about\">" +
-				"		<div class=\"bl\">" +
-				"			<div class=\"br\">" +
-				"				<div class=\"tl\">" +
-				"					<div class=\"tr\">" +
-				"						<h4>Some header</h4>" +
-				"						<p>Some text...</p>" +
-				"					</div>" +
-				"				</div>" +
-				"			</div>" +
-				"		</div>" +
-				"	</div>" +
-				"</aside>"
+			const string input3 = "<select>\n" +
+				"	<option value='Douglas Crockford&#39;s JS Minifier'>Douglas Crockford's JS Minifier</option>\n" +
+				"	<option value='Microsoft Ajax JS Minifier'>Microsoft Ajax JS Minifier</option>\n" +
+				"	<option value='YUI JS Minifier'>YUI JS Minifier</option>\n" +
+				"</select>"
 				;
-			const string input7 = "<script>alert(\"<!--\")</script>";
-			const string input8 = "<script>alert(\"<!-- Some text -->\")</script>";
-			const string input9 = "<script>alert(\"-->\")</script>";
-
-			const string input10 = "<a href=\"http://www.example.com/weather\"" +
-				"class=\"b-link\"onclick=\"showWeatherWidget()\">Weather</a>";
-			const string targetOutput10 = "<a href=\"http://www.example.com/weather\"" +
-				" class=\"b-link\" onclick=\"showWeatherWidget()\">Weather</a>";
-
-			const string input11 = "<p>Some text...";
-			const string targetOutput11 = "<p>Some text...</p>";
-
-			const string input12 = "<div class=></div>";
-			const string targetOutput12 = "<div class=\"\"></div>";
-
-			const string input13 = "<div class></div>";
-			const string targetOutput13 = "<div class=\"\"></div>";
-
-			const string input14 = "<g:plusone size=\"medium\" href=\"http://www.example.com/blog/WebWorkers.aspx\">" +
-				"</g:plusone>";
-			const string input15 = "<fb:like-box href=\"https://www.facebook.com/ExampleGroup\"" +
-				" width=\"250\" height=\"168\" show_faces=\"true\" stream=\"false\" header=\"false\"></fb:like-box>";
-
-			const string input16 = "<script type=\"text/javascript\"></script >";
-			const string targetOutput16 = "<script type=\"text/javascript\"></script>";
-
-			const string input17 = "<html>" +
-				"<head>" +
-				"<title>Some title…</title>" +
-				"<body>" +
-				"<p><strong>Welcome!</strong></p>"
-				;
-			const string targetOutput17 = "<html>" +
-				"<head>" +
-				"<title>Some title…</title>" +
-				"</head>" +
-				"<body>" +
-				"<p><strong>Welcome!</strong></p>" +
-				"</body>" +
-				"</html>"
+			const string targetOutput3 = "<select>\n" +
+				"	<option value=\"Douglas Crockford's JS Minifier\">Douglas Crockford's JS Minifier</option>\n" +
+				"	<option value=\"Microsoft Ajax JS Minifier\">Microsoft Ajax JS Minifier</option>\n" +
+				"	<option value=\"YUI JS Minifier\">YUI JS Minifier</option>\n" +
+				"</select>"
 				;
 
-			const string input18 = "<meta http-equiv=\"X-UA-Compatible\" content=\"chrome=1\">\n" +
-				"<link href='http://example.com/rss' rel='alternate' type='application/rss+xml' " +
-				"Вакансии — ФИГАЧИМ='Все вакансии'>\n" +
-				"<title>Вакансии — ФИГАЧИМ</title>"
-				;
-			const string targetOutput18 = "<meta http-equiv=\"X-UA-Compatible\" content=\"chrome=1\">\n" +
-				"<link href=\"http://example.com/rss\" rel=\"alternate\" type=\"application/rss+xml\" " +
-				"вакансии — фигачим=\"Все вакансии\">\n" +
-				"<title>Вакансии — ФИГАЧИМ</title>"
-				;
-
-			const string input19 = "<a href=\"/?source=upload-main\" class=\"b-link\"[object Object]>" +
-				"<i class=\"b-ico b-ico-upload\"></i>" +
-				"</a>"
-				;
-			const string targetOutput19 = "<a href=\"/?source=upload-main\" class=\"b-link\" [object object]>" +
-				"<i class=\"b-ico b-ico-upload\"></i>" +
-				"</a>"
-				;
-
-			const string input20 = "<form action='/s/ref=nb_sb_noss' method='get' role='search'" +
-				" accept-charset='utf-8', class='nav-searchbar-inner'></form>"
-				;
-			const string targetOutput20 = "<form action=\"/s/ref=nb_sb_noss\" method=\"get\" role=\"search\"" +
-				" accept-charset=\"utf-8\" , class=\"nav-searchbar-inner\"></form>"
-				;
+			const string input4 = "<input type=\"button\" value=\"Remove article &quot;Паранойя оптимизатора&quot;\">";
+			const string targetOutput4 = "<input type=\"button\" value=\"Remove article &#34;Паранойя оптимизатора&#34;\">";
 
 			// Act
 			string output1 = minifier.Minify(input1).MinifiedContent;
 			string output2 = minifier.Minify(input2).MinifiedContent;
 			string output3 = minifier.Minify(input3).MinifiedContent;
 			string output4 = minifier.Minify(input4).MinifiedContent;
-			string output5 = minifier.Minify(input5).MinifiedContent;
-			string output6 = minifier.Minify(input6).MinifiedContent;
-			string output7 = minifier.Minify(input7).MinifiedContent;
-			string output8 = minifier.Minify(input8).MinifiedContent;
-			string output9 = minifier.Minify(input9).MinifiedContent;
-			string output10 = minifier.Minify(input10).MinifiedContent;
-			string output11 = minifier.Minify(input11).MinifiedContent;
-			string output12 = minifier.Minify(input12).MinifiedContent;
-			string output13 = minifier.Minify(input13).MinifiedContent;
-			string output14 = minifier.Minify(input14).MinifiedContent;
-			string output15 = minifier.Minify(input15).MinifiedContent;
-			string output16 = minifier.Minify(input16).MinifiedContent;
-			string output17 = minifier.Minify(input17).MinifiedContent;
-			string output18 = minifier.Minify(input18).MinifiedContent;
-			string output19 = minifier.Minify(input19).MinifiedContent;
-			string output20 = minifier.Minify(input20).MinifiedContent;
 
 			// Assert
-			Assert.Equal(input1, output1);
-			Assert.Equal(input2, output2);
-			Assert.Equal(input3, output3);
+			Assert.Equal(targetOutput1, output1);
+			Assert.Equal(targetOutput2, output2);
+			Assert.Equal(targetOutput3, output3);
 			Assert.Equal(targetOutput4, output4);
-			Assert.Equal(targetOutput5, output5);
-			Assert.Equal(input6, output6);
-			Assert.Equal(input7, output7);
-			Assert.Equal(input8, output8);
-			Assert.Equal(input9, output9);
-			Assert.Equal(targetOutput10, output10);
-			Assert.Equal(targetOutput11, output11);
-			Assert.Equal(targetOutput12, output12);
-			Assert.Equal(targetOutput13, output13);
-			Assert.Equal(input14, output14);
-			Assert.Equal(input15, output15);
-			Assert.Equal(targetOutput16, output16);
-			Assert.Equal(targetOutput17, output17);
-			Assert.Equal(targetOutput18, output18);
-			Assert.Equal(targetOutput19, output19);
-			Assert.Equal(targetOutput20, output20);
 		}
 
-		[Fact]
-		public void ParsingXmlBasedTagsIsCorrect()
-		{
-			// Arrange
-			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
+		#endregion
 
-			const string input1 = "<svg width=\"150\" height=\"100\" viewBox=\"0 0 3 2\">" +
-				"<rect width=\"1\" height=\"2\" x=\"0\" fill=\"#008d46\" />" +
-				"<rect width=\"1\" height=\"2\" x=\"1\" fill=\"#ffffff\" />" +
-				"<rect width=\"1\" height=\"2\" x=\"2\" fill=\"#d2232c\" />" +
-				"</svg>"
-				;
-			const string input2 = "<math>" +
-				"<apply>" +
-				"<plus />" +
-				"<apply>" +
-				"<times />" +
-				"<ci>a</ci>" +
-				"<apply>" +
-				"<power />" +
-				"<ci>x</ci>" +
-				"<cn>2</cn>" +
-				"</apply>" +
-				"</apply>" +
-				"<apply>" +
-				"<times />" +
-				"<ci>b</ci>" +
-				"<ci>x</ci>" +
-				"</apply>" +
-				"<ci>c</ci>" +
-				"</apply>" +
-				"</math>"
-				;
-
-			// Act
-			string output1 = minifier.Minify(input1).MinifiedContent;
-			string output2 = minifier.Minify(input2).MinifiedContent;
-
-			// Assert
-			Assert.Equal(input1, output1);
-			Assert.Equal(input2, output2);
-		}
-
-		[Fact]
-		public void ProcessingInvalidCharactersInStartTagIsCorrect()
-		{
-			// Arrange
-			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
-
-			const string input1 = "<img src=\"/images/39.gif\" width=80\" height=\"60\">";
-			const string input2 = "<span class=\"b-form-input_size_l i-bem\"\">Some text...</span>";
-			const string input3 = "<meta name=\"Description\" content=\"Информационно-аналитический портал про " +
-				"недвижимость и квартиры в Москве и РФ \"Хата.ру\" – Аналитика и цены на недвижимость онлайн, " +
-				"прогнозы, исследования, обзоры и статьи.\">"
-				;
-			const string input4 = "<img src=\"http://files.example.com/img/88900173ct.jpg\" width=\"100\" " +
-				"title=\"Программирование на COBOL, 14-е издание, I том (файл PDF) \" / " +
-				"alt=\"Программирование на COBOL, 14-е издание, I том (файл PDF)\" />"
-				;
-			const string input5 = "<A HREF='/cgi-bin/user.cgi?user=O'Connor'>O'Connor</A>";
-			const string input6 = "<noscript>\r" +
-				"	<div>\r" +
-				"		<img src=\"//mk.tyndex.ru/watch/6740060\" style=\"position:absolute; left:-9999px;\" alt=\"\"\" />\r" +
-				"	</div>\r" +
-				"</noscript>"
-				;
-			const string input7 = "<table class='grayblock' style='width:100%'>\r\n" +
-				"	<tbody>\r\n" +
-				"		<tr valign='middle'>\r\n" +
-				"			<td><a href='/r7165'><img width='55' border='0' height='55' " +
-				"title=Материалы к годовому Общему собранию акционеров ОАО Рога и копыта' " +
-				"alt='Материалы к годовому Общему собранию акционеров ОАО Рога и копыта'" +
-				"src='/img/728/left-1.jpg' /></a></td>\r\n" +
-				"			<td><a href='/r7165'>Материалы к годовому Общему собранию акционеров ОАО Рога и копыта</a></td>\r\n" +
-				"		</tr>\r\n" +
-				"	</tbody>\r\n" +
-				"</table>"
-				;
-			const string input8 = "<li>\n" +
-				"	<a data-bind=\"href:'@Url.Action(\"GetInvoices\", \"ListUsers\")'+'/?eMail='+ Login\">Invoices</a>\n" +
-				"</li>"
-				;
-			const string input9 = "<header\"></header>";
-			const string input10 = "<table>\n" +
-				"	<tr>\n" +
-				"		<td></td>\n" +
-				"	</tr>\n" +
-				"</table."
-				;
-			const string input11 = "<link id=\"favicon\" rel=?\"shortcut icon\" type=?\"image/?png\" href=?\"#\">";
-
-			// Act
-			IList<MinificationErrorInfo> errors1 = minifier.Minify(input1).Errors;
-			IList<MinificationErrorInfo> errors2 = minifier.Minify(input2).Errors;
-			IList<MinificationErrorInfo> errors3 = minifier.Minify(input3).Errors;
-			IList<MinificationErrorInfo> errors4 = minifier.Minify(input4).Errors;
-			IList<MinificationErrorInfo> errors5 = minifier.Minify(input5).Errors;
-			IList<MinificationErrorInfo> errors6 = minifier.Minify(input6).Errors;
-			IList<MinificationErrorInfo> errors7 = minifier.Minify(input7).Errors;
-			IList<MinificationErrorInfo> errors8 = minifier.Minify(input8).Errors;
-			IList<MinificationErrorInfo> errors9 = minifier.Minify(input9).Errors;
-			IList<MinificationErrorInfo> errors10 = minifier.Minify(input10).Errors;
-			IList<MinificationErrorInfo> errors11 = minifier.Minify(input11).Errors;
-
-			// Assert
-			Assert.Equal(1, errors1.Count);
-			Assert.Equal(1, errors1[0].LineNumber);
-			Assert.Equal(35, errors1[0].ColumnNumber);
-
-			Assert.Equal(1, errors2.Count);
-			Assert.Equal(1, errors2[0].LineNumber);
-			Assert.Equal(40, errors2[0].ColumnNumber);
-
-			Assert.Equal(1, errors3.Count);
-			Assert.Equal(1, errors3[0].LineNumber);
-			Assert.Equal(205, errors3[0].ColumnNumber);
-
-			Assert.Equal(1, errors4.Count);
-			Assert.Equal(1, errors4[0].LineNumber);
-			Assert.Equal(135, errors4[0].ColumnNumber);
-
-			Assert.Equal(1, errors5.Count);
-			Assert.Equal(1, errors5[0].LineNumber);
-			Assert.Equal(41, errors5[0].ColumnNumber);
-
-			Assert.Equal(1, errors6.Count);
-			Assert.Equal(3, errors6[0].LineNumber);
-			Assert.Equal(90, errors6[0].ColumnNumber);
-
-			Assert.Equal(1, errors7.Count);
-			Assert.Equal(4, errors7[0].LineNumber);
-			Assert.Equal(135, errors7[0].ColumnNumber);
-
-			Assert.Equal(1, errors8.Count);
-			Assert.Equal(2, errors8[0].LineNumber);
-			Assert.Equal(80, errors8[0].ColumnNumber);
-
-			Assert.Equal(1, errors9.Count);
-			Assert.Equal(1, errors9[0].LineNumber);
-			Assert.Equal(8, errors9[0].ColumnNumber);
-
-			Assert.Equal(1, errors10.Count);
-			Assert.Equal(5, errors10[0].LineNumber);
-			Assert.Equal(1, errors10[0].ColumnNumber);
-
-			Assert.Equal(1, errors11.Count);
-			Assert.Equal(1, errors11[0].LineNumber);
-			Assert.Equal(68, errors11[0].ColumnNumber);
-		}
-
-		[Fact]
-		public void ParsingAngular2TemplatesIsCorrect()
-		{
-			// Arrange
-			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true){ PreserveCase = true });
-
-			const string input1 = "<input [value]=\"\t  firstName  \t\" [placeholder]=\"\t  firstNamePlaceholder  \t\">";
-			const string input2 = "<input bind-value=\"\t  firstName  \t\" bind-placeholder=\"\t  firstNamePlaceholder  \t\">";
-			const string input3 = "<div [ngClass]=\"{ selected: isSelected }\"></div>";
-			const string input4 = "<div bind-ngClass=\"{ selected: isSelected }\"></div>";
-			const string input5 = "<hero-detail prefix=\"You are my\" [hero]=\"\t  currentHero  \t\"></hero-detail>";
-			const string input6 = "<hero-detail prefix=\"You are my\" bind-hero=\"\t  currentHero  \t\"></hero-detail>";
-			const string input7 = "<div [textContent]=\"'News has the following title: ' + title\"></div>";
-			const string input8 = "<div bind-textContent=\"'News has the following title: ' + title\"></div>";
-			const string input9 = "<button [attr.aria-label]=\"\t  actionName  \t\">Perform action</button>";
-			const string input10 = "<button bind-attr.aria-label=\"\t  actionName  \t\">Perform action</button>";
-			const string input11 = "<div class=\"special\" [class.special]=\"\t  !isSpecial  \t\"></div>";
-			const string input12 = "<div class=\"special\" bind-class.special=\"\t  !isSpecial  \t\"></div>";
-			const string input13 = "<button [style.fontSize.%]=\"\t  !isSpecial ? 150  :  50  \t\">Small</button>";
-			const string input14 = "<button bind-style.fontSize.%=\"\t  !isSpecial ? 150  :  50  \t\">Small</button>";
-			const string input15 = "<button (click)=\"\t  onSave()  \t\">Save</button>";
-			const string input16 = "<div (^click)=\"\t  onSave()  \t\">\n" +
-				"	<span>Save</span>\n" +
-				"</div>"
-				;
-			const string input17 = "<button on-click=\"\t  onSave()  \t\">Save</button>";
-			const string input18 = "<div (myClick)=\"\t  clickMessage = $event;  \t\">click with myClick</div>";
-			const string input19 = "<div on-myClick=\"\t  clickMessage = $event;  \t\">click with myClick</div>";
-			const string input20 = "<hero-detail (deleteRequest)=\"\t  deleteHero($event);  \t\"></hero-detail>";
-			const string input21 = "<hero-detail on-deleteRequest=\"\t  deleteHero($event);  \t\"></hero-detail>";
-			const string input22 = "<input [value]=\"\t  currentHero.firstName  \t\"" +
-				" (input)=\"\t  currentHero.firstName = $event.target.value;  \t\">"
-				;
-			const string input23 = "<input bind-value=\"\t  currentHero.firstName  \t\"" +
-				" on-input=\"\t  currentHero.firstName = $event.target.value;  \t\">"
-				;
-			const string input24 = "<input [ngModel]=\"\t  currentHero.firstName  \t\"" +
-				" (ngModelChange)=\"\t  currentHero.firstName = $event;  \t\">"
-				;
-			const string input25 = "<input bind-ngModel=\"\t  currentHero.firstName  \t\"" +
-				" on-ngModelChange=\"\t  currentHero.firstName = $event;  \t\">"
-				;
-			const string input26 = "<input [(ngModel)]=\"\t  currentHero.firstName  \t\">";
-			const string input27 = "<input bindon-ngModel=\"\t  currentHero.firstName  \t\">";
-			const string input28 = "<hero-detail *ngIf=\"currentHero\" [hero]=\"currentHero\"></hero-detail>";
-			const string input29 = "<hero-detail template=\"ngIf:currentHero\" [hero]=\"currentHero\"></hero-detail>";
-			const string input30 = "<video #moviePlayer>\n" +
-				"	<button (click)=\"moviePlayer.play()\"></button>\n" +
-				"</video>"
-				;
-			const string input31 = "<video var-moviePlayer>\n" +
-				"	<button (click)=\"moviePlayer.play()\"></button>\n" +
-				"</video>"
-				;
-			const string input32 = "<p>Employer: {{\t  employer?.companyName  \t}}</p>";
-			const string input33 = "<p>My birthday is {{\t  birthday  |  date:\"MM/dd/yy\"  \t}}</p>";
-			const string input34 = "<p>Message: {{\t  delayedMessage  |  async  \t}}</p>";
-
-			// Act
-			string output1 = minifier.Minify(input1).MinifiedContent;
-			string output2 = minifier.Minify(input2).MinifiedContent;
-			string output3 = minifier.Minify(input3).MinifiedContent;
-			string output4 = minifier.Minify(input4).MinifiedContent;
-			string output5 = minifier.Minify(input5).MinifiedContent;
-			string output6 = minifier.Minify(input6).MinifiedContent;
-			string output7 = minifier.Minify(input7).MinifiedContent;
-			string output8 = minifier.Minify(input8).MinifiedContent;
-			string output9 = minifier.Minify(input9).MinifiedContent;
-			string output10 = minifier.Minify(input10).MinifiedContent;
-			string output11 = minifier.Minify(input11).MinifiedContent;
-			string output12 = minifier.Minify(input12).MinifiedContent;
-			string output13 = minifier.Minify(input13).MinifiedContent;
-			string output14 = minifier.Minify(input14).MinifiedContent;
-			string output15 = minifier.Minify(input15).MinifiedContent;
-			string output16 = minifier.Minify(input16).MinifiedContent;
-			string output17 = minifier.Minify(input17).MinifiedContent;
-			string output18 = minifier.Minify(input18).MinifiedContent;
-			string output19 = minifier.Minify(input19).MinifiedContent;
-			string output20 = minifier.Minify(input20).MinifiedContent;
-			string output21 = minifier.Minify(input21).MinifiedContent;
-			string output22 = minifier.Minify(input22).MinifiedContent;
-			string output23 = minifier.Minify(input23).MinifiedContent;
-			string output24 = minifier.Minify(input24).MinifiedContent;
-			string output25 = minifier.Minify(input25).MinifiedContent;
-			string output26 = minifier.Minify(input26).MinifiedContent;
-			string output27 = minifier.Minify(input27).MinifiedContent;
-			string output28 = minifier.Minify(input28).MinifiedContent;
-			string output29 = minifier.Minify(input29).MinifiedContent;
-			string output30 = minifier.Minify(input30).MinifiedContent;
-			string output31 = minifier.Minify(input31).MinifiedContent;
-			string output32 = minifier.Minify(input32).MinifiedContent;
-			string output33 = minifier.Minify(input33).MinifiedContent;
-			string output34 = minifier.Minify(input34).MinifiedContent;
-
-			// Assert
-			Assert.Equal(input1, output1);
-			Assert.Equal(input2, output2);
-			Assert.Equal(input3, output3);
-			Assert.Equal(input4, output4);
-			Assert.Equal(input5, output5);
-			Assert.Equal(input6, output6);
-			Assert.Equal(input7, output7);
-			Assert.Equal(input8, output8);
-			Assert.Equal(input9, output9);
-			Assert.Equal(input10, output10);
-			Assert.Equal(input11, output11);
-			Assert.Equal(input12, output12);
-			Assert.Equal(input13, output13);
-			Assert.Equal(input14, output14);
-			Assert.Equal(input15, output15);
-			Assert.Equal(input16, output16);
-			Assert.Equal(input17, output17);
-			Assert.Equal(input18, output18);
-			Assert.Equal(input19, output19);
-			Assert.Equal(input20, output20);
-			Assert.Equal(input21, output21);
-			Assert.Equal(input22, output22);
-			Assert.Equal(input23, output23);
-			Assert.Equal(input24, output24);
-			Assert.Equal(input25, output25);
-			Assert.Equal(input26, output26);
-			Assert.Equal(input27, output27);
-			Assert.Equal(input28, output28);
-			Assert.Equal(input29, output29);
-			Assert.Equal(input30, output30);
-			Assert.Equal(input31, output31);
-			Assert.Equal(input32, output32);
-			Assert.Equal(input33, output33);
-			Assert.Equal(input34, output34);
-		}
-
-		[Fact]
-		public void ParsingAureliaTemplatesIsCorrect()
-		{
-			// Arrange
-			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
-
-			const string input1 = "<input type=\"text\" value.bind=\"firstName\">";
-			const string input2 = "<img src.bind=\"\t  typeof data.thumbnail !== 'undefined' ? data.thumbnail  :  '';  \t\">";
-			const string input3 = "<ul>\n" +
-				"	<li repeat.for=\"post of posts\">\n" +
-				"		<img src.bind=\"post.data.thumbnail\">\n" +
-				"	</li>\n" +
-				"</ul>"
-				;
-			const string input4 = "<form submit.trigger=\"\t  submit();  \t\"></form>";
-			const string input5 = "<ul>\n" +
-				"	<li repeat.for=\"navItem of router.navigation\" class=\"${\t  navItem.isActive ? 'active'  :  '';  \t}\">\n" +
-				"		<a href=\"http://mysite.com${\t  navItem.href  \t}\">\n" +
-				"			${\t  navItem.title  \t}\n" +
-				"		</a>\n" +
-				"	</li>\n" +
-				"</ul>"
-				;
-
-			// Act
-			string output1 = minifier.Minify(input1).MinifiedContent;
-			string output2 = minifier.Minify(input2).MinifiedContent;
-			string output3 = minifier.Minify(input3).MinifiedContent;
-			string output4 = minifier.Minify(input4).MinifiedContent;
-			string output5 = minifier.Minify(input5).MinifiedContent;
-
-			// Assert
-			Assert.Equal(input1, output1);
-			Assert.Equal(input2, output2);
-			Assert.Equal(input3, output3);
-			Assert.Equal(input4, output4);
-			Assert.Equal(input5, output5);
-		}
-
-		[Fact]
-		public void ParsingPolymerTemplatesIsCorrect()
-		{
-			// Arrange
-			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
-
-			const string input1 = "<dom-module id=\"host-element\">\n" +
-				"	<template>\n" +
-				"		<child-element name=\"{{myName}}\"></child-element>\n" +
-				"	</template>\n" +
-				"</dom-module>"
-				;
-			const string input2 = "<span>Name: {{lastname}}, {{firstname}}</span>";
-			const string input3 = "<div>{{user.manager.name}}</div>";
-			const string input4 = "<div class=\"result\">\n" +
-				"	{{ amount * fromCurrencyRelativeValue / toCurrencyRelativeValue }}\n" +
-				"</div>"
-				;
-			const string input5 = "<span>{{doThisOnce()}}</span>";
-			const string input6 = "My name is <span>{{computeFullName(first, last)}}</span>";
-			const string input7 = "<span>{{translate('Hello\\, nice to meet you', first, last)}}</span>";
-			const string input8 = "<span>{{array.0}}</span>";
-			const string input9 = "<div>[[arrayItem(myArray.*, 0, 'name')]]</div>";
-			const string input10 = "<custom-element some-prop=\"{{value}}\"></custom-element>";
-			const string input11 = "<custom-element some-prop=\"[[value]]\"></custom-element>";
-			const string input12 = "<user-view first=\"{{user.first}}\" last=\"{{user.last}}\"></user-view>";
-			const string input13 = "<input value=\"{{hostValue::input}}\">";
-			const string input14 = "<input value=\"{{user.name.first::input}}\">";
-			const string input15 = "<input type=\"checkbox\" checked=\"{{hostChecked::change}}\">";
-			const string input16 = "<video url=\"/video/movie.mp4\" current-time=\"{{hostTime::timeupdate}}\"></video>";
-			const string input17 = "<my-element value=\"{{hostValue::value-changed}}\"></my-element>";
-			const string input18 = "<div hidden=\"{{!enabled}}\"></div>";
-			const string input19 = "<div class$=\"{{foo}}\"></div>";
-			const string input20 = "<div style$=\"{{background}}\"></div>";
-			const string input21 = "<img src$=\"https://www.example.com/profiles/{{userId}}.jpg\">";
-			const string input22 = "<label for$=\"{{bar}}\"></label>";
-			const string input23 = "<div data-bar$=\"{{baz}}\"></div>";
-			const string input24 = "<my-element selected$=\"{{value}}\"></my-element>";
-			const string input25 = "<template is=\"dom-repeat\" items=\"{{employees}}\">\n" +
-				"	<div># <span>{{index}}</span></div>\n" +
-				"	<div>First name: <span>{{item.first}}</span></div>\n" +
-				"	<div>Last name: <span>{{item.last}}</span></div>\n" +
-				"</template>"
-				;
-			const string input26 = "<template is=\"dom-repeat\" items=\"{{employees}}\" as=\"employee\" filter=\"{{computeFilter(searchString)}}\">\n" +
-				"	<div>{{employee.lastname}}, {{employee.firstname}}</div>\n" +
-				"</template>"
-				;
-			const string input27 = "<array-selector id=\"selector\" items=\"{{employees}}\" selected=\"{{selected}}\" multi toggle></array-selector>";
-			const string input28 = "<template is=\"dom-if\" if=\"{{user.isAdmin}}\">\n"+
-				"	Only admins will see this.\n" +
-				"	<div>{{user.secretAdminStuff}}</div>\n" +
-				"</template>"
-				;
-
-			// Act
-			string output1 = minifier.Minify(input1).MinifiedContent;
-			string output2 = minifier.Minify(input2).MinifiedContent;
-			string output3 = minifier.Minify(input3).MinifiedContent;
-			string output4 = minifier.Minify(input4).MinifiedContent;
-			string output5 = minifier.Minify(input5).MinifiedContent;
-			string output6 = minifier.Minify(input6).MinifiedContent;
-			string output7 = minifier.Minify(input7).MinifiedContent;
-			string output8 = minifier.Minify(input8).MinifiedContent;
-			string output9 = minifier.Minify(input9).MinifiedContent;
-			string output10 = minifier.Minify(input10).MinifiedContent;
-			string output11 = minifier.Minify(input11).MinifiedContent;
-			string output12 = minifier.Minify(input12).MinifiedContent;
-			string output13 = minifier.Minify(input13).MinifiedContent;
-			string output14 = minifier.Minify(input14).MinifiedContent;
-			string output15 = minifier.Minify(input15).MinifiedContent;
-			string output16 = minifier.Minify(input16).MinifiedContent;
-			string output17 = minifier.Minify(input17).MinifiedContent;
-			string output18 = minifier.Minify(input18).MinifiedContent;
-			string output19 = minifier.Minify(input19).MinifiedContent;
-			string output20 = minifier.Minify(input20).MinifiedContent;
-			string output21 = minifier.Minify(input21).MinifiedContent;
-			string output22 = minifier.Minify(input22).MinifiedContent;
-			string output23 = minifier.Minify(input23).MinifiedContent;
-			string output24 = minifier.Minify(input24).MinifiedContent;
-			string output25 = minifier.Minify(input25).MinifiedContent;
-			string output26 = minifier.Minify(input26).MinifiedContent;
-			string output27 = minifier.Minify(input27).MinifiedContent;
-			string output28 = minifier.Minify(input28).MinifiedContent;
-
-			// Assert
-			Assert.Equal(input1, output1);
-			Assert.Equal(input2, output2);
-			Assert.Equal(input3, output3);
-			Assert.Equal(input4, output4);
-			Assert.Equal(input5, output5);
-			Assert.Equal(input6, output6);
-			Assert.Equal(input7, output7);
-			Assert.Equal(input8, output8);
-			Assert.Equal(input9, output9);
-			Assert.Equal(input10, output10);
-			Assert.Equal(input11, output11);
-			Assert.Equal(input12, output12);
-			Assert.Equal(input13, output13);
-			Assert.Equal(input14, output14);
-			Assert.Equal(input15, output15);
-			Assert.Equal(input16, output16);
-			Assert.Equal(input17, output17);
-			Assert.Equal(input18, output18);
-			Assert.Equal(input19, output19);
-			Assert.Equal(input20, output20);
-			Assert.Equal(input21, output21);
-			Assert.Equal(input22, output22);
-			Assert.Equal(input23, output23);
-			Assert.Equal(input24, output24);
-			Assert.Equal(input25, output25);
-			Assert.Equal(input26, output26);
-			Assert.Equal(input27, output27);
-			Assert.Equal(input28, output28);
-		}
+		#region Case normalization
 
 		[Fact]
 		public void CaseNormalizationIsCorrect()
@@ -717,6 +186,10 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(targetOutput6B, output6B);
 		}
 
+		#endregion
+
+		#region Space normalization between attributes
+
 		[Fact]
 		public void SpaceNormalizationBetweenAttributesIsCorrect()
 		{
@@ -746,9 +219,11 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(targetOutput3, output3);
 			Assert.Equal(targetOutput4, output4);
 		}
+
 		#endregion
 
 		#region Processing XML nodes
+
 		[Fact]
 		public void ProcessingXmlNodesIsCorrect()
 		{
@@ -848,9 +323,11 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(targetOutput3, output3);
 			Assert.Equal(0, warnings3.Count);
 		}
+
 		#endregion
 
 		#region Processing DOCTYPE declaration
+
 		[Fact]
 		public void ProcessingDoctypeIsCorrect()
 		{
@@ -890,9 +367,11 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(input3, output3A);
 			Assert.Equal(input3, output3B);
 		}
+
 		#endregion
 
 		#region Upgrading META encoding tag
+
 		[Fact]
 		public void UpgradingToMetaCharsetTag()
 		{
@@ -944,9 +423,11 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(targetOutput4A, output4A);
 			Assert.Equal(targetOutput4B, output4B);
 		}
+
 		#endregion
 
 		#region Cleaning attributes
+
 		[Fact]
 		public void CleaningClassAttributesIsCorrect()
 		{
@@ -966,63 +447,17 @@ namespace WebMarkupMin.Core.Test
 				"Some text…</div>";
 			const string targetOutput4 = "<div class=\"b-dropdowna i-bem b-dropdowna_is-bem_yes\">Some text…</div>";
 
-			const string input5 = "<span class=\" label  done-{{\t  todo.done  \t}} \">{{todo.text}}</span>";
-			const string targetOutput5 = "<span class=\"label done-{{\t  todo.done  \t}}\">{{todo.text}}</span>";
-
-			const string input6 = "<span class=\"ng-bind: 'Mr. ' + name;\"></span>";
-			const string targetOutput6 = "<span class=\"ng-bind:'Mr. ' + name\"></span>";
-
-			const string input7 = "<p class=\"ng-class: { strike: deleted, bold: important, red: error };\">" +
-				"Map Syntax Example</p>";
-			const string targetOutput7 = "<p class=\"ng-class:{ strike: deleted, bold: important, red: error }\">" +
-				"Map Syntax Example</p>";
-
-			const string input8 = "<div class=\"ng-cloak\">{{'hello IE7'}}</div>";
-			const string targetOutput8 = input8;
-
-			const string input9 = "<div class=\"ng-form: 'frmMain';\"></div>";
-			const string targetOutput9 = "<div class=\"ng-form:'frmMain'\"></div>";
-
-			const string input10 = "<div class=\"ng-include: 'myPartialTemplate.html'; onload: childOnLoad();" +
-				" autoscroll;\"></div>";
-			const string targetOutput10 = "<div class=\"ng-include:'myPartialTemplate.html';onload:childOnLoad();" +
-				"autoscroll\"></div>";
-
-			const string input11 = "<span class=\"data-ng-bind: name; ng-cloak; " +
-				"ng-style: { 'background-color': 'lime' };\"></span>";
-			const string targetOutput11 = "<span class=\"data-ng-bind:name;ng-cloak;" +
-				"ng-style:{ 'background-color': 'lime' }\"></span>";
-
-			const string input12 = "<button class=\"btn  data-ng-bind: buttonText;  btn-primary  btn-lg\"></button>";
-			const string targetOutput12 = "<button class=\"btn data-ng-bind:buttonText; btn-primary btn-lg\"></button>";
-
 			// Act
 			string output1 = cleaningAttributesMinifier.Minify(input1).MinifiedContent;
 			string output2 = cleaningAttributesMinifier.Minify(input2).MinifiedContent;
 			string output3 = cleaningAttributesMinifier.Minify(input3).MinifiedContent;
 			string output4 = cleaningAttributesMinifier.Minify(input4).MinifiedContent;
-			string output5 = cleaningAttributesMinifier.Minify(input5).MinifiedContent;
-			string output6 = cleaningAttributesMinifier.Minify(input6).MinifiedContent;
-			string output7 = cleaningAttributesMinifier.Minify(input7).MinifiedContent;
-			string output8 = cleaningAttributesMinifier.Minify(input8).MinifiedContent;
-			string output9 = cleaningAttributesMinifier.Minify(input9).MinifiedContent;
-			string output10 = cleaningAttributesMinifier.Minify(input10).MinifiedContent;
-			string output11 = cleaningAttributesMinifier.Minify(input11).MinifiedContent;
-			string output12 = cleaningAttributesMinifier.Minify(input12).MinifiedContent;
 
 			// Assert
 			Assert.Equal(targetOutput1, output1);
 			Assert.Equal(targetOutput2, output2);
 			Assert.Equal(targetOutput3, output3);
 			Assert.Equal(targetOutput4, output4);
-			Assert.Equal(targetOutput5, output5);
-			Assert.Equal(targetOutput6, output6);
-			Assert.Equal(targetOutput7, output7);
-			Assert.Equal(targetOutput8, output8);
-			Assert.Equal(targetOutput9, output9);
-			Assert.Equal(targetOutput10, output10);
-			Assert.Equal(targetOutput11, output11);
-			Assert.Equal(targetOutput12, output12);
 		}
 
 		[Fact]
@@ -1037,18 +472,13 @@ namespace WebMarkupMin.Core.Test
 			const string input2 = "<p style=\"font-weight: bold  ; \">Some text…</p>";
 			const string targetOutput2 = "<p style=\"font-weight: bold\">Some text…</p>";
 
-			const string input3 = "<div style=\"\t  height: 25px; width: 25px; background-color: {{\t  color  \t}};  \t\"></div>";
-			const string targetOutput3 = "<div style=\"height: 25px; width: 25px; background-color: {{\t  color  \t}}\"></div>";
-
 			// Act
 			string output1 = cleaningAttributesMinifier.Minify(input1).MinifiedContent;
 			string output2 = cleaningAttributesMinifier.Minify(input2).MinifiedContent;
-			string output3 = cleaningAttributesMinifier.Minify(input3).MinifiedContent;
 
 			// Assert
 			Assert.Equal(targetOutput1, output1);
 			Assert.Equal(targetOutput2, output2);
-			Assert.Equal(targetOutput3, output3);
 		}
 
 		[Fact]
@@ -1104,9 +534,6 @@ namespace WebMarkupMin.Core.Test
 			const string input11 = "<span profile=\"   6, 7, 8  \">Some text...</span>";
 			const string input12 = "<div action=\"  one-two-three \">Some other text ...</div>";
 
-			const string input13 = "<img src=\"  /Content/images/icons/{{\t  iconName  \t}}.png  \">";
-			const string targetOutput13 = "<img src=\"/Content/images/icons/{{\t  iconName  \t}}.png\">";
-
 			// Act
 			string output1 = cleaningAttributesMinifier.Minify(input1).MinifiedContent;
 			string output2 = cleaningAttributesMinifier.Minify(input2).MinifiedContent;
@@ -1120,7 +547,6 @@ namespace WebMarkupMin.Core.Test
 			string output10 = cleaningAttributesMinifier.Minify(input10).MinifiedContent;
 			string output11 = cleaningAttributesMinifier.Minify(input11).MinifiedContent;
 			string output12 = cleaningAttributesMinifier.Minify(input12).MinifiedContent;
-			string output13 = cleaningAttributesMinifier.Minify(input13).MinifiedContent;
 
 			// Assert
 			Assert.Equal(targetOutput1, output1);
@@ -1135,7 +561,6 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(targetOutput10, output10);
 			Assert.Equal(input11, output11);
 			Assert.Equal(input12, output12);
-			Assert.Equal(targetOutput13, output13);
 		}
 
 		[Fact]
@@ -1162,9 +587,6 @@ namespace WebMarkupMin.Core.Test
 			const string input6 = "<tr><td colspan=\"    2   \">Some text…</td><td rowspan=\"   3 \"></td></tr>";
 			const string targetOutput6 = "<tr><td colspan=\"2\">Some text…</td><td rowspan=\"3\"></td></tr>";
 
-			const string input7 = "<select size=\"  {{\t  listSize  \t}}  \"></select>";
-			const string targetOutput7 = "<select size=\"{{\t  listSize  \t}}\"></select>";
-
 			// Act
 			string output1 = cleaningAttributesMinifier.Minify(input1).MinifiedContent;
 			string output2 = cleaningAttributesMinifier.Minify(input2).MinifiedContent;
@@ -1172,7 +594,6 @@ namespace WebMarkupMin.Core.Test
 			string output4 = cleaningAttributesMinifier.Minify(input4).MinifiedContent;
 			string output5 = cleaningAttributesMinifier.Minify(input5).MinifiedContent;
 			string output6 = cleaningAttributesMinifier.Minify(input6).MinifiedContent;
-			string output7 = cleaningAttributesMinifier.Minify(input7).MinifiedContent;
 
 			// Assert
 			Assert.Equal(targetOutput1, output1);
@@ -1181,7 +602,6 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(targetOutput4, output4);
 			Assert.Equal(targetOutput5, output5);
 			Assert.Equal(targetOutput6, output6);
-			Assert.Equal(targetOutput7, output7);
 		}
 
 		[Fact]
@@ -1207,22 +627,15 @@ namespace WebMarkupMin.Core.Test
 			const string input3 = "<body onload=\"  initStatistics();   initForms() ;  \"><p>Some text…</p></body>";
 			const string targetOutput3 = "<body onload=\"initStatistics();   initForms()\"><p>Some text…</p></body>";
 
-			const string input4 = "<button onclick=\"  showMessageBox('Error', '\t  {{\t  message  \t}}  \t');  \">" +
-				"Show message</button>";
-			const string targetOutput4 = "<button onclick=\"showMessageBox('Error', '\t  {{\t  message  \t}}  \t')\">" +
-				"Show message</button>";
-
 			// Act
 			string output1 = cleaningAttributesMinifier.Minify(input1).MinifiedContent;
 			string output2 = cleaningAttributesMinifier.Minify(input2).MinifiedContent;
 			string output3 = cleaningAttributesMinifier.Minify(input3).MinifiedContent;
-			string output4 = cleaningAttributesMinifier.Minify(input4).MinifiedContent;
 
 			// Assert
 			Assert.Equal(targetOutput1, output1);
 			Assert.Equal(targetOutput2, output2);
 			Assert.Equal(targetOutput3, output3);
-			Assert.Equal(targetOutput4, output4);
 		}
 
 		[Fact]
@@ -1231,28 +644,20 @@ namespace WebMarkupMin.Core.Test
 			// Arrange
 			var cleaningAttributesMinifier = new HtmlMinifier(new HtmlMinificationSettings(true));
 
-			const string input1 = "<meta name=\"keywords\" content=\"	HTML5, CSS3, ECMAScript 5, \">";
-			const string targetOutput1 = "<meta name=\"keywords\" content=\"HTML5,CSS3,ECMAScript 5\">";
-
-			const string input2 = "<input type=\"text\" value=\"  {{\t  text  \t}}  \">";
-			const string targetOutput2 = input2;
-
-			const string input3 = "<pre ng-bind-template=\"  {{\t  salutation  \t}} {{\t  name  \t}}!  \"></pre>";
-			const string targetOutput3 = input3;
+			const string input = "<meta name=\"keywords\" content=\"	HTML5, CSS3, ECMAScript 5, \">";
+			const string targetOutput = "<meta name=\"keywords\" content=\"HTML5,CSS3,ECMAScript 5\">";
 
 			// Act
-			string output1 = cleaningAttributesMinifier.Minify(input1).MinifiedContent;
-			string output2 = cleaningAttributesMinifier.Minify(input2).MinifiedContent;
-			string output3 = cleaningAttributesMinifier.Minify(input3).MinifiedContent;
+			string output = cleaningAttributesMinifier.Minify(input).MinifiedContent;
 
 			// Assert
-			Assert.Equal(targetOutput1, output1);
-			Assert.Equal(targetOutput2, output2);
-			Assert.Equal(targetOutput3, output3);
+			Assert.Equal(targetOutput, output);
 		}
+
 		#endregion
 
 		#region Whitespace minification
+
 		[Fact]
 		public void WhitespaceMinificationIsCorrect()
 		{
@@ -1757,32 +1162,6 @@ namespace WebMarkupMin.Core.Test
 				;
 			const string targetOutput16D = targetOutput16C;
 
-			const string input17 = "<ul>\n" +
-				"	<li data-ng-repeat=\"customer in customers\">  " +
-				"{{\t  customer.name  \t}}\t  -  \t{{\t  customer.city  \t}}  " +
-				"</li>\n" +
-				"</ul>"
-				;
-			const string targetOutput17A = input17;
-			const string targetOutput17B = "<ul>" +
-				"<li data-ng-repeat=\"customer in customers\"> " +
-				"{{\t  customer.name  \t}} - {{\t  customer.city  \t}} " +
-				"</li>" +
-				"</ul>"
-				;
-			const string targetOutput17C = "<ul>" +
-				"<li data-ng-repeat=\"customer in customers\">" +
-				"{{\t  customer.name  \t}} - {{\t  customer.city  \t}}" +
-				"</li>" +
-				"</ul>"
-				;
-			const string targetOutput17D = "<ul>" +
-				"<li data-ng-repeat=\"customer in customers\">" +
-				"{{\t  customer.name  \t}} - {{\t  customer.city  \t}}" +
-				"</li>" +
-				"</ul>"
-				;
-
 			// Act
 			string output1A = keepingWhitespaceMinifier.Minify(input1).MinifiedContent;
 			string output1B = safeRemovingWhitespaceMinifier.Minify(input1).MinifiedContent;
@@ -1864,11 +1243,6 @@ namespace WebMarkupMin.Core.Test
 			string output16C = mediumRemovingWhitespaceMinifier.Minify(input16).MinifiedContent;
 			string output16D = aggressiveRemovingWhitespaceMinifier.Minify(input16).MinifiedContent;
 
-			string output17A = keepingWhitespaceMinifier.Minify(input17).MinifiedContent;
-			string output17B = safeRemovingWhitespaceMinifier.Minify(input17).MinifiedContent;
-			string output17C = mediumRemovingWhitespaceMinifier.Minify(input17).MinifiedContent;
-			string output17D = aggressiveRemovingWhitespaceMinifier.Minify(input17).MinifiedContent;
-
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
@@ -1949,15 +1323,12 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(targetOutput16B, output16B);
 			Assert.Equal(targetOutput16C, output16C);
 			Assert.Equal(targetOutput16D, output16D);
-
-			Assert.Equal(targetOutput17A, output17A);
-			Assert.Equal(targetOutput17B, output17B);
-			Assert.Equal(targetOutput17C, output17C);
-			Assert.Equal(targetOutput17D, output17D);
 		}
+
 		#endregion
 
 		#region Processing HTML comments
+
 		[Fact]
 		public void RemovingHtmlCommentsIsCorrect()
 		{
@@ -2318,106 +1689,10 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(targetOutput2, output2);
 		}
 
-		[Fact]
-		public void ProcessingKnockoutContainerlessCommentsIsCorrect()
-		{
-			// Arrange
-			var removingHtmlCommentsMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true) { RemoveHtmlComments = true });
-
-			const string input1 = "<div>\n" +
-				"	<header>\n" +
-				"		<!--ko compose: {view: 'nav'}--><!--/ko-->\n" +
-				"	</header>\n" +
-				"	<section id=\"content\" class=\"main container-fluid\">\n" +
-				"		<!-- ko compose: {model: router.activeItem,\n" +
-				"		afterCompose: router.afterCompose,\n" +
-				"		transition: 'entrance'} -->\n" +
-				"		<!-- /ko -->\n" +
-				"	</section>\n" +
-				"	<footer>\n" +
-				"		<!--\n\tko\t\ncompose: {view: 'footer'}\t\n--><!--\n\t/ko\n\t-->\n" +
-				"	</footer>\n" +
-				"</div>"
-				;
-			const string targetOutput1 = "<div>\n" +
-				"	<header>\n" +
-				"		<!--ko compose: {view: 'nav'}--><!--/ko-->\n" +
-				"	</header>\n" +
-				"	<section id=\"content\" class=\"main container-fluid\">\n" +
-				"		<!--ko compose: {model: router.activeItem,\n" +
-				"		afterCompose: router.afterCompose,\n" +
-				"		transition: 'entrance'}-->\n" +
-				"		<!--/ko-->\n" +
-				"	</section>\n" +
-				"	<footer>\n" +
-				"		<!--ko compose: {view: 'footer'}--><!--/ko-->\n" +
-				"	</footer>\n" +
-				"</div>"
-				;
-
-			const string input2 = "<ul>\n" +
-				"	<!-- ko foreach: items -->\n" +
-				"		<!-- ko template: { name: 'productTemplate'} -->\n" +
-				"		<!-- /ko -->\n" +
-				"	<!-- /ko -->\n" +
-				"</ul>"
-				;
-			const string targetOutput2 = "<ul>\n" +
-				"	<!--ko foreach: items-->\n" +
-				"		<!--ko template: { name: 'productTemplate'}-->\n" +
-				"		<!--/ko-->\n" +
-				"	<!--/ko-->\n" +
-				"</ul>"
-				;
-
-			// Act
-			string output1 = removingHtmlCommentsMinifier.Minify(input1).MinifiedContent;
-			string output2 = removingHtmlCommentsMinifier.Minify(input2).MinifiedContent;
-
-			// Assert
-			Assert.Equal(targetOutput1, output1);
-			Assert.Equal(targetOutput2, output2);
-		}
-
-		[Fact]
-		public void ProcessingAngularCommentDirectivesIsCorrect()
-		{
-			// Arrange
-			var removingHtmlCommentsMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true) { RemoveHtmlComments = true });
-
-			const string input1 = "<div ng-app=\"superhero\">\n" +
-				"	<!--\t directive: superman \t-->\n" +
-				"</div>"
-				;
-			const string targetOutput1 = "<div ng-app=\"superhero\">\n" +
-				"	<!--directive:superman -->\n" +
-				"</div>"
-				;
-
-			const string input2 = "<body ng-controller=\"MainCtrl\">\n" +
-				"	<!--directive:date-picker -->\n" +
-				"</body>"
-				;
-			const string targetOutput2 = input2;
-
-			const string input3 = "<!-- directive: my-dir exp -->";
-			const string targetOutput3 = "<!--directive:my-dir exp-->";
-
-			// Act
-			string output1 = removingHtmlCommentsMinifier.Minify(input1).MinifiedContent;
-			string output2 = removingHtmlCommentsMinifier.Minify(input2).MinifiedContent;
-			string output3 = removingHtmlCommentsMinifier.Minify(input3).MinifiedContent;
-
-			// Assert
-			Assert.Equal(targetOutput1, output1);
-			Assert.Equal(targetOutput2, output2);
-			Assert.Equal(targetOutput3, output3);
-		}
 		#endregion
 
-		#region Processing HTML comments from scripts and styles
+		#region Processing HTML comments in scripts and styles
+
 		[Fact]
 		public void ProcessingHtmlCommentsInStylesIsCorrect()
 		{
@@ -2908,19 +2183,6 @@ namespace WebMarkupMin.Core.Test
 				"</script>"
 				;
 
-			const string input18 = "<script type=\"text/html\">\r\n" +
-				"<!--ko with: coords-->\r\n" +
-				"	Latitude: <span data-bind=\"text: latitude\"></span>,\r\n" +
-				"	Longitude: <span data-bind=\"text: longitude\"></span>\r\n" +
-				"<!--/ko-->\r\n" +
-				"</script>"
-				;
-
-			const string input19 = "<script type=\"text/ng-template\">\r\n" +
-				"	<!--directive:date-picker -->\r\n" +
-				"</script>"
-				;
-
 			// Act
 			string output1A = minifier.Minify(input1).MinifiedContent;
 			string output1B = removingWhitespaceMinifier.Minify(input1).MinifiedContent;
@@ -2990,14 +2252,6 @@ namespace WebMarkupMin.Core.Test
 			string output17B = removingWhitespaceMinifier.Minify(input17).MinifiedContent;
 			string output17C = removingHtmlCommentsMinifier.Minify(input17).MinifiedContent;
 
-			string output18A = minifier.Minify(input18).MinifiedContent;
-			string output18B = removingWhitespaceMinifier.Minify(input18).MinifiedContent;
-			string output18C = removingHtmlCommentsMinifier.Minify(input18).MinifiedContent;
-
-			string output19A = minifier.Minify(input19).MinifiedContent;
-			string output19B = removingWhitespaceMinifier.Minify(input19).MinifiedContent;
-			string output19C = removingHtmlCommentsMinifier.Minify(input19).MinifiedContent;
-
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
@@ -3066,18 +2320,12 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(targetOutput17A, output17A);
 			Assert.Equal(targetOutput17B, output17B);
 			Assert.Equal(targetOutput17C, output17C);
-
-			Assert.Equal(input18, output18A);
-			Assert.Equal(input18, output18B);
-			Assert.Equal(input18, output18C);
-
-			Assert.Equal(input19, output19A);
-			Assert.Equal(input19, output19B);
-			Assert.Equal(input19, output19C);
 		}
+
 		#endregion
 
-		#region Processing CDATA sections from scripts and styles
+		#region Processing CDATA sections in scripts and styles
+
 		[Fact]
 		public void ProcessingCdataSectionsInStylesIsCorrect()
 		{
@@ -3597,9 +2845,11 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(targetOutput11B, output11B);
 			Assert.Equal(targetOutput11C, output11C);
 		}
+
 		#endregion
 
 		#region Empty tag rendering
+
 		[Fact]
 		public void EmptyTagRenderingIsCorrect()
 		{
@@ -3755,9 +3005,11 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(targetOutput5B, output5B);
 			Assert.Equal(targetOutput5C, output5C);
 		}
+
 		#endregion
 
 		#region Removing optional end tags
+
 		[Fact]
 		public void RemovingStructuralOptionalEndTagsIsCorrect()
 		{
@@ -4496,9 +3748,11 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(targetOutput3, output3A);
 			Assert.Equal(input3, output3B);
 		}
+
 		#endregion
 
 		#region Removing tags without content
+
 		[Fact]
 		public void RemovingTagsWithoutContentIsCorrect()
 		{
@@ -4557,23 +3811,16 @@ namespace WebMarkupMin.Core.Test
 			const string input21 = "<div role=\"\"></div>";
 			const string targetOutput21 = "";
 
-			const string input22 = "<div>\n" +
+			const string input22 = "<div custom-attribute=\"\"></div>";
+
+			const string input23 = "<div>\n" +
 				"\t<p>\t\n  </p>\n" +
 				"</div>"
 				;
-			const string targetOutput22 = "<div>\n" +
+			const string targetOutput23 = "<div>\n" +
 				"\t\n" +
 				"</div>"
 				;
-
-			const string input23 = "<div ng-app></div>";
-			const string targetOutput23 = input23;
-
-			const string input24 = "<div aurelia-app></div>";
-			const string targetOutput24 = input24;
-
-			const string input25 = "<router-view></router-view>";
-			const string targetOutput25 = input25;
 
 			// Act
 			string output1 = removingTagsWithoutContentMinifier.Minify(input1).MinifiedContent;
@@ -4599,8 +3846,6 @@ namespace WebMarkupMin.Core.Test
 			string output21 = removingTagsWithoutContentMinifier.Minify(input21).MinifiedContent;
 			string output22 = removingTagsWithoutContentMinifier.Minify(input22).MinifiedContent;
 			string output23 = removingTagsWithoutContentMinifier.Minify(input23).MinifiedContent;
-			string output24 = removingTagsWithoutContentMinifier.Minify(input24).MinifiedContent;
-			string output25 = removingTagsWithoutContentMinifier.Minify(input25).MinifiedContent;
 
 			// Assert
 			Assert.Equal(input1, output1);
@@ -4624,14 +3869,14 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(input19, output19);
 			Assert.Equal(input20, output20);
 			Assert.Equal(targetOutput21, output21);
-			Assert.Equal(targetOutput22, output22);
+			Assert.Equal(input22, output22);
 			Assert.Equal(targetOutput23, output23);
-			Assert.Equal(targetOutput24, output24);
-			Assert.Equal(targetOutput25, output25);
 		}
+
 		#endregion
 
 		#region Collapsing boolean attributes
+
 		[Fact]
 		public void CollapsingBooleanAttributesIsCorrect()
 		{
@@ -4668,23 +3913,11 @@ namespace WebMarkupMin.Core.Test
 			var collapsingBooleanAttributesMinifier = new HtmlMinifier(
 				new HtmlMinificationSettings(true) { CollapseBooleanAttributes = true });
 
-			const string input1 = "<html ng-app>\n" +
-				"	<body ng-controller=\"MyController\">\n" +
-				"		<input ng-model=\"foo\" value=\"bar\">\n" +
-				"				<button ng-click=\"changeFoo()\">{{buttonText}}</button>\n" +
-				"		<script src=\"angular.js\"></script>\n" +
-				"	</body>\n" +
-				"</html>"
-				;
-			const string input2 = "<div ng-include src=\"views/sidepanel.html\"></div>";
-			const string input3 = "<div ng:include src=\"views/sidepanel.html\"></div>";
-			const string input4 = "<div ng_include src=\"views/sidepanel.html\"></div>";
-			const string input5 = "<div x-ng-include src=\"views/sidepanel.html\"></div>";
-			const string input6 = "<div data-ng-include src=\"views/sidepanel.html\"></div>";
-			const string input7 = "<div ng-include=\"\" src=\"views/sidepanel.html\"></div>";
+			const string input1 = "<div custom-attribute></div>";
+			const string targetOutput1 = input1;
 
-			const string input8 = "<div class></div>";
-			const string targetOutput8 = "<div class=\"\"></div>";
+			const string input2 = "<div class></div>";
+			const string targetOutput2 = "<div class=\"\"></div>";
 
 			// Act
 			string output1A = keepingBooleanAttributesMinifier.Minify(input1).MinifiedContent;
@@ -4693,52 +3926,18 @@ namespace WebMarkupMin.Core.Test
 			string output2A = keepingBooleanAttributesMinifier.Minify(input2).MinifiedContent;
 			string output2B = collapsingBooleanAttributesMinifier.Minify(input2).MinifiedContent;
 
-			string output3A = keepingBooleanAttributesMinifier.Minify(input3).MinifiedContent;
-			string output3B = collapsingBooleanAttributesMinifier.Minify(input3).MinifiedContent;
-
-			string output4A = keepingBooleanAttributesMinifier.Minify(input4).MinifiedContent;
-			string output4B = collapsingBooleanAttributesMinifier.Minify(input4).MinifiedContent;
-
-			string output5A = keepingBooleanAttributesMinifier.Minify(input5).MinifiedContent;
-			string output5B = collapsingBooleanAttributesMinifier.Minify(input5).MinifiedContent;
-
-			string output6A = keepingBooleanAttributesMinifier.Minify(input6).MinifiedContent;
-			string output6B = collapsingBooleanAttributesMinifier.Minify(input6).MinifiedContent;
-
-			string output7A = keepingBooleanAttributesMinifier.Minify(input7).MinifiedContent;
-			string output7B = collapsingBooleanAttributesMinifier.Minify(input7).MinifiedContent;
-
-			string output8A = keepingBooleanAttributesMinifier.Minify(input8).MinifiedContent;
-			string output8B = collapsingBooleanAttributesMinifier.Minify(input8).MinifiedContent;
-
 			// Assert
-			Assert.Equal(input1, output1A);
-			Assert.Equal(input1, output1B);
+			Assert.Equal(targetOutput1, output1A);
+			Assert.Equal(targetOutput1, output1B);
 
-			Assert.Equal(input2, output2A);
-			Assert.Equal(input2, output2B);
-
-			Assert.Equal(input3, output3A);
-			Assert.Equal(input3, output3B);
-
-			Assert.Equal(input4, output4A);
-			Assert.Equal(input4, output4B);
-
-			Assert.Equal(input5, output5A);
-			Assert.Equal(input5, output5B);
-
-			Assert.Equal(input6, output6A);
-			Assert.Equal(input6, output6B);
-
-			Assert.Equal(input7, output7A);
-			Assert.Equal(input7, output7B);
-
-			Assert.Equal(targetOutput8, output8A);
-			Assert.Equal(targetOutput8, output8B);
+			Assert.Equal(targetOutput2, output2A);
+			Assert.Equal(targetOutput2, output2B);
 		}
+
 		#endregion
 
 		#region Removing empty attributes
+
 		[Fact]
 		public void RemovingEmptyAttributesIsCorrect()
 		{
@@ -4781,9 +3980,11 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(input5, output5);
 			Assert.Equal(targetOutput5, output6);
 		}
+
 		#endregion
 
 		#region Processing attribute quotes
+
 		[Fact]
 		public void RemovingAttributeQuotesIsCorrect()
 		{
@@ -5015,9 +4216,11 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(input18, output18B);
 			Assert.Equal(input18, output18C);
 		}
+
 		#endregion
 
 		#region Removing redundant attributes
+
 		[Fact]
 		public void RemovingRedundantFormAttributesIsCorrect()
 		{
@@ -5177,9 +4380,11 @@ namespace WebMarkupMin.Core.Test
 			// Assert
 			Assert.Equal(targetOutput1, output1);
 		}
+
 		#endregion
 
 		#region Removing JavaScript type attributes
+
 		[Fact]
 		public void RemovingJavaScriptTypeAttributesIsCorrect()
 		{
@@ -5212,9 +4417,11 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(input3, output3);
 			Assert.Equal(input4, output4);
 		}
+
 		#endregion
 
 		#region Removing CSS type attributes
+
 		[Fact]
 		public void RemovingCssTypeAttributesIsCorrect()
 		{
@@ -5259,9 +4466,11 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(targetOutput4, output4);
 			Assert.Equal(input5, output5);
 		}
+
 		#endregion
 
 		#region Removing HTTP protocol from attributes
+
 		[Fact]
 		public void RemovingHttpProtocolFromAttributesIsCorrect()
 		{
@@ -5296,9 +4505,11 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(input5, output5);
 			Assert.Equal(input6, output6);
 		}
+
 		#endregion
 
 		#region Removing HTTPS protocol from attributes
+
 		[Fact]
 		public void RemovingHttpsProtocolFromAttributesIsCorrect()
 		{
@@ -5333,9 +4544,11 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(input5, output5);
 			Assert.Equal(input6, output6);
 		}
+
 		#endregion
 
 		#region Removing JavaScript protocol from attributes
+
 		[Fact]
 		public void RemovingJsProtocolFromAttributesIsCorrect()
 		{
@@ -5394,56 +4607,11 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(targetOutput5, output5A);
 			Assert.Equal(targetOutput5, output5B);
 		}
-		#endregion
 
-		#region Encoding attribute values
-		[Fact]
-		public void EncodingAttributeValuesIsCorrect()
-		{
-			// Arrange
-			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
-
-			const string input1 = "<input value='<a href=\"/product.asp?id=12&category=5&returnUrl=%2Fdefault.asp\">" +
-				"Show product</a>'>";
-			const string targetOutput1 = "<input value=\"&lt;a href=&#34;/product.asp?id=12&amp;category=5" +
-				"&amp;returnUrl=%2Fdefault.asp&#34;>Show product&lt;/a>\">";
-
-			const string input2 = "<input value=\"<a href='/product.asp?id=12&category=5&returnUrl=%2Fdefault.asp'>" +
-				"Show product</a>\">";
-			const string targetOutput2 = "<input value=\"&lt;a href='/product.asp?id=12&amp;category=5&amp;returnUrl=%2Fdefault.asp'>" +
-				"Show product&lt;/a>\">";
-
-			const string input3 = "<select>\n" +
-				"	<option value='Douglas Crockford&#39;s JS Minifier'>Douglas Crockford's JS Minifier</option>\n" +
-				"	<option value='Microsoft Ajax JS Minifier'>Microsoft Ajax JS Minifier</option>\n" +
-				"	<option value='YUI JS Minifier'>YUI JS Minifier</option>\n" +
-				"</select>"
-				;
-			const string targetOutput3 = "<select>\n" +
-				"	<option value=\"Douglas Crockford's JS Minifier\">Douglas Crockford's JS Minifier</option>\n" +
-				"	<option value=\"Microsoft Ajax JS Minifier\">Microsoft Ajax JS Minifier</option>\n" +
-				"	<option value=\"YUI JS Minifier\">YUI JS Minifier</option>\n" +
-				"</select>"
-				;
-
-			const string input4 = "<input type=\"button\" value=\"Remove article &quot;Паранойя оптимизатора&quot;\">";
-			const string targetOutput4 = "<input type=\"button\" value=\"Remove article &#34;Паранойя оптимизатора&#34;\">";
-
-			// Act
-			string output1 = minifier.Minify(input1).MinifiedContent;
-			string output2 = minifier.Minify(input2).MinifiedContent;
-			string output3 = minifier.Minify(input3).MinifiedContent;
-			string output4 = minifier.Minify(input4).MinifiedContent;
-
-			// Assert
-			Assert.Equal(targetOutput1, output1);
-			Assert.Equal(targetOutput2, output2);
-			Assert.Equal(targetOutput3, output3);
-			Assert.Equal(targetOutput4, output4);
-		}
 		#endregion
 
 		#region Minification of embedded JavaScript templates
+
 		[Fact]
 		public void MinificationOfEmbeddedJsTemplatesIsCorrect()
 		{
@@ -5543,1069 +4711,7 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(targetOutput4A, output4A);
 			Assert.Equal(targetOutput4B, output4B);
 		}
-		#endregion
 
-		#region Minification of Knockout binding expressions
-		/// <summary>
-		/// Minification of Knockout binding expressions in <code>data-bind</code> attributes
-		/// </summary>
-		[Fact]
-		public void MinificationOfKnockoutBindingExpressionsInDataBindAttributesIsCorrect()
-		{
-			// Arrange
-			var keepingDataBindAttributesMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true) { MinifyKnockoutBindingExpressions = false });
-			var minifyingDataBindAttributesMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true) { MinifyKnockoutBindingExpressions = true });
-
-			const string input1 = "<select data-bind=\"\n" +
-				"	options: availableCountries,\n" +
-				"	optionsText: 'countryName',\n" +
-				"	value: selectedCountry,\n" +
-				"	optionsCaption: 'Choose...'\"></select>"
-				;
-			const string targetOutput1A = input1;
-			const string targetOutput1B = "<select data-bind=\"" +
-				"options:availableCountries," +
-				"optionsText:'countryName'," +
-				"value:selectedCountry," +
-				"optionsCaption:'Choose...'\"></select>"
-				;
-
-			const string input2 = "<div data-bind=\"visible: shouldShowMessage\">...</div>";
-			const string targetOutput2A = input2;
-			const string targetOutput2B = "<div data-bind=\"visible:shouldShowMessage\">...</div>";
-
-			const string input3 = "<div data-bind=\"{ visible: shouldShowMessage }\">...</div>";
-			const string targetOutput3A = input3;
-			const string targetOutput3B = "<div data-bind=\"visible:shouldShowMessage\">...</div>";
-
-			const string input4 = "The item is <span data-bind=\"text: price() > 50 ? 'expensive' : 'cheap'\"></span>.";
-			const string targetOutput4A = input4;
-			const string targetOutput4B = "The item is <span data-bind=\"text:price()>50?'expensive':'cheap'\"></span>.";
-
-			const string input5 = "<button data-bind=\"enable: parseAreaCode(cellphoneNumber()) != '555'\">...</button>";
-			const string targetOutput5A = input5;
-			const string targetOutput5B = "<button data-bind=\"enable:parseAreaCode(cellphoneNumber())!='555'\">...</button>";
-
-			const string input6 = "<div data-bind=\"click: function (data) { myFunction('param1', data) }\">...</div>";
-			const string targetOutput6A = input6;
-			const string targetOutput6B = "<div data-bind=\"click:function(data){myFunction('param1',data)}\">...</div>";
-
-			const string input7 = "<div data-bind=\"with: {emotion: 'happy', 'facial-expression': 'smile'}\">...</div>";
-			const string targetOutput7A = input7;
-			const string targetOutput7B = "<div data-bind=\"with:{emotion:'happy','facial-expression':'smile'}\">...</div>";
-
-			const string input8 = "<span data-bind=\"text\">Text that will be cleared when bindings are applied.</span>";
-			const string targetOutput8A = input8;
-			const string targetOutput8B = input8;
-
-			// Act
-			string output1A = keepingDataBindAttributesMinifier.Minify(input1).MinifiedContent;
-			string output1B = minifyingDataBindAttributesMinifier.Minify(input1).MinifiedContent;
-
-			string output2A = keepingDataBindAttributesMinifier.Minify(input2).MinifiedContent;
-			string output2B = minifyingDataBindAttributesMinifier.Minify(input2).MinifiedContent;
-
-			string output3A = keepingDataBindAttributesMinifier.Minify(input3).MinifiedContent;
-			string output3B = minifyingDataBindAttributesMinifier.Minify(input3).MinifiedContent;
-
-			string output4A = keepingDataBindAttributesMinifier.Minify(input4).MinifiedContent;
-			string output4B = minifyingDataBindAttributesMinifier.Minify(input4).MinifiedContent;
-
-			string output5A = keepingDataBindAttributesMinifier.Minify(input5).MinifiedContent;
-			string output5B = minifyingDataBindAttributesMinifier.Minify(input5).MinifiedContent;
-
-			string output6A = keepingDataBindAttributesMinifier.Minify(input6).MinifiedContent;
-			string output6B = minifyingDataBindAttributesMinifier.Minify(input6).MinifiedContent;
-
-			string output7A = keepingDataBindAttributesMinifier.Minify(input7).MinifiedContent;
-			string output7B = minifyingDataBindAttributesMinifier.Minify(input7).MinifiedContent;
-
-			string output8A = keepingDataBindAttributesMinifier.Minify(input8).MinifiedContent;
-			string output8B = minifyingDataBindAttributesMinifier.Minify(input8).MinifiedContent;
-
-			// Assert
-			Assert.Equal(targetOutput1A, output1A);
-			Assert.Equal(targetOutput1B, output1B);
-
-			Assert.Equal(targetOutput2A, output2A);
-			Assert.Equal(targetOutput2B, output2B);
-
-			Assert.Equal(targetOutput3A, output3A);
-			Assert.Equal(targetOutput3B, output3B);
-
-			Assert.Equal(targetOutput4A, output4A);
-			Assert.Equal(targetOutput4B, output4B);
-
-			Assert.Equal(targetOutput5A, output5A);
-			Assert.Equal(targetOutput5B, output5B);
-
-			Assert.Equal(targetOutput6A, output6A);
-			Assert.Equal(targetOutput6B, output6B);
-
-			Assert.Equal(targetOutput7A, output7A);
-			Assert.Equal(targetOutput7B, output7B);
-
-			Assert.Equal(targetOutput8A, output8A);
-			Assert.Equal(targetOutput8B, output8B);
-		}
-
-		/// <summary>
-		/// Minification of Knockout binding expressions in containerless comments
-		/// </summary>
-		[Fact]
-		public void MinificationOfKnockoutBindingExpressionsInContainerlessCommentsIsCorrect()
-		{
-			// Arrange
-			var keepingExpressionsMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true) { MinifyKnockoutBindingExpressions = false });
-			var minifyingExpressionsMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true) { MinifyKnockoutBindingExpressions = true });
-
-			const string input1 = "<ul>\n" +
-				"	<li>This item always appears</li>\n" +
-				"	<!--ko if: someExpressionGoesHere-->\n" +
-				"		<li>I want to make this item present/absent dynamically</li>\n" +
-				"	<!--/ko-->\n" +
-				"</ul>"
-				;
-			const string targetOutput1A = input1;
-			const string targetOutput1B = "<ul>\n" +
-				"	<li>This item always appears</li>\n" +
-				"	<!--ko if:someExpressionGoesHere-->\n" +
-				"		<li>I want to make this item present/absent dynamically</li>\n" +
-				"	<!--/ko-->\n" +
-				"</ul>"
-				;
-
-			const string input2 = "<ul>\n" +
-				"	<li>This item always appears</li>\n" +
-				"	<!--ko { if: someExpressionGoesHere }-->\n" +
-				"		<li>I want to make this item present/absent dynamically</li>\n" +
-				"	<!--/ko-->\n" +
-				"</ul>"
-				;
-			const string targetOutput2A = input2;
-			const string targetOutput2B = "<ul>\n" +
-				"	<li>This item always appears</li>\n" +
-				"	<!--ko if:someExpressionGoesHere-->\n" +
-				"		<li>I want to make this item present/absent dynamically</li>\n" +
-				"	<!--/ko-->\n" +
-				"</ul>"
-				;
-
-			const string input3 = "<!--ko compose: { view: 'myView.html',\n" +
-				"	mode: 'templated' }-->\n" +
-				"	<div data-part=\"content\">This is a view part override of the default content....</div>\n" +
-				"<!--/ko-->"
-				;
-			const string targetOutput3A = input3;
-			const string targetOutput3B = "<!--ko compose:{view:'myView.html'," +
-				"mode:'templated'}-->\n" +
-				"	<div data-part=\"content\">This is a view part override of the default content....</div>\n" +
-				"<!--/ko-->"
-				;
-
-			// Act
-			string output1A = keepingExpressionsMinifier.Minify(input1).MinifiedContent;
-			string output1B = minifyingExpressionsMinifier.Minify(input1).MinifiedContent;
-
-			string output2A = keepingExpressionsMinifier.Minify(input2).MinifiedContent;
-			string output2B = minifyingExpressionsMinifier.Minify(input2).MinifiedContent;
-
-			string output3A = keepingExpressionsMinifier.Minify(input3).MinifiedContent;
-			string output3B = minifyingExpressionsMinifier.Minify(input3).MinifiedContent;
-
-			// Assert
-			Assert.Equal(targetOutput1A, output1A);
-			Assert.Equal(targetOutput1B, output1B);
-
-			Assert.Equal(targetOutput2A, output2A);
-			Assert.Equal(targetOutput2B, output2B);
-
-			Assert.Equal(targetOutput3A, output3A);
-			Assert.Equal(targetOutput3B, output3B);
-		}
-		#endregion
-
-		#region Minification of Angular binding expressions
-		/// <summary>
-		/// Minification of Angular binding expressions in the Mustache-style tags
-		/// </summary>
-		[Fact]
-		public void MinificationOfAngularBindingExpressionsInMustacheStyleTagsIsCorrect()
-		{
-			// Arrange
-			var keepingExpressionsMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true) { MinifyAngularBindingExpressions = false });
-			var minifyingExpressionsMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true) { MinifyAngularBindingExpressions = true });
-
-			const string input1 = "<ul>\n" +
-				"	<li data-ng-repeat=\"customer in customers\">{{  customer.name | uppercase  }} - {{  customer.city  }}</li>\n" +
-				"</ul>"
-				;
-			const string targetOutput1A = input1;
-			const string targetOutput1B = "<ul>\n" +
-				"	<li data-ng-repeat=\"customer in customers\">{{customer.name|uppercase}} - {{customer.city}}</li>\n" +
-				"</ul>"
-				;
-
-			const string input2 = "<ul>\n" +
-				"	<li data-ng-repeat=\"customer in customers\">{{  customer.name + \"  -  \" + customer.city  }}</li>\n" +
-				"</ul>"
-				;
-			const string targetOutput2A = input2;
-			const string targetOutput2B = "<ul>\n" +
-				"	<li data-ng-repeat=\"customer in customers\">{{customer.name+\"  -  \"+customer.city}}</li>\n" +
-				"</ul>"
-				;
-
-			const string input3 = "<strong>Price: </strong> {{ 3 * 10 | currency }}";
-			const string targetOutput3A = input3;
-			const string targetOutput3B = "<strong>Price: </strong> {{3*10|currency}}";
-
-			const string input4 = "<div ng-controller=\"EventController\">\n" +
-				"	<button ng-click=\"clickMe($event)\">Event</button>\n" +
-				"	<p><code>$event</code>: <pre> {{ $event | json }}</pre></p>\n" +
-				"	<p><code>clickEvent</code>: <pre>{{ clickEvent | json }}</pre></p>" +
-				"</div>"
-				;
-			const string targetOutput4A = input4;
-			const string targetOutput4B = "<div ng-controller=\"EventController\">\n" +
-				"	<button ng-click=\"clickMe($event)\">Event</button>\n" +
-				"	<p><code>$event</code>: <pre> {{$event|json}}</pre></p>\n" +
-				"	<p><code>clickEvent</code>: <pre>{{clickEvent|json}}</pre></p>" +
-				"</div>";
-
-			const string input5 = "<p id=\"one-time-binding-example\">One time binding: {{ :: name }}</p>";
-			const string targetOutput5A = input5;
-			const string targetOutput5B = "<p id=\"one-time-binding-example\">One time binding: {{::name}}</p>";
-
-			const string input6 = "<img src=\"/Content/images/icons/{{\t  iconName + '.png'  \t}}\">";
-			const string targetOutput6A = input6;
-			const string targetOutput6B = "<img src=\"/Content/images/icons/{{iconName+'.png'}}\">";
-
-			const string input7 = "<select size=\"{{\t  listSize  \t}}\"></select>";
-			const string targetOutput7A = input7;
-			const string targetOutput7B = "<select size=\"{{listSize}}\"></select>";
-
-			const string input8 = "<span class=\"label done-{{\t  todo.done  \t}}\">{{todo.text}}</span>";
-			const string targetOutput8A = input8;
-			const string targetOutput8B = "<span class=\"label done-{{todo.done}}\">{{todo.text}}</span>";
-
-			const string input9 = "<div style=\"background-color: {{\t  color  \t}}\"></div>";
-			const string targetOutput9A = input9;
-			const string targetOutput9B = "<div style=\"background-color: {{color}}\"></div>";
-
-			const string input10 = "<button onclick=\"showMessageBox('Error', '{{\t  message  \t}}')\">Show message</button>";
-			const string targetOutput10A = input10;
-			const string targetOutput10B = input10;
-
-			const string input11 = "<input type=\"text\" value=\"{{\t  text  \t}}\">";
-			const string targetOutput11A = input11;
-			const string targetOutput11B = "<input type=\"text\" value=\"{{text}}\">";
-
-			const string input12 = "<pre ng-bind-template=\"{{\t  salutation  \t}} {{\t  name  \t}}!\"></pre>";
-			const string targetOutput12A = input12;
-			const string targetOutput12B = "<pre ng-bind-template=\"{{salutation}} {{name}}!\"></pre>";
-
-			const string input13 = "<span>1+2={{{\t  1 + 2  \t}}}</span>";
-
-			const string input14 = "1+2=<input type=\"text\" value=\"{{{\t  1 + 2  \t}}}\">";
-
-			// Act
-			string output1A = keepingExpressionsMinifier.Minify(input1).MinifiedContent;
-			string output1B = minifyingExpressionsMinifier.Minify(input1).MinifiedContent;
-
-			string output2A = keepingExpressionsMinifier.Minify(input2).MinifiedContent;
-			string output2B = minifyingExpressionsMinifier.Minify(input2).MinifiedContent;
-
-			string output3A = keepingExpressionsMinifier.Minify(input3).MinifiedContent;
-			string output3B = minifyingExpressionsMinifier.Minify(input3).MinifiedContent;
-
-			string output4A = keepingExpressionsMinifier.Minify(input4).MinifiedContent;
-			string output4B = minifyingExpressionsMinifier.Minify(input4).MinifiedContent;
-
-			string output5A = keepingExpressionsMinifier.Minify(input5).MinifiedContent;
-			string output5B = minifyingExpressionsMinifier.Minify(input5).MinifiedContent;
-
-			string output6A = keepingExpressionsMinifier.Minify(input6).MinifiedContent;
-			string output6B = minifyingExpressionsMinifier.Minify(input6).MinifiedContent;
-
-			string output7A = keepingExpressionsMinifier.Minify(input7).MinifiedContent;
-			string output7B = minifyingExpressionsMinifier.Minify(input7).MinifiedContent;
-
-			string output8A = keepingExpressionsMinifier.Minify(input8).MinifiedContent;
-			string output8B = minifyingExpressionsMinifier.Minify(input8).MinifiedContent;
-
-			string output9A = keepingExpressionsMinifier.Minify(input9).MinifiedContent;
-			string output9B = minifyingExpressionsMinifier.Minify(input9).MinifiedContent;
-
-			string output10A = keepingExpressionsMinifier.Minify(input10).MinifiedContent;
-			string output10B = minifyingExpressionsMinifier.Minify(input10).MinifiedContent;
-
-			string output11A = keepingExpressionsMinifier.Minify(input11).MinifiedContent;
-			string output11B = minifyingExpressionsMinifier.Minify(input11).MinifiedContent;
-
-			string output12A = keepingExpressionsMinifier.Minify(input12).MinifiedContent;
-			string output12B = minifyingExpressionsMinifier.Minify(input12).MinifiedContent;
-
-			string output13A = keepingExpressionsMinifier.Minify(input13).MinifiedContent;
-			string output13B = minifyingExpressionsMinifier.Minify(input13).MinifiedContent;
-
-			string output14A = keepingExpressionsMinifier.Minify(input14).MinifiedContent;
-			string output14B = minifyingExpressionsMinifier.Minify(input14).MinifiedContent;
-
-			// Assert
-			Assert.Equal(targetOutput1A, output1A);
-			Assert.Equal(targetOutput1B, output1B);
-
-			Assert.Equal(targetOutput2A, output2A);
-			Assert.Equal(targetOutput2B, output2B);
-
-			Assert.Equal(targetOutput3A, output3A);
-			Assert.Equal(targetOutput3B, output3B);
-
-			Assert.Equal(targetOutput4A, output4A);
-			Assert.Equal(targetOutput4B, output4B);
-
-			Assert.Equal(targetOutput5A, output5A);
-			Assert.Equal(targetOutput5B, output5B);
-
-			Assert.Equal(targetOutput6A, output6A);
-			Assert.Equal(targetOutput6B, output6B);
-
-			Assert.Equal(targetOutput7A, output7A);
-			Assert.Equal(targetOutput7B, output7B);
-
-			Assert.Equal(targetOutput8A, output8A);
-			Assert.Equal(targetOutput8B, output8B);
-
-			Assert.Equal(targetOutput9A, output9A);
-			Assert.Equal(targetOutput9B, output9B);
-
-			Assert.Equal(targetOutput10A, output10A);
-			Assert.Equal(targetOutput10B, output10B);
-
-			Assert.Equal(targetOutput11A, output11A);
-			Assert.Equal(targetOutput11B, output11B);
-
-			Assert.Equal(targetOutput12A, output12A);
-			Assert.Equal(targetOutput12B, output12B);
-
-			Assert.Equal(input13, output13A);
-			Assert.Equal(input13, output13B);
-
-			Assert.Equal(input14, output14A);
-			Assert.Equal(input14, output14B);
-		}
-
-		/// <summary>
-		/// Minification of Angular binding expressions in element directives
-		/// </summary>
-		[Fact]
-		public void MinificationOfAngularBindingExpressionsInElementDirectivesIsCorrect()
-		{
-			// Arrange
-			var keepingExpressionsMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true) { MinifyAngularBindingExpressions = false });
-			var minifyingExpressionsMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true) { MinifyAngularBindingExpressions = true });
-
-			const string input1 = "<ng-pluralize count=\"\t  personCount  \t\"" +
-				" when=\"{ '0': 'Nobody is viewing.',\n" +
-				"			'one': '1 person is viewing.',\n" +
-				"			'other': '{} people are viewing.'}\">\n" +
-				"</ng-pluralize>"
-				;
-			const string targetOutput1A = input1;
-			const string targetOutput1B = "<ng-pluralize count=\"personCount\"" +
-				" when=\"{'0':'Nobody is viewing.'," +
-				"'one':'1 person is viewing.'," +
-				"'other':'{} people are viewing.'}\">\n" +
-				"</ng-pluralize>"
-				;
-
-			const string input2 = "<ng:pluralize count=\"\t  personCount  \t\" offset=\"2\"" +
-				" when=\"{'0': 'Nobody is viewing.',\n" +
-				"	'1': '{{person1}} is viewing.',\n" +
-				"	'2': '{{person1}} and {{person2}} are viewing.',\n" +
-				"	'one': '{{person1}}, {{person2}} and one other person are viewing.',\n" +
-				"	'other': '{{person1}}, {{person2}} and {} other people are viewing.'}\">\n" +
-				"</ng:pluralize>"
-				;
-			const string targetOutput2A = input2;
-			const string targetOutput2B = "<ng:pluralize count=\"personCount\" offset=\"2\"" +
-				" when=\"{'0':'Nobody is viewing.'," +
-				"'1':'{{person1}} is viewing.'," +
-				"'2':'{{person1}} and {{person2}} are viewing.'," +
-				"'one':'{{person1}}, {{person2}} and one other person are viewing.'," +
-				"'other':'{{person1}}, {{person2}} and {} other people are viewing.'}\">\n" +
-				"</ng:pluralize>"
-				;
-
-			const string input3 = "<form name=\"myForm\">\n" +
-				"	<input type=\"text\" ng-model=\"field\" name=\"myField\" required=\"required\" minlength=\"5\">\n" +
-				"	<ng-messages for=\"\t  myForm.myField.$error  \t\">\n" +
-				"		<ng-message when=\"required\">You did not enter a field</ng-message>\n" +
-				"		<ng-message when=\"minlength\">The value entered is too short</ng-message>\n" +
-				"	</ng-messages>\n" +
-				"</form>"
-				;
-			const string targetOutput3A = input3;
-			const string targetOutput3B = "<form name=\"myForm\">\n" +
-				"	<input type=\"text\" ng-model=\"field\" name=\"myField\" required=\"required\" minlength=\"5\">\n" +
-				"	<ng-messages for=\"myForm.myField.$error\">\n" +
-				"		<ng-message when=\"required\">You did not enter a field</ng-message>\n" +
-				"		<ng-message when=\"minlength\">The value entered is too short</ng-message>\n" +
-				"	</ng-messages>\n" +
-				"</form>"
-				;
-
-			// Act
-			string output1A = keepingExpressionsMinifier.Minify(input1).MinifiedContent;
-			string output1B = minifyingExpressionsMinifier.Minify(input1).MinifiedContent;
-
-			string output2A = keepingExpressionsMinifier.Minify(input2).MinifiedContent;
-			string output2B = minifyingExpressionsMinifier.Minify(input2).MinifiedContent;
-
-			string output3A = keepingExpressionsMinifier.Minify(input3).MinifiedContent;
-			string output3B = minifyingExpressionsMinifier.Minify(input3).MinifiedContent;
-
-			// Assert
-			Assert.Equal(targetOutput1A, output1A);
-			Assert.Equal(targetOutput1B, output1B);
-
-			Assert.Equal(targetOutput2A, output2A);
-			Assert.Equal(targetOutput2B, output2B);
-
-			Assert.Equal(targetOutput3A, output3A);
-			Assert.Equal(targetOutput3B, output3B);
-		}
-
-		/// <summary>
-		/// Minification of Angular binding expressions in built-in attribute directives
-		/// </summary>
-		[Fact]
-		public void MinificationOfAngularBindingExpressionsInBuiltinAttributeDirectivesIsCorrect()
-		{
-			// Arrange
-			var keepingExpressionsMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true) { MinifyAngularBindingExpressions = false });
-			var minifyingExpressionsMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true) { MinifyAngularBindingExpressions = true });
-
-			const string input1 = "<span ng-bind-html=\"\t  name  \t\"></span>";
-			const string targetOutput1A = input1;
-			const string targetOutput1B = "<span ng-bind-html=\"name\"></span>";
-
-			const string input2 = "<span ng:bind-html=\"\t  name  \t\"></span>";
-			const string targetOutput2A = input2;
-			const string targetOutput2B = "<span ng:bind-html=\"name\"></span>";
-
-			const string input3 = "<span ng_bind_html=\"\t  name  \t\"></span>";
-			const string targetOutput3A = input3;
-			const string targetOutput3B = "<span ng_bind_html=\"name\"></span>";
-
-			const string input4 = "<span x-ng-bind-html=\"\t  name  \t\"></span>";
-			const string targetOutput4A = input4;
-			const string targetOutput4B = "<span x-ng-bind-html=\"name\"></span>";
-
-			const string input5 = "<span data-ng-bind-html=\"\t  name  \t\"></span>";
-			const string targetOutput5A = input5;
-			const string targetOutput5B = "<span data-ng-bind-html=\"name\"></span>";
-
-			const string input6 = "<p ng-class=\"{ strike: deleted, bold: important, red: error }\">" +
-				"Map Syntax Example</p>";
-			const string targetOutput6A = input6;
-			const string targetOutput6B = "<p ng-class=\"{strike:deleted,bold:important,red:error}\">" +
-				"Map Syntax Example</p>";
-
-			const string input7 = "<p ng-class=\"\t  style  \t\">Using String Syntax</p>";
-			const string targetOutput7A = input7;
-			const string targetOutput7B = "<p ng-class=\"style\">Using String Syntax</p>";
-
-			const string input8 = "<p ng-class=\"\t  [ style1, style2, style3 ]  \t\">Using Array Syntax</p>";
-			const string targetOutput8A = input8;
-			const string targetOutput8B = "<p ng-class=\"[style1,style2,style3]\">Using Array Syntax</p>";
-
-			const string input9 = "<div ng-controller=\"\t  SettingsController1  as  settings  \t\"></div>";
-			const string targetOutput9A = input9;
-			const string targetOutput9B = "<div ng-controller=\"SettingsController1 as settings\"></div>";
-
-			const string input10 = "<button ng-click=\"showMessageBox('Error', message);\">Show message</button>";
-			const string targetOutput10A = input10;
-			const string targetOutput10B = "<button ng-click=\"showMessageBox('Error',message)\">Show message</button>";
-
-			const string input11 = "<div ng-init=\"  names = ['John', 'Mary', 'Cate', 'Suz']  \"></div>";
-			const string targetOutput11A = input11;
-			const string targetOutput11B = "<div ng-init=\"names=['John','Mary','Cate','Suz']\"></div>";
-
-			const string input12 = "<input ng-model=\"\t  user.name  \t\"" +
-				" ng-model-options=\"{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }\">";
-			const string targetOutput12A = input12;
-			const string targetOutput12B = "<input ng-model=\"user.name\"" +
-				" ng-model-options=\"{updateOn:'default blur',debounce:{'default':500,'blur':0}}\">";
-
-			const string input13 = "<li ng-repeat=\"\t  item  in  items  \t\">{{item}}</li>";
-			const string targetOutput13A = input13;
-			const string targetOutput13B = "<li ng-repeat=\"item in items\">{{item}}</li>";
-
-			const string input14 = "<li ng-repeat=\"(name, age) in {'adam': 10, 'amalie': 12}\">{{name}}, {{age}}</li>";
-			const string targetOutput14A = input14;
-			const string targetOutput14B = "<li ng-repeat=\"(name,age)in{'adam':10,'amalie':12}\">{{name}}, {{age}}</li>";
-
-			const string input15 = "<li ng-repeat=\"\t  item  in  items  track  by  $id( item )  \t\">{{item}}</li>";
-			const string targetOutput15A = input15;
-			const string targetOutput15B = "<li ng-repeat=\"item in items track by $id(item)\">{{item}}</li>";
-
-			const string input16 = "<li data-ng-repeat=\"customer in customers | filter:nameText | orderBy:'name'\">\n" +
-				"	{{customer.name}} - {{customer.city}}\n" +
-				"</li>"
-				;
-			const string targetOutput16A = input16;
-			const string targetOutput16B = "<li data-ng-repeat=\"customer in customers|filter:nameText|orderBy:'name'\">\n" +
-				"	{{customer.name}} - {{customer.city}}\n" +
-				"</li>"
-				;
-
-			const string input17 = "<li ng-repeat=\"\t  item  in  ::items  \t\">{{item.name}}</li>";
-			const string targetOutput17A = input17;
-			const string targetOutput17B = "<li ng-repeat=\"item in ::items\">{{item.name}}</li>";
-
-			const string input18 = "<div ng-repeat=\"\t  item  in  itemArray[myIndex]  track  by  item.id  \t\"></div>";
-			const string targetOutput18A = input18;
-			const string targetOutput18B = "<div ng-repeat=\"item in itemArray[myIndex] track by item.id\"></div>";
-
-			const string input19 = "<header ng-repeat-start=\"\t  item  in  items  \t\">\n" +
-				"	Header {{item}}\n" +
-				"</header>\n" +
-				"<div class=\"body\">\n" +
-				"	Body {{item}}\n" +
-				"</div>\n" +
-				"<footer ng-repeat-end>\n" +
-				"	Footer {{item}}\n" +
-				"</footer>"
-				;
-			const string targetOutput19A = input19;
-			const string targetOutput19B = "<header ng-repeat-start=\"item in items\">\n" +
-				"	Header {{item}}\n" +
-				"</header>\n" +
-				"<div class=\"body\">\n" +
-				"	Body {{item}}\n" +
-				"</div>\n" +
-				"<footer ng-repeat-end>\n" +
-				"	Footer {{item}}\n" +
-				"</footer>"
-				;
-
-			const string input20 = "<span ng-style=\"{ 'background-color': 'blue' }\">Sample Text</span>";
-			const string targetOutput20A = input20;
-			const string targetOutput20B = "<span ng-style=\"{'background-color':'blue'}\">Sample Text</span>";
-
-			const string input21 = "<div ng-switch=\"\t  selection  \t\">\n" +
-				"	<div ng-switch-when=\"settings\">Settings Div</div>\n" +
-				"	<div ng-switch-when=\"home\">Home Span</div>\n" +
-				"	<div ng-switch-default>default</div>\n" +
-				"</div>"
-				;
-			const string targetOutput21A = input21;
-			const string targetOutput21B = "<div ng-switch=\"selection\">\n" +
-				"	<div ng-switch-when=\"settings\">Settings Div</div>\n" +
-				"	<div ng-switch-when=\"home\">Home Span</div>\n" +
-				"	<div ng-switch-default>default</div>\n" +
-				"</div>"
-				;
-
-			const string input22 = "<label ng-repeat=\"name in names\" for=\"{{name}}\">\n" +
-				"	{{name}}\n" +
-				"	<input type=\"radio\" id=\"{{name}}\" name=\"favorite\" " +
-				"ng-model=\"my.favorite\" ng-value=\"\t  name  \t\">\n" +
-				"</label>"
-				;
-			const string targetOutput22A = input22;
-			const string targetOutput22B = "<label ng-repeat=\"name in names\" for=\"{{name}}\">\n" +
-				"	{{name}}\n" +
-				"	<input type=\"radio\" id=\"{{name}}\" name=\"favorite\" " +
-				"ng-model=\"my.favorite\" ng-value=\"name\">\n" +
-				"</label>"
-				;
-
-			const string input23 = "<input type=\"checkbox\" ng-model=\"confirm\" " +
-				"ng-true-value=\"\t  1 + ':Yes'  \t\" ng-false-value=\"\t  0 + ':No'  \t\">";
-			const string targetOutput23A = input23;
-			const string targetOutput23B = "<input type=\"checkbox\" ng-model=\"confirm\" " +
-				"ng-true-value=\"1+':Yes'\" ng-false-value=\"0+':No'\">";
-
-			const string input24 = "<input type=\"text\" ng-model=\"login\" name=\"login\" " +
-				"ng-minlength=\"\t  LOGIN_MIN_LENGTH  \t\" ng-maxlength=\"\t  LOGIN_MAX_LENGTH  \t\">";
-			const string targetOutput24A = input24;
-			const string targetOutput24B = "<input type=\"text\" ng-model=\"login\" name=\"login\" " +
-				"ng-minlength=\"LOGIN_MIN_LENGTH\" ng-maxlength=\"LOGIN_MAX_LENGTH\">";
-
-			const string input25 = "<select ng-model=\"myColor\" " +
-				"ng-options=\"\t  color.name  for  color  in  colors  \t\"></select>";
-			const string targetOutput25A = input25;
-			const string targetOutput25B = "<select ng-model=\"myColor\" " +
-				"ng-options=\"color.name for color in colors\"></select>";
-
-			const string input26 = "<select ng-model=\"myColor\" " +
-				"ng-options=\"\t  color.name  group  by  color.shade  for  color  in  colors  \t\"></select>";
-			const string targetOutput26A = input26;
-			const string targetOutput26B = "<select ng-model=\"myColor\" " +
-				"ng-options=\"color.name group by color.shade for color in colors\"></select>";
-
-			const string input27 = "<input type=\"text\" ng-model=\"login\" name=\"login\" " +
-				"ng-pattern=\"\t  /^[a-z0-9_-]+$/  \t\">";
-			const string targetOutput27A = input27;
-			const string targetOutput27B = "<input type=\"text\" ng-model=\"login\" name=\"login\" " +
-				"ng-pattern=\"/^[a-z0-9_-]+$/\">";
-
-			const string input28 = "<input type=\"text\" ng-model=\"login\" name=\"login\"" +
-				" ng-pattern=\"\t  LOGIN_PATTERN  \t\">";
-			const string targetOutput28A = input28;
-			const string targetOutput28B = "<input type=\"text\" ng-model=\"login\" name=\"login\"" +
-				" ng-pattern=\"LOGIN_PATTERN\">";
-
-			const string input29 = "<label for=\"password\">Password:</label>\n" +
-				"<input type=\"text\" id=\"password\" ng-model=\"password\">\n" +
-				"<br>\n" +
-				"<label for=\"confirmPassword\">Confirm password:</label>\n" +
-				"<input type=\"text\" id=\"confirmPassword\" ng-model=\"confirmPassword\"" +
-				" ng-required=\"password.trim().length > 0\">"
-				;
-			const string targetOutput29A = input29;
-			const string targetOutput29B = "<label for=\"password\">Password:</label>\n" +
-				"<input type=\"text\" id=\"password\" ng-model=\"password\">\n" +
-				"<br>\n" +
-				"<label for=\"confirmPassword\">Confirm password:</label>\n" +
-				"<input type=\"text\" id=\"confirmPassword\" ng-model=\"confirmPassword\"" +
-				" ng-required=\"password.trim().length>0\">"
-				;
-
-			const string input30 = "<form name=\"myForm\">\n" +
-				"	<input type=\"text\" ng-model=\"field\" name=\"myField\" required=\"required\" minlength=\"5\">\n" +
-				"	<div ng-messages=\"\t  myForm.myField.$error  \t\">\n" +
-				"		<div ng-message=\"required\">You did not enter a field</div>\n" +
-				"		<div ng-message=\"minlength\">The value entered is too short</div>\n" +
-				"	</div>\n" +
-				"</form>"
-				;
-			const string targetOutput30A = input30;
-			const string targetOutput30B = "<form name=\"myForm\">\n" +
-				"	<input type=\"text\" ng-model=\"field\" name=\"myField\" required=\"required\" minlength=\"5\">\n" +
-				"	<div ng-messages=\"myForm.myField.$error\">\n" +
-				"		<div ng-message=\"required\">You did not enter a field</div>\n" +
-				"		<div ng-message=\"minlength\">The value entered is too short</div>\n" +
-				"	</div>\n" +
-				"</form>"
-				;
-
-			const string input31 = "<div ng-show=\"!showActions\" ng-swipe-left=\"showActions = true\">\n" +
-				"	Some list content, like an email in the inbox\n" +
-				"</div>"
-				;
-			const string targetOutput31A = input31;
-			const string targetOutput31B = "<div ng-show=\"!showActions\" ng-swipe-left=\"showActions=true\">\n" +
-				"	Some list content, like an email in the inbox\n" +
-				"</div>"
-				;
-
-			const string input32 = "<div ng-show=\"showActions\" ng-swipe-right=\"showActions = false\">\n" +
-				"	<button ng-click=\"reply()\">Reply</button>\n" +
-				"	<button ng-click=\"delete()\">Delete</button>\n" +
-				"</div>"
-				;
-			const string targetOutput32A = input32;
-			const string targetOutput32B = "<div ng-show=\"showActions\" ng-swipe-right=\"showActions=false\">\n" +
-				"	<button ng-click=\"reply()\">Reply</button>\n" +
-				"	<button ng-click=\"delete()\">Delete</button>\n" +
-				"</div>"
-				;
-
-			// Act
-			string output1A = keepingExpressionsMinifier.Minify(input1).MinifiedContent;
-			string output1B = minifyingExpressionsMinifier.Minify(input1).MinifiedContent;
-
-			string output2A = keepingExpressionsMinifier.Minify(input2).MinifiedContent;
-			string output2B = minifyingExpressionsMinifier.Minify(input2).MinifiedContent;
-
-			string output3A = keepingExpressionsMinifier.Minify(input3).MinifiedContent;
-			string output3B = minifyingExpressionsMinifier.Minify(input3).MinifiedContent;
-
-			string output4A = keepingExpressionsMinifier.Minify(input4).MinifiedContent;
-			string output4B = minifyingExpressionsMinifier.Minify(input4).MinifiedContent;
-
-			string output5A = keepingExpressionsMinifier.Minify(input5).MinifiedContent;
-			string output5B = minifyingExpressionsMinifier.Minify(input5).MinifiedContent;
-
-			string output6A = keepingExpressionsMinifier.Minify(input6).MinifiedContent;
-			string output6B = minifyingExpressionsMinifier.Minify(input6).MinifiedContent;
-
-			string output7A = keepingExpressionsMinifier.Minify(input7).MinifiedContent;
-			string output7B = minifyingExpressionsMinifier.Minify(input7).MinifiedContent;
-
-			string output8A = keepingExpressionsMinifier.Minify(input8).MinifiedContent;
-			string output8B = minifyingExpressionsMinifier.Minify(input8).MinifiedContent;
-
-			string output9A = keepingExpressionsMinifier.Minify(input9).MinifiedContent;
-			string output9B = minifyingExpressionsMinifier.Minify(input9).MinifiedContent;
-
-			string output10A = keepingExpressionsMinifier.Minify(input10).MinifiedContent;
-			string output10B = minifyingExpressionsMinifier.Minify(input10).MinifiedContent;
-
-			string output11A = keepingExpressionsMinifier.Minify(input11).MinifiedContent;
-			string output11B = minifyingExpressionsMinifier.Minify(input11).MinifiedContent;
-
-			string output12A = keepingExpressionsMinifier.Minify(input12).MinifiedContent;
-			string output12B = minifyingExpressionsMinifier.Minify(input12).MinifiedContent;
-
-			string output13A = keepingExpressionsMinifier.Minify(input13).MinifiedContent;
-			string output13B = minifyingExpressionsMinifier.Minify(input13).MinifiedContent;
-
-			string output14A = keepingExpressionsMinifier.Minify(input14).MinifiedContent;
-			string output14B = minifyingExpressionsMinifier.Minify(input14).MinifiedContent;
-
-			string output15A = keepingExpressionsMinifier.Minify(input15).MinifiedContent;
-			string output15B = minifyingExpressionsMinifier.Minify(input15).MinifiedContent;
-
-			string output16A = keepingExpressionsMinifier.Minify(input16).MinifiedContent;
-			string output16B = minifyingExpressionsMinifier.Minify(input16).MinifiedContent;
-
-			string output17A = keepingExpressionsMinifier.Minify(input17).MinifiedContent;
-			string output17B = minifyingExpressionsMinifier.Minify(input17).MinifiedContent;
-
-			string output18A = keepingExpressionsMinifier.Minify(input18).MinifiedContent;
-			string output18B = minifyingExpressionsMinifier.Minify(input18).MinifiedContent;
-
-			string output19A = keepingExpressionsMinifier.Minify(input19).MinifiedContent;
-			string output19B = minifyingExpressionsMinifier.Minify(input19).MinifiedContent;
-
-			string output20A = keepingExpressionsMinifier.Minify(input20).MinifiedContent;
-			string output20B = minifyingExpressionsMinifier.Minify(input20).MinifiedContent;
-
-			string output21A = keepingExpressionsMinifier.Minify(input21).MinifiedContent;
-			string output21B = minifyingExpressionsMinifier.Minify(input21).MinifiedContent;
-
-			string output22A = keepingExpressionsMinifier.Minify(input22).MinifiedContent;
-			string output22B = minifyingExpressionsMinifier.Minify(input22).MinifiedContent;
-
-			string output23A = keepingExpressionsMinifier.Minify(input23).MinifiedContent;
-			string output23B = minifyingExpressionsMinifier.Minify(input23).MinifiedContent;
-
-			string output24A = keepingExpressionsMinifier.Minify(input24).MinifiedContent;
-			string output24B = minifyingExpressionsMinifier.Minify(input24).MinifiedContent;
-
-			string output25A = keepingExpressionsMinifier.Minify(input25).MinifiedContent;
-			string output25B = minifyingExpressionsMinifier.Minify(input25).MinifiedContent;
-
-			string output26A = keepingExpressionsMinifier.Minify(input26).MinifiedContent;
-			string output26B = minifyingExpressionsMinifier.Minify(input26).MinifiedContent;
-
-			string output27A = keepingExpressionsMinifier.Minify(input27).MinifiedContent;
-			string output27B = minifyingExpressionsMinifier.Minify(input27).MinifiedContent;
-
-			string output28A = keepingExpressionsMinifier.Minify(input28).MinifiedContent;
-			string output28B = minifyingExpressionsMinifier.Minify(input28).MinifiedContent;
-
-			string output29A = keepingExpressionsMinifier.Minify(input29).MinifiedContent;
-			string output29B = minifyingExpressionsMinifier.Minify(input29).MinifiedContent;
-
-			string output30A = keepingExpressionsMinifier.Minify(input30).MinifiedContent;
-			string output30B = minifyingExpressionsMinifier.Minify(input30).MinifiedContent;
-
-			string output31A = keepingExpressionsMinifier.Minify(input31).MinifiedContent;
-			string output31B = minifyingExpressionsMinifier.Minify(input31).MinifiedContent;
-
-			string output32A = keepingExpressionsMinifier.Minify(input32).MinifiedContent;
-			string output32B = minifyingExpressionsMinifier.Minify(input32).MinifiedContent;
-
-			// Assert
-			Assert.Equal(targetOutput1A, output1A);
-			Assert.Equal(targetOutput1B, output1B);
-
-			Assert.Equal(targetOutput2A, output2A);
-			Assert.Equal(targetOutput2B, output2B);
-
-			Assert.Equal(targetOutput3A, output3A);
-			Assert.Equal(targetOutput3B, output3B);
-
-			Assert.Equal(targetOutput4A, output4A);
-			Assert.Equal(targetOutput4B, output4B);
-
-			Assert.Equal(targetOutput5A, output5A);
-			Assert.Equal(targetOutput5B, output5B);
-
-			Assert.Equal(targetOutput6A, output6A);
-			Assert.Equal(targetOutput6B, output6B);
-
-			Assert.Equal(targetOutput7A, output7A);
-			Assert.Equal(targetOutput7B, output7B);
-
-			Assert.Equal(targetOutput8A, output8A);
-			Assert.Equal(targetOutput8B, output8B);
-
-			Assert.Equal(targetOutput9A, output9A);
-			Assert.Equal(targetOutput9B, output9B);
-
-			Assert.Equal(targetOutput10A, output10A);
-			Assert.Equal(targetOutput10B, output10B);
-
-			Assert.Equal(targetOutput11A, output11A);
-			Assert.Equal(targetOutput11B, output11B);
-
-			Assert.Equal(targetOutput12A, output12A);
-			Assert.Equal(targetOutput12B, output12B);
-
-			Assert.Equal(targetOutput13A, output13A);
-			Assert.Equal(targetOutput13B, output13B);
-
-			Assert.Equal(targetOutput14A, output14A);
-			Assert.Equal(targetOutput14B, output14B);
-
-			Assert.Equal(targetOutput15A, output15A);
-			Assert.Equal(targetOutput15B, output15B);
-
-			Assert.Equal(targetOutput16A, output16A);
-			Assert.Equal(targetOutput16B, output16B);
-
-			Assert.Equal(targetOutput17A, output17A);
-			Assert.Equal(targetOutput17B, output17B);
-
-			Assert.Equal(targetOutput18A, output18A);
-			Assert.Equal(targetOutput18B, output18B);
-
-			Assert.Equal(targetOutput19A, output19A);
-			Assert.Equal(targetOutput19B, output19B);
-
-			Assert.Equal(targetOutput20A, output20A);
-			Assert.Equal(targetOutput20B, output20B);
-
-			Assert.Equal(targetOutput21A, output21A);
-			Assert.Equal(targetOutput21B, output21B);
-
-			Assert.Equal(targetOutput22A, output22A);
-			Assert.Equal(targetOutput22B, output22B);
-
-			Assert.Equal(targetOutput23A, output23A);
-			Assert.Equal(targetOutput23B, output23B);
-
-			Assert.Equal(targetOutput24A, output24A);
-			Assert.Equal(targetOutput24B, output24B);
-
-			Assert.Equal(targetOutput25A, output25A);
-			Assert.Equal(targetOutput25B, output25B);
-
-			Assert.Equal(targetOutput26A, output26A);
-			Assert.Equal(targetOutput26B, output26B);
-
-			Assert.Equal(targetOutput27A, output27A);
-			Assert.Equal(targetOutput27B, output27B);
-
-			Assert.Equal(targetOutput28A, output28A);
-			Assert.Equal(targetOutput28B, output28B);
-
-			Assert.Equal(targetOutput29A, output29A);
-			Assert.Equal(targetOutput29B, output29B);
-
-			Assert.Equal(targetOutput30A, output30A);
-			Assert.Equal(targetOutput30B, output30B);
-
-			Assert.Equal(targetOutput31A, output31A);
-			Assert.Equal(targetOutput31B, output31B);
-
-			Assert.Equal(targetOutput32A, output32A);
-			Assert.Equal(targetOutput32B, output32B);
-		}
-
-		/// <summary>
-		/// Minification of Angular binding expressions in custom attribute directives
-		/// </summary>
-		[Fact]
-		public void MinificationOfAngularBindingExpressionsInCustomAttributeDirectivesIsCorrect()
-		{
-			// Arrange
-			const string customAngularDirectiveList = "myDirective,myShowModalData";
-
-			var keepingExpressionsMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true)
-				{
-					MinifyAngularBindingExpressions = false,
-					CustomAngularDirectiveList = customAngularDirectiveList
-				});
-			var minifyingExpressionsMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true)
-				{
-					MinifyAngularBindingExpressions = true,
-					CustomAngularDirectiveList = customAngularDirectiveList
-				});
-
-			const string input1 = "<input my-directive=\"1 + 1\">";
-			const string targetOutput1A = input1;
-			const string targetOutput1B = "<input my-directive=\"1+1\">";
-
-			const string input2 = "<a href=\"#\" my-show-modal-data=\"{ active: true }\">Link</a>";
-			const string targetOutput2A = input2;
-			const string targetOutput2B = "<a href=\"#\" my-show-modal-data=\"{active:true}\">Link</a>";
-
-			// Act
-			string output1A = keepingExpressionsMinifier.Minify(input1).MinifiedContent;
-			string output1B = minifyingExpressionsMinifier.Minify(input1).MinifiedContent;
-
-			string output2A = keepingExpressionsMinifier.Minify(input2).MinifiedContent;
-			string output2B = minifyingExpressionsMinifier.Minify(input2).MinifiedContent;
-
-			// Assert
-			Assert.Equal(targetOutput1A, output1A);
-			Assert.Equal(targetOutput1B, output1B);
-
-			Assert.Equal(targetOutput2A, output2A);
-			Assert.Equal(targetOutput2B, output2B);
-		}
-
-		/// <summary>
-		/// Minification of Angular binding expressions in class directives
-		/// </summary>
-		[Fact]
-		public void MinificationOfAngularBindingExpressionsInClassDirectivesIsCorrect()
-		{
-			// Arrange
-			var keepingExpressionsMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true) { MinifyAngularBindingExpressions = false });
-			var minifyingExpressionsMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true) { MinifyAngularBindingExpressions = true });
-
-			const string input1 = "<span class=\"ng-bind:'Mr. ' + name\"></span>";
-			const string targetOutput1A = input1;
-			const string targetOutput1B = "<span class=\"ng-bind:'Mr. '+name\"></span>";
-
-			const string input2 = "<span class=\"ng_bind:'Mr. ' + name\"></span>";
-			const string targetOutput2A = input2;
-			const string targetOutput2B = "<span class=\"ng_bind:'Mr. '+name\"></span>";
-
-			const string input3 = "<span class=\"x-ng-bind:'Mr. ' + name\"></span>";
-			const string targetOutput3A = input3;
-			const string targetOutput3B = "<span class=\"x-ng-bind:'Mr. '+name\"></span>";
-
-			const string input4 = "<span class=\"data-ng-bind:'Mr. ' + name\"></span>";
-			const string targetOutput4A = input4;
-			const string targetOutput4B = "<span class=\"data-ng-bind:'Mr. '+name\"></span>";
-
-			const string input5 = "<p class=\"ng-class:{ strike: deleted, bold: important, red: error }\">" +
-				"Map Syntax Example</p>";
-			const string targetOutput5A = input5;
-			const string targetOutput5B = "<p class=\"ng-class:{strike:deleted,bold:important,red:error}\">" +
-				"Map Syntax Example</p>";
-
-			const string input6 = "<p class=\"ng-class:style\">Using String Syntax</p>";
-			const string targetOutput6A = input6;
-			const string targetOutput6B = "<p class=\"ng-class:style\">Using String Syntax</p>";
-
-			const string input7 = "<p class=\"ng-class:[ style1, style2, style3 ]\">Using Array Syntax</p>";
-			const string targetOutput7A = input7;
-			const string targetOutput7B = "<p class=\"ng-class:[style1,style2,style3]\">Using Array Syntax</p>";
-
-			const string input8 = "<div class=\"ng-init:count = 1\"></div>";
-			const string targetOutput8A = input8;
-			const string targetOutput8B = "<div class=\"ng-init:count=1\"></div>";
-
-			const string input9 = "<span class=\"ng-style:{ 'background-color': 'blue' }\">Sample Text</span>";
-			const string targetOutput9A = input9;
-			const string targetOutput9B = "<span class=\"ng-style:{'background-color':'blue'}\">Sample Text</span>";
-
-			// Act
-			string output1A = keepingExpressionsMinifier.Minify(input1).MinifiedContent;
-			string output1B = minifyingExpressionsMinifier.Minify(input1).MinifiedContent;
-
-			string output2A = keepingExpressionsMinifier.Minify(input2).MinifiedContent;
-			string output2B = minifyingExpressionsMinifier.Minify(input2).MinifiedContent;
-
-			string output3A = keepingExpressionsMinifier.Minify(input3).MinifiedContent;
-			string output3B = minifyingExpressionsMinifier.Minify(input3).MinifiedContent;
-
-			string output4A = keepingExpressionsMinifier.Minify(input4).MinifiedContent;
-			string output4B = minifyingExpressionsMinifier.Minify(input4).MinifiedContent;
-
-			string output5A = keepingExpressionsMinifier.Minify(input5).MinifiedContent;
-			string output5B = minifyingExpressionsMinifier.Minify(input5).MinifiedContent;
-
-			string output6A = keepingExpressionsMinifier.Minify(input6).MinifiedContent;
-			string output6B = minifyingExpressionsMinifier.Minify(input6).MinifiedContent;
-
-			string output7A = keepingExpressionsMinifier.Minify(input7).MinifiedContent;
-			string output7B = minifyingExpressionsMinifier.Minify(input7).MinifiedContent;
-
-			string output8A = keepingExpressionsMinifier.Minify(input8).MinifiedContent;
-			string output8B = minifyingExpressionsMinifier.Minify(input8).MinifiedContent;
-
-			string output9A = keepingExpressionsMinifier.Minify(input9).MinifiedContent;
-			string output9B = minifyingExpressionsMinifier.Minify(input9).MinifiedContent;
-
-			// Assert
-			Assert.Equal(targetOutput1A, output1A);
-			Assert.Equal(targetOutput1B, output1B);
-
-			Assert.Equal(targetOutput2A, output2A);
-			Assert.Equal(targetOutput2B, output2B);
-
-			Assert.Equal(targetOutput3A, output3A);
-			Assert.Equal(targetOutput3B, output3B);
-
-			Assert.Equal(targetOutput4A, output4A);
-			Assert.Equal(targetOutput4B, output4B);
-
-			Assert.Equal(targetOutput5A, output5A);
-			Assert.Equal(targetOutput5B, output5B);
-
-			Assert.Equal(targetOutput6A, output6A);
-			Assert.Equal(targetOutput6B, output6B);
-
-			Assert.Equal(targetOutput7A, output7A);
-			Assert.Equal(targetOutput7B, output7B);
-
-			Assert.Equal(targetOutput8A, output8A);
-			Assert.Equal(targetOutput8B, output8B);
-
-			Assert.Equal(targetOutput9A, output9A);
-			Assert.Equal(targetOutput9B, output9B);
-		}
-
-		/// <summary>
-		/// Minification of Angular binding expressions in comment directives
-		/// </summary>
-		[Fact]
-		public void MinificationOfAngularBindingExpressionsInCommentDirectivesIsCorrect()
-		{
-			// Arrange
-			const string customAngularDirectiveList = "myDirective";
-
-			var keepingExpressionsMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true)
-				{
-					MinifyAngularBindingExpressions = false,
-					CustomAngularDirectiveList = customAngularDirectiveList
-				});
-			var minifyingExpressionsMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true)
-				{
-					MinifyAngularBindingExpressions = true,
-					CustomAngularDirectiveList = customAngularDirectiveList
-				});
-
-			const string input = "<!-- directive: my-directive 1 + 1 -->";
-			const string targetOutputA = "<!--directive:my-directive 1 + 1-->";
-			const string targetOutputB = "<!--directive:my-directive 1+1-->";
-
-			// Act
-			string outputA = keepingExpressionsMinifier.Minify(input).MinifiedContent;
-			string outputB = minifyingExpressionsMinifier.Minify(input).MinifiedContent;
-
-			// Assert
-			Assert.Equal(targetOutputA, outputA);
-			Assert.Equal(targetOutputB, outputB);
-		}
 		#endregion
 	}
 }

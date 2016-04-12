@@ -142,7 +142,7 @@
     <value>JavaScript minifier</value>
   </data>
   <data name="DisplayName_MinifyAngularBindingExpressions" xml:space="preserve">
-    <value>Minify Angular binding 1.X expressions</value>
+    <value>Minify Angular 1.X binding expressions</value>
   </data>
   <data name="DisplayName_MinifyEmbeddedCssCode" xml:space="preserve">
     <value>Minify embedded CSS code</value>

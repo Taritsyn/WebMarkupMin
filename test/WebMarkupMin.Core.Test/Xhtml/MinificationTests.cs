@@ -2,11 +2,12 @@
 
 using Xunit;
 
-namespace WebMarkupMin.Core.Test
+namespace WebMarkupMin.Core.Test.Xhtml
 {
-	public class XhtmlMinifierTests : MarkupMinifierTestsBase
+	public class MinificationTests : FileSystemTestsBase
 	{
 		#region Processing XML nodes
+
 		[Fact]
 		public void ProcessingXmlNodesIsCorrect()
 		{
@@ -84,73 +85,32 @@ namespace WebMarkupMin.Core.Test
 			Assert.Equal(input3, output3);
 			Assert.Equal(0, warnings3.Count);
 		}
+
 		#endregion
 
 		#region Processing custom boolean attributes
+
 		[Fact]
 		public void ProcessingCustomBooleanAttributesIsCorrect()
 		{
 			// Arrange
 			var minifier = new XhtmlMinifier(new XhtmlMinificationSettings(true));
 
-			const string input1 = "<html ng-app>\n" +
-				"	<body ng-controller=\"MyController\">\n" +
-				"		<input ng-model=\"foo\" value=\"bar\" />\n" +
-				"				<button ng-click=\"changeFoo()\">{{buttonText}}</button>\n" +
-				"		<script src=\"angular.js\"></script>\n" +
-				"	</body>\n" +
-				"</html>"
-				;
-			const string targetOutput1 = "<html ng-app=\"\">\n" +
-				"	<body ng-controller=\"MyController\">\n" +
-				"		<input ng-model=\"foo\" value=\"bar\" />\n" +
-				"				<button ng-click=\"changeFoo()\">{{buttonText}}</button>\n" +
-				"		<script src=\"angular.js\"></script>\n" +
-				"	</body>\n" +
-				"</html>"
-				;
+			const string input1 = "<div custom-attribute></div>";
+			const string targetOutput1 = "<div custom-attribute=\"\"></div>";
 
-			const string input2 = "<div ng-include src=\"views/sidepanel.html\"></div>";
-			const string targetOutput2 = "<div ng-include=\"\" src=\"views/sidepanel.html\"></div>";
-
-			const string input3 = "<div ng:include src=\"views/sidepanel.html\"></div>";
-			const string targetOutput3 = "<div ng:include=\"\" src=\"views/sidepanel.html\"></div>";
-
-			const string input4 = "<div ng_include src=\"views/sidepanel.html\"></div>";
-			const string targetOutput4 = "<div ng_include=\"\" src=\"views/sidepanel.html\"></div>";
-
-			const string input5 = "<div x-ng-include src=\"views/sidepanel.html\"></div>";
-			const string targetOutput5 = "<div x-ng-include=\"\" src=\"views/sidepanel.html\"></div>";
-
-			const string input6 = "<div data-ng-include src=\"views/sidepanel.html\"></div>";
-			const string targetOutput6 = "<div data-ng-include=\"\" src=\"views/sidepanel.html\"></div>";
-
-			const string input7 = "<div ng-include=\"\" src=\"views/sidepanel.html\"></div>";
-			const string targetOutput7 = input7;
-
-			const string input8 = "<div class></div>";
-			const string targetOutput8 = "<div class=\"\"></div>";
+			const string input2 = "<div class></div>";
+			const string targetOutput2 = "<div class=\"\"></div>";
 
 			// Act
 			string output1 = minifier.Minify(input1).MinifiedContent;
 			string output2 = minifier.Minify(input2).MinifiedContent;
-			string output3 = minifier.Minify(input3).MinifiedContent;
-			string output4 = minifier.Minify(input4).MinifiedContent;
-			string output5 = minifier.Minify(input5).MinifiedContent;
-			string output6 = minifier.Minify(input6).MinifiedContent;
-			string output7 = minifier.Minify(input7).MinifiedContent;
-			string output8 = minifier.Minify(input8).MinifiedContent;
 
 			// Assert
 			Assert.Equal(targetOutput1, output1);
 			Assert.Equal(targetOutput2, output2);
-			Assert.Equal(targetOutput3, output3);
-			Assert.Equal(targetOutput4, output4);
-			Assert.Equal(targetOutput5, output5);
-			Assert.Equal(targetOutput6, output6);
-			Assert.Equal(targetOutput7, output7);
-			Assert.Equal(targetOutput8, output8);
 		}
+
 		#endregion
 	}
 }

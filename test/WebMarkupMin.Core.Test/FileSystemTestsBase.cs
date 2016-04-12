@@ -9,12 +9,12 @@ using System.IO;
 
 namespace WebMarkupMin.Core.Test
 {
-	public abstract class MarkupMinifierTestsBase
+	public abstract class FileSystemTestsBase
 	{
 		protected string _baseDirectoryPath;
 
 
-		protected MarkupMinifierTestsBase()
+		protected FileSystemTestsBase()
 		{
 #if DNXCORE50 || DNX451
 			var appEnv = (IApplicationEnvironment)CallContextServiceLocator.Locator.ServiceProvider

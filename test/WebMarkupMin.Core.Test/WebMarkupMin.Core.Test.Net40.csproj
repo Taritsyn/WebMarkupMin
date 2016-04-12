@@ -55,11 +55,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HtmlMinifierTests.cs" />
-    <Compile Include="MarkupMinifierTestsBase.cs" />
+    <Compile Include="FileSystemTestsBase.cs" />
+    <Compile Include="Html\Angular1\MinificationTests.cs" />
+    <Compile Include="Html\Angular2\ParsingTests.cs" />
+    <Compile Include="Html\Aurelia\MinificationTests.cs" />
+    <Compile Include="Html\Aurelia\ParsingTests.cs" />
+    <Compile Include="Html\Knockout\MinificationTests.cs" />
+    <Compile Include="Html\MinificationTests.cs" />
+    <Compile Include="Html\ParsingTests.cs" />
+    <Compile Include="Html\Polymer\ParsingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XhtmlMinifierTests.cs" />
-    <Compile Include="XmlMinifierTests.cs" />
+    <Compile Include="Xhtml\Aurelia\MinificationTests.cs" />
+    <Compile Include="Xhtml\MinificationTests.cs" />
+    <Compile Include="Xhtml\Angular1\MinificationTests.cs" />
+    <Compile Include="Xml\MinificationTests.cs" />
+    <Compile Include="Xml\ParsingTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\WebMarkupMin.Core\WebMarkupMin.Core.Net40.csproj">
