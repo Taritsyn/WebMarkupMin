@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                 README file for Web Markup Minifier: Core v2.0.0 RC 6
+                 README file for Web Markup Minifier: Core v2.0.0 RC 7
 
    --------------------------------------------------------------------------------
 
@@ -44,10 +44,7 @@
    =============
    RELEASE NOTES
    =============
-   1. In configuration settings of HTML minifier was added one new property -
-      `PreserveCase` (default `false`);
-   2. Fixed a errors that occurred when processing of Angular 2, Aurelia and
-      Polymer templates.
+   Improved a safe whitespace minification mode.
 
    =============
    DOCUMENTATION

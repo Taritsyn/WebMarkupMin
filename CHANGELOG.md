@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## May 10, 2016 - v2.0.0 RC 7
+ * Improved a safe whitespace minification mode
+
 ## April 2, 2016 - v2.0.0 RC 6
  * In configuration settings of HTML minifier was added one new property - `PreserveCase` (default `false`)
  * Fixed a errors that occurred when processing of Angular 2, Aurelia and Polymer templates

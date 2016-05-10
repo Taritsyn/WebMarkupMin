@@ -1,5 +1,5 @@
 {
-	"version": "2.0.0-rc6",
+	"version": "2.0.0-rc7",
 	"compilationOptions": {
 		"emitEntryPoint": true
 	},
@@ -19,7 +19,7 @@
 		"Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
 		"Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
 		"WebMarkupMin.AspNet5": "2.0.0-rc5",
-		"WebMarkupMin.Sample.Logic": "2.0.0-rc6",
+		"WebMarkupMin.Sample.Logic": "2.0.0-rc7",
 		"WebMarkupMin.Sample.Resources": "2.0.0-rc1"
 	},
 
