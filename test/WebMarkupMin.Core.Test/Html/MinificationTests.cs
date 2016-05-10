@@ -951,13 +951,13 @@ namespace WebMarkupMin.Core.Test.Html
 				;
 			const string targetOutput7A = input7;
 			const string targetOutput7B = "<ul>" +
-				"<li> Item 1 </li>" +
+				"<li> Item 1 </li> " +
 				"<li> Item 2 " +
 				"<ul>" +
-				"<li> Item 21 </li>" +
+				"<li> Item 21 </li> " +
 				"<li> Item 22 </li>" +
 				"</ul> " +
-				"</li>" +
+				"</li> " +
 				"<li> Item 3 </li>" +
 				"</ul>"
 				;
@@ -1162,6 +1162,180 @@ namespace WebMarkupMin.Core.Test.Html
 				;
 			const string targetOutput16D = targetOutput16C;
 
+
+			const string input17 = "<dl>\n" +
+				"	<dt>  Name:  </dt>\n" +
+				"	<dd>  John Doe  \n" +
+				"</dd>\n\n" +
+				"	<dt>  Gender:  </dt>\n" +
+				"	<dd>  Male  \n" +
+				"</dd>\n\n" +
+				"	<dt>  Day  of  Birth:  </dt>\n" +
+				"	<dd>  Unknown  \n" +
+				"</dd>\n" +
+				"</dl>"
+				;
+			const string targetOutput17A = input17;
+			const string targetOutput17B = "<dl>" +
+				"<dt> Name: </dt> " +
+				"<dd> John Doe </dd> " +
+				"<dt> Gender: </dt> " +
+				"<dd> Male </dd> " +
+				"<dt> Day of Birth: </dt> " +
+				"<dd> Unknown </dd>" +
+				"</dl>"
+				;
+			const string targetOutput17C = "<dl>" +
+				"<dt>Name:</dt>" +
+				"<dd>John Doe</dd>" +
+				"<dt>Gender:</dt>" +
+				"<dd>Male</dd>" +
+				"<dt>Day of Birth:</dt>" +
+				"<dd>Unknown</dd>" +
+				"</dl>"
+				;
+			const string targetOutput17D = targetOutput17C;
+
+
+			const string input18 = "<menu>\n" +
+				"	<menuitem label=\"New\" icon=\"icons/new.png\" onclick=\"new()\">\n" +
+				"	</menuitem>\n" +
+				"	<menuitem label=\"Open\" icon=\"icons/open.png\" onclick=\"open()\">\n" +
+				"	</menuitem>\n" +
+				"	<menuitem label=\"Save\" icon=\"icons/save.png\" onclick=\"save()\">\n" +
+				"	</menuitem>\n" +
+				"</menu>"
+				;
+			const string targetOutput18A = input18;
+			const string targetOutput18B = "<menu>" +
+				"<menuitem label=\"New\" icon=\"icons/new.png\" onclick=\"new()\"> </menuitem>" +
+				"<menuitem label=\"Open\" icon=\"icons/open.png\" onclick=\"open()\"> </menuitem>" +
+				"<menuitem label=\"Save\" icon=\"icons/save.png\" onclick=\"save()\"> </menuitem>" +
+				"</menu>"
+				;
+			const string targetOutput18C = "<menu>" +
+				"<menuitem label=\"New\" icon=\"icons/new.png\" onclick=\"new()\"></menuitem>" +
+				"<menuitem label=\"Open\" icon=\"icons/open.png\" onclick=\"open()\"></menuitem>" +
+				"<menuitem label=\"Save\" icon=\"icons/save.png\" onclick=\"save()\"></menuitem>" +
+				"</menu>"
+				;
+			const string targetOutput18D = targetOutput18C;
+
+
+			const string input19 = "<menu>\n" +
+				"	<command type=\"command\" label=\"New\" icon=\"icons/new.png\" onclick=\"new()\">\n" +
+				"	</command>\n" +
+				"	<command type=\"command\" label=\"Open\" icon=\"icons/open.png\" onclick=\"open()\">\n" +
+				"	</command>\n" +
+				"	<command type=\"command\" label=\"Save\" icon=\"icons/save.png\" onclick=\"save()\">\n" +
+				"	</command>\n" +
+				"</menu>"
+				;
+			const string targetOutput19A = input19;
+			const string targetOutput19B = "<menu>" +
+				"<command type=\"command\" label=\"New\" icon=\"icons/new.png\" onclick=\"new()\"> </command>" +
+				"<command type=\"command\" label=\"Open\" icon=\"icons/open.png\" onclick=\"open()\"> </command>" +
+				"<command type=\"command\" label=\"Save\" icon=\"icons/save.png\" onclick=\"save()\"> </command>" +
+				"</menu>"
+				;
+			const string targetOutput19C = "<menu>" +
+				"<command type=\"command\" label=\"New\" icon=\"icons/new.png\" onclick=\"new()\"></command>" +
+				"<command type=\"command\" label=\"Open\" icon=\"icons/open.png\" onclick=\"open()\"></command>" +
+				"<command type=\"command\" label=\"Save\" icon=\"icons/save.png\" onclick=\"save()\"></command>" +
+				"</menu>"
+				;
+			const string targetOutput19D = targetOutput19C;
+
+
+			const string input20 = "<figure>\n" +
+				"	<img src=\"libsass-logo.png\" alt=\"LibSass logo\" width=\"640\" height=\"320\">\n" +
+				"	<figcaption>  Fig 1.  -  LibSass logo. \n" +
+				"</figcaption>\n" +
+				"</figure>"
+				;
+			const string targetOutput20A = input20;
+			const string targetOutput20B = "<figure>" +
+				" <img src=\"libsass-logo.png\" alt=\"LibSass logo\" width=\"640\" height=\"320\"> " +
+				"<figcaption> Fig 1. - LibSass logo. </figcaption>" +
+				"</figure>"
+				;
+			const string targetOutput20C = "<figure>" +
+				"<img src=\"libsass-logo.png\" alt=\"LibSass logo\" width=\"640\" height=\"320\">" +
+				"<figcaption>Fig 1. - LibSass logo.</figcaption>" +
+				"</figure>"
+				;
+			const string targetOutput20D = targetOutput20C;
+
+
+			const string input21 = "<form>\n" +
+				"	<fieldset>\n" +
+				"		<legend>  Personal data \n" +
+				"</legend>\n" +
+				"		Name: <input type=\"text\" size=\"50\"><br>\n" +
+				"		Email: <input type=\"text\" size=\"50\"><br>\n" +
+				"		Date of birth: <input type=\"text\" size=\"10\">\n" +
+				"	</fieldset>\n" +
+				"</form>"
+				;
+			const string targetOutput21A = input21;
+			const string targetOutput21B = "<form> " +
+				"<fieldset>" +
+				"<legend> Personal data </legend>" +
+				"Name: <input type=\"text\" size=\"50\"><br> " +
+				"Email: <input type=\"text\" size=\"50\"><br> " +
+				"Date of birth: <input type=\"text\" size=\"10\"> " +
+				"</fieldset> " +
+				"</form>"
+				;
+			const string targetOutput21C = "<form>" +
+				"<fieldset>" +
+				"<legend>Personal data</legend>" +
+				"Name: <input type=\"text\" size=\"50\"><br> " +
+				"Email: <input type=\"text\" size=\"50\"><br> " +
+				"Date of birth: <input type=\"text\" size=\"10\">" +
+				"</fieldset>" +
+				"</form>"
+				;
+			const string targetOutput21D = targetOutput21C;
+
+
+			const string input22 = "<ruby>\n" +
+				"	漢  <rt>  Kan  </rt>\n" +
+				"	字  <rt>  ji  </rt>\n" +
+				"</ruby>"
+				;
+			const string targetOutput22A = input22;
+			const string targetOutput22B = "<ruby> " +
+				"漢 <rt> Kan </rt> " +
+				"字 <rt> ji </rt> " +
+				"</ruby>"
+				;
+			const string targetOutput22C = targetOutput22B;
+			const string targetOutput22D = "<ruby>" +
+				"漢 <rt>Kan</rt> " +
+				"字 <rt>ji</rt>" +
+				"</ruby>"
+				;
+
+
+			const string input23 = "<ruby>\n" +
+				"	漢  <rp>  (</rp>  <rt>  Kan  </rt>  <rp>)  </rp>\n" +
+				"	字  <rp>  (</rp>  <rt>  ji  </rt>  <rp>)  </rp>\n" +
+				"</ruby>"
+				;
+			const string targetOutput23A = input23;
+			const string targetOutput23B = "<ruby> " +
+				"漢 <rp> (</rp> <rt> Kan </rt> <rp>) </rp> " +
+				"字 <rp> (</rp> <rt> ji </rt> <rp>) </rp> " +
+				"</ruby>"
+				;
+			const string targetOutput23C = targetOutput23B;
+			const string targetOutput23D = "<ruby>" +
+				"漢 <rp>(</rp> <rt>Kan</rt> <rp>)</rp> " +
+				"字 <rp>(</rp> <rt>ji</rt> <rp>)</rp>" +
+				"</ruby>"
+				;
+
 			// Act
 			string output1A = keepingWhitespaceMinifier.Minify(input1).MinifiedContent;
 			string output1B = safeRemovingWhitespaceMinifier.Minify(input1).MinifiedContent;
@@ -1243,6 +1417,41 @@ namespace WebMarkupMin.Core.Test.Html
 			string output16C = mediumRemovingWhitespaceMinifier.Minify(input16).MinifiedContent;
 			string output16D = aggressiveRemovingWhitespaceMinifier.Minify(input16).MinifiedContent;
 
+			string output17A = keepingWhitespaceMinifier.Minify(input17).MinifiedContent;
+			string output17B = safeRemovingWhitespaceMinifier.Minify(input17).MinifiedContent;
+			string output17C = mediumRemovingWhitespaceMinifier.Minify(input17).MinifiedContent;
+			string output17D = aggressiveRemovingWhitespaceMinifier.Minify(input17).MinifiedContent;
+
+			string output18A = keepingWhitespaceMinifier.Minify(input18).MinifiedContent;
+			string output18B = safeRemovingWhitespaceMinifier.Minify(input18).MinifiedContent;
+			string output18C = mediumRemovingWhitespaceMinifier.Minify(input18).MinifiedContent;
+			string output18D = aggressiveRemovingWhitespaceMinifier.Minify(input18).MinifiedContent;
+
+			string output19A = keepingWhitespaceMinifier.Minify(input19).MinifiedContent;
+			string output19B = safeRemovingWhitespaceMinifier.Minify(input19).MinifiedContent;
+			string output19C = mediumRemovingWhitespaceMinifier.Minify(input19).MinifiedContent;
+			string output19D = aggressiveRemovingWhitespaceMinifier.Minify(input19).MinifiedContent;
+
+			string output20A = keepingWhitespaceMinifier.Minify(input20).MinifiedContent;
+			string output20B = safeRemovingWhitespaceMinifier.Minify(input20).MinifiedContent;
+			string output20C = mediumRemovingWhitespaceMinifier.Minify(input20).MinifiedContent;
+			string output20D = aggressiveRemovingWhitespaceMinifier.Minify(input20).MinifiedContent;
+
+			string output21A = keepingWhitespaceMinifier.Minify(input21).MinifiedContent;
+			string output21B = safeRemovingWhitespaceMinifier.Minify(input21).MinifiedContent;
+			string output21C = mediumRemovingWhitespaceMinifier.Minify(input21).MinifiedContent;
+			string output21D = aggressiveRemovingWhitespaceMinifier.Minify(input21).MinifiedContent;
+
+			string output22A = keepingWhitespaceMinifier.Minify(input22).MinifiedContent;
+			string output22B = safeRemovingWhitespaceMinifier.Minify(input22).MinifiedContent;
+			string output22C = mediumRemovingWhitespaceMinifier.Minify(input22).MinifiedContent;
+			string output22D = aggressiveRemovingWhitespaceMinifier.Minify(input22).MinifiedContent;
+
+			string output23A = keepingWhitespaceMinifier.Minify(input23).MinifiedContent;
+			string output23B = safeRemovingWhitespaceMinifier.Minify(input23).MinifiedContent;
+			string output23C = mediumRemovingWhitespaceMinifier.Minify(input23).MinifiedContent;
+			string output23D = aggressiveRemovingWhitespaceMinifier.Minify(input23).MinifiedContent;
+
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
@@ -1323,6 +1532,41 @@ namespace WebMarkupMin.Core.Test.Html
 			Assert.Equal(targetOutput16B, output16B);
 			Assert.Equal(targetOutput16C, output16C);
 			Assert.Equal(targetOutput16D, output16D);
+
+			Assert.Equal(targetOutput17A, output17A);
+			Assert.Equal(targetOutput17B, output17B);
+			Assert.Equal(targetOutput17C, output17C);
+			Assert.Equal(targetOutput17D, output17D);
+
+			Assert.Equal(targetOutput18A, output18A);
+			Assert.Equal(targetOutput18B, output18B);
+			Assert.Equal(targetOutput18C, output18C);
+			Assert.Equal(targetOutput18D, output18D);
+
+			Assert.Equal(targetOutput19A, output19A);
+			Assert.Equal(targetOutput19B, output19B);
+			Assert.Equal(targetOutput19C, output19C);
+			Assert.Equal(targetOutput19D, output19D);
+
+			Assert.Equal(targetOutput20A, output20A);
+			Assert.Equal(targetOutput20B, output20B);
+			Assert.Equal(targetOutput20C, output20C);
+			Assert.Equal(targetOutput20D, output20D);
+
+			Assert.Equal(targetOutput21A, output21A);
+			Assert.Equal(targetOutput21B, output21B);
+			Assert.Equal(targetOutput21C, output21C);
+			Assert.Equal(targetOutput21D, output21D);
+
+			Assert.Equal(targetOutput22A, output22A);
+			Assert.Equal(targetOutput22B, output22B);
+			Assert.Equal(targetOutput22C, output22C);
+			Assert.Equal(targetOutput22D, output22D);
+
+			Assert.Equal(targetOutput23A, output23A);
+			Assert.Equal(targetOutput23B, output23B);
+			Assert.Equal(targetOutput23C, output23C);
+			Assert.Equal(targetOutput23D, output23D);
 		}
 
 		#endregion

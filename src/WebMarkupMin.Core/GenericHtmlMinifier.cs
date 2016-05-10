@@ -780,7 +780,9 @@ namespace WebMarkupMin.Core
 				{
 					// Processing of whitespace, that followed before the start tag
 					bool allowTrimEnd = false;
-					if (tagFlags.HasFlag(HtmlTagFlags.Invisible) || tagFlags.HasFlag(HtmlTagFlags.NonIndependent))
+					if (tagFlags.HasFlag(HtmlTagFlags.Invisible)
+						|| (tagFlags.HasFlag(HtmlTagFlags.NonIndependent)
+							&& CanRemoveWhitespaceBetweenNonIndependentTags(previousTag, tag)))
 					{
 						allowTrimEnd = true;
 					}
@@ -872,7 +874,9 @@ namespace WebMarkupMin.Core
 				{
 					// Processing of whitespace, that followed before the end tag
 					bool allowTrimEnd = false;
-					if (tagFlags.HasFlag(HtmlTagFlags.Invisible))
+					if (tagFlags.HasFlag(HtmlTagFlags.Invisible)
+						|| (previousTag.Flags.HasFlag(HtmlTagFlags.NonIndependent)
+							&& CanRemoveWhitespaceAfterEndNonIndependentTagByParentTag(previousTag, tag)))
 					{
 						allowTrimEnd = true;
 					}
@@ -1053,7 +1057,9 @@ namespace WebMarkupMin.Core
 						{
 							// Processing of whitespace, that followed after the end tag
 							bool allowTrimStart = false;
-							if (tagFlags.HasFlag(HtmlTagFlags.Invisible) || tagFlags.HasFlag(HtmlTagFlags.NonIndependent))
+							if (tagFlags.HasFlag(HtmlTagFlags.Invisible)
+								|| (tagFlags.HasFlag(HtmlTagFlags.NonIndependent)
+									&& CanRemoveWhitespaceAfterEndNonIndependentTag(tag)))
 							{
 								allowTrimStart = true;
 							}
@@ -1854,6 +1860,94 @@ namespace WebMarkupMin.Core
 			}
 
 			return upgradedTag;
+		}
+
+		/// <summary>
+		/// Checks whether remove whitespace between non-independent tags
+		/// </summary>
+		/// <param name="firstTag">First tag</param>
+		/// <param name="secondTag">Second tag</param>
+		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
+		private static bool CanRemoveWhitespaceBetweenNonIndependentTags(HtmlTag firstTag, HtmlTag secondTag)
+		{
+			string firstTagNameInLowercase = firstTag.NameInLowercase;
+			string secondTagNameInLowercase = secondTag.NameInLowercase;
+			bool cannotRemove;
+
+			switch (firstTagNameInLowercase)
+			{
+				case "li":
+					cannotRemove = secondTagNameInLowercase == "li";
+					break;
+				case "dt":
+				case "dd":
+					cannotRemove = secondTagNameInLowercase == "dt" || secondTagNameInLowercase == "dd";
+					break;
+				case "img":
+					cannotRemove = secondTagNameInLowercase == "figcaption";
+					break;
+				default:
+					cannotRemove = secondTagNameInLowercase == "rt" || secondTagNameInLowercase == "rp";
+					break;
+			}
+
+			return !cannotRemove;
+		}
+
+		/// <summary>
+		/// Checks whether remove whitespace after end non-independent tag
+		/// </summary>
+		/// <param name="endTag">End tag</param>
+		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
+		private static bool CanRemoveWhitespaceAfterEndNonIndependentTag(HtmlTag endTag)
+		{
+			string endTagNameInLowercase = endTag.NameInLowercase;
+			bool cannotRemove;
+
+			switch (endTagNameInLowercase)
+			{
+				case "li":
+				case "dt":
+				case "dd":
+				case "rt":
+				case "rp":
+					cannotRemove = true;
+					break;
+				default:
+					cannotRemove = false;
+					break;
+			}
+
+			return !cannotRemove;
+		}
+
+		/// <summary>
+		/// Checks whether remove whitespace after end non-independent tag by parent tag
+		/// </summary>
+		/// <param name="endTag">End tag</param>
+		/// <param name="parentTag">Parent tag</param>
+		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
+		private static bool CanRemoveWhitespaceAfterEndNonIndependentTagByParentTag(HtmlTag endTag, HtmlTag parentTag)
+		{
+			string endTagNameInLowercase = endTag.NameInLowercase;
+			string parentTagNameInLowercase = parentTag.NameInLowercase;
+			bool canRemove;
+
+			switch (endTagNameInLowercase)
+			{
+				case "li":
+					canRemove = parentTagNameInLowercase == "ul" || parentTagNameInLowercase == "ol";
+					break;
+				case "dt":
+				case "dd":
+					canRemove = parentTagNameInLowercase == "dl";
+					break;
+				default:
+					canRemove = false;
+					break;
+			}
+
+			return canRemove;
 		}
 
 		/// <summary>

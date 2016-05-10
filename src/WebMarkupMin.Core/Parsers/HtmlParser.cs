@@ -1327,20 +1327,29 @@ namespace WebMarkupMin.Core.Parsers
 			/// <summary>
 			/// List of non-independent tags
 			/// </summary>
-			private static readonly HashSet<string> _nonIndependentTags = new HashSet<string>
-			{
-				"area",
-				"caption", "col", "colgroup", "command",
-				"dd", "dt",
-				"figcaption", "frame",
-				"legend", "li",
-				"menuitem",
-				"optgroup", "option",
-				"param",
-				"rp", "rt",
-				"source",
-				"tbody", "td", "tfoot", "th", "thead", "tr", "track"
-			};
+			private static readonly HashSet<string> _nonIndependentTags = Utils.UnionHashSets(
+				// HTML5
+				new []
+				{
+					"area",
+					"caption", "col", "colgroup",
+					"dd", "dt",
+					"figcaption", "frame",
+					"legend", "li",
+					"menuitem",
+					"optgroup", "option",
+					"param",
+					"rp", "rt",
+					"source",
+					"tbody", "td", "tfoot", "th", "thead", "tr", "track"
+				},
+
+				// Deprecated
+				new []
+				{
+					"command"
+				}
+			);
 
 			#endregion
 
