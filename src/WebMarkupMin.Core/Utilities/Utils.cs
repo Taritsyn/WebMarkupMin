@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-using WebMarkupMin.Core.Resources;
+using CoreStrings = WebMarkupMin.Core.Resources;
 
 namespace WebMarkupMin.Core.Utilities
 {
@@ -41,7 +41,7 @@ namespace WebMarkupMin.Core.Utilities
 			}
 
 			throw new InvalidCastException(
-				string.Format(Strings.Common_EnumValueConversionFailed,
+				string.Format(CoreStrings.Common_EnumValueConversionFailed,
 					name, typeof(TSource), typeof(TDest))
 			);
 		}

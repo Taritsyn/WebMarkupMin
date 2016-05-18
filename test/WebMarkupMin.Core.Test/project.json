@@ -1,24 +1,33 @@
 ﻿{
-	"version": "2.0.0-rc7",
-	"description": "",
-	"authors": [ "" ],
-	"tags": [ "" ],
-	"projectUrl": "",
-	"licenseUrl": "",
+	"version": "2.0.0-rc8",
 
 	"dependencies": {
-		"Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final",
+		"dotnet-test-xunit": "1.0.0-rc2-build10015",
+		"Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc2-final",
+		"Microsoft.NETCore.Platforms": "1.0.1-rc2-24027",
 		"xunit": "2.1.0",
-		"xunit.runner.dnx": "2.1.0-rc1-build204",
-		"WebMarkupMin.Core": "2.0.0-rc7"
+		"WebMarkupMin.Core": "2.0.0-rc8"
 	},
 
-	"commands": {
-		"test": "xunit.runner.dnx"
-	},
+	"testRunner": "xunit",
 
 	"frameworks": {
-		"dnx451": { },
-		"dnxcore50": { }
+		"net451": { },
+		"netcoreapp1.0": {
+			"imports": [
+				"dnxcore50",
+				"portable-net451+win8"
+			],
+			"dependencies": {
+				"Microsoft.NETCore.App": {
+					"version": "1.0.0-rc2-3002702",
+					"type": "platform"
+				}
+			}
+		}
+	},
+
+	"buildOptions": {
+		"emitEntryPoint": false
 	}
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-#if DNXCORE50 || DNX451
-using Microsoft.AspNet.Mvc.Rendering;
+#if NETSTANDARD1_5 || NET451
+using Microsoft.AspNetCore.Mvc.Rendering;
 #elif NET40
 using System.Web.Mvc;
 #else
@@ -9,7 +9,7 @@ using System.Web.Mvc;
 #endif
 
 using WebMarkupMin.Core;
-using WebMarkupMin.Sample.Resources;
+using CommonHtmlMinificationStrings = WebMarkupMin.Sample.Resources.CommonHtmlMinificationResources;
 
 namespace WebMarkupMin.Sample.Logic.Models
 {

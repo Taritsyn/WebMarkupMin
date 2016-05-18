@@ -1,21 +1,16 @@
-{
-	"version": "2.0.0-rc1",
-	"description": "",
-	"authors": [ "" ],
-	"tags": [ "" ],
-	"projectUrl": "",
-	"licenseUrl": "",
-
-	"compilationOptions": {
-		"keyFile": "../../WebMarkupMin.snk"
-	},
+﻿{
+	"version": "2.0.0-rc8",
 
 	"dependencies": {
-		"WebMarkupMin.Core": "2.0.0-rc7"
+		"WebMarkupMin.Core": "2.0.0-rc8"
 	},
 
 	"frameworks": {
 		"net451": { },
-		"dotnet5.4": { }
+		"netstandard1.3": { }
+	},
+
+	"buildOptions": {
+		"keyFile": "../../tools/Key.snk"
 	}
 }

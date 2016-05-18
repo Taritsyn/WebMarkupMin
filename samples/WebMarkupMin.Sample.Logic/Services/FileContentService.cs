@@ -1,34 +1,33 @@
 ﻿using System;
 using System.IO;
-
-#if DNXCORE50 || DNX451
-using Microsoft.Extensions.PlatformAbstractions;
+#if NETSTANDARD1_5 || NET451
+using Microsoft.AspNetCore.Hosting;
 #elif NET40
 using System.Web;
 #else
 #error No implementation for this target
 #endif
 
-using WebMarkupMin.Sample.Resources;
+using CommonStrings = WebMarkupMin.Sample.Resources.CommonResources;
 
 namespace WebMarkupMin.Sample.Logic.Services
 {
 	public sealed class FileContentService
 	{
 		private readonly string _textContentDirectoryPath;
-#if DNXCORE50 || DNX451
-		private readonly IApplicationEnvironment _applicationEnvironment;
+#if NETSTANDARD1_5 || NET451
+		private readonly IHostingEnvironment _hostingEnvironment;
 #endif
 
 
-#if DNXCORE50 || DNX451
+#if NETSTANDARD1_5 || NET451
 		public FileContentService(
 			string textContentDirectoryPath,
-			IApplicationEnvironment applicationEnvironment
+			IHostingEnvironment hostingEnvironment
 		)
 		{
 			_textContentDirectoryPath = textContentDirectoryPath;
-			_applicationEnvironment = applicationEnvironment;
+			_hostingEnvironment = hostingEnvironment;
 		}
 #elif NET40
 		public FileContentService(string textContentDirectoryPath)
@@ -77,8 +76,8 @@ namespace WebMarkupMin.Sample.Logic.Services
 
 		private string GetPhysicalFilePath(string filePath)
 		{
-#if DNXCORE50 || DNX451
-			string applicationDirectoryPath = _applicationEnvironment.ApplicationBasePath;
+#if NETSTANDARD1_5 || NET451
+			string applicationDirectoryPath = _hostingEnvironment.ContentRootPath;
 #elif NET40
 			HttpContext context = HttpContext.Current;
 			string applicationDirectoryPath = context.Server.MapPath("~/");

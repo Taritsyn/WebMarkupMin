@@ -2,7 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 
-using WebMarkupMin.Sample.Resources;
+using CommonStrings = WebMarkupMin.Sample.Resources.CommonResources;
 
 namespace WebMarkupMin.Sample.AspNet4.Mvc4.Infrastructure.Helpers
 {

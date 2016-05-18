@@ -10,7 +10,7 @@ using MsLocalRenaming = Microsoft.Ajax.Utilities.LocalRenaming;
 using WebMarkupMin.Core;
 using WebMarkupMin.Core.Utilities;
 using WebMarkupMin.MsAjax.Reporters;
-using MsAjaxStrings = WebMarkupMin.MsAjax.Resources.Strings;
+using MsAjaxStrings = WebMarkupMin.MsAjax.Resources;
 using WmmEvalTreatment = WebMarkupMin.MsAjax.EvalTreatment;
 using WmmLocalRenaming = WebMarkupMin.MsAjax.LocalRenaming;
 

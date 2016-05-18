@@ -1,11 +1,11 @@
-﻿#if DNXCORE50 || DNX451
+﻿#if NETCOREAPP1_0 || NET451
 using Microsoft.Extensions.PlatformAbstractions;
 #elif NET40
 using System;
-using System.IO;
 #else
 #error No implementation for this target
 #endif
+using System.IO;
 
 namespace WebMarkupMin.Core.Test
 {
@@ -16,10 +16,9 @@ namespace WebMarkupMin.Core.Test
 
 		protected FileSystemTestsBase()
 		{
-#if DNXCORE50 || DNX451
-			var appEnv = (IApplicationEnvironment)CallContextServiceLocator.Locator.ServiceProvider
-				.GetService(typeof(IApplicationEnvironment));
-			_baseDirectoryPath = appEnv.ApplicationBasePath;
+#if NETCOREAPP1_0 || NET451
+			var appEnv = PlatformServices.Default.Application;
+			_baseDirectoryPath = Path.Combine(appEnv.ApplicationBasePath, "../../../");
 #elif NET40
 			_baseDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../");
 #else

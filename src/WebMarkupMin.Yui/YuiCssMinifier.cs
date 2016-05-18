@@ -5,7 +5,7 @@ using System.Text;
 using Yahoo.Yui.Compressor;
 
 using WebMarkupMin.Core;
-using WebMarkupMin.Core.Resources;
+using CoreStrings = WebMarkupMin.Core.Resources;
 
 namespace WebMarkupMin.Yui
 {
@@ -84,7 +84,7 @@ namespace WebMarkupMin.Yui
 			}
 			catch (ArgumentOutOfRangeException)
 			{
-				errors.Add(new MinificationErrorInfo(Strings.ErrorMessage_UnknownError, 0, 0, string.Empty));
+				errors.Add(new MinificationErrorInfo(CoreStrings.ErrorMessage_UnknownError, 0, 0, string.Empty));
 			}
 
 			return new CodeMinificationResult(newContent, errors);

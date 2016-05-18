@@ -1,0 +1,48 @@
+﻿@using WebMarkupMin.Sample.Logic.Models
+@using MinificationStrings = WebMarkupMin.Sample.Resources.MinificationResources
+
+@model MarkupMinificationViewModelBase
+
+<section class="minification-input">
+	<div class="form-group">
+		<label asp-for="SourceCode">@Html.DisplayNameFor(m => m.SourceCode):</label>
+		<div class="textarea-wrapper">
+			<textarea asp-for="SourceCode" class="form-control minification-input-field"
+				data-control-type="minification-input-field" rows="12" cols="80"></textarea>
+		</div>
+		<span asp-validation-for="SourceCode"></span>
+	</div>
+	<div class="form-group">
+		<button type="submit" class="btn" data-control-type="minify-button">@MinificationStrings.ButtonText_Minify</button>
+	</div>
+</section>
+
+@if (Model.Result != null)
+{
+	<section class="minification-output">
+	@if (Model.Result.Errors.Count == 0)
+	{
+		await Html.RenderPartialAsync("_MinificationStatistics", Model.Result.Statistics);
+
+		<div class="form-group">
+			<label asp-for="Result.MinifiedContent">@Html.DisplayNameFor(m => m.Result.MinifiedContent):</label>
+			<textarea asp-for="Result.MinifiedContent" class="form-control minification-output-field"
+				data-control-type="minification-output-field" rows="12" cols="80"
+				readonly="readonly"></textarea>
+		</div>
+	}
+
+	@if (Model.Result.Errors.Count > 0 || Model.Result.Warnings.Count > 0)
+	{
+		if (Model.Result.Errors.Count > 0)
+		{
+			await Html.RenderPartialAsync("_MinificationErrorList", Model.Result.Errors);
+		}
+
+		if (Model.Result.Warnings.Count > 0)
+		{
+			await Html.RenderPartialAsync("_MinificationWarningList", Model.Result.Warnings);
+		}
+	}
+	</section>
+}

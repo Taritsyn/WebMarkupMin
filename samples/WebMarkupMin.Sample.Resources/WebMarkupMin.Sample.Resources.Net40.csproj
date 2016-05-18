@@ -34,28 +34,26 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommonHtmlMinificationStrings.Designer.cs" />
-    <Compile Include="CommonStrings.Designer.cs" />
-    <Compile Include="HtmlMinificationStrings.Designer.cs" />
-    <Compile Include="MinificationStrings.Designer.cs" />
+    <Compile Include="CommonHtmlMinificationResources.Designer.cs" />
+    <Compile Include="CommonResources.Designer.cs" />
+    <Compile Include="HtmlMinificationResources.Designer.cs" />
+    <Compile Include="MinificationResources.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XhtmlMinificationStrings.Designer.cs" />
-    <Compile Include="XmlMinificationStrings.Designer.cs" />
+    <Compile Include="XhtmlMinificationResources.Designer.cs" />
+    <Compile Include="XmlMinificationResources.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CommonHtmlMinificationStrings.resx" />
-    <EmbeddedResource Include="CommonStrings.resx" />
-    <EmbeddedResource Include="HtmlMinificationStrings.resx" />
-    <EmbeddedResource Include="MinificationStrings.resx" />
-    <EmbeddedResource Include="XhtmlMinificationStrings.resx" />
-    <EmbeddedResource Include="XmlMinificationStrings.resx" />
+    <EmbeddedResource Include="CommonHtmlMinificationResources.resx" />
+    <EmbeddedResource Include="CommonResources.resx" />
+    <EmbeddedResource Include="HtmlMinificationResources.resx" />
+    <EmbeddedResource Include="MinificationResources.resx" />
+    <EmbeddedResource Include="XhtmlMinificationResources.resx" />
+    <EmbeddedResource Include="XmlMinificationResources.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>SET VS_PROJECT_DIR=$(ProjectDir)
-
-cd "$(ProjectDir)..\..\"
-build resx</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

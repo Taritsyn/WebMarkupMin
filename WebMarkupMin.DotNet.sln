@@ -1,0 +1,110 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{472CB832-1B6A-4479-9389-77E0C2E7B355}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1AEA1D1F-45BC-4A6C-BCD8-71C50DC839BA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{93F36312-DACD-42F9-8652-DC03D5545113}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedData", "SharedData", "{6E9983A1-18F0-4A77-8179-7E0D5362B5A1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "text-content", "text-content", "{42291974-4944-4E59-AC97-5AA16D98EA21}"
+	ProjectSection(SolutionItems) = preProject
+		samples\SharedData\text-content\change-log.html = samples\SharedData\text-content\change-log.html
+		samples\SharedData\text-content\contact.html = samples\SharedData\text-content\contact.html
+		samples\SharedData\text-content\index.html = samples\SharedData\text-content\index.html
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebMarkupMin.Core", "src\WebMarkupMin.Core\WebMarkupMin.Core.xproj", "{B13DE315-C4A0-4BBF-86B1-D916483F5C63}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebMarkupMin.MsAjax", "src\WebMarkupMin.MsAjax\WebMarkupMin.MsAjax.xproj", "{16E16699-8950-45B3-9FC9-0E06A2AA0385}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebMarkupMin.Yui", "src\WebMarkupMin.Yui\WebMarkupMin.Yui.xproj", "{E1986812-2CF2-4B83-99A4-0A73D6DA407A}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebMarkupMin.AspNet.Common", "src\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.xproj", "{DFCE4D45-CFD5-40C2-8E1E-9276B589A3FF}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebMarkupMin.AspNetCore1", "src\WebMarkupMin.AspNetCore1\WebMarkupMin.AspNetCore1.xproj", "{5F014AC3-7F5D-4EBB-850C-01513CBF1D49}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebMarkupMin.Core.Test", "test\WebMarkupMin.Core.Test\WebMarkupMin.Core.Test.xproj", "{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebMarkupMin.Sample.Resources", "samples\WebMarkupMin.Sample.Resources\WebMarkupMin.Sample.Resources.xproj", "{8EFC1C84-D831-45CE-926A-A9CF99B2164C}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebMarkupMin.Sample.Logic", "samples\WebMarkupMin.Sample.Logic\WebMarkupMin.Sample.Logic.xproj", "{D29E22EF-EAF3-4056-BC7B-E02BB4048281}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebMarkupMin.Sample.AspNet5Core.Mvc6", "samples\WebMarkupMin.Sample.AspNetCore1.Mvc1\WebMarkupMin.Sample.AspNet5Core.Mvc6.xproj", "{CBB7FD4C-8A94-4797-AA55-55DA5A63F070}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebMarkupMin.Sample.AspNet5.Mvc6", "samples\WebMarkupMin.Sample.AspNetCore1Full.Mvc1\WebMarkupMin.Sample.AspNet5.Mvc6.xproj", "{93545F28-4C2E-4C43-B864-AF369D6E71BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B13DE315-C4A0-4BBF-86B1-D916483F5C63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B13DE315-C4A0-4BBF-86B1-D916483F5C63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B13DE315-C4A0-4BBF-86B1-D916483F5C63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B13DE315-C4A0-4BBF-86B1-D916483F5C63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16E16699-8950-45B3-9FC9-0E06A2AA0385}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16E16699-8950-45B3-9FC9-0E06A2AA0385}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16E16699-8950-45B3-9FC9-0E06A2AA0385}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16E16699-8950-45B3-9FC9-0E06A2AA0385}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1986812-2CF2-4B83-99A4-0A73D6DA407A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1986812-2CF2-4B83-99A4-0A73D6DA407A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1986812-2CF2-4B83-99A4-0A73D6DA407A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1986812-2CF2-4B83-99A4-0A73D6DA407A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFCE4D45-CFD5-40C2-8E1E-9276B589A3FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFCE4D45-CFD5-40C2-8E1E-9276B589A3FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFCE4D45-CFD5-40C2-8E1E-9276B589A3FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFCE4D45-CFD5-40C2-8E1E-9276B589A3FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F014AC3-7F5D-4EBB-850C-01513CBF1D49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F014AC3-7F5D-4EBB-850C-01513CBF1D49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F014AC3-7F5D-4EBB-850C-01513CBF1D49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F014AC3-7F5D-4EBB-850C-01513CBF1D49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EFC1C84-D831-45CE-926A-A9CF99B2164C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EFC1C84-D831-45CE-926A-A9CF99B2164C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EFC1C84-D831-45CE-926A-A9CF99B2164C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EFC1C84-D831-45CE-926A-A9CF99B2164C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D29E22EF-EAF3-4056-BC7B-E02BB4048281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D29E22EF-EAF3-4056-BC7B-E02BB4048281}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D29E22EF-EAF3-4056-BC7B-E02BB4048281}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D29E22EF-EAF3-4056-BC7B-E02BB4048281}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBB7FD4C-8A94-4797-AA55-55DA5A63F070}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBB7FD4C-8A94-4797-AA55-55DA5A63F070}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBB7FD4C-8A94-4797-AA55-55DA5A63F070}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBB7FD4C-8A94-4797-AA55-55DA5A63F070}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93545F28-4C2E-4C43-B864-AF369D6E71BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93545F28-4C2E-4C43-B864-AF369D6E71BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93545F28-4C2E-4C43-B864-AF369D6E71BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93545F28-4C2E-4C43-B864-AF369D6E71BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6E9983A1-18F0-4A77-8179-7E0D5362B5A1} = {93F36312-DACD-42F9-8652-DC03D5545113}
+		{42291974-4944-4E59-AC97-5AA16D98EA21} = {6E9983A1-18F0-4A77-8179-7E0D5362B5A1}
+		{B13DE315-C4A0-4BBF-86B1-D916483F5C63} = {227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}
+		{16E16699-8950-45B3-9FC9-0E06A2AA0385} = {227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}
+		{E1986812-2CF2-4B83-99A4-0A73D6DA407A} = {227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}
+		{DFCE4D45-CFD5-40C2-8E1E-9276B589A3FF} = {227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}
+		{5F014AC3-7F5D-4EBB-850C-01513CBF1D49} = {227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}
+		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68} = {1AEA1D1F-45BC-4A6C-BCD8-71C50DC839BA}
+		{8EFC1C84-D831-45CE-926A-A9CF99B2164C} = {93F36312-DACD-42F9-8652-DC03D5545113}
+		{D29E22EF-EAF3-4056-BC7B-E02BB4048281} = {93F36312-DACD-42F9-8652-DC03D5545113}
+		{CBB7FD4C-8A94-4797-AA55-55DA5A63F070} = {93F36312-DACD-42F9-8652-DC03D5545113}
+		{93545F28-4C2E-4C43-B864-AF369D6E71BB} = {93F36312-DACD-42F9-8652-DC03D5545113}
+	EndGlobalSection
+EndGlobal

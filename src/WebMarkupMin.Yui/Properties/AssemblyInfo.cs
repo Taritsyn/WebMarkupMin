@@ -6,14 +6,12 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Web Markup Minifier: YUI")]
-[assembly: AssemblyCopyright("Copyright © 2013-2015 Andrey Taritsyn")]
+[assembly: AssemblyCopyright("Copyright © 2013-2016 Andrey Taritsyn")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
-#if !DOTNET5_4
 [assembly: Guid("b3b07e86-e7e5-49cc-b960-4787f6dfc952")]
-#endif
 
 [assembly: AssemblyVersion("2.0.0.0")]
 [assembly: AssemblyFileVersion("2.0.0.0")]

@@ -3,8 +3,8 @@ using System.Text;
 
 using WebMarkupMin.Core.Loggers;
 using WebMarkupMin.Core.Parsers;
-using WebMarkupMin.Core.Resources;
 using WebMarkupMin.Core.Utilities;
+using CoreStrings = WebMarkupMin.Core.Resources;
 
 namespace WebMarkupMin.Core
 {
@@ -219,7 +219,7 @@ namespace WebMarkupMin.Core
 				if (errors.Count == 0)
 				{
 					_logger.Info(LogCategoryConstants.XmlMinificationSuccess,
-						string.Format(Strings.SuccesMessage_MarkupMinificationComplete, "XML"),
+						string.Format(CoreStrings.SuccesMessage_MarkupMinificationComplete, "XML"),
 						fileContext, statistics);
 				}
 			}

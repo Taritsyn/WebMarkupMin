@@ -1,28 +1,25 @@
 ﻿{
-	"version": "2.0.0-rc7",
-	"description": "",
-	"authors": [ "" ],
-	"tags": [ "" ],
-	"projectUrl": "",
-	"licenseUrl": "",
+	"version": "2.0.0-rc8",
 
 	"dependencies": {
-		"AutoMapper": "4.1.1",
-		"Microsoft.AspNet.Mvc.Core": "6.0.0-rc1-final",
-		"Microsoft.AspNet.Mvc.ViewFeatures": "6.0.0-rc1-final",
-		"WebMarkupMin.Core": "2.0.0-rc7",
-		"WebMarkupMin.Sample.Resources": "2.0.0-rc1"
+		"AutoMapper": "4.2.1",
+		"Microsoft.AspNetCore.Mvc.Core": "1.0.0-rc2-final",
+		"Microsoft.AspNetCore.Mvc.ViewFeatures": "1.0.0-rc2-final",
+		"WebMarkupMin.Core": "2.0.0-rc8",
+		"WebMarkupMin.Sample.Resources": "2.0.0-rc8"
 	},
 
 	"frameworks": {
-		"dnx451": {
+		"net451": {
 			"dependencies": {
-				"WebMarkupMin.MsAjax": "2.0.0-rc1",
-				"WebMarkupMin.Yui": "2.0.0-rc1"
+				"WebMarkupMin.MsAjax": "2.0.0-rc8",
+				"WebMarkupMin.Yui": "2.0.0-rc8"
 			}
 		},
-		"dnxcore50": {
-			"dependencies": { }
+		"netstandard1.5": {
+			"imports": [
+				"portable-net451+win8"
+			]
 		}
 	}
 }
