@@ -39,9 +39,9 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebMarkupMin.Sample.Resourc
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebMarkupMin.Sample.Logic", "samples\WebMarkupMin.Sample.Logic\WebMarkupMin.Sample.Logic.xproj", "{D29E22EF-EAF3-4056-BC7B-E02BB4048281}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebMarkupMin.Sample.AspNet5Core.Mvc6", "samples\WebMarkupMin.Sample.AspNetCore1.Mvc1\WebMarkupMin.Sample.AspNet5Core.Mvc6.xproj", "{CBB7FD4C-8A94-4797-AA55-55DA5A63F070}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebMarkupMin.Sample.AspNetCore1.Mvc1", "samples\WebMarkupMin.Sample.AspNetCore1.Mvc1\WebMarkupMin.Sample.AspNetCore1.Mvc1.xproj", "{CBB7FD4C-8A94-4797-AA55-55DA5A63F070}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebMarkupMin.Sample.AspNet5.Mvc6", "samples\WebMarkupMin.Sample.AspNetCore1Full.Mvc1\WebMarkupMin.Sample.AspNet5.Mvc6.xproj", "{93545F28-4C2E-4C43-B864-AF369D6E71BB}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebMarkupMin.Sample.AspNetCore1Full.Mvc1", "samples\WebMarkupMin.Sample.AspNetCore1Full.Mvc1\WebMarkupMin.Sample.AspNetCore1Full.Mvc1.xproj", "{93545F28-4C2E-4C43-B864-AF369D6E71BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
