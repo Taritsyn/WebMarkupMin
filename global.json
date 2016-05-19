@@ -2,7 +2,7 @@
     "projects": [ "src", "test", "samples" ],
     "sdk": {
         "version": "1.0.0-preview1-002702",
-        "runtime": "clr",
+        "runtime": "coreclr",
         "architecture": "x86"
     }
 }

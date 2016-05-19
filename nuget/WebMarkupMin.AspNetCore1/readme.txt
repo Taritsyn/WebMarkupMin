@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-              README file for Web Markup Minifier: ASP.NET 5 v2.0.0 RC 5
+           README file for Web Markup Minifier: ASP.NET Core 1.X v2.0.0 RC 8
 
    --------------------------------------------------------------------------------
 
@@ -11,12 +11,13 @@
    ===========
    DESCRIPTION
    ===========
-   WebMarkupMin.AspNet5 contains one ASP.NET 5 Middleware - `WebMarkupMinMiddleware`.
+   WebMarkupMin.AspNetCore1 contains one ASP.NET Core 1.X Middleware -
+   `WebMarkupMinMiddleware`.
 
    =============
    RELEASE NOTES
    =============
-   Fixed a error #6 “Incompatible with DeveloperExceptionPageMiddleware (ASP.NET 5)”.
+   Added support of ASP.NET Core 1.0 RC 2.
 
    =============
    DOCUMENTATION

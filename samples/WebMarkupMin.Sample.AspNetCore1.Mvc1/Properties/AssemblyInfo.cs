@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Web Markup Minifier: Sample ASP.NET 5 Core MVC 6 Site")]
+[assembly: AssemblyProduct("Web Markup Minifier: Sample ASP.NET Core 1.0 MVC 1 Site")]
 [assembly: AssemblyCopyright("Copyright © 2013-2016 Andrey Taritsyn")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

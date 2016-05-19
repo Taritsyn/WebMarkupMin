@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                 README file for Web Markup Minifier: Core v2.0.0 RC 7
+                 README file for Web Markup Minifier: Core v2.0.0 RC 8
 
    --------------------------------------------------------------------------------
 
@@ -44,7 +44,7 @@
    =============
    RELEASE NOTES
    =============
-   Improved a safe whitespace minification mode.
+   Added support of .NET Core 1.0 RC 2.
 
    =============
    DOCUMENTATION

@@ -8,24 +8,24 @@ Minification of markup produces by removing extra whitespace, comments and redun
 
 Also supports minification of views of popular JavaScript template engines: [KnockoutJS](http://knockoutjs.com/), [Kendo UI MVVM](http://www.telerik.com/kendo-ui) and [AngularJS](http://angularjs.org/) 1.X.
 
-In addition, there are several modules that integrate this library into ASP.NET: WebMarkupMin.AspNet4.HttpModules (for ASP.NET Core 4.X and ASP.NET Web Pages), WebMarkupMin.AspNet4.Mvc (for ASP.NET MVC 3, 4 or 5), WebMarkupMin.AspNet4.WebForms (for ASP.NET Web Forms 4.X) and WebMarkupMin.AspNet5 (for ASP.NET 5).
+In addition, there are several modules that integrate this library into ASP.NET: WebMarkupMin.AspNet4.HttpModules (for ASP.NET 4.X and ASP.NET Web Pages), WebMarkupMin.AspNet4.Mvc (for ASP.NET MVC 3, 4 or 5), WebMarkupMin.AspNet4.WebForms (for ASP.NET Web Forms 4.X) and WebMarkupMin.AspNetCore1 (for ASP.NET Core 1.X).
 
 ## NuGet Packages
 
 ### Core
- * [WebMarkupMin: Core](http://nuget.org/packages/WebMarkupMin.Core/2.0.0-rc6) (supports .NET Framework 4.X and .NET Platform 5.4)
+ * [WebMarkupMin: Core](http://nuget.org/packages/WebMarkupMin.Core/2.0.0-rc8) (supports .NET Framework 4.X and .NET Standard 1.3)
 
 ### External JS and CSS minifiers
- * [WebMarkupMin: MS Ajax](http://nuget.org/packages/WebMarkupMin.MsAjax/2.0.0-rc1) (supports .NET Framework 4.X)
- * [WebMarkupMin: YUI](http://nuget.org/packages/WebMarkupMin.Yui/2.0.0-rc1) (supports .NET Framework 4.X)
+ * [WebMarkupMin: MS Ajax](http://nuget.org/packages/WebMarkupMin.MsAjax/2.0.0-rc8) (supports .NET Framework 4.X)
+ * [WebMarkupMin: YUI](http://nuget.org/packages/WebMarkupMin.Yui/2.0.0-rc8) (supports .NET Framework 4.X)
 
 ### ASP.NET Extensions
- * [WebMarkupMin: ASP.NET 4.X HTTP modules](http://nuget.org/packages/WebMarkupMin.AspNet4.HttpModules/2.0.0-rc1) (supports .NET Framework 4.X)
- * [WebMarkupMin: ASP.NET 4.X MVC](http://nuget.org/packages/WebMarkupMin.AspNet4.Mvc/2.0.0-rc3) (supports .NET Framework 4.X)
- * [WebMarkupMin: ASP.NET 4.X Web Forms](http://nuget.org/packages/WebMarkupMin.AspNet4.WebForms/2.0.0-rc3) (supports .NET Framework 4.X)
- * [WebMarkupMin: ASP.NET 5](http://nuget.org/packages/WebMarkupMin.AspNet5/2.0.0-rc5) (supports DNX 4.5.1 and DNX Core 5.0)
+ * [WebMarkupMin: ASP.NET 4.X HTTP modules](http://nuget.org/packages/WebMarkupMin.AspNet4.HttpModules/2.0.0-rc8) (supports .NET Framework 4.X)
+ * [WebMarkupMin: ASP.NET 4.X MVC](http://nuget.org/packages/WebMarkupMin.AspNet4.Mvc/2.0.0-rc8) (supports .NET Framework 4.X)
+ * [WebMarkupMin: ASP.NET 4.X Web Forms](http://nuget.org/packages/WebMarkupMin.AspNet4.WebForms/2.0.0-rc8) (supports .NET Framework 4.X)
+ * [WebMarkupMin: ASP.NET Core 1.X](http://nuget.org/packages/WebMarkupMin.AspNetCore1/2.0.0-rc8) (supports .NET Framework 4.5.X and .NET Standard 1.3)
 
-Requires NuGet Package Manager version 2.8.6 or higher.
+Requires NuGet Package Manager version 3.4.3 or higher.
 
 ## Documentation
 Documentation is located on the [wiki](http://github.com/Taritsyn/WebMarkupMin/wiki) of this Repo.

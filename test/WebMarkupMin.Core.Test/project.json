@@ -28,6 +28,7 @@
 	},
 
 	"buildOptions": {
+		"warningsAsErrors": true,
 		"emitEntryPoint": false
 	}
 }

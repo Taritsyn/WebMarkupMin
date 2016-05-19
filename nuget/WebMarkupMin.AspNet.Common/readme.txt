@@ -1,11 +1,11 @@
 
 
    --------------------------------------------------------------------------------
-            README file for Web Markup Minifier: ASP.NET Common v2.0.0 RC 1
+            README file for Web Markup Minifier: ASP.NET Common v2.0.0 RC 8
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2015 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2016 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========

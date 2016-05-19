@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-           README file for Web Markup Minifier: ASP.NET 4.X MVC v2.0.0 RC 3
+           README file for Web Markup Minifier: ASP.NET 4.X MVC v2.0.0 RC 8
 
    --------------------------------------------------------------------------------
 
@@ -16,11 +16,6 @@
    code), `MinifyXmlAttribute` (for minification of XML code) and
    `CompressContentAttribute` (for compression of text content by using GZIP or
    Deflate).
-
-   =============
-   RELEASE NOTES
-   =============
-   Now the responses with status codes are not equal to 200 is not compressed.
 
    =============
    DOCUMENTATION

@@ -30,6 +30,6 @@ cd WebMarkupMin.AspNet4.WebForms
 call build-package.cmd
 cd ..
 
-cd WebMarkupMin.AspNet5
+cd WebMarkupMin.AspNetCore1
 call build-package.cmd
 cd ..

@@ -6,7 +6,6 @@
 		"netstandard1.3": {
 			"dependencies": {
 				"System.Collections": "4.0.11-rc2-24027",
-				"System.Diagnostics.Debug": "4.0.11-rc2-24027",
 				"System.Globalization": "4.0.11-rc2-24027",
 				"System.IO": "4.1.0-rc2-24027",
 				"System.IO.Compression": "4.1.0-rc2-24027",
@@ -23,6 +22,11 @@
 	},
 
 	"buildOptions": {
-		"keyFile": "../../tools/Key.snk"
+		"warningsAsErrors": true,
+		"keyFile": "../../tools/Key.snk",
+		"nowarn": [
+			"CS1591"
+		],
+		"xmlDoc": true
 	}
 }

@@ -1,6 +1,10 @@
 Change log
 ==========
 
+## May 19, 2016 - v2.0.0 RC 8
+ * Added support of .NET Core and ASP.NET Core 1.0 RC 2
+ * WebMarkupMin.AspNet5 package has been replaced by WebMarkupMin.AspNetCore1 package
+
 ## May 10, 2016 - v2.0.0 RC 7
  * Improved a safe whitespace minification mode
 

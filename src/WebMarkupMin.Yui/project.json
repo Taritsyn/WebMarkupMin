@@ -12,5 +12,13 @@
 				"System.Runtime": "4.0.10.0"
 			}
 		}
+	},
+
+	"buildOptions": {
+		"warningsAsErrors": true,
+		"nowarn": [
+			"CS1591"
+		],
+		"xmlDoc": true
 	}
 }

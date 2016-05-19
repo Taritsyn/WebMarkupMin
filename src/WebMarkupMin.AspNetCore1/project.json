@@ -16,6 +16,11 @@
 	},
 
 	"buildOptions": {
-		"keyFile": "../../tools/Key.snk"
+		"warningsAsErrors": true,
+		"keyFile": "../../tools/Key.snk",
+		"nowarn": [
+			"CS1591"
+		],
+		"xmlDoc": true
 	}
 }
