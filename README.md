@@ -25,7 +25,7 @@ In addition, there are several modules that integrate this library into ASP.NET:
  * [WebMarkupMin: ASP.NET 4.X Web Forms](http://nuget.org/packages/WebMarkupMin.AspNet4.WebForms/2.0.0-rc8) (supports .NET Framework 4.X)
  * [WebMarkupMin: ASP.NET Core 1.X](http://nuget.org/packages/WebMarkupMin.AspNetCore1/2.0.0-rc8) (supports .NET Framework 4.5.X and .NET Standard 1.3)
 
-Requires NuGet Package Manager version 3.4.3 or higher.
+Requires NuGet Package Manager version 2.8.6 or higher.
 
 ## Documentation
 Documentation is located on the [wiki](http://github.com/Taritsyn/WebMarkupMin/wiki) of this Repo.
