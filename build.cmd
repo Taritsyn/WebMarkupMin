@@ -1,7 +1,9 @@
 @echo off
 
 setlocal
-set original_current_dir=%cd%
+set ORIGINAL_CURRENT_DIR=%cd%
+set KOREBUILD_DOTNET_CHANNEL=preview
+set KOREBUILD_DOTNET_VERSION=1.0.0-preview1-002702
 
 cd %~dp0
 
