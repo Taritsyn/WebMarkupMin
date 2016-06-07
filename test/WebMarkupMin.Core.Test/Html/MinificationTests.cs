@@ -1336,6 +1336,137 @@ namespace WebMarkupMin.Core.Test.Html
 				"</ruby>"
 				;
 
+
+			const string input24 = "<ruby>\n" +
+				"	東\n" +
+				"	<rb>  京  </rb>\n" +
+				"	<rt>  とう  </rt>\n" +
+				"	<rt>  きょう  </rt>\n" +
+				"</ruby>"
+				;
+			const string targetOutput24A = input24;
+			const string targetOutput24B = "<ruby> " +
+				"東 " +
+				"<rb> 京 </rb> " +
+				"<rt> とう </rt> " +
+				"<rt> きょう </rt> " +
+				"</ruby>";
+			const string targetOutput24C = targetOutput24B;
+			const string targetOutput24D = "<ruby>" +
+				"東 " +
+				"<rb>京</rb> " +
+				"<rt>とう</rt> " +
+				"<rt>きょう</rt>" +
+				"</ruby>"
+				;
+
+
+			const string input25 = "<ruby>\n" +
+				"	♥\n" +
+				"	<rp>:  </rp>\n" +
+				"	<rt>  Heart  </rt>\n" +
+				"	<rp>,  </rp>\n" +
+				"	<rtc>\n" +
+				"		<rt lang=\"ru\">  Сердце  </rt>\n" +
+				"	</rtc>\n" +
+				"	<rp>.  </rp>\n" +
+				"	☘\n" +
+				"	<rp>:  </rp>\n" +
+				"	<rt>  Shamrock  </rt>\n" +
+				"	<rp>,  </rp>\n" +
+				"	<rtc>\n" +
+				"		<rt lang=\"ru\">  Трилистник  </rt>\n" +
+				"	</rtc>\n" +
+				"	<rp>.  </rp>\n" +
+				"	✶\n" +
+				"	<rp>:  </rp>\n" +
+				"	<rt>  Star  </rt>\n" +
+				"	<rp>,  </rp>\n" +
+				"	<rtc>\n" +
+				"		<rt lang=\"ru\">  Звезда  </rt>\n" +
+				"	</rtc>\n" +
+				"	<rp>.  </rp>\n" +
+				"</ruby>"
+				;
+			const string targetOutput25A = input25;
+			const string targetOutput25B = "<ruby> " +
+				"♥ " +
+				"<rp>: </rp> " +
+				"<rt> Heart </rt> " +
+				"<rp>, </rp> " +
+				"<rtc> " +
+				"<rt lang=\"ru\"> Сердце </rt> " +
+				"</rtc> " +
+				"<rp>. </rp> " +
+				"☘ " +
+				"<rp>: </rp> " +
+				"<rt> Shamrock </rt> " +
+				"<rp>, </rp> " +
+				"<rtc> " +
+				"<rt lang=\"ru\"> Трилистник </rt> " +
+				"</rtc> " +
+				"<rp>. </rp> " +
+				"✶ " +
+				"<rp>: </rp> " +
+				"<rt> Star </rt> " +
+				"<rp>, </rp> " +
+				"<rtc> " +
+				"<rt lang=\"ru\"> Звезда </rt> " +
+				"</rtc> " +
+				"<rp>. </rp> " +
+				"</ruby>"
+				;
+			const string targetOutput25C = targetOutput25B;
+			const string targetOutput25D = "<ruby>" +
+				"♥ " +
+				"<rp>:</rp> " +
+				"<rt>Heart</rt> " +
+				"<rp>,</rp> " +
+				"<rtc>" +
+				"<rt lang=\"ru\">Сердце</rt>" +
+				"</rtc> " +
+				"<rp>.</rp> " +
+				"☘ " +
+				"<rp>:</rp> " +
+				"<rt>Shamrock</rt> " +
+				"<rp>,</rp> " +
+				"<rtc>" +
+				"<rt lang=\"ru\">Трилистник</rt>" +
+				"</rtc> " +
+				"<rp>.</rp> " +
+				"✶ " +
+				"<rp>:</rp> " +
+				"<rt>Star</rt> " +
+				"<rp>,</rp> " +
+				"<rtc>" +
+				"<rt lang=\"ru\">Звезда</rt>" +
+				"</rtc> " +
+				"<rp>.</rp>" +
+				"</ruby>"
+				;
+
+
+			const string input26 = "<ruby>\n" +
+				"	<rb>  旧  </rb>  <rb>  金  </rb>  <rb>  山  </rb>\n" +
+				"	<rt>  jiù  </rt>  <rt>  jīn  </rt> <rt>  shān  </rt>\n" +
+				"	<rtc>  Сан-Франциско  </rtc>\n" +
+				"</ruby>"
+				;
+			const string targetOutput26A = input26;
+			const string targetOutput26B = "<ruby> " +
+				"<rb> 旧 </rb> <rb> 金 </rb> <rb> 山 </rb> " +
+				"<rt> jiù </rt> <rt> jīn </rt> <rt> shān </rt> " +
+				"<rtc> Сан-Франциско </rtc> " +
+				"</ruby>"
+				;
+			const string targetOutput26C = targetOutput26B;
+			const string targetOutput26D = "<ruby>" +
+				"<rb>旧</rb> <rb>金</rb> <rb>山</rb> " +
+				"<rt>jiù</rt> <rt>jīn</rt> <rt>shān</rt> " +
+				"<rtc>Сан-Франциско</rtc>" +
+				"</ruby>"
+				;
+
 			// Act
 			string output1A = keepingWhitespaceMinifier.Minify(input1).MinifiedContent;
 			string output1B = safeRemovingWhitespaceMinifier.Minify(input1).MinifiedContent;
@@ -1452,6 +1583,21 @@ namespace WebMarkupMin.Core.Test.Html
 			string output23C = mediumRemovingWhitespaceMinifier.Minify(input23).MinifiedContent;
 			string output23D = aggressiveRemovingWhitespaceMinifier.Minify(input23).MinifiedContent;
 
+			string output24A = keepingWhitespaceMinifier.Minify(input24).MinifiedContent;
+			string output24B = safeRemovingWhitespaceMinifier.Minify(input24).MinifiedContent;
+			string output24C = mediumRemovingWhitespaceMinifier.Minify(input24).MinifiedContent;
+			string output24D = aggressiveRemovingWhitespaceMinifier.Minify(input24).MinifiedContent;
+
+			string output25A = keepingWhitespaceMinifier.Minify(input25).MinifiedContent;
+			string output25B = safeRemovingWhitespaceMinifier.Minify(input25).MinifiedContent;
+			string output25C = mediumRemovingWhitespaceMinifier.Minify(input25).MinifiedContent;
+			string output25D = aggressiveRemovingWhitespaceMinifier.Minify(input25).MinifiedContent;
+
+			string output26A = keepingWhitespaceMinifier.Minify(input26).MinifiedContent;
+			string output26B = safeRemovingWhitespaceMinifier.Minify(input26).MinifiedContent;
+			string output26C = mediumRemovingWhitespaceMinifier.Minify(input26).MinifiedContent;
+			string output26D = aggressiveRemovingWhitespaceMinifier.Minify(input26).MinifiedContent;
+
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
@@ -1567,6 +1713,21 @@ namespace WebMarkupMin.Core.Test.Html
 			Assert.Equal(targetOutput23B, output23B);
 			Assert.Equal(targetOutput23C, output23C);
 			Assert.Equal(targetOutput23D, output23D);
+
+			Assert.Equal(targetOutput24A, output24A);
+			Assert.Equal(targetOutput24B, output24B);
+			Assert.Equal(targetOutput24C, output24C);
+			Assert.Equal(targetOutput24D, output24D);
+
+			Assert.Equal(targetOutput25A, output25A);
+			Assert.Equal(targetOutput25B, output25B);
+			Assert.Equal(targetOutput25C, output25C);
+			Assert.Equal(targetOutput25D, output25D);
+
+			Assert.Equal(targetOutput26A, output26A);
+			Assert.Equal(targetOutput26B, output26B);
+			Assert.Equal(targetOutput26C, output26C);
+			Assert.Equal(targetOutput26D, output26D);
 		}
 
 		#endregion
@@ -3398,98 +3559,143 @@ namespace WebMarkupMin.Core.Test.Html
 				"</dl>"
 				;
 
-			const string input8 = "<ruby>" +
-				"攻殻" +
-				"<rt>こうかく</rt>" +
-				"機動隊" +
-				"<rt>きどうたい</rt>" +
+			const string input8 = "<ruby>\n" +
+				"	攻殻\n" +
+				"	<rt>こうかく</rt>\n" +
+				"	機動隊\n" +
+				"	<rt>きどうたい</rt>\n" +
 				"</ruby>"
 				;
-			const string targetOutput8 = "<ruby>" +
-				"攻殻" +
-				"<rt>こうかく</rt>" +
-				"機動隊" +
-				"<rt>きどうたい" +
-				"</ruby>"
-				;
-
-			const string input9 = "<ruby>" +
-				"攻殻" +
-				"<rp>（</rp>" +
-				"<rt>こうかく</rt>" +
-				"<rp>）</rp>" +
-				"機動隊" +
-				"<rp>（</rp>" +
-				"<rt>きどうたい</rt>" +
-				"<rp>）</rp>" +
-				"</ruby>"
-				;
-			const string targetOutput9 = "<ruby>" +
-				"攻殻" +
-				"<rp>（" +
-				"<rt>こうかく" +
-				"<rp>）</rp>" +
-				"機動隊" +
-				"<rp>（" +
-				"<rt>きどうたい" +
-				"<rp>）" +
+			const string targetOutput8 = "<ruby>\n" +
+				"	攻殻\n" +
+				"	<rt>こうかく</rt>\n" +
+				"	機動隊\n" +
+				"	<rt>きどうたい\n" +
 				"</ruby>"
 				;
 
-			const string input10 = "<ruby>" +
-				"<ruby>" +
-				"攻" +
-				"<rp>（</rp>" +
-				"<rt>こう</rt>" +
-				"<rp>）</rp>" +
-				"殻" +
-				"<rp>（</rp>" +
-				"<rt>かく</rt>" +
-				"<rp>）</rp>" +
-				"機" +
-				"<rp>（</rp>" +
-				"<rt>き</rt>" +
-				"<rp>）</rp>" +
-				"動" +
-				"<rp>（</rp>" +
-				"<rt>どう</rt>" +
-				"<rp>）</rp>" +
-				"隊" +
-				"<rp>（</rp>" +
-				"<rt>たい</rt>" +
-				"<rp>）</rp>" +
-				"</ruby>" +
-				"<rp>（</rp>" +
-				"<rt>Kōkakukidōtai</rt>" +
-				"<rp>）</rp>" +
+			const string input9 = "<ruby>\n" +
+				"	攻殻\n" +
+				"	<rp>（</rp>\n" +
+				"	<rt>こうかく</rt>\n" +
+				"	<rp>）</rp>\n" +
+				"	機動隊\n" +
+				"	<rp>（</rp>\n" +
+				"	<rt>きどうたい</rt>\n" +
+				"	<rp>）</rp>\n" +
 				"</ruby>"
 				;
-			const string targetOutput10 = "<ruby>" +
-				"<ruby>" +
-				"攻" +
-				"<rp>（" +
-				"<rt>こう" +
-				"<rp>）</rp>" +
-				"殻" +
-				"<rp>（" +
-				"<rt>かく" +
-				"<rp>）</rp>" +
-				"機" +
-				"<rp>（" +
-				"<rt>き" +
-				"<rp>）</rp>" +
-				"動" +
-				"<rp>（" +
-				"<rt>どう" +
-				"<rp>）</rp>" +
-				"隊" +
-				"<rp>（" +
-				"<rt>たい" +
-				"<rp>）" +
-				"</ruby>" +
-				"<rp>（" +
-				"<rt>Kōkakukidōtai" +
-				"<rp>）" +
+			const string targetOutput9 = "<ruby>\n" +
+				"	攻殻\n" +
+				"	<rp>（\n" +
+				"	<rt>こうかく\n" +
+				"	<rp>）</rp>\n" +
+				"	機動隊\n" +
+				"	<rp>（\n" +
+				"	<rt>きどうたい\n" +
+				"	<rp>）\n" +
+				"</ruby>"
+				;
+
+			const string input10 = "<ruby>\n" +
+				"	<ruby>\n" +
+				"		攻\n" +
+				"		<rp>（</rp>\n" +
+				"		<rt>こう</rt>\n" +
+				"		<rp>）</rp>\n" +
+				"		殻\n" +
+				"		<rp>（</rp>\n" +
+				"		<rt>かく</rt>\n" +
+				"		<rp>）</rp>\n" +
+				"		機\n" +
+				"		<rp>（</rp>\n" +
+				"		<rt>き</rt>\n" +
+				"		<rp>）</rp>\n" +
+				"		動\n" +
+				"		<rp>（</rp>\n" +
+				"		<rt>どう</rt>\n" +
+				"		<rp>）</rp>\n" +
+				"		隊\n" +
+				"		<rp>（</rp>\n" +
+				"		<rt>たい</rt>\n" +
+				"		<rp>）</rp>\n" +
+				"	</ruby>\n" +
+				"	<rp>（</rp>\n" +
+				"	<rt>Kōkakukidōtai</rt>\n" +
+				"	<rp>）</rp>\n" +
+				"</ruby>"
+				;
+			const string targetOutput10 = "<ruby>\n" +
+				"	<ruby>\n" +
+				"		攻\n" +
+				"		<rp>（\n" +
+				"		<rt>こう\n" +
+				"		<rp>）</rp>\n" +
+				"		殻\n" +
+				"		<rp>（\n" +
+				"		<rt>かく\n" +
+				"		<rp>）</rp>\n" +
+				"		機\n" +
+				"		<rp>（\n" +
+				"		<rt>き\n" +
+				"		<rp>）</rp>\n" +
+				"		動\n" +
+				"		<rp>（\n" +
+				"		<rt>どう\n" +
+				"		<rp>）</rp>\n" +
+				"		隊\n" +
+				"		<rp>（\n" +
+				"		<rt>たい\n" +
+				"		<rp>）\n" +
+				"	</ruby>\n" +
+				"	<rp>（\n" +
+				"	<rt>Kōkakukidōtai\n" +
+				"	<rp>）\n" +
+				"</ruby>"
+				;
+
+			const string input11 = "<ruby>\n" +
+				"	<rb>家辺 勝文</rb>\n" +
+				"	<rt>liaison</rt>\n" +
+				"</ruby>"
+				;
+			const string targetOutput11 = "<ruby>\n" +
+				"	<rb>家辺 勝文\n" +
+				"	<rt>liaison\n" +
+				"</ruby>"
+				;
+
+			const string input12 = "<ruby>\n" +
+				"	♥<rp>: </rp><rt>Heart</rt><rp>, </rp><rtc><rt lang=\"fr\">Cœur</rt></rtc><rp>.</rp>\n" +
+				"	☘<rp>: </rp><rt>Shamrock</rt><rp>, </rp><rtc><rt lang=\"fr\">Trèfle</rt></rtc><rp>.</rp>\n" +
+				"	✶<rp>: </rp><rt>Star</rt><rp>, </rp><rtc><rt lang=\"fr\">Étoile</rt></rtc><rp>.</rp>\n" +
+				"</ruby>"
+				;
+			const string targetOutput12 = "<ruby>\n" +
+				"	♥<rp>: <rt>Heart<rp>, <rtc><rt lang=\"fr\">Cœur<rp>.</rp>\n" +
+				"	☘<rp>: <rt>Shamrock<rp>, <rtc><rt lang=\"fr\">Trèfle<rp>.</rp>\n" +
+				"	✶<rp>: <rt>Star<rp>, <rtc><rt lang=\"fr\">Étoile<rp>.\n" +
+				"</ruby>"
+				;
+
+			const string input13 = "<ruby>\n" +
+				"	<rb>旧</rb>\n" +
+				"	<rb>金</rb>\n" +
+				"	<rb>山</rb>\n" +
+				"	<rt>jiù</rt>\n" +
+				"	<rt>jīn</rt>\n" +
+				"	<rt>shān</rt>\n" +
+				"	<rtc>San Francisco</rtc>\n" +
+				"</ruby>"
+				;
+			const string targetOutput13 = "<ruby>\n" +
+				"	<rb>旧\n" +
+				"	<rb>金\n" +
+				"	<rb>山\n" +
+				"	<rt>jiù\n" +
+				"	<rt>jīn\n" +
+				"	<rt>shān\n" +
+				"	<rtc>San Francisco\n" +
 				"</ruby>"
 				;
 
@@ -3524,6 +3730,15 @@ namespace WebMarkupMin.Core.Test.Html
 			string output10A = removingOptionalEndTagsMinifier.Minify(input10).MinifiedContent;
 			string output10B = keepingOptionalEndTagsMinifier.Minify(input10).MinifiedContent;
 
+			string output11A = removingOptionalEndTagsMinifier.Minify(input11).MinifiedContent;
+			string output11B = keepingOptionalEndTagsMinifier.Minify(input11).MinifiedContent;
+
+			string output12A = removingOptionalEndTagsMinifier.Minify(input12).MinifiedContent;
+			string output12B = keepingOptionalEndTagsMinifier.Minify(input12).MinifiedContent;
+
+			string output13A = removingOptionalEndTagsMinifier.Minify(input13).MinifiedContent;
+			string output13B = keepingOptionalEndTagsMinifier.Minify(input13).MinifiedContent;
+
 			// Assert
 			Assert.Equal(targetOutput1, output1A);
 			Assert.Equal(input1, output1B);
@@ -3554,6 +3769,15 @@ namespace WebMarkupMin.Core.Test.Html
 
 			Assert.Equal(targetOutput10, output10A);
 			Assert.Equal(input10, output10B);
+
+			Assert.Equal(targetOutput11, output11A);
+			Assert.Equal(input11, output11B);
+
+			Assert.Equal(targetOutput12, output12A);
+			Assert.Equal(input12, output12B);
+
+			Assert.Equal(targetOutput13, output13A);
+			Assert.Equal(input13, output13B);
 		}
 
 		[Fact]

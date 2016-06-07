@@ -1276,7 +1276,7 @@ namespace WebMarkupMin.Core.Parsers
 					"optgroup", "option", "output",
 					"progress",
 					"q",
-					"rp", "rt", "ruby",
+					"rb", "rp", "rt", "rtc", "ruby",
 					"samp", "select", "small", "span", "strong", "sub", "sup",
 					"textarea", "time",
 					"var",
@@ -1339,7 +1339,7 @@ namespace WebMarkupMin.Core.Parsers
 					"menuitem",
 					"optgroup", "option",
 					"param",
-					"rp", "rt",
+					"rb", "rp", "rt", "rtc",
 					"source",
 					"tbody", "td", "tfoot", "th", "thead", "tr", "track"
 				},
@@ -1367,7 +1367,7 @@ namespace WebMarkupMin.Core.Parsers
 				"li",
 				"optgroup", "option",
 				"p",
-				"rp", "rt",
+				"rb", "rp", "rt", "rtc",
 				"tbody", "td", "tfoot", "th", "thead", "tr"
 			};
 

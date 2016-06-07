@@ -137,10 +137,10 @@ namespace WebMarkupMin.Core
 		{
 			"address", "article", "aside",
 			"blockquote",
-			"dir", "div", "dl",
+			"div", "dl",
 			"fieldset", "footer", "form",
 			"h1", "h2", "h3", "h4", "h5", "h6", "header", "hgroup", "hr",
-			"main", "menu",
+			"main",
 			"nav",
 			"ol",
 			"p", "pre",
@@ -914,7 +914,7 @@ namespace WebMarkupMin.Core
 					|| (previousTagNameInLowercase != tagNameInLowercase && string.IsNullOrWhiteSpace(previousText)))
 				&& !IsSafeOptionalEndTag(previousTag))
 			{
-				if (CanRemoveOptionalTagByParentTag(previousTag, tag))
+				if (CanRemoveOptionalEndTagByParentTag(previousTag, tag))
 				{
 					RemoveLastEndTagFromBuffer(previousTag);
 				}
@@ -1887,7 +1887,8 @@ namespace WebMarkupMin.Core
 					cannotRemove = secondTagNameInLowercase == "figcaption";
 					break;
 				default:
-					cannotRemove = secondTagNameInLowercase == "rt" || secondTagNameInLowercase == "rp";
+					cannotRemove = secondTagNameInLowercase == "rt" || secondTagNameInLowercase == "rp"
+						|| secondTagNameInLowercase == "rb" || secondTagNameInLowercase == "rtc";
 					break;
 			}
 
@@ -1911,6 +1912,8 @@ namespace WebMarkupMin.Core
 				case "dd":
 				case "rt":
 				case "rp":
+				case "rb":
+				case "rtc":
 					cannotRemove = true;
 					break;
 				default:
@@ -1936,7 +1939,8 @@ namespace WebMarkupMin.Core
 			switch (endTagNameInLowercase)
 			{
 				case "li":
-					canRemove = parentTagNameInLowercase == "ul" || parentTagNameInLowercase == "ol";
+					canRemove = parentTagNameInLowercase == "ul" || parentTagNameInLowercase == "ol"
+						|| parentTagNameInLowercase == "menu";
 					break;
 				case "dt":
 				case "dd":
@@ -2006,7 +2010,15 @@ namespace WebMarkupMin.Core
 					break;
 				case "rt":
 				case "rp":
-					canRemove = nextTagNameInLowercase == "rt" || nextTagNameInLowercase == "rp";
+				case "rb":
+					canRemove = nextTagNameInLowercase == "rt" || nextTagNameInLowercase == "rp"
+						|| nextTagNameInLowercase == "rb" || nextTagNameInLowercase == "rtc"
+						;
+					break;
+				case "rtc":
+					canRemove = nextTagNameInLowercase == "rp" || nextTagNameInLowercase == "rb"
+						|| nextTagNameInLowercase == "rtc"
+						;
 					break;
 				default:
 					canRemove = false;
@@ -2022,7 +2034,7 @@ namespace WebMarkupMin.Core
 		/// <param name="optionalEndTag">Optional end tag</param>
 		/// <param name="parentTag">Parent tag</param>
 		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
-		private static bool CanRemoveOptionalTagByParentTag(HtmlTag optionalEndTag, HtmlTag parentTag)
+		private static bool CanRemoveOptionalEndTagByParentTag(HtmlTag optionalEndTag, HtmlTag parentTag)
 		{
 			string optionalEndTagNameInLowercase = optionalEndTag.NameInLowercase;
 			string parentTagNameInLowercase = parentTag.NameInLowercase;
@@ -2061,7 +2073,11 @@ namespace WebMarkupMin.Core
 					canRemove = parentTagNameInLowercase == "dl";
 					break;
 				case "rt":
+					canRemove = parentTagNameInLowercase == "ruby" || parentTagNameInLowercase == "rtc";
+					break;
 				case "rp":
+				case "rb":
+				case "rtc":
 					canRemove = parentTagNameInLowercase == "ruby";
 					break;
 				default:
