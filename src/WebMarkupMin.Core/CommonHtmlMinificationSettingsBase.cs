@@ -156,6 +156,7 @@ namespace WebMarkupMin.Core
 		}
 
 		#region Processable script types
+
 		/// <summary>
 		/// Collection of types of <code>script</code> tags, that are processed by minifier
 		/// </summary>
@@ -245,6 +246,7 @@ namespace WebMarkupMin.Core
 				}
 			}
 		}
+
 		#endregion
 
 		/// <summary>
@@ -268,6 +270,7 @@ namespace WebMarkupMin.Core
 		}
 
 		#region Custom Angular directives with expressions
+
 		/// <summary>
 		/// Collection of names of custom AngularJS 1.X directives, that contain expressions
 		/// </summary>
@@ -357,6 +360,7 @@ namespace WebMarkupMin.Core
 				}
 			}
 		}
+
 		#endregion
 
 

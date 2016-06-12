@@ -1,6 +1,7 @@
 ﻿@using WebMarkupMin.Sample.AspNet4.Mvc4.Infrastructure.Helpers
 @using WebMarkupMin.Sample.Logic.Models
 @using CommonHtmlMinificationStrings = WebMarkupMin.Sample.Resources.CommonHtmlMinificationResources
+@using HtmlMinificationStrings = WebMarkupMin.Sample.Resources.HtmlMinificationResources
 
 @model HtmlMinificationViewModel
 
@@ -51,6 +52,10 @@
 					</div>
 					<div class="checkbox">
 						@Html.CheckBoxWithLabelFor(m => m.Settings.RemoveOptionalEndTags)
+					</div>
+					<div class="form-group">
+						@(Html.TextBoxFor(m => m.Settings.PreservableOptionalTagList,
+							new { @class = "form-control", placeholder = HtmlMinificationStrings.DisplayName_PreservableOptionalTagList }))
 					</div>
 					<div class="checkbox checkbox-unsafe">
 						@(Html.CheckBoxWithLabelFor(m => m.Settings.RemoveTagsWithoutContent))

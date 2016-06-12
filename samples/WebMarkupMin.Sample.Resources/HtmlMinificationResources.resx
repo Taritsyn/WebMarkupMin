@@ -126,6 +126,9 @@
   <data name="DisplayName_EmptyTagRenderMode" xml:space="preserve">
     <value>Empty tag render mode</value>
   </data>
+  <data name="DisplayName_PreservableOptionalTagList" xml:space="preserve">
+    <value>List of preservable optional tags</value>
+  </data>
   <data name="DisplayName_PreserveCase" xml:space="preserve">
     <value>Preserve case of tag and attribute names</value>
   </data>

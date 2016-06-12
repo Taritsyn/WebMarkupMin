@@ -283,6 +283,11 @@ namespace WebMarkupMin.Core
 		private readonly object _minificationSynchronizer = new object();
 
 		/// <summary>
+		/// List of names of optional tags, which should not be removed
+		/// </summary>
+		private readonly HashSet<string> _preservableOptionalTags;
+
+		/// <summary>
 		/// List of types of <code>script</code> tags, that are processed by minifier
 		/// </summary>
 		private readonly HashSet<string> _processableScriptTypes;
@@ -320,6 +325,7 @@ namespace WebMarkupMin.Core
 				TemplateTag = TemplateTagHandler
 			});
 
+			_preservableOptionalTags = new HashSet<string>(_settings.PreservableOptionalTagCollection);
 			_processableScriptTypes = new HashSet<string>(_settings.ProcessableScriptTypeCollection);
 
 			IList<string> customAngularDirectivesWithExpressions = _settings.CustomAngularDirectiveCollection.ToList();
@@ -807,11 +813,11 @@ namespace WebMarkupMin.Core
 				}
 			}
 
-			if (_settings.RemoveOptionalEndTags
-				&& previousNodeType != HtmlNodeType.StartTag
-				&& !IsSafeOptionalEndTag(previousTag))
+			if (previousNodeType != HtmlNodeType.StartTag)
 			{
-				if (CanRemoveOptionalEndTagByNextTag(previousTag, tag))
+				if (_settings.RemoveOptionalEndTags
+					&& previousTag.Flags.HasFlag(HtmlTagFlags.Optional)
+					&& CanRemoveOptionalEndTagByNextTag(previousTag, tag))
 				{
 					RemoveLastEndTagFromBuffer(previousTag);
 				}
@@ -910,14 +916,12 @@ namespace WebMarkupMin.Core
 			}
 
 			if (_settings.RemoveOptionalEndTags
+				&& previousTag.Flags.HasFlag(HtmlTagFlags.Optional)
 				&& (previousNodeType == HtmlNodeType.EndTag
 					|| (previousTagNameInLowercase != tagNameInLowercase && string.IsNullOrWhiteSpace(previousText)))
-				&& !IsSafeOptionalEndTag(previousTag))
+				&& CanRemoveOptionalEndTagByParentTag(previousTag, tag))
 			{
-				if (CanRemoveOptionalEndTagByParentTag(previousTag, tag))
-				{
-					RemoveLastEndTagFromBuffer(previousTag);
-				}
+				RemoveLastEndTagFromBuffer(previousTag);
 			}
 
 			bool isElementEmpty = string.IsNullOrWhiteSpace(previousText)
@@ -935,8 +939,8 @@ namespace WebMarkupMin.Core
 			}
 
 			if (_settings.RemoveOptionalEndTags
-				&& tagFlags.HasFlag(HtmlTagFlags.OptionalEndTag)
-				&& IsSafeOptionalEndTag(tag))
+				&& tagFlags.HasFlag(HtmlTagFlags.Optional)
+				&& CanRemoveSafeOptionalEndTag(tag))
 			{
 				// Leave only start tag in buffer
 				FlushBuffer();
@@ -1955,13 +1959,19 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Checks whether the optional end tag is safe
+		/// Checks whether remove an the safe optional end tag
 		/// </summary>
-		/// <param name="tag">Tag</param>
-		/// <returns>Result of check (true - is safe; false - is unsafe)</returns>
-		private static bool IsSafeOptionalEndTag(HtmlTag tag)
+		/// <param name="optionalEndTag">Optional end tag</param>
+		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
+		private bool CanRemoveSafeOptionalEndTag(HtmlTag optionalEndTag)
 		{
-			return _safeOptionalEndTags.Contains(tag.NameInLowercase);
+			string optionalEndTagNameInLowercase = optionalEndTag.NameInLowercase;
+			if (_preservableOptionalTags.Contains(optionalEndTagNameInLowercase))
+			{
+				return false;
+			}
+
+			return _safeOptionalEndTags.Contains(optionalEndTagNameInLowercase);
 		}
 
 		/// <summary>
@@ -1970,9 +1980,14 @@ namespace WebMarkupMin.Core
 		/// <param name="optionalEndTag">Optional end tag</param>
 		/// <param name="nextTag">Next tag</param>
 		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
-		private static bool CanRemoveOptionalEndTagByNextTag(HtmlTag optionalEndTag, HtmlTag nextTag)
+		private bool CanRemoveOptionalEndTagByNextTag(HtmlTag optionalEndTag, HtmlTag nextTag)
 		{
 			string optionalEndTagNameInLowercase = optionalEndTag.NameInLowercase;
+			if (_preservableOptionalTags.Contains(optionalEndTagNameInLowercase))
+			{
+				return false;
+			}
+
 			string nextTagNameInLowercase = nextTag.NameInLowercase;
 			bool canRemove;
 
@@ -2034,9 +2049,14 @@ namespace WebMarkupMin.Core
 		/// <param name="optionalEndTag">Optional end tag</param>
 		/// <param name="parentTag">Parent tag</param>
 		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
-		private static bool CanRemoveOptionalEndTagByParentTag(HtmlTag optionalEndTag, HtmlTag parentTag)
+		private bool CanRemoveOptionalEndTagByParentTag(HtmlTag optionalEndTag, HtmlTag parentTag)
 		{
 			string optionalEndTagNameInLowercase = optionalEndTag.NameInLowercase;
+			if (_preservableOptionalTags.Contains(optionalEndTagNameInLowercase))
+			{
+				return false;
+			}
+
 			string parentTagNameInLowercase = parentTag.NameInLowercase;
 			bool canRemove;
 
@@ -2068,7 +2088,6 @@ namespace WebMarkupMin.Core
 				case "optgroup":
 					canRemove = parentTagNameInLowercase == "select";
 					break;
-				case "dt":
 				case "dd":
 					canRemove = parentTagNameInLowercase == "dl";
 					break;

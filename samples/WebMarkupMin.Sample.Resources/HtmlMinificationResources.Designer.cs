@@ -84,6 +84,14 @@ namespace WebMarkupMin.Sample.Resources
 		}
 
 		/// <summary>
+		/// Looks up a localized string similar to "List of preservable optional tags"
+		/// </summary>
+		public static string DisplayName_PreservableOptionalTagList
+		{
+			get { return GetString("DisplayName_PreservableOptionalTagList"); }
+		}
+
+		/// <summary>
 		/// Looks up a localized string similar to "Preserve case of tag and attribute names"
 		/// </summary>
 		public static string DisplayName_PreserveCase

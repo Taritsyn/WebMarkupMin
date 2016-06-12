@@ -44,9 +44,9 @@ namespace WebMarkupMin.Core.Parsers
 		NonIndependent = 32,
 
 		/// <summary>
-		/// Tag has end tag, thant can be omitted
+		/// Tag, that can be omitted
 		/// </summary>
-		OptionalEndTag = 64,
+		Optional = 64,
 
 		/// <summary>
 		/// Tag can contain embedded code
@@ -56,6 +56,6 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Tag is XML-based
 		/// </summary>
-		Xml = 256
+		Xml = 256,
 	}
 }

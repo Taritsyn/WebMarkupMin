@@ -49,6 +49,14 @@ namespace WebMarkupMin.Sample.Logic.Models
 			set;
 		}
 
+		[Display(Name = "DisplayName_PreservableOptionalTagList", ResourceType = typeof(HtmlMinificationStrings))]
+		[StringLength(256)]
+		public string PreservableOptionalTagList
+		{
+			get;
+			set;
+		}
+
 		[Display(Name = "DisplayName_CollapseBooleanAttributes", ResourceType = typeof(HtmlMinificationStrings))]
 		public bool CollapseBooleanAttributes
 		{

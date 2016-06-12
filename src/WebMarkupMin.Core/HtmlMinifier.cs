@@ -39,6 +39,7 @@ namespace WebMarkupMin.Core
 						UseMetaCharsetTag = settings.UseMetaCharsetTag,
 						EmptyTagRenderMode = settings.EmptyTagRenderMode,
 						RemoveOptionalEndTags = settings.RemoveOptionalEndTags,
+						PreservableOptionalTagList = settings.PreservableOptionalTagList,
 						RemoveTagsWithoutContent = settings.RemoveTagsWithoutContent,
 						CollapseBooleanAttributes = settings.CollapseBooleanAttributes,
 						RemoveEmptyAttributes = settings.RemoveEmptyAttributes,

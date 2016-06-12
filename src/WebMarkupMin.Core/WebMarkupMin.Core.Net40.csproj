@@ -57,6 +57,8 @@
     <Compile Include="GenericHtmlMinificationSettings.cs" />
     <Compile Include="GenericHtmlMinifier.cs" />
     <Compile Include="Helpers\AngularHelpers.cs" />
+    <Compile Include="Helpers\HtmlAttributeTypeHelpers.cs" />
+    <Compile Include="Helpers\HtmlTagFlagsHelpers.cs" />
     <Compile Include="Helpers\JsonHelpers.cs" />
     <Compile Include="Helpers\KnockoutHelpers.cs" />
     <Compile Include="Helpers\TemplateTagHelpers.cs" />
