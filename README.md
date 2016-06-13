@@ -13,7 +13,7 @@ In addition, there are several modules that integrate this library into ASP.NET:
 ## NuGet Packages
 
 ### Core
- * [WebMarkupMin: Core](http://nuget.org/packages/WebMarkupMin.Core/2.0.0-rc8) (supports .NET Framework 4.X and .NET Standard 1.3)
+ * [WebMarkupMin: Core](http://nuget.org/packages/WebMarkupMin.Core/2.0.0-rc9) (supports .NET Framework 4.X and .NET Standard 1.3)
 
 ### External JS and CSS minifiers
  * [WebMarkupMin: MS Ajax](http://nuget.org/packages/WebMarkupMin.MsAjax/2.0.0-rc8) (supports .NET Framework 4.X)
