@@ -229,7 +229,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// </summary>
 		private static readonly HashSet<string> _tagsWithEmbeddedCode = new HashSet<string>
 		{
-			"script", "style", "svg", "math"
+			"script", "style"
 		};
 
 		#endregion

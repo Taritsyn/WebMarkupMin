@@ -281,11 +281,35 @@ namespace WebMarkupMin.Core.Test.Html
 				"</svg>"
 				;
 
-			const string input3 = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" +
+			const string input3 = "<svg xmlns=\"http://www.w3.org/2000/svg\" " +
+				"xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n" +
+				"	<svg x=\"10\">\n" +
+				"		<rect x=\"10\" y=\"10\" height=\"100\" width=\"100\" " +
+				"style=\"stroke:#ff0000; fill: #0000ff\"/>\n" +
+				"	</svg>\n" +
+				"	<svg x=\"200\">\n" +
+				"		<rect x=\"10\" y=\"10\" height=\"100\" width=\"100\" " +
+				"style=\"stroke:#009900; fill: #00cc00\"/>\n" +
+				"	</svg>\n" +
+				"</svg>"
+				;
+			const string targetOutput3 = "<svg " +
+				"xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n" +
+				"	<svg x=\"10\">\n" +
+				"		<rect x=\"10\" y=\"10\" height=\"100\" width=\"100\" " +
+				"style=\"stroke:#ff0000; fill: #0000ff\" />\n" +
+				"	</svg>\n" +
+				"	<svg x=\"200\">\n" +
+				"		<rect x=\"10\" y=\"10\" height=\"100\" width=\"100\" " +
+				"style=\"stroke:#009900; fill: #00cc00\" />\n" +
+				"	</svg>\n" +
+				"</svg>";
+
+			const string input4 = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" +
 				"	<infinity />\n" +
 				"</math>"
 				;
-			const string targetOutput3 = "<math>\n" +
+			const string targetOutput4 = "<math>\n" +
 				"	<infinity />\n" +
 				"</math>"
 				;
@@ -302,6 +326,10 @@ namespace WebMarkupMin.Core.Test.Html
 			MarkupMinificationResult result3 = minifier.Minify(input3);
 			string output3 = result3.MinifiedContent;
 			IList<MinificationErrorInfo> warnings3 = result3.Warnings;
+
+			MarkupMinificationResult result4 = minifier.Minify(input4);
+			string output4 = result4.MinifiedContent;
+			IList<MinificationErrorInfo> warnings4 = result4.Warnings;
 
 			// Assert
 			Assert.Equal(targetOutput1, output1);
@@ -321,7 +349,12 @@ namespace WebMarkupMin.Core.Test.Html
 			Assert.Equal(117, warnings2[1].ColumnNumber);
 
 			Assert.Equal(targetOutput3, output3);
-			Assert.Equal(0, warnings3.Count);
+			Assert.Equal(1, warnings3.Count);
+			Assert.Equal(1, warnings3[0].LineNumber);
+			Assert.Equal(41, warnings3[0].ColumnNumber);
+
+			Assert.Equal(targetOutput4, output4);
+			Assert.Equal(0, warnings4.Count);
 		}
 
 		#endregion
@@ -1091,6 +1124,40 @@ namespace WebMarkupMin.Core.Test.Html
 
 
 			const string input16 = "<div>\n" +
+				"	<svg>\n" +
+				"		<text x=\"20\" y=\"40\" " +
+				"transform=\"rotate(30, 20,40)\" " +
+				"style=\"stroke: none; fill: #000000\">\n" +
+				"\t\t  Rotated  SVG  text  \t\n" +
+				"		</text>\n" +
+				"	</svg>\n" +
+				"</div>"
+				;
+			const string targetOutput16A = input16;
+			const string targetOutput16B = "<div> " +
+				"<svg>" +
+				"<text x=\"20\" y=\"40\" " +
+				"transform=\"rotate(30, 20,40)\" " +
+				"style=\"stroke: none; fill: #000000\">\n" +
+				"\t\t  Rotated  SVG  text  \t\n" +
+				"		</text>" +
+				"</svg> " +
+				"</div>"
+				;
+			const string targetOutput16C = "<div>" +
+				"<svg>" +
+				"<text x=\"20\" y=\"40\" " +
+				"transform=\"rotate(30, 20,40)\" " +
+				"style=\"stroke: none; fill: #000000\">\n" +
+				"\t\t  Rotated  SVG  text  \t\n" +
+				"		</text>" +
+				"</svg>" +
+				"</div>"
+				;
+			const string targetOutput16D = targetOutput16C;
+
+
+			const string input17 = "<div>\n" +
 				"	<math>\n" +
 				"		<mrow>\n" +
 				"			<mrow>\n" +
@@ -1113,8 +1180,8 @@ namespace WebMarkupMin.Core.Test.Html
 				"	</math>\n" +
 				"</div>"
 				;
-			const string targetOutput16A = input16;
-			const string targetOutput16B = "<div> " +
+			const string targetOutput17A = input17;
+			const string targetOutput17B = "<div> " +
 				"<math>" +
 				"<mrow>" +
 				"<mrow>" +
@@ -1137,7 +1204,7 @@ namespace WebMarkupMin.Core.Test.Html
 				"</math> " +
 				"</div>"
 				;
-			const string targetOutput16C = "<div>" +
+			const string targetOutput17C = "<div>" +
 				"<math>" +
 				"<mrow>" +
 				"<mrow>" +
@@ -1160,10 +1227,10 @@ namespace WebMarkupMin.Core.Test.Html
 				"</math>" +
 				"</div>"
 				;
-			const string targetOutput16D = targetOutput16C;
+			const string targetOutput17D = targetOutput17C;
 
 
-			const string input17 = "<dl>\n" +
+			const string input18 = "<dl>\n" +
 				"	<dt>  Name:  </dt>\n" +
 				"	<dd>  John Doe  \n" +
 				"</dd>\n\n" +
@@ -1175,8 +1242,8 @@ namespace WebMarkupMin.Core.Test.Html
 				"</dd>\n" +
 				"</dl>"
 				;
-			const string targetOutput17A = input17;
-			const string targetOutput17B = "<dl>" +
+			const string targetOutput18A = input18;
+			const string targetOutput18B = "<dl>" +
 				"<dt> Name: </dt> " +
 				"<dd> John Doe </dd> " +
 				"<dt> Gender: </dt> " +
@@ -1185,7 +1252,7 @@ namespace WebMarkupMin.Core.Test.Html
 				"<dd> Unknown </dd>" +
 				"</dl>"
 				;
-			const string targetOutput17C = "<dl>" +
+			const string targetOutput18C = "<dl>" +
 				"<dt>Name:</dt>" +
 				"<dd>John Doe</dd>" +
 				"<dt>Gender:</dt>" +
@@ -1194,10 +1261,10 @@ namespace WebMarkupMin.Core.Test.Html
 				"<dd>Unknown</dd>" +
 				"</dl>"
 				;
-			const string targetOutput17D = targetOutput17C;
+			const string targetOutput18D = targetOutput18C;
 
 
-			const string input18 = "<menu>\n" +
+			const string input19 = "<menu>\n" +
 				"	<menuitem label=\"New\" icon=\"icons/new.png\" onclick=\"new()\">\n" +
 				"	</menuitem>\n" +
 				"	<menuitem label=\"Open\" icon=\"icons/open.png\" onclick=\"open()\">\n" +
@@ -1206,23 +1273,23 @@ namespace WebMarkupMin.Core.Test.Html
 				"	</menuitem>\n" +
 				"</menu>"
 				;
-			const string targetOutput18A = input18;
-			const string targetOutput18B = "<menu>" +
+			const string targetOutput19A = input19;
+			const string targetOutput19B = "<menu>" +
 				"<menuitem label=\"New\" icon=\"icons/new.png\" onclick=\"new()\"> </menuitem>" +
 				"<menuitem label=\"Open\" icon=\"icons/open.png\" onclick=\"open()\"> </menuitem>" +
 				"<menuitem label=\"Save\" icon=\"icons/save.png\" onclick=\"save()\"> </menuitem>" +
 				"</menu>"
 				;
-			const string targetOutput18C = "<menu>" +
+			const string targetOutput19C = "<menu>" +
 				"<menuitem label=\"New\" icon=\"icons/new.png\" onclick=\"new()\"></menuitem>" +
 				"<menuitem label=\"Open\" icon=\"icons/open.png\" onclick=\"open()\"></menuitem>" +
 				"<menuitem label=\"Save\" icon=\"icons/save.png\" onclick=\"save()\"></menuitem>" +
 				"</menu>"
 				;
-			const string targetOutput18D = targetOutput18C;
+			const string targetOutput19D = targetOutput19C;
 
 
-			const string input19 = "<menu>\n" +
+			const string input20 = "<menu>\n" +
 				"	<command type=\"command\" label=\"New\" icon=\"icons/new.png\" onclick=\"new()\">\n" +
 				"	</command>\n" +
 				"	<command type=\"command\" label=\"Open\" icon=\"icons/open.png\" onclick=\"open()\">\n" +
@@ -1231,43 +1298,43 @@ namespace WebMarkupMin.Core.Test.Html
 				"	</command>\n" +
 				"</menu>"
 				;
-			const string targetOutput19A = input19;
-			const string targetOutput19B = "<menu>" +
+			const string targetOutput20A = input20;
+			const string targetOutput20B = "<menu>" +
 				"<command type=\"command\" label=\"New\" icon=\"icons/new.png\" onclick=\"new()\"> </command>" +
 				"<command type=\"command\" label=\"Open\" icon=\"icons/open.png\" onclick=\"open()\"> </command>" +
 				"<command type=\"command\" label=\"Save\" icon=\"icons/save.png\" onclick=\"save()\"> </command>" +
 				"</menu>"
 				;
-			const string targetOutput19C = "<menu>" +
+			const string targetOutput20C = "<menu>" +
 				"<command type=\"command\" label=\"New\" icon=\"icons/new.png\" onclick=\"new()\"></command>" +
 				"<command type=\"command\" label=\"Open\" icon=\"icons/open.png\" onclick=\"open()\"></command>" +
 				"<command type=\"command\" label=\"Save\" icon=\"icons/save.png\" onclick=\"save()\"></command>" +
 				"</menu>"
 				;
-			const string targetOutput19D = targetOutput19C;
+			const string targetOutput20D = targetOutput20C;
 
 
-			const string input20 = "<figure>\n" +
+			const string input21 = "<figure>\n" +
 				"	<img src=\"libsass-logo.png\" alt=\"LibSass logo\" width=\"640\" height=\"320\">\n" +
 				"	<figcaption>  Fig 1.  -  LibSass logo. \n" +
 				"</figcaption>\n" +
 				"</figure>"
 				;
-			const string targetOutput20A = input20;
-			const string targetOutput20B = "<figure>" +
+			const string targetOutput21A = input21;
+			const string targetOutput21B = "<figure>" +
 				" <img src=\"libsass-logo.png\" alt=\"LibSass logo\" width=\"640\" height=\"320\"> " +
 				"<figcaption> Fig 1. - LibSass logo. </figcaption>" +
 				"</figure>"
 				;
-			const string targetOutput20C = "<figure>" +
+			const string targetOutput21C = "<figure>" +
 				"<img src=\"libsass-logo.png\" alt=\"LibSass logo\" width=\"640\" height=\"320\">" +
 				"<figcaption>Fig 1. - LibSass logo.</figcaption>" +
 				"</figure>"
 				;
-			const string targetOutput20D = targetOutput20C;
+			const string targetOutput21D = targetOutput21C;
 
 
-			const string input21 = "<form>\n" +
+			const string input22 = "<form>\n" +
 				"	<fieldset>\n" +
 				"		<legend>  Personal data \n" +
 				"</legend>\n" +
@@ -1277,8 +1344,8 @@ namespace WebMarkupMin.Core.Test.Html
 				"	</fieldset>\n" +
 				"</form>"
 				;
-			const string targetOutput21A = input21;
-			const string targetOutput21B = "<form> " +
+			const string targetOutput22A = input22;
+			const string targetOutput22B = "<form> " +
 				"<fieldset>" +
 				"<legend> Personal data </legend>" +
 				"Name: <input type=\"text\" size=\"50\"><br> " +
@@ -1287,7 +1354,7 @@ namespace WebMarkupMin.Core.Test.Html
 				"</fieldset> " +
 				"</form>"
 				;
-			const string targetOutput21C = "<form>" +
+			const string targetOutput22C = "<form>" +
 				"<fieldset>" +
 				"<legend>Personal data</legend>" +
 				"Name: <input type=\"text\" size=\"50\"><br> " +
@@ -1296,63 +1363,63 @@ namespace WebMarkupMin.Core.Test.Html
 				"</fieldset>" +
 				"</form>"
 				;
-			const string targetOutput21D = targetOutput21C;
+			const string targetOutput22D = targetOutput22C;
 
 
-			const string input22 = "<ruby>\n" +
+			const string input23 = "<ruby>\n" +
 				"	漢  <rt>  Kan  </rt>\n" +
 				"	字  <rt>  ji  </rt>\n" +
 				"</ruby>"
 				;
-			const string targetOutput22A = input22;
-			const string targetOutput22B = "<ruby> " +
+			const string targetOutput23A = input23;
+			const string targetOutput23B = "<ruby> " +
 				"漢 <rt> Kan </rt> " +
 				"字 <rt> ji </rt> " +
 				"</ruby>"
 				;
-			const string targetOutput22C = targetOutput22B;
-			const string targetOutput22D = "<ruby>" +
+			const string targetOutput23C = targetOutput23B;
+			const string targetOutput23D = "<ruby>" +
 				"漢 <rt>Kan</rt> " +
 				"字 <rt>ji</rt>" +
 				"</ruby>"
 				;
 
 
-			const string input23 = "<ruby>\n" +
+			const string input24 = "<ruby>\n" +
 				"	漢  <rp>  (</rp>  <rt>  Kan  </rt>  <rp>)  </rp>\n" +
 				"	字  <rp>  (</rp>  <rt>  ji  </rt>  <rp>)  </rp>\n" +
 				"</ruby>"
 				;
-			const string targetOutput23A = input23;
-			const string targetOutput23B = "<ruby> " +
+			const string targetOutput24A = input24;
+			const string targetOutput24B = "<ruby> " +
 				"漢 <rp> (</rp> <rt> Kan </rt> <rp>) </rp> " +
 				"字 <rp> (</rp> <rt> ji </rt> <rp>) </rp> " +
 				"</ruby>"
 				;
-			const string targetOutput23C = targetOutput23B;
-			const string targetOutput23D = "<ruby>" +
+			const string targetOutput24C = targetOutput24B;
+			const string targetOutput24D = "<ruby>" +
 				"漢 <rp>(</rp> <rt>Kan</rt> <rp>)</rp> " +
 				"字 <rp>(</rp> <rt>ji</rt> <rp>)</rp>" +
 				"</ruby>"
 				;
 
 
-			const string input24 = "<ruby>\n" +
+			const string input25 = "<ruby>\n" +
 				"	東\n" +
 				"	<rb>  京  </rb>\n" +
 				"	<rt>  とう  </rt>\n" +
 				"	<rt>  きょう  </rt>\n" +
 				"</ruby>"
 				;
-			const string targetOutput24A = input24;
-			const string targetOutput24B = "<ruby> " +
+			const string targetOutput25A = input25;
+			const string targetOutput25B = "<ruby> " +
 				"東 " +
 				"<rb> 京 </rb> " +
 				"<rt> とう </rt> " +
 				"<rt> きょう </rt> " +
 				"</ruby>";
-			const string targetOutput24C = targetOutput24B;
-			const string targetOutput24D = "<ruby>" +
+			const string targetOutput25C = targetOutput25B;
+			const string targetOutput25D = "<ruby>" +
 				"東 " +
 				"<rb>京</rb> " +
 				"<rt>とう</rt> " +
@@ -1361,7 +1428,7 @@ namespace WebMarkupMin.Core.Test.Html
 				;
 
 
-			const string input25 = "<ruby>\n" +
+			const string input26 = "<ruby>\n" +
 				"	♥\n" +
 				"	<rp>:  </rp>\n" +
 				"	<rt>  Heart  </rt>\n" +
@@ -1388,8 +1455,8 @@ namespace WebMarkupMin.Core.Test.Html
 				"	<rp>.  </rp>\n" +
 				"</ruby>"
 				;
-			const string targetOutput25A = input25;
-			const string targetOutput25B = "<ruby> " +
+			const string targetOutput26A = input26;
+			const string targetOutput26B = "<ruby> " +
 				"♥ " +
 				"<rp>: </rp> " +
 				"<rt> Heart </rt> " +
@@ -1416,8 +1483,8 @@ namespace WebMarkupMin.Core.Test.Html
 				"<rp>. </rp> " +
 				"</ruby>"
 				;
-			const string targetOutput25C = targetOutput25B;
-			const string targetOutput25D = "<ruby>" +
+			const string targetOutput26C = targetOutput26B;
+			const string targetOutput26D = "<ruby>" +
 				"♥ " +
 				"<rp>:</rp> " +
 				"<rt>Heart</rt> " +
@@ -1446,21 +1513,21 @@ namespace WebMarkupMin.Core.Test.Html
 				;
 
 
-			const string input26 = "<ruby>\n" +
+			const string input27 = "<ruby>\n" +
 				"	<rb>  旧  </rb>  <rb>  金  </rb>  <rb>  山  </rb>\n" +
 				"	<rt>  jiù  </rt>  <rt>  jīn  </rt> <rt>  shān  </rt>\n" +
 				"	<rtc>  Сан-Франциско  </rtc>\n" +
 				"</ruby>"
 				;
-			const string targetOutput26A = input26;
-			const string targetOutput26B = "<ruby> " +
+			const string targetOutput27A = input27;
+			const string targetOutput27B = "<ruby> " +
 				"<rb> 旧 </rb> <rb> 金 </rb> <rb> 山 </rb> " +
 				"<rt> jiù </rt> <rt> jīn </rt> <rt> shān </rt> " +
 				"<rtc> Сан-Франциско </rtc> " +
 				"</ruby>"
 				;
-			const string targetOutput26C = targetOutput26B;
-			const string targetOutput26D = "<ruby>" +
+			const string targetOutput27C = targetOutput27B;
+			const string targetOutput27D = "<ruby>" +
 				"<rb>旧</rb> <rb>金</rb> <rb>山</rb> " +
 				"<rt>jiù</rt> <rt>jīn</rt> <rt>shān</rt> " +
 				"<rtc>Сан-Франциско</rtc>" +
@@ -1598,6 +1665,11 @@ namespace WebMarkupMin.Core.Test.Html
 			string output26C = mediumRemovingWhitespaceMinifier.Minify(input26).MinifiedContent;
 			string output26D = aggressiveRemovingWhitespaceMinifier.Minify(input26).MinifiedContent;
 
+			string output27A = keepingWhitespaceMinifier.Minify(input27).MinifiedContent;
+			string output27B = safeRemovingWhitespaceMinifier.Minify(input27).MinifiedContent;
+			string output27C = mediumRemovingWhitespaceMinifier.Minify(input27).MinifiedContent;
+			string output27D = aggressiveRemovingWhitespaceMinifier.Minify(input27).MinifiedContent;
+
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
@@ -1728,6 +1800,11 @@ namespace WebMarkupMin.Core.Test.Html
 			Assert.Equal(targetOutput26B, output26B);
 			Assert.Equal(targetOutput26C, output26C);
 			Assert.Equal(targetOutput26D, output26D);
+
+			Assert.Equal(targetOutput27A, output27A);
+			Assert.Equal(targetOutput27B, output27B);
+			Assert.Equal(targetOutput27C, output27C);
+			Assert.Equal(targetOutput27D, output27D);
 		}
 
 		#endregion
@@ -2836,6 +2913,106 @@ namespace WebMarkupMin.Core.Test.Html
 				"</style>"
 				;
 
+
+			const string input5 = "<svg width=\"100%\" height=\"100%\" viewBox=\"0 0 100 100\">\r\n" +
+				"	<style>\r\n" +
+				"	/* <![CDATA[ */\r\n" +
+				"	circle {\r\n" +
+				"		fill: orange;\r\n" +
+				"		stroke: black;\r\n" +
+				"		stroke-width: 10px; // Note that the value of a pixel depend on the viewBox\r\n" +
+				"	}\r\n" +
+				"	/* ]]> */\r\n" +
+				"	</style>\r\n" +
+				"	<circle cx=\"50\" cy=\"50\" r=\"40\"/>\r\n" +
+				"</svg>"
+				;
+			const string targetOutput5A = "<svg width=\"100%\" height=\"100%\" viewBox=\"0 0 100 100\">\r\n" +
+				"	<style>" +
+				"/*<![CDATA[*/" +
+				"	circle {\r\n" +
+				"		fill: orange;\r\n" +
+				"		stroke: black;\r\n" +
+				"		stroke-width: 10px; // Note that the value of a pixel depend on the viewBox\r\n" +
+				"	}" +
+				"/*]]>*/" +
+				"</style>\r\n" +
+				"	<circle cx=\"50\" cy=\"50\" r=\"40\" />\r\n" +
+				"</svg>"
+				;
+			const string targetOutput5B = "<svg width=\"100%\" height=\"100%\" viewBox=\"0 0 100 100\">" +
+				"<style>" +
+				"/*<![CDATA[*/" +
+				"circle {\r\n" +
+				"		fill: orange;\r\n" +
+				"		stroke: black;\r\n" +
+				"		stroke-width: 10px; // Note that the value of a pixel depend on the viewBox\r\n" +
+				"	}" +
+				"/*]]>*/" +
+				"</style>" +
+				"<circle cx=\"50\" cy=\"50\" r=\"40\" />" +
+				"</svg>"
+				;
+			const string targetOutput5C = "<svg width=\"100%\" height=\"100%\" viewBox=\"0 0 100 100\">\r\n" +
+				"	<style>" +
+				"	circle {\r\n" +
+				"		fill: orange;\r\n" +
+				"		stroke: black;\r\n" +
+				"		stroke-width: 10px; // Note that the value of a pixel depend on the viewBox\r\n" +
+				"	}" +
+				"</style>\r\n" +
+				"	<circle cx=\"50\" cy=\"50\" r=\"40\" />\r\n" +
+				"</svg>"
+				;
+
+
+			const string input6 = "<svg version=\"1.1\" width=\"10cm\" height=\"5cm\" viewBox=\"0 0 1000 500\">\r\n" +
+				"	<defs>\r\n" +
+				"		<style type=\"text/css\">\r\n" +
+				"<![CDATA[" +
+				"		rect {\r\n" +
+				"			fill: red;\r\n" +
+				"			stroke: blue;\r\n" +
+				"			stroke-width: 3;\r\n" +
+				"		}\r\n" +
+				"]]>" +
+				"</style>\r\n" +
+				"	</defs>\r\n" +
+				"	<rect x=\"200\" y=\"100\" width=\"600\" height=\"300\" />\r\n" +
+				"</svg>"
+				;
+			const string targetOutput6A = "<svg version=\"1.1\" width=\"10cm\" height=\"5cm\" viewBox=\"0 0 1000 500\">\r\n" +
+				"	<defs>\r\n" +
+				"		<style type=\"text/css\">" +
+				"<![CDATA[\r\n" +
+				"		rect {\r\n" +
+				"			fill: red;\r\n" +
+				"			stroke: blue;\r\n" +
+				"			stroke-width: 3;\r\n" +
+				"		}\r\n" +
+				"]]>" +
+				"</style>\r\n" +
+				"	</defs>\r\n" +
+				"	<rect x=\"200\" y=\"100\" width=\"600\" height=\"300\" />\r\n" +
+				"</svg>"
+				;
+			const string targetOutput6B = "<svg version=\"1.1\" width=\"10cm\" height=\"5cm\" viewBox=\"0 0 1000 500\">" +
+				"<defs>" +
+				"<style type=\"text/css\">" +
+				"<![CDATA[\r\n" +
+				"rect {\r\n" +
+				"			fill: red;\r\n" +
+				"			stroke: blue;\r\n" +
+				"			stroke-width: 3;\r\n" +
+				"		}\r\n" +
+				"]]>" +
+				"</style>" +
+				"</defs>" +
+				"<rect x=\"200\" y=\"100\" width=\"600\" height=\"300\" />" +
+				"</svg>"
+				;
+			const string targetOutput6C = targetOutput6A;
+
 			// Act
 			string output1A = minifier.Minify(input1).MinifiedContent;
 			string output1B = removingWhitespaceMinifier.Minify(input1).MinifiedContent;
@@ -2853,6 +3030,14 @@ namespace WebMarkupMin.Core.Test.Html
 			string output4B = removingWhitespaceMinifier.Minify(input4).MinifiedContent;
 			string output4C = removingCdataSectionsMinifier.Minify(input4).MinifiedContent;
 
+			string output5A = minifier.Minify(input5).MinifiedContent;
+			string output5B = removingWhitespaceMinifier.Minify(input5).MinifiedContent;
+			string output5C = removingCdataSectionsMinifier.Minify(input5).MinifiedContent;
+
+			string output6A = minifier.Minify(input6).MinifiedContent;
+			string output6B = removingWhitespaceMinifier.Minify(input6).MinifiedContent;
+			string output6C = removingCdataSectionsMinifier.Minify(input6).MinifiedContent;
+
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
@@ -2869,6 +3054,14 @@ namespace WebMarkupMin.Core.Test.Html
 			Assert.Equal(targetOutput4A, output4A);
 			Assert.Equal(targetOutput4B, output4B);
 			Assert.Equal(targetOutput4C, output4C);
+
+			Assert.Equal(targetOutput5A, output5A);
+			Assert.Equal(targetOutput5B, output5B);
+			Assert.Equal(targetOutput5C, output5C);
+
+			Assert.Equal(targetOutput6A, output6A);
+			Assert.Equal(targetOutput6B, output6B);
+			Assert.Equal(targetOutput6C, output6C);
 		}
 
 		[Fact]
@@ -3097,7 +3290,45 @@ namespace WebMarkupMin.Core.Test.Html
 				;
 
 
-			const string input10 = "<script type=\"text/vbscript\">\r\n" +
+			const string input10 = "<script type=\"text/javascript\">\r\n" +
+				"	<![CDATA[\r\n" +
+				"	// is the variable a non-negative integer less than 15?\r\n" +
+				"	if (variable < 15 && variable >= 0) {\r\n" +
+				"		doSomething();\r\n" +
+				"	}\r\n" +
+				"	]]>\r\n" +
+				"</script>"
+				;
+			const string targetOutput10A = "<script type=\"text/javascript\">" +
+				"<![CDATA[\r\n" +
+				"	// is the variable a non-negative integer less than 15?\r\n" +
+				"	if (variable < 15 && variable >= 0) {\r\n" +
+				"		doSomething();\r\n" +
+				"	}\r\n" +
+				"]]>" +
+				"</script>"
+				;
+			const string targetOutput10B = "<script type=\"text/javascript\">" +
+				"<![CDATA[\r\n" +
+				"// is the variable a non-negative integer less than 15?\r\n" +
+				"	if (variable < 15 && variable >= 0) {\r\n" +
+				"		doSomething();\r\n" +
+				"	}\r\n" +
+				"]]>" +
+				"</script>"
+				;
+			const string targetOutput10C = "<script type=\"text/javascript\">" +
+				"<![CDATA[\r\n" +
+				"	// is the variable a non-negative integer less than 15?\r\n" +
+				"	if (variable < 15 && variable >= 0) {\r\n" +
+				"		doSomething();\r\n" +
+				"	}\r\n" +
+				"]]>" +
+				"</script>"
+				;
+
+
+			const string input11 = "<script type=\"text/vbscript\">\r\n" +
 				"<![CDATA[\r\n" +
 				"	Function CanDeliver(Dt)\r\n" +
 				"		CanDeliver = (CDate(Dt) - Now()) > 2\r\n" +
@@ -3105,7 +3336,7 @@ namespace WebMarkupMin.Core.Test.Html
 				"]]>\r\n" +
 				"</script>"
 				;
-			const string targetOutput10A = "<script type=\"text/vbscript\">" +
+			const string targetOutput11A = "<script type=\"text/vbscript\">" +
 				"<![CDATA[\r\n" +
 				"	Function CanDeliver(Dt)\r\n" +
 				"		CanDeliver = (CDate(Dt) - Now()) > 2\r\n" +
@@ -3113,7 +3344,7 @@ namespace WebMarkupMin.Core.Test.Html
 				"]]>" +
 				"</script>"
 				;
-			const string targetOutput10B = "<script type=\"text/vbscript\">" +
+			const string targetOutput11B = "<script type=\"text/vbscript\">" +
 				"<![CDATA[\r\n" +
 				"Function CanDeliver(Dt)\r\n" +
 				"		CanDeliver = (CDate(Dt) - Now()) > 2\r\n" +
@@ -3121,7 +3352,7 @@ namespace WebMarkupMin.Core.Test.Html
 				"]]>" +
 				"</script>"
 				;
-			const string targetOutput10C = "<script type=\"text/vbscript\">" +
+			const string targetOutput11C = "<script type=\"text/vbscript\">" +
 				"	Function CanDeliver(Dt)\r\n" +
 				"		CanDeliver = (CDate(Dt) - Now()) > 2\r\n" +
 				"	End Function" +
@@ -3129,7 +3360,7 @@ namespace WebMarkupMin.Core.Test.Html
 				;
 
 
-			const string input11 = "<script language=\"VBScript\">\r\n" +
+			const string input12 = "<script language=\"VBScript\">\r\n" +
 				"<![CDATA[\r\n" +
 				"	Function CanDeliver(Dt)\r\n" +
 				"		CanDeliver = (CDate(Dt) - Now()) > 2\r\n" +
@@ -3137,7 +3368,7 @@ namespace WebMarkupMin.Core.Test.Html
 				"]]>\r\n" +
 				"</script>"
 				;
-			const string targetOutput11A = "<script language=\"VBScript\">" +
+			const string targetOutput12A = "<script language=\"VBScript\">" +
 				"<![CDATA[\r\n" +
 				"	Function CanDeliver(Dt)\r\n" +
 				"		CanDeliver = (CDate(Dt) - Now()) > 2\r\n" +
@@ -3145,7 +3376,7 @@ namespace WebMarkupMin.Core.Test.Html
 				"]]>" +
 				"</script>"
 				;
-			const string targetOutput11B = "<script language=\"VBScript\">" +
+			const string targetOutput12B = "<script language=\"VBScript\">" +
 				"<![CDATA[\r\n" +
 				"Function CanDeliver(Dt)\r\n" +
 				"		CanDeliver = (CDate(Dt) - Now()) > 2\r\n" +
@@ -3153,7 +3384,7 @@ namespace WebMarkupMin.Core.Test.Html
 				"]]>" +
 				"</script>"
 				;
-			const string targetOutput11C = "<script language=\"VBScript\">" +
+			const string targetOutput12C = "<script language=\"VBScript\">" +
 				"	Function CanDeliver(Dt)\r\n" +
 				"		CanDeliver = (CDate(Dt) - Now()) > 2\r\n" +
 				"	End Function" +
@@ -3205,6 +3436,10 @@ namespace WebMarkupMin.Core.Test.Html
 			string output11B = removingWhitespaceMinifier.Minify(input11).MinifiedContent;
 			string output11C = removingCdataSectionsMinifier.Minify(input11).MinifiedContent;
 
+			string output12A = minifier.Minify(input12).MinifiedContent;
+			string output12B = removingWhitespaceMinifier.Minify(input12).MinifiedContent;
+			string output12C = removingCdataSectionsMinifier.Minify(input12).MinifiedContent;
+
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
@@ -3249,6 +3484,10 @@ namespace WebMarkupMin.Core.Test.Html
 			Assert.Equal(targetOutput11A, output11A);
 			Assert.Equal(targetOutput11B, output11B);
 			Assert.Equal(targetOutput11C, output11C);
+
+			Assert.Equal(targetOutput12A, output12A);
+			Assert.Equal(targetOutput12B, output12B);
+			Assert.Equal(targetOutput12C, output12C);
 		}
 
 		#endregion
@@ -3289,7 +3528,8 @@ namespace WebMarkupMin.Core.Test.Html
 			const string targetOutput4A = "<svg width=\"220\" height=\"220\">" +
 				"<circle cx=\"110\" cy=\"110\" r=\"100\" fill=\"#fafaa2\" stroke=\"#000\" />" +
 				"<rect x=\"10\" y=\"10\" width=\"200\" height=\"200\" fill=\"#fafaa2\" stroke=\"#000\" />" +
-				"</svg>";
+				"</svg>"
+				;
 			const string targetOutput4B = "<svg width=\"220\" height=\"220\">" +
 				"<circle cx=\"110\" cy=\"110\" r=\"100\" fill=\"#fafaa2\" stroke=\"#000\"/>" +
 				"<rect x=\"10\" y=\"10\" width=\"200\" height=\"200\" fill=\"#fafaa2\" stroke=\"#000\"/>" +
@@ -4622,6 +4862,15 @@ namespace WebMarkupMin.Core.Test.Html
 				"<line x1=\"6\" y1=\"14\" x2=\"177\" y2=\"198\" stroke=\"#000\" />" +
 				"</svg>"
 				;
+			const string targetOutput17A = input17;
+			const string targetOutput17B = "<svg width=220 height=220>" +
+				"<line x1=6 y1=14 x2=177 y2=198 stroke=\"#000\" />" +
+				"</svg>"
+				;
+			const string targetOutput17C = "<svg width=220 height=220>" +
+				"<line x1=6 y1=14 x2=177 y2=198 stroke=#000 />" +
+				"</svg>"
+				;
 
 			const string input18 = "<math>" +
 				"<apply>" +
@@ -4631,6 +4880,16 @@ namespace WebMarkupMin.Core.Test.Html
 				"</apply>" +
 				"</math>"
 				;
+			const string targetOutput18A = input18;
+			const string targetOutput18B = "<math>" +
+				"<apply>" +
+				"<in />" +
+				"<cn type=complex-cartesian>17<sep />29</cn>" +
+				"<complexes />" +
+				"</apply>" +
+				"</math>"
+				;
+			const string targetOutput18C = targetOutput18B;
 
 			// Act
 			string output1A = keepingAttributeQuotesMinifier.Minify(input1).MinifiedContent;
@@ -4770,13 +5029,13 @@ namespace WebMarkupMin.Core.Test.Html
 			Assert.Equal(targetOutput16B, output16B);
 			Assert.Equal(targetOutput16C, output16C);
 
-			Assert.Equal(input17, output17A);
-			Assert.Equal(input17, output17B);
-			Assert.Equal(input17, output17C);
+			Assert.Equal(targetOutput17A, output17A);
+			Assert.Equal(targetOutput17B, output17B);
+			Assert.Equal(targetOutput17C, output17C);
 
-			Assert.Equal(input18, output18A);
-			Assert.Equal(input18, output18B);
-			Assert.Equal(input18, output18C);
+			Assert.Equal(targetOutput18A, output18A);
+			Assert.Equal(targetOutput18B, output18B);
+			Assert.Equal(targetOutput18C, output18C);
 		}
 
 		#endregion

@@ -835,6 +835,10 @@ namespace WebMarkupMin.Core.Parsers
 			{
 				isEmptyTag = true;
 			}
+			else if (isEmptyTag)
+			{
+				tagFlags |= HtmlTagFlags.Empty;
+			}
 
 			var attributes = ParseAttributes(tagName, tagNameInLowercase, attributesString, attributesCoordinates);
 			var tag = new HtmlTag(tagName, tagNameInLowercase, attributes, tagFlags);

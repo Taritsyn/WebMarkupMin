@@ -70,8 +70,12 @@ namespace WebMarkupMin.Core
 		private static readonly Regex _separatingCommaWithSpacesRegex = new Regex(@"\s*,\s*");
 		private static readonly Regex _endingCommaWithSpacesRegex = new Regex(@"\s*,\s*$");
 
-		private static readonly Regex _styleBeginHtmlCommentRegex = new Regex(@"^\s*<!--(?:[ \t\v]*\r?\n)?");
-		private static readonly Regex _styleEndHtmlCommentRegex = new Regex(@"(?:\r?\n[ \t\v]*)?-->\s*$");
+		private static readonly Regex _beginHtmlCommentRegex = new Regex(@"^\s*<!--(?:[ \t\v]*\r?\n)?");
+		private static readonly Regex _endHtmlCommentRegex = new Regex(@"(?:\r?\n[ \t\v]*)?-->\s*$");
+
+		private static readonly Regex _beginCdataSectionRegex = new Regex(
+			@"^\s*<!\[CDATA\[(?:[ \t\v]*\r?\n)?", RegexOptions.IgnoreCase);
+		private static readonly Regex _endCdataSectionRegex = new Regex(@"(?:\r?\n[ \t\v]*)?\]\]>\s*$");
 
 		private static readonly Regex _styleBeginCdataSectionRegex = new Regex(
 			@"^\s*/\*\s*<!\[CDATA\[\s*\*/(?:[ \t\v]*\r?\n)?", RegexOptions.IgnoreCase);
@@ -87,10 +91,10 @@ namespace WebMarkupMin.Core
 		private static readonly Regex _scriptEndHtmlCommentRegex = new Regex(@"(?:\r?\n)?[ \t\v\S]*-->\s*$");
 
 		private static readonly Regex _scriptBeginCdataSectionRegex = new Regex(
-			@"^\s*(?:(?://[ \t\v]*)?<!\[CDATA\[[ \t\v\S]*\r?\n|/\*\s*<!\[CDATA\[\s*\*/(?:[ \t\v]*\r?\n)?)",
+			@"^\s*(?://[ \t\v]*<!\[CDATA\[[ \t\v\S]*\r?\n|/\*\s*<!\[CDATA\[\s*\*/(?:[ \t\v]*\r?\n)?)",
 			RegexOptions.IgnoreCase);
 		private static readonly Regex _scriptEndCdataSectionRegex = new Regex(
-			@"(?:\r?\n(?://[ \t\v\S]*)?\]\]>|(?:\r?\n[ \t\v]*)?/\*\s*\]\]>\s*\*/)\s*$");
+			@"(?:\r?\n//[ \t\v\S]*\]\]>|(?:\r?\n[ \t\v]*)?/\*\s*\]\]>\s*\*/)\s*$");
 
 		private static readonly Regex _scriptBeginMaxCompatibleCdataSectionRegex = new Regex(
 			@"^\s*(?:<!--[ \t\v]*//[ \t\v]*--><!\[CDATA\[[ \t\v]*//[ \t\v]*><!--[ \t\v]*\r?\n" +
@@ -251,6 +255,11 @@ namespace WebMarkupMin.Core
 		private List<string> _buffer;
 
 		private Queue<string> _tagsWithNotRemovableWhitespaceQueue;
+
+		/// <summary>
+		/// Stack of XML-based tags
+		/// </summary>
+		private Stack<string> _xmlTagStack;
 
 		/// <summary>
 		/// Current node type
@@ -464,6 +473,7 @@ namespace WebMarkupMin.Core
 					_errors = new List<MinificationErrorInfo>();
 					_warnings = new List<MinificationErrorInfo>();
 					_tagsWithNotRemovableWhitespaceQueue = new Queue<string>();
+					_xmlTagStack = new Stack<string>();
 					_currentNodeType = HtmlNodeType.Unknown;
 					_currentTag = null;
 					_currentText = string.Empty;
@@ -492,6 +502,7 @@ namespace WebMarkupMin.Core
 					_result.Clear();
 					_buffer.Clear();
 					_tagsWithNotRemovableWhitespaceQueue.Clear();
+					_xmlTagStack.Clear();
 					_currentTag = null;
 
 					errors.AddRange(_errors);
@@ -599,6 +610,7 @@ namespace WebMarkupMin.Core
 		/// <param name="commentText">Comment text</param>
 		private void CommentHandler(MarkupParsingContext context, string commentText)
 		{
+			HtmlNodeType previousNodeType = _currentNodeType;
 			_currentNodeType = HtmlNodeType.Comment;
 
 			const int beginCommentLength = 4;
@@ -676,6 +688,10 @@ namespace WebMarkupMin.Core
 				_buffer.Add("<!--");
 				_buffer.Add(processedCommentText);
 				_buffer.Add("-->");
+			}
+			else
+			{
+				_currentNodeType = previousNodeType;
 			}
 		}
 
@@ -788,7 +804,8 @@ namespace WebMarkupMin.Core
 					bool allowTrimEnd = false;
 					if (tagFlags.HasFlag(HtmlTagFlags.Invisible)
 						|| (tagFlags.HasFlag(HtmlTagFlags.NonIndependent)
-							&& CanRemoveWhitespaceBetweenNonIndependentTags(previousTag, tag)))
+							&& CanRemoveWhitespaceBetweenNonIndependentTags(previousTag, tag))
+						|| _xmlTagStack.Count > 0)
 					{
 						allowTrimEnd = true;
 					}
@@ -813,6 +830,11 @@ namespace WebMarkupMin.Core
 				}
 			}
 
+			if (tagFlags.HasFlag(HtmlTagFlags.Xml))
+			{
+				_xmlTagStack.Push(tagNameInLowercase);
+			}
+
 			if (previousNodeType != HtmlNodeType.StartTag)
 			{
 				if (_settings.RemoveOptionalEndTags
@@ -826,26 +848,43 @@ namespace WebMarkupMin.Core
 			}
 
 			_buffer.Add("<");
-			_buffer.Add(_settings.PreserveCase ? tagName : tagNameInLowercase);
+			_buffer.Add(CanPreserveCase() ? tagName : tagNameInLowercase);
 
 			int attributeCount = attributes.Count;
+			string lastAttributeString = string.Empty;
 
 			for (int attributeIndex = 0; attributeIndex < attributeCount; attributeIndex++)
 			{
 				string attributeString = BuildAttributeString(context, tag, attributes[attributeIndex]);
 				if (attributeString.Length > 0)
 				{
+					lastAttributeString = attributeString;
 					_buffer.Add(attributeString);
 				}
 			}
 
 			if (tagFlags.HasFlag(HtmlTagFlags.Empty))
 			{
-				if (_settings.EmptyTagRenderMode == HtmlEmptyTagRenderMode.Slash)
+				HtmlEmptyTagRenderMode emptyTagRenderMode = _settings.EmptyTagRenderMode;
+
+				if (emptyTagRenderMode == HtmlEmptyTagRenderMode.NoSlash && _xmlTagStack.Count > 0)
+				{
+					emptyTagRenderMode = HtmlEmptyTagRenderMode.SpaceAndSlash;
+				}
+
+				if (emptyTagRenderMode == HtmlEmptyTagRenderMode.Slash
+					&& lastAttributeString.Length > 0
+					&& lastAttributeString.IndexOf('=') != -1
+					&& !lastAttributeString.EndsWith("\""))
+				{
+					emptyTagRenderMode = HtmlEmptyTagRenderMode.SpaceAndSlash;
+				}
+
+				if (emptyTagRenderMode == HtmlEmptyTagRenderMode.Slash)
 				{
 					_buffer.Add("/");
 				}
-				else if (_settings.EmptyTagRenderMode == HtmlEmptyTagRenderMode.SpaceAndSlash)
+				else if (emptyTagRenderMode == HtmlEmptyTagRenderMode.SpaceAndSlash)
 				{
 					_buffer.Add(" /");
 				}
@@ -949,8 +988,13 @@ namespace WebMarkupMin.Core
 
 			// Add end tag to buffer
 			_buffer.Add("</");
-			_buffer.Add(_settings.PreserveCase ? tagName : tagNameInLowercase);
+			_buffer.Add(CanPreserveCase() ? tagName : tagNameInLowercase);
 			_buffer.Add(">");
+
+			if (tagFlags.HasFlag(HtmlTagFlags.Xml))
+			{
+				_xmlTagStack.Pop();
+			}
 		}
 
 		/// <summary>
@@ -960,15 +1004,17 @@ namespace WebMarkupMin.Core
 		/// <param name="text">Text</param>
 		private void TextHandler(MarkupParsingContext context, string text)
 		{
-			HtmlNodeType nodeType = _currentNodeType;
+			HtmlNodeType previousNodeType = _currentNodeType;
 			HtmlTag tag = _currentTag ?? HtmlTag.Empty;
 			string tagNameInLowercase = tag.NameInLowercase;
 			HtmlTagFlags tagFlags = tag.Flags;
 			IList<HtmlAttribute> attributes = tag.Attributes;
 
+			_currentNodeType = HtmlNodeType.Comment;
+
 			WhitespaceMinificationMode whitespaceMinificationMode = _settings.WhitespaceMinificationMode;
 
-			if (nodeType == HtmlNodeType.StartTag && tagFlags.HasFlag(HtmlTagFlags.EmbeddedCode))
+			if (previousNodeType == HtmlNodeType.StartTag && tagFlags.HasFlag(HtmlTagFlags.EmbeddedCode))
 			{
 				switch (tagNameInLowercase)
 				{
@@ -1005,12 +1051,6 @@ namespace WebMarkupMin.Core
 						}
 
 						break;
-					case "svg":
-						text = ProcessEmbeddedSvgContent(context, text);
-						break;
-					case "math":
-						text = ProcessEmbeddedMathMlContent(context, text);
-						break;
 				}
 			}
 			else
@@ -1029,12 +1069,13 @@ namespace WebMarkupMin.Core
 							// Processing of ending whitespace
 							text = text.TrimEnd();
 						}
-						else if (nodeType == HtmlNodeType.StartTag)
+						else if (previousNodeType == HtmlNodeType.StartTag)
 						{
 							// Processing of whitespace, that followed after the start tag
 							bool allowTrimStart = false;
 							if (tagFlags.HasFlag(HtmlTagFlags.Invisible)
-								|| (tagFlags.HasFlag(HtmlTagFlags.NonIndependent) && tagFlags.HasFlag(HtmlTagFlags.Empty)))
+								|| (tagFlags.HasFlag(HtmlTagFlags.NonIndependent) && tagFlags.HasFlag(HtmlTagFlags.Empty))
+								|| (_xmlTagStack.Count > 0 && tagFlags.HasFlag(HtmlTagFlags.Empty)))
 							{
 								allowTrimStart = true;
 							}
@@ -1057,13 +1098,14 @@ namespace WebMarkupMin.Core
 								text = text.TrimStart();
 							}
 						}
-						else if (nodeType == HtmlNodeType.EndTag)
+						else if (previousNodeType == HtmlNodeType.EndTag)
 						{
 							// Processing of whitespace, that followed after the end tag
 							bool allowTrimStart = false;
 							if (tagFlags.HasFlag(HtmlTagFlags.Invisible)
 								|| (tagFlags.HasFlag(HtmlTagFlags.NonIndependent)
-									&& CanRemoveWhitespaceAfterEndNonIndependentTag(tag)))
+									&& CanRemoveWhitespaceAfterEndNonIndependentTag(tag))
+								|| _xmlTagStack.Count > 0)
 							{
 								allowTrimStart = true;
 							}
@@ -1081,19 +1123,19 @@ namespace WebMarkupMin.Core
 								text = text.TrimStart();
 							}
 						}
-						else if (nodeType == HtmlNodeType.Doctype || nodeType == HtmlNodeType.XmlDeclaration)
+						else if (previousNodeType == HtmlNodeType.Doctype || previousNodeType == HtmlNodeType.XmlDeclaration)
 						{
 							// Processing of whitespace, that followed after the document type declaration
 							// or XML declaration
 							text = text.TrimStart();
 						}
 
-						if (text.Length > 0)
+						if (text.Length > 0 && _xmlTagStack.Count == 0)
 						{
 							text = Utils.CollapseWhitespace(text);
 						}
 					}
-					else if (nodeType == HtmlNodeType.StartTag && tagNameInLowercase == "textarea"
+					else if (previousNodeType == HtmlNodeType.StartTag && tagNameInLowercase == "textarea"
 						&& string.IsNullOrWhiteSpace(text))
 					{
 						text = string.Empty;
@@ -1101,13 +1143,16 @@ namespace WebMarkupMin.Core
 				}
 			}
 
-			_currentNodeType = HtmlNodeType.Text;
-			_currentText = text;
-
 			if (text.Length > 0)
 			{
 				_buffer.Add(text);
 			}
+			else
+			{
+				_currentNodeType = previousNodeType;
+			}
+
+			_currentText = text;
 		}
 
 		/// <summary>
@@ -1435,8 +1480,7 @@ namespace WebMarkupMin.Core
 		private string InnerBuildAttributeString(HtmlTag tag, HtmlAttribute attribute, bool omitValue, bool addQuotes)
 		{
 			string attributeString;
-			string displayAttributeName = _settings.PreserveCase || tag.Flags.HasFlag(HtmlTagFlags.Xml) ?
-				attribute.Name : attribute.NameInLowercase;
+			string displayAttributeName = CanPreserveCase() ? attribute.Name : attribute.NameInLowercase;
 			string encodedAttributeValue = HtmlAttribute.HtmlAttributeEncode(attribute.Value, HtmlAttributeQuotesType.Double);
 
 			if (!omitValue)
@@ -1486,8 +1530,7 @@ namespace WebMarkupMin.Core
 			string attributeValue = attribute.Value;
 			bool result = false;
 
-			if (!tagFlags.HasFlag(HtmlTagFlags.Xml)
-				&& attributeQuotesRemovalMode != HtmlAttributeQuotesRemovalMode.KeepQuotes)
+			if (attributeQuotesRemovalMode != HtmlAttributeQuotesRemovalMode.KeepQuotes)
 			{
 				if (!attributeValue.EndsWith("/"))
 				{
@@ -1772,6 +1815,15 @@ namespace WebMarkupMin.Core
 			}
 
 			return processedAttributeValue;
+		}
+
+		/// <summary>
+		/// Checks whether preserve case of tag and attribute names
+		/// </summary>
+		/// <returns>Result of check (true - can be preserved; false - can not be preserved)</returns>
+		private bool CanPreserveCase()
+		{
+			return _settings.PreserveCase || _xmlTagStack.Count > 0;
 		}
 
 		/// <summary>
@@ -2164,7 +2216,16 @@ namespace WebMarkupMin.Core
 				if (isJavaScript)
 				{
 					// Processing of JavaScript code
-					if (_scriptBeginCdataSectionRegex.IsMatch(content))
+					if (_beginCdataSectionRegex.IsMatch(content))
+					{
+						beforeCodeContent = _beginCdataSectionRegex.Match(content).Value;
+						startPart = "<![CDATA[";
+						endPart = "]]>";
+
+						code = _beginCdataSectionRegex.Replace(content, string.Empty);
+						code = _endCdataSectionRegex.Replace(code, string.Empty);
+					}
+					else if (_scriptBeginCdataSectionRegex.IsMatch(content))
 					{
 						beforeCodeContent = _scriptBeginCdataSectionRegex.Match(content).Value;
 
@@ -2249,7 +2310,7 @@ namespace WebMarkupMin.Core
 				else
 				{
 					// Processing of VBScript code
-					if (_scriptBeginCdataSectionRegex.IsMatch(content))
+					if (_beginCdataSectionRegex.IsMatch(content))
 					{
 						if (!removeCdataSections)
 						{
@@ -2257,10 +2318,10 @@ namespace WebMarkupMin.Core
 							endPart = "]]>";
 						}
 
-						code = _scriptBeginCdataSectionRegex.Replace(content, string.Empty);
-						code = _scriptEndCdataSectionRegex.Replace(code, string.Empty);
+						code = _beginCdataSectionRegex.Replace(content, string.Empty);
+						code = _endCdataSectionRegex.Replace(code, string.Empty);
 					}
-					else if (_scriptBeginHtmlCommentRegex.IsMatch(content))
+					else if (_beginHtmlCommentRegex.IsMatch(content))
 					{
 						if (!removeHtmlComments)
 						{
@@ -2268,8 +2329,8 @@ namespace WebMarkupMin.Core
 							endPart = "-->";
 						}
 
-						code = _scriptBeginHtmlCommentRegex.Replace(content, string.Empty);
-						code = _scriptEndHtmlCommentRegex.Replace(code, string.Empty);
+						code = _beginHtmlCommentRegex.Replace(content, string.Empty);
+						code = _endHtmlCommentRegex.Replace(code, string.Empty);
 					}
 				}
 
@@ -2356,10 +2417,21 @@ namespace WebMarkupMin.Core
 
 			string startPart = string.Empty;
 			string endPart = string.Empty;
+			string newLine = string.Empty;
 			string code;
 			string beforeCodeContent = string.Empty;
 
-			if (_styleBeginCdataSectionRegex.IsMatch(content))
+			if (_beginCdataSectionRegex.IsMatch(content))
+			{
+				beforeCodeContent = _beginCdataSectionRegex.Match(content).Value;
+				startPart = "<![CDATA[";
+				endPart = "]]>";
+				newLine = Environment.NewLine;
+
+				code = _beginCdataSectionRegex.Replace(content, string.Empty);
+				code = _endCdataSectionRegex.Replace(code, string.Empty);
+			}
+			else if (_styleBeginCdataSectionRegex.IsMatch(content))
 			{
 				beforeCodeContent = _styleBeginCdataSectionRegex.Match(content).Value;
 
@@ -2385,9 +2457,9 @@ namespace WebMarkupMin.Core
 				code = _styleBeginMaxCompatibleCdataSectionRegex.Replace(content, string.Empty);
 				code = _styleEndMaxCompatibleCdataSectionRegex.Replace(code, string.Empty);
 			}
-			else if (_styleBeginHtmlCommentRegex.IsMatch(content))
+			else if (_beginHtmlCommentRegex.IsMatch(content))
 			{
-				beforeCodeContent = _styleBeginHtmlCommentRegex.Match(content).Value;
+				beforeCodeContent = _beginHtmlCommentRegex.Match(content).Value;
 
 				if (!removeHtmlComments)
 				{
@@ -2395,8 +2467,8 @@ namespace WebMarkupMin.Core
 					endPart = "-->";
 				}
 
-				code = _styleBeginHtmlCommentRegex.Replace(content, string.Empty);
-				code = _styleEndHtmlCommentRegex.Replace(code, string.Empty);
+				code = _beginHtmlCommentRegex.Replace(content, string.Empty);
+				code = _endHtmlCommentRegex.Replace(code, string.Empty);
 			}
 			else
 			{
@@ -2453,7 +2525,7 @@ namespace WebMarkupMin.Core
 			string processedStyleContent;
 			if (startPart.Length > 0 || endPart.Length > 0)
 			{
-				processedStyleContent = string.Concat(startPart, code, endPart);
+				processedStyleContent = string.Concat(startPart, newLine, code, newLine, endPart);
 			}
 			else
 			{
@@ -2603,87 +2675,6 @@ namespace WebMarkupMin.Core
 			}
 
 			result = Utils.RemoveEndingSemicolon(result);
-
-			return result;
-		}
-
-		/// <summary>
-		/// Processes a embedded SVG content
-		/// </summary>
-		/// <param name="context">Markup parsing context</param>
-		/// <param name="svgContent">Embedded SVG content</param>
-		/// <returns>Processed embedded SVG content</returns>
-		private string ProcessEmbeddedSvgContent(MarkupParsingContext context, string svgContent)
-		{
-			string result = string.Empty;
-
-			XmlMinifier innerXmlMinifier = GetInnerXmlMinifierInstance();
-			MarkupMinificationResult minificationResult = innerXmlMinifier.Minify(svgContent);
-
-			if (minificationResult.Errors.Count == 0)
-			{
-				result = minificationResult.MinifiedContent ?? string.Empty;
-			}
-			else
-			{
-				string sourceCode = context.SourceCode;
-				var documentCoordinates = context.NodeCoordinates;
-
-				foreach (MinificationErrorInfo error in minificationResult.Errors)
-				{
-					var xmlNodeCoordinates = new SourceCodeNodeCoordinates(error.LineNumber, error.ColumnNumber);
-					var absoluteNodeCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
-						documentCoordinates, xmlNodeCoordinates);
-
-					string sourceFragment = SourceCodeNavigator.GetSourceFragment(
-						sourceCode, absoluteNodeCoordinates);
-					string message = string.Format(CoreStrings.ErrorMessage_MarkupMinificationFailed,
-						"SVG", error.Message);
-
-					WriteError(LogCategoryConstants.HtmlMinificationError, message, _fileContext,
-						absoluteNodeCoordinates.LineNumber, absoluteNodeCoordinates.ColumnNumber, sourceFragment);
-				}
-			}
-
-			return result;
-		}
-
-		/// <summary>
-		/// Processes a embedded MathML content
-		/// </summary>
-		/// <param name="context">Embedded MathML content</param>
-		/// <param name="mathMlContent">Processed embedded MathML content</param>
-		private string ProcessEmbeddedMathMlContent(MarkupParsingContext context, string mathMlContent)
-		{
-			string result = string.Empty;
-
-			XmlMinifier innerXmlMinifier = GetInnerXmlMinifierInstance();
-			MarkupMinificationResult minificationResult = innerXmlMinifier.Minify(mathMlContent);
-
-			if (minificationResult.Errors.Count == 0)
-			{
-				result = minificationResult.MinifiedContent ?? string.Empty;
-			}
-			else
-			{
-				string sourceCode = context.SourceCode;
-				var documentCoordinates = context.NodeCoordinates;
-
-				foreach (MinificationErrorInfo error in minificationResult.Errors)
-				{
-					var xmlNodeCoordinates = new SourceCodeNodeCoordinates(error.LineNumber, error.ColumnNumber);
-					var absoluteNodeCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
-						documentCoordinates, xmlNodeCoordinates);
-
-					string sourceFragment = SourceCodeNavigator.GetSourceFragment(
-						sourceCode, absoluteNodeCoordinates);
-					string message = string.Format(CoreStrings.ErrorMessage_MarkupMinificationFailed,
-						"MathML", error.Message);
-
-					WriteError(LogCategoryConstants.HtmlMinificationError, message, _fileContext,
-						absoluteNodeCoordinates.LineNumber, absoluteNodeCoordinates.ColumnNumber, sourceFragment);
-				}
-			}
 
 			return result;
 		}
