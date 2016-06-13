@@ -454,9 +454,9 @@ namespace WebMarkupMin.Core.Test.Html.Angular1
 			const string targetOutput12A = input12;
 			const string targetOutput12B = "<pre ng-bind-template=\"{{salutation}} {{name}}!\"></pre>";
 
-			const string input13 = "<span>1+2={{{\t  1 + 2  \t}}}</span>";
-
-			const string input14 = "1+2=<input type=\"text\" value=\"{{{\t  1 + 2  \t}}}\">";
+			const string input13 = "<div>${{\t  Price  \t}}</div>";
+			const string targetOutput13A = input13;
+			const string targetOutput13B = "<div>${{Price}}</div>";
 
 			// Act
 			string output1A = keepingExpressionsMinifier.Minify(input1).MinifiedContent;
@@ -498,9 +498,6 @@ namespace WebMarkupMin.Core.Test.Html.Angular1
 			string output13A = keepingExpressionsMinifier.Minify(input13).MinifiedContent;
 			string output13B = minifyingExpressionsMinifier.Minify(input13).MinifiedContent;
 
-			string output14A = keepingExpressionsMinifier.Minify(input14).MinifiedContent;
-			string output14B = minifyingExpressionsMinifier.Minify(input14).MinifiedContent;
-
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
@@ -538,11 +535,8 @@ namespace WebMarkupMin.Core.Test.Html.Angular1
 			Assert.Equal(targetOutput12A, output12A);
 			Assert.Equal(targetOutput12B, output12B);
 
-			Assert.Equal(input13, output13A);
-			Assert.Equal(input13, output13B);
-
-			Assert.Equal(input14, output14A);
-			Assert.Equal(input14, output14B);
+			Assert.Equal(targetOutput13A, output13A);
+			Assert.Equal(targetOutput13B, output13B);
 		}
 
 		/// <summary>

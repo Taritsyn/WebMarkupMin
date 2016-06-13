@@ -25,7 +25,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// ES6 string interpolation pattern
 		/// </summary>
 		private const string ES6_STRING_INTERPOLATION_PATTERN =
-			@"(?<startDelimiter>\$\{)(?<expression>[\s\S]+?)(?<endDelimiter>\})(?!\})";
+			@"(?<startDelimiter>\$\{)(?<expression>[^{][\s\S]*?)(?<endDelimiter>\})(?!\})";
 
 		/// <summary>
 		/// Regular expression for working with the template tags
@@ -95,13 +95,6 @@ namespace WebMarkupMin.Core.Helpers
 				string expression = templateTagGroups["expression"].Value;
 				string startDelimiter = templateTagGroups["startDelimiter"].Value;
 				string endDelimiter = templateTagGroups["endDelimiter"].Value;
-
-				if (expression.StartsWith("{") && expression.EndsWith("}"))
-				{
-					expression = expression.Substring(1, expression.Length - 2);
-					startDelimiter = "{{{";
-					endDelimiter = "}}}";
-				}
 
 				if (templateTagHandler != null)
 				{
