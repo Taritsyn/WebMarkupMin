@@ -1,6 +1,12 @@
 Change log
 ==========
 
+## June 13, 2016 - v2.0.0 RC 9
+ * `rb` and `rtc` tags are now considered as optional end tags
+ * In configuration settings of HTML minifier was added one new property - `PreservableOptionalTagList` (default is empty)
+ * Fixed a [error #8](https://github.com/Taritsyn/WebMarkupMin/issues/8) «MarkupMinificationException when having nested SVG element inside an SVG»
+ * Fixed a [error #9](https://github.com/Taritsyn/WebMarkupMin/issues/9) «&lt;div&gt;${{something}}&lt;/div&gt; incorrectly minified»
+
 ## May 19, 2016 - v2.0.0 RC 8
  * Added support of .NET Core and ASP.NET Core 1.0 RC 2
  * WebMarkupMin.AspNet5 package has been replaced by WebMarkupMin.AspNetCore1 package
