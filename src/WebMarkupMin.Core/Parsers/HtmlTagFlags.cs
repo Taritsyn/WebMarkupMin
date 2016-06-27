@@ -57,5 +57,10 @@ namespace WebMarkupMin.Core.Parsers
 		/// Tag is XML-based
 		/// </summary>
 		Xml = 256,
+
+		/// <summary>
+		/// Tag is custom
+		/// </summary>
+		Custom = 512
 	}
 }

@@ -12,6 +12,7 @@
 		Event,
 		ClassName,
 		Style,
-		Text
+		Text,
+		Xml
 	}
 }

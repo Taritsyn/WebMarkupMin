@@ -10,9 +10,9 @@ namespace WebMarkupMin.Core.Utilities
 	public static class Utils
 	{
 		/// <summary>
-		/// Regular expression for working with whitespace
+		/// Array of other whitespace characters
 		/// </summary>
-		private static readonly Regex _whitespaceRegex = new Regex(@"\s+");
+		private static readonly char[] _otherWhitespaceChars = { '\t', '\r', '\n', '\v', '\f' };
 
 		/// <summary>
 		/// Regular expression for working with ending semicolons
@@ -53,7 +53,67 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns>String value without extra spaces</returns>
 		internal static string CollapseWhitespace(string value)
 		{
-			return _whitespaceRegex.Replace(value, " ");
+			if (value == null)
+			{
+				throw new ArgumentNullException("value");
+			}
+
+			if (value.Length == 0
+				|| (value.IndexOfAny(_otherWhitespaceChars) == -1 && value.IndexOf("  ", StringComparison.Ordinal) == -1))
+			{
+				return value;
+			}
+
+			StringBuilder sb = null;
+			bool previousWhitespace = false;
+			int previousCharIndex = 0;
+			int charCount = value.Length;
+
+			for (int charIndex = 0; charIndex < charCount; charIndex++)
+			{
+				char charValue = value[charIndex];
+				bool currentWhitespace = charValue.IsWhitespace();
+
+				if (currentWhitespace)
+				{
+					if (previousWhitespace || charValue != ' ')
+					{
+						if (sb == null)
+						{
+							sb = new StringBuilder();
+						}
+
+						if (previousCharIndex < charIndex)
+						{
+							sb.Append(value, previousCharIndex, charIndex - previousCharIndex);
+						}
+
+						if (!previousWhitespace)
+						{
+							sb.Append(' ');
+						}
+
+						previousCharIndex = charIndex + 1;
+					}
+				}
+
+				previousWhitespace = currentWhitespace;
+			}
+
+			if (sb == null)
+			{
+				return value;
+			}
+
+			if (previousCharIndex < charCount)
+			{
+				sb.Append(value, previousCharIndex, charCount - previousCharIndex);
+			}
+
+			string result = sb.ToString();
+			sb.Clear();
+
+			return result;
 		}
 
 		/// <summary>
@@ -63,11 +123,84 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns>String value without ending semicolon</returns>
 		internal static string RemoveEndingSemicolon(string value)
 		{
-			return _endingSemicolonWithSpacesRegex.Replace(value, string.Empty);
+			if (value == null)
+			{
+				throw new ArgumentNullException("value");
+			}
+
+			if (value.Length == 0)
+			{
+				return value;
+			}
+
+			string result = value;
+
+			Match match = _endingSemicolonWithSpacesRegex.Match(value);
+			if (match.Success)
+			{
+				result = value.Substring(0, match.Index);
+			}
+
+			return result;
 		}
 
 		/// <summary>
-		/// Removes a BOM from text content
+		/// Removes a prefix and postfix
+		/// </summary>
+		/// <param name="value">String value</param>
+		/// <param name="prefixRegex">Prefix regular expression</param>
+		/// <param name="postfixRegex">Postfix regular expression</param>
+		/// <returns>String value without prefix and postfix</returns>
+		internal static string RemovePrefixAndPostfix(string value, Regex prefixRegex, Regex postfixRegex)
+		{
+			if (value == null)
+			{
+				throw new ArgumentNullException("value");
+			}
+
+			if (prefixRegex == null)
+			{
+				throw new ArgumentNullException("prefixRegex");
+			}
+
+			if (postfixRegex == null)
+			{
+				throw new ArgumentNullException("postfixRegex");
+			}
+
+			if (value.Length == 0)
+			{
+				return value;
+			}
+
+			int startPosition = 0;
+			int length = value.Length;
+
+			Match prefixMatch = prefixRegex.Match(value);
+			if (prefixMatch.Success)
+			{
+				startPosition = prefixMatch.Length;
+				length -= prefixMatch.Length;
+			}
+			Match postfixMatch = postfixRegex.Match(value, startPosition, length);
+
+			if (!prefixMatch.Success && !postfixMatch.Success)
+			{
+				return value;
+			}
+
+			if (postfixMatch.Success)
+			{
+				length -= postfixMatch.Length;
+			}
+
+			string result = value.Substring(startPosition, length);
+
+			return result;
+		}
+
+		/// <summary>
+		/// Removes a BOM from value content
 		/// </summary>
 		/// <param name="value">String value</param>
 		/// <returns>String value without BOM</returns>
@@ -96,12 +229,17 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns>true if the value contains an upper case letters; otherwise, false</returns>
 		internal static bool ContainsUppercaseCharacters(string value)
 		{
-			int characterCount = value.Length;
-
-			for (int characterIndex = 0; characterIndex < characterCount; characterIndex++)
+			if (value == null)
 			{
-				char character = value[characterIndex];
-				if (char.IsLetter(character) && char.IsUpper(character))
+				throw new ArgumentNullException("value");
+			}
+
+			int charCount = value.Length;
+
+			for (int charIndex = 0; charIndex < charCount; charIndex++)
+			{
+				char charValue = value[charIndex];
+				if (char.IsLetter(charValue) && char.IsUpper(charValue))
 				{
 					return true;
 				}

@@ -10,31 +10,93 @@ namespace WebMarkupMin.Core.Helpers
 	/// </summary>
 	internal static class HtmlTagFlagsHelpers
 	{
+		#region HTML tags
+
+		/// <summary>
+		/// List of HTML tags
+		/// </summary>
+		private static readonly HashSet<string> _htmlTags = new HashSet<string>
+		{
+			// HTML5
+			"a", "abbr", "address", "area", "article", "aside", "audio",
+			"b", "base", "bdi", "bdo", "blockquote", "body", "br", "button",
+			"canvas", "caption", "cite", "code", "col", "colgroup",
+			"data", "datalist", "dd", "del", "details", "dfn", "dialog", "div", "dl", "dt",
+			"element", "em", "embed",
+			"fieldset", "figcaption", "figure", "footer", "form",
+			"h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hgroup", "hr", "html",
+			"i", "iframe", "img", "input", "ins",
+			"kbd", "keygen",
+			"label", "legend", "li", "link",
+			"main", "map", "mark", "menu", "menuitem", "meta", "meter",
+			"nav", "noscript",
+			"object", "ol", "optgroup", "option", "output",
+			"p", "param", "picture", "pre", "progress",
+			"q",
+			"rb", "rbc", "rp", "rt", "rtc", "ruby",
+			"s", "samp", "script", "section", "select", "shadow", "small", "source", "span", "strong", "style", "sub", "summary", "sup",
+			"table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead", "time", "title", "tr", "track",
+			"u", "ul",
+			"var", "video",
+			"wbr",
+
+			// Obsolete
+			"acronym", "applet",
+			"basefont", "big",
+			"command",
+			"dir",
+			"font",
+			"listing",
+			"marquee",
+			"plaintext",
+			"spacer", "strike",
+			"tt",
+			"xmp",
+
+			// Deprecated
+			"blink",
+			"center", "content",
+			"frame", "frameset",
+			"isindex",
+			"multicol",
+			"nextid", "noembed",
+			"noframes",
+
+			// Nonstandard
+			"bgsound",
+			"comment",
+			"image",
+			"nobr"
+		};
+
+		#endregion
+
 		#region Invisible tags
 
 		/// <summary>
 		/// List of invisible tags
 		/// </summary>
-		private static readonly HashSet<string> _invisibleTags = Utils.UnionHashSets(
+		private static readonly HashSet<string> _invisibleTags = new HashSet<string>
+		{
 			// HTML5
-			new []
-			{
-				"base", "body",
-				"datalist", "dialog",
-				"head", "html",
-				"link",
-				"meta",
-				"param",
-				"script", "source", "style",
-				"template", "title", "track"
-			},
+			"base", "body",
+			"datalist", "dialog",
+			"head", "html",
+			"link",
+			"meta",
+			"param",
+			"script", "source", "style",
+			"template", "title", "track",
+
+			// Obsolete
+			"basefont",
 
 			// Deprecated
-			new []
-			{
-				"basefont", "bgsound"
-			}
-		);
+			"nextid",
+
+			// Nonstandard
+			"bgsound"
+		};
 
 		#endregion
 
@@ -43,30 +105,30 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of empty tags
 		/// </summary>
-		private static readonly HashSet<string> _emptyTags = Utils.UnionHashSets(
+		private static readonly HashSet<string> _emptyTags = new HashSet<string>
+		{
 			// HTML5
-			new []
-			{
-				"area",
-				"base", "basefont", "br",
-				"col",
-				"embed",
-				"frame",
-				"hr",
-				"img", "input",
-				"link",
-				"meta",
-				"param",
-				"source",
-				"track"
-			},
+			"area",
+			"base", "br",
+			"col",
+			"embed",
+			"hr",
+			"img", "input",
+			"link",
+			"meta",
+			"param",
+			"source",
+			"track",
+			"wbr",
+
+			// Obsolete
+			"basefont",
 
 			// Deprecated
-			new []
-			{
-				"isindex"
-			}
-		);
+			"frame",
+			"isindex",
+			"nextid"
+		};
 
 		#endregion
 
@@ -75,32 +137,38 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of block tags
 		/// </summary>
-		private static readonly HashSet<string> _blockTags = Utils.UnionHashSets(
+		private static readonly HashSet<string> _blockTags = new HashSet<string>
+		{
 			// HTML5
-			new []
-			{
-				"address", "article", "aside",
-				"blockquote",
-				"caption", "col", "colgroup", "command",
-				"dd", "details", "dialog", "div", "dl", "dt",
-				"fieldset", "figcaption", "figure", "footer", "form",
-				"h1", "h2", "h3", "h4", "h5", "h6", "header", "hgroup", "hr",
-				"legend", "li",
-				"main", "menu", "menuitem",
-				"noscript",
-				"ol",
-				"p", "pre",
-				"section", "summary",
-				"table", "tbody", "td", "tfoot", "th", "thead", "tr",
-				"ul"
-			},
+			"address", "article", "aside",
+			"blockquote",
+			"caption", "col", "colgroup",
+			"dd", "details", "dialog", "div", "dl", "dt",
+			"fieldset", "figcaption", "figure", "footer", "form",
+			"h1", "h2", "h3", "h4", "h5", "h6", "header", "hgroup", "hr",
+			"legend", "li",
+			"main", "menu", "menuitem",
+			"noscript",
+			"ol",
+			"p", "pre",
+			"section", "summary",
+			"table", "tbody", "td", "tfoot", "th", "thead", "tr",
+			"ul",
+
+			// Obsolete
+			"command",
+			"dir",
+			"marquee",
+			"plaintext",
+			"xmp",
 
 			// Deprecated
-			new []
-			{
-				"center", "dir", "frame", "frameset", "isindex", "marquee", "noframes"
-			}
-		);
+			"center",
+			"frame", "frameset",
+			"isindex",
+			"multicol",
+			"noframes"
+		};
 
 		#endregion
 
@@ -109,35 +177,41 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of inline tags
 		/// </summary>
-		private static readonly HashSet<string> _inlineTags = Utils.UnionHashSets(
+		private static readonly HashSet<string> _inlineTags = new HashSet<string>
+		{
 			// HTML5
-			new []
-			{
-				"a", "abbr",
-				"b", "bdi", "bdo", "br",
-				"cite", "code",
-				"data", "dfn",
-				"em",
-				"i", "img", "input",
-				"kbd", "keygen",
-				"label",
-				"mark", "meter",
-				"optgroup", "option", "output",
-				"progress",
-				"q",
-				"rb", "rp", "rt", "rtc", "ruby",
-				"samp", "select", "small", "span", "strong", "sub", "sup",
-				"textarea", "time",
-				"var",
-				"wbr"
-			},
+			"a", "abbr",
+			"b", "bdi", "bdo", "br",
+			"cite", "code",
+			"data", "dfn",
+			"em",
+			"i", "img", "input",
+			"kbd", "keygen",
+			"label",
+			"mark", "meter",
+			"optgroup", "option", "output",
+			"picture", "progress",
+			"q",
+			"rb", "rp", "rt", "rtc", "ruby",
+			"s", "samp", "select", "small", "span", "strong", "sub", "sup",
+			"textarea", "time",
+			"u",
+			"var",
+			"wbr",
+
+			// Obsolete
+			"acronym",
+			"big",
+			"font",
+			"spacer", "strike",
+			"tt",
 
 			// Deprecated
-			new []
-			{
-				"acronym", "big", "blink", "font", "nobr", "s", "strike", "tt", "u"
-			}
-		);
+			"blink", "content",
+
+			// Nonstandard
+			"comment", "image", "nobr"
+		};
 
 		#endregion
 
@@ -146,28 +220,27 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of inline-block tags
 		/// </summary>
-		private static readonly HashSet<string> _inlineBlockTags = Utils.UnionHashSets(
+		private static readonly HashSet<string> _inlineBlockTags = new HashSet<string>
+		{
 			// HTML5
-			new []
-			{
-				"area", "audio",
-				"button",
-				"canvas",
-				"del",
-				"embed",
-				"iframe", "ins",
-				"map", "math",
-				"object",
-				"script", "svg",
-				"video"
-			},
+			"area", "audio",
+			"button",
+			"canvas",
+			"del",
+			"embed",
+			"iframe", "ins",
+			"map", "math",
+			"object",
+			"script", "svg",
+			"video",
+
+			// Obsolete
+			"applet",
+			"listing",
 
 			// Deprecated
-			new []
-			{
-				"applet"
-			}
-		);
+			"noembed"
+		};
 
 		#endregion
 
@@ -176,29 +249,27 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of non-independent tags
 		/// </summary>
-		private static readonly HashSet<string> _nonIndependentTags = Utils.UnionHashSets(
+		private static readonly HashSet<string> _nonIndependentTags = new HashSet<string>
+		{
 			// HTML5
-			new []
-			{
-				"area",
-				"caption", "col", "colgroup",
-				"dd", "dt",
-				"figcaption", "frame",
-				"legend", "li",
-				"menuitem",
-				"optgroup", "option",
-				"param",
-				"rb", "rp", "rt", "rtc",
-				"source",
-				"tbody", "td", "tfoot", "th", "thead", "tr", "track"
-			},
+			"area",
+			"caption", "col", "colgroup",
+			"dd", "dt",
+			"figcaption",
+			"legend", "li",
+			"menuitem",
+			"optgroup", "option",
+			"param",
+			"rb", "rp", "rt", "rtc",
+			"source",
+			"tbody", "td", "tfoot", "th", "thead", "tr", "track",
+
+			// Obsolete
+			"command",
 
 			// Deprecated
-			new []
-			{
-				"command"
-			}
-		);
+			"frame"
+		};
 
 		#endregion
 
@@ -246,6 +317,39 @@ namespace WebMarkupMin.Core.Helpers
 
 		#endregion
 
+		/// <summary>
+		/// Checks whether the tag is HTML
+		/// </summary>
+		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
+		/// <returns>Result of check (true - HTML; false - not HTML)</returns>
+		public static bool IsHtmlTag(string tagNameInLowercase)
+		{
+			bool isHtmlTag = false;
+			int charCount = tagNameInLowercase.Length;
+
+			if (charCount > 0 && tagNameInLowercase[0].IsAlphaLower())
+			{
+				isHtmlTag = true;
+
+				for (int charIndex = 1; charIndex < charCount; charIndex++)
+				{
+					char charValue = tagNameInLowercase[charIndex];
+
+					if (!charValue.IsAlphaLower() && !charValue.IsNumeric())
+					{
+						isHtmlTag = false;
+						break;
+					}
+				}
+
+				if (isHtmlTag)
+				{
+					isHtmlTag = _htmlTags.Contains(tagNameInLowercase);
+				}
+			}
+
+			return isHtmlTag;
+		}
 
 		/// <summary>
 		/// Checks whether the tag is invisible

@@ -106,8 +106,6 @@ namespace WebMarkupMin.Core
 		private static readonly Regex _relExternalAttributeRegex = new Regex(@"^(?:alternate\s+)?external$",
 			RegexOptions.IgnoreCase);
 
-		private static readonly Regex _customTagAndAttributeNameRegex = new Regex(@"[^a-zA-Z0-9]");
-
 		#endregion
 
 		#region Lists of tags and attributes
@@ -160,7 +158,7 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		private static readonly HashSet<string> _jsContentTypes = new HashSet<string>
 		{
-			"text/javascript", "text/ecmascript", "application/ecmascript", "application/javascript"
+			"text/javascript", "text/ecmascript", "application/javascript", "application/ecmascript"
 		};
 
 		/// <summary>
@@ -255,11 +253,6 @@ namespace WebMarkupMin.Core
 		private List<string> _buffer;
 
 		private Queue<string> _tagsWithNotRemovableWhitespaceQueue;
-
-		/// <summary>
-		/// Stack of XML-based tags
-		/// </summary>
-		private Stack<string> _xmlTagStack;
 
 		/// <summary>
 		/// Current node type
@@ -473,7 +466,6 @@ namespace WebMarkupMin.Core
 					_errors = new List<MinificationErrorInfo>();
 					_warnings = new List<MinificationErrorInfo>();
 					_tagsWithNotRemovableWhitespaceQueue = new Queue<string>();
-					_xmlTagStack = new Stack<string>();
 					_currentNodeType = HtmlNodeType.Unknown;
 					_currentTag = null;
 					_currentText = string.Empty;
@@ -502,7 +494,6 @@ namespace WebMarkupMin.Core
 					_result.Clear();
 					_buffer.Clear();
 					_tagsWithNotRemovableWhitespaceQueue.Clear();
-					_xmlTagStack.Clear();
 					_currentTag = null;
 
 					errors.AddRange(_errors);
@@ -620,7 +611,7 @@ namespace WebMarkupMin.Core
 			{
 				// Processing of noindex comment
 				Match noindexCommentMatch = _noindexCommentRegex.Match(commentText);
-				processedCommentText = noindexCommentMatch.Groups["closingSlash"].Length > 0 ? "/noindex" : "noindex";
+				processedCommentText = noindexCommentMatch.Groups["closingSlash"].Success ? "/noindex" : "noindex";
 			}
 			else if (KnockoutHelpers.IsEndContainerlessComment(commentText))
 			{
@@ -804,8 +795,7 @@ namespace WebMarkupMin.Core
 					bool allowTrimEnd = false;
 					if (tagFlags.HasFlag(HtmlTagFlags.Invisible)
 						|| (tagFlags.HasFlag(HtmlTagFlags.NonIndependent)
-							&& CanRemoveWhitespaceBetweenNonIndependentTags(previousTag, tag))
-						|| _xmlTagStack.Count > 0)
+							&& CanRemoveWhitespaceBetweenNonIndependentTags(previousTag, tag)))
 					{
 						allowTrimEnd = true;
 					}
@@ -828,11 +818,6 @@ namespace WebMarkupMin.Core
 				{
 					_tagsWithNotRemovableWhitespaceQueue.Enqueue(tagNameInLowercase);
 				}
-			}
-
-			if (tagFlags.HasFlag(HtmlTagFlags.Xml))
-			{
-				_xmlTagStack.Push(tagNameInLowercase);
 			}
 
 			if (previousNodeType != HtmlNodeType.StartTag)
@@ -867,7 +852,7 @@ namespace WebMarkupMin.Core
 			{
 				HtmlEmptyTagRenderMode emptyTagRenderMode = _settings.EmptyTagRenderMode;
 
-				if (emptyTagRenderMode == HtmlEmptyTagRenderMode.NoSlash && _xmlTagStack.Count > 0)
+				if (emptyTagRenderMode == HtmlEmptyTagRenderMode.NoSlash && tagFlags.HasFlag(HtmlTagFlags.Xml))
 				{
 					emptyTagRenderMode = HtmlEmptyTagRenderMode.SpaceAndSlash;
 				}
@@ -990,11 +975,6 @@ namespace WebMarkupMin.Core
 			_buffer.Add("</");
 			_buffer.Add(CanPreserveCase() ? tagName : tagNameInLowercase);
 			_buffer.Add(">");
-
-			if (tagFlags.HasFlag(HtmlTagFlags.Xml))
-			{
-				_xmlTagStack.Pop();
-			}
 		}
 
 		/// <summary>
@@ -1074,8 +1054,7 @@ namespace WebMarkupMin.Core
 							// Processing of whitespace, that followed after the start tag
 							bool allowTrimStart = false;
 							if (tagFlags.HasFlag(HtmlTagFlags.Invisible)
-								|| (tagFlags.HasFlag(HtmlTagFlags.NonIndependent) && tagFlags.HasFlag(HtmlTagFlags.Empty))
-								|| (_xmlTagStack.Count > 0 && tagFlags.HasFlag(HtmlTagFlags.Empty)))
+								|| (tagFlags.HasFlag(HtmlTagFlags.NonIndependent) && tagFlags.HasFlag(HtmlTagFlags.Empty)))
 							{
 								allowTrimStart = true;
 							}
@@ -1104,8 +1083,7 @@ namespace WebMarkupMin.Core
 							bool allowTrimStart = false;
 							if (tagFlags.HasFlag(HtmlTagFlags.Invisible)
 								|| (tagFlags.HasFlag(HtmlTagFlags.NonIndependent)
-									&& CanRemoveWhitespaceAfterEndNonIndependentTag(tag))
-								|| _xmlTagStack.Count > 0)
+									&& CanRemoveWhitespaceAfterEndNonIndependentTag(tag)))
 							{
 								allowTrimStart = true;
 							}
@@ -1130,7 +1108,8 @@ namespace WebMarkupMin.Core
 							text = text.TrimStart();
 						}
 
-						if (text.Length > 0 && _xmlTagStack.Count == 0)
+						if (text.Length > 0
+							&& !(tagFlags.HasFlag(HtmlTagFlags.Xml) && tagFlags.HasFlag(HtmlTagFlags.NonIndependent)))
 						{
 							text = Utils.CollapseWhitespace(text);
 						}
@@ -1353,7 +1332,7 @@ namespace WebMarkupMin.Core
 			HtmlAttributeType attributeType = attribute.Type;
 			bool useHtmlSyntax = !_settings.UseXhtmlSyntax;
 
-			if (useHtmlSyntax && IsXmlAttribute(attribute))
+			if (useHtmlSyntax && attributeType == HtmlAttributeType.Xml && attributeNameInLowercase != "xmlns")
 			{
 				string sourceCode = context.SourceCode;
 				SourceCodeNodeCoordinates attributeCoordinates = attribute.NameCoordinates;
@@ -1367,7 +1346,7 @@ namespace WebMarkupMin.Core
 			if ((_settings.RemoveRedundantAttributes && IsAttributeRedundant(tag, attribute))
 				|| (_settings.RemoveJsTypeAttributes && IsJavaScriptTypeAttribute(tag, attribute))
 				|| (_settings.RemoveCssTypeAttributes && IsCssTypeAttribute(tag, attribute))
-				|| (useHtmlSyntax && CanRemoveXmlAttribute(tag, attribute)))
+				|| (useHtmlSyntax && CanRemoveXmlNamespaceAttribute(tag, attribute)))
 			{
 				attributeString = string.Empty;
 				return attributeString;
@@ -1378,7 +1357,7 @@ namespace WebMarkupMin.Core
 			{
 				if (useHtmlSyntax)
 				{
-					attributeString = InnerBuildAttributeString(tag, attribute, true, false);
+					attributeString = InnerBuildAttributeString(attribute, true, false);
 					return attributeString;
 				}
 
@@ -1432,7 +1411,7 @@ namespace WebMarkupMin.Core
 						processedAttributeValue = Utils.RemoveEndingSemicolon(processedAttributeValue);
 						break;
 					default:
-						if (_settings.MinifyAngularBindingExpressions)
+						if (_settings.MinifyAngularBindingExpressions && tag.Flags.HasFlag(HtmlTagFlags.Custom))
 						{
 							string elementDirectiveName = AngularHelpers.NormalizeDirectiveName(tagNameInLowercase);
 							if (elementDirectiveName == "ngPluralize" && attributeNameInLowercase == "when")
@@ -1451,7 +1430,7 @@ namespace WebMarkupMin.Core
 			{
 				if (_settings.CollapseBooleanAttributes)
 				{
-					attributeString = InnerBuildAttributeString(tag, attribute, true, false);
+					attributeString = InnerBuildAttributeString(attribute, true, false);
 					return attributeString;
 				}
 
@@ -1471,13 +1450,13 @@ namespace WebMarkupMin.Core
 				}
 			}
 
-			bool addQuotes = !CanRemoveAttributeQuotes(tag, attribute, _settings.AttributeQuotesRemovalMode);
-			attributeString = InnerBuildAttributeString(tag, attribute, false, addQuotes);
+			bool addQuotes = !CanRemoveAttributeQuotes(attribute, _settings.AttributeQuotesRemovalMode);
+			attributeString = InnerBuildAttributeString(attribute, false, addQuotes);
 
 			return attributeString;
 		}
 
-		private string InnerBuildAttributeString(HtmlTag tag, HtmlAttribute attribute, bool omitValue, bool addQuotes)
+		private string InnerBuildAttributeString(HtmlAttribute attribute, bool omitValue, bool addQuotes)
 		{
 			string attributeString;
 			string displayAttributeName = CanPreserveCase() ? attribute.Name : attribute.NameInLowercase;
@@ -1519,14 +1498,12 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Checks whether it is possible to remove the attribute quotes
 		/// </summary>
-		/// <param name="tag">Tag</param>
 		/// <param name="attribute">Attribute</param>
 		/// <param name="attributeQuotesRemovalMode">Removal mode of HTML attribute quotes</param>
 		/// <returns>Result of check (true - can remove; false - cannot remove)</returns>
-		private static bool CanRemoveAttributeQuotes(HtmlTag tag, HtmlAttribute attribute,
+		private static bool CanRemoveAttributeQuotes(HtmlAttribute attribute,
 			HtmlAttributeQuotesRemovalMode attributeQuotesRemovalMode)
 		{
-			HtmlTagFlags tagFlags = tag.Flags;
 			string attributeValue = attribute.Value;
 			bool result = false;
 
@@ -1629,17 +1606,38 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Checks whether the attribute is XML-based
+		/// Checks whether the attribute is custom
 		/// </summary>
 		/// <param name="attribute">Attribute</param>
-		/// <returns>Result of check (true - XML-based; false - not XML-based)</returns>
-		private static bool IsXmlAttribute(HtmlAttribute attribute)
+		/// <returns>Result of check</returns>
+		private static bool IsCustomAttribute(HtmlAttribute attribute)
 		{
-			string attributeNameInLowercase = attribute.NameInLowercase;
-			bool isXmlAttribute = attributeNameInLowercase.StartsWith("xml:", StringComparison.Ordinal)
-				|| attributeNameInLowercase.StartsWith("xmlns:", StringComparison.Ordinal);
+			bool isCustomAttribute = false;
 
-			return isXmlAttribute;
+			if (attribute.Type == HtmlAttributeType.Text)
+			{
+				string attributeNameInLowercase = attribute.NameInLowercase;
+				int charCount = attributeNameInLowercase.Length;
+
+				for (int charIndex = 0; charIndex < charCount; charIndex++)
+				{
+					char charValue = attributeNameInLowercase[charIndex];
+
+					if (!charValue.IsAlphaLower())
+					{
+						isCustomAttribute = true;
+						break;
+					}
+				}
+
+				if (isCustomAttribute)
+				{
+					isCustomAttribute = attributeNameInLowercase != "accept-charset"
+						&& attributeNameInLowercase != "http-equiv";
+				}
+			}
+
+			return isCustomAttribute;
 		}
 
 		/// <summary>
@@ -1823,7 +1821,7 @@ namespace WebMarkupMin.Core
 		/// <returns>Result of check (true - can be preserved; false - can not be preserved)</returns>
 		private bool CanPreserveCase()
 		{
-			return _settings.PreserveCase || _xmlTagStack.Count > 0;
+			return _settings.PreserveCase || _currentTag.Flags.HasFlag(HtmlTagFlags.Xml);
 		}
 
 		/// <summary>
@@ -1860,18 +1858,14 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Checks whether remove an the XML-based attribute
+		/// Checks whether remove an the <code>xmlns</code> attribute
 		/// </summary>
 		/// <param name="tag">Tag</param>
 		/// <param name="attribute">Attribute</param>
 		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
-		private static bool CanRemoveXmlAttribute(HtmlTag tag, HtmlAttribute attribute)
+		private static bool CanRemoveXmlNamespaceAttribute(HtmlTag tag, HtmlAttribute attribute)
 		{
-			string tagNameInLowercase = tag.NameInLowercase;
-			string attributeNameInLowercase = attribute.NameInLowercase;
-
-			return attributeNameInLowercase == "xmlns"
-				&& (tagNameInLowercase == "html" || tagNameInLowercase == "svg" || tagNameInLowercase == "math");
+			return tag.NameInLowercase == "html" && attribute.NameInLowercase == "xmlns";
 		}
 
 		/// <summary>
@@ -2167,11 +2161,13 @@ namespace WebMarkupMin.Core
 		private static bool CanRemoveTagWithoutContent(HtmlTag tag)
 		{
 			string tagNameInLowercase = tag.NameInLowercase;
+			HtmlTagFlags tagFlags = tag.Flags;
 			IList<HtmlAttribute> attributes = tag.Attributes;
 
-			return !(_customTagAndAttributeNameRegex.IsMatch(tagNameInLowercase)
+			return !(tagFlags.HasFlag(HtmlTagFlags.Custom)
+				|| (tagFlags.HasFlag(HtmlTagFlags.Xml) && tagFlags.HasFlag(HtmlTagFlags.NonIndependent))
 				|| _unremovableEmptyTags.Contains(tagNameInLowercase)
-				|| attributes.Any(a => _customTagAndAttributeNameRegex.IsMatch(a.NameInLowercase)
+				|| attributes.Any(a => IsCustomAttribute(a)
 					|| (_unremovableEmptyTagAttributes.Contains(a.NameInLowercase) && !string.IsNullOrWhiteSpace(a.Value))));
 		}
 
@@ -2222,8 +2218,7 @@ namespace WebMarkupMin.Core
 						startPart = "<![CDATA[";
 						endPart = "]]>";
 
-						code = _beginCdataSectionRegex.Replace(content, string.Empty);
-						code = _endCdataSectionRegex.Replace(code, string.Empty);
+						code = Utils.RemovePrefixAndPostfix(content, _beginCdataSectionRegex, _endCdataSectionRegex);
 					}
 					else if (_scriptBeginCdataSectionRegex.IsMatch(content))
 					{
@@ -2235,8 +2230,8 @@ namespace WebMarkupMin.Core
 							endPart = "//]]>";
 						}
 
-						code = _scriptBeginCdataSectionRegex.Replace(content, string.Empty);
-						code = _scriptEndCdataSectionRegex.Replace(code, string.Empty);
+						code = Utils.RemovePrefixAndPostfix(content, _scriptBeginCdataSectionRegex,
+							_scriptEndCdataSectionRegex);
 					}
 					else if (_scriptBeginMaxCompatibleCdataSectionRegex.IsMatch(content))
 					{
@@ -2248,8 +2243,8 @@ namespace WebMarkupMin.Core
 							endPart = "//--><!]]>";
 						}
 
-						code = _scriptBeginMaxCompatibleCdataSectionRegex.Replace(content, string.Empty);
-						code = _scriptEndMaxCompatibleCdataSectionRegex.Replace(code, string.Empty);
+						code = Utils.RemovePrefixAndPostfix(content, _scriptBeginMaxCompatibleCdataSectionRegex,
+							_scriptEndMaxCompatibleCdataSectionRegex);
 					}
 					else if (_scriptBeginHtmlCommentRegex.IsMatch(content))
 					{
@@ -2261,8 +2256,8 @@ namespace WebMarkupMin.Core
 							endPart = "//-->";
 						}
 
-						code = _scriptBeginHtmlCommentRegex.Replace(content, string.Empty);
-						code = _scriptEndHtmlCommentRegex.Replace(code, string.Empty);
+						code = Utils.RemovePrefixAndPostfix(content, _scriptBeginHtmlCommentRegex,
+							_scriptEndHtmlCommentRegex);
 					}
 
 					if (_settings.MinifyEmbeddedJsCode)
@@ -2318,8 +2313,7 @@ namespace WebMarkupMin.Core
 							endPart = "]]>";
 						}
 
-						code = _beginCdataSectionRegex.Replace(content, string.Empty);
-						code = _endCdataSectionRegex.Replace(code, string.Empty);
+						code = Utils.RemovePrefixAndPostfix(content, _beginCdataSectionRegex, _endCdataSectionRegex);
 					}
 					else if (_beginHtmlCommentRegex.IsMatch(content))
 					{
@@ -2329,8 +2323,7 @@ namespace WebMarkupMin.Core
 							endPart = "-->";
 						}
 
-						code = _beginHtmlCommentRegex.Replace(content, string.Empty);
-						code = _endHtmlCommentRegex.Replace(code, string.Empty);
+						code = Utils.RemovePrefixAndPostfix(content, _beginHtmlCommentRegex, _endHtmlCommentRegex);
 					}
 				}
 
@@ -2428,8 +2421,7 @@ namespace WebMarkupMin.Core
 				endPart = "]]>";
 				newLine = Environment.NewLine;
 
-				code = _beginCdataSectionRegex.Replace(content, string.Empty);
-				code = _endCdataSectionRegex.Replace(code, string.Empty);
+				code = Utils.RemovePrefixAndPostfix(content, _beginCdataSectionRegex, _endCdataSectionRegex);
 			}
 			else if (_styleBeginCdataSectionRegex.IsMatch(content))
 			{
@@ -2441,8 +2433,7 @@ namespace WebMarkupMin.Core
 					endPart = "/*]]>*/";
 				}
 
-				code = _styleBeginCdataSectionRegex.Replace(content, string.Empty);
-				code = _styleEndCdataSectionRegex.Replace(code, string.Empty);
+				code = Utils.RemovePrefixAndPostfix(content, _styleBeginCdataSectionRegex, _styleEndCdataSectionRegex);
 			}
 			else if (_styleBeginMaxCompatibleCdataSectionRegex.IsMatch(content))
 			{
@@ -2454,8 +2445,8 @@ namespace WebMarkupMin.Core
 					endPart = "/*]]>*/-->";
 				}
 
-				code = _styleBeginMaxCompatibleCdataSectionRegex.Replace(content, string.Empty);
-				code = _styleEndMaxCompatibleCdataSectionRegex.Replace(code, string.Empty);
+				code = Utils.RemovePrefixAndPostfix(content, _styleBeginMaxCompatibleCdataSectionRegex,
+					_styleEndMaxCompatibleCdataSectionRegex);
 			}
 			else if (_beginHtmlCommentRegex.IsMatch(content))
 			{
@@ -2467,8 +2458,7 @@ namespace WebMarkupMin.Core
 					endPart = "-->";
 				}
 
-				code = _beginHtmlCommentRegex.Replace(content, string.Empty);
-				code = _endHtmlCommentRegex.Replace(code, string.Empty);
+				code = Utils.RemovePrefixAndPostfix(content, _beginHtmlCommentRegex, _endHtmlCommentRegex);
 			}
 			else
 			{
@@ -2785,16 +2775,20 @@ namespace WebMarkupMin.Core
 			IList<HtmlAttribute> attributes = tag.Attributes;
 
 			bool canMinify = false;
-			string elementDirectiveName = AngularHelpers.NormalizeDirectiveName(tagNameInLowercase);
 
-			switch (elementDirectiveName)
+			if (tag.Flags.HasFlag(HtmlTagFlags.Custom))
 			{
-				case "ngPluralize":
-					canMinify = attributeNameInLowercase == "count" || attributeNameInLowercase == "when";
-					break;
-				case "ngMessages":
-					canMinify = attributeNameInLowercase == "for";
-					break;
+				string elementDirectiveName = AngularHelpers.NormalizeDirectiveName(tagNameInLowercase);
+
+				switch (elementDirectiveName)
+				{
+					case "ngPluralize":
+						canMinify = attributeNameInLowercase == "count" || attributeNameInLowercase == "when";
+						break;
+					case "ngMessages":
+						canMinify = attributeNameInLowercase == "for";
+						break;
+				}
 			}
 
 			if (!canMinify)

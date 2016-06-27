@@ -273,6 +273,7 @@ namespace WebMarkupMin.Core.Test.Html
 				"</svg>"
 				;
 			const string targetOutput2 = "<svg version=\"1.1\" baseProfile=\"full\" " +
+				"xmlns=\"http://www.w3.org/2000/svg\" " +
 				"xmlns:xlink=\"http://www.w3.org/1999/xlink\" " +
 				"xmlns:ev=\"http://www.w3.org/2001/xml-events\" " +
 				"width=\"100%\" height=\"100%\">\n" +
@@ -293,7 +294,7 @@ namespace WebMarkupMin.Core.Test.Html
 				"	</svg>\n" +
 				"</svg>"
 				;
-			const string targetOutput3 = "<svg " +
+			const string targetOutput3 = "<svg xmlns=\"http://www.w3.org/2000/svg\" " +
 				"xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n" +
 				"	<svg x=\"10\">\n" +
 				"		<rect x=\"10\" y=\"10\" height=\"100\" width=\"100\" " +
@@ -309,10 +310,7 @@ namespace WebMarkupMin.Core.Test.Html
 				"	<infinity />\n" +
 				"</math>"
 				;
-			const string targetOutput4 = "<math>\n" +
-				"	<infinity />\n" +
-				"</math>"
-				;
+			const string targetOutput4 = input4;
 
 			// Act
 			MarkupMinificationResult result1 = minifier.Minify(input1);
@@ -480,17 +478,50 @@ namespace WebMarkupMin.Core.Test.Html
 				"Some text…</div>";
 			const string targetOutput4 = "<div class=\"b-dropdowna i-bem b-dropdowna_is-bem_yes\">Some text…</div>";
 
+			const string input5 = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\r\n" +
+				"	<style type=\"text/css\"><![CDATA[\r\n" +
+				"	circle.myGreen {\r\n" +
+				"		stroke: #006600;\r\n" +
+				"		fill: #00cc00;\r\n" +
+				"	}\r\n" +
+				"	circle.myRed {\r\n" +
+				"		stroke: #660000;\r\n" +
+				"		fill: #cc0000;\r\n" +
+				"	}\r\n" +
+				"]]></style>\r\n" +
+				"	<circle class=\"\t  myGreen  \t\" cx=\"40\" cy=\"40\" r=\"24\" />\r\n" +
+				"	<circle class=\"\t  myRed  \t\" cx=\"40\" cy=\"100\" r=\"24\" />\r\n" +
+				"</svg>"
+				;
+			const string targetOutput5 = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\r\n" +
+				"	<style type=\"text/css\"><![CDATA[\r\n" +
+				"	circle.myGreen {\r\n" +
+				"		stroke: #006600;\r\n" +
+				"		fill: #00cc00;\r\n" +
+				"	}\r\n" +
+				"	circle.myRed {\r\n" +
+				"		stroke: #660000;\r\n" +
+				"		fill: #cc0000;\r\n" +
+				"	}\r\n" +
+				"]]></style>\r\n" +
+				"	<circle class=\"myGreen\" cx=\"40\" cy=\"40\" r=\"24\" />\r\n" +
+				"	<circle class=\"myRed\" cx=\"40\" cy=\"100\" r=\"24\" />\r\n" +
+				"</svg>"
+				;
+
 			// Act
 			string output1 = cleaningAttributesMinifier.Minify(input1).MinifiedContent;
 			string output2 = cleaningAttributesMinifier.Minify(input2).MinifiedContent;
 			string output3 = cleaningAttributesMinifier.Minify(input3).MinifiedContent;
 			string output4 = cleaningAttributesMinifier.Minify(input4).MinifiedContent;
+			string output5 = cleaningAttributesMinifier.Minify(input5).MinifiedContent;
 
 			// Assert
 			Assert.Equal(targetOutput1, output1);
 			Assert.Equal(targetOutput2, output2);
 			Assert.Equal(targetOutput3, output3);
 			Assert.Equal(targetOutput4, output4);
+			Assert.Equal(targetOutput5, output5);
 		}
 
 		[Fact]
@@ -505,13 +536,32 @@ namespace WebMarkupMin.Core.Test.Html
 			const string input2 = "<p style=\"font-weight: bold  ; \">Some text…</p>";
 			const string targetOutput2 = "<p style=\"font-weight: bold\">Some text…</p>";
 
+			const string input3 = "<svg>\n" +
+				"	<rect x=\"20\" y=\"20\" width=\"100\" height=\"100\" style=\"stroke: #009900;\n" +
+				"			 stroke-width: 3;\n" +
+				"			 stroke-dasharray: 10 5;\n" +
+				"			 fill: none;\n" +
+				"			\"\n" +
+				"		/>\n" +
+				"</svg>"
+				;
+			const string targetOutput3 = "<svg>\n" +
+				"	<rect x=\"20\" y=\"20\" width=\"100\" height=\"100\" style=\"stroke: #009900;\n" +
+				"			 stroke-width: 3;\n" +
+				"			 stroke-dasharray: 10 5;\n" +
+				"			 fill: none\" />\n" +
+				"</svg>"
+				;
+
 			// Act
 			string output1 = cleaningAttributesMinifier.Minify(input1).MinifiedContent;
 			string output2 = cleaningAttributesMinifier.Minify(input2).MinifiedContent;
+			string output3 = cleaningAttributesMinifier.Minify(input3).MinifiedContent;
 
 			// Assert
 			Assert.Equal(targetOutput1, output1);
 			Assert.Equal(targetOutput2, output2);
+			Assert.Equal(targetOutput3, output3);
 		}
 
 		[Fact]
@@ -660,15 +710,30 @@ namespace WebMarkupMin.Core.Test.Html
 			const string input3 = "<body onload=\"  initStatistics();   initForms() ;  \"><p>Some text…</p></body>";
 			const string targetOutput3 = "<body onload=\"initStatistics();   initForms()\"><p>Some text…</p></body>";
 
+			const string input4 = "<svg width=\"500\" height=\"100\">\n" +
+				"	<rect x=\"10\" y=\"10\" width=\"100\" height=\"75\"" +
+				" onmouseover=\"  this.style.stroke = '#ff0000'; this.style['stroke-width'] = 5;  \"" +
+				" onmouseout=\"  this.style.stroke = '#000000'; this.style['stroke-width'] = 1;  \" />\n" +
+				"</svg>"
+				;
+			const string targetOutput4 = "<svg width=\"500\" height=\"100\">\n" +
+				"	<rect x=\"10\" y=\"10\" width=\"100\" height=\"75\"" +
+				" onmouseover=\"this.style.stroke = '#ff0000'; this.style['stroke-width'] = 5\"" +
+				" onmouseout=\"this.style.stroke = '#000000'; this.style['stroke-width'] = 1\" />\n" +
+				"</svg>"
+				;
+
 			// Act
 			string output1 = cleaningAttributesMinifier.Minify(input1).MinifiedContent;
 			string output2 = cleaningAttributesMinifier.Minify(input2).MinifiedContent;
 			string output3 = cleaningAttributesMinifier.Minify(input3).MinifiedContent;
+			string output4 = cleaningAttributesMinifier.Minify(input4).MinifiedContent;
 
 			// Assert
 			Assert.Equal(targetOutput1, output1);
 			Assert.Equal(targetOutput2, output2);
 			Assert.Equal(targetOutput3, output3);
+			Assert.Equal(targetOutput4, output4);
 		}
 
 		[Fact]
@@ -4616,11 +4681,27 @@ namespace WebMarkupMin.Core.Test.Html
 			const string input22 = "<div custom-attribute=\"\"></div>";
 
 			const string input23 = "<div>\n" +
-				"\t<p>\t\n  </p>\n" +
+				"	<p>	\n  </p>\n" +
 				"</div>"
 				;
 			const string targetOutput23 = "<div>\n" +
-				"\t\n" +
+				"	\n" +
+				"</div>"
+				;
+
+			const string input24 = "<div>\n" +
+				"	<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"50\"></svg>\n" +
+				"</div>"
+				;
+			const string targetOutput24 = "<div>\n" +
+				"	\n" +
+				"</div>"
+				;
+
+			const string input25 = "<div>\n" +
+				"	<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"50\">\n" +
+				"		<text x=\"10\" y=\"20\" transform=\"rotate(30 20,40)\"></text>\n" +
+				"	</svg>\n" +
 				"</div>"
 				;
 
@@ -4648,6 +4729,8 @@ namespace WebMarkupMin.Core.Test.Html
 			string output21 = removingTagsWithoutContentMinifier.Minify(input21).MinifiedContent;
 			string output22 = removingTagsWithoutContentMinifier.Minify(input22).MinifiedContent;
 			string output23 = removingTagsWithoutContentMinifier.Minify(input23).MinifiedContent;
+			string output24 = removingTagsWithoutContentMinifier.Minify(input24).MinifiedContent;
+			string output25 = removingTagsWithoutContentMinifier.Minify(input25).MinifiedContent;
 
 			// Assert
 			Assert.Equal(input1, output1);
@@ -4673,6 +4756,8 @@ namespace WebMarkupMin.Core.Test.Html
 			Assert.Equal(targetOutput21, output21);
 			Assert.Equal(input22, output22);
 			Assert.Equal(targetOutput23, output23);
+			Assert.Equal(targetOutput24, output24);
+			Assert.Equal(input25, output25);
 		}
 
 		#endregion

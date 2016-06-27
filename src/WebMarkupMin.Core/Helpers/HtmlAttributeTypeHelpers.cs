@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 using WebMarkupMin.Core.Parsers;
 using WebMarkupMin.Core.Utilities;
@@ -18,41 +18,32 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of boolean attributes
 		/// </summary>
-		private static readonly HashSet<string> _booleanAttributes = Utils.UnionHashSets(
+		private static readonly HashSet<string> _booleanAttributes = new HashSet<string>
+		{
 			// HTML5
-			new []
-			{
-				"allowfullscreen", "async", "autofocus", "autoplay",
-				"challenge", "checked", "controls",
-				"default", "defer", "disabled",
-				"formnovalidate",
-				"hidden",
-				"indeterminate", "inert", "ismap", "itemscope",
-				"loop",
-				"multiple", "muted",
-				"novalidate",
-				"open",
-				"pubdate",
-				"readonly", "required", "reversed",
-				"scoped", "seamless", "selected", "sortable",
-				"typemustmatch"
-			},
+			"allowfullscreen", "async", "autofocus", "autoplay",
+			"checked", "controls",
+			"default", "defer", "disabled",
+			"formnovalidate",
+			"hidden",
+			"ismap", "itemscope",
+			"loop",
+			"multiple", "muted",
+			"novalidate",
+			"open",
+			"readonly", "required", "reversed",
+			"scoped", "selected",
+			"typemustmatch",
 
 			// Deprecated
-			new []
-			{
-				"compact", "declare", "nohref", "noresize", "noshade", "nowrap", "truespeed"
-			}
-		);
-
-		#endregion
-
-		#region Event attributes
-
-		/// <summary>
-		/// Regular expression for event attribute name
-		/// </summary>
-		private static readonly Regex _eventAttributeNameRegex = new Regex("^on[a-z]{3,}$", RegexOptions.IgnoreCase);
+			"compact",
+			"declare",
+			"inert",
+			"nohref", "noresize", "noshade", "nowrap",
+			"pubdate",
+			"seamless", "sortable",
+			"truespeed"
+		};
 
 		#endregion
 
@@ -346,9 +337,49 @@ namespace WebMarkupMin.Core.Helpers
 		/// <returns>Result of check (true - event; false - not event)</returns>
 		public static bool IsEventAttribute(string attributeNameInLowercase)
 		{
-			bool isEventAttribute = _eventAttributeNameRegex.IsMatch(attributeNameInLowercase);
+			bool isEventAttribute = false;
+			int charCount = attributeNameInLowercase.Length;
+
+			if (charCount >= 5 && attributeNameInLowercase.StartsWith("on", StringComparison.Ordinal))
+			{
+				isEventAttribute = true;
+
+				for (int charIndex = 2; charIndex < charCount; charIndex++)
+				{
+					char charValue = attributeNameInLowercase[charIndex];
+
+					if (!charValue.IsAlphaLower())
+					{
+						isEventAttribute = false;
+						break;
+					}
+				}
+			}
 
 			return isEventAttribute;
+		}
+
+		/// <summary>
+		/// Checks whether the attribute is XML-based
+		/// </summary>
+		/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
+		/// <returns>Result of check (true - XML-based; false - not XML-based)</returns>
+		public static bool IsXmlBasedAttribute(string attributeNameInLowercase)
+		{
+			bool isXmlAttribute = false;
+
+			if (attributeNameInLowercase.Length >= 3)
+			{
+				isXmlAttribute = attributeNameInLowercase == "xmlns";
+
+				if (!isXmlAttribute && attributeNameInLowercase.StartsWith("xml", StringComparison.Ordinal))
+				{
+					isXmlAttribute = attributeNameInLowercase.CustomStartsWith(":", 3, StringComparison.Ordinal)
+						|| attributeNameInLowercase.CustomStartsWith("ns:", 3, StringComparison.Ordinal);
+				}
+			}
+
+			return isXmlAttribute;
 		}
 	}
 }

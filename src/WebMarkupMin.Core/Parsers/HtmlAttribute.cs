@@ -11,6 +11,16 @@ namespace WebMarkupMin.Core.Parsers
 	internal sealed class HtmlAttribute
 	{
 		/// <summary>
+		/// Array of encoding chars with double quote
+		/// </summary>
+		private static readonly char[] _encodingCharsWithDoubleQuote = { '"', '&', '<' };
+
+		/// <summary>
+		/// Array of encoding chars with single quote
+		/// </summary>
+		private static readonly char[] _encodingCharsWithSingleQuote = { '\'', '&', '<' };
+
+		/// <summary>
 		/// Value
 		/// </summary>
 		private string _value;
@@ -212,7 +222,9 @@ namespace WebMarkupMin.Core.Parsers
 
 		private static bool ContainsHtmlAttributeEncodingChars(string value, char quoteCharValue)
 		{
-			bool result = value.IndexOf(quoteCharValue) != -1 || value.IndexOf('&') != -1 || value.IndexOf('<') != -1;
+			char[] _encodingChars = quoteCharValue == '"' ?
+				_encodingCharsWithDoubleQuote : _encodingCharsWithSingleQuote;
+			bool result = value.IndexOfAny(_encodingChars) != -1;
 
 			return result;
 		}

@@ -9,6 +9,11 @@ namespace WebMarkupMin.Core.Parsers
 	internal sealed class XmlAttribute
 	{
 		/// <summary>
+		/// Array of encoding chars
+		/// </summary>
+		private static readonly char[] _encodingChars = { '"', '&', '<', '>' };
+
+		/// <summary>
 		/// Name
 		/// </summary>
 		public string Name
@@ -101,8 +106,7 @@ namespace WebMarkupMin.Core.Parsers
 
 		private static bool ContainsXmlAttributeEncodingChars(string value)
 		{
-			bool result = value.IndexOf('"') != -1 || value.IndexOf('&') != -1
-				|| value.IndexOf('<') != -1 || value.IndexOf('>') != -1;
+			bool result = value.IndexOfAny(_encodingChars) != -1;
 
 			return result;
 		}
