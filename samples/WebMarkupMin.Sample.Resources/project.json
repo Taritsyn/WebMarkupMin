@@ -1,17 +1,21 @@
 ﻿{
-	"version": "2.0.0-rc9",
+	"version": "2.0.0",
 
-	"dependencies": { },
+	"dependencies": {},
 
 	"frameworks": {
-		"net451": { },
+		"net452": {},
 		"netstandard1.3": {
 			"dependencies": {
-				"System.Globalization": "4.0.11-rc2-24027",
-				"System.Reflection": "4.1.0-rc2-24027",
-				"System.Resources.ResourceManager": "4.0.1-rc2-24027",
-				"System.Runtime.InteropServices": "4.1.0-rc2-24027"
+				"System.Globalization": "4.0.11",
+				"System.Reflection": "4.1.0",
+				"System.Resources.ResourceManager": "4.0.1",
+				"System.Runtime.InteropServices": "4.1.0"
 			}
 		}
+	},
+
+	"scripts": {
+		"precompile": "../../build resx"
 	}
 }

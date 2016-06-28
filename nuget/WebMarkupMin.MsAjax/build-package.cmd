@@ -10,8 +10,8 @@ rmdir lib /Q/S
 %net40_msbuild% "%project_source_dir%\%project_name%.Net40.csproj" /p:Configuration=Release
 xcopy "%project_bin_dir%\%project_name%.dll" lib\net40-client\
 
-%dotnet_cli% build "%project_source_dir%" --framework net451 --configuration Release --no-dependencies --no-incremental
-xcopy "%project_bin_dir%\net451\%project_name%.dll" lib\net451\ /E
-xcopy "%project_bin_dir%\net451\%project_name%.xml" lib\net451\ /E
+%dotnet_cli% build "%project_source_dir%" --framework net452 --configuration Release --no-dependencies --no-incremental
+xcopy "%project_bin_dir%\net452\%project_name%.dll" lib\net452\ /E
+xcopy "%project_bin_dir%\net452\%project_name%.xml" lib\net452\ /E
 
 %nuget_package_manager% pack "..\%project_name%\%project_name%.nuspec"

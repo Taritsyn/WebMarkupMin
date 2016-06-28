@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-#if NETSTANDARD1_5 || NET451
+#if NETSTANDARD1_6 || NET452
 using Microsoft.AspNetCore.Mvc.Rendering;
 #elif NET40
 using System.Web.Mvc;

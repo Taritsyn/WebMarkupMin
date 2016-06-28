@@ -1,40 +1,35 @@
 ﻿{
-	"version": "2.0.0-rc9",
+	"version": "2.0.0",
 
 	"dependencies": {
-		"Microsoft.AspNetCore.Diagnostics": "1.0.0-rc2-final",
-		"Microsoft.AspNetCore.Mvc": "1.0.0-rc2-final",
-		"Microsoft.AspNetCore.Mvc.TagHelpers": "1.0.0-rc2-final",
-		"Microsoft.AspNetCore.StaticFiles": "1.0.0-rc2-final",
+		"Microsoft.AspNetCore.Diagnostics": "1.0.0",
+		"Microsoft.AspNetCore.Mvc": "1.0.0",
+		"Microsoft.AspNetCore.Mvc.TagHelpers": "1.0.0",
+		"Microsoft.AspNetCore.StaticFiles": "1.0.0",
 		"Microsoft.AspNetCore.Razor.Tools": {
-			"version": "1.0.0-preview1-final",
+			"version": "1.0.0-preview2-final",
 			"type": "build"
 		},
-		"Microsoft.AspNetCore.Server.IISIntegration": "1.0.0-rc2-final",
-		"Microsoft.AspNetCore.Server.Kestrel": "1.0.0-rc2-final",
-		"Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc2-final",
-		"Microsoft.Extensions.Configuration.Json": "1.0.0-rc2-final",
-		"Microsoft.Extensions.Logging": "1.0.0-rc2-final",
-		"Microsoft.Extensions.Logging.Console": "1.0.0-rc2-final",
-		"Microsoft.Extensions.Logging.Debug": "1.0.0-rc2-final",
-		"WebMarkupMin.AspNetCore1": "2.0.0-rc8",
-		"WebMarkupMin.Sample.Logic": "2.0.0-rc9",
-		"WebMarkupMin.Sample.Resources": "2.0.0-rc9"
+		"Microsoft.AspNetCore.Server.IISIntegration": "1.0.0",
+		"Microsoft.AspNetCore.Server.Kestrel": "1.0.0",
+		"Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0",
+		"Microsoft.Extensions.Configuration.Json": "1.0.0",
+		"Microsoft.Extensions.Logging": "1.0.0",
+		"Microsoft.Extensions.Logging.Console": "1.0.0",
+		"Microsoft.Extensions.Logging.Debug": "1.0.0",
+		"Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
+		"WebMarkupMin.AspNetCore1": "2.0.0",
+		"WebMarkupMin.Sample.Logic": "2.0.0",
+		"WebMarkupMin.Sample.Resources": "2.0.0"
 	},
 
 	"tools": {
-		"Microsoft.AspNetCore.Razor.Tools": {
-			"version": "1.0.0-preview1-final",
-			"imports": "portable-net45+win8+dnxcore50"
-		},
-		"Microsoft.AspNetCore.Server.IISIntegration.Tools": {
-			"version": "1.0.0-preview1-final",
-			"imports": "portable-net45+win8+dnxcore50"
-		}
+		"Microsoft.AspNetCore.Razor.Tools": "1.0.0-preview2-final",
+		"Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.0.0-preview2-final"
 	},
 
 	"frameworks": {
-		"net451": { }
+		"net452": {}
 	},
 
 	"buildOptions": {
@@ -45,11 +40,14 @@
 	"publishOptions": {
 		"include": [
 			"wwwroot",
+			"Views",
+			"appsettings.json",
 			"web.config"
 		]
 	},
 
 	"scripts": {
+		"prepublish": [ "npm install", "bower install", "gulp copy-libraries", "gulp build-assets" ],
 		"postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
 	}
 }

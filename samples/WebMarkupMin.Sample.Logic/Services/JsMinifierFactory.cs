@@ -1,7 +1,7 @@
 ﻿using System;
 
 using WebMarkupMin.Core;
-#if !NETSTANDARD1_5
+#if !NETSTANDARD1_6
 using WebMarkupMin.MsAjax;
 using WebMarkupMin.Yui;
 #endif
@@ -27,7 +27,7 @@ namespace WebMarkupMin.Sample.Logic.Services
 #endif
 		public IJsMinifier CreateMinifier(string minifierName)
 		{
-#if NETSTANDARD1_5
+#if NETSTANDARD1_6
 			IJsMinifier minifier = new CrockfordJsMinifier();
 #else
 			IJsMinifier minifier;

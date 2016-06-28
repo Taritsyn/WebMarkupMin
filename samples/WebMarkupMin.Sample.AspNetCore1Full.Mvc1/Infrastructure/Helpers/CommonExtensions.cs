@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebMarkupMin.Sample.AspNetCore1Full.Mvc1.Infrastructure.Helpers

@@ -1,17 +1,13 @@
 ﻿{
-	"version": "2.0.0-rc8",
+	"version": "2.0.0",
 
 	"dependencies": {
 		"YUICompressor.NET": "2.7.0",
-		"WebMarkupMin.Core": "2.0.0-rc8"
+		"WebMarkupMin.Core": "2.0.0"
 	},
 
 	"frameworks": {
-		"net451": {
-			"frameworkAssemblies": {
-				"System.Runtime": "4.0.10.0"
-			}
-		}
+		"net452": {}
 	},
 
 	"buildOptions": {

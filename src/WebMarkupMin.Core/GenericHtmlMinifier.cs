@@ -836,15 +836,33 @@ namespace WebMarkupMin.Core
 			_buffer.Add(CanPreserveCase() ? tagName : tagNameInLowercase);
 
 			int attributeCount = attributes.Count;
-			string lastAttributeString = string.Empty;
+			bool unsafeLastAttribute = false;
 
-			for (int attributeIndex = 0; attributeIndex < attributeCount; attributeIndex++)
+			if (attributeCount > 0)
 			{
-				string attributeString = BuildAttributeString(context, tag, attributes[attributeIndex]);
-				if (attributeString.Length > 0)
+				for (int attributeIndex = 0; attributeIndex < attributeCount; attributeIndex++)
 				{
-					lastAttributeString = attributeString;
-					_buffer.Add(attributeString);
+					HtmlAttributeViewModel attributeViewModel = BuildAttributeViewModel(context, tag, attributes[attributeIndex]);
+					if (!attributeViewModel.IsEmpty)
+					{
+						_buffer.Add(" ");
+						_buffer.Add(attributeViewModel.Name);
+						if (attributeViewModel.HasValue)
+						{
+							_buffer.Add("=");
+							if (attributeViewModel.HasQuotes)
+							{
+								_buffer.Add("\"");
+							}
+							_buffer.Add(attributeViewModel.Value);
+							if (attributeViewModel.HasQuotes)
+							{
+								_buffer.Add("\"");
+							}
+						}
+
+						unsafeLastAttribute = attributeViewModel.HasValue && !attributeViewModel.HasQuotes;
+					}
 				}
 			}
 
@@ -857,10 +875,7 @@ namespace WebMarkupMin.Core
 					emptyTagRenderMode = HtmlEmptyTagRenderMode.SpaceAndSlash;
 				}
 
-				if (emptyTagRenderMode == HtmlEmptyTagRenderMode.Slash
-					&& lastAttributeString.Length > 0
-					&& lastAttributeString.IndexOf('=') != -1
-					&& !lastAttributeString.EndsWith("\""))
+				if (emptyTagRenderMode == HtmlEmptyTagRenderMode.Slash && unsafeLastAttribute)
 				{
 					emptyTagRenderMode = HtmlEmptyTagRenderMode.SpaceAndSlash;
 				}
@@ -1314,16 +1329,16 @@ namespace WebMarkupMin.Core
 		#endregion
 
 		/// <summary>
-		/// Builds a string representation of the attribute
+		/// Builds a attribute view model
 		/// </summary>
 		/// <param name="context">Markup parsing context</param>
 		/// <param name="tag">Tag</param>
 		/// <param name="attribute">Attribute</param>
 		/// <returns>String representation of the attribute</returns>
-		private string BuildAttributeString(MarkupParsingContext context, HtmlTag tag, HtmlAttribute attribute)
+		private HtmlAttributeViewModel BuildAttributeViewModel(MarkupParsingContext context, HtmlTag tag, HtmlAttribute attribute)
 		{
 			string tagNameInLowercase = tag.NameInLowercase;
-			string attributeString;
+			HtmlAttributeViewModel attributeViewModel;
 			string attributeName = attribute.Name;
 			string attributeNameInLowercase = attribute.NameInLowercase;
 			string attributeValue = attribute.Value;
@@ -1348,8 +1363,8 @@ namespace WebMarkupMin.Core
 				|| (_settings.RemoveCssTypeAttributes && IsCssTypeAttribute(tag, attribute))
 				|| (useHtmlSyntax && CanRemoveXmlNamespaceAttribute(tag, attribute)))
 			{
-				attributeString = string.Empty;
-				return attributeString;
+				attributeViewModel = HtmlAttributeViewModel.Empty;
+				return attributeViewModel;
 			}
 
 			bool isCustomBooleanAttribute = !attributeHasValue && attributeType == HtmlAttributeType.Text;
@@ -1357,8 +1372,8 @@ namespace WebMarkupMin.Core
 			{
 				if (useHtmlSyntax)
 				{
-					attributeString = InnerBuildAttributeString(attribute, true, false);
-					return attributeString;
+					attributeViewModel = InnerBuildAttributeViewModel(attribute, true, false);
+					return attributeViewModel;
 				}
 
 				attribute.Value = string.Empty;
@@ -1430,8 +1445,8 @@ namespace WebMarkupMin.Core
 			{
 				if (_settings.CollapseBooleanAttributes)
 				{
-					attributeString = InnerBuildAttributeString(attribute, true, false);
-					return attributeString;
+					attributeViewModel = InnerBuildAttributeViewModel(attribute, true, false);
+					return attributeViewModel;
 				}
 
 				attribute.Value = attributeName;
@@ -1445,40 +1460,26 @@ namespace WebMarkupMin.Core
 
 				if (_settings.RemoveEmptyAttributes && CanRemoveEmptyAttribute(tag, attribute))
 				{
-					attributeString = string.Empty;
-					return attributeString;
+					attributeViewModel = HtmlAttributeViewModel.Empty;
+					return attributeViewModel;
 				}
 			}
 
 			bool addQuotes = !CanRemoveAttributeQuotes(attribute, _settings.AttributeQuotesRemovalMode);
-			attributeString = InnerBuildAttributeString(attribute, false, addQuotes);
+			attributeViewModel = InnerBuildAttributeViewModel(attribute, false, addQuotes);
 
-			return attributeString;
+			return attributeViewModel;
 		}
 
-		private string InnerBuildAttributeString(HtmlAttribute attribute, bool omitValue, bool addQuotes)
+		private HtmlAttributeViewModel InnerBuildAttributeViewModel(HtmlAttribute attribute, bool omitValue,
+			bool addQuotes)
 		{
-			string attributeString;
 			string displayAttributeName = CanPreserveCase() ? attribute.Name : attribute.NameInLowercase;
-			string encodedAttributeValue = HtmlAttribute.HtmlAttributeEncode(attribute.Value, HtmlAttributeQuotesType.Double);
+			string encodedAttributeValue = !omitValue ?
+				HtmlAttribute.HtmlAttributeEncode(attribute.Value, HtmlAttributeQuotesType.Double) : null;
+			var attributeViewModel = new HtmlAttributeViewModel(displayAttributeName, encodedAttributeValue, addQuotes);
 
-			if (!omitValue)
-			{
-				if (addQuotes)
-				{
-					attributeString = string.Concat(" ", displayAttributeName, "=", "\"", encodedAttributeValue, "\"");
-				}
-				else
-				{
-					attributeString = string.Concat(" ", displayAttributeName, "=", encodedAttributeValue);
-				}
-			}
-			else
-			{
-				attributeString = string.Concat(" ", displayAttributeName);
-			}
-
-			return attributeString;
+			return attributeViewModel;
 		}
 
 		/// <summary>
@@ -2936,5 +2937,79 @@ namespace WebMarkupMin.Core
 			_warnings.Add(new MinificationErrorInfo(category, message, lineNumber, columnNumber, sourceFragment));
 			_logger.Warn(category, message, filePath, lineNumber, columnNumber, sourceFragment);
 		}
+
+		#region Internal types
+
+		/// <summary>
+		/// HTML attribute view model
+		/// </summary>
+		private struct HtmlAttributeViewModel
+		{
+			/// <summary>
+			/// Name
+			/// </summary>
+			public readonly string Name;
+
+			// Value
+			public readonly string Value;
+
+			/// <summary>
+			/// Flag indicating whether the attribute has a value
+			/// </summary>
+			public readonly bool HasValue;
+
+			/// <summary>
+			/// Flag indicating whether the attribute value enclosed in quotes
+			/// </summary>
+			public readonly bool HasQuotes;
+
+			/// <summary>
+			/// Flag indicating whether the attribute is empty
+			/// </summary>
+			public readonly bool IsEmpty;
+
+			/// <summary>
+			/// Represents a empty HTML attribute view model
+			/// </summary>
+			public static readonly HtmlAttributeViewModel Empty = new HtmlAttributeViewModel(null, null, false);
+
+
+			/// <summary>
+			/// Constructs instance of HTML attribute view model
+			/// </summary>
+			/// <param name="name">Name</param>
+			/// <param name="value">Value</param>
+			/// <param name="hasQuotes">Flag indicating whether the attribute value enclosed in quotes</param>
+
+			public HtmlAttributeViewModel(string name, string value, bool hasQuotes)
+			{
+				if (name != null)
+				{
+					Name = name;
+					if (value != null)
+					{
+						Value = value;
+						HasValue = true;
+					}
+					else
+					{
+						Value = string.Empty;
+						HasValue = false;
+					}
+					HasQuotes = hasQuotes;
+					IsEmpty = false;
+				}
+				else
+				{
+					Name = string.Empty;
+					Value = string.Empty;
+					HasValue = false;
+					HasQuotes = false;
+					IsEmpty = true;
+				}
+			}
+		}
+
+		#endregion
 	}
 }
