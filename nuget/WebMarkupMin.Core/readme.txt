@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                 README file for Web Markup Minifier: Core v2.0.0 RC 9
+                   README file for Web Markup Minifier: Core v2.0.0
 
    --------------------------------------------------------------------------------
 
@@ -44,12 +44,8 @@
    =============
    RELEASE NOTES
    =============
-   1. `rb` and `rtc` tags are now considered as optional end tags;
-   2. In configuration settings of HTML minifier was added one new property -
-      `PreservableOptionalTagList` (default is empty);
-   3. Fixed a error #8 «MarkupMinificationException when having nested SVG element
-      inside an SVG»;
-   4. Fixed a error #9 «&lt;div&gt;${{something}}&lt;/div&gt; incorrectly minified».
+   1. Added support of .NET Core 1.0 RTM;
+   2. Was made refactoring.
 
    =============
    DOCUMENTATION

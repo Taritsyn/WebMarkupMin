@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>WebMarkupMin.Core</id>
-		<version>2.0.0-rc9</version>
+		<version>2.0.0</version>
 		<title>Web Markup Minifier: Core</title>
 		<authors>Andrey Taritsyn</authors>
 		<owners>Andrey Taritsyn</owners>
@@ -18,29 +18,27 @@ Minification of markup produces by removing extra whitespaces, comments and redu
 
 Also supports minification of views of popular JavaScript template engines: KnockoutJS, Kendo UI MVVM and AngularJS 1.X.</description>
 		<summary>The Web Markup Minifier (abbreviated WebMarkupMin) is a .NET library that contains a set of markup minifiers. The objective of this project is to improve the performance of web applications by reducing the size of HTML, XHTML and XML code.</summary>
-		<releaseNotes>1. `rb` and `rtc` tags are now considered as optional end tags;
-2. In configuration settings of HTML minifier was added one new property - `PreservableOptionalTagList` (default is empty);
-3. Fixed a error #8 «MarkupMinificationException when having nested SVG element inside an SVG»;
-4. Fixed a error #9 «&lt;div&gt;${{something}}&lt;/div&gt; incorrectly minified».</releaseNotes>
+		<releaseNotes>1. Added support of .NET Core 1.0 RTM;
+2. Was made refactoring.</releaseNotes>
 		<copyright>Copyright (c) 2013-2016 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
 		<language>en-US</language>
 		<tags>WebMarkupMin Markup HTML XHTML XML Minification Minifier Minify Performance Optimization Compression</tags>
 		<dependencies>
 			<group targetFramework=".NETFramework4.0-Client" />
-			<group targetFramework=".NETFramework4.5.1" />
+			<group targetFramework=".NETFramework4.5.2" />
 			<group targetFramework=".NETStandard1.3">
-				<dependency id="System.Collections" version="4.0.11-rc2-24027" />
-				<dependency id="System.Globalization" version="4.0.11-rc2-24027" />
-				<dependency id="System.IO" version="4.1.0-rc2-24027" />
-				<dependency id="System.IO.Compression" version="4.1.0-rc2-24027" />
-				<dependency id="System.Linq" version="4.1.0-rc2-24027" />
-				<dependency id="System.Reflection" version="4.1.0-rc2-24027" />
-				<dependency id="System.Resources.ResourceManager" version="4.0.1-rc2-24027" />
-				<dependency id="System.Runtime.Extensions" version="4.1.0-rc2-24027" />
-				<dependency id="System.Runtime.InteropServices" version="4.1.0-rc2-24027" />
-				<dependency id="System.Text.Encoding" version="4.0.11-rc2-24027" />
-				<dependency id="System.Text.RegularExpressions" version="4.0.12-rc2-24027" />
-				<dependency id="System.Threading" version="4.0.11-rc2-24027" />
+				<dependency id="System.Collections" version="4.0.11" />
+				<dependency id="System.Globalization" version="4.0.11" />
+				<dependency id="System.IO" version="4.1.0" />
+				<dependency id="System.IO.Compression" version="4.1.0" />
+				<dependency id="System.Linq" version="4.1.0" />
+				<dependency id="System.Reflection" version="4.1.0" />
+				<dependency id="System.Resources.ResourceManager" version="4.0.1" />
+				<dependency id="System.Runtime.Extensions" version="4.1.0" />
+				<dependency id="System.Runtime.InteropServices" version="4.1.0" />
+				<dependency id="System.Text.Encoding" version="4.0.11" />
+				<dependency id="System.Text.RegularExpressions" version="4.1.0" />
+				<dependency id="System.Threading" version="4.0.11" />
 			</group>
 		</dependencies>
 		<references>

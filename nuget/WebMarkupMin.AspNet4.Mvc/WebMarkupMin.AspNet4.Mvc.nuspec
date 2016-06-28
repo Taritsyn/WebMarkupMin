@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>WebMarkupMin.AspNet4.Mvc</id>
-		<version>2.0.0-rc8</version>
+		<version>2.0.0</version>
 		<title>Web Markup Minifier: ASP.NET 4.X MVC</title>
 		<authors>Andrey Taritsyn</authors>
 		<owners>Andrey Taritsyn</owners>
@@ -16,7 +16,7 @@
 		<language>en-US</language>
 		<tags>WebMarkupMin ASP.NET MVC Markup HTML XHTML XML Minification Minifier Minify</tags>
 		<dependencies>
-			<dependency id="WebMarkupMin.AspNet4.Common" version="2.0.0-rc8" />
+			<dependency id="WebMarkupMin.AspNet4.Common" version="2.0.0" />
 		</dependencies>
 		<references>
 			<reference file="WebMarkupMin.AspNet4.Mvc.dll" />

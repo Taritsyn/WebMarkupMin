@@ -1,6 +1,10 @@
 Change log
 ==========
 
+## June 28, 2016 - v2.0.0
+ * Added support of .NET Core and ASP.NET Core 1.0 RTM
+ * Was made refactoring
+
 ## June 13, 2016 - v2.0.0 RC 9
  * `rb` and `rtc` tags are now considered as optional end tags
  * In configuration settings of HTML minifier was added one new property - `PreservableOptionalTagList` (default is empty)

@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-           README file for Web Markup Minifier: ASP.NET Core 1.X v2.0.0 RC 8
+             README file for Web Markup Minifier: ASP.NET Core 1.X v2.0.0
 
    --------------------------------------------------------------------------------
 
@@ -17,7 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   Added support of ASP.NET Core 1.0 RC 2.
+   Added support of ASP.NET Core 1.0 RTM.
 
    =============
    DOCUMENTATION
