@@ -10,6 +10,8 @@ Also supports minification of views of popular JavaScript template engines: [Kno
 
 In addition, there are several modules that integrate this library into ASP.NET: WebMarkupMin.AspNet4.HttpModules (for ASP.NET 4.X and ASP.NET Web Pages), WebMarkupMin.AspNet4.Mvc (for ASP.NET MVC 3, 4 or 5), WebMarkupMin.AspNet4.WebForms (for ASP.NET Web Forms 4.X) and WebMarkupMin.AspNetCore1 (for ASP.NET Core 1.X).
 
+You can try WebMarkupMin in action and experiment with different minification settings live on the [WebMarkupMin Online](http://webmarkupmin.apphb.com/) site.
+
 ## NuGet Packages
 
 ### Core
@@ -33,3 +35,50 @@ Documentation is located on the [wiki](https://github.com/Taritsyn/WebMarkupMin/
 ## Previous Versions
 Source code and documentation for previous versions of WebMarkupMin are located on [CodePlex](http://webmarkupmin.codeplex.com/).
 If you have used old versions of WebMarkupMin, then I recommend to first read [“How to upgrade applications to version 2.X”](https://github.com/Taritsyn/WebMarkupMin/wiki/How-to-upgrade-applications-to-version-2.X) section of the documentation.
+
+## Who's Using WebMarkupMin
+If you use WebMarkupMin in some project, please send me a message so I can include it in this list:
+
+### Software
+ * [Blog-Umbraco](http://github.com/radyz/Blog-Umbraco) by Ernesto Chavez Sanchez
+ * [Constellation.Sitecore.Presentation.Mvc](http://github.com/sitecorerick/constellation.sitecore.presentation.mvc) by Rick Cabral
+ * [File Sharing Application](http://bitbucket.org/Artur2/filesharingapplication) by Artur N
+ * [Html Markup Minifier](http://github.com/JadeX/Orchard.HtmlMinifier) (Orchard Module) by Liam 'Xeevis' Aqil
+ * [Media Browser](http://github.com/MediaBrowser/MediaBrowser) by Luke Pulverenti
+ * [MiniBlog](http://github.com/madskristensen/MiniBlog) by Mads Kristensen
+ * [Minit](http://minit.codeplex.com/) by Joan Caron
+ * [StaticWebHelper](http://github.com/madskristensen/StaticWebHelper) by Mads Kristensen
+ * [Web Essentials 2013](http://github.com/madskristensen/WebEssentials2013) by Mads Kristensen
+ * [Wyam](http://wyam.io/)
+
+### Websites
+ * [AutoThivolle.com](http://www.autothivolle.com/)
+ * [BaixakiJogos.com.br](http://www.baixakijogos.com.br/)
+ * [DamBeton.nl](http://www.dambeton.nl/)
+ * [DocShell.ru](https://www.docshell.ru/)
+ * [EmResumo.com.br](http://www.emresumo.com.br/)
+ * [E-Pacientas.lt](https://e-pacientas.lt)
+ * [Futuromelhor.Unilever.com.br](https://futuromelhor.unilever.com.br/)
+ * [HHDSoftware.com](http://www.hhdsoftware.com/)
+ * [HiHoliday.ir](http://hiholiday.ir/)
+ * [HospOnline.ru](http://hosponline.ru/)
+ * [iStaff.ru](http://istaff.ru/)
+ * [KKBruce.tw](http://kkbruce.tw/)
+ * [LogixSuite.it](http://www.logixsuite.it/)
+ * [music2me.de](https://music2me.de/)
+ * [NovalandGroup.net.vn](http://www.novalandgroup.net.vn/)
+ * [nu.Faqtz.com](http://nu.faqtz.com/)
+ * [Oostwoud.com](http://www.oostwoud.com/)
+ * [Oostwoud.de](http://www.oostwoud.de/)
+ * [Quickportal.it](http://www.quickportal.it/)
+ * [ReXposta.com.br](http://www.rexposta.com.br/tecnologia/)
+ * [ScoreYourBoss.com](http://www.scoreyourboss.com/)
+ * [SkyPrimeAv.com](http://skyprimeav.com/)
+ * [Speak.nl](http://www.speak.nl/)
+ * [StranaGruzov.ru](http://stranagruzov.ru/)
+ * [TecMundo.com.br](http://www.tecmundo.com.br/)
+ * [togofogo.com](http://www.togofogo.com/)
+ * [Ujat.mx](http://ujat.mx/)
+ * [WomensHealthNetwork.com](http://www.womenshealthnetwork.com/)
+ * [XemLichAm.com](http://xemlicham.com/)
+ * [Zemana.com](http://zemana.com/)
