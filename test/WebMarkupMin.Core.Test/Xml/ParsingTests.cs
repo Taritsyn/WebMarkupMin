@@ -374,5 +374,22 @@ namespace WebMarkupMin.Core.Test.Xml
 			Assert.Equal(4, errors4[0].LineNumber);
 			Assert.Equal(7, errors4[0].ColumnNumber);
 		}
+
+		[Fact]
+		public void ProcessingInvalidXmlCommentsIsCorrect()
+		{
+			// Arrange
+			var minifier = new XmlMinifier(new XmlMinificationSettings(true));
+
+			const string input1 = "<!-->";
+
+			// Act
+			IList<MinificationErrorInfo> errors1 = minifier.Minify(input1).Errors;
+
+			// Assert
+			Assert.Equal(1, errors1.Count);
+			Assert.Equal(1, errors1[0].LineNumber);
+			Assert.Equal(1, errors1[0].ColumnNumber);
+		}
 	}
 }

@@ -17,11 +17,11 @@ namespace WebMarkupMin.Core.Utilities
 		/// <summary>
 		/// Appends the default line terminator to the end of the current System.Text.StringBuilder object
 		/// </summary>
-		/// <param name="sb">Object StringBuilder</param>
+		/// <param name="source">Object StringBuilder</param>
 		/// <returns>Object StringBuilder</returns>
-		public static StringBuilder AppendFormatLine(this StringBuilder sb)
+		public static StringBuilder AppendFormatLine(this StringBuilder source)
 		{
-			return sb.AppendLine();
+			return source.AppendLine();
 		}
 
 		/// <summary>
@@ -30,18 +30,18 @@ namespace WebMarkupMin.Core.Utilities
 		/// Each format item is replaced by the string representation of a corresponding
 		/// argument in a parameter array.
 		/// </summary>
-		/// <param name="sb">Object StringBuilder</param>
+		/// <param name="source">Object StringBuilder</param>
 		/// <param name="format">A composite format string</param>
 		/// <param name="args">An array of objects to format</param>
 		/// <returns>Object StringBuilder</returns>
-		public static StringBuilder AppendFormatLine(this StringBuilder sb, string format, params object[] args)
+		public static StringBuilder AppendFormatLine(this StringBuilder source, string format, params object[] args)
 		{
 			if (_formatPlaceholderRegExp.IsMatch(format))
 			{
-				return sb.AppendFormat(format, args).AppendLine();
+				return source.AppendFormat(format, args).AppendLine();
 			}
 
-			return sb.AppendLine(format.Replace("{{", "{").Replace("}}", "}"));
+			return source.AppendLine(format.Replace("{{", "{").Replace("}}", "}"));
 		}
 	}
 }

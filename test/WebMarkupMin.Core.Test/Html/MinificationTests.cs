@@ -1880,25 +1880,33 @@ namespace WebMarkupMin.Core.Test.Html
 		public void RemovingHtmlCommentsIsCorrect()
 		{
 			// Arrange
-			var removingHtmlCommentsMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true) { RemoveHtmlComments = true });
 			var keepingHtmlCommentsMinifier = new HtmlMinifier(
 				new HtmlMinificationSettings(true) { RemoveHtmlComments = false });
+			var removingHtmlCommentsMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true) { RemoveHtmlComments = true });
 
-			const string input1 = "<!-- Some comment... -->";
-			const string targetOutput1A = "";
-			const string targetOutput1B = input1;
+			const string input1 = "<!---->";
+			const string targetOutput1A = input1;
+			const string targetOutput1B = "";
 
-			const string input2 = "<!-- Initial comment... -->" +
+			const string input2 = "<!-- -->";
+			const string targetOutput2A = input2;
+			const string targetOutput2B = "";
+
+			const string input3 = "<!-- Some comment... -->";
+			const string targetOutput3A = input3;
+			const string targetOutput3B = "";
+
+			const string input4 = "<!-- Initial comment... -->" +
 				"<div>Some text...</div>" +
 				"<!-- Final comment\n\n Some other comments ... -->"
 				;
-			const string targetOutput2A = "<div>Some text...</div>";
-			const string targetOutput2B = input2;
+			const string targetOutput4A = input4;
+			const string targetOutput4B = "<div>Some text...</div>";
 
-			const string input3 = "<p title=\"&lt;!-- Some comment... -->\">Some text...</p>";
+			const string input5 = "<p title=\"&lt;!-- Some comment... -->\">Some text...</p>";
 
-			const string input4 = "<div>\n" +
+			const string input6 = "<div>\n" +
 				"\t<svg width=\"150\" height=\"100\" viewBox=\"0 0 3 2\">\n" +
 				"\t\t<!-- SVG content -->\n" +
 				"\t\t<rect width=\"1\" height=\"2\" x=\"0\" fill=\"#008d46\" />\n" +
@@ -1908,7 +1916,8 @@ namespace WebMarkupMin.Core.Test.Html
 				"\t</svg>\n" +
 				"</div>"
 				;
-			const string targetOutput4A = "<div>\n" +
+			const string targetOutput6A = input6;
+			const string targetOutput6B = "<div>\n" +
 				"\t<svg width=\"150\" height=\"100\" viewBox=\"0 0 3 2\">\n" +
 				"\t\t\n" +
 				"\t\t<rect width=\"1\" height=\"2\" x=\"0\" fill=\"#008d46\" />\n" +
@@ -1917,9 +1926,8 @@ namespace WebMarkupMin.Core.Test.Html
 				"\t\t\n" +
 				"\t</svg>\n" +
 				"</div>";
-			const string targetOutput4B = input4;
 
-			const string input5 = "<div>\n" +
+			const string input7 = "<div>\n" +
 				"\t<math>\n" +
 				"\t\t<!-- MathML content -->\n" +
 				"\t\t<mrow>\n" +
@@ -1944,7 +1952,8 @@ namespace WebMarkupMin.Core.Test.Html
 				"\t</math>\n" +
 				"</div>"
 			;
-			const string targetOutput5A = "<div>\n" +
+			const string targetOutput7A = input7;
+			const string targetOutput7B = "<div>\n" +
 				"\t<math>\n" +
 				"\t\t\n" +
 				"\t\t<mrow>\n" +
@@ -1969,23 +1978,28 @@ namespace WebMarkupMin.Core.Test.Html
 				"\t</math>\n" +
 				"</div>"
 			;
-			const string targetOutput5B = input5;
 
 			// Act
-			string output1A = removingHtmlCommentsMinifier.Minify(input1).MinifiedContent;
-			string output1B = keepingHtmlCommentsMinifier.Minify(input1).MinifiedContent;
+			string output1A = keepingHtmlCommentsMinifier.Minify(input1).MinifiedContent;
+			string output1B = removingHtmlCommentsMinifier.Minify(input1).MinifiedContent;
 
-			string output2A = removingHtmlCommentsMinifier.Minify(input2).MinifiedContent;
-			string output2B = keepingHtmlCommentsMinifier.Minify(input2).MinifiedContent;
+			string output2A = keepingHtmlCommentsMinifier.Minify(input2).MinifiedContent;
+			string output2B = removingHtmlCommentsMinifier.Minify(input2).MinifiedContent;
 
-			string output3A = removingHtmlCommentsMinifier.Minify(input3).MinifiedContent;
-			string output3B = keepingHtmlCommentsMinifier.Minify(input3).MinifiedContent;
+			string output3A = keepingHtmlCommentsMinifier.Minify(input3).MinifiedContent;
+			string output3B = removingHtmlCommentsMinifier.Minify(input3).MinifiedContent;
 
-			string output4A = removingHtmlCommentsMinifier.Minify(input4).MinifiedContent;
-			string output4B = keepingHtmlCommentsMinifier.Minify(input4).MinifiedContent;
+			string output4A = keepingHtmlCommentsMinifier.Minify(input4).MinifiedContent;
+			string output4B = removingHtmlCommentsMinifier.Minify(input4).MinifiedContent;
 
-			string output5A = removingHtmlCommentsMinifier.Minify(input5).MinifiedContent;
-			string output5B = keepingHtmlCommentsMinifier.Minify(input5).MinifiedContent;
+			string output5A = keepingHtmlCommentsMinifier.Minify(input5).MinifiedContent;
+			string output5B = removingHtmlCommentsMinifier.Minify(input5).MinifiedContent;
+
+			string output6A = keepingHtmlCommentsMinifier.Minify(input6).MinifiedContent;
+			string output6B = removingHtmlCommentsMinifier.Minify(input6).MinifiedContent;
+
+			string output7A = keepingHtmlCommentsMinifier.Minify(input7).MinifiedContent;
+			string output7B = removingHtmlCommentsMinifier.Minify(input7).MinifiedContent;
 
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
@@ -1994,14 +2008,20 @@ namespace WebMarkupMin.Core.Test.Html
 			Assert.Equal(targetOutput2A, output2A);
 			Assert.Equal(targetOutput2B, output2B);
 
-			Assert.Equal(input3, output3A);
-			Assert.Equal(input3, output3B);
+			Assert.Equal(targetOutput3A, output3A);
+			Assert.Equal(targetOutput3B, output3B);
 
 			Assert.Equal(targetOutput4A, output4A);
 			Assert.Equal(targetOutput4B, output4B);
 
-			Assert.Equal(targetOutput5A, output5A);
-			Assert.Equal(targetOutput5B, output5B);
+			Assert.Equal(input5, output5A);
+			Assert.Equal(input5, output5B);
+
+			Assert.Equal(targetOutput6A, output6A);
+			Assert.Equal(targetOutput6B, output6B);
+
+			Assert.Equal(targetOutput7A, output7A);
+			Assert.Equal(targetOutput7B, output7B);
 		}
 
 		[Fact]
@@ -3417,12 +3437,7 @@ namespace WebMarkupMin.Core.Test.Html
 				"]]>" +
 				"</script>"
 				;
-			const string targetOutput11C = "<script type=\"text/vbscript\">" +
-				"	Function CanDeliver(Dt)\r\n" +
-				"		CanDeliver = (CDate(Dt) - Now()) > 2\r\n" +
-				"	End Function" +
-				"</script>"
-				;
+			const string targetOutput11C = targetOutput11A;
 
 
 			const string input12 = "<script language=\"VBScript\">\r\n" +
@@ -3449,12 +3464,7 @@ namespace WebMarkupMin.Core.Test.Html
 				"]]>" +
 				"</script>"
 				;
-			const string targetOutput12C = "<script language=\"VBScript\">" +
-				"	Function CanDeliver(Dt)\r\n" +
-				"		CanDeliver = (CDate(Dt) - Now()) > 2\r\n" +
-				"	End Function" +
-				"</script>"
-				;
+			const string targetOutput12C = targetOutput12A;
 
 			// Act
 			string output1A = minifier.Minify(input1).MinifiedContent;
@@ -4689,16 +4699,22 @@ namespace WebMarkupMin.Core.Test.Html
 				"</div>"
 				;
 
-			const string input24 = "<div>\n" +
+			const string input24 = "<style></style>";
+			const string targetOutput24 = "";
+
+			const string input25 = "<script></script>";
+			const string targetOutput25 = "";
+
+			const string input26 = "<div>\n" +
 				"	<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"50\"></svg>\n" +
 				"</div>"
 				;
-			const string targetOutput24 = "<div>\n" +
+			const string targetOutput26 = "<div>\n" +
 				"	\n" +
 				"</div>"
 				;
 
-			const string input25 = "<div>\n" +
+			const string input27 = "<div>\n" +
 				"	<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"50\">\n" +
 				"		<text x=\"10\" y=\"20\" transform=\"rotate(30 20,40)\"></text>\n" +
 				"	</svg>\n" +
@@ -4731,6 +4747,8 @@ namespace WebMarkupMin.Core.Test.Html
 			string output23 = removingTagsWithoutContentMinifier.Minify(input23).MinifiedContent;
 			string output24 = removingTagsWithoutContentMinifier.Minify(input24).MinifiedContent;
 			string output25 = removingTagsWithoutContentMinifier.Minify(input25).MinifiedContent;
+			string output26 = removingTagsWithoutContentMinifier.Minify(input26).MinifiedContent;
+			string output27 = removingTagsWithoutContentMinifier.Minify(input27).MinifiedContent;
 
 			// Assert
 			Assert.Equal(input1, output1);
@@ -4757,7 +4775,9 @@ namespace WebMarkupMin.Core.Test.Html
 			Assert.Equal(input22, output22);
 			Assert.Equal(targetOutput23, output23);
 			Assert.Equal(targetOutput24, output24);
-			Assert.Equal(input25, output25);
+			Assert.Equal(targetOutput25, output25);
+			Assert.Equal(targetOutput26, output26);
+			Assert.Equal(input27, output27);
 		}
 
 		#endregion

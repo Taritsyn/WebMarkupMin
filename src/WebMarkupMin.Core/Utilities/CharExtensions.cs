@@ -36,5 +36,11 @@ namespace WebMarkupMin.Core.Utilities
 		{
 			return IsAlphaLower(source) || IsAlphaUpper(source);
 		}
+
+		[MethodImpl((MethodImplOptions)256 /* AggressiveInlining */)]
+		public static bool IsAlphaNumeric(this char source)
+		{
+			return IsAlpha(source) || IsNumeric(source);
+		}
 	}
 }

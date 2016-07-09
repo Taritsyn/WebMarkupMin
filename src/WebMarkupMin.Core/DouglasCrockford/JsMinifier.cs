@@ -33,6 +33,9 @@ SOFTWARE.
 
 using System;
 using System.IO;
+using System.Text;
+
+using WebMarkupMin.Core.Utilities;
 
 namespace WebMarkupMin.Core.DouglasCrockford
 {
@@ -75,17 +78,31 @@ namespace WebMarkupMin.Core.DouglasCrockford
 				_theX = EOF;
 				_theY = EOF;
 
-				using (_reader = new StringReader(content))
-				using (_writer = new StringWriter())
+				StringBuilder sb = StringBuilderPool.GetBuilder();
+				_reader = new StringReader(content);
+				_writer = new StringWriter(sb);
+
+				try
 				{
 					InnerMinify();
 					_writer.Flush();
 
 					minifiedContent = _writer.ToString().TrimStart();
 				}
+				catch (JsMinificationException)
+				{
+					throw;
+				}
+				finally
+				{
+					_reader.Dispose();
+					_reader = null;
 
-				_reader = null;
-				_writer = null;
+					_writer.Dispose();
+					_writer = null;
+
+					StringBuilderPool.ReleaseBuilder(sb);
+				}
 			}
 
 			return minifiedContent;

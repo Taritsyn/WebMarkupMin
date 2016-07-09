@@ -44,8 +44,8 @@
    =============
    RELEASE NOTES
    =============
-   1. Added support of .NET Core 1.0 RTM;
-   2. Was made refactoring.
+   1. Optimized memory usage;
+   2. Fixed a error #10 «Crash parsing invalid comment block».
 
    =============
    DOCUMENTATION

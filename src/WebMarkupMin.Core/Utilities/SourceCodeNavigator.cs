@@ -291,7 +291,7 @@ namespace WebMarkupMin.Core.Utilities
 				CalculateCutPositions(currentLine, columnNumber, maxFragmentLength,
 					out fragmentStartPosition, out fragmentLength);
 
-				var sourceFragmentBuilder = new StringBuilder();
+				StringBuilder sourceFragmentBuilder = StringBuilderPool.GetBuilder();
 
 				if (currentLine.Length > 0)
 				{
@@ -315,6 +315,7 @@ namespace WebMarkupMin.Core.Utilities
 				}
 
 				sourceFragment = sourceFragmentBuilder.ToString();
+				StringBuilderPool.ReleaseBuilder(sourceFragmentBuilder);
 			}
 
 			return sourceFragment;

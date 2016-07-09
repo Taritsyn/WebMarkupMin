@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Net;
+using System.Text;
 
 using WebMarkupMin.Core.Utilities;
 
@@ -177,8 +178,9 @@ namespace WebMarkupMin.Core.Parsers
 			}
 
 			string result;
+			StringBuilder sb = StringBuilderPool.GetBuilder();
 
-			using (var writer = new StringWriter())
+			using (var writer = new StringWriter(sb))
 			{
 				int charCount = value.Length;
 
@@ -216,6 +218,8 @@ namespace WebMarkupMin.Core.Parsers
 
 				result = writer.ToString();
 			}
+
+			StringBuilderPool.ReleaseBuilder(sb);
 
 			return result;
 		}

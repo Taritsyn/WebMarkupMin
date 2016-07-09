@@ -302,5 +302,22 @@ namespace WebMarkupMin.Core.Test.Html
 			Assert.Equal(1, errors11[0].LineNumber);
 			Assert.Equal(68, errors11[0].ColumnNumber);
 		}
+
+		[Fact]
+		public void ProcessingInvalidHtmlCommentsIsCorrect()
+		{
+			// Arrange
+			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
+
+			const string input1 = "<!-->";
+
+			// Act
+			IList<MinificationErrorInfo> errors1 = minifier.Minify(input1).Errors;
+
+			// Assert
+			Assert.Equal(1, errors1.Count);
+			Assert.Equal(1, errors1[0].LineNumber);
+			Assert.Equal(1, errors1[0].ColumnNumber);
+		}
 	}
 }

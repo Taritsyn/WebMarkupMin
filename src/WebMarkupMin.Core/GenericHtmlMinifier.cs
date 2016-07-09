@@ -50,6 +50,16 @@ namespace WebMarkupMin.Core
 	/// </summary>
 	internal sealed class GenericHtmlMinifier : IMarkupMinifier
 	{
+		/// <summary>
+		/// Average compression ratio
+		/// </summary>
+		const double AVERAGE_COMPRESSION_RATIO = 0.7;
+
+		/// <summary>
+		/// Placeholder for embedded code
+		/// </summary>
+		const string EMBEDDED_CODE_PLACEHOLDER = "(embedded code)";
+
 		const string HTTP_PROTOCOL = "http:";
 		const string HTTPS_PROTOCOL = "https:";
 		const string JS_PROTOCOL = "javascript:";
@@ -250,9 +260,9 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// HTML minification buffer
 		/// </summary>
-		private List<string> _buffer;
+		private readonly List<string> _buffer;
 
-		private Queue<string> _tagsWithNotRemovableWhitespaceQueue;
+		private readonly Queue<string> _tagsWithNotRemovableWhitespaceQueue;
 
 		/// <summary>
 		/// Current node type
@@ -272,12 +282,12 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// List of the errors
 		/// </summary>
-		private IList<MinificationErrorInfo> _errors;
+		private readonly IList<MinificationErrorInfo> _errors;
 
 		/// <summary>
 		/// List of the warnings
 		/// </summary>
-		private IList<MinificationErrorInfo> _warnings;
+		private readonly IList<MinificationErrorInfo> _warnings;
 
 		/// <summary>
 		/// Synchronizer of minification
@@ -324,8 +334,17 @@ namespace WebMarkupMin.Core
 				StartTag = StartTagHandler,
 				EndTag = EndTagHandler,
 				Text = TextHandler,
+				EmbeddedCode = EmbeddedCodeHandler,
 				TemplateTag = TemplateTagHandler
 			});
+
+			_buffer = new List<string>();
+			_errors = new List<MinificationErrorInfo>();
+			_warnings = new List<MinificationErrorInfo>();
+			_tagsWithNotRemovableWhitespaceQueue = new Queue<string>();
+			_currentNodeType = HtmlNodeType.Unknown;
+			_currentTag = null;
+			_currentText = string.Empty;
 
 			_preservableOptionalTags = new HashSet<string>(_settings.PreservableOptionalTagCollection);
 			_processableScriptTypes = new HashSet<string>(_settings.ProcessableScriptTypeCollection);
@@ -461,14 +480,8 @@ namespace WebMarkupMin.Core
 						statistics.Init(cleanedContent);
 					}
 
-					_result = new StringBuilder(cleanedContent.Length);
-					_buffer = new List<string>();
-					_errors = new List<MinificationErrorInfo>();
-					_warnings = new List<MinificationErrorInfo>();
-					_tagsWithNotRemovableWhitespaceQueue = new Queue<string>();
-					_currentNodeType = HtmlNodeType.Unknown;
-					_currentTag = null;
-					_currentText = string.Empty;
+					int builderCapacity = (int)Math.Floor(cleanedContent.Length * AVERAGE_COMPRESSION_RATIO);
+					_result = StringBuilderPool.GetBuilder(builderCapacity);
 
 					_htmlParser.Parse(cleanedContent);
 
@@ -491,10 +504,12 @@ namespace WebMarkupMin.Core
 				}
 				finally
 				{
-					_result.Clear();
+					StringBuilderPool.ReleaseBuilder(_result);
 					_buffer.Clear();
 					_tagsWithNotRemovableWhitespaceQueue.Clear();
+					_currentNodeType = HtmlNodeType.Unknown;
 					_currentTag = null;
+					_currentText = string.Empty;
 
 					errors.AddRange(_errors);
 					warnings.AddRange(_warnings);
@@ -605,7 +620,8 @@ namespace WebMarkupMin.Core
 			_currentNodeType = HtmlNodeType.Comment;
 
 			const int beginCommentLength = 4;
-			string processedCommentText = string.Empty;
+			string processedCommentText;
+			bool removeComment = false;
 
 			if (_noindexCommentRegex.IsMatch(commentText))
 			{
@@ -668,16 +684,17 @@ namespace WebMarkupMin.Core
 			}
 			else
 			{
-				if (!_settings.RemoveHtmlComments)
-				{
-					processedCommentText = commentText;
-				}
+				processedCommentText = commentText;
+				removeComment = _settings.RemoveHtmlComments;
 			}
 
-			if (processedCommentText.Length > 0)
+			if (!removeComment)
 			{
 				_buffer.Add("<!--");
-				_buffer.Add(processedCommentText);
+				if (processedCommentText.Length > 0)
+				{
+					_buffer.Add(processedCommentText);
+				}
 				_buffer.Add("-->");
 			}
 			else
@@ -1003,137 +1020,93 @@ namespace WebMarkupMin.Core
 			HtmlTag tag = _currentTag ?? HtmlTag.Empty;
 			string tagNameInLowercase = tag.NameInLowercase;
 			HtmlTagFlags tagFlags = tag.Flags;
-			IList<HtmlAttribute> attributes = tag.Attributes;
 
-			_currentNodeType = HtmlNodeType.Comment;
+			_currentNodeType = HtmlNodeType.Text;
 
 			WhitespaceMinificationMode whitespaceMinificationMode = _settings.WhitespaceMinificationMode;
-
-			if (previousNodeType == HtmlNodeType.StartTag && tagFlags.HasFlag(HtmlTagFlags.EmbeddedCode))
+			if (whitespaceMinificationMode != WhitespaceMinificationMode.None)
 			{
-				switch (tagNameInLowercase)
+				if (_tagsWithNotRemovableWhitespaceQueue.Count == 0)
 				{
-					case "script":
-					case "style":
-						string contentType = attributes
-							.Where(a => a.NameInLowercase == "type")
-							.Select(a => a.Value)
-							.FirstOrDefault()
-							;
-
-						if (tagNameInLowercase == "script")
+					if (context.Position == 0)
+					{
+						// Processing of starting whitespace
+						text = text.TrimStart();
+					}
+					else if (context.Position + text.Length == context.Length)
+					{
+						// Processing of ending whitespace
+						text = text.TrimEnd();
+					}
+					else if (previousNodeType == HtmlNodeType.StartTag)
+					{
+						// Processing of whitespace, that followed after the start tag
+						bool allowTrimStart = false;
+						if (tagFlags.HasFlag(HtmlTagFlags.Invisible)
+							|| (tagFlags.HasFlag(HtmlTagFlags.NonIndependent) && tagFlags.HasFlag(HtmlTagFlags.Empty)))
 						{
-							if (string.IsNullOrWhiteSpace(contentType))
+							allowTrimStart = true;
+						}
+						else
+						{
+							if (whitespaceMinificationMode == WhitespaceMinificationMode.Medium)
 							{
-								string language = attributes
-									.Where(a => a.NameInLowercase == "language")
-									.Select(a => a.Value)
-									.FirstOrDefault()
-									;
-
-								if (!string.IsNullOrWhiteSpace(language)
-									&& language.Trim().IgnoreCaseEquals("vbscript"))
-								{
-									contentType = VBS_CONTENT_TYPE;
-								}
+								allowTrimStart = tagFlags.HasFlag(HtmlTagFlags.Block);
 							}
-
-							text = ProcessEmbeddedScriptContent(context, text, contentType);
+							else if (whitespaceMinificationMode == WhitespaceMinificationMode.Aggressive)
+							{
+								allowTrimStart = tagFlags.HasFlag(HtmlTagFlags.Block)
+									|| ((tagFlags.HasFlag(HtmlTagFlags.Inline) || tagFlags.HasFlag(HtmlTagFlags.InlineBlock))
+										&& !tagFlags.HasFlag(HtmlTagFlags.Empty));
+							}
 						}
-						else if (tagNameInLowercase == "style")
+
+						if (allowTrimStart)
 						{
-							text = ProcessEmbeddedStyleContent(context, text, contentType);
+							text = text.TrimStart();
+						}
+					}
+					else if (previousNodeType == HtmlNodeType.EndTag)
+					{
+						// Processing of whitespace, that followed after the end tag
+						bool allowTrimStart = false;
+						if (tagFlags.HasFlag(HtmlTagFlags.Invisible)
+							|| (tagFlags.HasFlag(HtmlTagFlags.NonIndependent)
+								&& CanRemoveWhitespaceAfterEndNonIndependentTag(tag)))
+						{
+							allowTrimStart = true;
+						}
+						else
+						{
+							if (whitespaceMinificationMode == WhitespaceMinificationMode.Medium
+								|| whitespaceMinificationMode == WhitespaceMinificationMode.Aggressive)
+							{
+								allowTrimStart = tagFlags.HasFlag(HtmlTagFlags.Block);
+							}
 						}
 
-						break;
+						if (allowTrimStart)
+						{
+							text = text.TrimStart();
+						}
+					}
+					else if (previousNodeType == HtmlNodeType.Doctype || previousNodeType == HtmlNodeType.XmlDeclaration)
+					{
+						// Processing of whitespace, that followed after the document type declaration
+						// or XML declaration
+						text = text.TrimStart();
+					}
+
+					if (text.Length > 0
+						&& !(tagFlags.HasFlag(HtmlTagFlags.Xml) && tagFlags.HasFlag(HtmlTagFlags.NonIndependent)))
+					{
+						text = Utils.CollapseWhitespace(text);
+					}
 				}
-			}
-			else
-			{
-				if (whitespaceMinificationMode != WhitespaceMinificationMode.None)
+				else if (previousNodeType == HtmlNodeType.StartTag && tagNameInLowercase == "textarea"
+					&& string.IsNullOrWhiteSpace(text))
 				{
-					if (_tagsWithNotRemovableWhitespaceQueue.Count == 0)
-					{
-						if (context.Position == 0)
-						{
-							// Processing of starting whitespace
-							text = text.TrimStart();
-						}
-						else if (context.Position + text.Length == context.Length)
-						{
-							// Processing of ending whitespace
-							text = text.TrimEnd();
-						}
-						else if (previousNodeType == HtmlNodeType.StartTag)
-						{
-							// Processing of whitespace, that followed after the start tag
-							bool allowTrimStart = false;
-							if (tagFlags.HasFlag(HtmlTagFlags.Invisible)
-								|| (tagFlags.HasFlag(HtmlTagFlags.NonIndependent) && tagFlags.HasFlag(HtmlTagFlags.Empty)))
-							{
-								allowTrimStart = true;
-							}
-							else
-							{
-								if (whitespaceMinificationMode == WhitespaceMinificationMode.Medium)
-								{
-									allowTrimStart = tagFlags.HasFlag(HtmlTagFlags.Block);
-								}
-								else if (whitespaceMinificationMode == WhitespaceMinificationMode.Aggressive)
-								{
-									allowTrimStart = tagFlags.HasFlag(HtmlTagFlags.Block)
-										|| ((tagFlags.HasFlag(HtmlTagFlags.Inline) || tagFlags.HasFlag(HtmlTagFlags.InlineBlock))
-											&& !tagFlags.HasFlag(HtmlTagFlags.Empty));
-								}
-							}
-
-							if (allowTrimStart)
-							{
-								text = text.TrimStart();
-							}
-						}
-						else if (previousNodeType == HtmlNodeType.EndTag)
-						{
-							// Processing of whitespace, that followed after the end tag
-							bool allowTrimStart = false;
-							if (tagFlags.HasFlag(HtmlTagFlags.Invisible)
-								|| (tagFlags.HasFlag(HtmlTagFlags.NonIndependent)
-									&& CanRemoveWhitespaceAfterEndNonIndependentTag(tag)))
-							{
-								allowTrimStart = true;
-							}
-							else
-							{
-								if (whitespaceMinificationMode == WhitespaceMinificationMode.Medium
-									|| whitespaceMinificationMode == WhitespaceMinificationMode.Aggressive)
-								{
-									allowTrimStart = tagFlags.HasFlag(HtmlTagFlags.Block);
-								}
-							}
-
-							if (allowTrimStart)
-							{
-								text = text.TrimStart();
-							}
-						}
-						else if (previousNodeType == HtmlNodeType.Doctype || previousNodeType == HtmlNodeType.XmlDeclaration)
-						{
-							// Processing of whitespace, that followed after the document type declaration
-							// or XML declaration
-							text = text.TrimStart();
-						}
-
-						if (text.Length > 0
-							&& !(tagFlags.HasFlag(HtmlTagFlags.Xml) && tagFlags.HasFlag(HtmlTagFlags.NonIndependent)))
-						{
-							text = Utils.CollapseWhitespace(text);
-						}
-					}
-					else if (previousNodeType == HtmlNodeType.StartTag && tagNameInLowercase == "textarea"
-						&& string.IsNullOrWhiteSpace(text))
-					{
-						text = string.Empty;
-					}
+					text = string.Empty;
 				}
 			}
 
@@ -1147,6 +1120,61 @@ namespace WebMarkupMin.Core
 			}
 
 			_currentText = text;
+		}
+
+		/// <summary>
+		/// Embedded code handler
+		/// </summary>
+		/// <param name="context">Markup parsing context</param>
+		/// <param name="code">Code</param>
+		private void EmbeddedCodeHandler(MarkupParsingContext context, string code)
+		{
+			HtmlNodeType previousNodeType = _currentNodeType;
+			HtmlTag tag = _currentTag ?? HtmlTag.Empty;
+			string tagNameInLowercase = tag.NameInLowercase;
+			IList<HtmlAttribute> attributes = tag.Attributes;
+
+			_currentNodeType = HtmlNodeType.EmbeddedCode;
+
+			string contentType = attributes
+				.Where(a => a.NameInLowercase == "type")
+				.Select(a => a.Value)
+				.FirstOrDefault()
+				;
+
+			switch (tagNameInLowercase)
+			{
+				case "script":
+					if (string.IsNullOrWhiteSpace(contentType))
+					{
+						string language = attributes
+							.Where(a => a.NameInLowercase == "language")
+							.Select(a => a.Value)
+							.FirstOrDefault()
+							;
+
+						if (!string.IsNullOrWhiteSpace(language)
+							&& language.Trim().IgnoreCaseEquals("vbscript"))
+						{
+							contentType = VBS_CONTENT_TYPE;
+						}
+					}
+
+					ProcessEmbeddedScriptContent(context, code, contentType);
+					break;
+
+				case "style":
+					ProcessEmbeddedStyleContent(context, code, contentType);
+					break;
+
+				default:
+					throw new NotSupportedException();
+			}
+
+			if (_currentText.Length == 0)
+			{
+				_currentNodeType = previousNodeType;
+			}
 		}
 
 		/// <summary>
@@ -1383,7 +1411,7 @@ namespace WebMarkupMin.Core
 				&& TemplateTagHelpers.ContainsTag(attributeValue))
 			{
 				// Processing of template tags
-				var attributeValueBuilder = new StringBuilder();
+				StringBuilder attributeValueBuilder = StringBuilderPool.GetBuilder();
 
 				TemplateTagHelpers.ParseMarkup(attributeValue,
 					(localContext, expression, startDelimiter, endDelimiter) =>
@@ -1412,7 +1440,7 @@ namespace WebMarkupMin.Core
 				);
 
 				string processedAttributeValue = attributeValueBuilder.ToString();
-				attributeValueBuilder.Clear();
+				StringBuilderPool.ReleaseBuilder(attributeValueBuilder);
 
 				switch (attributeType)
 				{
@@ -1736,7 +1764,7 @@ namespace WebMarkupMin.Core
 						int directiveCount = ngDirectives.Count;
 						if (directiveCount > 0)
 						{
-							var directiveBuilder = new StringBuilder();
+							StringBuilder directiveBuilder = StringBuilderPool.GetBuilder();
 							int directiveIndex = 0;
 							int lastDirectiveIndex = directiveCount - 1;
 							string previousExpression = null;
@@ -1767,7 +1795,7 @@ namespace WebMarkupMin.Core
 							}
 
 							processedAttributeValue = directiveBuilder.ToString();
-							directiveBuilder.Clear();
+							StringBuilderPool.ReleaseBuilder(directiveBuilder);
 						}
 						else
 						{
@@ -2188,15 +2216,14 @@ namespace WebMarkupMin.Core
 		/// <param name="context">Markup parsing context</param>
 		/// <param name="content">Embedded script content</param>
 		/// <param name="contentType">Content type (MIME type) of the script</param>
-		/// <returns>Processed embedded script content</returns>
-		private string ProcessEmbeddedScriptContent(MarkupParsingContext context, string content, string contentType)
+		private void ProcessEmbeddedScriptContent(MarkupParsingContext context, string content, string contentType)
 		{
-			string processedScriptContent = content;
+			string code = content;
+			bool isNotEmpty = false;
 			string processedContentType = !string.IsNullOrWhiteSpace(contentType) ?
 				contentType.Trim().ToLowerInvariant() : JS_CONTENT_TYPE;
 			bool isJavaScript = _jsContentTypes.Contains(processedContentType);
 			bool isVbScript = processedContentType == VBS_CONTENT_TYPE;
-
 			bool minifyWhitespace = _settings.WhitespaceMinificationMode != WhitespaceMinificationMode.None;
 
 			if (isJavaScript || isVbScript)
@@ -2207,7 +2234,6 @@ namespace WebMarkupMin.Core
 				string startPart = string.Empty;
 				string endPart = string.Empty;
 				string newLine = Environment.NewLine;
-				string code = content;
 				string beforeCodeContent = string.Empty;
 
 				if (isJavaScript)
@@ -2218,7 +2244,6 @@ namespace WebMarkupMin.Core
 						beforeCodeContent = _beginCdataSectionRegex.Match(content).Value;
 						startPart = "<![CDATA[";
 						endPart = "]]>";
-
 						code = Utils.RemovePrefixAndPostfix(content, _beginCdataSectionRegex, _endCdataSectionRegex);
 					}
 					else if (_scriptBeginCdataSectionRegex.IsMatch(content))
@@ -2308,12 +2333,8 @@ namespace WebMarkupMin.Core
 					// Processing of VBScript code
 					if (_beginCdataSectionRegex.IsMatch(content))
 					{
-						if (!removeCdataSections)
-						{
-							startPart = "<![CDATA[";
-							endPart = "]]>";
-						}
-
+						startPart = "<![CDATA[";
+						endPart = "]]>";
 						code = Utils.RemovePrefixAndPostfix(content, _beginCdataSectionRegex, _endCdataSectionRegex);
 					}
 					else if (_beginHtmlCommentRegex.IsMatch(content))
@@ -2333,24 +2354,44 @@ namespace WebMarkupMin.Core
 					code = code.Trim();
 				}
 
-				if (startPart.Length > 0 || endPart.Length > 0)
+				if (startPart.Length > 0)
 				{
-					processedScriptContent = string.Concat(startPart, newLine, code, newLine, endPart);
+					_buffer.Add(startPart);
+					if (newLine.Length > 0)
+					{
+						_buffer.Add(newLine);
+					}
+					isNotEmpty = true;
 				}
-				else
+				if (code.Length > 0)
 				{
-					processedScriptContent = code;
+					_buffer.Add(code);
+					isNotEmpty = true;
 				}
+				if (endPart.Length > 0)
+				{
+					if (newLine.Length > 0)
+					{
+						_buffer.Add(newLine);
+					}
+					_buffer.Add(endPart);
+					isNotEmpty = true;
+				}
+
+				_currentText = isNotEmpty ? EMBEDDED_CODE_PLACEHOLDER : string.Empty;
+
+				return;
 			}
-			else if (_processableScriptTypes.Contains(processedContentType))
+
+			if (_processableScriptTypes.Contains(processedContentType))
 			{
 				// Processing of JavaScript template
 				GenericHtmlMinifier innerHtmlMinifier = GetInnerHtmlMinifierInstance();
-				MarkupMinificationResult minificationResult = innerHtmlMinifier.Minify(processedScriptContent, false);
+				MarkupMinificationResult minificationResult = innerHtmlMinifier.Minify(content, false);
 
 				if (minificationResult.Errors.Count == 0)
 				{
-					processedScriptContent = minificationResult.MinifiedContent ?? string.Empty;
+					code = minificationResult.MinifiedContent ?? string.Empty;
 				}
 
 				if (minificationResult.Errors.Count > 0 || minificationResult.Warnings.Count > 0)
@@ -2385,13 +2426,19 @@ namespace WebMarkupMin.Core
 					}
 				}
 
-				if (minifyWhitespace && processedScriptContent.Length > 0)
+				if (minifyWhitespace && code.Length > 0)
 				{
-					processedScriptContent = processedScriptContent.Trim();
+					code = code.Trim();
 				}
 			}
 
-			return processedScriptContent;
+			if (code.Length > 0)
+			{
+				_buffer.Add(code);
+				isNotEmpty = true;
+			}
+
+			_currentText = isNotEmpty ? EMBEDDED_CODE_PLACEHOLDER : string.Empty;
 		}
 
 		/// <summary>
@@ -2400,9 +2447,10 @@ namespace WebMarkupMin.Core
 		/// <param name="context">Markup parsing context</param>
 		/// <param name="content">Embedded style content</param>
 		/// <param name="contentType">Content type (MIME type) of the style</param>
-		/// <returns>Processed embedded style content</returns>
-		private string ProcessEmbeddedStyleContent(MarkupParsingContext context, string content, string contentType)
+		private void ProcessEmbeddedStyleContent(MarkupParsingContext context, string content, string contentType)
 		{
+			string code;
+			bool isNotEmpty = false;
 			string processedContentType = !string.IsNullOrWhiteSpace(contentType) ?
 				contentType.Trim().ToLowerInvariant() : CSS_CONTENT_TYPE;
 			bool minifyWhitespace = _settings.WhitespaceMinificationMode != WhitespaceMinificationMode.None;
@@ -2412,7 +2460,6 @@ namespace WebMarkupMin.Core
 			string startPart = string.Empty;
 			string endPart = string.Empty;
 			string newLine = string.Empty;
-			string code;
 			string beforeCodeContent = string.Empty;
 
 			if (_beginCdataSectionRegex.IsMatch(content))
@@ -2421,7 +2468,6 @@ namespace WebMarkupMin.Core
 				startPart = "<![CDATA[";
 				endPart = "]]>";
 				newLine = Environment.NewLine;
-
 				code = Utils.RemovePrefixAndPostfix(content, _beginCdataSectionRegex, _endCdataSectionRegex);
 			}
 			else if (_styleBeginCdataSectionRegex.IsMatch(content))
@@ -2513,17 +2559,31 @@ namespace WebMarkupMin.Core
 				code = code.Trim();
 			}
 
-			string processedStyleContent;
-			if (startPart.Length > 0 || endPart.Length > 0)
+			if (startPart.Length > 0)
 			{
-				processedStyleContent = string.Concat(startPart, newLine, code, newLine, endPart);
+				_buffer.Add(startPart);
+				if (newLine.Length > 0)
+				{
+					_buffer.Add(newLine);
+				}
+				isNotEmpty = true;
 			}
-			else
+			if (code.Length > 0)
 			{
-				processedStyleContent = code;
+				_buffer.Add(code);
+				isNotEmpty = true;
+			}
+			if (endPart.Length > 0)
+			{
+				if (newLine.Length > 0)
+				{
+					_buffer.Add(newLine);
+				}
+				_buffer.Add(endPart);
+				isNotEmpty = true;
 			}
 
-			return processedStyleContent;
+			_currentText = isNotEmpty ? EMBEDDED_CODE_PLACEHOLDER : string.Empty;
 		}
 
 		/// <summary>

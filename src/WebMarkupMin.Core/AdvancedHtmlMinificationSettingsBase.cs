@@ -2,6 +2,7 @@
 using System.Text;
 
 using WebMarkupMin.Core.Helpers;
+using WebMarkupMin.Core.Utilities;
 
 namespace WebMarkupMin.Core
 {
@@ -111,7 +112,7 @@ namespace WebMarkupMin.Core
 		{
 			get
 			{
-				var sb = new StringBuilder();
+				StringBuilder sb = StringBuilderPool.GetBuilder();
 
 				foreach (string optionalTag in _preservableOptionalTags)
 				{
@@ -122,7 +123,10 @@ namespace WebMarkupMin.Core
 					sb.Append(optionalTag);
 				}
 
-				return sb.ToString();
+				string preservableOptionalTagList = sb.ToString();
+				StringBuilderPool.ReleaseBuilder(sb);
+
+				return preservableOptionalTagList;
 			}
 			set
 			{

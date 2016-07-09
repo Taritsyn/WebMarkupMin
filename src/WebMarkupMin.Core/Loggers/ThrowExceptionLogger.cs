@@ -23,32 +23,35 @@ namespace WebMarkupMin.Core.Loggers
 		public override void Error(string category, string message, string filePath = "",
 			int lineNumber = 0, int columnNumber = 0, string sourceFragment = "")
 		{
-			var errorMessage = new StringBuilder();
-			errorMessage.AppendFormatLine("{0}: {1}", CoreStrings.ErrorDetails_Category, category);
-			errorMessage.AppendFormatLine("{0}: {1}", CoreStrings.ErrorDetails_Message, message);
+			StringBuilder errorBuilder = StringBuilderPool.GetBuilder();
+			errorBuilder.AppendFormatLine("{0}: {1}", CoreStrings.ErrorDetails_Category, category);
+			errorBuilder.AppendFormatLine("{0}: {1}", CoreStrings.ErrorDetails_Message, message);
 
 			if (!string.IsNullOrWhiteSpace(filePath))
 			{
-				errorMessage.AppendFormatLine("{0}: {1}", CoreStrings.ErrorDetails_File, filePath);
+				errorBuilder.AppendFormatLine("{0}: {1}", CoreStrings.ErrorDetails_File, filePath);
 			}
 
 			if (lineNumber > 0)
 			{
-				errorMessage.AppendFormatLine("{0}: {1}", CoreStrings.ErrorDetails_LineNumber, lineNumber);
+				errorBuilder.AppendFormatLine("{0}: {1}", CoreStrings.ErrorDetails_LineNumber, lineNumber);
 			}
 
 			if (columnNumber > 0)
 			{
-				errorMessage.AppendFormatLine("{0}: {1}", CoreStrings.ErrorDetails_ColumnNumber, columnNumber);
+				errorBuilder.AppendFormatLine("{0}: {1}", CoreStrings.ErrorDetails_ColumnNumber, columnNumber);
 			}
 
 			if (!string.IsNullOrWhiteSpace(sourceFragment))
 			{
-				errorMessage.AppendFormatLine("{1}:{0}{0}{2}", Environment.NewLine,
+				errorBuilder.AppendFormatLine("{1}:{0}{0}{2}", Environment.NewLine,
 					CoreStrings.ErrorDetails_SourceFragment, sourceFragment);
 			}
 
-			throw new MarkupMinificationException(errorMessage.ToString());
+			string errorMessage = errorBuilder.ToString();
+			StringBuilderPool.ReleaseBuilder(errorBuilder);
+
+			throw new MarkupMinificationException(errorMessage);
 		}
 	}
 }

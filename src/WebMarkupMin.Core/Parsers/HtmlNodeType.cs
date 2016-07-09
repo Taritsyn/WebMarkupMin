@@ -14,6 +14,7 @@
 		StartTag,
 		EndTag,
 		Text,
+		EmbeddedCode,
 		TemplateTag
 	}
 }

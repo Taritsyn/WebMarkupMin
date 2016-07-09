@@ -28,6 +28,11 @@ namespace WebMarkupMin.Core.Helpers
 			@"(?<startDelimiter>\$\{)(?<expression>[^{][\s\S]*?)(?<endDelimiter>\})(?!\})";
 
 		/// <summary>
+		/// Array of template tag first characters
+		/// </summary>
+		private static readonly char[] _templateTagFirstChars = { '{', '$', '[' };
+
+		/// <summary>
 		/// Regular expression for working with the template tags
 		/// </summary>
 		private static readonly Regex _templateTagRegex = new Regex(
@@ -41,7 +46,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <returns>Result of check (true - contains; false - not contains)</returns>
 		public static bool ContainsTag(string content)
 		{
-			return _templateTagRegex.IsMatch(content);
+			return content.IndexOfAny(_templateTagFirstChars) != -1 && _templateTagRegex.IsMatch(content);
 		}
 
 		/// <summary>

@@ -10,6 +10,7 @@
  */
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -77,27 +78,27 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Stack of tags
 		/// </summary>
-		private List<HtmlTag> _tagStack;
+		private readonly List<HtmlTag> _tagStack;
 
 		/// <summary>
 		/// Cache of the flags of HTML tags
 		/// </summary>
-		private Dictionary<string, HtmlTagFlags> _htmlTagFlagsCache;
+		private readonly Dictionary<string, HtmlTagFlags> _htmlTagFlagsCache;
 
 		/// <summary>
 		/// Cache of the flags of custom HTML tags
 		/// </summary>
-		private Dictionary<string, HtmlTagFlags> _customHtmlTagFlagsCache;
+		private readonly Dictionary<string, HtmlTagFlags> _customHtmlTagFlagsCache;
 
 		/// <summary>
 		/// Cache of the tag with embedded code regular expressions
 		/// </summary>
-		private Dictionary<string, Regex> _tagWithEmbeddedRegexCache;
+		private static readonly ConcurrentDictionary<string, Regex> _tagWithEmbeddedRegexCache;
 
 		/// <summary>
 		/// Stack of conditional comments
 		/// </summary>
-		private Stack<HtmlConditionalComment> _conditionalCommentStack;
+		private readonly Stack<HtmlConditionalComment> _conditionalCommentStack;
 
 		/// <summary>
 		/// Flag for whether the conditional comment is open
@@ -107,7 +108,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Stack of XML-based tags
 		/// </summary>
-		private Stack<string> _xmlTagStack;
+		private readonly Stack<string> _xmlTagStack;
 
 		/// <summary>
 		/// Synchronizer of parsing
@@ -116,12 +117,27 @@ namespace WebMarkupMin.Core.Parsers
 
 
 		/// <summary>
+		/// Static constructor
+		/// </summary>
+		static HtmlParser()
+		{
+			_tagWithEmbeddedRegexCache = new ConcurrentDictionary<string, Regex>();
+		}
+
+		/// <summary>
 		/// Constructs instance of HTML parser
 		/// </summary>
 		/// <param name="handlers">HTML parsing handlers</param>
 		public HtmlParser(HtmlParsingHandlers handlers)
 		{
 			_handlers = handlers;
+
+			_tagStack = new List<HtmlTag>();
+			_htmlTagFlagsCache = new Dictionary<string, HtmlTagFlags>();
+			_customHtmlTagFlagsCache = new Dictionary<string, HtmlTagFlags>();
+			_conditionalCommentStack = new Stack<HtmlConditionalComment>();
+			_conditionalCommentOpened = false;
+			_xmlTagStack = new Stack<string>();
 		}
 
 
@@ -142,14 +158,6 @@ namespace WebMarkupMin.Core.Parsers
 				_innerContext = new InnerMarkupParsingContext(content);
 				_context = new MarkupParsingContext(_innerContext);
 
-				_tagStack = new List<HtmlTag>();
-				_htmlTagFlagsCache = new Dictionary<string, HtmlTagFlags>();
-				_customHtmlTagFlagsCache = new Dictionary<string, HtmlTagFlags>();
-				_tagWithEmbeddedRegexCache = new Dictionary<string, Regex>();
-				_conditionalCommentStack = new Stack<HtmlConditionalComment>();
-				_conditionalCommentOpened = false;
-				_xmlTagStack = new Stack<string>();
-
 				int endPosition = contentLength - 1;
 				int previousPosition = -1;
 
@@ -163,78 +171,119 @@ namespace WebMarkupMin.Core.Parsers
 						// Make sure we're not in a tag, that contains embedded code
 						if (lastStackedTag == null || !lastStackedTag.Flags.HasFlag(HtmlTagFlags.EmbeddedCode))
 						{
-							if (content.CustomStartsWith("<", _innerContext.Position, StringComparison.Ordinal))
+							int firstCharPosition = _innerContext.Position;
+							char firstCharValue;
+							bool firstCharExist = content.TryGetChar(firstCharPosition, out firstCharValue);
+
+							if (firstCharExist && firstCharValue == '<')
 							{
-								if (content.CustomStartsWith("</", _innerContext.Position, StringComparison.Ordinal))
+								int secondCharPosition = firstCharPosition + 1;
+								char secondCharValue;
+								bool secondCharExist = content.TryGetChar(secondCharPosition, out secondCharValue);
+
+								if (secondCharExist)
 								{
-									// End tag
-									isProcessed = ProcessEndTag();
-								}
-								else if (content.CustomStartsWith("<!", _innerContext.Position, StringComparison.Ordinal))
-								{
-									if (content.CustomStartsWith("<!--", _innerContext.Position, StringComparison.Ordinal))
+									if (secondCharValue.IsAlphaNumeric())
 									{
-										// Comments
-										if (content.CustomStartsWith("<!--[", _innerContext.Position, StringComparison.Ordinal))
-										{
-											// Revealed validating If conditional comments
-											// (e.g. <!--[if ... ]><!--> or <!--[if ... ]>-->)
-											isProcessed = ProcessRevealedValidatingIfComment();
-
-											if (!isProcessed)
-											{
-												// Hidden If conditional comments (e.g. <!--[if ... ]>)
-												isProcessed = ProcessHiddenIfComment();
-											}
-										}
-
-										if (!isProcessed)
-										{
-											// Revealed validating End If conditional comments
-											// (e.g. <!--<![endif]-->)
-											isProcessed = ProcessRevealedValidatingEndIfComment();
-										}
-
-										if (!isProcessed)
-										{
-											// HTML comments
-											isProcessed = ProcessComment();
-										}
-									}
-									else if (content.CustomStartsWith("<![", _innerContext.Position, StringComparison.Ordinal))
-									{
-										// Remaining conditional comments
-
-										// Hidden End If conditional comment (e.g. <![endif]-->)
-										isProcessed = ProcessHiddenEndIfComment();
-
-										if (!isProcessed)
-										{
-											// Revealed If conditional comment (e.g. <![if ... ]>)
-											isProcessed = ProcessRevealedIfComment();
-										}
-
-										if (!isProcessed)
-										{
-											// Revealed End If conditional comment (e.g. <![endif]>)
-											isProcessed = ProcessRevealedEndIfComment();
-										}
+										// Start tag
+										isProcessed = ProcessStartTag();
 									}
 									else
 									{
-										// Doctype declaration
-										isProcessed = ProcessDoctype();
+										int thirdCharPosition = secondCharPosition + 1;
+										char thirdCharValue;
+										bool thirdCharExist = content.TryGetChar(thirdCharPosition, out thirdCharValue);
+
+										if (thirdCharExist)
+										{
+											switch (secondCharValue)
+											{
+												case '/':
+													if (thirdCharValue.IsAlphaNumeric())
+													{
+														isProcessed = ProcessEndTag();
+													}
+													break;
+
+												case '!':
+													switch (thirdCharValue)
+													{
+														case '-':
+															int fourthCharPosition = thirdCharPosition + 1;
+															char fourthCharValue;
+															bool fourthCharExist = content.TryGetChar(fourthCharPosition, out fourthCharValue);
+
+															if (fourthCharExist && fourthCharValue == '-')
+															{
+																// Comments
+																int fifthCharPosition = fourthCharPosition + 1;
+																char fifthCharValue;
+																bool fifthCharExist = content.TryGetChar(fifthCharPosition, out fifthCharValue);
+
+																if (fifthCharExist)
+																{
+																	if (fifthCharValue == '[')
+																	{
+																		// Revealed validating If conditional comments
+																		// (e.g. <!--[if ... ]><!--> or <!--[if ... ]>-->)
+																		isProcessed = ProcessRevealedValidatingIfComment();
+
+																		if (!isProcessed)
+																		{
+																			// Hidden If conditional comments (e.g. <!--[if ... ]>)
+																			isProcessed = ProcessHiddenIfComment();
+																		}
+																	}
+																	else
+																	{
+																		// Revealed validating End If conditional comments
+																		// (e.g. <!--<![endif]-->)
+																		isProcessed = ProcessRevealedValidatingEndIfComment();
+																	}
+																}
+
+																if (!isProcessed)
+																{
+																	// HTML comments
+																	isProcessed = ProcessComment();
+																}
+															}
+															break;
+
+														case '[':
+															// Remaining conditional comments
+
+															// Hidden End If conditional comment (e.g. <![endif]-->)
+															isProcessed = ProcessHiddenEndIfComment();
+
+															if (!isProcessed)
+															{
+																// Revealed If conditional comment (e.g. <![if ... ]>)
+																isProcessed = ProcessRevealedIfComment();
+															}
+
+															if (!isProcessed)
+															{
+																// Revealed End If conditional comment (e.g. <![endif]>)
+																isProcessed = ProcessRevealedEndIfComment();
+															}
+															break;
+
+														case 'D':
+														case 'd':
+															// Doctype declaration
+															isProcessed = ProcessDoctype();
+															break;
+													}
+													break;
+
+												case '?':
+													// XML declaration
+													isProcessed = ProcessXmlDeclaration();
+													break;
+											}
+										}
 									}
-								}
-								else if (content.CustomStartsWith("<?", _innerContext.Position, StringComparison.Ordinal))
-								{
-									// XML declaration
-									isProcessed = ProcessXmlDeclaration();
-								}
-								else
-								{
-									// Start tag
-									isProcessed = ProcessStartTag();
 								}
 							}
 
@@ -280,8 +329,8 @@ namespace WebMarkupMin.Core.Parsers
 					_tagStack.Clear();
 					_htmlTagFlagsCache.Clear();
 					_customHtmlTagFlagsCache.Clear();
-					_tagWithEmbeddedRegexCache.Clear();
 					_conditionalCommentStack.Clear();
+					_conditionalCommentOpened = false;
 					_xmlTagStack.Clear();
 					_context = null;
 					_innerContext = null;
@@ -356,11 +405,12 @@ namespace WebMarkupMin.Core.Parsers
 
 			int commentStartPosition = _innerContext.Position;
 			int commentEndPosition = content.IndexOf("-->", commentStartPosition, StringComparison.Ordinal);
+			int commentPositionDifference = commentEndPosition - commentStartPosition;
 
-			if (commentEndPosition > commentStartPosition)
+			if (commentPositionDifference >= 4)
 			{
-				string commentText = content.Substring(commentStartPosition + 4,
-					commentEndPosition - commentStartPosition - 4);
+				string commentText = commentPositionDifference > 4 ?
+					content.Substring(commentStartPosition + 4, commentPositionDifference - 4) : string.Empty;
 
 				if (_handlers.Comment != null)
 				{
@@ -653,26 +703,16 @@ namespace WebMarkupMin.Core.Parsers
 			{
 				string stackedTagName = stackedTag.Name;
 				string stackedTagNameInLowercase = stackedTag.NameInLowercase;
-				Regex stackedTagRegex;
-
-				if (_tagWithEmbeddedRegexCache.ContainsKey(stackedTagNameInLowercase))
-				{
-					stackedTagRegex = _tagWithEmbeddedRegexCache[stackedTagNameInLowercase];
-				}
-				else
-				{
-					stackedTagRegex = new Regex(@"([\s\S]*?)</" + Regex.Escape(stackedTagNameInLowercase) + @"\s*>",
-						RegexOptions.IgnoreCase);
-					_tagWithEmbeddedRegexCache[stackedTagNameInLowercase] = stackedTagRegex;
-				}
+				Regex stackedTagRegex = _tagWithEmbeddedRegexCache.GetOrAdd(stackedTagNameInLowercase,
+					key => new Regex(@"([\s\S]*?)</" + Regex.Escape(key) + @"\s*>", RegexOptions.IgnoreCase));
 
 				var stackedTagMatch = stackedTagRegex.Match(content, _innerContext.Position, contentRemainderLength);
 				string htmlFragment = stackedTagMatch.Value;
-				string text = stackedTagMatch.Groups[1].Value;
+				string code = stackedTagMatch.Groups[1].Value;
 
-				if (_handlers.Text != null)
+				if (_handlers.EmbeddedCode != null)
 				{
-					_handlers.Text(_context, text);
+					_handlers.EmbeddedCode(_context, code);
 				}
 
 				ParseEndTag(stackedTagName, stackedTagNameInLowercase);

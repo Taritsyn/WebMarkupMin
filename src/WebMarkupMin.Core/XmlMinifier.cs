@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 using WebMarkupMin.Core.Loggers;
@@ -13,6 +14,11 @@ namespace WebMarkupMin.Core
 	/// </summary>
 	public sealed class XmlMinifier : IMarkupMinifier
 	{
+		/// <summary>
+		/// Average compression ratio
+		/// </summary>
+		const double AVERAGE_COMPRESSION_RATIO = 0.85;
+
 		/// <summary>
 		/// XML minification settings
 		/// </summary>
@@ -36,7 +42,7 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// HTML minification buffer
 		/// </summary>
-		private List<string> _buffer;
+		private readonly List<string> _buffer;
 
 		/// <summary>
 		/// Current node type
@@ -81,7 +87,7 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// List of the errors
 		/// </summary>
-		private IList<MinificationErrorInfo> _errors;
+		private readonly IList<MinificationErrorInfo> _errors;
 
 		/// <summary>
 		/// Synchronizer of minification
@@ -110,6 +116,11 @@ namespace WebMarkupMin.Core
 				EmptyTag = EmptyTagHandler,
 				Text = TextHandler
 			});
+
+			_buffer = new List<string>();
+			_errors = new List<MinificationErrorInfo>();
+			_currentNodeType = XmlNodeType.Unknown;
+			_currentText = string.Empty;
 		}
 
 
@@ -182,11 +193,8 @@ namespace WebMarkupMin.Core
 						statistics.Init(cleanedContent);
 					}
 
-					_result = new StringBuilder(cleanedContent.Length);
-					_buffer = new List<string>();
-					_errors = new List<MinificationErrorInfo>();
-					_currentNodeType = XmlNodeType.Unknown;
-					_currentText = string.Empty;
+					int builderCapacity = (int)Math.Floor(cleanedContent.Length * AVERAGE_COMPRESSION_RATIO);
+					_result = StringBuilderPool.GetBuilder(builderCapacity);
 
 					_xmlParser.Parse(cleanedContent);
 
@@ -209,8 +217,10 @@ namespace WebMarkupMin.Core
 				}
 				finally
 				{
-					_result.Clear();
+					StringBuilderPool.ReleaseBuilder(_result);
 					_buffer.Clear();
+					_currentNodeType = XmlNodeType.Unknown;
+					_currentText = string.Empty;
 
 					errors.AddRange(_errors);
 					_errors.Clear();

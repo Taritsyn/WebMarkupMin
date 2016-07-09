@@ -117,6 +117,7 @@
     <Compile Include="Utilities\SourceCodeNavigator.cs" />
     <Compile Include="Utilities\SourceCodeNodeCoordinates.cs" />
     <Compile Include="Utilities\StringBuilderExtensions.cs" />
+    <Compile Include="Utilities\StringBuilderPool.cs" />
     <Compile Include="Utilities\StringExtensions.cs" />
     <Compile Include="Utilities\Utils.cs" />
     <Compile Include="WhitespaceMinificationMode.cs" />

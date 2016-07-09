@@ -80,7 +80,7 @@ namespace WebMarkupMin.Core.Utilities
 					{
 						if (sb == null)
 						{
-							sb = new StringBuilder();
+							sb = StringBuilderPool.GetBuilder();
 						}
 
 						if (previousCharIndex < charIndex)
@@ -111,7 +111,7 @@ namespace WebMarkupMin.Core.Utilities
 			}
 
 			string result = sb.ToString();
-			sb.Clear();
+			StringBuilderPool.ReleaseBuilder(sb);
 
 			return result;
 		}

@@ -78,6 +78,15 @@
 		}
 
 		/// <summary>
+		/// Embedded code handler
+		/// </summary>
+		public EmbeddedCodeDelegate EmbeddedCode
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Template tags handler
 		/// </summary>
 		public TemplateTagDelegate TemplateTag
@@ -144,6 +153,13 @@
 		/// <param name="context">Markup parsing context</param>
 		/// <param name="text">Text</param>
 		public delegate void TextDelegate(MarkupParsingContext context, string text);
+
+		/// <summary>
+		/// Embedded code delegate
+		/// </summary>
+		/// <param name="context">Markup parsing context</param>
+		/// <param name="code">Code</param>
+		public delegate void EmbeddedCodeDelegate(MarkupParsingContext context, string code);
 
 		/// <summary>
 		/// Template tags delegate

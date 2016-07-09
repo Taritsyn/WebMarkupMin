@@ -50,7 +50,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Stack of tags
 		/// </summary>
-		private Stack<StackedXmlTag> _tagStack;
+		private readonly Stack<StackedXmlTag> _tagStack;
 
 		/// <summary>
 		/// Synchronizer of parsing
@@ -65,6 +65,7 @@ namespace WebMarkupMin.Core.Parsers
 		public XmlParser(XmlParsingHandlers handlers)
 		{
 			_handlers = handlers;
+			_tagStack = new Stack<StackedXmlTag>();
 		}
 
 
@@ -85,8 +86,6 @@ namespace WebMarkupMin.Core.Parsers
 				_innerContext = new InnerMarkupParsingContext(content);
 				_context = new MarkupParsingContext(_innerContext);
 
-				_tagStack = new Stack<StackedXmlTag>();
-
 				int endPosition = contentLength - 1;
 				int previousPosition = -1;
 
@@ -95,40 +94,69 @@ namespace WebMarkupMin.Core.Parsers
 					while (_innerContext.Position <= endPosition)
 					{
 						bool isProcessed = false;
+						int firstCharPosition = _innerContext.Position;
+						char firstCharValue;
+						bool firstCharExist = content.TryGetChar(firstCharPosition, out firstCharValue);
 
-						if (content.CustomStartsWith("<", _innerContext.Position, StringComparison.Ordinal))
+						if (firstCharExist && firstCharValue == '<')
 						{
-							if (content.CustomStartsWith("</", _innerContext.Position, StringComparison.Ordinal))
-							{
-								// End tag
-								isProcessed = ProcessEndTag();
-							}
-							else if (content.CustomStartsWith("<!", _innerContext.Position, StringComparison.Ordinal))
-							{
-								// XML comments
-								isProcessed = ProcessComment();
+							int secondCharPosition = firstCharPosition + 1;
+							char secondCharValue;
+							bool secondCharExist = content.TryGetChar(secondCharPosition, out secondCharValue);
 
-								if (!isProcessed)
+							if (secondCharExist)
+							{
+								if (IsTagFirstChar(secondCharValue))
 								{
-									// CDATA sections
-									isProcessed = ProcessCdataSection();
+									// Start tag
+									isProcessed = ProcessStartTag();
 								}
+								else
+								{
+									int thirdCharPosition = secondCharPosition + 1;
+									char thirdCharValue;
+									bool thirdCharExist = content.TryGetChar(thirdCharPosition, out thirdCharValue);
 
-								if (!isProcessed)
-								{
-									// Doctype declaration
-									isProcessed = ProcessDoctype();
+									if (thirdCharExist)
+									{
+										switch (secondCharValue)
+										{
+											case '/':
+												if (IsTagFirstChar(thirdCharValue))
+												{
+													// End tag
+													isProcessed = ProcessEndTag();
+												}
+												break;
+
+											case '!':
+												switch (thirdCharValue)
+												{
+													case '-':
+														// XML comments
+														isProcessed = ProcessComment();
+														break;
+
+													case '[':
+														// CDATA sections
+														isProcessed = ProcessCdataSection();
+														break;
+
+													case 'D':
+													case 'd':
+														// Doctype declaration
+														isProcessed = ProcessDoctype();
+														break;
+												}
+												break;
+
+											case '?':
+												// XML declaration and processing instructions
+												isProcessed = ProcessProcessingInstruction();
+												break;
+										}
+									}
 								}
-							}
-							else if (content.CustomStartsWith("<?", _innerContext.Position, StringComparison.Ordinal))
-							{
-								// XML declaration and processing instructions
-								isProcessed = ProcessProcessingInstruction();
-							}
-							else
-							{
-								// Start tag
-								isProcessed = ProcessStartTag();
 							}
 						}
 
@@ -257,11 +285,12 @@ namespace WebMarkupMin.Core.Parsers
 			{
 				int commentStartPosition = _innerContext.Position;
 				int commentEndPosition = content.IndexOf("-->", commentStartPosition, StringComparison.Ordinal);
+				int commentPositionDifference = commentEndPosition - commentStartPosition;
 
-				if (commentEndPosition > commentStartPosition)
+				if (commentPositionDifference >= 4)
 				{
-					string commentText = content.Substring(commentStartPosition + 4,
-						commentEndPosition - commentStartPosition - 4);
+					string commentText = commentPositionDifference > 4 ?
+						content.Substring(commentStartPosition + 4, commentPositionDifference - 4) : string.Empty;
 
 					if (_handlers.Comment != null)
 					{
@@ -465,6 +494,20 @@ namespace WebMarkupMin.Core.Parsers
 			}
 
 			return attributes;
+		}
+
+		#endregion
+
+		#region Determining methods
+
+		/// <summary>
+		/// Checks whether the character is valid first character of XML tag name
+		/// </summary>
+		/// <param name="value">Character value</param>
+		/// <returns>Result of check (true - valid; false - not valid)</returns>
+		private static bool IsTagFirstChar(char value)
+		{
+			return char.IsLetter(value) || value == '_';
 		}
 
 		#endregion

@@ -357,15 +357,23 @@ namespace WebMarkupMin.Core.Test.Xml
 		#region Processing XML comments
 
 		[Fact]
-		public void RemovingCommentsIsCorrect()
+		public void RemovingXmlCommentsIsCorrect()
 		{
 			// Arrange
-			var keepingCommentsMinifier = new XmlMinifier(
+			var keepingXmlCommentsMinifier = new XmlMinifier(
 				new XmlMinificationSettings(true) { RemoveXmlComments = false });
-			var removingCommentsMinifier = new XmlMinifier(
+			var removingXmlCommentsMinifier = new XmlMinifier(
 				new XmlMinificationSettings(true) { RemoveXmlComments = true });
 
-			const string input1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+			const string input1 = "<!---->";
+			const string targetOutput1A = input1;
+			const string targetOutput1B = "";
+
+			const string input2 = "<!-- -->";
+			const string targetOutput2A = input2;
+			const string targetOutput2B = "";
+
+			const string input3 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
 				"<rss version=\"2.0\">" +
 				"<channel>" +
 				"<!-- Channel properties -->" +
@@ -392,8 +400,8 @@ namespace WebMarkupMin.Core.Test.Xml
 				"</channel>" +
 				"</rss>"
 				;
-			const string targetOutput1A = input1;
-			const string targetOutput1B = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+			const string targetOutput3A = input3;
+			const string targetOutput3B = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
 				"<rss version=\"2.0\">" +
 				"<channel>" +
 				"<title>RSS Title</title>" +
@@ -418,12 +426,24 @@ namespace WebMarkupMin.Core.Test.Xml
 				;
 
 			// Act
-			string output1A = keepingCommentsMinifier.Minify(input1).MinifiedContent;
-			string output1B = removingCommentsMinifier.Minify(input1).MinifiedContent;
+			string output1A = keepingXmlCommentsMinifier.Minify(input1).MinifiedContent;
+			string output1B = removingXmlCommentsMinifier.Minify(input1).MinifiedContent;
+
+			string output2A = keepingXmlCommentsMinifier.Minify(input2).MinifiedContent;
+			string output2B = removingXmlCommentsMinifier.Minify(input2).MinifiedContent;
+
+			string output3A = keepingXmlCommentsMinifier.Minify(input3).MinifiedContent;
+			string output3B = removingXmlCommentsMinifier.Minify(input3).MinifiedContent;
 
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
+
+			Assert.Equal(targetOutput2A, output2A);
+			Assert.Equal(targetOutput2B, output2B);
+
+			Assert.Equal(targetOutput3A, output3A);
+			Assert.Equal(targetOutput3B, output3B);
 		}
 
 		#endregion

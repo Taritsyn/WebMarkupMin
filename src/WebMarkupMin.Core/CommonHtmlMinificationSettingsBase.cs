@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
+using WebMarkupMin.Core.Utilities;
+
 namespace WebMarkupMin.Core
 {
 	/// <summary>
@@ -218,7 +220,7 @@ namespace WebMarkupMin.Core
 		{
 			get
 			{
-				var sb = new StringBuilder();
+				StringBuilder sb = StringBuilderPool.GetBuilder();
 
 				foreach (string scriptType in _processableScriptTypes)
 				{
@@ -229,7 +231,10 @@ namespace WebMarkupMin.Core
 					sb.Append(scriptType);
 				}
 
-				return sb.ToString();
+				string processableScriptTypeList = sb.ToString();
+				StringBuilderPool.ReleaseBuilder(sb);
+
+				return processableScriptTypeList;
 			}
 			set
 			{
@@ -332,7 +337,7 @@ namespace WebMarkupMin.Core
 		{
 			get
 			{
-				var sb = new StringBuilder();
+				StringBuilder sb = StringBuilderPool.GetBuilder();
 
 				foreach (string directiveName in _customAngularDirectives)
 				{
@@ -343,7 +348,10 @@ namespace WebMarkupMin.Core
 					sb.Append(directiveName);
 				}
 
-				return sb.ToString();
+				string customAngularDirectiveList = sb.ToString();
+				StringBuilderPool.ReleaseBuilder(sb);
+
+				return customAngularDirectiveList;
 			}
 			set
 			{
