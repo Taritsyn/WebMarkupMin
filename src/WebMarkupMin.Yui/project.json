@@ -3,7 +3,7 @@
 
 	"dependencies": {
 		"YUICompressor.NET": "2.7.0",
-		"WebMarkupMin.Core": "2.0.0"
+		"WebMarkupMin.Core": "2.0.1"
 	},
 
 	"frameworks": {

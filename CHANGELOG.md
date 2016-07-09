@@ -1,6 +1,10 @@
 Change log
 ==========
 
+## July 9, 2016 - v2.0.1
+ * Optimized memory usage
+ * Fixed a [error #10](https://github.com/Taritsyn/WebMarkupMin/issues/10) “Crash parsing invalid comment block”
+
 ## June 28, 2016 - v2.0.0
  * Added support of .NET Core and ASP.NET Core 1.0 RTM
  * Was made refactoring
@@ -8,8 +12,8 @@ Change log
 ## June 13, 2016 - v2.0.0 RC 9
  * `rb` and `rtc` tags are now considered as optional end tags
  * In configuration settings of HTML minifier was added one new property - `PreservableOptionalTagList` (default is empty)
- * Fixed a [error #8](https://github.com/Taritsyn/WebMarkupMin/issues/8) «MarkupMinificationException when having nested SVG element inside an SVG»
- * Fixed a [error #9](https://github.com/Taritsyn/WebMarkupMin/issues/9) «&lt;div&gt;${{something}}&lt;/div&gt; incorrectly minified»
+ * Fixed a [error #8](https://github.com/Taritsyn/WebMarkupMin/issues/8) “MarkupMinificationException when having nested SVG element inside an SVG”
+ * Fixed a [error #9](https://github.com/Taritsyn/WebMarkupMin/issues/9) “&lt;div&gt;${{something}}&lt;/div&gt; incorrectly minified”
 
 ## May 19, 2016 - v2.0.0 RC 8
  * Added support of .NET Core and ASP.NET Core 1.0 RC 2
@@ -44,7 +48,7 @@ Change log
  * Added support of ASP.NET 5 Beta 7
 
 ## September 1, 2015 - v2.0.0 Beta 3
- * In WebMarkupMin.AspNet4.Mvc fixed a bug “Filtering is not allowed.”, that caused by joint usage of the WebMarkupMin's action filters and the nopCommerce's widgets
+ * In WebMarkupMin.AspNet4.Mvc fixed a error “Filtering is not allowed.”, that caused by joint usage of the WebMarkupMin's action filters and the nopCommerce's widgets
 
 ## August 24, 2015 - v2.0.0 Beta 2
  * Was made refactoring

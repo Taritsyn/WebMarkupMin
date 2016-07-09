@@ -1,5 +1,11 @@
 ﻿<p>An overview of new features and fixes</p>
 
+<h3>2.0.1 - July 9, 2016</h3>
+<ul>
+	<li>Optimized memory usage</li>
+	<li>Fixed a <a href="https://github.com/Taritsyn/WebMarkupMin/issues/10" target="_blank">error #10</a> “Crash parsing invalid comment block”</li>
+</ul>
+
 <h3>2.0.0 - June 28, 2016</h3>
 <ul>
 	<li>Added support of .NET Core and ASP.NET Core 1.0 RTM</li>
@@ -10,8 +16,8 @@
 <ul>
 	<li><code>rb</code> and <code>rtc</code> tags are now considered as optional end tags</li>
 	<li>In configuration settings of HTML minifier was added one new property - <code>PreservableOptionalTagList</code> (default is empty)</li>
-	<li>Fixed a <a href="https://github.com/Taritsyn/WebMarkupMin/issues/8" target="_blank">error #8</a> «MarkupMinificationException when having nested SVG element inside an SVG»</li>
-	<li>Fixed a <a href="https://github.com/Taritsyn/WebMarkupMin/issues/9" target="_blank">error #9</a> «&lt;div&gt;${{something}}&lt;/div&gt; incorrectly minified»</li>
+	<li>Fixed a <a href="https://github.com/Taritsyn/WebMarkupMin/issues/8" target="_blank">error #8</a> “MarkupMinificationException when having nested SVG element inside an SVG”</li>
+	<li>Fixed a <a href="https://github.com/Taritsyn/WebMarkupMin/issues/9" target="_blank">error #9</a> “&lt;div&gt;${{something}}&lt;/div&gt; incorrectly minified”</li>
 </ul>
 
 <h3>2.0.0 RC 8 - May 19, 2016</h3>
@@ -68,7 +74,7 @@
 
 <h3>2.0.0 Beta 3 - September 1, 2015</h3>
 <ul>
-	<li>In WebMarkupMin.AspNet4.Mvc fixed a bug “Filtering is not allowed.”, that caused by joint usage of the WebMarkupMin's action filters and the nopCommerce's widgets</li>
+	<li>In WebMarkupMin.AspNet4.Mvc fixed a error “Filtering is not allowed.”, that caused by joint usage of the WebMarkupMin's action filters and the nopCommerce's widgets</li>
 </ul>
 
 <h3>2.0.0 Beta 2 - August 24, 2015</h3>
@@ -102,7 +108,7 @@
 
 <h3>0.9.12 - April 1, 2015</h3>
 <ul>
-	<li>Fixed a <a href="http://webmarkupmin.codeplex.com/workitem/16" target="_blank">bug #16</a> «Minify AngularJS binding expressions causes exception with `ngRepeat`»</li>
+	<li>Fixed a <a href="http://webmarkupmin.codeplex.com/workitem/16" target="_blank">error #16</a> “Minify AngularJS binding expressions causes exception with `ngRepeat`”</li>
 </ul>
 
 <h3>0.9.11 - January 31, 2015</h3>
@@ -136,7 +142,7 @@
 
 <h3>0.9.6 - September 30, 2014</h3>
 <ul>
-	<li>Fixed a <a href="http://webmarkupmin.codeplex.com/workitem/13" target="_blank">bug #13</a> «jQuery conditional loading causes "Remain not closed conditional comment." exception»</li>
+	<li>Fixed a <a href="http://webmarkupmin.codeplex.com/workitem/13" target="_blank">error #13</a> “jQuery conditional loading causes "Remain not closed conditional comment." exception”</li>
 </ul>
 
 <h3>0.9.5 - September 29, 2014</h3>
@@ -152,7 +158,7 @@
 
 <h3>0.9.3 - September 14, 2014</h3>
 <ul>
-	<li>Fixed a bug that occurred when processing of embedded KnockoutJS templates starting with a containerless comment</li>
+	<li>Fixed a error that occurred when processing of embedded KnockoutJS templates starting with a containerless comment</li>
 </ul>
 
 <h3>0.9.2 - September 11, 2014</h3>
@@ -162,15 +168,15 @@
 
 <h3>0.9.1 - September 10, 2014</h3>
 <ul>
-	<li>Fixed a bug that occurred when reading the values of new properties (<code>ProcessableScriptTypeList</code>, <code>MinifyKnockoutBindingExpressions</code>, <code>MinifyAngularBindingExpressions</code> and <code>CustomAngularDirectiveList</code>) from <code>Web.config</code> and <code>App.config</code> files</li>
+	<li>Fixed a error that occurred when reading the values of new properties (<code>ProcessableScriptTypeList</code>, <code>MinifyKnockoutBindingExpressions</code>, <code>MinifyAngularBindingExpressions</code> and <code>CustomAngularDirectiveList</code>) from <code>Web.config</code> and <code>App.config</code> files</li>
 </ul>
 
 <h3>0.9.0 - September 9, 2014</h3>
 <ul>
 	<li>Added support of <a href="http://knockoutjs.com/" target="_blank">KnockoutJS</a>, <a href="http://www.telerik.com/kendo-ui" target="_blank">Kendo UI MVVM</a> and <a href="http://angularjs.org/" target="_blank">AngularJS</a> templates minification</li>
 	<li>In HTML/XHTML settings were added the following 4 properties: <code>ProcessableScriptTypeList</code> (default is empty), <code>MinifyKnockoutBindingExpressions</code> (default <code>false</code>), <code>MinifyAngularBindingExpressions</code> (default <code>false</code>) and <code>CustomAngularDirectiveList</code> (default is empty)</li>
-	<li>Fixed a <a href="http://webmarkupmin.codeplex.com/workitem/6" target="_blank">bug #6</a> «HtmlMinifier adds '=' to custom boolean attributes»</li>
-	<li>Fixed a <a href="http://webmarkupmin.codeplex.com/workitem/9" target="_blank">bug #9</a> «Error when compressing Knockout.js template section»</li>
+	<li>Fixed a <a href="http://webmarkupmin.codeplex.com/workitem/6" target="_blank">error #6</a> “HtmlMinifier adds '=' to custom boolean attributes”</li>
+	<li>Fixed a <a href="http://webmarkupmin.codeplex.com/workitem/9" target="_blank">error #9</a> “Error when compressing Knockout.js template section”</li>
 	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 5.11</li>
 	<li>In WebMarkupMin.Yui added support of YUI Compressor for .NET 2.5.0</li>
 </ul>
@@ -188,7 +194,7 @@
 
 <h3>0.9.0 Beta 2 - July 10, 2014</h3>
 <ul>
-	<li>Fixed a <a href="http://webmarkupmin.codeplex.com/workitem/6" target="_blank">bug #6</a> «HtmlMinifier adds '=' to custom boolean attributes»</li>
+	<li>Fixed a <a href="http://webmarkupmin.codeplex.com/workitem/6" target="_blank">error #6</a> “HtmlMinifier adds '=' to custom boolean attributes”</li>
 	<li>Now in the HTML/XHTML Minifier during removing HTML comments are preserved AngularJS comment directives</li>
 	<li>Now the <code>MinifyEmbeddedJsTemplates</code> configuration property also applies to the embedded AngularJS templates</li>
 </ul>
@@ -211,7 +217,7 @@
 
 <h3>0.8.20 - May 18, 2014</h3>
 <ul>
-	<li>In WebMarkupMin.Core fixed a <a href="http://webmarkupmin.codeplex.com/workitem/8" target="_blank">bug #8</a> «Minify HTML File & Conditional comments conflict»</li>
+	<li>In WebMarkupMin.Core fixed a <a href="http://webmarkupmin.codeplex.com/workitem/8" target="_blank">error #8</a> “Minify HTML File & Conditional comments conflict”</li>
 </ul>
 
 <h3>0.8.19 - April 29, 2014</h3>
@@ -247,7 +253,7 @@
 
 <h3>0.8.13 - November 26, 2013</h3>
 <ul>
-	<li>In WebMarkupMin.Core fixed a <a href="http://webmarkupmin.codeplex.com/workitem/5" target="_blank">bug #5</a> «HtmlMinifier converts attribute spaces to &amp;#32; when running in ASP.Net».</li>
+	<li>In WebMarkupMin.Core fixed a <a href="http://webmarkupmin.codeplex.com/workitem/5" target="_blank">error #5</a> “HtmlMinifier converts attribute spaces to &amp;#32; when running in ASP.Net”.</li>
 	<li>In WebMarkupMin.MsAjax added support of the Microsoft Ajax Minifier version 5.3</li>
 </ul>
 

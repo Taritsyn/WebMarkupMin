@@ -3,7 +3,7 @@
 
 	"dependencies": {
 		"AjaxMin": "5.14.5506.26202",
-		"WebMarkupMin.Core": "2.0.0"
+		"WebMarkupMin.Core": "2.0.1"
 	},
 
 	"frameworks": {

@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                   README file for Web Markup Minifier: Core v2.0.0
+                   README file for Web Markup Minifier: Core v2.0.1
 
    --------------------------------------------------------------------------------
 
@@ -45,7 +45,7 @@
    RELEASE NOTES
    =============
    1. Optimized memory usage;
-   2. Fixed a error #10 «Crash parsing invalid comment block».
+   2. Fixed a error #10 “Crash parsing invalid comment block”.
 
    =============
    DOCUMENTATION
