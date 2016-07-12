@@ -18,13 +18,13 @@ namespace WebMarkupMin.Yui
 
 
 		/// <summary>
-		/// Creates a instance of YUI CSS Minifier factory
+		/// Constructs an instance of the YUI CSS Minifier factory
 		/// </summary>
 		public YuiCssMinifierFactory() : this(new YuiCssMinificationSettings())
 		{ }
 
 		/// <summary>
-		/// Creates a instance of YUI CSS Minifier factory
+		/// Constructs an instance of the YUI CSS Minifier factory
 		/// </summary>
 		/// <param name="settings">Minification settings used to configure the YUI CSS Minifier</param>
 		public YuiCssMinifierFactory(YuiCssMinificationSettings settings)
@@ -34,9 +34,9 @@ namespace WebMarkupMin.Yui
 
 
 		/// <summary>
-		/// Creates a instance of YUI CSS Minifier
+		/// Creates a instance of the YUI CSS Minifier
 		/// </summary>
-		/// <returns>Instance of YUI CSS Minifier</returns>
+		/// <returns>Instance of the YUI CSS Minifier</returns>
 		public ICssMinifier CreateMinifier()
 		{
 			return new YuiCssMinifier(MinificationSettings);

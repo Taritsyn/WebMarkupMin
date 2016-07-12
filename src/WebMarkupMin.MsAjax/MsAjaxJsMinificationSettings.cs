@@ -1,7 +1,7 @@
 ﻿namespace WebMarkupMin.MsAjax
 {
 	/// <summary>
-	/// Microsoft JS Minifier settings
+	/// Microsoft Ajax JS Minifier settings
 	/// </summary>
 	public sealed class MsAjaxJsMinificationSettings : MsAjaxCommonMinificationSettingsBase
 	{
@@ -266,7 +266,7 @@
 
 
 		/// <summary>
-		/// Constructs instance of Microsoft JS Minifier settings
+		/// Constructs an instance of the Microsoft Ajax JS Minifier settings
 		/// </summary>
 		public MsAjaxJsMinificationSettings()
 		{

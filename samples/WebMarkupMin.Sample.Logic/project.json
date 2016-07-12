@@ -6,6 +6,7 @@
 		"Microsoft.AspNetCore.Mvc.Core": "1.0.0",
 		"Microsoft.AspNetCore.Mvc.ViewFeatures": "1.0.0",
 		"WebMarkupMin.Core": "2.0.1",
+		"WebMarkupMin.NUglify": "2.0.2",
 		"WebMarkupMin.Sample.Resources": "2.0.0"
 	},
 

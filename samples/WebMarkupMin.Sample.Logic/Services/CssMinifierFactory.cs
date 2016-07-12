@@ -1,6 +1,7 @@
 ﻿using System;
 
 using WebMarkupMin.Core;
+using WebMarkupMin.NUglify;
 #if !NETSTANDARD1_6
 using WebMarkupMin.MsAjax;
 using WebMarkupMin.Yui;
@@ -27,9 +28,6 @@ namespace WebMarkupMin.Sample.Logic.Services
 #endif
 		public ICssMinifier CreateMinifier(string minifierName)
 		{
-#if NETSTANDARD1_6
-			ICssMinifier minifier = new KristensenCssMinifier();
-#else
 			ICssMinifier minifier;
 
 			switch (minifierName)
@@ -37,16 +35,20 @@ namespace WebMarkupMin.Sample.Logic.Services
 				case "KristensenCssMinifier":
 					minifier = new KristensenCssMinifier();
 					break;
+#if !NETSTANDARD1_6
 				case "MsAjaxCssMinifier":
 					minifier = new MsAjaxCssMinifier();
 					break;
 				case "YuiCssMinifier":
 					minifier = new YuiCssMinifier();
 					break;
+#endif
+				case "NUglifyCssMinifier":
+					minifier = new NUglifyCssMinifier();
+					break;
 				default:
 					throw new NotSupportedException();
 			}
-#endif
 
 			return minifier;
 		}

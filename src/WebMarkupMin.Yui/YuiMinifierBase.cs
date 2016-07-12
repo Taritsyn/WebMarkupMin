@@ -8,14 +8,14 @@ namespace WebMarkupMin.Yui
 	public abstract class YuiMinifierBase
 	{
 		/// <summary>
-		/// Applies a settings to code compressor
+		/// Applies a common settings to original minifier
 		/// </summary>
-		/// <param name="compressor">Code compressor</param>
-		/// <param name="commonSettings">Common settings of YUI Minifier</param>
-		protected static void ApplyCommonSettingsToCompressor(Compressor compressor,
-			YuiCommonMinificationSettingsBase commonSettings)
+		/// <param name="originalMinifier">Original minifier</param>
+		/// <param name="settings">Common minifier settings</param>
+		protected static void ApplyCommonSettingsToOriginalMinifier(Compressor originalMinifier,
+			YuiCommonMinificationSettingsBase settings)
 		{
-			compressor.LineBreakPosition = commonSettings.LineBreakPosition;
+			originalMinifier.LineBreakPosition = settings.LineBreakPosition;
 		}
 	}
 }

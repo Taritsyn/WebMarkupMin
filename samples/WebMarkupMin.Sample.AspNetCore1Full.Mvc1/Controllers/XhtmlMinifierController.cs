@@ -5,7 +5,7 @@ using WebMarkupMin.Sample.Logic.Services;
 
 namespace WebMarkupMin.Sample.AspNetCore1Full.Mvc1.Controllers
 {
-	[Route("minifiers/xhtml-minifier")]
+	[Route("minifiers")]
 	public class XhtmlMinifierController : Controller
 	{
 		private readonly XhtmlMinificationService _minificationService;
@@ -18,6 +18,7 @@ namespace WebMarkupMin.Sample.AspNetCore1Full.Mvc1.Controllers
 
 
 		[HttpGet]
+		[Route("xhtml-minifier")]
 		public IActionResult Index()
 		{
 			var model = _minificationService.GetInitializationData();
@@ -26,6 +27,7 @@ namespace WebMarkupMin.Sample.AspNetCore1Full.Mvc1.Controllers
 		}
 
 		[HttpPost]
+		[Route("xhtml-minifier")]
 		public IActionResult Index(XhtmlMinificationViewModel model)
 		{
 			if (ModelState.IsValid)

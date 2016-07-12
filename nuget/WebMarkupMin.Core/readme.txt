@@ -35,17 +35,13 @@
    CSS and JavaScript code, but you can always install additional modules that
    support the more powerful algorithms of minification: WebMarkupMin.MsAjax
    (contains minifier-adapters for the Microsoft Ajax Minifier -
-   http://ajaxmin.codeplex.com) and WebMarkupMin.Yui (contains minifier-adapters
-   for YUI Compressor for .Net - http://github.com/PureKrome/YUICompressor.NET).
+   http://ajaxmin.codeplex.com), WebMarkupMin.Yui (contains minifier-adapters
+   for YUI Compressor for .Net - http://github.com/PureKrome/YUICompressor.NET)
+   and WebMarkupMin.NUglify (contains minifier-adapters for the NUglify -
+   http://github.com/xoofx/NUglify).
 
    Also supports minification of views of popular JavaScript template engines:
    KnockoutJS, Kendo UI MVVM and AngularJS 1.X.
-
-   =============
-   RELEASE NOTES
-   =============
-   1. Optimized memory usage;
-   2. Fixed a error #10 “Crash parsing invalid comment block”.
 
    =============
    DOCUMENTATION

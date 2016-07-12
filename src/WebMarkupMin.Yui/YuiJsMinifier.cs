@@ -10,15 +10,19 @@ using WebMarkupMin.Yui.Reporters;
 namespace WebMarkupMin.Yui
 {
 	/// <summary>
-	/// Minifier, which produces minifiction of JS-code
-	/// by using YUI JS Compressor for .NET
+	/// Minifier, which produces minifiction of JS-code by using the YUI JS Compressor for .NET
 	/// </summary>
 	public sealed class YuiJsMinifier : YuiMinifierBase, IJsMinifier
 	{
 		/// <summary>
-		/// Settings of YUI JS Minifier
+		/// Original JS minifier
 		/// </summary>
-		private readonly YuiJsMinificationSettings _settings;
+		private readonly JavaScriptCompressor _originalJsMinifier;
+
+		/// <summary>
+		/// Synchronizer of minification
+		/// </summary>
+		private readonly object _minificationSynchronizer = new object();
 
 		/// <summary>
 		/// Gets a value indicating the minifier supports inline code minification
@@ -30,24 +34,23 @@ namespace WebMarkupMin.Yui
 
 
 		/// <summary>
-		/// Constructs instance of YUI JS Minifier
+		/// Constructs an instance of the YUI JS Minifier
 		/// </summary>
 		public YuiJsMinifier() : this(new YuiJsMinificationSettings())
 		{ }
 
 		/// <summary>
-		/// Constructs instance of YUI JS Minifier
+		/// Constructs an instance of the YUI JS Minifier
 		/// </summary>
 		/// <param name="settings">Settings of YUI JS Minifier</param>
 		public YuiJsMinifier(YuiJsMinificationSettings settings)
 		{
-			_settings = settings;
+			_originalJsMinifier = CreateOriginalJsMinifierInstance(settings);
 		}
 
 
 		/// <summary>
-		/// Produces code minifiction of JS content by using
-		/// YUI JS Compressor for .NET
+		/// Produces a code minifiction of JS content by using the YUI JS Compressor for .NET
 		/// </summary>
 		/// <param name="content">JS content</param>
 		/// <param name="isInlineCode">Flag whether the content is inline code</param>
@@ -58,8 +61,7 @@ namespace WebMarkupMin.Yui
 		}
 
 		/// <summary>
-		/// Produces code minifiction of JS content by using
-		/// YUI JS Compressor for .NET
+		/// Produces a code minifiction of JS content by using the YUI JS Compressor for .NET
 		/// </summary>
 		/// <param name="content">JS content</param>
 		/// <param name="isInlineCode">Flag whether the content is inline code</param>
@@ -72,27 +74,33 @@ namespace WebMarkupMin.Yui
 				return new CodeMinificationResult(string.Empty);
 			}
 
+			string newContent = string.Empty;
 			var errors = new List<MinificationErrorInfo>();
 			var warnings = new List<MinificationErrorInfo>();
 			var errorReporter = new YuiJsErrorReporter();
 
-			var jsCompressor = CreateJavaScriptCompressorInstance();
-			jsCompressor.ErrorReporter = errorReporter;
-			jsCompressor.Encoding = encoding;
+			lock (_minificationSynchronizer)
+			{
+				_originalJsMinifier.ErrorReporter = errorReporter;
+				_originalJsMinifier.Encoding = encoding;
 
-			string newContent = string.Empty;
-
-			try
-			{
-				newContent = jsCompressor.Compress(content);
-			}
-			catch (EcmaScriptRuntimeException e)
-			{
-				errors.Add(new MinificationErrorInfo(e.Message, e.LineNumber, e.ColumnNumber, e.LineSource));
-			}
-			catch (EcmaScriptException e)
-			{
-				errors.Add(new MinificationErrorInfo(e.Message, e.LineNumber, e.ColumnNumber, e.LineSource));
+				try
+				{
+					newContent = _originalJsMinifier.Compress(content);
+				}
+				catch (EcmaScriptRuntimeException e)
+				{
+					errors.Add(new MinificationErrorInfo(e.Message, e.LineNumber, e.ColumnNumber, e.LineSource));
+				}
+				catch (EcmaScriptException e)
+				{
+					errors.Add(new MinificationErrorInfo(e.Message, e.LineNumber, e.ColumnNumber, e.LineSource));
+				}
+				finally
+				{
+					_originalJsMinifier.ErrorReporter = null;
+					_originalJsMinifier.Encoding = Encoding.Default;
+				}
 			}
 
 			errors.AddRange(errorReporter.Errors);
@@ -102,31 +110,33 @@ namespace WebMarkupMin.Yui
 		}
 
 		/// <summary>
-		/// Creates a instance of JS-code compressor
+		/// Creates a instance of original JS minifier
 		/// </summary>
-		/// <returns>JavaScript-code compressor</returns>
-		private JavaScriptCompressor CreateJavaScriptCompressorInstance()
+		/// <param name="settings">JS minifier settings</param>
+		/// <returns>Instance of original JS minifier</returns>
+		private static JavaScriptCompressor CreateOriginalJsMinifierInstance(
+			YuiJsMinificationSettings settings)
 		{
-			var jsCompressor = new JavaScriptCompressor();
-			ApplyJsSettingsToJsCompressor(jsCompressor, _settings);
+			var originalMinifier = new JavaScriptCompressor();
+			ApplyJsSettingsToOriginalJsMinifier(originalMinifier, settings);
 
-			return jsCompressor;
+			return originalMinifier;
 		}
 
 		/// <summary>
-		/// Applies a settings to JS-code compressor
+		/// Applies a JS settings to original JS minifier
 		/// </summary>
-		/// <param name="jsCompressor">JS-code compressor</param>
-		/// <param name="jsSettings">Settings of YUI JS Minifier</param>
-		private static void ApplyJsSettingsToJsCompressor(JavaScriptCompressor jsCompressor,
-			YuiJsMinificationSettings jsSettings)
+		/// <param name="originalMinifier">Original JS minifier</param>
+		/// <param name="settings">JS minifier settings</param>
+		private static void ApplyJsSettingsToOriginalJsMinifier(JavaScriptCompressor originalMinifier,
+			YuiJsMinificationSettings settings)
 		{
-			ApplyCommonSettingsToCompressor(jsCompressor, jsSettings);
+			ApplyCommonSettingsToOriginalMinifier(originalMinifier, settings);
 
-			jsCompressor.ObfuscateJavascript = jsSettings.ObfuscateJavascript;
-			jsCompressor.PreserveAllSemicolons = jsSettings.PreserveAllSemicolons;
-			jsCompressor.DisableOptimizations = jsSettings.DisableOptimizations;
-			jsCompressor.IgnoreEval = jsSettings.IgnoreEval;
+			originalMinifier.ObfuscateJavascript = settings.ObfuscateJavascript;
+			originalMinifier.PreserveAllSemicolons = settings.PreserveAllSemicolons;
+			originalMinifier.DisableOptimizations = settings.DisableOptimizations;
+			originalMinifier.IgnoreEval = settings.IgnoreEval;
 		}
 	}
 }

@@ -226,9 +226,9 @@ namespace WebMarkupMin.Core.Parsers
 
 		private static bool ContainsHtmlAttributeEncodingChars(string value, char quoteCharValue)
 		{
-			char[] _encodingChars = quoteCharValue == '"' ?
+			char[] encodingChars = quoteCharValue == '"' ?
 				_encodingCharsWithDoubleQuote : _encodingCharsWithSingleQuote;
-			bool result = value.IndexOfAny(_encodingChars) != -1;
+			bool result = value.IndexOfAny(encodingChars) != -1;
 
 			return result;
 		}

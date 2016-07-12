@@ -17,6 +17,11 @@
    (http://github.com/PureKrome/YUICompressor.NET).
 
    =============
+   RELEASE NOTES
+   =============
+   Was made refactoring.
+
+   =============
    DOCUMENTATION
    =============
    See documentation on GitHub - http://github.com/Taritsyn/WebMarkupMin/wiki

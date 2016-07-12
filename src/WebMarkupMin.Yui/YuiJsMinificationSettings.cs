@@ -45,7 +45,7 @@
 
 
 		/// <summary>
-		/// Constructs instance of YUI JS Minifier settings
+		/// Constructs an instance of the YUI JS Minifier settings
 		/// </summary>
 		public YuiJsMinificationSettings()
 		{

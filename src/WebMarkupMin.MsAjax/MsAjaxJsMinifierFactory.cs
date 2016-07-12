@@ -18,13 +18,13 @@ namespace WebMarkupMin.MsAjax
 
 
 		/// <summary>
-		/// Creates a instance of Microsoft Ajax JS Minifier factory
+		/// Constructs an instance of the Microsoft Ajax JS Minifier factory
 		/// </summary>
 		public MsAjaxJsMinifierFactory() : this(new MsAjaxJsMinificationSettings())
 		{ }
 
 		/// <summary>
-		/// Creates a instance of Microsoft Ajax JS Minifier factory
+		/// Constructs a instance of the Microsoft Ajax JS Minifier factory
 		/// </summary>
 		/// <param name="settings">Minification settings used to configure the Microsoft Ajax JS Minifier</param>
 		public MsAjaxJsMinifierFactory(MsAjaxJsMinificationSettings settings)
@@ -34,9 +34,9 @@ namespace WebMarkupMin.MsAjax
 
 
 		/// <summary>
-		/// Creates a instance of Microsoft Ajax JS Minifier
+		/// Creates a instance of the Microsoft Ajax JS Minifier
 		/// </summary>
-		/// <returns>Instance of Microsoft Ajax JS Minifier</returns>
+		/// <returns>Instance of the Microsoft Ajax JS Minifier</returns>
 		public IJsMinifier CreateMinifier()
 		{
 			return new MsAjaxJsMinifier(MinificationSettings);

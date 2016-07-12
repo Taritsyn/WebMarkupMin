@@ -17,7 +17,7 @@
 
 
 		/// <summary>
-		/// Constructs instance of YUI CSS Minifier settings
+		/// Constructs an instance of the YUI CSS Minifier settings
 		/// </summary>
 		public YuiCssMinificationSettings()
 		{

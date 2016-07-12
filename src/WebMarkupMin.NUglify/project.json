@@ -1,0 +1,22 @@
+﻿{
+	"version": "2.0.2",
+
+	"dependencies": {
+		"NUglify": "1.5.2",
+		"WebMarkupMin.Core": "2.0.1"
+	},
+
+	"frameworks": {
+		"net452": {},
+		"netstandard1.3": {}
+	},
+
+	"buildOptions": {
+		"warningsAsErrors": true,
+		"keyFile": "../../tools/Key.snk",
+		"nowarn": [
+			"CS1591"
+		],
+		"xmlDoc": true
+	}
+}

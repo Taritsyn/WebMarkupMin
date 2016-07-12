@@ -17,9 +17,5 @@
 			"CS1591"
 		],
 		"xmlDoc": true
-	},
-
-	"scripts": {
-		"precompile": "../../build resx"
 	}
 }

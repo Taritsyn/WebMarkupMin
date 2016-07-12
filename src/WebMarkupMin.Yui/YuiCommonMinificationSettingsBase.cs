@@ -1,7 +1,7 @@
 ﻿namespace WebMarkupMin.Yui
 {
 	/// <summary>
-	/// Common settings of YUI Minifier
+	/// Common settings of the YUI Minifier
  	/// </summary>
 	public abstract class YuiCommonMinificationSettingsBase
 	{

@@ -39,7 +39,7 @@ namespace WebMarkupMin.Yui.Reporters
 
 
 		/// <summary>
-		/// Constructs instance of YUI JS error reporter
+		/// Constructs an instance of the YUI JS error reporter
 		/// </summary>
 		public YuiJsErrorReporter()
 		{

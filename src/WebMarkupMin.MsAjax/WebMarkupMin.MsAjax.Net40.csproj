@@ -73,16 +73,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reporters\MsAjaxCssErrorReporter.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Reporters\MsAjaxErrorReporterBase.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Reporters\MsAjaxJsErrorReporter.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Resources.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebMarkupMin.Core\WebMarkupMin.Core.Net40.csproj">
@@ -96,16 +86,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources.resx" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>SET VS_PROJECT_DIR=$(ProjectDir)
-
-cd "$(ProjectDir)..\..\"
-build resx</PreBuildEvent>
-  </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

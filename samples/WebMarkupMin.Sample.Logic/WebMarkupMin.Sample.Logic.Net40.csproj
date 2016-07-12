@@ -71,6 +71,10 @@
     <Compile Include="Services\XmlMinificationService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\WebMarkupMin.NUglify\WebMarkupMin.NUglify.Net40.csproj">
+      <Project>{d8be51cd-5af8-4b99-9b5c-436b006c047c}</Project>
+      <Name>WebMarkupMin.NUglify.Net40</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebMarkupMin.Sample.Resources\WebMarkupMin.Sample.Resources.Net40.csproj">
       <Project>{8e7e319a-0718-4be1-82f9-fb8578d5c260}</Project>
       <Name>WebMarkupMin.Sample.Resources.Net40</Name>

@@ -143,6 +143,12 @@
 				</fieldset>
 				<fieldset>
 					<legend>@CommonHtmlMinificationStrings.ControlGroup_EmbeddedAndInlineCss</legend>
+					<div class="form-group">
+						<select asp-for="Settings.CssMinifierName"
+							asp-items="Model.Settings.AvailableCssMinifierList"
+							class="form-control">
+						</select>
+					</div>
 					<div class="checkbox">
 						<label asp-for="Settings.MinifyEmbeddedCssCode">
 							<input asp-for="Settings.MinifyEmbeddedCssCode" />
@@ -158,6 +164,12 @@
 				</fieldset>
 				<fieldset>
 					<legend>@CommonHtmlMinificationStrings.ControlGroup_EmbeddedAndInlineJavaScript</legend>
+					<div class="form-group">
+						<select asp-for="Settings.JsMinifierName"
+							asp-items="Model.Settings.AvailableJsMinifierList"
+							class="form-control">
+						</select>
+					</div>
 					<div class="checkbox">
 						<label asp-for="Settings.MinifyEmbeddedJsCode">
 							<input asp-for="Settings.MinifyEmbeddedJsCode" />

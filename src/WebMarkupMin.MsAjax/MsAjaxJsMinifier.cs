@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Text;
 
 using Microsoft.Ajax.Utilities;
@@ -9,23 +7,25 @@ using MsLocalRenaming = Microsoft.Ajax.Utilities.LocalRenaming;
 
 using WebMarkupMin.Core;
 using WebMarkupMin.Core.Utilities;
-using WebMarkupMin.MsAjax.Reporters;
-using MsAjaxStrings = WebMarkupMin.MsAjax.Resources;
 using WmmEvalTreatment = WebMarkupMin.MsAjax.EvalTreatment;
 using WmmLocalRenaming = WebMarkupMin.MsAjax.LocalRenaming;
 
 namespace WebMarkupMin.MsAjax
 {
 	/// <summary>
-	/// Minifier, which produces minifiction of JS-code
-	/// by using Microsoft Ajax JS Minifier
+	/// Minifier, which produces minifiction of JS-code by using the Microsoft Ajax JS Minifier
 	/// </summary>
 	public sealed class MsAjaxJsMinifier : MsAjaxMinifierBase, IJsMinifier
 	{
 		/// <summary>
-		/// Microsoft JS Minifier settings
+		/// Original JS minifier settings for embedded code
 		/// </summary>
-		private readonly MsAjaxJsMinificationSettings _settings;
+		private readonly CodeSettings _originalEmbeddedJsSettings;
+
+		/// <summary>
+		/// Original JS minifier settings for inline code
+		/// </summary>
+		private readonly CodeSettings _originalInlineJsSettings;
 
 		/// <summary>
 		/// Gets a value indicating the minifier supports inline code minification
@@ -37,24 +37,24 @@ namespace WebMarkupMin.MsAjax
 
 
 		/// <summary>
-		/// Constructs instance of Microsoft Ajax JS Minifier
+		/// Constructs an instance of the Microsoft Ajax JS Minifier
 		/// </summary>
 		public MsAjaxJsMinifier() : this(new MsAjaxJsMinificationSettings())
 		{ }
 
 		/// <summary>
-		/// Constructs instance of Microsoft Ajax JS Minifier
+		/// Constructs an instance of the Microsoft Ajax JS Minifier
 		/// </summary>
-		/// <param name="settings">Microsoft JS Minifier settings</param>
+		/// <param name="settings">Microsoft Ajax JS Minifier settings</param>
 		public MsAjaxJsMinifier(MsAjaxJsMinificationSettings settings)
 		{
-			_settings = settings;
+			_originalEmbeddedJsSettings = CreateOriginalJsMinifierSettings(settings, false);
+			_originalInlineJsSettings = CreateOriginalJsMinifierSettings(settings, true);
 		}
 
 
 		/// <summary>
-		/// Produces code minifiction of JS content by using
-		/// Microsoft Ajax JS Minifier
+		/// Produces a code minifiction of JS content by using the Microsoft Ajax JS Minifier
 		/// </summary>
 		/// <param name="content">JS content</param>
 		/// <param name="isInlineCode">Flag whether the content is inline code</param>
@@ -65,8 +65,7 @@ namespace WebMarkupMin.MsAjax
 		}
 
 		/// <summary>
-		/// Produces code minifiction of JS content by using
-		/// Microsoft Ajax JS Minifier
+		/// Produces a code minifiction of JS content by using the Microsoft Ajax JS Minifier
 		/// </summary>
 		/// <param name="content">JS content</param>
 		/// <param name="isInlineCode">Flag whether the content is inline code</param>
@@ -79,120 +78,76 @@ namespace WebMarkupMin.MsAjax
 				return new CodeMinificationResult(string.Empty);
 			}
 
-			string newContent;
+			CodeSettings originalJsSettings = isInlineCode ?
+				_originalInlineJsSettings : _originalEmbeddedJsSettings;
+			var originalMinifier = new Minifier
+			{
+				WarningLevel = 2
+			};
 
-			var errorReporter = new MsAjaxJsErrorReporter();
+			string newContent = originalMinifier.MinifyJavaScript(content, originalJsSettings);
+			ICollection<ContextError> originalErrors = originalMinifier.ErrorList;
+
 			var errors = new List<MinificationErrorInfo>();
 			var warnings = new List<MinificationErrorInfo>();
-
-			var jsParserConfiguration = isInlineCode ? GetInlineJsParserSettings() : GetEmbeddedJsParserSettings();
-
-			var jsParser = new JSParser
-			{
-				Settings = jsParserConfiguration
-			};
-			jsParser.CompilerError += errorReporter.JsMinificationErrorHandler;
-
-			try
-			{
-				var stringBuilder = new StringBuilder();
-
-				using (var stringWriter = new StringWriter(stringBuilder, CultureInfo.InvariantCulture))
-				{
-					Block block = jsParser.Parse(content);
-					if (block != null)
-					{
-						if (jsParserConfiguration.Format == JavaScriptFormat.JSON)
-						{
-							// Use a JSON output visitor
-							if (!JSONOutputVisitor.Apply(stringWriter, block, jsParserConfiguration))
-							{
-								errors.Add(new MinificationErrorInfo(MsAjaxStrings.ErrorMessage_InvalidJsonOutput));
-							}
-						}
-						else
-						{
-							// Use normal output visitor
-							OutputVisitor.Apply(stringWriter, block, jsParserConfiguration);
-						}
-					}
-				}
-
-				newContent = stringBuilder.ToString();
-			}
-			finally
-			{
-				jsParser.CompilerError -= errorReporter.JsMinificationErrorHandler;
-			}
-
-			errors.AddRange(errorReporter.Errors);
-			warnings.AddRange(errorReporter.Warnings);
+			MapErrors(originalErrors, errors, warnings);
 
 			return new CodeMinificationResult(newContent, errors, warnings);
 		}
 
 		/// <summary>
-		/// Gets a embedded JS-code parser settings
+		/// Creates a original JS minifier settings
 		/// </summary>
-		/// <returns>Embedded JS-code parser settings</returns>
-		private CodeSettings GetEmbeddedJsParserSettings()
+		/// <param name="settings">JS minifier settings</param>
+		/// <param name="isInlineCode">Flag for whether to create a settings for inline code</param>
+		/// <returns>Original JS minifier settings</returns>
+		private static CodeSettings CreateOriginalJsMinifierSettings(MsAjaxJsMinificationSettings settings,
+			bool isInlineCode)
 		{
-			var embeddedJsParserSettings = new CodeSettings();
-			MapJsSettings(embeddedJsParserSettings, _settings);
-			embeddedJsParserSettings.SourceMode = JavaScriptSourceMode.Program;
+			var originalSettings = new CodeSettings();
+			MapJsSettings(originalSettings, settings);
+			originalSettings.SourceMode = isInlineCode ?
+				JavaScriptSourceMode.EventHandler : JavaScriptSourceMode.Program;
 
-			return embeddedJsParserSettings;
+			return originalSettings;
 		}
 
 		/// <summary>
-		/// Gets a inline JS-code parser settings
+		/// Maps a JS minifier settings
 		/// </summary>
-		/// <returns>Inline JS-code parser settings</returns>
-		private CodeSettings GetInlineJsParserSettings()
+		/// <param name="originalSettings">Original JS minifier settings</param>
+		/// <param name="settings">JS minifier settings</param>
+		private static void MapJsSettings(CodeSettings originalSettings, MsAjaxJsMinificationSettings settings)
 		{
-			var inlineJsParserSettings = new CodeSettings();
-			MapJsSettings(inlineJsParserSettings, _settings);
-			inlineJsParserSettings.SourceMode = JavaScriptSourceMode.EventHandler;
+			MapCommonSettings(originalSettings, settings);
 
-			return inlineJsParserSettings;
-		}
-
-		/// <summary>
-		/// Maps a JS settings
-		/// </summary>
-		/// <param name="jsParserSettings">JS-code parser settings</param>
-		/// <param name="jsMinifierSettings">Microsoft JS Minifier settings</param>
-		private static void MapJsSettings(CodeSettings jsParserSettings, MsAjaxJsMinificationSettings jsMinifierSettings)
-		{
-			MapCommonSettings(jsParserSettings, jsMinifierSettings);
-
-			jsParserSettings.AlwaysEscapeNonAscii = jsMinifierSettings.AlwaysEscapeNonAscii;
-			jsParserSettings.AmdSupport = jsMinifierSettings.AmdSupport;
-			jsParserSettings.CollapseToLiteral = jsMinifierSettings.CollapseToLiteral;
-			jsParserSettings.ConstStatementsMozilla = jsMinifierSettings.ConstStatementsMozilla;
-			jsParserSettings.DebugLookupList = jsMinifierSettings.DebugLookupList;
-			jsParserSettings.ErrorIfNotInlineSafe = jsMinifierSettings.ErrorIfNotInlineSafe;
-			jsParserSettings.EvalLiteralExpressions = jsMinifierSettings.EvalLiteralExpressions;
-			jsParserSettings.EvalTreatment = Utils.GetEnumFromOtherEnum<WmmEvalTreatment, MsEvalTreatment>(
-				jsMinifierSettings.EvalTreatment);
-			jsParserSettings.IgnoreConditionalCompilation = jsMinifierSettings.IgnoreConditionalCompilation;
-			jsParserSettings.IgnorePreprocessorDefines = jsMinifierSettings.IgnorePreprocessorDefines;
-			jsParserSettings.InlineSafeStrings = jsMinifierSettings.InlineSafeStrings;
-			jsParserSettings.KnownGlobalNamesList = jsMinifierSettings.KnownGlobalNamesList;
-			jsParserSettings.LocalRenaming = Utils.GetEnumFromOtherEnum<WmmLocalRenaming, MsLocalRenaming>(
-				jsMinifierSettings.LocalRenaming);
-			jsParserSettings.MacSafariQuirks = jsMinifierSettings.MacSafariQuirks;
-			jsParserSettings.ManualRenamesProperties = jsMinifierSettings.ManualRenamesProperties;
-			jsParserSettings.NoAutoRenameList = jsMinifierSettings.NoAutoRenameList;
-			jsParserSettings.PreserveFunctionNames = jsMinifierSettings.PreserveFunctionNames;
-			jsParserSettings.PreserveImportantComments = jsMinifierSettings.PreserveImportantComments;
-			jsParserSettings.QuoteObjectLiteralProperties = jsMinifierSettings.QuoteObjectLiteralProperties;
-			jsParserSettings.RemoveFunctionExpressionNames = jsMinifierSettings.RemoveFunctionExpressionNames;
-			jsParserSettings.RemoveUnneededCode = jsMinifierSettings.RemoveUnneededCode;
-			jsParserSettings.RenamePairs = jsMinifierSettings.RenamePairs;
-			jsParserSettings.ReorderScopeDeclarations = jsMinifierSettings.ReorderScopeDeclarations;
-			jsParserSettings.StrictMode = jsMinifierSettings.StrictMode;
-			jsParserSettings.StripDebugStatements = jsMinifierSettings.StripDebugStatements;
+			originalSettings.AlwaysEscapeNonAscii = settings.AlwaysEscapeNonAscii;
+			originalSettings.AmdSupport = settings.AmdSupport;
+			originalSettings.CollapseToLiteral = settings.CollapseToLiteral;
+			originalSettings.ConstStatementsMozilla = settings.ConstStatementsMozilla;
+			originalSettings.DebugLookupList = settings.DebugLookupList;
+			originalSettings.ErrorIfNotInlineSafe = settings.ErrorIfNotInlineSafe;
+			originalSettings.EvalLiteralExpressions = settings.EvalLiteralExpressions;
+			originalSettings.EvalTreatment = Utils.GetEnumFromOtherEnum<WmmEvalTreatment, MsEvalTreatment>(
+				settings.EvalTreatment);
+			originalSettings.IgnoreConditionalCompilation = settings.IgnoreConditionalCompilation;
+			originalSettings.IgnorePreprocessorDefines = settings.IgnorePreprocessorDefines;
+			originalSettings.InlineSafeStrings = settings.InlineSafeStrings;
+			originalSettings.KnownGlobalNamesList = settings.KnownGlobalNamesList;
+			originalSettings.LocalRenaming = Utils.GetEnumFromOtherEnum<WmmLocalRenaming, MsLocalRenaming>(
+				settings.LocalRenaming);
+			originalSettings.MacSafariQuirks = settings.MacSafariQuirks;
+			originalSettings.ManualRenamesProperties = settings.ManualRenamesProperties;
+			originalSettings.NoAutoRenameList = settings.NoAutoRenameList;
+			originalSettings.PreserveFunctionNames = settings.PreserveFunctionNames;
+			originalSettings.PreserveImportantComments = settings.PreserveImportantComments;
+			originalSettings.QuoteObjectLiteralProperties = settings.QuoteObjectLiteralProperties;
+			originalSettings.RemoveFunctionExpressionNames = settings.RemoveFunctionExpressionNames;
+			originalSettings.RemoveUnneededCode = settings.RemoveUnneededCode;
+			originalSettings.RenamePairs = settings.RenamePairs;
+			originalSettings.ReorderScopeDeclarations = settings.ReorderScopeDeclarations;
+			originalSettings.StrictMode = settings.StrictMode;
+			originalSettings.StripDebugStatements = settings.StripDebugStatements;
 		}
 	}
 }

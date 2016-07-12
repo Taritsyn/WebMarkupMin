@@ -10,15 +10,24 @@ using CoreStrings = WebMarkupMin.Core.Resources;
 namespace WebMarkupMin.Yui
 {
 	/// <summary>
-	/// Minifier, which produces minifiction of CSS-code
-	/// by using YUI CSS Compressor for .NET
+	/// Minifier, which produces minifiction of CSS-code by using the YUI CSS Compressor for .NET
 	/// </summary>
 	public sealed class YuiCssMinifier : YuiMinifierBase, ICssMinifier
 	{
 		/// <summary>
-		/// Settings of YUI CSS Minifier
+		/// Original CSS minifier for embedded code
 		/// </summary>
-		private readonly YuiCssMinificationSettings _settings;
+		private readonly CssCompressor _originalEmbeddedCssMinifier;
+
+		/// <summary>
+		/// Original CSS minifier for inline code
+		/// </summary>
+		private readonly CssCompressor _originalInlineCssMinifier;
+
+		/// <summary>
+		/// Synchronizer of minification
+		/// </summary>
+		private readonly object _minificationSynchronizer = new object();
 
 		/// <summary>
 		/// Gets a value indicating the minifier supports inline code minification
@@ -30,24 +39,24 @@ namespace WebMarkupMin.Yui
 
 
 		/// <summary>
-		/// Constructs instance of YUI CSS Minifier
+		/// Constructs an instance of the YUI CSS Minifier
 		/// </summary>
 		public YuiCssMinifier() : this(new YuiCssMinificationSettings())
 		{ }
 
 		/// <summary>
-		/// Constructs instance of YUI CSS Minifier
+		/// Constructs an instance of the YUI CSS Minifier
 		/// </summary>
 		/// <param name="settings">Settings of YUI CSS Minifier</param>
 		public YuiCssMinifier(YuiCssMinificationSettings settings)
 		{
-			_settings = settings;
+			_originalEmbeddedCssMinifier = CreateOriginalCssMinifierInstance(settings, false);
+			_originalInlineCssMinifier = CreateOriginalCssMinifierInstance(settings, true);
 		}
 
 
 		/// <summary>
-		/// Produces code minifiction of CSS content by using
-		/// YUI CSS Compressor for .NET
+		/// Produces a code minifiction of CSS content by using the YUI CSS Compressor for .NET
 		/// </summary>
 		/// <param name="content">CSS content</param>
 		/// <param name="isInlineCode">Flag whether the content is inline code</param>
@@ -58,8 +67,7 @@ namespace WebMarkupMin.Yui
 		}
 
 		/// <summary>
-		/// Produces code minifiction of CSS content by using
-		/// YUI CSS Compressor for .NET
+		/// Produces a code minifiction of CSS content by using the YUI CSS Compressor for .NET
 		/// </summary>
 		/// <param name="content">CSS content</param>
 		/// <param name="isInlineCode">Flag whether the content is inline code</param>
@@ -72,15 +80,18 @@ namespace WebMarkupMin.Yui
 				return new CodeMinificationResult(string.Empty);
 			}
 
-			var errors = new List<MinificationErrorInfo>();
-
-			var cssCompressor = isInlineCode ? CreateInlineCssCompressorInstance() : CreateEmbeddedCssCompressorInstance();
+			CssCompressor originalCssMinifier = isInlineCode ?
+				_originalInlineCssMinifier : _originalEmbeddedCssMinifier;
 
 			string newContent = string.Empty;
+			var errors = new List<MinificationErrorInfo>();
 
 			try
 			{
-				newContent = cssCompressor.Compress(content);
+				lock (_minificationSynchronizer)
+				{
+					newContent = originalCssMinifier.Compress(content);
+				}
 			}
 			catch (ArgumentOutOfRangeException)
 			{
@@ -91,41 +102,35 @@ namespace WebMarkupMin.Yui
 		}
 
 		/// <summary>
-		/// Creates a instance of embedded CSS-code compressor
+		/// Creates a instance of original CSS minifier
 		/// </summary>
-		/// <returns>Embedded CSS-code compressor</returns>
-		private CssCompressor CreateEmbeddedCssCompressorInstance()
+		/// <param name="settings">CSS minifier settings</param>
+		/// <param name="isInlineCode">Flag for whether to create a settings for inline code</param>
+		/// <returns>Instance of original CSS minifier</returns>
+		private static CssCompressor CreateOriginalCssMinifierInstance(YuiCssMinificationSettings settings,
+			bool isInlineCode)
 		{
-			var embeddedCssCompressor = new CssCompressor();
-			ApplyCssSettingsToCssCompressor(embeddedCssCompressor, _settings);
+			var originalMinifier = new CssCompressor();
+			ApplyCssSettingsToOriginalCssMinifier(originalMinifier, settings);
+			if (isInlineCode)
+			{
+				originalMinifier.LineBreakPosition = -1;
+			}
 
-			return embeddedCssCompressor;
+			return originalMinifier;
 		}
 
 		/// <summary>
-		/// Creates a instance of inline CSS-code compressor
+		/// Applies a CSS settings to original CSS minifier
 		/// </summary>
-		/// <returns>Inline CSS-code compressor</returns>
-		private CssCompressor CreateInlineCssCompressorInstance()
+		/// <param name="originalMinifier">Original CSS minifier</param>
+		/// <param name="settings">CSS minifier settings</param>
+		private static void ApplyCssSettingsToOriginalCssMinifier(CssCompressor originalMinifier,
+			YuiCssMinificationSettings settings)
 		{
-			var inlineCssCompressor = new CssCompressor();
-			ApplyCssSettingsToCssCompressor(inlineCssCompressor, _settings);
-			inlineCssCompressor.LineBreakPosition = -1;
+			ApplyCommonSettingsToOriginalMinifier(originalMinifier, settings);
 
-			return inlineCssCompressor;
-		}
-
-		/// <summary>
-		/// Applies a settings to CSS-code compressor
-		/// </summary>
-		/// <param name="cssCompressor">CSS-code compressor</param>
-		/// <param name="cssSettings">Settings of YUI CSS Minifier</param>
-		private static void ApplyCssSettingsToCssCompressor(CssCompressor cssCompressor,
-			YuiCssMinificationSettings cssSettings)
-		{
-			ApplyCommonSettingsToCompressor(cssCompressor, cssSettings);
-
-			cssCompressor.RemoveComments = cssSettings.RemoveComments;
+			originalMinifier.RemoveComments = settings.RemoveComments;
 		}
 	}
 }
