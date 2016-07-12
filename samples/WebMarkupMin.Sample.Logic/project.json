@@ -1,11 +1,11 @@
 ﻿{
-	"version": "2.0.1",
+	"version": "2.0.2",
 
 	"dependencies": {
 		"AutoMapper": "5.0.0",
 		"Microsoft.AspNetCore.Mvc.Core": "1.0.0",
 		"Microsoft.AspNetCore.Mvc.ViewFeatures": "1.0.0",
-		"WebMarkupMin.Core": "2.0.1",
+		"WebMarkupMin.Core": "2.0.2",
 		"WebMarkupMin.NUglify": "2.0.2",
 		"WebMarkupMin.Sample.Resources": "2.0.0"
 	},
@@ -13,8 +13,8 @@
 	"frameworks": {
 		"net452": {
 			"dependencies": {
-				"WebMarkupMin.MsAjax": "2.0.0",
-				"WebMarkupMin.Yui": "2.0.0"
+				"WebMarkupMin.MsAjax": "2.0.2",
+				"WebMarkupMin.Yui": "2.0.2"
 			}
 		},
 		"netstandard1.6": {}

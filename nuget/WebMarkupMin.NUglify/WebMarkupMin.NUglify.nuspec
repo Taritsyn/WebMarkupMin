@@ -18,15 +18,15 @@
 		<dependencies>
 			<group targetFramework=".NETFramework4.0-Client">
 				<dependency id="NUglify" version="1.5.2" />
-				<dependency id="WebMarkupMin.Core" version="2.0.1" />
+				<dependency id="WebMarkupMin.Core" version="2.0.2" />
 			</group>
 			<group targetFramework=".NETFramework4.5.2">
 				<dependency id="NUglify" version="1.5.2" />
-				<dependency id="WebMarkupMin.Core" version="2.0.1" />
+				<dependency id="WebMarkupMin.Core" version="2.0.2" />
 			</group>
 			<group targetFramework=".NETStandard1.3">
 				<dependency id="NUglify" version="1.5.2" />
-				<dependency id="WebMarkupMin.Core" version="2.0.1" />
+				<dependency id="WebMarkupMin.Core" version="2.0.2" />
 			</group>
 		</dependencies>
 		<references>

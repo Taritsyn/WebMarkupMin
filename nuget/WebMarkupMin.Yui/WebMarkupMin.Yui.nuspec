@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>WebMarkupMin.Yui</id>
-		<version>2.0.0</version>
+		<version>2.0.2</version>
 		<title>Web Markup Minifier: YUI</title>
 		<authors>Andrey Taritsyn</authors>
 		<owners>Andrey Taritsyn</owners>
@@ -19,11 +19,11 @@
 		<dependencies>
 			<group targetFramework=".NETFramework4.0-Client">
 				<dependency id="YUICompressor.NET" version="2.7.0" />
-				<dependency id="WebMarkupMin.Core" version="2.0.0" />
+				<dependency id="WebMarkupMin.Core" version="2.0.2" />
 			</group>
 			<group targetFramework=".NETFramework4.5.2">
 				<dependency id="YUICompressor.NET" version="2.7.0" />
-				<dependency id="WebMarkupMin.Core" version="2.0.0" />
+				<dependency id="WebMarkupMin.Core" version="2.0.2" />
 			</group>
 		</dependencies>
 		<references>

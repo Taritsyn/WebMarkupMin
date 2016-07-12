@@ -1,6 +1,10 @@
 Change log
 ==========
 
+## July 12, 2016 - v2.0.2
+ * Added module based on the [NUglify](http://github.com/xoofx/NUglify)
+ * In WebMarkupMin.MsAjax and WebMarkupMin.Yui was made refactoring
+
 ## July 9, 2016 - v2.0.1
  * Optimized memory usage
  * Fixed a [error #10](https://github.com/Taritsyn/WebMarkupMin/issues/10) “Crash parsing invalid comment block”

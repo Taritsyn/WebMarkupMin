@@ -10,6 +10,10 @@ cd WebMarkupMin.Yui
 call build-package.cmd
 cd ..
 
+cd WebMarkupMin.NUglify
+call build-package.cmd
+cd ..
+
 cd WebMarkupMin.AspNet.Common
 call build-package.cmd
 cd ..

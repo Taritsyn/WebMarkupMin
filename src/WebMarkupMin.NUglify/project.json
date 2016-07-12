@@ -3,7 +3,7 @@
 
 	"dependencies": {
 		"NUglify": "1.5.2",
-		"WebMarkupMin.Core": "2.0.1"
+		"WebMarkupMin.Core": "2.0.2"
 	},
 
 	"frameworks": {
