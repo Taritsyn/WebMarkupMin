@@ -58,7 +58,7 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Gets a collection of optional tags, which should not be removed
 		/// </summary>
-		public IEnumerable<string> PreservableOptionalTagCollection
+		public ISet<string> PreservableOptionalTagCollection
 		{
 			get
 			{

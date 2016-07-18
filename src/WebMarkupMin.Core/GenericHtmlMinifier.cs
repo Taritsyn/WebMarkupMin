@@ -295,16 +295,6 @@ namespace WebMarkupMin.Core
 		private readonly object _minificationSynchronizer = new object();
 
 		/// <summary>
-		/// List of names of optional tags, which should not be removed
-		/// </summary>
-		private readonly HashSet<string> _preservableOptionalTags;
-
-		/// <summary>
-		/// List of types of <code>script</code> tags, that are processed by minifier
-		/// </summary>
-		private readonly HashSet<string> _processableScriptTypes;
-
-		/// <summary>
 		/// List of names of Angular directives, that contain expressions
 		/// </summary>
 		private readonly HashSet<string> _angularDirectivesWithExpressions;
@@ -346,10 +336,7 @@ namespace WebMarkupMin.Core
 			_currentTag = null;
 			_currentText = string.Empty;
 
-			_preservableOptionalTags = new HashSet<string>(_settings.PreservableOptionalTagCollection);
-			_processableScriptTypes = new HashSet<string>(_settings.ProcessableScriptTypeCollection);
-
-			IList<string> customAngularDirectivesWithExpressions = _settings.CustomAngularDirectiveCollection.ToList();
+			ISet<string> customAngularDirectivesWithExpressions = _settings.CustomAngularDirectiveCollection;
 			_angularDirectivesWithExpressions = customAngularDirectivesWithExpressions.Count > 0 ?
 				Utils.UnionHashSets(_builtinAngularDirectivesWithExpressions, customAngularDirectivesWithExpressions)
 				:
@@ -2041,7 +2028,7 @@ namespace WebMarkupMin.Core
 		private bool CanRemoveSafeOptionalEndTag(HtmlTag optionalEndTag)
 		{
 			string optionalEndTagNameInLowercase = optionalEndTag.NameInLowercase;
-			if (_preservableOptionalTags.Contains(optionalEndTagNameInLowercase))
+			if (_settings.PreservableOptionalTagCollection.Contains(optionalEndTagNameInLowercase))
 			{
 				return false;
 			}
@@ -2058,7 +2045,7 @@ namespace WebMarkupMin.Core
 		private bool CanRemoveOptionalEndTagByNextTag(HtmlTag optionalEndTag, HtmlTag nextTag)
 		{
 			string optionalEndTagNameInLowercase = optionalEndTag.NameInLowercase;
-			if (_preservableOptionalTags.Contains(optionalEndTagNameInLowercase))
+			if (_settings.PreservableOptionalTagCollection.Contains(optionalEndTagNameInLowercase))
 			{
 				return false;
 			}
@@ -2127,7 +2114,7 @@ namespace WebMarkupMin.Core
 		private bool CanRemoveOptionalEndTagByParentTag(HtmlTag optionalEndTag, HtmlTag parentTag)
 		{
 			string optionalEndTagNameInLowercase = optionalEndTag.NameInLowercase;
-			if (_preservableOptionalTags.Contains(optionalEndTagNameInLowercase))
+			if (_settings.PreservableOptionalTagCollection.Contains(optionalEndTagNameInLowercase))
 			{
 				return false;
 			}
@@ -2383,7 +2370,7 @@ namespace WebMarkupMin.Core
 				return;
 			}
 
-			if (_processableScriptTypes.Contains(processedContentType))
+			if (_settings.ProcessableScriptTypeCollection.Contains(processedContentType))
 			{
 				// Processing of JavaScript template
 				GenericHtmlMinifier innerHtmlMinifier = GetInnerHtmlMinifierInstance();

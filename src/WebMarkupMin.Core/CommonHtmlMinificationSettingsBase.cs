@@ -167,7 +167,7 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Gets a collection of types of <code>script</code> tags, that are processed by minifier
 		/// </summary>
-		public IEnumerable<string> ProcessableScriptTypeCollection
+		public ISet<string> ProcessableScriptTypeCollection
 		{
 			get
 			{
@@ -284,7 +284,7 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Gets a collection of names of custom AngularJS 1.X directives, that contain expressions
 		/// </summary>
-		public IEnumerable<string> CustomAngularDirectiveCollection
+		public ISet<string> CustomAngularDirectiveCollection
 		{
 			get
 			{
