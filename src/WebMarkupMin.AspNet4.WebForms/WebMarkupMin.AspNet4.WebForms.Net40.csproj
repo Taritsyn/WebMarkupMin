@@ -43,7 +43,10 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompressedComponent.cs" />
+    <Compile Include="Components\CompressedComponent.cs" />
+    <Compile Include="Components\MinifiedComponentBase.cs" />
+    <Compile Include="Components\MinifiedHtmlComponent.cs" />
+    <Compile Include="Components\MinifiedXhtmlComponent.cs" />
     <Compile Include="CompressedMasterPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -68,7 +71,6 @@
     <Compile Include="MinifiedAndCompressedXhtmlPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MinifiedComponent.cs" />
     <Compile Include="MinifiedHtmlMasterPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

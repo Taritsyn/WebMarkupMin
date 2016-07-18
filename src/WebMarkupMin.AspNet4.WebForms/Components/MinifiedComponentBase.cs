@@ -8,12 +8,12 @@ using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.AspNet4.Common;
 using WebMarkupMin.Core;
 
-namespace WebMarkupMin.AspNet4.WebForms
+namespace WebMarkupMin.AspNet4.WebForms.Components
 {
 	/// <summary>
-	/// Minified component
+	/// Base class of minified component
 	/// </summary>
-	internal class MinifiedComponent
+	public abstract class MinifiedComponentBase
 	{
 		/// <summary>
 		/// WebMarkupMin configuration
@@ -58,7 +58,7 @@ namespace WebMarkupMin.AspNet4.WebForms
 		/// </summary>
 		/// <param name="configuration">WebMarkupMin configuration</param>
 		/// <param name="minificationManager">Markup minification manager</param>
-		public MinifiedComponent(WebMarkupMinConfiguration configuration,
+		protected MinifiedComponentBase(WebMarkupMinConfiguration configuration,
 			IMarkupMinificationManager minificationManager)
 		{
 			_configuration = configuration;
@@ -66,10 +66,18 @@ namespace WebMarkupMin.AspNet4.WebForms
 		}
 
 
+		/// <summary>
+		/// Gets a instance of default markup minification manager
+		/// </summary>
+		/// <returns>Instance of default markup minification manager</returns>
+		protected abstract IMarkupMinificationManager GetDefaultMinificationManager();
+
 		public void Render(HtmlTextWriter writer, Action<HtmlTextWriter> renderHandler)
 		{
 			if (!DisableMinification)
 			{
+				IMarkupMinificationManager minificationManager =
+					_minificationManager ?? GetDefaultMinificationManager();
 				HttpContext context = HttpContext.Current;
 				HttpResponse response = context.Response;
 				HttpRequest request = context.Request;
@@ -88,10 +96,10 @@ namespace WebMarkupMin.AspNet4.WebForms
 
 					if (response.StatusCode == 200
 						&& _configuration.IsAllowableResponseSize(responseSize)
-						&& _minificationManager.IsSupportedMediaType(mediaType)
-						&& _minificationManager.IsProcessablePage(currentUrl))
+						&& minificationManager.IsSupportedMediaType(mediaType)
+						&& minificationManager.IsProcessablePage(currentUrl))
 					{
-						IMarkupMinifier minifier = _minificationManager.CreateMinifier();
+						IMarkupMinifier minifier = minificationManager.CreateMinifier();
 						MarkupMinificationResult minificationResult = minifier.Minify(content,
 							currentUrl, encoding, false);
 						if (minificationResult.Errors.Count == 0)
@@ -100,7 +108,7 @@ namespace WebMarkupMin.AspNet4.WebForms
 
 							if (_configuration.IsPoweredByHttpHeadersEnabled())
 							{
-								_minificationManager.AppendPoweredByHttpHeader((key, value) =>
+								minificationManager.AppendPoweredByHttpHeader((key, value) =>
 								{
 									response.Headers[key] = value;
 								});

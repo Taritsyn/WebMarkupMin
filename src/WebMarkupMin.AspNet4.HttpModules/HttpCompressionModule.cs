@@ -28,7 +28,7 @@ namespace WebMarkupMin.AspNet4.HttpModules
 		/// Constructs a instance of HTTP module for compressesion
 		/// </summary>
 		public HttpCompressionModule()
-			: this(WebMarkupMinConfiguration.Instance, HttpCompressionManager.Current)
+			: this(WebMarkupMinConfiguration.Instance, null)
 		{ }
 
 		/// <summary>
@@ -69,19 +69,21 @@ namespace WebMarkupMin.AspNet4.HttpModules
 				return;
 			}
 
+			IHttpCompressionManager compressionManager =
+				_compressionManager ?? HttpCompressionManager.Current;
 			HttpContext context = ((HttpApplication)sender).Context;
 			HttpRequest request = context.Request;
 			HttpResponse response = context.Response;
 			string mediaType = response.ContentType;
 
 			if (request.HttpMethod == "GET" && response.StatusCode == 200
-				&& _compressionManager.IsSupportedMediaType(mediaType))
+				&& compressionManager.IsSupportedMediaType(mediaType))
 			{
 				context.Items["originalResponseFilter"] = response.Filter;
 
 				string acceptEncoding = request.Headers["Accept-Encoding"];
 
-				ICompressor compressor = _compressionManager.CreateCompressor(acceptEncoding);
+				ICompressor compressor = compressionManager.CreateCompressor(acceptEncoding);
 				response.Filter = compressor.Compress(response.Filter);
 				compressor.AppendHttpHeaders((key, value) =>
 				{

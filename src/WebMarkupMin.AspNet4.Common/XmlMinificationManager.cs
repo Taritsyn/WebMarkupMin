@@ -25,6 +25,11 @@ namespace WebMarkupMin.AspNet4.Common
 		private static IXmlMinificationManager _current;
 
 		/// <summary>
+		/// Logger
+		/// </summary>
+		private ILogger _logger;
+
+		/// <summary>
 		/// Gets or sets a instance of XML minification manager
 		/// </summary>
 		public static IXmlMinificationManager Current
@@ -39,12 +44,27 @@ namespace WebMarkupMin.AspNet4.Common
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets a logger
+		/// </summary>
+		protected override ILogger Logger
+		{
+			get
+			{
+				return _logger ?? DefaultLogger.Current;
+			}
+			set
+			{
+				_logger = value;
+			}
+		}
+
 
 		/// <summary>
 		/// Constructs a instance of XML minification manager
 		/// </summary>
 		public XmlMinificationManager()
-			: this(new XmlMinificationSettings(), DefaultLogger.Current)
+			: this(new XmlMinificationSettings(), null)
 		{ }
 
 		/// <summary>
@@ -59,7 +79,7 @@ namespace WebMarkupMin.AspNet4.Common
 			IncludedPages = new List<IUrlMatcher>();
 			ExcludedPages = new List<IUrlMatcher>();
 
-			_logger = logger;
+			Logger = logger;
 		}
 	}
 }

@@ -32,7 +32,7 @@ namespace WebMarkupMin.AspNet4.Mvc
 		public CompressContentAttribute()
 		{
 			_configuration = WebMarkupMinConfiguration.Instance;
-			_compressionManager = HttpCompressionManager.Current;
+			_compressionManager = null;
 		}
 
 
@@ -47,6 +47,8 @@ namespace WebMarkupMin.AspNet4.Mvc
 				return;
 			}
 
+			IHttpCompressionManager compressionManager =
+				_compressionManager ?? HttpCompressionManager.Current;
 			HttpContextBase context = filterContext.HttpContext;
 			HttpRequestBase request = context.Request;
 			HttpResponseBase response = context.Response;
@@ -54,13 +56,13 @@ namespace WebMarkupMin.AspNet4.Mvc
 
 			if (response.Filter != null
 				&& response.StatusCode == 200
-				&& _compressionManager.IsSupportedMediaType(mediaType))
+				&& compressionManager.IsSupportedMediaType(mediaType))
 			{
 				context.Items["originalResponseFilter"] = response.Filter;
 
 				string acceptEncoding = request.Headers["Accept-Encoding"];
 
-				ICompressor compressor = _compressionManager.CreateCompressor(acceptEncoding);
+				ICompressor compressor = compressionManager.CreateCompressor(acceptEncoding);
 				response.Filter = compressor.Compress(response.Filter);
 				compressor.AppendHttpHeaders((key, value) =>
 				{

@@ -46,6 +46,12 @@ namespace WebMarkupMin.AspNet4.HttpModules
 		}
 
 		/// <summary>
+		/// Gets a instance of default markup minification manager
+		/// </summary>
+		/// <returns>Instance of default markup minification manager</returns>
+		protected abstract IMarkupMinificationManager GetDefaultMinificationManager();
+
+		/// <summary>
 		/// Processes the response and sets a XML minification response filter
 		/// </summary>
 		/// <param name="sender">The source of the event (HTTP application)</param>
@@ -57,6 +63,8 @@ namespace WebMarkupMin.AspNet4.HttpModules
 				return;
 			}
 
+			IMarkupMinificationManager minificationManager =
+				_minificationManager ?? GetDefaultMinificationManager();
 			HttpContext context = ((HttpApplication) sender).Context;
 			HttpRequest request = context.Request;
 			HttpResponse response = context.Response;
@@ -66,11 +74,11 @@ namespace WebMarkupMin.AspNet4.HttpModules
 
 			if (request.HttpMethod == "GET" && response.StatusCode == 200
 				&& context.CurrentHandler != null
-				&& _minificationManager.IsSupportedMediaType(mediaType)
-				&& _minificationManager.IsProcessablePage(currentUrl))
+				&& minificationManager.IsSupportedMediaType(mediaType)
+				&& minificationManager.IsProcessablePage(currentUrl))
 			{
 				response.Filter = new MarkupMinificationFilterStream(new HttpResponseWrapper(response),
-					_configuration, _minificationManager, currentUrl, encoding);
+					_configuration, minificationManager, currentUrl, encoding);
 			}
 		}
 

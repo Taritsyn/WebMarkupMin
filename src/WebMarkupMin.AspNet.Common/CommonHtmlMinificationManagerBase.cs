@@ -13,7 +13,7 @@ namespace WebMarkupMin.AspNet.Common
 		/// <summary>
 		/// Gets or sets a CSS minifier factory
 		/// </summary>
-		public ICssMinifierFactory CssMinifierFactory
+		public virtual ICssMinifierFactory CssMinifierFactory
 		{
 			get;
 			set;
@@ -22,7 +22,7 @@ namespace WebMarkupMin.AspNet.Common
 		/// <summary>
 		/// Gets or sets a JS minifier factory
 		/// </summary>
-		public IJsMinifierFactory JsMinifierFactory
+		public virtual IJsMinifierFactory JsMinifierFactory
 		{
 			get;
 			set;

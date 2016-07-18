@@ -1,4 +1,5 @@
-﻿using WebMarkupMin.AspNet4.Common;
+﻿using WebMarkupMin.AspNet.Common;
+using WebMarkupMin.AspNet4.Common;
 
 namespace WebMarkupMin.AspNet4.Mvc
 {
@@ -11,7 +12,17 @@ namespace WebMarkupMin.AspNet4.Mvc
 		/// Constructs a instance of markup minification attribute
 		/// </summary>
 		public MinifyXmlAttribute()
-			: base(WebMarkupMinConfiguration.Instance, XmlMinificationManager.Current)
+			: base(WebMarkupMinConfiguration.Instance, null)
 		{ }
+
+
+		/// <summary>
+		/// Gets a instance of default XML minification manager
+		/// </summary>
+		/// <returns>Instance of default XML minification manager</returns>
+		protected override IMarkupMinificationManager GetDefaultMinificationManager()
+		{
+			return XmlMinificationManager.Current;
+		}
 	}
 }

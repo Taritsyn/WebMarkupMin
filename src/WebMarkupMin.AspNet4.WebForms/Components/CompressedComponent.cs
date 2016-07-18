@@ -6,12 +6,12 @@ using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.AspNet.Common.Compressors;
 using WebMarkupMin.AspNet4.Common;
 
-namespace WebMarkupMin.AspNet4.WebForms
+namespace WebMarkupMin.AspNet4.WebForms.Components
 {
 	/// <summary>
 	/// Compressed component
 	/// </summary>
-	internal class CompressedComponent
+	public sealed class CompressedComponent
 	{
 		/// <summary>
 		/// WebMarkupMin configuration
@@ -71,19 +71,21 @@ namespace WebMarkupMin.AspNet4.WebForms
 				return;
 			}
 
+			IHttpCompressionManager compressionManager =
+				_compressionManager ?? HttpCompressionManager.Current;
 			HttpContext context = HttpContext.Current;
 			HttpRequest request = context.Request;
 			HttpResponse response = context.Response;
 			string mediaType = response.ContentType;
 
 			if (response.StatusCode == 200
-				&& _compressionManager.IsSupportedMediaType(mediaType))
+				&& compressionManager.IsSupportedMediaType(mediaType))
 			{
 				context.Items["originalResponseFilter"] = response.Filter;
 
 				string acceptEncoding = request.Headers["Accept-Encoding"];
 
-				ICompressor compressor = _compressionManager.CreateCompressor(acceptEncoding);
+				ICompressor compressor = compressionManager.CreateCompressor(acceptEncoding);
 				response.Filter = compressor.Compress(response.Filter);
 				compressor.AppendHttpHeaders((key, value) =>
 				{

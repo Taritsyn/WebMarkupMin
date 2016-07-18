@@ -28,7 +28,7 @@ namespace WebMarkupMin.AspNet.Common
 		{
 			XmlMinificationSettings settings = MinificationSettings;
 
-			var minifier = new XmlMinifier(settings, _logger);
+			var minifier = new XmlMinifier(settings, Logger);
 
 			return minifier;
 		}

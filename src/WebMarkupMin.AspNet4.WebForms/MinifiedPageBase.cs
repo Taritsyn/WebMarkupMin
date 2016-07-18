@@ -1,7 +1,6 @@
 ﻿using System.Web.UI;
 
-using WebMarkupMin.AspNet.Common;
-using WebMarkupMin.AspNet4.Common;
+using WebMarkupMin.AspNet4.WebForms.Components;
 
 namespace WebMarkupMin.AspNet4.WebForms
 {
@@ -13,7 +12,7 @@ namespace WebMarkupMin.AspNet4.WebForms
 		/// <summary>
 		/// Minified component
 		/// </summary>
-		private readonly MinifiedComponent _minifiedComponent;
+		private readonly MinifiedComponentBase _minifiedComponent;
 
 		/// <summary>
 		/// Gets or sets a flag for whether to disable markup minification
@@ -34,12 +33,10 @@ namespace WebMarkupMin.AspNet4.WebForms
 		/// <summary>
 		/// Constructs a instance of Web Forms page with support of markup minification
 		/// </summary>
-		/// <param name="configuration">WebMarkupMin configuration</param>
-		/// <param name="minificationManager">Markup minification manager</param>
-		protected MinifiedPageBase(WebMarkupMinConfiguration configuration,
-			IMarkupMinificationManager minificationManager)
+		/// <param name="minifiedComponent">Minified component</param>
+		protected MinifiedPageBase(MinifiedComponentBase minifiedComponent)
 		{
-			_minifiedComponent = new MinifiedComponent(configuration, minificationManager);
+			_minifiedComponent = minifiedComponent;
 		}
 
 

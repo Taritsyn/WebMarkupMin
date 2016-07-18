@@ -25,6 +25,21 @@ namespace WebMarkupMin.AspNet4.Common
 		private static IXhtmlMinificationManager _current;
 
 		/// <summary>
+		/// Logger
+		/// </summary>
+		private ILogger _logger;
+
+		/// <summary>
+		/// CSS minifier factory
+		/// </summary>
+		private ICssMinifierFactory _cssMinifierFactory;
+
+		/// <summary>
+		/// JS minifier factory
+		/// </summary>
+		private IJsMinifierFactory _jsMinifierFactory;
+
+		/// <summary>
 		/// Gets or sets a instance of XHTML minification manager
 		/// </summary>
 		public static IXhtmlMinificationManager Current
@@ -39,13 +54,57 @@ namespace WebMarkupMin.AspNet4.Common
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets a logger
+		/// </summary>
+		protected override ILogger Logger
+		{
+			get
+			{
+				return _logger ?? DefaultLogger.Current;
+			}
+			set
+			{
+				_logger = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets a CSS minifier factory
+		/// </summary>
+		public override ICssMinifierFactory CssMinifierFactory
+		{
+			get
+			{
+				return _cssMinifierFactory ?? DefaultCssMinifierFactory.Current;
+			}
+			set
+			{
+				_cssMinifierFactory = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets a JS minifier factory
+		/// </summary>
+		public override IJsMinifierFactory JsMinifierFactory
+		{
+			get
+			{
+				return _jsMinifierFactory ?? DefaultJsMinifierFactory.Current;
+			}
+			set
+			{
+				_jsMinifierFactory = value;
+			}
+		}
+
 
 		/// <summary>
 		/// Constructs a instance of XHTML minification manager
 		/// </summary>
 		public XhtmlMinificationManager()
-			: this(new XhtmlMinificationSettings(), DefaultCssMinifierFactory.Current,
-				DefaultJsMinifierFactory.Current, DefaultLogger.Current)
+			: this(new XhtmlMinificationSettings(), null, null, null)
 		{ }
 
 		/// <summary>
@@ -67,7 +126,7 @@ namespace WebMarkupMin.AspNet4.Common
 			CssMinifierFactory = cssMinifierFactory;
 			JsMinifierFactory = jsMinifierFactory;
 
-			_logger = logger;
+			Logger = logger;
 		}
 	}
 }

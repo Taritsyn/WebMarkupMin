@@ -1,5 +1,6 @@
 ﻿using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.AspNet4.Common;
+using WebMarkupMin.AspNet4.WebForms.Components;
 
 namespace WebMarkupMin.AspNet4.WebForms
 {
@@ -12,7 +13,7 @@ namespace WebMarkupMin.AspNet4.WebForms
 		/// Constructs a instance of master page with of HTML minification and HTTP compression
 		/// </summary>
 		protected MinifiedAndCompressedHtmlMasterPage()
-			: this(WebMarkupMinConfiguration.Instance, HtmlMinificationManager.Current, HttpCompressionManager.Current)
+			: this(WebMarkupMinConfiguration.Instance, null, null)
 		{ }
 
 		/// <summary>
@@ -24,7 +25,8 @@ namespace WebMarkupMin.AspNet4.WebForms
 		protected MinifiedAndCompressedHtmlMasterPage(WebMarkupMinConfiguration configuration,
 			IHtmlMinificationManager minificationManager,
 			IHttpCompressionManager compressionManager)
-			: base(configuration, minificationManager, compressionManager)
+			: base(new MinifiedHtmlComponent(configuration, minificationManager),
+				new CompressedComponent(configuration, compressionManager))
 		{ }
 	}
 }

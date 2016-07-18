@@ -16,7 +16,7 @@ namespace WebMarkupMin.AspNet.Common
 		/// <summary>
 		/// Gets or sets a logger
 		/// </summary>
-		protected ILogger _logger
+		protected virtual ILogger Logger
 		{
 			get;
 			set;

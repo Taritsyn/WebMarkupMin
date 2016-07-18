@@ -39,6 +39,12 @@ namespace WebMarkupMin.AspNet4.Mvc
 		}
 
 
+		/// <summary>
+		/// Gets a instance of default markup minification manager
+		/// </summary>
+		/// <returns>Instance of default markup minification manager</returns>
+		protected abstract IMarkupMinificationManager GetDefaultMinificationManager();
+
 		public override void OnResultExecuted(ResultExecutedContext filterContext)
 		{
 			if (!_configuration.IsMinificationEnabled())
@@ -46,6 +52,8 @@ namespace WebMarkupMin.AspNet4.Mvc
 				return;
 			}
 
+			IMarkupMinificationManager minificationManager =
+				_minificationManager ?? GetDefaultMinificationManager();
 			HttpContextBase context = filterContext.HttpContext;
 			HttpRequestBase request = context.Request;
 			HttpResponseBase response = context.Response;
@@ -55,11 +63,11 @@ namespace WebMarkupMin.AspNet4.Mvc
 
 			if (response.Filter != null
 				&& response.StatusCode == 200
-				&& _minificationManager.IsSupportedMediaType(mediaType)
-				&& _minificationManager.IsProcessablePage(currentUrl))
+				&& minificationManager.IsSupportedMediaType(mediaType)
+				&& minificationManager.IsProcessablePage(currentUrl))
 			{
 				response.Filter = new MarkupMinificationFilterStream(response, _configuration,
-					_minificationManager, currentUrl, encoding);
+					minificationManager, currentUrl, encoding);
 			}
 		}
 	}

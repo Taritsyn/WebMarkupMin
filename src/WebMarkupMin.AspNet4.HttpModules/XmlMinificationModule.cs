@@ -12,7 +12,7 @@ namespace WebMarkupMin.AspNet4.HttpModules
 		/// Constructs a instance of HTTP module for XML minification
 		/// </summary>
 		public XmlMinificationModule()
-			: this(WebMarkupMinConfiguration.Instance, XmlMinificationManager.Current)
+			: this(WebMarkupMinConfiguration.Instance, null)
 		{ }
 
 		/// <summary>
@@ -25,5 +25,15 @@ namespace WebMarkupMin.AspNet4.HttpModules
 			IXmlMinificationManager minificationManager)
 			: base(configuration, minificationManager)
 		{ }
+
+
+		/// <summary>
+		/// Gets a instance of default XML minification manager
+		/// </summary>
+		/// <returns>Instance of default XML minification manager</returns>
+		protected override IMarkupMinificationManager GetDefaultMinificationManager()
+		{
+			return XmlMinificationManager.Current;
+		}
 	}
 }

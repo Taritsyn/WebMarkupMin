@@ -1,27 +1,19 @@
 ﻿using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.AspNet4.Common;
 
-namespace WebMarkupMin.AspNet4.HttpModules
+namespace WebMarkupMin.AspNet4.WebForms.Components
 {
 	/// <summary>
-	/// HTTP module for XHTML minification
+	/// XHTML minified component
 	/// </summary>
-	public sealed class XhtmlMinificationModule : MarkupMinificationModuleBase
+	public sealed class MinifiedXhtmlComponent : MinifiedComponentBase
 	{
 		/// <summary>
-		/// Constructs a instance of HTTP module for XHTML minification
-		/// </summary>
-		public XhtmlMinificationModule()
-			: this(WebMarkupMinConfiguration.Instance, null)
-		{ }
-
-		/// <summary>
-		/// Constructs a instance of HTTP module for XHTML minification
+		/// Constructs a instance of XHTML minified component
 		/// </summary>
 		/// <param name="configuration">WebMarkupMin configuration</param>
 		/// <param name="minificationManager">XHTML minification manager</param>
-		public XhtmlMinificationModule(
-			WebMarkupMinConfiguration configuration,
+		public MinifiedXhtmlComponent(WebMarkupMinConfiguration configuration,
 			IXhtmlMinificationManager minificationManager)
 			: base(configuration, minificationManager)
 		{ }

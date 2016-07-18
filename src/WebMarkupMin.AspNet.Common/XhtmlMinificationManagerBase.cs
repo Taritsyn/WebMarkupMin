@@ -30,7 +30,7 @@ namespace WebMarkupMin.AspNet.Common
 			ICssMinifier cssMinifier = CssMinifierFactory.CreateMinifier();
 			IJsMinifier jsMinifier = JsMinifierFactory.CreateMinifier();
 
-			var minifier = new XhtmlMinifier(settings, cssMinifier, jsMinifier, _logger);
+			var minifier = new XhtmlMinifier(settings, cssMinifier, jsMinifier, Logger);
 
 			return minifier;
 		}

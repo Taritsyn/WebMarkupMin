@@ -3,6 +3,7 @@ using System.Web.UI;
 
 using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.AspNet4.Common;
+using WebMarkupMin.AspNet4.WebForms.Components;
 
 namespace WebMarkupMin.AspNet4.WebForms
 {
@@ -36,7 +37,7 @@ namespace WebMarkupMin.AspNet4.WebForms
 		/// Constructs a instance of master page with support of HTTP compression
 		/// </summary>
 		public CompressedMasterPage()
-			: this(WebMarkupMinConfiguration.Instance, HttpCompressionManager.Current)
+			: this(WebMarkupMinConfiguration.Instance, null)
 		{ }
 
 		/// <summary>

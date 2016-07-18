@@ -1,5 +1,6 @@
 ﻿using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.AspNet4.Common;
+using WebMarkupMin.AspNet4.WebForms.Components;
 
 namespace WebMarkupMin.AspNet4.WebForms
 {
@@ -12,7 +13,7 @@ namespace WebMarkupMin.AspNet4.WebForms
 		/// Constructs a instance of Web Forms page with support of XHTML minification and HTTP compression
 		/// </summary>
 		public MinifiedAndCompressedXhtmlPage()
-			: this(WebMarkupMinConfiguration.Instance, XhtmlMinificationManager.Current, HttpCompressionManager.Current)
+			: this(WebMarkupMinConfiguration.Instance, null, null)
 		{ }
 
 		/// <summary>
@@ -24,7 +25,8 @@ namespace WebMarkupMin.AspNet4.WebForms
 		public MinifiedAndCompressedXhtmlPage(WebMarkupMinConfiguration configuration,
 			IXhtmlMinificationManager minificationManager,
 			IHttpCompressionManager compressionManager)
-			: base(configuration, minificationManager, compressionManager)
+			: base(new MinifiedXhtmlComponent(configuration, minificationManager),
+				new CompressedComponent(configuration, compressionManager))
 		{ }
 	}
 }

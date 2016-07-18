@@ -17,7 +17,7 @@ namespace WebMarkupMin.AspNetCore1
 		/// <param name="options">XHTML minification options</param>
 		public XhtmlMinificationManager(ILogger logger, IOptions<XhtmlMinificationOptions> options)
 		{
-			_logger = logger;
+			Logger = logger;
 
 			XhtmlMinificationOptions minificationOptions = options.Value;
 			MinificationSettings = minificationOptions.MinificationSettings;
