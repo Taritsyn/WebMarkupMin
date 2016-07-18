@@ -390,6 +390,7 @@ namespace WebMarkupMin.Core
 				MinifyInlineCssCode = true;
 				MinifyEmbeddedJsCode = true;
 				MinifyInlineJsCode = true;
+				_processableScriptTypes = new HashSet<string> { "text/html" };
 			}
 			else
 			{
@@ -402,15 +403,12 @@ namespace WebMarkupMin.Core
 				MinifyInlineCssCode = false;
 				MinifyEmbeddedJsCode = false;
 				MinifyInlineJsCode = false;
+				_processableScriptTypes = new HashSet<string>();
 			}
 			RemoveTagsWithoutContent = false;
 			RemoveRedundantAttributes = false;
 			RemoveHttpProtocolFromAttributes = false;
 			RemoveHttpsProtocolFromAttributes = false;
-
-			// No default processable script types
-			_processableScriptTypes = new HashSet<string>();
-
 			MinifyKnockoutBindingExpressions = false;
 			MinifyAngularBindingExpressions = false;
 
