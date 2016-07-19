@@ -467,8 +467,8 @@ namespace WebMarkupMin.Core
 						statistics.Init(cleanedContent);
 					}
 
-					int builderCapacity = (int)Math.Floor(cleanedContent.Length * AVERAGE_COMPRESSION_RATIO);
-					_result = StringBuilderPool.GetBuilder(builderCapacity);
+					int estimatedCapacity = (int)Math.Floor(cleanedContent.Length * AVERAGE_COMPRESSION_RATIO);
+					_result = StringBuilderPool.GetBuilder(estimatedCapacity);
 
 					_htmlParser.Parse(cleanedContent);
 

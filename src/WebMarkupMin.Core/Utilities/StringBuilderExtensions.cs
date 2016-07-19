@@ -15,10 +15,10 @@ namespace WebMarkupMin.Core.Utilities
 			new Regex(@"\{[0-9]\}", RegexOptions.Multiline);
 
 		/// <summary>
-		/// Appends the default line terminator to the end of the current System.Text.StringBuilder object
+		/// Appends the default line terminator to the end of the current <see cref="StringBuilder"/> instance
 		/// </summary>
-		/// <param name="source">Object StringBuilder</param>
-		/// <returns>Object StringBuilder</returns>
+		/// <param name="source">Instance of <see cref="StringBuilder"/></param>
+		/// <returns>Instance of <see cref="StringBuilder"/></returns>
 		public static StringBuilder AppendFormatLine(this StringBuilder source)
 		{
 			return source.AppendLine();
@@ -30,10 +30,10 @@ namespace WebMarkupMin.Core.Utilities
 		/// Each format item is replaced by the string representation of a corresponding
 		/// argument in a parameter array.
 		/// </summary>
-		/// <param name="source">Object StringBuilder</param>
+		/// <param name="source">Instance of <see cref="StringBuilder"/></param>
 		/// <param name="format">A composite format string</param>
 		/// <param name="args">An array of objects to format</param>
-		/// <returns>Object StringBuilder</returns>
+		/// <returns>Instance of <see cref="StringBuilder"/></returns>
 		public static StringBuilder AppendFormatLine(this StringBuilder source, string format, params object[] args)
 		{
 			if (_formatPlaceholderRegExp.IsMatch(format))
@@ -42,6 +42,40 @@ namespace WebMarkupMin.Core.Utilities
 			}
 
 			return source.AppendLine(format.Replace("{{", "{").Replace("}}", "}"));
+		}
+
+		/// <summary>
+		/// Removes the all leading white-space characters from the current <see cref="StringBuilder"/> instance
+		/// </summary>
+		/// <param name="source">Instance of <see cref="StringBuilder"/></param>
+		/// <returns>Instance of <see cref="StringBuilder"/> without leading white-space characters</returns>
+		public static StringBuilder TrimStart(this StringBuilder source)
+		{
+			int charCount = source.Length;
+			if (charCount == 0)
+			{
+				return source;
+			}
+
+			int charIndex = 0;
+
+			while (charIndex < charCount)
+			{
+				char charValue = source[charIndex];
+				if (!charValue.IsWhitespace())
+				{
+					break;
+				}
+
+				charIndex++;
+			}
+
+			if (charIndex > 0)
+			{
+				source.Remove(0, charIndex);
+			}
+
+			return source;
 		}
 	}
 }
