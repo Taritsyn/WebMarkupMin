@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-         README file for Web Markup Minifier: ASP.NET 4.X HTTP modules v2.0.0
+         README file for Web Markup Minifier: ASP.NET 4.X HTTP modules v2.1.0
 
    --------------------------------------------------------------------------------
 
@@ -17,6 +17,12 @@
    `XmlMinificationModule` (for minification of XML code) and
    `HttpCompressionModule` (for compression of text content by using GZIP or
    Deflate).
+
+   =============
+   RELEASE NOTES
+   =============
+   Changed a mechanism of using default instances of loggers, factories and
+   managers.
 
    =============
    DOCUMENTATION

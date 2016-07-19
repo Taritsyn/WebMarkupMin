@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                   README file for Web Markup Minifier: Core v2.0.2
+                   README file for Web Markup Minifier: Core v2.1.0
 
    --------------------------------------------------------------------------------
 
@@ -42,6 +42,19 @@
 
    Also supports minification of views of popular JavaScript template engines:
    KnockoutJS, Kendo UI MVVM and AngularJS 1.X.
+
+   =============
+   RELEASE NOTES
+   =============
+   1. In configuration settings of HTML/XHTML minifier was changed type of
+      `ProcessableScriptTypeCollection` and `CustomAngularDirectiveCollection`
+      properties from `IEnumerable<string>` to `ISet<string>`;
+   2. In configuration settings of HTML minifier was changed type of
+      `PreservableOptionalTagCollection` property from `IEnumerable<string>` to
+      `ISet<string>`;
+   3. In configuration settings of HTML/XHTML minifier was changed a default value
+      of `ProcessableScriptTypeList` property from "" to "text/html";
+   4. In `CrockfordJsMinifier` was optimized memory usage.
 
    =============
    DOCUMENTATION

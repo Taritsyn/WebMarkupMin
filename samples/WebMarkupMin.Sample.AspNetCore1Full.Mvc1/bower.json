@@ -1,5 +1,5 @@
 {
-	"name": "WebMarkupMin.Sample.AspNetCore1Full.Mvc1",
+	"name": "webmarkupmin.sample.aspnetcore1full.mvc1",
 	"dependencies": {
 		"modernizr": "2.8.3",
 		"jquery-compat": "jquery#1.10.2",

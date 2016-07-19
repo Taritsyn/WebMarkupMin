@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-            README file for Web Markup Minifier: ASP.NET 4.X Common v2.0.0
+            README file for Web Markup Minifier: ASP.NET 4.X Common v2.1.0
 
    --------------------------------------------------------------------------------
 
@@ -13,6 +13,12 @@
    ===========
    WebMarkupMin.AspNet4.Common is auxiliary package, that contains classes for
    ASP.NET 4.X extensions.
+
+   =============
+   RELEASE NOTES
+   =============
+   Changed a mechanism of using default instances of loggers, factories and
+   managers.
 
    =============
    DOCUMENTATION

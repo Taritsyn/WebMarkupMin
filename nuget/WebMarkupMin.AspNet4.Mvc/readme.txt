@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-              README file for Web Markup Minifier: ASP.NET 4.X MVC v2.0.0
+              README file for Web Markup Minifier: ASP.NET 4.X MVC v2.1.0
 
    --------------------------------------------------------------------------------
 
@@ -16,6 +16,12 @@
    code), `MinifyXmlAttribute` (for minification of XML code) and
    `CompressContentAttribute` (for compression of text content by using GZIP or
    Deflate).
+
+   =============
+   RELEASE NOTES
+   =============
+   Changed a mechanism of using default instances of loggers, factories and
+   managers.
 
    =============
    DOCUMENTATION

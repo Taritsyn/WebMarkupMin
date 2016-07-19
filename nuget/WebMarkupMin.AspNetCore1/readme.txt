@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-             README file for Web Markup Minifier: ASP.NET Core 1.X v2.0.0
+             README file for Web Markup Minifier: ASP.NET Core 1.X v2.1.0
 
    --------------------------------------------------------------------------------
 
@@ -13,11 +13,6 @@
    ===========
    WebMarkupMin.AspNetCore1 contains one ASP.NET Core 1.X Middleware -
    `WebMarkupMinMiddleware`.
-
-   =============
-   RELEASE NOTES
-   =============
-   Added support of ASP.NET Core 1.0 RTM.
 
    =============
    DOCUMENTATION

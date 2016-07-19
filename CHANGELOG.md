@@ -1,6 +1,13 @@
 Change log
 ==========
 
+## July 19, 2016 - v2.1.0
+ * In configuration settings of HTML/XHTML minifier was changed type of `ProcessableScriptTypeCollection` and `CustomAngularDirectiveCollection` properties from `IEnumerable<string>` to `ISet<string>`
+ * In configuration settings of HTML minifier was changed type of `PreservableOptionalTagCollection` property from `IEnumerable<string>` to `ISet<string>`
+ * In configuration settings of HTML/XHTML minifier was changed a default value of `ProcessableScriptTypeList` property from `""` to `"text/html"`
+ * In `CrockfordJsMinifier` was optimized memory usage
+ * In ASP.NET 4.X Extensions was changed a mechanism of using default instances of loggers, factories and managers
+
 ## July 12, 2016 - v2.0.2
  * Added module based on the [NUglify](http://github.com/xoofx/NUglify)
  * In WebMarkupMin.MsAjax and WebMarkupMin.Yui was made refactoring
