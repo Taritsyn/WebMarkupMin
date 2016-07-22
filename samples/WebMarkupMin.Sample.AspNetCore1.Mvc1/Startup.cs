@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -16,6 +17,15 @@ namespace WebMarkupMin.Sample.AspNetCore1.Mvc1
 {
 	public class Startup
 	{
+		/// <summary>
+		/// Gets or sets a instance of hosting environment
+		/// </summary>
+		public IHostingEnvironment HostingEnvironment
+		{
+			get;
+			set;
+		}
+
 		public IConfigurationRoot Configuration
 		{
 			get;
@@ -25,6 +35,8 @@ namespace WebMarkupMin.Sample.AspNetCore1.Mvc1
 
 		public Startup(IHostingEnvironment env)
 		{
+			HostingEnvironment = env;
+
 			// Set up configuration sources.
 			var builder = new ConfigurationBuilder()
 				.SetBasePath(env.ContentRootPath)
@@ -39,7 +51,7 @@ namespace WebMarkupMin.Sample.AspNetCore1.Mvc1
 		// For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddSingleton<IConfigurationRoot>(Configuration);
+			services.AddSingleton(Configuration);
 
 			// Add WebMarkupMin services to the services container.
 			services.AddWebMarkupMin(options =>
@@ -87,7 +99,18 @@ namespace WebMarkupMin.Sample.AspNetCore1.Mvc1
 				;
 
 			// Add framework services.
-			services.AddMvc();
+			services.AddMvc(options =>
+			{
+				options.CacheProfiles.Add("CacheCompressedContent5Minutes",
+					new CacheProfile
+					{
+						NoStore = HostingEnvironment.IsDevelopment(),
+						Duration = 300,
+						Location = ResponseCacheLocation.Client,
+						VaryByHeader = "Accept-Encoding"
+					}
+				);
+			});
 
 			// Add WebMarkupMin sample services to the services container.
 			services.AddSingleton<SitemapService>();

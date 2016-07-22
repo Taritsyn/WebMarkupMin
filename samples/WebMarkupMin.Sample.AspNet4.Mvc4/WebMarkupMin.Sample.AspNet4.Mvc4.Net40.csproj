@@ -89,7 +89,6 @@
     </Compile>
     <Compile Include="Infrastructure\Helpers\CommonExtensions.cs" />
     <Compile Include="Infrastructure\Helpers\HelperConstants.cs" />
-    <Compile Include="Infrastructure\Helpers\ContentExtensions.cs" />
     <Compile Include="Infrastructure\Helpers\InputExtensions.cs" />
     <Compile Include="Infrastructure\Helpers\LabelExtensions.cs" />
     <Compile Include="Infrastructure\Routing\HyphenatedRootRouteConstraint.cs" />

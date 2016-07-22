@@ -35,6 +35,7 @@ namespace WebMarkupMin.Sample.AspNetCore1Full.Mvc1.Controllers
 		}
 
 
+		[ResponseCache(CacheProfileName = "CacheCompressedContent5Minutes")]
 		public IActionResult Index()
 		{
 			ViewBag.Body = new HtmlString(_fileContentService.GetFileContent("index.html"));
@@ -43,12 +44,14 @@ namespace WebMarkupMin.Sample.AspNetCore1Full.Mvc1.Controllers
 		}
 
 		[Route("minifiers")]
+		[ResponseCache(CacheProfileName = "CacheCompressedContent5Minutes")]
 		public IActionResult Minifiers()
 		{
 			return View();
 		}
 
 		[Route("change-log")]
+		[ResponseCache(CacheProfileName = "CacheCompressedContent5Minutes")]
 		public IActionResult ChangeLog()
 		{
 			ViewBag.Body = new HtmlString(_fileContentService.GetFileContent("change-log.html"));
@@ -57,6 +60,7 @@ namespace WebMarkupMin.Sample.AspNetCore1Full.Mvc1.Controllers
 		}
 
 		[Route("contact")]
+		[ResponseCache(CacheProfileName = "CacheCompressedContent5Minutes")]
 		public IActionResult Contact()
 		{
 			ViewBag.Body = new HtmlString(_fileContentService.GetFileContent("contact.html"));
@@ -65,6 +69,7 @@ namespace WebMarkupMin.Sample.AspNetCore1Full.Mvc1.Controllers
 		}
 
 		[Route("sitemap")]
+		[ResponseCache(CacheProfileName = "CacheCompressedContent5Minutes")]
 		public IActionResult Sitemap()
 		{
 			var sitemapItems = new List<SitemapItem>

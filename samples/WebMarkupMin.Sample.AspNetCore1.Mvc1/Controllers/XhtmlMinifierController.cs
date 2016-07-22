@@ -18,6 +18,7 @@ namespace WebMarkupMin.Sample.AspNetCore1.Mvc1.Controllers
 
 
 		[HttpGet]
+		[ResponseCache(CacheProfileName = "CacheCompressedContent5Minutes")]
 		public IActionResult Index()
 		{
 			var model = _minificationService.GetInitializationData();
