@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## September 7, 2016 - v2.1.1
+ * Fixed a [error #12](https://github.com/Taritsyn/WebMarkupMin/issues/12) “HTTP modules cause forms button do post back error”
+
 ## July 19, 2016 - v2.1.0
  * In configuration settings of HTML/XHTML minifier was changed type of `ProcessableScriptTypeCollection` and `CustomAngularDirectiveCollection` properties from `IEnumerable<string>` to `ISet<string>`
  * In configuration settings of HTML minifier was changed type of `PreservableOptionalTagCollection` property from `IEnumerable<string>` to `ISet<string>`

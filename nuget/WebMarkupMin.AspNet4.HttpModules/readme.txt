@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-         README file for Web Markup Minifier: ASP.NET 4.X HTTP modules v2.1.0
+         README file for Web Markup Minifier: ASP.NET 4.X HTTP modules v2.1.1
 
    --------------------------------------------------------------------------------
 
@@ -21,8 +21,7 @@
    =============
    RELEASE NOTES
    =============
-   Changed a mechanism of using default instances of loggers, factories and
-   managers.
+   Fixed a error #12 “HTTP modules cause forms button do post back error”.
 
    =============
    DOCUMENTATION

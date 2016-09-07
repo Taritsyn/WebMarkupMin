@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>WebMarkupMin.AspNet4.HttpModules</id>
-		<version>2.1.0</version>
+		<version>2.1.1</version>
 		<title>Web Markup Minifier: ASP.NET 4.X HTTP modules</title>
 		<authors>Andrey Taritsyn</authors>
 		<owners>Andrey Taritsyn</owners>
@@ -12,7 +12,7 @@
 		<requireLicenseAcceptance>true</requireLicenseAcceptance>
 		<description>WebMarkupMin.AspNet4.HttpModules contains 4 HTTP-modules: `HtmlMinificationModule` (for minification of HTML code), `XhtmlMinificationModule` (for minification of XHTML code), `XmlMinificationModule` (for minification of XML code) and `HttpCompressionModule` (for compression of text content by using GZIP or Deflate).</description>
 		<summary>WebMarkupMin.AspNet4.HttpModules contains 4 HTTP-modules: `HtmlMinificationModule` (for minification of HTML code), `XhtmlMinificationModule` (for minification of XHTML code), `XmlMinificationModule` (for minification of XML code) and `HttpCompressionModule` (for compression of text content by using GZIP or Deflate).</summary>
-		<releaseNotes>Changed a mechanism of using default instances of loggers, factories and managers.</releaseNotes>
+		<releaseNotes>Fixed a error #12 “HTTP modules cause forms button do post back error”.</releaseNotes>
 		<copyright>Copyright (c) 2013-2016 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
 		<language>en-US</language>
 		<tags>WebMarkupMin ASP.NET HTTP-modules Markup HTML XHTML XML Minification Minifier Minify</tags>
