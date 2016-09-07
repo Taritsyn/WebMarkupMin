@@ -77,7 +77,8 @@ namespace WebMarkupMin.AspNet4.HttpModules
 			string mediaType = response.ContentType;
 
 			if (request.HttpMethod == "GET" && response.StatusCode == 200
-				&& compressionManager.IsSupportedMediaType(mediaType))
+				&& compressionManager.IsSupportedMediaType(mediaType)
+				&& !request.Path.EndsWith("WebResource.axd", StringComparison.OrdinalIgnoreCase))
 			{
 				context.Items["originalResponseFilter"] = response.Filter;
 
