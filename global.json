@@ -1,7 +1,7 @@
 ﻿{
     "projects": [ "src", "test", "samples" ],
     "sdk": {
-        "version": "1.0.0-preview2-003121",
+        "version": "1.0.0-preview2-003131",
         "runtime": "coreclr",
         "architecture": "x86"
     }
