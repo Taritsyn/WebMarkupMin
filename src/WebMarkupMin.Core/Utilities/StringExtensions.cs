@@ -15,6 +15,11 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns>Processed string value</returns>
 		public static string TabsToSpaces(this string source, int tabSize)
 		{
+			if (source == null)
+			{
+				throw new ArgumentNullException("source");
+			}
+
 			string result = source.Replace("\t", "".PadRight(tabSize));
 
 			return result;
@@ -33,6 +38,11 @@ namespace WebMarkupMin.Core.Utilities
 		public static bool CustomStartsWith(this string source, string value, int startIndex,
 			StringComparison comparisonType)
 		{
+			if (source == null)
+			{
+				throw new ArgumentNullException("source");
+			}
+
 			int count = value.Length;
 			int sourceLength = source.Length;
 
@@ -52,6 +62,11 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns>true if the value of the value parameter is the same as this string; otherwise, false</returns>
 		public static bool IgnoreCaseEquals(this string source, string value)
 		{
+			if (source == null)
+			{
+				throw new ArgumentNullException("source");
+			}
+
 			return source.Equals(value, StringComparison.OrdinalIgnoreCase);
 		}
 
@@ -67,6 +82,11 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns>true if the character was received successfully; otherwise, false</returns>
 		public static bool TryGetChar(this string source, int index, out char result)
 		{
+			if (source == null)
+			{
+				throw new ArgumentNullException("source");
+			}
+
 			bool isSuccess;
 			int length = source.Length;
 

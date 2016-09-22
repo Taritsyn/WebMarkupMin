@@ -223,9 +223,9 @@ namespace WebMarkupMin.Core
 		private GenericHtmlMinifier _innerHtmlMinifier;
 
 		/// <summary>
-		/// Synchronizer of inner HTML minifier instance
+		/// Flag that indicates if the inner HTML minifier is initialized
 		/// </summary>
-		private readonly object _innerHtmlMinifierInstanceSynchronizer = new object();
+		private InterlockedStatedFlag _innerHtmlMinifierInitializedFlag = new InterlockedStatedFlag();
 
 		/// <summary>
 		/// Inner XML minifier
@@ -233,9 +233,9 @@ namespace WebMarkupMin.Core
 		private XmlMinifier _innerXmlMinifier;
 
 		/// <summary>
-		/// Synchronizer of inner XML minifier instance
+		/// Flag that indicates if the inner XML minifier is initialized
 		/// </summary>
-		private readonly object _innerXmlMinifierInstanceSynchronizer = new object();
+		private InterlockedStatedFlag _innerXmlMinifierInitializedFlag = new InterlockedStatedFlag();
 
 		/// <summary>
 		/// Inner Douglas Crockford's JS minifier
@@ -351,16 +351,13 @@ namespace WebMarkupMin.Core
 		/// <returns>Instance of inner HTML minifier</returns>
 		private GenericHtmlMinifier GetInnerHtmlMinifierInstance()
 		{
-			lock (_innerHtmlMinifierInstanceSynchronizer)
+			if (_innerHtmlMinifierInitializedFlag.Set())
 			{
-				if (_innerHtmlMinifier == null)
-				{
-					_innerHtmlMinifier = new GenericHtmlMinifier(_settings, new NullCssMinifier(), new NullJsMinifier(),
-						new NullLogger());
-				}
-
-				return _innerHtmlMinifier;
+				_innerHtmlMinifier = new GenericHtmlMinifier(_settings, new NullCssMinifier(), new NullJsMinifier(),
+					new NullLogger());
 			}
+
+			return _innerHtmlMinifier;
 		}
 
 		/// <summary>
@@ -369,20 +366,17 @@ namespace WebMarkupMin.Core
 		/// <returns>Instance of inner XML minifier</returns>
 		private XmlMinifier GetInnerXmlMinifierInstance()
 		{
-			lock (_innerXmlMinifierInstanceSynchronizer)
+			if (_innerXmlMinifierInitializedFlag.Set())
 			{
-				if (_innerXmlMinifier == null)
+				_innerXmlMinifier = new XmlMinifier(new XmlMinificationSettings
 				{
-					_innerXmlMinifier = new XmlMinifier(new XmlMinificationSettings
-					{
-						MinifyWhitespace = _settings.WhitespaceMinificationMode != WhitespaceMinificationMode.None,
-						RemoveXmlComments = _settings.RemoveHtmlComments,
-						RenderEmptyTagsWithSpace = _settings.EmptyTagRenderMode != HtmlEmptyTagRenderMode.Slash
-					});
-				}
-
-				return _innerXmlMinifier;
+					MinifyWhitespace = _settings.WhitespaceMinificationMode != WhitespaceMinificationMode.None,
+					RemoveXmlComments = _settings.RemoveHtmlComments,
+					RenderEmptyTagsWithSpace = _settings.EmptyTagRenderMode != HtmlEmptyTagRenderMode.Slash
+				});
 			}
+
+			return _innerXmlMinifier;
 		}
 
 		/// <summary>

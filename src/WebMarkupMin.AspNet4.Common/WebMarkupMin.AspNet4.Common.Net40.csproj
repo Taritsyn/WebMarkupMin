@@ -44,6 +44,8 @@
     <Compile Include="DefaultCssMinifierFactory.cs" />
     <Compile Include="DefaultJsMinifierFactory.cs" />
     <Compile Include="DefaultLogger.cs" />
+    <Compile Include="Helpers\HttpHeadersHelpers.cs" />
+    <Compile Include="HttpCompressionFilterStream.cs" />
     <Compile Include="MarkupMinificationFilterStream.cs" />
     <Compile Include="HtmlMinificationManager.cs" />
     <Compile Include="HttpCompressionManager.cs" />

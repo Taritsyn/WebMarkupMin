@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace WebMarkupMin.Core.Utilities
@@ -21,6 +22,11 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns>Instance of <see cref="StringBuilder"/></returns>
 		public static StringBuilder AppendFormatLine(this StringBuilder source)
 		{
+			if (source == null)
+			{
+				throw new ArgumentNullException("source");
+			}
+
 			return source.AppendLine();
 		}
 
@@ -36,6 +42,11 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns>Instance of <see cref="StringBuilder"/></returns>
 		public static StringBuilder AppendFormatLine(this StringBuilder source, string format, params object[] args)
 		{
+			if (source == null)
+			{
+				throw new ArgumentNullException("source");
+			}
+
 			if (_formatPlaceholderRegExp.IsMatch(format))
 			{
 				return source.AppendFormat(format, args).AppendLine();
@@ -51,6 +62,11 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns>Instance of <see cref="StringBuilder"/> without leading white-space characters</returns>
 		public static StringBuilder TrimStart(this StringBuilder source)
 		{
+			if (source == null)
+			{
+				throw new ArgumentNullException("source");
+			}
+
 			int charCount = source.Length;
 			if (charCount == 0)
 			{

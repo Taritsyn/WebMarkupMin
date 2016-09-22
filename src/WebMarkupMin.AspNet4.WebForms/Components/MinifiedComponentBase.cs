@@ -104,8 +104,6 @@ namespace WebMarkupMin.AspNet4.WebForms.Components
 							currentUrl, encoding, false);
 						if (minificationResult.Errors.Count == 0)
 						{
-							writer.Write(minificationResult.MinifiedContent);
-
 							if (_configuration.IsPoweredByHttpHeadersEnabled())
 							{
 								minificationManager.AppendPoweredByHttpHeader((key, value) =>
@@ -113,6 +111,8 @@ namespace WebMarkupMin.AspNet4.WebForms.Components
 									response.Headers[key] = value;
 								});
 							}
+
+							writer.Write(minificationResult.MinifiedContent);
 
 							isMinified = true;
 						}

@@ -1,45 +1,40 @@
 ﻿using AutoMapper;
 
 using WebMarkupMin.Core;
+using WebMarkupMin.Core.Utilities;
 using WebMarkupMin.Sample.Logic.Models;
 
 namespace WebMarkupMin.Sample.Logic
 {
 	internal static class MappingInitializer
 	{
-		private static readonly object _synchronizer = new object();
-		private static bool _initialized;
+		/// <summary>
+		/// Flag that indicates if the mapper is initialized
+		/// </summary>
+		private static InterlockedStatedFlag _mapperInitializedFlag = new InterlockedStatedFlag();
 
 
 		public static void Initialize()
 		{
-			if (!_initialized)
+			if (_mapperInitializedFlag.Set())
 			{
-				lock (_synchronizer)
+				Mapper.Initialize(configuration =>
 				{
-					if (!_initialized)
-					{
-						Mapper.Initialize(configuration =>
-						{
-							configuration
-								.CreateMap<HtmlMinificationSettings, HtmlMinificationSettingsViewModel>()
-								.ReverseMap()
-								;
-							configuration
-								.CreateMap<XhtmlMinificationSettings, XhtmlMinificationSettingsViewModel>()
-								.ReverseMap()
-								;
-							configuration
-								.CreateMap<XmlMinificationSettings, XmlMinificationSettingsViewModel>()
-								.ReverseMap()
-								;
-							configuration.CreateMap<MarkupMinificationResult, MarkupMinificationResultViewModel>();
-							configuration.CreateMap<MinificationStatistics, MinificationStatisticsViewModel>();
-						});
-
-						_initialized = true;
-					}
-				}
+					configuration
+						.CreateMap<HtmlMinificationSettings, HtmlMinificationSettingsViewModel>()
+						.ReverseMap()
+						;
+					configuration
+						.CreateMap<XhtmlMinificationSettings, XhtmlMinificationSettingsViewModel>()
+						.ReverseMap()
+						;
+					configuration
+						.CreateMap<XmlMinificationSettings, XmlMinificationSettingsViewModel>()
+						.ReverseMap()
+						;
+					configuration.CreateMap<MarkupMinificationResult, MarkupMinificationResultViewModel>();
+					configuration.CreateMap<MinificationStatistics, MinificationStatisticsViewModel>();
+				});
 			}
 		}
 	}

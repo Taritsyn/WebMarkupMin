@@ -10,7 +10,7 @@ namespace WebMarkupMin.AspNet.Common
 		/// <summary>
 		/// Creates a instance of compressor
 		/// </summary>
-		/// <param name="acceptEncoding">Value of the Accept-encoding HTTP header</param>
+		/// <param name="acceptEncoding">Value of the Accept-Encoding HTTP header</param>
 		/// <returns>Instance of compressor</returns>
 		ICompressor CreateCompressor(string acceptEncoding);
 

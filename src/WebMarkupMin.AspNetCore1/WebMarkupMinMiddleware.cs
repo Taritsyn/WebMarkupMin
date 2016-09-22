@@ -13,6 +13,7 @@ using Microsoft.Net.Http.Headers;
 using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.AspNet.Common.Compressors;
 using WebMarkupMin.Core;
+using AspNetCommonStrings = WebMarkupMin.AspNet.Common.Resources;
 
 namespace WebMarkupMin.AspNetCore1
 {
@@ -166,6 +167,7 @@ namespace WebMarkupMin.AspNetCore1
 
 					string content = encoding.GetString(cacheBytes);
 					string processedContent = content;
+					bool isEncodedContent = response.Headers.IsEncodedContent();
 					Action<string, string> appendHttpHeader = (key, value) =>
 					{
 						response.Headers.Append(key, new StringValues(value));
@@ -178,6 +180,16 @@ namespace WebMarkupMin.AspNetCore1
 							if (mediaType != null && minificationManager.IsSupportedMediaType(mediaType)
 								&& minificationManager.IsProcessablePage(currentUrl))
 							{
+								if (isEncodedContent)
+								{
+									throw new InvalidOperationException(
+										string.Format(
+											AspNetCommonStrings.MarkupMinificationIsNotApplicableToEncodedContent,
+											response.Headers["Content-Encoding"]
+										)
+									);
+								}
+
 								IMarkupMinifier minifier = minificationManager.CreateMinifier();
 
 								MarkupMinificationResult minificationResult = minifier.Minify(processedContent, currentUrl, encoding, false);
@@ -200,7 +212,8 @@ namespace WebMarkupMin.AspNetCore1
 						}
 					}
 
-					if (useCompression && _compressionManager.IsSupportedMediaType(mediaType))
+					if (useCompression && !isEncodedContent
+						&& _compressionManager.IsSupportedMediaType(mediaType))
 					{
 						string acceptEncoding = request.Headers["Accept-Encoding"];
 

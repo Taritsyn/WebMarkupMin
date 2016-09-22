@@ -1,30 +1,32 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using System.Web;
 
 using WebMarkupMin.AspNet.Common;
+using WebMarkupMin.AspNet4.Common.Helpers;
 using WebMarkupMin.Core;
+using AspNetCommonStrings = WebMarkupMin.AspNet.Common.Resources;
 
 namespace WebMarkupMin.AspNet4.Common
 {
 	/// <summary>
-	/// Markup minification response filters
+	/// Markup minification response filter
 	/// </summary>
 	public sealed class MarkupMinificationFilterStream : Stream
 	{
 		/// <summary>
-		/// HTTP-response
+		/// HTTP response
 		/// </summary>
 		private readonly HttpResponseBase _response;
 
 		/// <summary>
 		/// Original stream
 		/// </summary>
-		private readonly Stream _stream;
+		private readonly Stream _originalStream;
 
 		/// <summary>
 		/// Stream that original content is read into
-		/// and then passed to TransformStream function
 		/// </summary>
 		private readonly MemoryStream _cacheStream = new MemoryStream();
 
@@ -78,7 +80,7 @@ namespace WebMarkupMin.AspNet4.Common
 		/// <summary>
 		/// Constructs a instance of markup minification response filter
 		/// </summary>
-		/// <param name="response">HTTP-response</param>
+		/// <param name="response">HTTP response</param>
 		/// <param name="configuration">WebMarkupMin configuration</param>
 		/// <param name="minificationManager">Markup minification manager</param>
 		public MarkupMinificationFilterStream(HttpResponseBase response,
@@ -90,7 +92,7 @@ namespace WebMarkupMin.AspNet4.Common
 		/// <summary>
 		/// Constructs a instance of markup minification response filter
 		/// </summary>
-		/// <param name="response">HTTP-response</param>
+		/// <param name="response">HTTP response</param>
 		/// <param name="configuration">WebMarkupMin configuration</param>
 		/// <param name="minificationManager">Markup minification manager</param>
 		/// <param name="currentUrl">Current URL</param>
@@ -102,7 +104,7 @@ namespace WebMarkupMin.AspNet4.Common
 			Encoding encoding)
 		{
 			_response = response;
-			_stream = response.Filter;
+			_originalStream = response.Filter;
 			_configuration = configuration;
 			_minificationManager = minificationManager;
 			_currentUrl = currentUrl;
@@ -112,17 +114,17 @@ namespace WebMarkupMin.AspNet4.Common
 
 		public override int Read(byte[] buffer, int offset, int count)
 		{
-			return _stream.Read(buffer, offset, count);
+			return _originalStream.Read(buffer, offset, count);
 		}
 
 		public override long Seek(long offset, SeekOrigin origin)
 		{
-			return _stream.Seek(offset, origin);
+			return _originalStream.Seek(offset, origin);
 		}
 
 		public override void SetLength(long value)
 		{
-			_stream.SetLength(value);
+			_originalStream.SetLength(value);
 		}
 
 		public override void Write(byte[] buffer, int offset, int count)
@@ -132,50 +134,64 @@ namespace WebMarkupMin.AspNet4.Common
 
 		public override void Flush()
 		{
-			_stream.Flush();
+			_originalStream.Flush();
 		}
 
 		public override void Close()
 		{
-			byte[] cacheBytes = _cacheStream.ToArray();
-			int cacheSize = cacheBytes.Length;
-
-			bool isMinified = false;
-
-			if (_configuration.IsAllowableResponseSize(cacheSize))
+			bool isEncodedContent = HttpHeadersHelpers.IsEncodedContent(_response.Headers);
+			if (!isEncodedContent)
 			{
-				string content = _encoding.GetString(cacheBytes);
-				IMarkupMinifier minifier = _minificationManager.CreateMinifier();
+				byte[] cacheBytes = _cacheStream.ToArray();
+				int cacheSize = cacheBytes.Length;
 
-				MarkupMinificationResult minificationResult = minifier.Minify(content,
-					_currentUrl, _encoding, false);
-				if (minificationResult.Errors.Count == 0)
+				bool isMinified = false;
+
+				if (_configuration.IsAllowableResponseSize(cacheSize))
 				{
-					if (_configuration.IsPoweredByHttpHeadersEnabled())
+					string content = _encoding.GetString(cacheBytes);
+					IMarkupMinifier minifier = _minificationManager.CreateMinifier();
+
+					MarkupMinificationResult minificationResult = minifier.Minify(content,
+						_currentUrl, _encoding, false);
+					if (minificationResult.Errors.Count == 0)
 					{
-						_minificationManager.AppendPoweredByHttpHeader((key, value) =>
+						if (_configuration.IsPoweredByHttpHeadersEnabled())
 						{
-							_response.Headers[key] = value;
-						});
-					}
+							_minificationManager.AppendPoweredByHttpHeader((key, value) =>
+							{
+								_response.Headers[key] = value;
+							});
+						}
 
-					using (var writer = new StreamWriter(_stream, _encoding))
-					{
-						writer.Write(minificationResult.MinifiedContent);
-					}
+						using (var writer = new StreamWriter(_originalStream, _encoding))
+						{
+							writer.Write(minificationResult.MinifiedContent);
+						}
 
-					isMinified = true;
+						isMinified = true;
+					}
+				}
+
+				if (!isMinified)
+				{
+					_cacheStream.Seek(0, SeekOrigin.Begin);
+					_cacheStream.CopyTo(_originalStream);
 				}
 			}
 
-			if (!isMinified)
-			{
-				_cacheStream.Seek(0, SeekOrigin.Begin);
-				_cacheStream.CopyTo(_stream);
-			}
-
 			_cacheStream.SetLength(0);
-			_stream.Close();
+			_originalStream.Close();
+
+			if (isEncodedContent)
+			{
+				throw new InvalidOperationException(
+					string.Format(
+						AspNetCommonStrings.MarkupMinificationIsNotApplicableToEncodedContent,
+						_response.Headers["Content-Encoding"]
+					)
+				);
+			}
 		}
 	}
 }

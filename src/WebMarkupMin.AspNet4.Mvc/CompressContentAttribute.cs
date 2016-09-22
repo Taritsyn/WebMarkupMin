@@ -4,7 +4,6 @@ using System.Web;
 using System.Web.Mvc;
 
 using WebMarkupMin.AspNet.Common;
-using WebMarkupMin.AspNet.Common.Compressors;
 using WebMarkupMin.AspNet4.Common;
 
 namespace WebMarkupMin.AspNet4.Mvc
@@ -13,7 +12,7 @@ namespace WebMarkupMin.AspNet4.Mvc
 	/// Represents an attribute, that applies HTTP compression to the action result
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-	public class CompressContentAttribute : ActionFilterAttribute
+	public sealed class CompressContentAttribute : ActionFilterAttribute
 	{
 		/// <summary>
 		/// WebMarkupMin configuration
@@ -61,13 +60,7 @@ namespace WebMarkupMin.AspNet4.Mvc
 				context.Items["originalResponseFilter"] = response.Filter;
 
 				string acceptEncoding = request.Headers["Accept-Encoding"];
-
-				ICompressor compressor = compressionManager.CreateCompressor(acceptEncoding);
-				response.Filter = compressor.Compress(response.Filter);
-				compressor.AppendHttpHeaders((key, value) =>
-				{
-					response.Headers[key] = value;
-				});
+				response.Filter = new HttpCompressionFilterStream(response, compressionManager, acceptEncoding);
 			}
 		}
 

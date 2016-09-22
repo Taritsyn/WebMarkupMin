@@ -114,8 +114,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs" />
     <Compile Include="Utilities\CharExtensions.cs" />
+    <Compile Include="Utilities\InterlockedStatedFlag.cs" />
     <Compile Include="Utilities\SourceCodeNavigator.cs" />
     <Compile Include="Utilities\SourceCodeNodeCoordinates.cs" />
+    <Compile Include="Utilities\StatedFlag.cs" />
     <Compile Include="Utilities\StringBuilderExtensions.cs" />
     <Compile Include="Utilities\StringBuilderPool.cs" />
     <Compile Include="Utilities\StringExtensions.cs" />

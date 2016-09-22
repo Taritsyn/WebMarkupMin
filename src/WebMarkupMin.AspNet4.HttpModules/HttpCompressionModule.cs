@@ -3,7 +3,6 @@ using System.IO;
 using System.Web;
 
 using WebMarkupMin.AspNet.Common;
-using WebMarkupMin.AspNet.Common.Compressors;
 using WebMarkupMin.AspNet4.Common;
 
 namespace WebMarkupMin.AspNet4.HttpModules
@@ -83,13 +82,8 @@ namespace WebMarkupMin.AspNet4.HttpModules
 				context.Items["originalResponseFilter"] = response.Filter;
 
 				string acceptEncoding = request.Headers["Accept-Encoding"];
-
-				ICompressor compressor = compressionManager.CreateCompressor(acceptEncoding);
-				response.Filter = compressor.Compress(response.Filter);
-				compressor.AppendHttpHeaders((key, value) =>
-				{
-					response.Headers[key] = value;
-				});
+				response.Filter = new HttpCompressionFilterStream(new HttpResponseWrapper(response),
+					compressionManager, acceptEncoding);
 			}
 		}
 
