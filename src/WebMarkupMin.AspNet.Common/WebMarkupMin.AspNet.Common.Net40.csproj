@@ -42,8 +42,11 @@
   <ItemGroup>
     <Compile Include="Compressors\CompressorExtensions.cs" />
     <Compile Include="Compressors\DeflateCompressor.cs" />
+    <Compile Include="Compressors\DeflateCompressorFactory.cs" />
     <Compile Include="Compressors\GZipCompressor.cs" />
+    <Compile Include="Compressors\GZipCompressorFactory.cs" />
     <Compile Include="Compressors\ICompressor.cs" />
+    <Compile Include="Compressors\ICompressorFactory.cs" />
     <Compile Include="Compressors\NullCompressor.cs" />
     <Compile Include="EncodingTokenConstants.cs" />
     <Compile Include="CommonHtmlMinificationManagerBase.cs" />

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using WebMarkupMin.AspNet.Common;
+using WebMarkupMin.AspNet.Common.Compressors;
 
 namespace WebMarkupMin.AspNet4.Common
 {
@@ -33,6 +35,27 @@ namespace WebMarkupMin.AspNet4.Common
 			{
 				_current = value;
 			}
+		}
+
+
+		/// <summary>
+		/// Constructs a instance of HTTP compression manager
+		/// </summary>
+		public HttpCompressionManager()
+			: this(new List<ICompressorFactory>
+			{
+				new DeflateCompressorFactory(),
+				new GZipCompressorFactory()
+			})
+		{ }
+
+		/// <summary>
+		/// Constructs a instance of HTTP compression manager
+		/// </summary>
+		/// <param name="compressorFactories">List of HTTP compressor factories</param>
+		public HttpCompressionManager(IList<ICompressorFactory> compressorFactories)
+		{
+			CompressorFactories = compressorFactories;
 		}
 	}
 }

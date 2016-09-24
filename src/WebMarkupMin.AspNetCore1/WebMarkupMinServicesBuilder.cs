@@ -53,6 +53,13 @@ namespace WebMarkupMin.AspNetCore1
 			return this;
 		}
 
+		public WebMarkupMinServicesBuilder ConfigureHttpCompression(Action<HttpCompressionOptions> configure)
+		{
+			_services.Configure(configure);
+
+			return this;
+		}
+
 		public WebMarkupMinServicesBuilder AddHtmlMinification()
 		{
 			return AddHtmlMinification(configure: null);
@@ -110,6 +117,16 @@ namespace WebMarkupMin.AspNetCore1
 
 		public WebMarkupMinServicesBuilder AddHttpCompression()
 		{
+			return AddHttpCompression(configure: null);
+		}
+
+		public WebMarkupMinServicesBuilder AddHttpCompression(Action<HttpCompressionOptions> configure)
+		{
+			if (configure != null)
+			{
+				_services.Configure(configure);
+			}
+
 			_services.AddSingleton<IHttpCompressionManager, HttpCompressionManager>();
 
 			return this;

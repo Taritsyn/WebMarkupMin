@@ -1,4 +1,7 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 using WebMarkupMin.AspNet.Common.Compressors;
 
@@ -18,6 +21,15 @@ namespace WebMarkupMin.AspNet.Common
 			string.Format(@"^text/{0}|application/(xml(\-{0})?|{0}\+xml|{0}script|json)$", NAME_PATTERN)
 		);
 
+		/// <summary>
+		/// Gets or sets a list of HTTP compressor factories
+		/// </summary>
+		public IList<ICompressorFactory> CompressorFactories
+		{
+			get;
+			set;
+		}
+
 
 		/// <summary>
 		/// Creates a instance of compressor
@@ -27,17 +39,23 @@ namespace WebMarkupMin.AspNet.Common
 		public ICompressor CreateCompressor(string acceptEncoding)
 		{
 			ICompressor compressor = null;
+			IList<ICompressorFactory> factories = CompressorFactories;
 
-			if (acceptEncoding != null)
+			if (acceptEncoding != null && factories != null && factories.Count > 0)
 			{
-				acceptEncoding = acceptEncoding.ToLowerInvariant();
-				if (acceptEncoding.Contains(EncodingTokenConstants.Deflate))
+				string[] encodingTokens = acceptEncoding
+					.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+					.Select(e => e.Trim().ToLowerInvariant())
+					.ToArray()
+					;
+
+				foreach (ICompressorFactory factory in factories)
 				{
-					compressor = new DeflateCompressor();
-				}
-				else if (acceptEncoding.Contains(EncodingTokenConstants.GZip))
-				{
-					compressor = new GZipCompressor();
+					if (encodingTokens.Contains(factory.EncodingToken))
+					{
+						compressor = factory.CreateCompressor();
+						break;
+					}
 				}
 			}
 
