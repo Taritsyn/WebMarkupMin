@@ -1,9 +1,11 @@
-﻿@using System.Web.Optimization;
+﻿@using System.Collections.Generic;
+@using System.Web.Optimization;
 
 @using BundleTransformer.Core.Bundles;
 @using BundleTransformer.Core.Orderers;
 
 @using WebMarkupMin.AspNet.Common;
+@using WebMarkupMin.AspNet.Common.Compressors;
 @using WebMarkupMin.AspNet.Common.UrlMatchers;
 @using WebMarkupMin.AspNet4.Common;
 @using WebMarkupMin.Core;
@@ -77,6 +79,13 @@
 	IXmlMinificationManager xmlMinificationManager = XmlMinificationManager.Current;
 	XmlMinificationSettings xmlMinificationSettings = xmlMinificationManager.MinificationSettings;
 	xmlMinificationSettings.CollapseTagsWithoutContent = true;
+
+	IHttpCompressionManager httpCompressionManager = HttpCompressionManager.Current;
+	httpCompressionManager.CompressorFactories = new List<ICompressorFactory>
+	{
+		new DeflateCompressorFactory(),
+		new GZipCompressorFactory()
+	};
 
 	#endregion
 }

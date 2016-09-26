@@ -1,4 +1,7 @@
-﻿using WebMarkupMin.AspNet.Common;
+﻿using System.Collections.Generic;
+
+using WebMarkupMin.AspNet.Common;
+using WebMarkupMin.AspNet.Common.Compressors;
 using WebMarkupMin.AspNet4.Common;
 using WebMarkupMin.Core;
 using WebMarkupMin.MsAjax;
@@ -26,6 +29,13 @@ namespace WebMarkupMin.Sample.AspNet45.WebForms
 			xhtmlMinificationSettings.RemoveRedundantAttributes = true;
 			xhtmlMinificationSettings.RemoveHttpProtocolFromAttributes = true;
 			xhtmlMinificationSettings.RemoveHttpsProtocolFromAttributes = true;
+
+			IHttpCompressionManager httpCompressionManager = HttpCompressionManager.Current;
+			httpCompressionManager.CompressorFactories = new List<ICompressorFactory>
+			{
+				new DeflateCompressorFactory(),
+				new GZipCompressorFactory()
+			};
 		}
 	}
 }

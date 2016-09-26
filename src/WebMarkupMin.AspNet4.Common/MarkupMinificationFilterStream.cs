@@ -28,7 +28,7 @@ namespace WebMarkupMin.AspNet4.Common
 		/// <summary>
 		/// Stream that original content is read into
 		/// </summary>
-		private readonly MemoryStream _cacheStream = new MemoryStream();
+		private readonly MemoryStream _cachedStream = new MemoryStream();
 
 		/// <summary>
 		/// WebMarkupMin configuration
@@ -129,7 +129,7 @@ namespace WebMarkupMin.AspNet4.Common
 
 		public override void Write(byte[] buffer, int offset, int count)
 		{
-			_cacheStream.Write(buffer, 0, count);
+			_cachedStream.Write(buffer, 0, count);
 		}
 
 		public override void Flush()
@@ -142,14 +142,14 @@ namespace WebMarkupMin.AspNet4.Common
 			bool isEncodedContent = HttpHeadersHelpers.IsEncodedContent(_response.Headers);
 			if (!isEncodedContent)
 			{
-				byte[] cacheBytes = _cacheStream.ToArray();
-				int cacheSize = cacheBytes.Length;
+				byte[] cachedBytes = _cachedStream.ToArray();
+				int cachedByteCount = cachedBytes.Length;
 
 				bool isMinified = false;
 
-				if (_configuration.IsAllowableResponseSize(cacheSize))
+				if (_configuration.IsAllowableResponseSize(cachedByteCount))
 				{
-					string content = _encoding.GetString(cacheBytes);
+					string content = _encoding.GetString(cachedBytes);
 					IMarkupMinifier minifier = _minificationManager.CreateMinifier();
 
 					MarkupMinificationResult minificationResult = minifier.Minify(content,
@@ -175,12 +175,12 @@ namespace WebMarkupMin.AspNet4.Common
 
 				if (!isMinified)
 				{
-					_cacheStream.Seek(0, SeekOrigin.Begin);
-					_cacheStream.CopyTo(_originalStream);
+					_cachedStream.Seek(0, SeekOrigin.Begin);
+					_cachedStream.CopyTo(_originalStream);
 				}
 			}
 
-			_cacheStream.SetLength(0);
+			_cachedStream.SetLength(0);
 			_originalStream.Close();
 
 			if (isEncodedContent)

@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+using WebMarkupMin.AspNet.Common.Compressors;
 using WebMarkupMin.AspNet.Common.UrlMatchers;
 using WebMarkupMin.AspNetCore1;
 using WebMarkupMin.Core;
@@ -91,11 +92,19 @@ namespace WebMarkupMin.Sample.AspNetCore1.Mvc1
 					options.CssMinifierFactory = new KristensenCssMinifierFactory();
 					options.JsMinifierFactory = new CrockfordJsMinifierFactory();
 				})
-				.AddXmlMinification(options => {
+				.AddXmlMinification(options =>
+				{
 					XmlMinificationSettings settings = options.MinificationSettings;
 					settings.CollapseTagsWithoutContent = true;
 				})
-				.AddHttpCompression()
+				.AddHttpCompression(options =>
+				{
+					options.CompressorFactories = new List<ICompressorFactory>
+					{
+						new DeflateCompressorFactory(),
+						new GZipCompressorFactory()
+					};
+				})
 				;
 
 			// Add framework services.
