@@ -6,8 +6,8 @@
 	},
 
 	"frameworks": {
-		"net452": {},
-		"netstandard1.3": {}
+		"netstandard1.3": {},
+		"net451": {}
 	},
 
 	"buildOptions": {

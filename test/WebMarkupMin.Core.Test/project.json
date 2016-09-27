@@ -12,7 +12,6 @@
 	"testRunner": "xunit",
 
 	"frameworks": {
-		"net452": {},
 		"netcoreapp1.0": {
 			"imports": [
 				"dnxcore50",
@@ -24,7 +23,8 @@
 					"type": "platform"
 				}
 			}
-		}
+		},
+		"net451": {}
 	},
 
 	"buildOptions": {

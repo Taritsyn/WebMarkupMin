@@ -11,12 +11,12 @@
 	},
 
 	"frameworks": {
-		"net452": {
+		"netstandard1.6": {},
+		"net451": {
 			"dependencies": {
 				"WebMarkupMin.MsAjax": "2.0.2",
 				"WebMarkupMin.Yui": "2.0.2"
 			}
-		},
-		"netstandard1.6": {}
+		}
 	}
 }
