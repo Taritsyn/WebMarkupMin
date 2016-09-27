@@ -2,7 +2,7 @@
 using System.Text;
 
 using WebMarkupMin.Core.Utilities;
-using CoreStrings = WebMarkupMin.Core.Resources;
+using WebMarkupMin.Core.Resources;
 
 namespace WebMarkupMin.Core.Loggers
 {
@@ -24,28 +24,28 @@ namespace WebMarkupMin.Core.Loggers
 			int lineNumber = 0, int columnNumber = 0, string sourceFragment = "")
 		{
 			StringBuilder errorBuilder = StringBuilderPool.GetBuilder();
-			errorBuilder.AppendFormatLine("{0}: {1}", CoreStrings.ErrorDetails_Category, category);
-			errorBuilder.AppendFormatLine("{0}: {1}", CoreStrings.ErrorDetails_Message, message);
+			errorBuilder.AppendFormatLine("{0}: {1}", Strings.ErrorDetails_Category, category);
+			errorBuilder.AppendFormatLine("{0}: {1}", Strings.ErrorDetails_Message, message);
 
 			if (!string.IsNullOrWhiteSpace(filePath))
 			{
-				errorBuilder.AppendFormatLine("{0}: {1}", CoreStrings.ErrorDetails_File, filePath);
+				errorBuilder.AppendFormatLine("{0}: {1}", Strings.ErrorDetails_File, filePath);
 			}
 
 			if (lineNumber > 0)
 			{
-				errorBuilder.AppendFormatLine("{0}: {1}", CoreStrings.ErrorDetails_LineNumber, lineNumber);
+				errorBuilder.AppendFormatLine("{0}: {1}", Strings.ErrorDetails_LineNumber, lineNumber);
 			}
 
 			if (columnNumber > 0)
 			{
-				errorBuilder.AppendFormatLine("{0}: {1}", CoreStrings.ErrorDetails_ColumnNumber, columnNumber);
+				errorBuilder.AppendFormatLine("{0}: {1}", Strings.ErrorDetails_ColumnNumber, columnNumber);
 			}
 
 			if (!string.IsNullOrWhiteSpace(sourceFragment))
 			{
 				errorBuilder.AppendFormatLine("{1}:{0}{0}{2}", Environment.NewLine,
-					CoreStrings.ErrorDetails_SourceFragment, sourceFragment);
+					Strings.ErrorDetails_SourceFragment, sourceFragment);
 			}
 
 			string errorMessage = errorBuilder.ToString();

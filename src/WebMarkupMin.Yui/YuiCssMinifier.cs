@@ -5,7 +5,7 @@ using System.Text;
 using Yahoo.Yui.Compressor;
 
 using WebMarkupMin.Core;
-using CoreStrings = WebMarkupMin.Core.Resources;
+using CoreStrings = WebMarkupMin.Core.Resources.Strings;
 
 namespace WebMarkupMin.Yui
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-using AspNetCore1Strings = WebMarkupMin.AspNetCore1.Resources;
+using AspNetCore1Strings = WebMarkupMin.AspNetCore1.Resources.Strings;
 
 namespace WebMarkupMin.AspNetCore1.Internal
 {

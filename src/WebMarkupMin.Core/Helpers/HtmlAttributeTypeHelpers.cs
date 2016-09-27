@@ -4,7 +4,6 @@ using System.Linq;
 
 using WebMarkupMin.Core.Parsers;
 using WebMarkupMin.Core.Utilities;
-using CoreStrings = WebMarkupMin.Core.Resources;
 
 namespace WebMarkupMin.Core.Helpers
 {

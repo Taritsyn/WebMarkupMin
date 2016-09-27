@@ -16,15 +16,15 @@ namespace WebMarkupMin.Sample.Resources
 	/// <summary>
 	/// A strongly-typed resource class, for looking up localized strings, etc.
 	/// </summary>
-	public class CommonResources
+	public class CommonStrings
 	{
 		private static Lazy<ResourceManager> _resourceManager =
 			new Lazy<ResourceManager>(() => new ResourceManager(
-				"WebMarkupMin.Sample.Resources.CommonResources",
+				"WebMarkupMin.Sample.Resources.CommonStrings",
 #if NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6 || NETCOREAPP1_0 || NET451 || NET452 || NET46 || NET461 || NET462 || NET463
-				typeof(CommonResources).GetTypeInfo().Assembly
+				typeof(CommonStrings).GetTypeInfo().Assembly
 #elif NET40
-				typeof(CommonResources).Assembly
+				typeof(CommonStrings).Assembly
 #else
 #error No implementation for this target
 #endif
@@ -83,11 +83,11 @@ namespace WebMarkupMin.Sample.Resources
 			get { return GetString("ErrorMessage_FileReadingFailed"); }
 		}
 
-		private static string GetString(string name)
-		{
-			string value = ResourceManager.GetString(name, _resourceCulture);
+			private static string GetString(string name)
+			{
+				string value = ResourceManager.GetString(name, _resourceCulture);
 
-			return value;
+				return value;
+			}
 		}
 	}
-}

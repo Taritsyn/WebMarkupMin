@@ -8,7 +8,7 @@ using System.Web;
 #error No implementation for this target
 #endif
 
-using CommonStrings = WebMarkupMin.Sample.Resources.CommonResources;
+using WebMarkupMin.Sample.Resources;
 
 namespace WebMarkupMin.Sample.Logic.Services
 {

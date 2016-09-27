@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 
 using WebMarkupMin.Core.Utilities;
-using CoreStrings = WebMarkupMin.Core.Resources;
 
 namespace WebMarkupMin.Core.Helpers
 {

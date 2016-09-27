@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-using XmlMinificationStrings = WebMarkupMin.Sample.Resources.XmlMinificationResources;
+using WebMarkupMin.Sample.Resources;
 
 namespace WebMarkupMin.Sample.Logic.Models
 {

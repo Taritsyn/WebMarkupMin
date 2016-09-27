@@ -13,7 +13,7 @@ using Microsoft.Net.Http.Headers;
 using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.AspNet.Common.Compressors;
 using WebMarkupMin.Core;
-using AspNetCommonStrings = WebMarkupMin.AspNet.Common.Resources;
+using AspNetCommonStrings = WebMarkupMin.AspNet.Common.Resources.Strings;
 
 namespace WebMarkupMin.AspNetCore1
 {

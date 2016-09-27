@@ -34,21 +34,21 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommonHtmlMinificationResources.Designer.cs" />
-    <Compile Include="CommonResources.Designer.cs" />
-    <Compile Include="HtmlMinificationResources.Designer.cs" />
-    <Compile Include="MinificationResources.Designer.cs" />
+    <Compile Include="CommonHtmlMinificationStrings.Designer.cs" />
+    <Compile Include="CommonStrings.Designer.cs" />
+    <Compile Include="HtmlMinificationStrings.Designer.cs" />
+    <Compile Include="MinificationStrings.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XhtmlMinificationResources.Designer.cs" />
-    <Compile Include="XmlMinificationResources.Designer.cs" />
+    <Compile Include="XhtmlMinificationStrings.Designer.cs" />
+    <Compile Include="XmlMinificationStrings.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CommonHtmlMinificationResources.resx" />
-    <EmbeddedResource Include="CommonResources.resx" />
-    <EmbeddedResource Include="HtmlMinificationResources.resx" />
-    <EmbeddedResource Include="MinificationResources.resx" />
-    <EmbeddedResource Include="XhtmlMinificationResources.resx" />
-    <EmbeddedResource Include="XmlMinificationResources.resx" />
+    <EmbeddedResource Include="CommonHtmlMinificationStrings.resx" />
+    <EmbeddedResource Include="CommonStrings.resx" />
+    <EmbeddedResource Include="HtmlMinificationStrings.resx" />
+    <EmbeddedResource Include="MinificationStrings.resx" />
+    <EmbeddedResource Include="XhtmlMinificationStrings.resx" />
+    <EmbeddedResource Include="XmlMinificationStrings.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

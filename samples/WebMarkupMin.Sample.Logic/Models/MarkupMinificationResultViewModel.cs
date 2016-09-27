@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 
 using WebMarkupMin.Core;
-using MinificationStrings = WebMarkupMin.Sample.Resources.MinificationResources;
+using WebMarkupMin.Sample.Resources;
 
 namespace WebMarkupMin.Sample.Logic.Models
 {

@@ -9,7 +9,7 @@ using System.Web.Mvc;
 #endif
 
 using WebMarkupMin.Core;
-using CommonHtmlMinificationStrings = WebMarkupMin.Sample.Resources.CommonHtmlMinificationResources;
+using WebMarkupMin.Sample.Resources;
 
 namespace WebMarkupMin.Sample.Logic.Models
 {

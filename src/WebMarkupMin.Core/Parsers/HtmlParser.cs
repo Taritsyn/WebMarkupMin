@@ -16,8 +16,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 using WebMarkupMin.Core.Helpers;
+using WebMarkupMin.Core.Resources;
 using WebMarkupMin.Core.Utilities;
-using CoreStrings = WebMarkupMin.Core.Resources;
 
 namespace WebMarkupMin.Core.Parsers
 {
@@ -302,7 +302,7 @@ namespace WebMarkupMin.Core.Parsers
 						if (_innerContext.Position == previousPosition)
 						{
 							throw new HtmlParsingException(
-								string.Format(CoreStrings.ErrorMessage_MarkupParsingFailed, "HTML"),
+								string.Format(Strings.ErrorMessage_MarkupParsingFailed, "HTML"),
 								_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 						}
 
@@ -316,7 +316,7 @@ namespace WebMarkupMin.Core.Parsers
 					if (_conditionalCommentStack.Count > 0)
 					{
 						throw new HtmlParsingException(
-							CoreStrings.ErrorMessage_NotClosedConditionalComment,
+							Strings.ErrorMessage_NotClosedConditionalComment,
 							_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 					}
 				}
@@ -616,7 +616,7 @@ namespace WebMarkupMin.Core.Parsers
 					_innerContext.IncreasePosition(invalidCharactersOffset);
 
 					throw new HtmlParsingException(
-						string.Format(CoreStrings.ErrorMessage_InvalidCharactersInStartTag, startTagName),
+						string.Format(Strings.ErrorMessage_InvalidCharactersInStartTag, startTagName),
 						_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 				}
 
@@ -788,7 +788,7 @@ namespace WebMarkupMin.Core.Parsers
 			if (_conditionalCommentStack.Count > 0)
 			{
 				throw new HtmlParsingException(
-					CoreStrings.ErrorMessage_NotClosedConditionalComment,
+					Strings.ErrorMessage_NotClosedConditionalComment,
 					_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 			}
 
@@ -826,7 +826,7 @@ namespace WebMarkupMin.Core.Parsers
 					else
 					{
 						throw new HtmlParsingException(
-							CoreStrings.ErrorMessage_InvalidEndIfConditionalComment,
+							Strings.ErrorMessage_InvalidEndIfConditionalComment,
 							_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 					}
 				}
@@ -837,7 +837,7 @@ namespace WebMarkupMin.Core.Parsers
 						&& stackedType != HtmlConditionalCommentType.RevealedValidatingSimplified)
 					{
 						throw new HtmlParsingException(
-							CoreStrings.ErrorMessage_InvalidEndIfConditionalComment,
+							Strings.ErrorMessage_InvalidEndIfConditionalComment,
 							_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 					}
 				}
@@ -845,7 +845,7 @@ namespace WebMarkupMin.Core.Parsers
 			else
 			{
 				throw new HtmlParsingException(
-					CoreStrings.ErrorMessage_IfConditionalCommentNotDeclared,
+					Strings.ErrorMessage_IfConditionalCommentNotDeclared,
 					_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 			}
 

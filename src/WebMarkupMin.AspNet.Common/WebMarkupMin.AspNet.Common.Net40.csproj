@@ -63,7 +63,7 @@
     <Compile Include="MediaTypeConstants.cs" />
     <Compile Include="MediaTypeGroupConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources.Designer.cs" />
+    <Compile Include="Resources\Strings.Designer.cs" />
     <Compile Include="UrlMatchers\ExactUrlMatcher.cs" />
     <Compile Include="UrlMatchers\IUrlMatcher.cs" />
     <Compile Include="UrlMatchers\RegexUrlMatcher.cs" />
@@ -85,7 +85,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources.resx" />
+    <EmbeddedResource Include="Resources\Strings.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -16,15 +16,15 @@ namespace WebMarkupMin.Sample.Resources
 	/// <summary>
 	/// A strongly-typed resource class, for looking up localized strings, etc.
 	/// </summary>
-	public class XhtmlMinificationResources
+	public class XhtmlMinificationStrings
 	{
 		private static Lazy<ResourceManager> _resourceManager =
 			new Lazy<ResourceManager>(() => new ResourceManager(
-				"WebMarkupMin.Sample.Resources.XhtmlMinificationResources",
+				"WebMarkupMin.Sample.Resources.XhtmlMinificationStrings",
 #if NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6 || NETCOREAPP1_0 || NET451 || NET452 || NET46 || NET461 || NET462 || NET463
-				typeof(XhtmlMinificationResources).GetTypeInfo().Assembly
+				typeof(XhtmlMinificationStrings).GetTypeInfo().Assembly
 #elif NET40
-				typeof(XhtmlMinificationResources).Assembly
+				typeof(XhtmlMinificationStrings).Assembly
 #else
 #error No implementation for this target
 #endif
@@ -67,11 +67,11 @@ namespace WebMarkupMin.Sample.Resources
 			get { return GetString("DisplayName_RenderEmptyTagsWithSpace"); }
 		}
 
-		private static string GetString(string name)
-		{
-			string value = ResourceManager.GetString(name, _resourceCulture);
+			private static string GetString(string name)
+			{
+				string value = ResourceManager.GetString(name, _resourceCulture);
 
-			return value;
+				return value;
+			}
 		}
 	}
-}

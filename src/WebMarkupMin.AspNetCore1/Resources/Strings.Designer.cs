@@ -6,7 +6,7 @@
 //	 the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-namespace WebMarkupMin.Sample.Resources
+namespace WebMarkupMin.AspNetCore1.Resources
 {
 	using System;
 	using System.Globalization;
@@ -16,15 +16,15 @@ namespace WebMarkupMin.Sample.Resources
 	/// <summary>
 	/// A strongly-typed resource class, for looking up localized strings, etc.
 	/// </summary>
-	public class XmlMinificationResources
+	public class Strings
 	{
 		private static Lazy<ResourceManager> _resourceManager =
 			new Lazy<ResourceManager>(() => new ResourceManager(
-				"WebMarkupMin.Sample.Resources.XmlMinificationResources",
+				"WebMarkupMin.AspNetCore1.Resources.Strings",
 #if NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6 || NETCOREAPP1_0 || NET451 || NET452 || NET46 || NET461 || NET462 || NET463
-				typeof(XmlMinificationResources).GetTypeInfo().Assembly
+				typeof(Strings).GetTypeInfo().Assembly
 #elif NET40
-				typeof(XmlMinificationResources).Assembly
+				typeof(Strings).Assembly
 #else
 #error No implementation for this target
 #endif
@@ -60,50 +60,18 @@ namespace WebMarkupMin.Sample.Resources
 		}
 
 		/// <summary>
-		/// Looks up a localized string similar to "Options"
+		/// Looks up a localized string similar to "Unable to find the required services. Please add all the required services by calling '{0}' inside..."
 		/// </summary>
-		public static string ControlGroup_Options
+		public static string UnableToFindServices
 		{
-			get { return GetString("ControlGroup_Options"); }
+			get { return GetString("UnableToFindServices"); }
 		}
 
-		/// <summary>
-		/// Looks up a localized string similar to "Collapse tags without content"
-		/// </summary>
-		public static string DisplayName_CollapseTagsWithoutContent
-		{
-			get { return GetString("DisplayName_CollapseTagsWithoutContent"); }
-		}
+			private static string GetString(string name)
+			{
+				string value = ResourceManager.GetString(name, _resourceCulture);
 
-		/// <summary>
-		/// Looks up a localized string similar to "Minify whitespace"
-		/// </summary>
-		public static string DisplayName_MinifyWhitespace
-		{
-			get { return GetString("DisplayName_MinifyWhitespace"); }
-		}
-
-		/// <summary>
-		/// Looks up a localized string similar to "Remove XML comments"
-		/// </summary>
-		public static string DisplayName_RemoveXmlComments
-		{
-			get { return GetString("DisplayName_RemoveXmlComments"); }
-		}
-
-		/// <summary>
-		/// Looks up a localized string similar to "Render empty tags with space"
-		/// </summary>
-		public static string DisplayName_RenderEmptyTagsWithSpace
-		{
-			get { return GetString("DisplayName_RenderEmptyTagsWithSpace"); }
-		}
-
-		private static string GetString(string name)
-		{
-			string value = ResourceManager.GetString(name, _resourceCulture);
-
-			return value;
+				return value;
+			}
 		}
 	}
-}

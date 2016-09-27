@@ -40,8 +40,8 @@ using System.Text.RegularExpressions;
 using WebMarkupMin.Core.Helpers;
 using WebMarkupMin.Core.Loggers;
 using WebMarkupMin.Core.Parsers;
+using WebMarkupMin.Core.Resources;
 using WebMarkupMin.Core.Utilities;
-using CoreStrings = WebMarkupMin.Core.Resources;
 
 namespace WebMarkupMin.Core
 {
@@ -505,7 +505,7 @@ namespace WebMarkupMin.Core
 			if (errors.Count == 0)
 			{
 				_logger.Info(LogCategoryConstants.HtmlMinificationSuccess,
-					string.Format(CoreStrings.SuccesMessage_MarkupMinificationComplete, "HTML"),
+					string.Format(Strings.SuccesMessage_MarkupMinificationComplete, "HTML"),
 					fileContext, statistics);
 			}
 
@@ -552,7 +552,7 @@ namespace WebMarkupMin.Core
 
 						string sourceFragment = SourceCodeNavigator.GetSourceFragment(
 							sourceCode, absoluteNodeCoordinates);
-						string message = CoreStrings.ErrorMessage_XmlDeclarationMinificationFailed;
+						string message = Strings.ErrorMessage_XmlDeclarationMinificationFailed;
 
 						WriteError(LogCategoryConstants.HtmlMinificationError, message, _fileContext,
 							absoluteNodeCoordinates.LineNumber, absoluteNodeCoordinates.ColumnNumber, sourceFragment);
@@ -565,7 +565,7 @@ namespace WebMarkupMin.Core
 				SourceCodeNodeCoordinates xmlDeclarationCoordinates = context.NodeCoordinates;
 
 				WriteWarning(LogCategoryConstants.HtmlMinificationWarning,
-					CoreStrings.WarningMessage_XmlDeclarationNotAllowed, _fileContext,
+					Strings.WarningMessage_XmlDeclarationNotAllowed, _fileContext,
 					xmlDeclarationCoordinates.LineNumber, xmlDeclarationCoordinates.ColumnNumber,
 					SourceCodeNavigator.GetSourceFragment(sourceCode, xmlDeclarationCoordinates));
 			}
@@ -1362,7 +1362,7 @@ namespace WebMarkupMin.Core
 				SourceCodeNodeCoordinates attributeCoordinates = attribute.NameCoordinates;
 
 				WriteWarning(LogCategoryConstants.HtmlMinificationWarning,
-					string.Format(CoreStrings.WarningMessage_XmlBasedAttributeNotAllowed, attributeName), _fileContext,
+					string.Format(Strings.WarningMessage_XmlBasedAttributeNotAllowed, attributeName), _fileContext,
 					attributeCoordinates.LineNumber, attributeCoordinates.ColumnNumber,
 					SourceCodeNavigator.GetSourceFragment(sourceCode, attributeCoordinates));
 			}
@@ -2775,7 +2775,7 @@ namespace WebMarkupMin.Core
 				string errorMessage = errors[0].Message;
 
 				WriteError(LogCategoryConstants.JsTemplateMinificationError,
-					string.Format(CoreStrings.ErrorMessage_BindingExpressionMinificationFailed,
+					string.Format(Strings.ErrorMessage_BindingExpressionMinificationFailed,
 						"Knockout", errorMessage.TrimEnd('.')),
 					_fileContext,
 					absoluteErrorCoordinates.LineNumber, absoluteErrorCoordinates.ColumnNumber,
@@ -2914,7 +2914,7 @@ namespace WebMarkupMin.Core
 				string errorMessage = errors[0].Message;
 
 				WriteError(LogCategoryConstants.JsTemplateMinificationError,
-					string.Format(CoreStrings.ErrorMessage_BindingExpressionMinificationFailed,
+					string.Format(Strings.ErrorMessage_BindingExpressionMinificationFailed,
 						"Angular", errorMessage.TrimEnd('.')),
 					_fileContext,
 					absoluteErrorCoordinates.LineNumber, absoluteErrorCoordinates.ColumnNumber,

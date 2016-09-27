@@ -6,7 +6,7 @@
 //	 the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-namespace WebMarkupMin.AspNet.Common
+namespace WebMarkupMin.AspNet.Common.Resources
 {
 	using System;
 	using System.Globalization;
@@ -16,15 +16,15 @@ namespace WebMarkupMin.AspNet.Common
 	/// <summary>
 	/// A strongly-typed resource class, for looking up localized strings, etc.
 	/// </summary>
-	public class Resources
+	public class Strings
 	{
 		private static Lazy<ResourceManager> _resourceManager =
 			new Lazy<ResourceManager>(() => new ResourceManager(
-				"WebMarkupMin.AspNet.Common.Resources",
+				"WebMarkupMin.AspNet.Common.Resources.Strings",
 #if NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6 || NETCOREAPP1_0 || NET451 || NET452 || NET46 || NET461 || NET462 || NET463
-				typeof(Resources).GetTypeInfo().Assembly
+				typeof(Strings).GetTypeInfo().Assembly
 #elif NET40
-				typeof(Resources).Assembly
+				typeof(Strings).Assembly
 #else
 #error No implementation for this target
 #endif
@@ -67,11 +67,11 @@ namespace WebMarkupMin.AspNet.Common
 			get { return GetString("MarkupMinificationIsNotApplicableToEncodedContent"); }
 		}
 
-		private static string GetString(string name)
-		{
-			string value = ResourceManager.GetString(name, _resourceCulture);
+			private static string GetString(string name)
+			{
+				string value = ResourceManager.GetString(name, _resourceCulture);
 
-			return value;
+				return value;
+			}
 		}
 	}
-}

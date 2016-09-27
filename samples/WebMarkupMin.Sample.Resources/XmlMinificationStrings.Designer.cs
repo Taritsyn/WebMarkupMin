@@ -6,7 +6,7 @@
 //	 the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-namespace WebMarkupMin.AspNetCore1
+namespace WebMarkupMin.Sample.Resources
 {
 	using System;
 	using System.Globalization;
@@ -16,15 +16,15 @@ namespace WebMarkupMin.AspNetCore1
 	/// <summary>
 	/// A strongly-typed resource class, for looking up localized strings, etc.
 	/// </summary>
-	public class Resources
+	public class XmlMinificationStrings
 	{
 		private static Lazy<ResourceManager> _resourceManager =
 			new Lazy<ResourceManager>(() => new ResourceManager(
-				"WebMarkupMin.AspNetCore1.Resources",
+				"WebMarkupMin.Sample.Resources.XmlMinificationStrings",
 #if NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6 || NETCOREAPP1_0 || NET451 || NET452 || NET46 || NET461 || NET462 || NET463
-				typeof(Resources).GetTypeInfo().Assembly
+				typeof(XmlMinificationStrings).GetTypeInfo().Assembly
 #elif NET40
-				typeof(Resources).Assembly
+				typeof(XmlMinificationStrings).Assembly
 #else
 #error No implementation for this target
 #endif
@@ -60,18 +60,50 @@ namespace WebMarkupMin.AspNetCore1
 		}
 
 		/// <summary>
-		/// Looks up a localized string similar to "Unable to find the required services. Please add all the required services by calling '{0}' inside..."
+		/// Looks up a localized string similar to "Options"
 		/// </summary>
-		public static string UnableToFindServices
+		public static string ControlGroup_Options
 		{
-			get { return GetString("UnableToFindServices"); }
+			get { return GetString("ControlGroup_Options"); }
 		}
 
-		private static string GetString(string name)
+		/// <summary>
+		/// Looks up a localized string similar to "Collapse tags without content"
+		/// </summary>
+		public static string DisplayName_CollapseTagsWithoutContent
 		{
-			string value = ResourceManager.GetString(name, _resourceCulture);
+			get { return GetString("DisplayName_CollapseTagsWithoutContent"); }
+		}
 
-			return value;
+		/// <summary>
+		/// Looks up a localized string similar to "Minify whitespace"
+		/// </summary>
+		public static string DisplayName_MinifyWhitespace
+		{
+			get { return GetString("DisplayName_MinifyWhitespace"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Remove XML comments"
+		/// </summary>
+		public static string DisplayName_RemoveXmlComments
+		{
+			get { return GetString("DisplayName_RemoveXmlComments"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Render empty tags with space"
+		/// </summary>
+		public static string DisplayName_RenderEmptyTagsWithSpace
+		{
+			get { return GetString("DisplayName_RenderEmptyTagsWithSpace"); }
+		}
+
+			private static string GetString(string name)
+			{
+				string value = ResourceManager.GetString(name, _resourceCulture);
+
+				return value;
+			}
 		}
 	}
-}

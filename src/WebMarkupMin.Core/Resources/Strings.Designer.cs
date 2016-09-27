@@ -6,7 +6,7 @@
 //	 the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-namespace WebMarkupMin.Core
+namespace WebMarkupMin.Core.Resources
 {
 	using System;
 	using System.Globalization;
@@ -16,15 +16,15 @@ namespace WebMarkupMin.Core
 	/// <summary>
 	/// A strongly-typed resource class, for looking up localized strings, etc.
 	/// </summary>
-	public class Resources
+	public class Strings
 	{
 		private static Lazy<ResourceManager> _resourceManager =
 			new Lazy<ResourceManager>(() => new ResourceManager(
-				"WebMarkupMin.Core.Resources",
+				"WebMarkupMin.Core.Resources.Strings",
 #if NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6 || NETCOREAPP1_0 || NET451 || NET452 || NET46 || NET461 || NET462 || NET463
-				typeof(Resources).GetTypeInfo().Assembly
+				typeof(Strings).GetTypeInfo().Assembly
 #elif NET40
-				typeof(Resources).Assembly
+				typeof(Strings).Assembly
 #else
 #error No implementation for this target
 #endif
@@ -196,7 +196,7 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Looks up a localized string similar to "It is impossible to render a end tag &lt;/{0}&gt;, because  start tag &lt;{0}&gt; not declared."
+		/// Looks up a localized string similar to "It is impossible to render a end tag &lt;/{0}&gt;, because start tag &lt;{0}&gt; not declared."
 		/// </summary>
 		public static string ErrorMessage_StartTagNotDeclared
 		{
@@ -243,11 +243,11 @@ namespace WebMarkupMin.Core
 			get { return GetString("WarningMessage_XmlDeclarationNotAllowed"); }
 		}
 
-		private static string GetString(string name)
-		{
-			string value = ResourceManager.GetString(name, _resourceCulture);
+			private static string GetString(string name)
+			{
+				string value = ResourceManager.GetString(name, _resourceCulture);
 
-			return value;
+				return value;
+			}
 		}
 	}
-}

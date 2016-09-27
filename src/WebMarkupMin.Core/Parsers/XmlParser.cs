@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
+using WebMarkupMin.Core.Resources;
 using WebMarkupMin.Core.Utilities;
-using CoreStrings = WebMarkupMin.Core.Resources;
 
 namespace WebMarkupMin.Core.Parsers
 {
@@ -169,7 +169,7 @@ namespace WebMarkupMin.Core.Parsers
 						if (_innerContext.Position == previousPosition)
 						{
 							throw new XmlParsingException(
-								string.Format(CoreStrings.ErrorMessage_MarkupParsingFailed, "XML"),
+								string.Format(Strings.ErrorMessage_MarkupParsingFailed, "XML"),
 								_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 						}
 
@@ -182,7 +182,7 @@ namespace WebMarkupMin.Core.Parsers
 						StackedXmlTag stackedTag = _tagStack.Pop();
 
 						throw new XmlParsingException(
-							string.Format(CoreStrings.ErrorMessage_NotClosedTag, stackedTag.Name),
+							string.Format(Strings.ErrorMessage_NotClosedTag, stackedTag.Name),
 							stackedTag.Coordinates,
 							SourceCodeNavigator.GetSourceFragment(_innerContext.SourceCode, stackedTag.Coordinates));
 					}
@@ -401,7 +401,7 @@ namespace WebMarkupMin.Core.Parsers
 				if (_tagStack.Count == 0)
 				{
 					throw new XmlParsingException(
-						string.Format(CoreStrings.ErrorMessage_StartTagNotDeclared, endTagName),
+						string.Format(Strings.ErrorMessage_StartTagNotDeclared, endTagName),
 						_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 				}
 
@@ -411,13 +411,13 @@ namespace WebMarkupMin.Core.Parsers
 					if (_tagStack.Any(t => t.Name == endTagName))
 					{
 						throw new XmlParsingException(
-							string.Format(CoreStrings.ErrorMessage_NotClosedTag, stackedTag.Name),
+							string.Format(Strings.ErrorMessage_NotClosedTag, stackedTag.Name),
 							stackedTag.Coordinates,
 							SourceCodeNavigator.GetSourceFragment(_innerContext.SourceCode, stackedTag.Coordinates));
 					}
 
 					throw new XmlParsingException(
-						string.Format(CoreStrings.ErrorMessage_StartTagNotDeclared, endTagName),
+						string.Format(Strings.ErrorMessage_StartTagNotDeclared, endTagName),
 						_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 				}
 

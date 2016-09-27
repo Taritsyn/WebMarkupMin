@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-using CoreStrings = WebMarkupMin.Core.Resources;
+using CoreStrings = WebMarkupMin.Core.Resources.Strings;
 
 namespace WebMarkupMin.AspNet.Common.UrlMatchers
 {

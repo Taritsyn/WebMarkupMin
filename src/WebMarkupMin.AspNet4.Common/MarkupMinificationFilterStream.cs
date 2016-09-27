@@ -6,7 +6,7 @@ using System.Web;
 using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.AspNet4.Common.Helpers;
 using WebMarkupMin.Core;
-using AspNetCommonStrings = WebMarkupMin.AspNet.Common.Resources;
+using AspNetCommonStrings = WebMarkupMin.AspNet.Common.Resources.Strings;
 
 namespace WebMarkupMin.AspNet4.Common
 {
