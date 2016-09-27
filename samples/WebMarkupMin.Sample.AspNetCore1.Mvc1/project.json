@@ -1,5 +1,5 @@
 ﻿{
-	"version": "2.1.0",
+	"version": "2.2.0",
 
 	"dependencies": {
 		"Microsoft.NETCore.App": {
@@ -22,9 +22,9 @@
 		"Microsoft.Extensions.Logging.Console": "1.0.0",
 		"Microsoft.Extensions.Logging.Debug": "1.0.0",
 		"Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
-		"WebMarkupMin.AspNetCore1": "2.1.0",
-		"WebMarkupMin.Sample.Logic": "2.1.0",
-		"WebMarkupMin.Sample.Resources": "2.0.0"
+		"WebMarkupMin.AspNetCore1": "2.2.0",
+		"WebMarkupMin.Sample.Logic": "2.2.0",
+		"WebMarkupMin.Sample.Resources": "2.2.0"
 	},
 
 	"tools": {

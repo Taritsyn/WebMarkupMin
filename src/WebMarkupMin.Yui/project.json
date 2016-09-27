@@ -1,9 +1,9 @@
 ﻿{
-	"version": "2.0.2",
+	"version": "2.2.0",
 
 	"dependencies": {
 		"YUICompressor.NET": "2.7.0",
-		"WebMarkupMin.Core": "2.0.2"
+		"WebMarkupMin.Core": "2.2.0"
 	},
 
 	"frameworks": {

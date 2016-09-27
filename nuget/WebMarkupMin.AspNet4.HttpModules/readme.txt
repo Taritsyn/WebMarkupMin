@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-         README file for Web Markup Minifier: ASP.NET 4.X HTTP modules v2.1.1
+         README file for Web Markup Minifier: ASP.NET 4.X HTTP modules v2.2.0
 
    --------------------------------------------------------------------------------
 
@@ -21,7 +21,9 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a error #12 “HTTP modules cause forms button do post back error”.
+   1. Fixed a error #13 “HttpCompression Not Checking for Already Compressed
+      Content”;
+   2. Fixed a error #14 “HttpCompression Algorithm Priority”.
 
    =============
    DOCUMENTATION

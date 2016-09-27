@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                  README file for Web Markup Minifier: NUglify v2.0.2
+                  README file for Web Markup Minifier: NUglify v2.2.0
 
    --------------------------------------------------------------------------------
 
@@ -15,6 +15,12 @@
    minification of CSS code) and `NUglifyJsMinifier` (for minification of JS code).
    These adapters perform minification using the NUglify
    (http://github.com/xoofx/NUglify).
+
+   =============
+   RELEASE NOTES
+   =============
+   1. Downgraded .NET Framework version from 4.5.2 to 4.5.1;
+   2. Added support of .NET Core 1.0.1.
 
    =============
    DOCUMENTATION

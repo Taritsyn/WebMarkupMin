@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                  README file for Web Markup Minifier: MS Ajax v2.0.2
+                  README file for Web Markup Minifier: MS Ajax v2.2.0
 
    --------------------------------------------------------------------------------
 
@@ -19,7 +19,7 @@
    =============
    RELEASE NOTES
    =============
-   Was made refactoring.
+   Downgraded .NET Framework version from 4.5.2 to 4.5.1.
 
    =============
    DOCUMENTATION

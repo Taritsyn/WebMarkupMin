@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                   README file for Web Markup Minifier: Core v2.1.0
+                   README file for Web Markup Minifier: Core v2.2.0
 
    --------------------------------------------------------------------------------
 
@@ -46,15 +46,8 @@
    =============
    RELEASE NOTES
    =============
-   1. In configuration settings of HTML/XHTML minifier was changed type of
-      `ProcessableScriptTypeCollection` and `CustomAngularDirectiveCollection`
-      properties from `IEnumerable<string>` to `ISet<string>`;
-   2. In configuration settings of HTML minifier was changed type of
-      `PreservableOptionalTagCollection` property from `IEnumerable<string>` to
-      `ISet<string>`;
-   3. In configuration settings of HTML/XHTML minifier was changed a default value
-      of `ProcessableScriptTypeList` property from "" to "text/html";
-   4. In `CrockfordJsMinifier` was optimized memory usage.
+   1. Downgraded .NET Framework version from 4.5.2 to 4.5.1;
+   2. Added support of .NET Core 1.0.1.
 
    =============
    DOCUMENTATION

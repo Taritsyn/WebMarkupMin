@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>WebMarkupMin.Core</id>
-		<version>2.1.0</version>
+		<version>2.2.0</version>
 		<title>Web Markup Minifier: Core</title>
 		<authors>Andrey Taritsyn</authors>
 		<owners>Andrey Taritsyn</owners>
@@ -18,10 +18,8 @@ Minification of markup produces by removing extra whitespaces, comments and redu
 
 Also supports minification of views of popular JavaScript template engines: KnockoutJS, Kendo UI MVVM and AngularJS 1.X.</description>
 		<summary>The Web Markup Minifier (abbreviated WebMarkupMin) is a .NET library that contains a set of markup minifiers. The objective of this project is to improve the performance of web applications by reducing the size of HTML, XHTML and XML code.</summary>
-		<releaseNotes>1. In configuration settings of HTML/XHTML minifier was changed type of `ProcessableScriptTypeCollection` and `CustomAngularDirectiveCollection` properties from `IEnumerable&lt;string&gt;` to `ISet&lt;string&gt;`;
-2. In configuration settings of HTML minifier was changed type of `PreservableOptionalTagCollection` property from `IEnumerable&lt;string&gt;` to `ISet&lt;string&gt;`;
-3. In configuration settings of HTML/XHTML minifier was changed a default value of `ProcessableScriptTypeList` property from &quot;&quot; to &quot;text/html&quot;;
-4. In `CrockfordJsMinifier` was optimized memory usage.</releaseNotes>
+		<releaseNotes>1. Downgraded .NET Framework version from 4.5.2 to 4.5.1;
+2. Added support of .NET Core 1.0.1.</releaseNotes>
 		<copyright>Copyright (c) 2013-2016 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
 		<language>en-US</language>
 		<tags>WebMarkupMin Markup HTML XHTML XML Minification Minifier Minify Performance Optimization Compression</tags>

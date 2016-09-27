@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-           README file for Web Markup Minifier: ASP.NET 4.X Web Forms v2.1.0
+           README file for Web Markup Minifier: ASP.NET 4.X Web Forms v2.2.0
 
    --------------------------------------------------------------------------------
 
@@ -28,8 +28,9 @@
    =============
    RELEASE NOTES
    =============
-   Changed a mechanism of using default instances of loggers, factories and
-   managers.
+   1. Fixed a error #13 “HttpCompression Not Checking for Already Compressed
+      Content”;
+   2. Fixed a error #14 “HttpCompression Algorithm Priority”.
 
    =============
    DOCUMENTATION

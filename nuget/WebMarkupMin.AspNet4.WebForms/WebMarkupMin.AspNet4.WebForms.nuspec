@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>WebMarkupMin.AspNet4.WebForms</id>
-		<version>2.1.0</version>
+		<version>2.2.0</version>
 		<title>Web Markup Minifier: ASP.NET 4.X Web Forms</title>
 		<authors>Andrey Taritsyn</authors>
 		<owners>Andrey Taritsyn</owners>
@@ -14,12 +14,13 @@
 
 Сlasses of the Web Forms pages and master pages cannot be used together.</description>
 		<summary>WebMarkupMin.AspNet4.WebForms contains 5 Web Forms page classes: `MinifiedHtmlPage` (supports HTML minification only), `MinifiedXhtmlPage` (supports XHTML minification only), `CompressedPage` (supports HTTP compression only), `MinifiedAndCompressedHtmlPage` (supports HTML minification and HTTP compression) and `MinifiedAndCompressedXhtmlPage` (supports XHTML minification and HTTP compression); and 5 master page classes: `MinifiedHtmlMasterPage` (supports HTML minification only), `MinifiedXhtmlMasterPage` (supports XHTML minification only), `CompressedMasterPage` (supports HTTP compression only), `MinifiedAndCompressedHtmlMasterPage` (supports HTML minification and HTTP compression) and `MinifiedAndCompressedXhtmlMasterPage` (supports XHTML minification and HTTP compression).</summary>
-		<releaseNotes>Changed a mechanism of using default instances of loggers, factories and managers.</releaseNotes>
+		<releaseNotes>1. Fixed a error #13 “HttpCompression Not Checking for Already Compressed Content”;
+2. Fixed a error #14 “HttpCompression Algorithm Priority”.</releaseNotes>
 		<copyright>Copyright (c) 2013-2016 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
 		<language>en-US</language>
 		<tags>WebMarkupMin ASP.NET WebForms Markup HTML XHTML Minification Minifier Minify</tags>
 		<dependencies>
-			<dependency id="WebMarkupMin.AspNet4.Common" version="2.1.0" />
+			<dependency id="WebMarkupMin.AspNet4.Common" version="2.2.0" />
 		</dependencies>
 		<references>
 			<reference file="WebMarkupMin.AspNet4.WebForms.dll" />
