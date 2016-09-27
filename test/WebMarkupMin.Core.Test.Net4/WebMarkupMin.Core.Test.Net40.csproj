@@ -55,24 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileSystemTestsBase.cs" />
-    <Compile Include="Html\Angular1\MinificationTests.cs" />
-    <Compile Include="Html\Angular2\ParsingTests.cs" />
-    <Compile Include="Html\Aurelia\MinificationTests.cs" />
-    <Compile Include="Html\Aurelia\ParsingTests.cs" />
-    <Compile Include="Html\Knockout\MinificationTests.cs" />
-    <Compile Include="Html\MinificationTests.cs" />
-    <Compile Include="Html\ParsingTests.cs" />
-    <Compile Include="Html\Polymer\ParsingTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Xhtml\Aurelia\MinificationTests.cs" />
-    <Compile Include="Xhtml\MinificationTests.cs" />
-    <Compile Include="Xhtml\Angular1\MinificationTests.cs" />
-    <Compile Include="Xml\MinificationTests.cs" />
-    <Compile Include="Xml\ParsingTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\WebMarkupMin.Core\WebMarkupMin.Core.Net40.csproj">
+    <ProjectReference Include="..\..\src\WebMarkupMin.Core.Net4\WebMarkupMin.Core.Net40.csproj">
       <Project>{5148cf68-cc23-4fee-aa0e-2eee01bdabf7}</Project>
       <Name>WebMarkupMin.Core.Net40</Name>
     </ProjectReference>
@@ -84,12 +67,54 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="files\html\html-document-with-bom-in-body-tag.html" />
-    <Content Include="files\html\html-document-without-bom.html" />
-    <Content Include="files\html\html-document-with-bom-at-start.html" />
-    <Content Include="files\xml\xml-document-with-bom-at-start.xml" />
-    <Content Include="files\xml\xml-document-with-bom-in-tag.xml" />
-    <Content Include="files\xml\xml-document-without-bom.xml" />
+    <Compile Include="..\WebMarkupMin.Core.Test\FileSystemTestsBase.cs">
+      <Link>FileSystemTestsBase.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core.Test\Html\Angular1\MinificationTests.cs">
+      <Link>Html\Angular1\MinificationTests.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core.Test\Html\Angular2\ParsingTests.cs">
+      <Link>Html\Angular2\ParsingTests.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core.Test\Html\Aurelia\MinificationTests.cs">
+      <Link>Html\Aurelia\MinificationTests.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core.Test\Html\Aurelia\ParsingTests.cs">
+      <Link>Html\Aurelia\ParsingTests.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core.Test\Html\Knockout\MinificationTests.cs">
+      <Link>Html\Knockout\MinificationTests.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core.Test\Html\MinificationTests.cs">
+      <Link>Html\MinificationTests.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core.Test\Html\ParsingTests.cs">
+      <Link>Html\ParsingTests.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core.Test\Html\Polymer\ParsingTests.cs">
+      <Link>Html\Polymer\ParsingTests.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core.Test\Properties\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core.Test\Xhtml\Angular1\MinificationTests.cs">
+      <Link>Xhtml\Angular1\MinificationTests.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core.Test\Xhtml\Aurelia\MinificationTests.cs">
+      <Link>Xhtml\Aurelia\MinificationTests.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core.Test\Xhtml\MinificationTests.cs">
+      <Link>Xhtml\MinificationTests.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core.Test\Xml\MinificationTests.cs">
+      <Link>Xml\MinificationTests.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core.Test\Xml\ParsingTests.cs">
+      <Link>Xml\ParsingTests.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

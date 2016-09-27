@@ -13,7 +13,7 @@ namespace WebMarkupMin.Core.Test.Html
 
 		public MinificationTests()
 		{
-			_htmlFilesDirectoryPath = Path.GetFullPath(Path.Combine(_baseDirectoryPath, @"files/html/"));
+			_htmlFilesDirectoryPath = Path.GetFullPath(Path.Combine(_baseDirectoryPath, @"../SharedFiles/html/"));
 		}
 
 

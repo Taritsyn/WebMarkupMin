@@ -260,7 +260,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.Net40.csproj">
+    <ProjectReference Include="..\..\src\WebMarkupMin.AspNet.Common.Net4\WebMarkupMin.AspNet.Common.Net40.csproj">
       <Project>{bf6ef6dd-9e9c-428e-92a9-24968c4f7ffe}</Project>
       <Name>WebMarkupMin.AspNet.Common.Net40</Name>
     </ProjectReference>
@@ -272,19 +272,19 @@
       <Project>{a2ae7cea-5bb7-4610-ab22-33a4eb2f9d10}</Project>
       <Name>WebMarkupMin.AspNet4.WebForms.Net40</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\WebMarkupMin.Core\WebMarkupMin.Core.Net40.csproj">
+    <ProjectReference Include="..\..\src\WebMarkupMin.Core.Net4\WebMarkupMin.Core.Net40.csproj">
       <Project>{5148cf68-cc23-4fee-aa0e-2eee01bdabf7}</Project>
       <Name>WebMarkupMin.Core.Net40</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\WebMarkupMin.MsAjax\WebMarkupMin.MsAjax.Net40.csproj">
+    <ProjectReference Include="..\..\src\WebMarkupMin.MsAjax.Net4\WebMarkupMin.MsAjax.Net40.csproj">
       <Project>{c2cf53b0-e2c5-4acf-8248-8fabf99fdffe}</Project>
       <Name>WebMarkupMin.MsAjax.Net40</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WebMarkupMin.Sample.Logic\WebMarkupMin.Sample.Logic.Net40.csproj">
+    <ProjectReference Include="..\WebMarkupMin.Sample.Logic.Net4\WebMarkupMin.Sample.Logic.Net40.csproj">
       <Project>{8842eef0-e7f6-4e34-b4be-e620abf35e2d}</Project>
       <Name>WebMarkupMin.Sample.Logic.Net40</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WebMarkupMin.Sample.Resources\WebMarkupMin.Sample.Resources.Net40.csproj">
+    <ProjectReference Include="..\WebMarkupMin.Sample.Resources.Net4\WebMarkupMin.Sample.Resources.Net40.csproj">
       <Project>{8e7e319a-0718-4be1-82f9-fb8578d5c260}</Project>
       <Name>WebMarkupMin.Sample.Resources.Net40</Name>
     </ProjectReference>

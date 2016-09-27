@@ -47,33 +47,66 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlockStart.cs" />
-    <Compile Include="CssColor.cs" />
-    <Compile Include="CssComment.cs" />
-    <Compile Include="EvalTreatment.cs" />
-    <Compile Include="LocalRenaming.cs" />
-    <Compile Include="NUglifyCommonMinificationSettingsBase.cs" />
-    <Compile Include="NUglifyCssMinificationSettings.cs" />
-    <Compile Include="NUglifyCssMinifier.cs" />
-    <Compile Include="NUglifyCssMinifierFactory.cs" />
-    <Compile Include="NUglifyJsMinificationSettings.cs" />
-    <Compile Include="NUglifyJsMinifier.cs" />
-    <Compile Include="NUglifyJsMinifierFactory.cs" />
-    <Compile Include="NUglifyMinifierBase.cs" />
-    <Compile Include="OutputMode.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\tools\Key.snk">
       <Link>Key.snk</Link>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WebMarkupMin.Core\WebMarkupMin.Core.Net40.csproj">
+    <ProjectReference Include="..\WebMarkupMin.Core.Net4\WebMarkupMin.Core.Net40.csproj">
       <Project>{5148cf68-cc23-4fee-aa0e-2eee01bdabf7}</Project>
       <Name>WebMarkupMin.Core.Net40</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\WebMarkupMin.NUglify\BlockStart.cs">
+      <Link>BlockStart.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.NUglify\CssColor.cs">
+      <Link>CssColor.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.NUglify\CssComment.cs">
+      <Link>CssComment.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.NUglify\EvalTreatment.cs">
+      <Link>EvalTreatment.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.NUglify\LocalRenaming.cs">
+      <Link>LocalRenaming.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.NUglify\NUglifyCommonMinificationSettingsBase.cs">
+      <Link>NUglifyCommonMinificationSettingsBase.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.NUglify\NUglifyCssMinificationSettings.cs">
+      <Link>NUglifyCssMinificationSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.NUglify\NUglifyCssMinifier.cs">
+      <Link>NUglifyCssMinifier.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.NUglify\NUglifyCssMinifierFactory.cs">
+      <Link>NUglifyCssMinifierFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.NUglify\NUglifyJsMinificationSettings.cs">
+      <Link>NUglifyJsMinificationSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.NUglify\NUglifyJsMinifier.cs">
+      <Link>NUglifyJsMinifier.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.NUglify\NUglifyJsMinifierFactory.cs">
+      <Link>NUglifyJsMinifierFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.NUglify\NUglifyMinifierBase.cs">
+      <Link>NUglifyMinifierBase.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.NUglify\OutputMode.cs">
+      <Link>OutputMode.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.NUglify\Properties\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

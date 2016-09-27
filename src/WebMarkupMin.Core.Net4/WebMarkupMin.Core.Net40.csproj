@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5148CF68-CC23-4FEE-AA0E-2EEE01BDABF7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebMarkupMin.Core</RootNamespace>
+    <AssemblyName>WebMarkupMin.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET40</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NET40</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\tools\Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\tools\Key.snk">
+      <Link>Key.snk</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\WebMarkupMin.Core\AdvancedHtmlMinificationSettingsBase.cs">
+      <Link>AdvancedHtmlMinificationSettingsBase.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\CodeMinificationResult.cs">
+      <Link>CodeMinificationResult.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\CodeProcessingException.cs">
+      <Link>CodeProcessingException.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\CommonHtmlMinificationSettingsBase.cs">
+      <Link>CommonHtmlMinificationSettingsBase.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\CrockfordJsMinifier.cs">
+      <Link>CrockfordJsMinifier.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\CrockfordJsMinifierFactory.cs">
+      <Link>CrockfordJsMinifierFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\DouglasCrockford\JsMinificationException.cs">
+      <Link>DouglasCrockford\JsMinificationException.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\DouglasCrockford\JsMinifier.cs">
+      <Link>DouglasCrockford\JsMinifier.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\EmptyValueException.cs">
+      <Link>EmptyValueException.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\GenericHtmlMinificationSettings.cs">
+      <Link>GenericHtmlMinificationSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\GenericHtmlMinifier.cs">
+      <Link>GenericHtmlMinifier.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Helpers\AngularHelpers.cs">
+      <Link>Helpers\AngularHelpers.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Helpers\HtmlAttributeTypeHelpers.cs">
+      <Link>Helpers\HtmlAttributeTypeHelpers.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Helpers\HtmlTagFlagsHelpers.cs">
+      <Link>Helpers\HtmlTagFlagsHelpers.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Helpers\JsonHelpers.cs">
+      <Link>Helpers\JsonHelpers.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Helpers\KnockoutHelpers.cs">
+      <Link>Helpers\KnockoutHelpers.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Helpers\TemplateTagHelpers.cs">
+      <Link>Helpers\TemplateTagHelpers.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\HtmlAttrbuteQuotesRemoveMode.cs">
+      <Link>HtmlAttrbuteQuotesRemoveMode.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\HtmlEmptyTagRenderMode.cs">
+      <Link>HtmlEmptyTagRenderMode.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\HtmlMinificationSettings.cs">
+      <Link>HtmlMinificationSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\HtmlMinifier.cs">
+      <Link>HtmlMinifier.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\ICodeMinifier.cs">
+      <Link>ICodeMinifier.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\ICssMinifier.cs">
+      <Link>ICssMinifier.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\ICssMinifierFactory.cs">
+      <Link>ICssMinifierFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\IJsMinifier.cs">
+      <Link>IJsMinifier.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\IJsMinifierFactory.cs">
+      <Link>IJsMinifierFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\IMarkupMinifier.cs">
+      <Link>IMarkupMinifier.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\KristensenCssMinifier.cs">
+      <Link>KristensenCssMinifier.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\KristensenCssMinifierFactory.cs">
+      <Link>KristensenCssMinifierFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Loggers\ILogger.cs">
+      <Link>Loggers\ILogger.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Loggers\LogCategoryConstants.cs">
+      <Link>Loggers\LogCategoryConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Loggers\LoggerBase.cs">
+      <Link>Loggers\LoggerBase.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Loggers\NullLogger.cs">
+      <Link>Loggers\NullLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Loggers\ThrowExceptionLogger.cs">
+      <Link>Loggers\ThrowExceptionLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\MarkupMinificationException.cs">
+      <Link>MarkupMinificationException.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\MarkupMinificationResult.cs">
+      <Link>MarkupMinificationResult.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\MinificationErrorInfo.cs">
+      <Link>MinificationErrorInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\MinificationResultBase.cs">
+      <Link>MinificationResultBase.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\MinificationStatistics.cs">
+      <Link>MinificationStatistics.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\NullCssMinifier.cs">
+      <Link>NullCssMinifier.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\NullCssMinifierFactory.cs">
+      <Link>NullCssMinifierFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\NullJsMinifier.cs">
+      <Link>NullJsMinifier.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\NullJsMinifierFactory.cs">
+      <Link>NullJsMinifierFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\HtmlAttribute.cs">
+      <Link>Parsers\HtmlAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\HtmlAttributeQuotesType.cs">
+      <Link>Parsers\HtmlAttributeQuotesType.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\HtmlAttributeType.cs">
+      <Link>Parsers\HtmlAttributeType.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\HtmlConditionalComment.cs">
+      <Link>Parsers\HtmlConditionalComment.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\HtmlConditionalCommentType.cs">
+      <Link>Parsers\HtmlConditionalCommentType.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\HtmlNodeType.cs">
+      <Link>Parsers\HtmlNodeType.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\HtmlParser.cs">
+      <Link>Parsers\HtmlParser.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\HtmlParsingException.cs">
+      <Link>Parsers\HtmlParsingException.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\HtmlParsingHandlers.cs">
+      <Link>Parsers\HtmlParsingHandlers.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\HtmlTag.cs">
+      <Link>Parsers\HtmlTag.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\HtmlTagFlags.cs">
+      <Link>Parsers\HtmlTagFlags.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\InnerMarkupParsingContext.cs">
+      <Link>Parsers\InnerMarkupParsingContext.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\MarkupParsingContext.cs">
+      <Link>Parsers\MarkupParsingContext.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\XmlAttribute.cs">
+      <Link>Parsers\XmlAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\XmlNodeType.cs">
+      <Link>Parsers\XmlNodeType.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\XmlParser.cs">
+      <Link>Parsers\XmlParser.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\XmlParsingException.cs">
+      <Link>Parsers\XmlParsingException.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\XmlParsingHandlers.cs">
+      <Link>Parsers\XmlParsingHandlers.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\СommonRegExps.cs">
+      <Link>Parsers\СommonRegExps.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Properties\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Resources\Strings.Designer.cs">
+      <Link>Resources\Strings.Designer.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Utilities\CharExtensions.cs">
+      <Link>Utilities\CharExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Utilities\InterlockedStatedFlag.cs">
+      <Link>Utilities\InterlockedStatedFlag.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Utilities\SourceCodeNavigator.cs">
+      <Link>Utilities\SourceCodeNavigator.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Utilities\SourceCodeNodeCoordinates.cs">
+      <Link>Utilities\SourceCodeNodeCoordinates.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Utilities\StatedFlag.cs">
+      <Link>Utilities\StatedFlag.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Utilities\StringBuilderExtensions.cs">
+      <Link>Utilities\StringBuilderExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Utilities\StringBuilderPool.cs">
+      <Link>Utilities\StringBuilderPool.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Utilities\StringExtensions.cs">
+      <Link>Utilities\StringExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Utilities\Utils.cs">
+      <Link>Utilities\Utils.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\WhitespaceMinificationMode.cs">
+      <Link>WhitespaceMinificationMode.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\XhtmlMinificationSettings.cs">
+      <Link>XhtmlMinificationSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\XhtmlMinifier.cs">
+      <Link>XhtmlMinifier.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\XmlMinificationSettings.cs">
+      <Link>XmlMinificationSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\XmlMinifier.cs">
+      <Link>XmlMinifier.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\WebMarkupMin.Core\Resources\Strings.resx">
+      <Link>Resources\Strings.resx</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>SET VS_PROJECT_DIR=$(ProjectDir)..\WebMarkupMin.Core
+
+cd "$(ProjectDir)..\..\"
+build resx</PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

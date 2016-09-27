@@ -12,6 +12,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{227F2DF0-FCC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1AEA1D1F-45BC-4A6C-BCD8-71C50DC839BA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedFiles", "SharedFiles", "{3EC64089-240A-44CB-A377-07BB90C1019E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "html", "html", "{E16C8CAD-938B-4712-8B4B-05EB42AEFAC6}"
+	ProjectSection(SolutionItems) = preProject
+		test\SharedFiles\html\html-document-with-bom-at-start.html = test\SharedFiles\html\html-document-with-bom-at-start.html
+		test\SharedFiles\html\html-document-with-bom-in-body-tag.html = test\SharedFiles\html\html-document-with-bom-in-body-tag.html
+		test\SharedFiles\html\html-document-without-bom.html = test\SharedFiles\html\html-document-without-bom.html
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{D6646163-2C7B-4E9B-A69E-2D73037F1EC3}"
+	ProjectSection(SolutionItems) = preProject
+		test\SharedFiles\xml\xml-document-with-bom-at-start.xml = test\SharedFiles\xml\xml-document-with-bom-at-start.xml
+		test\SharedFiles\xml\xml-document-with-bom-in-tag.xml = test\SharedFiles\xml\xml-document-with-bom-in-tag.xml
+		test\SharedFiles\xml\xml-document-without-bom.xml = test\SharedFiles\xml\xml-document-without-bom.xml
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{93F36312-DACD-42F9-8652-DC03D5545113}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedData", "SharedData", "{6E9983A1-18F0-4A77-8179-7E0D5362B5A1}"
@@ -113,5 +129,8 @@ Global
 		{D29E22EF-EAF3-4056-BC7B-E02BB4048281} = {93F36312-DACD-42F9-8652-DC03D5545113}
 		{CBB7FD4C-8A94-4797-AA55-55DA5A63F070} = {93F36312-DACD-42F9-8652-DC03D5545113}
 		{93545F28-4C2E-4C43-B864-AF369D6E71BB} = {93F36312-DACD-42F9-8652-DC03D5545113}
+		{3EC64089-240A-44CB-A377-07BB90C1019E} = {1AEA1D1F-45BC-4A6C-BCD8-71C50DC839BA}
+		{E16C8CAD-938B-4712-8B4B-05EB42AEFAC6} = {3EC64089-240A-44CB-A377-07BB90C1019E}
+		{D6646163-2C7B-4E9B-A69E-2D73037F1EC3} = {3EC64089-240A-44CB-A377-07BB90C1019E}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BF6EF6DD-9E9C-428E-92A9-24968C4F7FFE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebMarkupMin.AspNet.Common</RootNamespace>
+    <AssemblyName>WebMarkupMin.AspNet.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET40</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NET40</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\tools\Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebMarkupMin.Core.Net4\WebMarkupMin.Core.Net40.csproj">
+      <Project>{5148cf68-cc23-4fee-aa0e-2eee01bdabf7}</Project>
+      <Name>WebMarkupMin.Core.Net40</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\tools\Key.snk">
+      <Link>Key.snk</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\CommonHtmlMinificationManagerBase.cs">
+      <Link>CommonHtmlMinificationManagerBase.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\Compressors\CompressorExtensions.cs">
+      <Link>Compressors\CompressorExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\Compressors\DeflateCompressor.cs">
+      <Link>Compressors\DeflateCompressor.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\Compressors\DeflateCompressorFactory.cs">
+      <Link>Compressors\DeflateCompressorFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\Compressors\GZipCompressor.cs">
+      <Link>Compressors\GZipCompressor.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\Compressors\GZipCompressorFactory.cs">
+      <Link>Compressors\GZipCompressorFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\Compressors\ICompressor.cs">
+      <Link>Compressors\ICompressor.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\Compressors\ICompressorFactory.cs">
+      <Link>Compressors\ICompressorFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\Compressors\NullCompressor.cs">
+      <Link>Compressors\NullCompressor.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\EncodingTokenConstants.cs">
+      <Link>EncodingTokenConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\HtmlMinificationManagerBase.cs">
+      <Link>HtmlMinificationManagerBase.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\HttpCompressionManagerBase.cs">
+      <Link>HttpCompressionManagerBase.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\ICommonHtmlMinificationManager.cs">
+      <Link>ICommonHtmlMinificationManager.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\IHtmlMinificationManager.cs">
+      <Link>IHtmlMinificationManager.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\IHttpCompressionManager.cs">
+      <Link>IHttpCompressionManager.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\IMarkupMinificationManager.cs">
+      <Link>IMarkupMinificationManager.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\IXhtmlMinificationManager.cs">
+      <Link>IXhtmlMinificationManager.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\IXmlMinificationManager.cs">
+      <Link>IXmlMinificationManager.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\MarkupMinificationManagerBase.cs">
+      <Link>MarkupMinificationManagerBase.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\MarkupMinificationManagerExtensions.cs">
+      <Link>MarkupMinificationManagerExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\MediaTypeConstants.cs">
+      <Link>MediaTypeConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\MediaTypeGroupConstants.cs">
+      <Link>MediaTypeGroupConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\Properties\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\Resources\Strings.Designer.cs">
+      <Link>Resources\Strings.Designer.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\UrlMatchers\ExactUrlMatcher.cs">
+      <Link>UrlMatchers\ExactUrlMatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\UrlMatchers\IUrlMatcher.cs">
+      <Link>UrlMatchers\IUrlMatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\UrlMatchers\RegexUrlMatcher.cs">
+      <Link>UrlMatchers\RegexUrlMatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\UrlMatchers\WildcardUrlMatcher.cs">
+      <Link>UrlMatchers\WildcardUrlMatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\WebMarkupMinConfigurationBase.cs">
+      <Link>WebMarkupMinConfigurationBase.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\WebMarkupMinConfigurationBaseExtensions.cs">
+      <Link>WebMarkupMinConfigurationBaseExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\XhtmlMinificationManagerBase.cs">
+      <Link>XhtmlMinificationManagerBase.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\XmlMinificationManagerBase.cs">
+      <Link>XmlMinificationManagerBase.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\WebMarkupMin.AspNet.Common\Resources\Strings.resx">
+      <Link>Resources\Strings.resx</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>SET VS_PROJECT_DIR=$(ProjectDir)..\WebMarkupMin.AspNet.Common
+
+cd "$(ProjectDir)..\..\"
+build resx</PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

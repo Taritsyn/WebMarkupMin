@@ -92,7 +92,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.Net40.csproj">
+    <ProjectReference Include="..\WebMarkupMin.AspNet.Common.Net4\WebMarkupMin.AspNet.Common.Net40.csproj">
       <Project>{bf6ef6dd-9e9c-428e-92a9-24968c4f7ffe}</Project>
       <Name>WebMarkupMin.AspNet.Common.Net40</Name>
     </ProjectReference>
@@ -100,7 +100,7 @@
       <Project>{3f7995d0-393c-40b9-b16a-51f8499c3565}</Project>
       <Name>WebMarkupMin.AspNet4.Common.Net40</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WebMarkupMin.Core\WebMarkupMin.Core.Net40.csproj">
+    <ProjectReference Include="..\WebMarkupMin.Core.Net4\WebMarkupMin.Core.Net40.csproj">
       <Project>{5148cf68-cc23-4fee-aa0e-2eee01bdabf7}</Project>
       <Name>WebMarkupMin.Core.Net40</Name>
     </ProjectReference>

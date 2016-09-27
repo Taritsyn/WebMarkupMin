@@ -14,6 +14,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FF90A935-F84
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F4439CD7-A4E4-4F82-AA53-4031C4ED3A97}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedFiles", "SharedFiles", "{302D8256-C94F-49A0-8F3A-C3E3DF71AACE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "html", "html", "{672FB1B6-5863-4F6E-8C7A-80536594A588}"
+	ProjectSection(SolutionItems) = preProject
+		test\SharedFiles\html\html-document-with-bom-at-start.html = test\SharedFiles\html\html-document-with-bom-at-start.html
+		test\SharedFiles\html\html-document-with-bom-in-body-tag.html = test\SharedFiles\html\html-document-with-bom-in-body-tag.html
+		test\SharedFiles\html\html-document-without-bom.html = test\SharedFiles\html\html-document-without-bom.html
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{A6C04256-22C9-462B-856E-3B5802320B5E}"
+	ProjectSection(SolutionItems) = preProject
+		test\SharedFiles\xml\xml-document-with-bom-at-start.xml = test\SharedFiles\xml\xml-document-with-bom-at-start.xml
+		test\SharedFiles\xml\xml-document-with-bom-in-tag.xml = test\SharedFiles\xml\xml-document-with-bom-in-tag.xml
+		test\SharedFiles\xml\xml-document-without-bom.xml = test\SharedFiles\xml\xml-document-without-bom.xml
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{890F681B-7DA9-477F-B7D3-17E5BDAFE092}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedData", "SharedData", "{2466A270-B65A-4F25-99EE-ACB1D1216747}"
@@ -25,15 +41,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "text-content", "text-conten
 		samples\SharedData\text-content\index.html = samples\SharedData\text-content\index.html
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Core.Net40", "src\WebMarkupMin.Core\WebMarkupMin.Core.Net40.csproj", "{5148CF68-CC23-4FEE-AA0E-2EEE01BDABF7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Core.Net40", "src\WebMarkupMin.Core.Net4\WebMarkupMin.Core.Net40.csproj", "{5148CF68-CC23-4FEE-AA0E-2EEE01BDABF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.MsAjax.Net40", "src\WebMarkupMin.MsAjax\WebMarkupMin.MsAjax.Net40.csproj", "{C2CF53B0-E2C5-4ACF-8248-8FABF99FDFFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.MsAjax.Net40", "src\WebMarkupMin.MsAjax.Net4\WebMarkupMin.MsAjax.Net40.csproj", "{C2CF53B0-E2C5-4ACF-8248-8FABF99FDFFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Yui.Net40", "src\WebMarkupMin.Yui\WebMarkupMin.Yui.Net40.csproj", "{AB138BB6-CB90-4BE4-9E24-864EEF4ED581}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Yui.Net40", "src\WebMarkupMin.Yui.Net4\WebMarkupMin.Yui.Net40.csproj", "{AB138BB6-CB90-4BE4-9E24-864EEF4ED581}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.NUglify.Net40", "src\WebMarkupMin.NUglify\WebMarkupMin.NUglify.Net40.csproj", "{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.NUglify.Net40", "src\WebMarkupMin.NUglify.Net4\WebMarkupMin.NUglify.Net40.csproj", "{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.AspNet.Common.Net40", "src\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.Net40.csproj", "{BF6EF6DD-9E9C-428E-92A9-24968C4F7FFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.AspNet.Common.Net40", "src\WebMarkupMin.AspNet.Common.Net4\WebMarkupMin.AspNet.Common.Net40.csproj", "{BF6EF6DD-9E9C-428E-92A9-24968C4F7FFE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.AspNet4.Common.Net40", "src\WebMarkupMin.AspNet4.Common\WebMarkupMin.AspNet4.Common.Net40.csproj", "{3F7995D0-393C-40B9-B16A-51F8499C3565}"
 EndProject
@@ -43,11 +59,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.AspNet4.Mvc.Ne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.AspNet4.WebForms.Net40", "src\WebMarkupMin.AspNet4.WebForms\WebMarkupMin.AspNet4.WebForms.Net40.csproj", "{A2AE7CEA-5BB7-4610-AB22-33A4EB2F9D10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Core.Test.Net40", "test\WebMarkupMin.Core.Test\WebMarkupMin.Core.Test.Net40.csproj", "{B6CBE565-C391-4599-AC86-11C6301296AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Core.Test.Net40", "test\WebMarkupMin.Core.Test.Net4\WebMarkupMin.Core.Test.Net40.csproj", "{B6CBE565-C391-4599-AC86-11C6301296AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Sample.Resources.Net40", "samples\WebMarkupMin.Sample.Resources\WebMarkupMin.Sample.Resources.Net40.csproj", "{8E7E319A-0718-4BE1-82F9-FB8578D5C260}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Sample.Resources.Net40", "samples\WebMarkupMin.Sample.Resources.Net4\WebMarkupMin.Sample.Resources.Net40.csproj", "{8E7E319A-0718-4BE1-82F9-FB8578D5C260}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Sample.Logic.Net40", "samples\WebMarkupMin.Sample.Logic\WebMarkupMin.Sample.Logic.Net40.csproj", "{8842EEF0-E7F6-4E34-B4BE-E620ABF35E2D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Sample.Logic.Net40", "samples\WebMarkupMin.Sample.Logic.Net4\WebMarkupMin.Sample.Logic.Net40.csproj", "{8842EEF0-E7F6-4E34-B4BE-E620ABF35E2D}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebMarkupMin.Sample.AspNet4.WebPages2", "http://localhost:33452", "{E2BBC80A-9C2B-40F9-A3E8-127B00E05AAD}"
 	ProjectSection(WebsiteProperties) = preProject
@@ -118,6 +134,16 @@ Global
 		{AB138BB6-CB90-4BE4-9E24-864EEF4ED581}.Release|ARM.ActiveCfg = Release|Any CPU
 		{AB138BB6-CB90-4BE4-9E24-864EEF4ED581}.Release|x64.ActiveCfg = Release|Any CPU
 		{AB138BB6-CB90-4BE4-9E24-864EEF4ED581}.Release|x86.ActiveCfg = Release|Any CPU
+		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}.Release|ARM.ActiveCfg = Release|Any CPU
+		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}.Release|x64.ActiveCfg = Release|Any CPU
+		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}.Release|x86.ActiveCfg = Release|Any CPU
 		{BF6EF6DD-9E9C-428E-92A9-24968C4F7FFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BF6EF6DD-9E9C-428E-92A9-24968C4F7FFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF6EF6DD-9E9C-428E-92A9-24968C4F7FFE}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -228,16 +254,6 @@ Global
 		{E7808547-E984-4F80-97B8-B19E99BE3A76}.Release|ARM.ActiveCfg = Release|Any CPU
 		{E7808547-E984-4F80-97B8-B19E99BE3A76}.Release|x64.ActiveCfg = Release|Any CPU
 		{E7808547-E984-4F80-97B8-B19E99BE3A76}.Release|x86.ActiveCfg = Release|Any CPU
-		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}.Release|ARM.ActiveCfg = Release|Any CPU
-		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}.Release|x64.ActiveCfg = Release|Any CPU
-		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -248,6 +264,7 @@ Global
 		{5148CF68-CC23-4FEE-AA0E-2EEE01BDABF7} = {FF90A935-F84B-4B73-A2E7-238BF376FD36}
 		{C2CF53B0-E2C5-4ACF-8248-8FABF99FDFFE} = {FF90A935-F84B-4B73-A2E7-238BF376FD36}
 		{AB138BB6-CB90-4BE4-9E24-864EEF4ED581} = {FF90A935-F84B-4B73-A2E7-238BF376FD36}
+		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C} = {FF90A935-F84B-4B73-A2E7-238BF376FD36}
 		{BF6EF6DD-9E9C-428E-92A9-24968C4F7FFE} = {FF90A935-F84B-4B73-A2E7-238BF376FD36}
 		{3F7995D0-393C-40B9-B16A-51F8499C3565} = {FF90A935-F84B-4B73-A2E7-238BF376FD36}
 		{29935491-4376-4E06-AD75-68661F04AC09} = {FF90A935-F84B-4B73-A2E7-238BF376FD36}
@@ -259,6 +276,8 @@ Global
 		{E2BBC80A-9C2B-40F9-A3E8-127B00E05AAD} = {890F681B-7DA9-477F-B7D3-17E5BDAFE092}
 		{5CF180F1-8A21-4DA6-9550-85F6210389A4} = {890F681B-7DA9-477F-B7D3-17E5BDAFE092}
 		{E7808547-E984-4F80-97B8-B19E99BE3A76} = {890F681B-7DA9-477F-B7D3-17E5BDAFE092}
-		{D8BE51CD-5AF8-4B99-9B5C-436B006C047C} = {FF90A935-F84B-4B73-A2E7-238BF376FD36}
+		{302D8256-C94F-49A0-8F3A-C3E3DF71AACE} = {F4439CD7-A4E4-4F82-AA53-4031C4ED3A97}
+		{672FB1B6-5863-4F6E-8C7A-80536594A588} = {302D8256-C94F-49A0-8F3A-C3E3DF71AACE}
+		{A6C04256-22C9-462B-856E-3B5802320B5E} = {302D8256-C94F-49A0-8F3A-C3E3DF71AACE}
 	EndGlobalSection
 EndGlobal

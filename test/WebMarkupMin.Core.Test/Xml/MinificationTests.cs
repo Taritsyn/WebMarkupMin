@@ -12,7 +12,7 @@ namespace WebMarkupMin.Core.Test.Xml
 
 		public MinificationTests()
 		{
-			_xmlFilesDirectoryPath = Path.GetFullPath(Path.Combine(_baseDirectoryPath, @"files/xml/"));
+			_xmlFilesDirectoryPath = Path.GetFullPath(Path.Combine(_baseDirectoryPath, @"../SharedFiles/xml/"));
 		}
 
 
