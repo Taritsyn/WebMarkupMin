@@ -1,6 +1,13 @@
 Change log
 ==========
 
+## September 27, 2016 - v2.2.0
+ * Downgraded .NET Framework version from 4.5.2 to 4.5.1
+ * Added support of .NET Core 1.0.1
+ * Fixed a [error #13](https://github.com/Taritsyn/WebMarkupMin/issues/13) “HttpCompression Not Checking for Already Compressed Content”
+ * Fixed a [error #14](https://github.com/Taritsyn/WebMarkupMin/issues/14) “HttpCompression Algorithm Priority”
+ * Fixed a [error #15](https://github.com/Taritsyn/WebMarkupMin/issues/15) “Check for Content-Length in response headers”
+
 ## September 7, 2016 - v2.1.1
  * Fixed a [error #12](https://github.com/Taritsyn/WebMarkupMin/issues/12) “HTTP modules cause forms button do post back error”
 
