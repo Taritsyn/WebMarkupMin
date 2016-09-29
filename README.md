@@ -43,6 +43,7 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
 ### Software
  * [Blog-Umbraco](http://github.com/radyz/Blog-Umbraco) by Ernesto Chavez Sanchez
  * [Constellation.Sitecore.Presentation.Mvc](http://github.com/sitecorerick/constellation.sitecore.presentation.mvc) by Rick Cabral
+ * [FAV Rocks](http://github.com/billbogaiv/fav-rocks) by Bill Boga
  * [File Sharing Application](http://bitbucket.org/Artur2/filesharingapplication) by Artur N
  * [Html Markup Minifier](http://github.com/JadeX/Orchard.HtmlMinifier) (Orchard Module) by Liam 'Xeevis' Aqil
  * [Media Browser](http://github.com/MediaBrowser/MediaBrowser) by Luke Pulverenti
@@ -53,12 +54,16 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
  * [Wyam](http://wyam.io/)
 
 ### Websites
+ * [AllegheResort.it](http://www.allegheresort.it/)
+ * [Araba2.com](http://www.araba2.com/)
  * [AutoThivolle.com](http://www.autothivolle.com/)
  * [BaixakiJogos.com.br](http://www.baixakijogos.com.br/)
  * [DamBeton.nl](http://www.dambeton.nl/)
+ * [DBIS.edu.hk](http://dbis.edu.hk/)
  * [DocShell.ru](https://www.docshell.ru/)
  * [EmResumo.com.br](http://www.emresumo.com.br/)
  * [E-Pacientas.lt](https://e-pacientas.lt)
+ * [FAV.rocks](https://www.fav.rocks/) by Bill Boga
  * [Futuromelhor.Unilever.com.br](https://futuromelhor.unilever.com.br/)
  * [HHDSoftware.com](http://www.hhdsoftware.com/)
  * [HiHoliday.ir](http://hiholiday.ir/)
@@ -66,20 +71,33 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
  * [iStaff.ru](http://istaff.ru/)
  * [KKBruce.tw](http://kkbruce.tw/)
  * [LogixSuite.it](http://www.logixsuite.it/)
+ * [Macingo.com](https://www.macingo.com/)
  * [music2me.de](https://music2me.de/)
+ * [NEI.com.br](http://www.nei.com.br/)
  * [NovalandGroup.net.vn](http://www.novalandgroup.net.vn/)
  * [nu.Faqtz.com](http://nu.faqtz.com/)
  * [Oostwoud.com](http://www.oostwoud.com/)
  * [Oostwoud.de](http://www.oostwoud.de/)
+ * [Osmanlilar.gen.tr](http://osmanlilar.gen.tr/)
+ * [PisoTermico.com.br](http://pisotermico.com.br/)
+ * [PostRandomonium.com](http://postrandomonium.com/)
  * [Quickportal.it](http://www.quickportal.it/)
+ * [QuizPop.com.br](http://www.quizpop.com.br/)
  * [ReXposta.com.br](http://www.rexposta.com.br/tecnologia/)
- * [ScoreYourBoss.com](http://www.scoreyourboss.com/)
  * [SkyPrimeAv.com](http://skyprimeav.com/)
+ * [SleepersInSeattle.com](http://www.sleepersinseattle.com/)
  * [Speak.nl](http://www.speak.nl/)
+ * [Ster.nl](https://www.ster.nl/)
  * [StranaGruzov.ru](http://stranagruzov.ru/)
+ * [SwedishMatch.com](http://www.swedishmatch.com/)
  * [TecMundo.com.br](http://www.tecmundo.com.br/)
  * [togofogo.com](http://www.togofogo.com/)
+ * [TrailerRentals.com.au](https://www.trailerrentals.com.au/)
+ * [Udsalget.NET](http://udsalget.net/)
  * [Ujat.mx](http://ujat.mx/)
+ * [Vindlov.se](http://www.vindlov.se/)
+ * [VogueBodrum.com](http://voguebodrum.com/)
+ * [WaNew.info](http://wanew.info/)
  * [WomensHealthNetwork.com](http://www.womenshealthnetwork.com/)
  * [XemLichAm.com](http://xemlicham.com/)
  * [Zemana.com](http://zemana.com/)
