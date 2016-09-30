@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## September 30, 2016 - v2.2.1
+ * In WebMarkupMin.AspNetCore1 fixed a error “Stream does not support writing”
+
 ## September 27, 2016 - v2.2.0
  * Downgraded .NET Framework version from 4.5.2 to 4.5.1
  * Added support of .NET Core 1.0.1
