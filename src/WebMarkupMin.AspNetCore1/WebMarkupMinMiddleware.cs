@@ -137,6 +137,7 @@ namespace WebMarkupMin.AspNetCore1
 				bool isProcessed = false;
 
 				response.Body = originalStream;
+				cachedStream.SetLength(0);
 
 				if (request.Method == "GET" && response.StatusCode == 200
 					&& _options.IsAllowableResponseSize(cachedByteCount))
@@ -232,12 +233,15 @@ namespace WebMarkupMin.AspNetCore1
 							byte[] compressedBytes = outputStream.ToArray();
 							int compressedByteCount = compressedBytes.Length;
 
+							if (outputStream.CanWrite)
+							{
+								outputStream.SetLength(0);
+							}
+							inputStream.SetLength(0);
+
 							responseHeaders["Content-Length"] = compressedByteCount.ToString();
 							compressor.AppendHttpHeaders(appendHttpHeader);
 							await originalStream.WriteAsync(compressedBytes, 0, compressedByteCount);
-
-							outputStream.SetLength(0);
-							inputStream.SetLength(0);
 						}
 
 						isProcessed = true;
@@ -259,8 +263,6 @@ namespace WebMarkupMin.AspNetCore1
 				{
 					await originalStream.WriteAsync(cachedBytes, 0, cachedByteCount);
 				}
-
-				cachedStream.SetLength(0);
 			}
 		}
 	}
