@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO.Compression;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -101,8 +102,14 @@ namespace WebMarkupMin.Sample.AspNetCore1.Mvc1
 				{
 					options.CompressorFactories = new List<ICompressorFactory>
 					{
-						new DeflateCompressorFactory(),
-						new GZipCompressorFactory()
+						new DeflateCompressorFactory(new DeflateCompressionSettings
+						{
+							Level = CompressionLevel.Fastest
+						}),
+						new GZipCompressorFactory(new GZipCompressionSettings
+						{
+							Level = CompressionLevel.Fastest
+						})
 					};
 				})
 				;
