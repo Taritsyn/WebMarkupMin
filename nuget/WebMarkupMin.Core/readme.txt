@@ -46,8 +46,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Downgraded .NET Framework version from 4.5.2 to 4.5.1;
-   2. Added support of .NET Core 1.0.1.
+   Fixed a error #18 “Why is SavedGzipInBytes a decimal?”.
 
    =============
    DOCUMENTATION

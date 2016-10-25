@@ -82,7 +82,7 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Gets a number of bytes which has been saved off the original size
 		/// </summary>
-		public decimal SavedInBytes
+		public long SavedInBytes
 		{
 			get;
 			private set;
@@ -91,7 +91,7 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Gets a number of bytes which has been saved off the gzipped size
 		/// </summary>
-		public decimal SavedGzipInBytes
+		public long SavedGzipInBytes
 		{
 			get;
 			private set;

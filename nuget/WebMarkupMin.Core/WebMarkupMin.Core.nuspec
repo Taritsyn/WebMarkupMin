@@ -18,8 +18,7 @@ Minification of markup produces by removing extra whitespaces, comments and redu
 
 Also supports minification of views of popular JavaScript template engines: KnockoutJS, Kendo UI MVVM and AngularJS 1.X.</description>
 		<summary>The Web Markup Minifier (abbreviated WebMarkupMin) is a .NET library that contains a set of markup minifiers. The objective of this project is to improve the performance of web applications by reducing the size of HTML, XHTML and XML code.</summary>
-		<releaseNotes>1. Downgraded .NET Framework version from 4.5.2 to 4.5.1;
-2. Added support of .NET Core 1.0.1.</releaseNotes>
+		<releaseNotes>Fixed a error #18 “Why is SavedGzipInBytes a decimal?”.</releaseNotes>
 		<copyright>Copyright (c) 2013-2016 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
 		<language>en-US</language>
 		<tags>WebMarkupMin Markup HTML XHTML XML Minification Minifier Minify Performance Optimization Compression</tags>
