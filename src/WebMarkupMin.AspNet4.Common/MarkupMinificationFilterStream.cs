@@ -6,6 +6,7 @@ using System.Web;
 using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.AspNet4.Common.Helpers;
 using WebMarkupMin.Core;
+using WebMarkupMin.Core.Utilities;
 using AspNetCommonStrings = WebMarkupMin.AspNet.Common.Resources.Strings;
 
 namespace WebMarkupMin.AspNet4.Common
@@ -180,7 +181,7 @@ namespace WebMarkupMin.AspNet4.Common
 				}
 			}
 
-			_cachedStream.SetLength(0);
+			_cachedStream.Clear();
 			_originalStream.Close();
 
 			if (isEncodedContent)

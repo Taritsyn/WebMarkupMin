@@ -244,6 +244,9 @@
     <Compile Include="..\WebMarkupMin.Core\Utilities\InterlockedStatedFlag.cs">
       <Link>Utilities\InterlockedStatedFlag.cs</Link>
     </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Utilities\MemoryStreamExtensions.cs">
+      <Link>Utilities\MemoryStreamExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\WebMarkupMin.Core\Utilities\SourceCodeNavigator.cs">
       <Link>Utilities\SourceCodeNavigator.cs</Link>
     </Compile>

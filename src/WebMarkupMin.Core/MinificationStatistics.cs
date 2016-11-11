@@ -3,6 +3,8 @@ using System.IO;
 using System.IO.Compression;
 using System.Text;
 
+using WebMarkupMin.Core.Utilities;
+
 namespace WebMarkupMin.Core
 {
 	/// <summary>
@@ -219,7 +221,10 @@ namespace WebMarkupMin.Core
 					gzipStream.Write(bytes, 0, bytes.Length);
 				}
 
-				return memoryStream.Position;
+				long compressedByteCount = memoryStream.Position;
+				memoryStream.Clear();
+
+				return compressedByteCount;
 			}
 		}
 	}

@@ -17,7 +17,8 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a error “Stream does not support writing”.
+   Fixed a error #20 “Adding WebMarkupMin with a ServiceStack .Net Core enabled
+   project fails”.
 
    =============
    DOCUMENTATION

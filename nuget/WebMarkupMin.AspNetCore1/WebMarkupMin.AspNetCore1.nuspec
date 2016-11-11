@@ -12,7 +12,7 @@
 		<requireLicenseAcceptance>true</requireLicenseAcceptance>
 		<description>WebMarkupMin.AspNetCore1 contains one ASP.NET Core 1.X Middleware - `WebMarkupMinMiddleware`.</description>
 		<summary>WebMarkupMin.AspNetCore1 contains one ASP.NET Core 1.X Middleware - `WebMarkupMinMiddleware`.</summary>
-		<releaseNotes>Fixed a error “Stream does not support writing”.</releaseNotes>
+		<releaseNotes>Fixed a error #20 “Adding WebMarkupMin with a ServiceStack .Net Core enabled project fails”.</releaseNotes>
 		<copyright>Copyright (c) 2013-2016 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
 		<language>en-US</language>
 		<tags>WebMarkupMin ASP.NET Middleware Markup HTML XHTML XML Minification Minifier Minify</tags>
