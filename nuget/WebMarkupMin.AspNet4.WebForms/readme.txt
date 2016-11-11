@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-           README file for Web Markup Minifier: ASP.NET 4.X Web Forms v2.2.0
+           README file for Web Markup Minifier: ASP.NET 4.X Web Forms v2.2.2
 
    --------------------------------------------------------------------------------
 
@@ -24,13 +24,6 @@
    minification and HTTP compression).
 
    Сlasses of the Web Forms pages and master pages cannot be used together.
-
-   =============
-   RELEASE NOTES
-   =============
-   1. Fixed a error #13 “HttpCompression Not Checking for Already Compressed
-      Content”;
-   2. Fixed a error #14 “HttpCompression Algorithm Priority”.
 
    =============
    DOCUMENTATION

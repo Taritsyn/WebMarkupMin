@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-              README file for Web Markup Minifier: ASP.NET 4.X MVC v2.2.0
+              README file for Web Markup Minifier: ASP.NET 4.X MVC v2.2.2
 
    --------------------------------------------------------------------------------
 
@@ -16,13 +16,6 @@
    code), `MinifyXmlAttribute` (for minification of XML code) and
    `CompressContentAttribute` (for compression of text content by using GZIP or
    Deflate).
-
-   =============
-   RELEASE NOTES
-   =============
-   1. Fixed a error #13 “HttpCompression Not Checking for Already Compressed
-      Content”;
-   2. Fixed a error #14 “HttpCompression Algorithm Priority”.
 
    =============
    DOCUMENTATION

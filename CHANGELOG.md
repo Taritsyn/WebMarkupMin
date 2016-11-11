@@ -1,6 +1,11 @@
 Change log
 ==========
 
+## November 11, 2016 - v2.2.2
+ * Fixed a [error #18](https://github.com/Taritsyn/WebMarkupMin/issues/18) “Why is SavedGzipInBytes a decimal?”
+ * Fixed a [error #20](https://github.com/Taritsyn/WebMarkupMin/issues/20) “Adding WebMarkupMin with a ServiceStack .Net Core enabled project fails”
+ * Added the ability to specify a level of GZip or Deflate compression (while available only in ASP.NET Core applications)
+
 ## September 30, 2016 - v2.2.1
  * In WebMarkupMin.AspNetCore1 fixed a error “Stream does not support writing”
 

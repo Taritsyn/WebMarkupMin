@@ -1,8 +1,8 @@
 ﻿{
-	"version": "2.2.0",
+	"version": "2.2.2",
 
 	"dependencies": {
-		"WebMarkupMin.Core": "2.2.0"
+		"WebMarkupMin.Core": "2.2.2"
 	},
 
 	"frameworks": {

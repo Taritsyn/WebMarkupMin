@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-               README file for Web Markup Minifier: ASP.NET Common v2.2.0
+               README file for Web Markup Minifier: ASP.NET Common v2.2.2
 
    --------------------------------------------------------------------------------
 
@@ -17,11 +17,8 @@
    =============
    RELEASE NOTES
    =============
-   1. Downgraded .NET Framework version from 4.5.2 to 4.5.1;
-   2. Added support of .NET Core 1.0.1;
-   3. Fixed a error #13 “HttpCompression Not Checking for Already Compressed
-      Content”;
-   4. Fixed a error #14 “HttpCompression Algorithm Priority”.
+   Added the ability to specify a level of GZip or Deflate compression (while
+   available only in ASP.NET Core applications).
 
    =============
    DOCUMENTATION
