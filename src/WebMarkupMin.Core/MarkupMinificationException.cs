@@ -1,10 +1,16 @@
 ﻿using System;
+#if !NETSTANDARD1_3
+using System.Runtime.Serialization;
+#endif
 
 namespace WebMarkupMin.Core
 {
 	/// <summary>
 	/// The exception that is thrown when a markup minification is failed
 	/// </summary>
+#if !NETSTANDARD1_3
+	[Serializable]
+#endif
 	public sealed class MarkupMinificationException : Exception
 	{
 		/// <summary>
@@ -26,5 +32,16 @@ namespace WebMarkupMin.Core
 		public MarkupMinificationException(string message, Exception innerException)
 			: base(message, innerException)
 		{ }
+#if !NETSTANDARD1_3
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MarkupMinificationException"/> class with serialized data
+		/// </summary>
+		/// <param name="info">The object that holds the serialized data</param>
+		/// <param name="context">The contextual information about the source or destination</param>
+		private MarkupMinificationException(SerializationInfo info, StreamingContext context)
+			: base(info, context)
+		{ }
+#endif
 	}
 }

@@ -1,4 +1,7 @@
 ﻿using System;
+#if !NETSTANDARD1_3
+using System.Runtime.Serialization;
+#endif
 
 using WebMarkupMin.Core.Utilities;
 
@@ -7,6 +10,9 @@ namespace WebMarkupMin.Core.Parsers
 	/// <summary>
 	/// The exception that is thrown when a parsing of XML content is failed
 	/// </summary>
+#if !NETSTANDARD1_3
+	[Serializable]
+#endif
 	internal sealed class XmlParsingException : CodeProcessingException
 	{
 		/// <summary>
@@ -80,5 +86,16 @@ namespace WebMarkupMin.Core.Parsers
 			string sourceFragment, Exception innerException)
 			: base(message, lineNumber, columnNumber, sourceFragment, innerException)
 		{ }
+#if !NETSTANDARD1_3
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="XmlParsingException"/> class with serialized data
+		/// </summary>
+		/// <param name="info">The object that holds the serialized data</param>
+		/// <param name="context">The contextual information about the source or destination</param>
+		private XmlParsingException(SerializationInfo info, StreamingContext context)
+			: base(info, context)
+		{ }
+#endif
 	}
 }
