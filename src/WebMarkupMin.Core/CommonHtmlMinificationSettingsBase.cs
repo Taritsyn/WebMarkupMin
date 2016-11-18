@@ -369,15 +369,111 @@ namespace WebMarkupMin.Core
 			}
 		}
 
-		#endregion
+        #endregion
+
+        #region Tags with redundant attributes that should be preserved
+        /// <summary>
+        /// Collection of names of the tags with redundant attributes to be preserved
+        /// </summary>
+	    private readonly HashSet<string> _preservableRedundantAttributeTags;
+
+        /// <summary>
+        /// Gets a collection of names of the tags with redundant attributes to be preserved
+        /// </summary>
+	    public ISet<string> PreservableRedundantAttributeTagsCollection
+        {
+	        get
+	        {
+	            return  _preservableRedundantAttributeTags;
+	        }
+	    }
+
+        /// <summary>
+        /// Sets a names of the tags with redundant attributes to be preserved
+        /// </summary>
+        /// <param name="tagsNames">Collection of names of the tags with redundant attributes to be preserved</param>
+        public int SetPreservableRedundantAttributeTags(IEnumerable<string> tagsNames)
+        {
+            _preservableRedundantAttributeTags.Clear();
+
+            if (tagsNames != null)
+            {
+                foreach (string tagName in tagsNames)
+                {
+                    AddPreservableRedundantAttributeTag(tagName);
+                }
+            }
+
+            return _preservableRedundantAttributeTags.Count;
+        }
+
+        /// <summary>
+        /// Adds a name of a tag with redundant attributes to be preserved
+        /// </summary>
+        /// <param name="tagName">Name of html tag</param>
+        /// <returns>true - valid tag name; false - invalid tag name</returns>
+        public bool AddPreservableRedundantAttributeTag(string tagName)
+        {
+            if (!string.IsNullOrWhiteSpace(tagName))
+            {
+                string processedTagName = tagName.Trim();
+                _preservableRedundantAttributeTags.Add(processedTagName);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Gets or sets a comma-separated list names of the tags with redundant attributes
+        /// (e.g. <code>"form, input, script, link"</code>), for which their redundant attributes should not be removed
+        /// </summary>
+        public string PreservableRedundantAttributeTagsList
+        {
+            get
+            {
+                StringBuilder sb = StringBuilderPool.GetBuilder();
+
+                foreach (string tagName in _preservableRedundantAttributeTags)
+                {
+                    if (sb.Length > 0)
+                    {
+                        sb.Append(",");
+                    }
+                    sb.Append(tagName);
+                }
+
+                string customTagsWithPreservedRedundantAttributesList = sb.ToString();
+                StringBuilderPool.ReleaseBuilder(sb);
+
+                return customTagsWithPreservedRedundantAttributesList;
+            }
+            set
+            {
+                _preservableRedundantAttributeTags.Clear();
+
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    string[] tagNames = value.Split(',');
+
+                    foreach (string tagName in tagNames)
+                    {
+                        AddPreservableRedundantAttributeTag(tagName);
+                    }
+                }
+            }
+        }
 
 
-		/// <summary>
-		/// Constructs instance of common HTML minification settings
-		/// </summary>
-		/// <param name="useEmptyMinificationSettings">Initiates the creation of
-		/// empty common HTML minification settings</param>
-		protected CommonHtmlMinificationSettingsBase(bool useEmptyMinificationSettings)
+        #endregion
+       
+        /// <summary>
+        /// Constructs instance of common HTML minification settings
+        /// </summary>
+        /// <param name="useEmptyMinificationSettings">Initiates the creation of
+        /// empty common HTML minification settings</param>
+        protected CommonHtmlMinificationSettingsBase(bool useEmptyMinificationSettings)
 		{
 			if (!useEmptyMinificationSettings)
 			{
@@ -414,6 +510,9 @@ namespace WebMarkupMin.Core
 
 			// No default custom Angular directives with expressions
 			_customAngularDirectives = new HashSet<string>();
-		}
-	}
+
+            // No default tags with redundant attributes to be preserved
+            _preservableRedundantAttributeTags = new HashSet<string>();
+        }
+    }
 }

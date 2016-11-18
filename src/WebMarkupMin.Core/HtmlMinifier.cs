@@ -45,6 +45,7 @@ namespace WebMarkupMin.Core
 						RemoveEmptyAttributes = settings.RemoveEmptyAttributes,
 						AttributeQuotesRemovalMode = settings.AttributeQuotesRemovalMode,
 						RemoveRedundantAttributes = settings.RemoveRedundantAttributes,
+                        PreservableRedundantAttributeTagsList = settings.PreservableRedundantAttributeTagsList,
 						RemoveJsTypeAttributes = settings.RemoveJsTypeAttributes,
 						RemoveCssTypeAttributes = settings.RemoveCssTypeAttributes,
 						RemoveHttpProtocolFromAttributes = settings.RemoveHttpProtocolFromAttributes,
