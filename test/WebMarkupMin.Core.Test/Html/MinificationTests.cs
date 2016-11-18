@@ -5153,20 +5153,30 @@ namespace WebMarkupMin.Core.Test.Html
 			// Arrange
 			var removingRedundantAttributesMinifier = new HtmlMinifier(
 				new HtmlMinificationSettings(true) { RemoveRedundantAttributes = true });
+            var keepingRedundantAttributesMinifier = new HtmlMinifier(
+                new HtmlMinificationSettings(true) { RemoveRedundantAttributes = true, PreservableRedundantAttributeTagsList = "form"});
 
-			const string input1 = "<form method=\"get\">Some controls…</form>";
-			const string targetOutput1 = "<form>Some controls…</form>";
+            const string input1 = "<form method=\"get\">Some controls…</form>";
+			const string targetOutput1A = "<form>Some controls…</form>";
+            const string targetOutput1B = input1;
 
-			const string input2 = "<form method=\"post\">Some controls…</form>";
+
+            const string input2 = "<form method=\"post\">Some controls…</form>";
 
 			// Act
-			string output1 = removingRedundantAttributesMinifier.Minify(input1).MinifiedContent;
-			string output2 = removingRedundantAttributesMinifier.Minify(input2).MinifiedContent;
+			string output1A = removingRedundantAttributesMinifier.Minify(input1).MinifiedContent;
+            string output1B = keepingRedundantAttributesMinifier.Minify(input1).MinifiedContent;
 
-			// Assert
-			Assert.Equal(targetOutput1, output1);
-			Assert.Equal(input2, output2);
-		}
+            string output2A = removingRedundantAttributesMinifier.Minify(input2).MinifiedContent;
+            string output2B = keepingRedundantAttributesMinifier.Minify(input2).MinifiedContent;
+
+            // Assert
+            Assert.Equal(targetOutput1A, output1A);
+            Assert.Equal(targetOutput1B, output1B);
+
+            Assert.Equal(input2, output2A);
+            Assert.Equal(input2, output2B);
+        }
 
 		[Fact]
 		public void RemovingRedundantInputAttributesIsCorrect()
@@ -5174,58 +5184,95 @@ namespace WebMarkupMin.Core.Test.Html
 			// Arrange
 			var removingRedundantAttributesMinifier = new HtmlMinifier(
 				new HtmlMinificationSettings(true) { RemoveRedundantAttributes = true });
+            var keepingRedundantAttributesMinifier = new HtmlMinifier(
+               new HtmlMinificationSettings(true) { RemoveRedundantAttributes = true, PreservableRedundantAttributeTagsList = "input" });
 
-			const string input1 = "<input type=\"text\">";
-			const string targetOutput1 = "<input>";
+            const string input1 = "<input type=\"text\">";
+			const string targetOutput1A = "<input>";
+            const string targetOutput1B = input1;
 
-			const string input2 = "<input type=\"  TEXT  \" value=\"Some value…\">";
-			const string targetOutput2 = "<input value=\"Some value…\">";
 
-			const string input3 = "<input type=\"checkbox\">";
+            const string input2 = "<input type=\"  TEXT  \" value=\"Some value…\">";
+			const string targetOutput2A = "<input value=\"Some value…\">";
+            const string targetOutput2B = input2;
+
+            const string input3 = "<input type=\"checkbox\">";
 
 			// Act
-			string output1 = removingRedundantAttributesMinifier.Minify(input1).MinifiedContent;
-			string output2 = removingRedundantAttributesMinifier.Minify(input2).MinifiedContent;
-			string output3 = removingRedundantAttributesMinifier.Minify(input3).MinifiedContent;
+			string output1A = removingRedundantAttributesMinifier.Minify(input1).MinifiedContent;
+            string output1B = keepingRedundantAttributesMinifier.Minify(input1).MinifiedContent;
 
-			// Assert
-			Assert.Equal(targetOutput1, output1);
-			Assert.Equal(targetOutput2, output2);
-			Assert.Equal(input3, output3);
-		}
+            string output2A = removingRedundantAttributesMinifier.Minify(input2).MinifiedContent;
+            string output2B = keepingRedundantAttributesMinifier.Minify(input2).MinifiedContent;
 
-		[Fact]
+            string output3A = removingRedundantAttributesMinifier.Minify(input3).MinifiedContent;
+            string output3B = keepingRedundantAttributesMinifier.Minify(input3).MinifiedContent;
+
+            // Assert
+            Assert.Equal(targetOutput1A, output1A);
+            Assert.Equal(targetOutput1B, output1B);
+
+            Assert.Equal(targetOutput2A, output2A);
+            Assert.Equal(targetOutput2B, output2B);
+
+			Assert.Equal(input3, output3A);
+			Assert.Equal(input3, output3B);
+        }
+
+        [Fact]
 		public void RemovingRedundantAnchorAttributesIsCorrect()
 		{
 			// Arrange
 			var removingRedundantAttributesMinifier = new HtmlMinifier(
 				new HtmlMinificationSettings(true) { RemoveRedundantAttributes = true });
+            var keepingRedundantAttributesMinifier = new HtmlMinifier(
+                new HtmlMinificationSettings(true) { RemoveRedundantAttributes = true, PreservableRedundantAttributeTagsList = "a"});
 
-			const string input1 = "<a id=\"_toppage\" name=\"_toppage\"></a>";
-			const string targetOutput1 = "<a id=\"_toppage\"></a>";
+            const string input1A = "<a id=\"_toppage\" name=\"_toppage\"></a>";
+			const string targetOutput1A = "<a id=\"_toppage\"></a>";
+            const string targetOutput1B= input1A;
 
 			const string input2 = "<a name=\"_toppage\"></a>";
 
-			const string input3 = "<a href=\"http://example.com/\" id=\"lnkExample\" name=\"lnkExample\"></a>";
-			const string targetOutput3 = "<a href=\"http://example.com/\" id=\"lnkExample\"></a>";
+			const string input3A = "<a href=\"http://example.com/\" id=\"lnkExample\" name=\"lnkExample\"></a>";
+			const string targetOutput3A = "<a href=\"http://example.com/\" id=\"lnkExample\"></a>";
+			const string targetOutput3B = input3A;
 
 			const string input4 = "<input id=\"txtEmail\" name=\"admin@example.com\">";
 
 			const string input5 = "<a href=\"http://example.com/\" id=\"lnkExample\" name=\"example\"></a>";
 
 			// Act
-			string output1 = removingRedundantAttributesMinifier.Minify(input1).MinifiedContent;
-			string output2 = removingRedundantAttributesMinifier.Minify(input2).MinifiedContent;
-			string output3 = removingRedundantAttributesMinifier.Minify(input3).MinifiedContent;
-			string output4 = removingRedundantAttributesMinifier.Minify(input4).MinifiedContent;
-			string output5 = removingRedundantAttributesMinifier.Minify(input5).MinifiedContent;
+			string output1A = removingRedundantAttributesMinifier.Minify(input1A).MinifiedContent;
+            string output1B = keepingRedundantAttributesMinifier.Minify(input1A).MinifiedContent;
+
+            string output2A = removingRedundantAttributesMinifier.Minify(input2).MinifiedContent;
+            string output2B = keepingRedundantAttributesMinifier.Minify(input2).MinifiedContent;
+
+            string output3A = removingRedundantAttributesMinifier.Minify(input3A).MinifiedContent;
+            string output3B = keepingRedundantAttributesMinifier.Minify(input3A).MinifiedContent;
+
+            string output4A = removingRedundantAttributesMinifier.Minify(input4).MinifiedContent;
+            string output4B = keepingRedundantAttributesMinifier.Minify(input4).MinifiedContent;
+
+			string output5A = removingRedundantAttributesMinifier.Minify(input5).MinifiedContent;
+			string output5B = keepingRedundantAttributesMinifier.Minify(input5).MinifiedContent;
 
 			// Assert
-			Assert.Equal(targetOutput1, output1);
-			Assert.Equal(input2, output2);
-			Assert.Equal(targetOutput3, output3);
-			Assert.Equal(input4, output4);
-			Assert.Equal(input5, output5);
+			Assert.Equal(targetOutput1A, output1A);
+			Assert.Equal(targetOutput1B, output1B);
+
+            Assert.Equal(input2, output2A);
+            Assert.Equal(input2, output2B);
+
+            Assert.Equal(targetOutput3A, output3A);
+            Assert.Equal(targetOutput3B, output3B);
+
+            Assert.Equal(input4, output4A);
+            Assert.Equal(input4, output4B);
+
+            Assert.Equal(input5, output5A);
+			Assert.Equal(input5, output5B);
 		}
 
 		[Fact]
@@ -5234,19 +5281,28 @@ namespace WebMarkupMin.Core.Test.Html
 			// Arrange
 			var removingRedundantAttributesMinifier = new HtmlMinifier(
 				new HtmlMinificationSettings(true) { RemoveRedundantAttributes = true });
+            var keepingRedundantAttributesMinifier = new HtmlMinifier(
+                new HtmlMinificationSettings(true) { RemoveRedundantAttributes = true, PreservableRedundantAttributeTagsList = "link"});
 
-			const string input1 = "<link rel=\"stylesheet\" charset=\"Windows-1251\" href=\"mystyles.css\">";
-			const string targetOutput1 = "<link rel=\"stylesheet\" href=\"mystyles.css\">";
+            const string input1 = "<link rel=\"stylesheet\" charset=\"Windows-1251\" href=\"mystyles.css\">";
+			const string targetOutput1A = "<link rel=\"stylesheet\" href=\"mystyles.css\">";
+			const string targetOutput1B = input1;
 
 			const string input2 = "<link rel=\"index\" href=\"../index.html\">";
 
 			// Act
-			string output1 = removingRedundantAttributesMinifier.Minify(input1).MinifiedContent;
-			string output2 = removingRedundantAttributesMinifier.Minify(input2).MinifiedContent;
+			string output1A = removingRedundantAttributesMinifier.Minify(input1).MinifiedContent;
+			string output1B = keepingRedundantAttributesMinifier.Minify(input1).MinifiedContent;
+
+			string output2A = removingRedundantAttributesMinifier.Minify(input2).MinifiedContent;
+			string output2B = keepingRedundantAttributesMinifier.Minify(input2).MinifiedContent;
 
 			// Assert
-			Assert.Equal(targetOutput1, output1);
-			Assert.Equal(input2, output2);
+			Assert.Equal(targetOutput1A, output1A);
+			Assert.Equal(targetOutput1B, output1B);
+
+            Assert.Equal(input2, output2A);
+            Assert.Equal(input2, output2B);
 		}
 
 		[Fact]
@@ -5255,37 +5311,61 @@ namespace WebMarkupMin.Core.Test.Html
 			// Arrange
 			var removingRedundantAttributesMinifier = new HtmlMinifier(
 				new HtmlMinificationSettings(true) { RemoveRedundantAttributes = true });
+            var keepingRedundantAttributesMinifier = new HtmlMinifier(
+                new HtmlMinificationSettings(true) { RemoveRedundantAttributes = true, PreservableRedundantAttributeTagsList = "script"});
 
-			const string input1 = "<script type=\"text/javascript\" charset=\"UTF-8\">alert(\"Hooray!\");</script>";
-			const string targetOutput1 = "<script type=\"text/javascript\">alert(\"Hooray!\");</script>";
+            const string input1 = "<script type=\"text/javascript\" charset=\"UTF-8\">alert(\"Hooray!\");</script>";
+			const string targetOutput1A = "<script type=\"text/javascript\">alert(\"Hooray!\");</script>";
+            const string targetOutput1B = "<script type=\"text/javascript\" charset=\"UTF-8\">alert(\"Hooray!\");</script>";
 
-			const string input2 = "<script type=\"text/javascript\"" +
+            const string input2 = "<script type=\"text/javascript\"" +
 				" src=\"http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js\"" +
 				" charset=\"UTF-8\"></script>"
 				;
 
 			const string input3 = "<script CHARSET=\"UTF-8\">alert(\"Hooray!\");</script>";
-			const string targetOutput3 = "<script>alert(\"Hooray!\");</script>";
+			const string targetOutput3A = "<script>alert(\"Hooray!\");</script>";
+            const string targetOutput3B = "<script charset=\"UTF-8\">alert(\"Hooray!\");</script>";
 
-			const string input4 = "<script language=\"Javascript\">var a = 1, b = 3;</script>";
-			const string targetOutput4 = "<script>var a = 1, b = 3;</script>";
+            const string input4 = "<script language=\"Javascript\">var a = 1, b = 3;</script>";
+			const string targetOutput4A = "<script>var a = 1, b = 3;</script>";
+            const string targetOutput4B = "<script language=\"Javascript\">var a = 1, b = 3;</script>";
 
-			const string input5 = "<script LANGUAGE = \"  javaScript  \">var a = 1, b = 3;</script>";
-			const string targetOutput5 = "<script>var a = 1, b = 3;</script>";
+            const string input5 = "<script LANGUAGE = \"  javaScript  \">var a = 1, b = 3;</script>";
+			const string targetOutput5A = "<script>var a = 1, b = 3;</script>";
+            const string targetOutput5B = "<script language=\"  javaScript  \">var a = 1, b = 3;</script>";
 
-			// Act
-			string output1 = removingRedundantAttributesMinifier.Minify(input1).MinifiedContent;
-			string output2 = removingRedundantAttributesMinifier.Minify(input2).MinifiedContent;
-			string output3 = removingRedundantAttributesMinifier.Minify(input3).MinifiedContent;
-			string output4 = removingRedundantAttributesMinifier.Minify(input4).MinifiedContent;
-			string output5 = removingRedundantAttributesMinifier.Minify(input5).MinifiedContent;
+            // Act
+            string output1A = removingRedundantAttributesMinifier.Minify(input1).MinifiedContent;
+            string output1B = keepingRedundantAttributesMinifier.Minify(input1).MinifiedContent;
+
+            string output2A = removingRedundantAttributesMinifier.Minify(input2).MinifiedContent;
+            string output2B = keepingRedundantAttributesMinifier.Minify(input2).MinifiedContent;
+
+            string output3A = removingRedundantAttributesMinifier.Minify(input3).MinifiedContent;
+            string output3B = keepingRedundantAttributesMinifier.Minify(input3).MinifiedContent;
+
+            string output4A = removingRedundantAttributesMinifier.Minify(input4).MinifiedContent;
+            string output4B = keepingRedundantAttributesMinifier.Minify(input4).MinifiedContent;
+
+            string output5A = removingRedundantAttributesMinifier.Minify(input5).MinifiedContent;
+            string output5B = keepingRedundantAttributesMinifier.Minify(input5).MinifiedContent;
 
 			// Assert
-			Assert.Equal(targetOutput1, output1);
-			Assert.Equal(input2, output2);
-			Assert.Equal(targetOutput3, output3);
-			Assert.Equal(targetOutput4, output4);
-			Assert.Equal(targetOutput5, output5);
+			Assert.Equal(targetOutput1A, output1A);
+            Assert.Equal(targetOutput1B, output1B);
+
+            Assert.Equal(input2, output2A);
+            Assert.Equal(input2, output2B);
+
+            Assert.Equal(targetOutput3A, output3A);
+            Assert.Equal(targetOutput3B, output3B);
+
+            Assert.Equal(targetOutput4A, output4A);
+            Assert.Equal(targetOutput4B, output4B);
+
+            Assert.Equal(targetOutput5A, output5A);
+            Assert.Equal(targetOutput5B, output5B);
 		}
 
 		[Fact]
@@ -5294,24 +5374,38 @@ namespace WebMarkupMin.Core.Test.Html
 			// Arrange
 			var removingRedundantAttributesMinifier = new HtmlMinifier(
 				new HtmlMinificationSettings(true) { RemoveRedundantAttributes = true });
+            var preservingRedundantAttributesMinifier = new HtmlMinifier(
+                new HtmlMinificationSettings(true) { RemoveRedundantAttributes = true, PreservableRedundantAttributeTagsList = "area"});
 
-			const string input1 = "<area shape=\"rect\" coords=\"0,0,82,126\"" +
+            const string input1 = "<area shape=\"rect\" coords=\"0,0,82,126\"" +
 				" href=\"http://example.com/\" title=\"Some title…\">";
-			const string targetOutput1 = "<area coords=\"0,0,82,126\"" +
+			const string targetOutput1A = "<area coords=\"0,0,82,126\"" +
 				" href=\"http://example.com/\" title=\"Some title…\">";
+            const string targetOutput1B = input1;
 
-			// Act
-			string output1 = removingRedundantAttributesMinifier.Minify(input1).MinifiedContent;
+            const  string input2 = "<area shape=\"circle\" coords=\"0,0,82\"" +
+                " href=\"http://example.com/\" title=\"Some title…\">";
 
-			// Assert
-			Assert.Equal(targetOutput1, output1);
-		}
+            // Act
+            string output1A = removingRedundantAttributesMinifier.Minify(input1).MinifiedContent;
+            string output1B = preservingRedundantAttributesMinifier.Minify(input1).MinifiedContent;
 
-		#endregion
+            string output2A = removingRedundantAttributesMinifier.Minify(input2).MinifiedContent;
+            string output2B = preservingRedundantAttributesMinifier.Minify(input2).MinifiedContent;
 
-		#region Removing JavaScript type attributes
+            // Assert
+            Assert.Equal(targetOutput1A, output1A);
+            Assert.Equal(targetOutput1B, output1B);
 
-		[Fact]
+            Assert.Equal(input2, output2A);
+            Assert.Equal(input2, output2B);
+        }
+
+        #endregion
+        
+        #region Removing JavaScript type attributes
+
+        [Fact]
 		public void RemovingJavaScriptTypeAttributesIsCorrect()
 		{
 			// Arrange

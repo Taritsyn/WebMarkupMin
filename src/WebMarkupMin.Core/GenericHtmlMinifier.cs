@@ -300,14 +300,14 @@ namespace WebMarkupMin.Core
 		private readonly HashSet<string> _angularDirectivesWithExpressions;
 
 
-		/// <summary>
-		/// Constructs instance of generic HTML minifier
-		/// </summary>
-		/// <param name="settings">Generic HTML minification settings</param>
-		/// <param name="cssMinifier">CSS minifier</param>
-		/// <param name="jsMinifier">JS minifier</param>
-		/// <param name="logger">Logger</param>
-		public GenericHtmlMinifier(GenericHtmlMinificationSettings settings = null,
+        /// <summary>
+        /// Constructs instance of generic HTML minifier
+        /// </summary>
+        /// <param name="settings">Generic HTML minification settings</param>
+        /// <param name="cssMinifier">CSS minifier</param>
+        /// <param name="jsMinifier">JS minifier</param>
+        /// <param name="logger">Logger</param>
+        public GenericHtmlMinifier(GenericHtmlMinificationSettings settings = null,
 			ICssMinifier cssMinifier = null, IJsMinifier jsMinifier = null, ILogger logger = null)
 		{
 			_settings = settings ?? new GenericHtmlMinificationSettings();
@@ -1367,7 +1367,7 @@ namespace WebMarkupMin.Core
 					SourceCodeNavigator.GetSourceFragment(sourceCode, attributeCoordinates));
 			}
 
-			if ((_settings.RemoveRedundantAttributes && IsAttributeRedundant(tag, attribute))
+			if ((_settings.RemoveRedundantAttributes && IsAttributeRedundant(tag, attribute) && CanRemoveRedundantAttribute(tag))
 				|| (_settings.RemoveJsTypeAttributes && IsJavaScriptTypeAttribute(tag, attribute))
 				|| (_settings.RemoveCssTypeAttributes && IsCssTypeAttribute(tag, attribute))
 				|| (useHtmlSyntax && CanRemoveXmlNamespaceAttribute(tag, attribute)))
@@ -1535,13 +1535,28 @@ namespace WebMarkupMin.Core
 			return result;
 		}
 
-		/// <summary>
-		/// Checks whether the attribute is redundant
+        /// <summary>
+		/// Checks whether the element is not in the list of the tags with redundant attributes to preserve
 		/// </summary>
 		/// <param name="tag">Tag</param>
-		/// <param name="attribute">Attribute</param>
-		/// <returns>Result of check (true - is redundant; false - is not redundant)</returns>
-		private static bool IsAttributeRedundant(HtmlTag tag, HtmlAttribute attribute)
+		/// <returns>Result of check (true - can remove; false - cannot remove)</returns>
+		private bool CanRemoveRedundantAttribute(HtmlTag tag)
+        {
+            string tagNameInLowercase = tag.NameInLowercase;
+            if (_settings.PreservableRedundantAttributeTagsCollection.Contains(tagNameInLowercase))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Checks whether the attribute is redundant
+        /// </summary>
+        /// <param name="tag">Tag</param>
+        /// <param name="attribute">Attribute</param>
+        /// <returns>Result of check (true - is redundant; false - is not redundant)</returns>
+        private static bool IsAttributeRedundant(HtmlTag tag, HtmlAttribute attribute)
 		{
 			string tagNameInLowercase = tag.NameInLowercase;
 			IList<HtmlAttribute> attributes = tag.Attributes;
