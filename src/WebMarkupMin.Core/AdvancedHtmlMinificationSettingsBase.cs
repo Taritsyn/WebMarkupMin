@@ -112,6 +112,11 @@ namespace WebMarkupMin.Core
 		{
 			get
 			{
+				if (_preservableOptionalTags.Count == 0)
+				{
+					return string.Empty;
+				}
+
 				StringBuilder sb = StringBuilderPool.GetBuilder();
 
 				foreach (string optionalTag in _preservableOptionalTags)

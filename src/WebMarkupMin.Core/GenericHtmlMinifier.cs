@@ -75,7 +75,6 @@ namespace WebMarkupMin.Core
 		private static readonly Regex _metaContentTypeTagValueRegex =
 			new Regex(@"^(?:[a-zA-Z0-9-+./]+);\s*charset=(?<charset>[a-zA-Z0-9-]+)$", RegexOptions.IgnoreCase);
 		private static readonly Regex _html4AttributeValueNotRequireQuotesRegex = new Regex(@"^[a-zA-Z0-9-_:.]+$");
-		private static readonly Regex _html5AttributeValueNotRequireQuotesRegex = new Regex(@"^[^\s=""'`<>]+$");
 		private static readonly Regex _jsProtocolRegex = new Regex(@"^javascript:\s*", RegexOptions.IgnoreCase);
 		private static readonly Regex _separatingCommaWithSpacesRegex = new Regex(@"\s*,\s*");
 		private static readonly Regex _endingCommaWithSpacesRegex = new Regex(@"\s*,\s*$");
@@ -1372,8 +1371,11 @@ namespace WebMarkupMin.Core
 				|| (_settings.RemoveCssTypeAttributes && IsCssTypeAttribute(tag, attribute))
 				|| (useHtmlSyntax && CanRemoveXmlNamespaceAttribute(tag, attribute)))
 			{
-				attributeViewModel = HtmlAttributeViewModel.Empty;
-				return attributeViewModel;
+				if (CanRemoveAttribute(tag, attribute))
+				{
+					attributeViewModel = HtmlAttributeViewModel.Empty;
+					return attributeViewModel;
+				}
 			}
 
 			bool isCustomBooleanAttribute = !attributeHasValue && attributeType == HtmlAttributeType.Text;
@@ -1469,8 +1471,11 @@ namespace WebMarkupMin.Core
 
 				if (_settings.RemoveEmptyAttributes && CanRemoveEmptyAttribute(tag, attribute))
 				{
-					attributeViewModel = HtmlAttributeViewModel.Empty;
-					return attributeViewModel;
+					if (CanRemoveAttribute(tag, attribute))
+					{
+						attributeViewModel = HtmlAttributeViewModel.Empty;
+						return attributeViewModel;
+					}
 				}
 			}
 
@@ -1527,7 +1532,7 @@ namespace WebMarkupMin.Core
 					}
 					else if (attributeQuotesRemovalMode == HtmlAttributeQuotesRemovalMode.Html5)
 					{
-						result = _html5AttributeValueNotRequireQuotesRegex.IsMatch(attributeValue);
+						result = CommonRegExps.Html5AttributeValueNotRequireQuotes.IsMatch(attributeValue);
 					}
 				}
 			}
@@ -1832,6 +1837,44 @@ namespace WebMarkupMin.Core
 		private bool CanPreserveCase()
 		{
 			return _settings.PreserveCase || _currentTag.Flags.HasFlag(HtmlTagFlags.Xml);
+		}
+
+		/// <summary>
+		/// Checks whether remove an the attribute
+		/// </summary>
+		/// <param name="tag">Tag</param>
+		/// <param name="attribute">Attribute</param>
+		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
+		private bool CanRemoveAttribute(HtmlTag tag, HtmlAttribute attribute)
+		{
+			if (_settings.PreservableAttributeCollection.Count == 0)
+			{
+				return true;
+			}
+
+			string tagNameInLowercase = tag.NameInLowercase;
+			string attributeNameInLowercase = attribute.NameInLowercase;
+			string attributeValue = attribute.Value;
+
+			bool result = true;
+
+			foreach (HtmlAttributeExpression attributeExpression in _settings.PreservableAttributeCollection)
+			{
+				bool cannotRemove = attributeExpression.AttributeNameInLowercase == attributeNameInLowercase
+					&& (attributeExpression.TagNameInLowercase == null
+						|| attributeExpression.TagNameInLowercase == tagNameInLowercase)
+					&& (attributeExpression.AttributeValue == null
+						|| attributeExpression.AttributeValue.Equals(attributeValue,
+							attributeExpression.CaseInsensitive ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal))
+					;
+				if (cannotRemove)
+				{
+					result = false;
+					break;
+				}
+			}
+
+			return result;
 		}
 
 		/// <summary>

@@ -159,6 +159,9 @@
   <data name="DisplayName_MinifyKnockoutBindingExpressions" xml:space="preserve">
     <value>Minify Knockout binding expressions</value>
   </data>
+  <data name="DisplayName_PreservableAttributeList" xml:space="preserve">
+    <value>List of preservable attribute expressions</value>
+  </data>
   <data name="DisplayName_ProcessableScriptTypeList" xml:space="preserve">
     <value>List of processable script types</value>
   </data>

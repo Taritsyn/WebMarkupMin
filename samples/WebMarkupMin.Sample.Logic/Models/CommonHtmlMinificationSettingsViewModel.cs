@@ -79,6 +79,13 @@ namespace WebMarkupMin.Sample.Logic.Models
 			set;
 		}
 
+		[Display(Name = "DisplayName_PreservableAttributeList", ResourceType = typeof(CommonHtmlMinificationStrings))]
+		public string PreservableAttributeList
+		{
+			get;
+			set;
+		}
+
 		[Display(Name = "DisplayName_RemoveHttpProtocolFromAttributes", ResourceType = typeof(CommonHtmlMinificationStrings))]
 		public bool RemoveHttpProtocolFromAttributes
 		{

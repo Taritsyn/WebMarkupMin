@@ -75,7 +75,10 @@
 							@Html.DisplayNameFor(m => m.Settings.RemoveRedundantAttributes)
 						</label>
 					</div>
-
+					<div class="form-group">
+						<input asp-for="Settings.PreservableAttributeList" class="form-control"
+							placeholder="@CommonHtmlMinificationStrings.DisplayName_PreservableAttributeList" />
+					</div>
 					<div class="checkbox checkbox-unsafe">
 						<label asp-for="Settings.RemoveHttpProtocolFromAttributes">
 							<input asp-for="Settings.RemoveHttpProtocolFromAttributes" />

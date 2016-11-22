@@ -100,6 +100,9 @@
     <Compile Include="..\WebMarkupMin.Core\HtmlAttrbuteQuotesRemoveMode.cs">
       <Link>HtmlAttrbuteQuotesRemoveMode.cs</Link>
     </Compile>
+    <Compile Include="..\WebMarkupMin.Core\HtmlAttributeExpression.cs">
+      <Link>HtmlAttributeExpression.cs</Link>
+    </Compile>
     <Compile Include="..\WebMarkupMin.Core\HtmlEmptyTagRenderMode.cs">
       <Link>HtmlEmptyTagRenderMode.cs</Link>
     </Compile>

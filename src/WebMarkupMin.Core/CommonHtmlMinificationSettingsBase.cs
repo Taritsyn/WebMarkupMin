@@ -90,6 +90,120 @@ namespace WebMarkupMin.Core
 			set;
 		}
 
+		#region Preservable attributes
+
+		/// <summary>
+		/// Collection of attribute expressions, that define what attributes can not be removed
+		/// </summary>
+		private readonly List<HtmlAttributeExpression> _preservableAttributes;
+
+		/// <summary>
+		/// Gets a collection of attribute expressions, that define what attributes can not be removed
+		/// </summary>
+		public IList<HtmlAttributeExpression> PreservableAttributeCollection
+		{
+			get { return _preservableAttributes; }
+		}
+
+		/// <summary>
+		/// Sets a attribute expressions, that define what attributes can not be removed
+		/// </summary>
+		/// <param name="attributeExpressions">Collection of attribute expressions, that define what
+		/// attributes can not be removed</param>
+		public int SetPreservableAttributes(IEnumerable<HtmlAttributeExpression> attributeExpressions)
+		{
+			_preservableAttributes.Clear();
+
+			if (attributeExpressions != null)
+			{
+				foreach (HtmlAttributeExpression attributeExpression in attributeExpressions)
+				{
+					AddPreservableAttribute(attributeExpression);
+				}
+			}
+
+			return _preservableAttributes.Count;
+		}
+
+		/// <summary>
+		/// Adds a string representation of attribute expression, that define what attributes can not be
+		/// removed, to the list
+		/// </summary>
+		/// <param name="attributeExpressionString">String representation of attribute expression, that
+		/// define what attributes can not be removed</param>
+		/// <returns>true - valid expression; false - invalid expression</returns>
+		public bool AddPreservableAttribute(string attributeExpressionString)
+		{
+			HtmlAttributeExpression attributeExpression;
+
+			if (HtmlAttributeExpression.TryParse(attributeExpressionString, out attributeExpression))
+			{
+				AddPreservableAttribute(attributeExpression);
+				return true;
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// Adds a attribute expression, that define what attributes can not be removed, to the list
+		/// </summary>
+		/// <param name="attributeExpression">Attribute expression, that define what attributes can not be removed</param>
+		public void AddPreservableAttribute(HtmlAttributeExpression attributeExpression)
+		{
+			if (!_preservableAttributes.Contains(attributeExpression))
+			{
+				_preservableAttributes.Add(attributeExpression);
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets a comma-separated list of string representations of attribute expressions, that
+		/// define what attributes can not be removed, to the list
+		/// </summary>
+		public string PreservableAttributeList
+		{
+			get
+			{
+				if (_preservableAttributes.Count == 0)
+				{
+					return string.Empty;
+				}
+
+				StringBuilder sb = StringBuilderPool.GetBuilder();
+
+				foreach (HtmlAttributeExpression attributeExpression in _preservableAttributes)
+				{
+					if (sb.Length > 0)
+					{
+						sb.Append(",");
+					}
+					sb.Append(attributeExpression);
+				}
+
+				string preservableAttributeList = sb.ToString();
+				StringBuilderPool.ReleaseBuilder(sb);
+
+				return preservableAttributeList;
+			}
+			set
+			{
+				_preservableAttributes.Clear();
+
+				if (!string.IsNullOrWhiteSpace(value))
+				{
+					string[] attributeExpressions = value.Split(',');
+
+					foreach (string attributeExpression in attributeExpressions)
+					{
+						AddPreservableAttribute(attributeExpression);
+					}
+				}
+			}
+		}
+
+		#endregion
+
 		/// <summary>
 		/// Gets or sets a flag for whether to remove the HTTP protocol portion
 		/// (<code>http:</code>) from URI-based attributes
@@ -220,6 +334,11 @@ namespace WebMarkupMin.Core
 		{
 			get
 			{
+				if (_processableScriptTypes.Count == 0)
+				{
+					return string.Empty;
+				}
+
 				StringBuilder sb = StringBuilderPool.GetBuilder();
 
 				foreach (string scriptType in _processableScriptTypes)
@@ -337,6 +456,11 @@ namespace WebMarkupMin.Core
 		{
 			get
 			{
+				if (_customAngularDirectives.Count == 0)
+				{
+					return string.Empty;
+				}
+
 				StringBuilder sb = StringBuilderPool.GetBuilder();
 
 				foreach (string directiveName in _customAngularDirectives)
@@ -411,6 +535,9 @@ namespace WebMarkupMin.Core
 			RemoveHttpsProtocolFromAttributes = false;
 			MinifyKnockoutBindingExpressions = false;
 			MinifyAngularBindingExpressions = false;
+
+			// No default preservable attribute expressions
+			_preservableAttributes = new List<HtmlAttributeExpression>();
 
 			// No default custom Angular directives with expressions
 			_customAngularDirectives = new HashSet<string>();

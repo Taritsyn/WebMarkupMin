@@ -164,6 +164,14 @@ namespace WebMarkupMin.Core.Resources
 		}
 
 		/// <summary>
+		/// Looks up a localized string similar to "String representation of the HTML attribute expression have an incorrect format."
+		/// </summary>
+		public static string ErrorMessage_InvalidHtmlAttributeExpression
+		{
+			get { return GetString("ErrorMessage_InvalidHtmlAttributeExpression"); }
+		}
+
+		/// <summary>
 		/// Looks up a localized string similar to "During minification of {0}-code error has occurred: &quot;{1}&quot;."
 		/// </summary>
 		public static string ErrorMessage_MarkupMinificationFailed

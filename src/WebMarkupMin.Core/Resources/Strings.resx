@@ -156,6 +156,9 @@
   <data name="ErrorMessage_InvalidEndIfConditionalComment" xml:space="preserve">
     <value>Type of "End If conditional comment" does not match to the type of openened "If conditional comment".</value>
   </data>
+  <data name="ErrorMessage_InvalidHtmlAttributeExpression" xml:space="preserve">
+    <value>String representation of the HTML attribute expression have an incorrect format.</value>
+  </data>
   <data name="ErrorMessage_MarkupMinificationFailed" xml:space="preserve">
     <value>During minification of {0}-code error has occurred: "{1}".</value>
   </data>

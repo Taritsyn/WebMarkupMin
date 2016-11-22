@@ -27,26 +27,27 @@ namespace WebMarkupMin.Core.Parsers
 	internal sealed class HtmlParser
 	{
 		#region Regular expressions for parsing tags and attributes
-
-		private const string TAG_NAME_PATTERN = @"[a-zA-Z0-9][a-zA-Z0-9-_:]*";
-		private const string ATTR_NAME_PATTERN = @"[^\s""'<>/=]+";
-
 		private static readonly Regex _xmlDeclarationRegex = new Regex(@"^<\?xml\s*[^>]+?\s*\?>", RegexOptions.IgnoreCase);
-		private static readonly Regex _startTagRegex = new Regex(@"^<(?<tagName>" + TAG_NAME_PATTERN + ")" +
+		private static readonly Regex _startTagRegex = new Regex(@"^<(?<tagName>" + CommonRegExps.HtmlTagNamePattern + ")" +
 			"(?<attributes>" +
 				"(?:" +
 					"(?:" +
-						@"(?:\s+|(?<=[""'\s]))" + ATTR_NAME_PATTERN +
+						@"(?:\s+|(?<=[""'\s]))" + CommonRegExps.HtmlAttributeNamePattern +
 						@"(?:\s*=\s*(?:(?:""[^""]*?"")|(?:'[^']*?')|[^>""'\s]+)?)?" +
 					")" +
 					@"|(?:\s*(?<invalidCharacters>(?:[^/>\s][^>\s]*?)|(?:/[^>\s]*?(?!>))))" +
 				")*" +
 			")" +
 			@"\s*(?<emptyTagSlash>/)?>");
-		private static readonly Regex _endTagRegex = new Regex(@"^<\/(?<tagName>" + TAG_NAME_PATTERN + @")\s*>");
+		private static readonly Regex _endTagRegex = new Regex(@"^<\/(?<tagName>" + CommonRegExps.HtmlTagNamePattern + @")\s*>");
 		private static readonly Regex _attributeRegex =
-			new Regex(@"(?<attributeName>" + ATTR_NAME_PATTERN + @")(?:\s*(?<attributeEqualSign>=)\s*" +
-				@"(?:(?:""(?<attributeValue>[^""]*?)"")|(?:'(?<attributeValue>[^']*?)')|(?<attributeValue>[^>""'\s]+))?)?");
+			new Regex(@"(?<attributeName>" + CommonRegExps.HtmlAttributeNamePattern + @")(?:\s*(?<attributeEqualSign>=)\s*" +
+				@"(?:" +
+					@"(?:""(?<attributeValue>[^""]*?)"")" +
+					@"|(?:'(?<attributeValue>[^']*?)')" +
+					@"|(?<attributeValue>[^>""'\s]+)" +
+				@")?)?")
+				;
 
 		private static readonly Regex _hiddenIfCommentRegex =
 			new Regex(@"^<!--\[if\s+(?<expression>[^\]]+?)\]>", RegexOptions.IgnoreCase);

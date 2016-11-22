@@ -91,17 +91,17 @@
 							@Html.DisplayNameFor(m => m.Settings.CollapseBooleanAttributes)
 						</label>
 					</div>
-					<div class="checkbox">
-						<label asp-for="Settings.RemoveEmptyAttributes">
-							<input asp-for="Settings.RemoveEmptyAttributes" />
-							@Html.DisplayNameFor(m => m.Settings.RemoveEmptyAttributes)
-						</label>
-					</div>
 					<div class="form-group">
 						<select asp-for="Settings.AttributeQuotesRemovalMode"
 							asp-items="Model.Settings.AttributeQuotesRemovalModeList"
 							class="form-control">
 						</select>
+					</div>
+					<div class="checkbox">
+						<label asp-for="Settings.RemoveEmptyAttributes">
+							<input asp-for="Settings.RemoveEmptyAttributes" />
+							@Html.DisplayNameFor(m => m.Settings.RemoveEmptyAttributes)
+						</label>
 					</div>
 					<div class="checkbox checkbox-unsafe">
 						<label asp-for="Settings.RemoveRedundantAttributes">
@@ -120,6 +120,10 @@
 							<input asp-for="Settings.RemoveCssTypeAttributes" />
 							@Html.DisplayNameFor(m => m.Settings.RemoveCssTypeAttributes)
 						</label>
+					</div>
+					<div class="form-group">
+						<input asp-for="Settings.PreservableAttributeList" class="form-control"
+							placeholder="@CommonHtmlMinificationStrings.DisplayName_PreservableAttributeList" />
 					</div>
 					<div class="checkbox checkbox-unsafe">
 						<label asp-for="Settings.RemoveHttpProtocolFromAttributes">

@@ -62,12 +62,12 @@
 					<div class="checkbox">
 						@Html.CheckBoxWithLabelFor(m => m.Settings.CollapseBooleanAttributes)
 					</div>
-					<div class="checkbox">
-						@Html.CheckBoxWithLabelFor(m => m.Settings.RemoveEmptyAttributes)
-					</div>
 					<div class="form-group">
 						@(Html.DropDownListFor(m => m.Settings.AttributeQuotesRemovalMode,
 							Model.Settings.AttributeQuotesRemovalModeList, new { @class="form-control" }))
+					</div>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.RemoveEmptyAttributes)
 					</div>
 					<div class="checkbox checkbox-unsafe">
 						@Html.CheckBoxWithLabelFor(m => m.Settings.RemoveRedundantAttributes)
@@ -77,6 +77,10 @@
 					</div>
 					<div class="checkbox">
 						@Html.CheckBoxWithLabelFor(m => m.Settings.RemoveCssTypeAttributes)
+					</div>
+					<div class="form-group">
+						@(Html.TextBoxFor(m => m.Settings.PreservableAttributeList,
+							new { @class = "form-control", placeholder = CommonHtmlMinificationStrings.DisplayName_PreservableAttributeList }))
 					</div>
 					<div class="checkbox checkbox-unsafe">
 						@(Html.CheckBoxWithLabelFor(m => m.Settings.RemoveHttpProtocolFromAttributes))
