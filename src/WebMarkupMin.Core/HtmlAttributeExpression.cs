@@ -219,6 +219,36 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
+		/// Indicates whether the current attribute expression matches with the specified tag name,
+		/// attribute name and attribute value
+		/// </summary>
+		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
+		/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
+		/// <param name="attributeValue">Attribute value</param>
+		/// <returns>true if the attribute expression is match; otherwise, false</returns>
+		public bool IsMatch(string tagNameInLowercase, string attributeNameInLowercase,
+			string attributeValue)
+		{
+			if (attributeNameInLowercase == null)
+			{
+				throw new ArgumentNullException("attributeNameInLowercase");
+			}
+
+			if (string.IsNullOrWhiteSpace(attributeNameInLowercase))
+			{
+				throw new ArgumentException(Strings.Common_ValueIsEmpty, "attributeNameInLowercase");
+			}
+
+			bool result = _attributeNameInLowercase == attributeNameInLowercase
+				&& (_tagNameInLowercase == null || _tagNameInLowercase == tagNameInLowercase)
+				&& (_attributeValue == null || _attributeValue.Equals(attributeValue,
+					_caseInsensitive ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal))
+				;
+
+			return result;
+		}
+
+		/// <summary>
 		/// Gets a quotation mark for attribute value
 		/// </summary>
 		/// <param name="attributeValue">Attribute value</param>

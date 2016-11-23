@@ -1860,13 +1860,8 @@ namespace WebMarkupMin.Core
 
 			foreach (HtmlAttributeExpression attributeExpression in _settings.PreservableAttributeCollection)
 			{
-				bool cannotRemove = attributeExpression.AttributeNameInLowercase == attributeNameInLowercase
-					&& (attributeExpression.TagNameInLowercase == null
-						|| attributeExpression.TagNameInLowercase == tagNameInLowercase)
-					&& (attributeExpression.AttributeValue == null
-						|| attributeExpression.AttributeValue.Equals(attributeValue,
-							attributeExpression.CaseInsensitive ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal))
-					;
+				bool cannotRemove = attributeExpression.IsMatch(tagNameInLowercase, attributeNameInLowercase,
+					attributeValue);
 				if (cannotRemove)
 				{
 					result = false;
