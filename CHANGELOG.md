@@ -1,6 +1,10 @@
 Change log
 ==========
 
+## November 23, 2016 - v2.2.3
+ * All exceptions made serializable
+ * Fixed a [error #21](https://github.com/Taritsyn/WebMarkupMin/issues/21) “Remove redundant attributes, except input”
+
 ## November 11, 2016 - v2.2.2
  * Fixed a [error #18](https://github.com/Taritsyn/WebMarkupMin/issues/18) “Why is SavedGzipInBytes a decimal?”
  * Fixed a [error #20](https://github.com/Taritsyn/WebMarkupMin/issues/20) “Adding WebMarkupMin with a ServiceStack .Net Core enabled project fails”

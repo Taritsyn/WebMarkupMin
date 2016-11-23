@@ -159,7 +159,7 @@ namespace WebMarkupMin.Core
 
 		/// <summary>
 		/// Gets or sets a comma-separated list of string representations of attribute expressions, that
-		/// define what attributes can not be removed, to the list
+		/// define what attributes can not be removed
 		/// </summary>
 		public string PreservableAttributeList
 		{

@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                   README file for Web Markup Minifier: Core v2.2.2
+                   README file for Web Markup Minifier: Core v2.2.3
 
    --------------------------------------------------------------------------------
 
@@ -46,7 +46,8 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a error #18 “Why is SavedGzipInBytes a decimal?”.
+   1. All exceptions made serializable;
+   2. Fixed a error #21 “Remove redundant attributes, except input”.
 
    =============
    DOCUMENTATION
