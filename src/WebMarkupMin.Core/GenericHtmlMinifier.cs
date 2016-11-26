@@ -324,7 +324,8 @@ namespace WebMarkupMin.Core
 				EndTag = EndTagHandler,
 				Text = TextHandler,
 				EmbeddedCode = EmbeddedCodeHandler,
-				TemplateTag = TemplateTagHandler
+				TemplateTag = TemplateTagHandler,
+				IgnoredFragment = IgnoredFragmentHandler
 			});
 
 			_buffer = new List<string>();
@@ -477,7 +478,7 @@ namespace WebMarkupMin.Core
 						}
 					}
 				}
-				catch (HtmlParsingException e)
+				catch (MarkupParsingException e)
 				{
 					WriteError(LogCategoryConstants.HtmlParsingError, e.Message, _fileContext,
 						e.LineNumber, e.ColumnNumber, e.SourceFragment);
@@ -1178,6 +1179,21 @@ namespace WebMarkupMin.Core
 			_buffer.Add(startDelimiter);
 			_buffer.Add(processedExpression);
 			_buffer.Add(endDelimiter);
+		}
+
+		/// <summary>
+		/// Ignored fragments handler
+		/// </summary>
+		/// <param name="context">Markup parsing context</param>
+		/// <param name="fragment">Ignored fragment</param>
+		private void IgnoredFragmentHandler(MarkupParsingContext context, string fragment)
+		{
+			_currentNodeType = HtmlNodeType.IgnoredFragment;
+
+			if (fragment.Length > 0)
+			{
+				_buffer.Add(fragment);
+			}
 		}
 
 		#endregion

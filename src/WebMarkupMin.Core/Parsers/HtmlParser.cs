@@ -24,9 +24,10 @@ namespace WebMarkupMin.Core.Parsers
 	/// <summary>
 	/// HTML parser
 	/// </summary>
-	internal sealed class HtmlParser
+	internal sealed class HtmlParser : MarkupParserBase
 	{
 		#region Regular expressions for parsing tags and attributes
+
 		private static readonly Regex _xmlDeclarationRegex = new Regex(@"^<\?xml\s*[^>]+?\s*\?>", RegexOptions.IgnoreCase);
 		private static readonly Regex _startTagRegex = new Regex(@"^<(?<tagName>" + CommonRegExps.HtmlTagNamePattern + ")" +
 			"(?<attributes>" +
@@ -59,17 +60,8 @@ namespace WebMarkupMin.Core.Parsers
 			new Regex(@"^<!--\[if\s+(?<expression>[^\]]+?)(?:\]>\s*(?<ltAndPling><!)?\s*-->)", RegexOptions.IgnoreCase);
 		private static readonly Regex _revealedValidatingEndIfCommentRegex =
 			new Regex(@"^<!--\s*<!\[endif\s*\]-->", RegexOptions.IgnoreCase);
+
 		#endregion
-
-		/// <summary>
-		/// Inner markup parsing context
-		/// </summary>
-		private InnerMarkupParsingContext _innerContext;
-
-		/// <summary>
-		/// Markup parsing context
-		/// </summary>
-		private MarkupParsingContext _context;
 
 		/// <summary>
 		/// HTML parsing handlers
@@ -112,9 +104,12 @@ namespace WebMarkupMin.Core.Parsers
 		private readonly Stack<string> _xmlTagStack;
 
 		/// <summary>
-		/// Synchronizer of parsing
+		/// Gets a common markup parsing handlers
 		/// </summary>
-		private readonly object _parsingSynchronizer = new object();
+		protected override MarkupParsingHandlersBase CommonHandlers
+		{
+			get { return _handlers; }
+		}
 
 
 		/// <summary>
@@ -302,7 +297,7 @@ namespace WebMarkupMin.Core.Parsers
 
 						if (_innerContext.Position == previousPosition)
 						{
-							throw new HtmlParsingException(
+							throw new MarkupParsingException(
 								string.Format(Strings.ErrorMessage_MarkupParsingFailed, "HTML"),
 								_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 						}
@@ -316,12 +311,12 @@ namespace WebMarkupMin.Core.Parsers
 					// Check whether there were not closed conditional comment
 					if (_conditionalCommentStack.Count > 0)
 					{
-						throw new HtmlParsingException(
+						throw new MarkupParsingException(
 							Strings.ErrorMessage_NotClosedConditionalComment,
 							_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 					}
 				}
-				catch (HtmlParsingException)
+				catch (MarkupParsingException)
 				{
 					throw;
 				}
@@ -362,63 +357,6 @@ namespace WebMarkupMin.Core.Parsers
 				}
 
 				_innerContext.IncreasePosition(xmlDeclaration.Length);
-				isProcessed = true;
-			}
-
-			return isProcessed;
-		}
-
-		/// <summary>
-		/// Process a doctype declaration
-		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
-		private bool ProcessDoctype()
-		{
-			bool isProcessed = false;
-			string content = _innerContext.SourceCode;
-			int contentRemainderLength = _innerContext.RemainderLength;
-
-			var match = CommonRegExps.Doctype.Match(content, _innerContext.Position, contentRemainderLength);
-			if (match.Success)
-			{
-				string doctype = match.Value;
-
-				if (_handlers.Doctype != null)
-				{
-					_handlers.Doctype(_context, doctype);
-				}
-
-				_innerContext.IncreasePosition(doctype.Length);
-				isProcessed = true;
-			}
-
-			return isProcessed;
-		}
-
-		/// <summary>
-		/// Process a HTML comments
-		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
-		private bool ProcessComment()
-		{
-			bool isProcessed = false;
-			string content = _innerContext.SourceCode;
-
-			int commentStartPosition = _innerContext.Position;
-			int commentEndPosition = content.IndexOf("-->", commentStartPosition, StringComparison.Ordinal);
-			int commentPositionDifference = commentEndPosition - commentStartPosition;
-
-			if (commentPositionDifference >= 4)
-			{
-				string commentText = commentPositionDifference > 4 ?
-					content.Substring(commentStartPosition + 4, commentPositionDifference - 4) : string.Empty;
-
-				if (_handlers.Comment != null)
-				{
-					_handlers.Comment(_context, commentText);
-				}
-
-				_innerContext.IncreasePosition(commentEndPosition + 3 - commentStartPosition);
 				isProcessed = true;
 			}
 
@@ -616,7 +554,7 @@ namespace WebMarkupMin.Core.Parsers
 
 					_innerContext.IncreasePosition(invalidCharactersOffset);
 
-					throw new HtmlParsingException(
+					throw new MarkupParsingException(
 						string.Format(Strings.ErrorMessage_InvalidCharactersInStartTag, startTagName),
 						_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 				}
@@ -788,7 +726,7 @@ namespace WebMarkupMin.Core.Parsers
 		{
 			if (_conditionalCommentStack.Count > 0)
 			{
-				throw new HtmlParsingException(
+				throw new MarkupParsingException(
 					Strings.ErrorMessage_NotClosedConditionalComment,
 					_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 			}
@@ -826,7 +764,7 @@ namespace WebMarkupMin.Core.Parsers
 					}
 					else
 					{
-						throw new HtmlParsingException(
+						throw new MarkupParsingException(
 							Strings.ErrorMessage_InvalidEndIfConditionalComment,
 							_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 					}
@@ -837,7 +775,7 @@ namespace WebMarkupMin.Core.Parsers
 					if (stackedType != HtmlConditionalCommentType.RevealedValidating
 						&& stackedType != HtmlConditionalCommentType.RevealedValidatingSimplified)
 					{
-						throw new HtmlParsingException(
+						throw new MarkupParsingException(
 							Strings.ErrorMessage_InvalidEndIfConditionalComment,
 							_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 					}
@@ -845,7 +783,7 @@ namespace WebMarkupMin.Core.Parsers
 			}
 			else
 			{
-				throw new HtmlParsingException(
+				throw new MarkupParsingException(
 					Strings.ErrorMessage_IfConditionalCommentNotDeclared,
 					_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 			}

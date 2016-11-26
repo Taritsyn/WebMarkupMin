@@ -63,6 +63,113 @@ namespace WebMarkupMin.Core.Test.Html
 
 		#endregion
 
+		#region Ignoring fragments of markup
+
+		[Fact]
+		public void IgnoringFragmentsOfMarkupIsCorrect()
+		{
+			// Arrange
+			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true)
+			{
+				WhitespaceMinificationMode = WhitespaceMinificationMode.Medium
+			});
+
+			const string input1 = "<!--wmm:ignore--><div class=\"class01\" style=\"color: firebrick\">\n" +
+				"   Some  text...   <span> <input readonly/>  and some text... </span>\n\n" +
+				"   </div><!--/wmm:ignore-->\n" +
+				"<div class=\"class01\" style=\"color: firebrick\">\n" +
+				"   Some text...   <span> <input readonly/>  and some text... </span>\n\n" +
+				"   </div>"
+				;
+			const string targetOutput1 = "<div class=\"class01\" style=\"color: firebrick\">\n" +
+				"   Some  text...   <span> <input readonly/>  and some text... </span>\n\n" +
+				"   </div>" +
+				"<div class=\"class01\" style=\"color: firebrick\">" +
+				"Some text... <span> <input readonly=\"readonly\"> and some text... </span></div>"
+				;
+
+			const string input2 = "<!--wmm:ignore-->\n" +
+				"<div class=\"mermaid\">sequenceDiagram\n\n" +
+				"Participant Subscriber1 As Subscriber1\n" +
+				"Participant Subscriber2 As Subscriber2\n" +
+				"Subscriber1 ->> Publisher: Subscribe to Message1\n" +
+				"Publisher ->> Persistence: Store \"Subscriber1 wants Message1\"\n" +
+				"Subscriber2 ->> Publisher: Subscribe to Message1\n" +
+				"Publisher ->> Persistence: Store \"Subscriber2 wants Message1\"\n" +
+				"</div>\n" +
+				"<!--/wmm:ignore-->"
+				;
+			const string targetOutput2 = "\n" +
+				"<div class=\"mermaid\">sequenceDiagram\n\n" +
+				"Participant Subscriber1 As Subscriber1\n" +
+				"Participant Subscriber2 As Subscriber2\n" +
+				"Subscriber1 ->> Publisher: Subscribe to Message1\n" +
+				"Publisher ->> Persistence: Store \"Subscriber1 wants Message1\"\n" +
+				"Subscriber2 ->> Publisher: Subscribe to Message1\n" +
+				"Publisher ->> Persistence: Store \"Subscriber2 wants Message1\"\n" +
+				"</div>\n"
+				;
+
+			const string input3 = "x\n<!--wmm:ignore-->y<!--/wmm:ignore-->";
+			const string targetOutput3 = "x y";
+
+			const string input4 = "<p>Hello <!--wmm:ignore--><span>\n\tworld!\n</span><!--/wmm:ignore-->.</p>";
+			const string targetOutput4 = "<p>Hello <span>\n\tworld!\n</span>.</p>";
+
+			const string input5 = "<!--wmm:ignore--><!--/wmm:ignore-->";
+			const string targetOutput5 = "";
+
+			const string input6 = "<!--wmm:ignore-->";
+
+			const string input7 = "<p>Some text...</p>\n\n" +
+				"    <!--wmm:ignore--><p>Any other text...</p>\n" +
+				"<p>And some text...</p>"
+				;
+
+			const string input8 = "<!--/wmm:ignore-->";
+
+			const string input9 = "<p>Some text...</p>\n" +
+				"  <!--/wmm:ignore--><p>Any other text...</p>\n" +
+				"<p>And some text...</p>"
+				;
+
+			// Act
+			string output1 = minifier.Minify(input1).MinifiedContent;
+			string output2 = minifier.Minify(input2).MinifiedContent;
+			string output3 = minifier.Minify(input3).MinifiedContent;
+			string output4 = minifier.Minify(input4).MinifiedContent;
+			string output5 = minifier.Minify(input5).MinifiedContent;
+			IList<MinificationErrorInfo> errors6 = minifier.Minify(input6).Errors;
+			IList<MinificationErrorInfo> errors7 = minifier.Minify(input7).Errors;
+			IList<MinificationErrorInfo> errors8 = minifier.Minify(input8).Errors;
+			IList<MinificationErrorInfo> errors9 = minifier.Minify(input9).Errors;
+
+			// Assert
+			Assert.Equal(targetOutput1, output1);
+			Assert.Equal(targetOutput2, output2);
+			Assert.Equal(targetOutput3, output3);
+			Assert.Equal(targetOutput4, output4);
+			Assert.Equal(targetOutput5, output5);
+
+			Assert.Equal(1, errors6.Count);
+			Assert.Equal(1, errors6[0].LineNumber);
+			Assert.Equal(1, errors6[0].ColumnNumber);
+
+			Assert.Equal(1, errors7.Count);
+			Assert.Equal(3, errors7[0].LineNumber);
+			Assert.Equal(5, errors7[0].ColumnNumber);
+
+			Assert.Equal(1, errors8.Count);
+			Assert.Equal(1, errors8[0].LineNumber);
+			Assert.Equal(1, errors8[0].ColumnNumber);
+
+			Assert.Equal(1, errors9.Count);
+			Assert.Equal(2, errors9[0].LineNumber);
+			Assert.Equal(3, errors9[0].ColumnNumber);
+		}
+
+		#endregion
+
 		#region Encoding attribute values
 
 		[Fact]
@@ -2024,6 +2131,10 @@ namespace WebMarkupMin.Core.Test.Html
 				"</div>"
 			;
 
+			const string input8 = "<!--wmm:ignore-->Some text...<!--/wmm:ignore-->";
+			const string targetOutput8A = "Some text...";
+			const string targetOutput8B = targetOutput8A;
+
 			// Act
 			string output1A = keepingHtmlCommentsMinifier.Minify(input1).MinifiedContent;
 			string output1B = removingHtmlCommentsMinifier.Minify(input1).MinifiedContent;
@@ -2046,6 +2157,9 @@ namespace WebMarkupMin.Core.Test.Html
 			string output7A = keepingHtmlCommentsMinifier.Minify(input7).MinifiedContent;
 			string output7B = removingHtmlCommentsMinifier.Minify(input7).MinifiedContent;
 
+			string output8A = keepingHtmlCommentsMinifier.Minify(input8).MinifiedContent;
+			string output8B = removingHtmlCommentsMinifier.Minify(input8).MinifiedContent;
+
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
@@ -2067,6 +2181,9 @@ namespace WebMarkupMin.Core.Test.Html
 
 			Assert.Equal(targetOutput7A, output7A);
 			Assert.Equal(targetOutput7B, output7B);
+
+			Assert.Equal(targetOutput8A, output8A);
+			Assert.Equal(targetOutput8B, output8B);
 		}
 
 		[Fact]

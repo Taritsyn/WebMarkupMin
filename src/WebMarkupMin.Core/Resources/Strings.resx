@@ -168,8 +168,14 @@
   <data name="ErrorMessage_NotClosedConditionalComment" xml:space="preserve">
     <value>Remain not closed conditional comment.</value>
   </data>
+  <data name="ErrorMessage_NotClosedIgnoringCommentTag" xml:space="preserve">
+    <value>Remain not closed the ignoring comment tag.</value>
+  </data>
   <data name="ErrorMessage_NotClosedTag" xml:space="preserve">
     <value>Tag &lt;{0}&gt; was not closed.</value>
+  </data>
+  <data name="ErrorMessage_StartIgnoringCommentTagNotDeclared" xml:space="preserve">
+    <value>It is impossible to parse a end ignoring comment tag, because not declared the start ignoring comment tag.</value>
   </data>
   <data name="ErrorMessage_StartTagNotDeclared" xml:space="preserve">
     <value>It is impossible to render a end tag &lt;/{0}&gt;, because  start tag &lt;{0}&gt; not declared.</value>

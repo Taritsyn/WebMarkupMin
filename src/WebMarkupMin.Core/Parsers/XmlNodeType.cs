@@ -14,6 +14,7 @@
 		StartTag,
 		EndTag,
 		EmptyTag,
-		Text
+		Text,
+		IgnoredFragment
 	}
 }

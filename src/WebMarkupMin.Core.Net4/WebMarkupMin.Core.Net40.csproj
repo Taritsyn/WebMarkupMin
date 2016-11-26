@@ -178,6 +178,9 @@
     <Compile Include="..\WebMarkupMin.Core\NullJsMinifierFactory.cs">
       <Link>NullJsMinifierFactory.cs</Link>
     </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\CommonRegExps.cs">
+      <Link>Parsers\CommonRegExps.cs</Link>
+    </Compile>
     <Compile Include="..\WebMarkupMin.Core\Parsers\HtmlAttribute.cs">
       <Link>Parsers\HtmlAttribute.cs</Link>
     </Compile>
@@ -199,9 +202,6 @@
     <Compile Include="..\WebMarkupMin.Core\Parsers\HtmlParser.cs">
       <Link>Parsers\HtmlParser.cs</Link>
     </Compile>
-    <Compile Include="..\WebMarkupMin.Core\Parsers\HtmlParsingException.cs">
-      <Link>Parsers\HtmlParsingException.cs</Link>
-    </Compile>
     <Compile Include="..\WebMarkupMin.Core\Parsers\HtmlParsingHandlers.cs">
       <Link>Parsers\HtmlParsingHandlers.cs</Link>
     </Compile>
@@ -214,8 +214,17 @@
     <Compile Include="..\WebMarkupMin.Core\Parsers\InnerMarkupParsingContext.cs">
       <Link>Parsers\InnerMarkupParsingContext.cs</Link>
     </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\MarkupParserBase.cs">
+      <Link>Parsers\MarkupParserBase.cs</Link>
+    </Compile>
     <Compile Include="..\WebMarkupMin.Core\Parsers\MarkupParsingContext.cs">
       <Link>Parsers\MarkupParsingContext.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\MarkupParsingException.cs">
+      <Link>Parsers\MarkupParsingException.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.Core\Parsers\MarkupParsingHandlersBase.cs">
+      <Link>Parsers\MarkupParsingHandlersBase.cs</Link>
     </Compile>
     <Compile Include="..\WebMarkupMin.Core\Parsers\XmlAttribute.cs">
       <Link>Parsers\XmlAttribute.cs</Link>
@@ -226,14 +235,8 @@
     <Compile Include="..\WebMarkupMin.Core\Parsers\XmlParser.cs">
       <Link>Parsers\XmlParser.cs</Link>
     </Compile>
-    <Compile Include="..\WebMarkupMin.Core\Parsers\XmlParsingException.cs">
-      <Link>Parsers\XmlParsingException.cs</Link>
-    </Compile>
     <Compile Include="..\WebMarkupMin.Core\Parsers\XmlParsingHandlers.cs">
       <Link>Parsers\XmlParsingHandlers.cs</Link>
-    </Compile>
-    <Compile Include="..\WebMarkupMin.Core\Parsers\СommonRegExps.cs">
-      <Link>Parsers\СommonRegExps.cs</Link>
     </Compile>
     <Compile Include="..\WebMarkupMin.Core\Properties\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>

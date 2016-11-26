@@ -5,7 +5,7 @@ namespace WebMarkupMin.Core.Parsers
 	/// <summary>
 	/// XML parsing handlers
 	/// </summary>
-	internal sealed class XmlParsingHandlers
+	internal sealed class XmlParsingHandlers : MarkupParsingHandlersBase
 	{
 		/// <summary>
 		/// XML declaration handler
@@ -20,24 +20,6 @@ namespace WebMarkupMin.Core.Parsers
 		/// Processing instruction handler
 		/// </summary>
 		public ProcessingInstructionDelegate ProcessingInstruction
-		{
-			get;
-			set;
-		}
-
-		/// <summary>
-		/// Document type declaration handler
-		/// </summary>
-		public DoctypeDelegate Doctype
-		{
-			get;
-			set;
-		}
-
-		/// <summary>
-		/// Comments handler
-		/// </summary>
-		public CommentDelegate Comment
 		{
 			get;
 			set;
@@ -79,15 +61,6 @@ namespace WebMarkupMin.Core.Parsers
 			set;
 		}
 
-		/// <summary>
-		/// Text handler
-		/// </summary>
-		public TextDelegate Text
-		{
-			get;
-			set;
-		}
-
 
 		/// <summary>
 		/// XML declaration delegate
@@ -104,20 +77,6 @@ namespace WebMarkupMin.Core.Parsers
 		/// <param name="attributes">List of attributes</param>
 		public delegate void ProcessingInstructionDelegate(MarkupParsingContext context, string instructionName,
 			IList<XmlAttribute> attributes);
-
-		/// <summary>
-		/// Document type declaration delegate
-		/// </summary>
-		/// <param name="context">Markup parsing context</param>
-		/// <param name="doctype">Document type declaration</param>
-		public delegate void DoctypeDelegate(MarkupParsingContext context, string doctype);
-
-		/// <summary>
-		/// Comments delegate
-		/// </summary>
-		/// <param name="context">Markup parsing context</param>
-		/// <param name="comment">Comment text</param>
-		public delegate void CommentDelegate(MarkupParsingContext context, string comment);
 
 		/// <summary>
 		/// CDATA sections delegate
@@ -150,12 +109,5 @@ namespace WebMarkupMin.Core.Parsers
 		/// <param name="attributes">List of attributes</param>
 		public delegate void EmptyTagDelegate(MarkupParsingContext context, string tagName,
 			IList<XmlAttribute> attributes);
-
-		/// <summary>
-		/// Text delegate
-		/// </summary>
-		/// <param name="context">Markup parsing context</param>
-		/// <param name="text">Text</param>
-		public delegate void TextDelegate(MarkupParsingContext context, string text);
 	}
 }

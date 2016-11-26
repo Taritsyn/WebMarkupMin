@@ -11,7 +11,7 @@ namespace WebMarkupMin.Core.Parsers
 	/// <summary>
 	/// XML parser
 	/// </summary>
-	internal sealed class XmlParser
+	internal sealed class XmlParser : MarkupParserBase
 	{
 		#region Regular expressions for parsing tags and attributes
 
@@ -33,16 +33,6 @@ namespace WebMarkupMin.Core.Parsers
 		#endregion
 
 		/// <summary>
-		/// Inner markup parsing context
-		/// </summary>
-		private InnerMarkupParsingContext _innerContext;
-
-		/// <summary>
-		/// Markup parsing context
-		/// </summary>
-		private MarkupParsingContext _context;
-
-		/// <summary>
 		/// XML parsing handlers
 		/// </summary>
 		private readonly XmlParsingHandlers _handlers;
@@ -53,9 +43,12 @@ namespace WebMarkupMin.Core.Parsers
 		private readonly Stack<StackedXmlTag> _tagStack;
 
 		/// <summary>
-		/// Synchronizer of parsing
+		/// Gets a common markup parsing handlers
 		/// </summary>
-		private readonly object _parsingSynchronizer = new object();
+		protected override MarkupParsingHandlersBase CommonHandlers
+		{
+			get { return _handlers; }
+		}
 
 
 		/// <summary>
@@ -133,8 +126,16 @@ namespace WebMarkupMin.Core.Parsers
 												switch (thirdCharValue)
 												{
 													case '-':
-														// XML comments
-														isProcessed = ProcessComment();
+														int fourthCharPosition = thirdCharPosition + 1;
+														char fourthCharValue;
+														bool fourthCharExist = content.TryGetChar(
+															fourthCharPosition, out fourthCharValue);
+
+														if (fourthCharExist && fourthCharValue == '-')
+														{
+															// XML comments
+															isProcessed = ProcessComment();
+														}
 														break;
 
 													case '[':
@@ -168,7 +169,7 @@ namespace WebMarkupMin.Core.Parsers
 
 						if (_innerContext.Position == previousPosition)
 						{
-							throw new XmlParsingException(
+							throw new MarkupParsingException(
 								string.Format(Strings.ErrorMessage_MarkupParsingFailed, "XML"),
 								_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 						}
@@ -181,13 +182,13 @@ namespace WebMarkupMin.Core.Parsers
 					{
 						StackedXmlTag stackedTag = _tagStack.Pop();
 
-						throw new XmlParsingException(
+						throw new MarkupParsingException(
 							string.Format(Strings.ErrorMessage_NotClosedTag, stackedTag.Name),
 							stackedTag.Coordinates,
 							SourceCodeNavigator.GetSourceFragment(_innerContext.SourceCode, stackedTag.Coordinates));
 					}
 				}
-				catch (XmlParsingException)
+				catch (MarkupParsingException)
 				{
 					throw;
 				}
@@ -240,66 +241,6 @@ namespace WebMarkupMin.Core.Parsers
 
 				_innerContext.IncreasePosition(instruction.Length);
 				isProcessed = true;
-			}
-
-			return isProcessed;
-		}
-
-		/// <summary>
-		/// Process a doctype declaration
-		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
-		private bool ProcessDoctype()
-		{
-			bool isProcessed = false;
-			string content = _innerContext.SourceCode;
-			int contentRemainderLength = _innerContext.RemainderLength;
-
-			var match = CommonRegExps.Doctype.Match(content, _innerContext.Position, contentRemainderLength);
-			if (match.Success)
-			{
-				string doctype = match.Value;
-
-				if (_handlers.Doctype != null)
-				{
-					_handlers.Doctype(_context, doctype);
-				}
-
-				_innerContext.IncreasePosition(doctype.Length);
-				isProcessed = true;
-			}
-
-			return isProcessed;
-		}
-
-		/// <summary>
-		/// Process a XML comments
-		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
-		private bool ProcessComment()
-		{
-			bool isProcessed = false;
-			string content = _innerContext.SourceCode;
-
-			if (content.CustomStartsWith("<!--", _innerContext.Position, StringComparison.Ordinal))
-			{
-				int commentStartPosition = _innerContext.Position;
-				int commentEndPosition = content.IndexOf("-->", commentStartPosition, StringComparison.Ordinal);
-				int commentPositionDifference = commentEndPosition - commentStartPosition;
-
-				if (commentPositionDifference >= 4)
-				{
-					string commentText = commentPositionDifference > 4 ?
-						content.Substring(commentStartPosition + 4, commentPositionDifference - 4) : string.Empty;
-
-					if (_handlers.Comment != null)
-					{
-						_handlers.Comment(_context, commentText);
-					}
-
-					_innerContext.IncreasePosition(commentEndPosition + 3 - commentStartPosition);
-					isProcessed = true;
-				}
 			}
 
 			return isProcessed;
@@ -400,7 +341,7 @@ namespace WebMarkupMin.Core.Parsers
 
 				if (_tagStack.Count == 0)
 				{
-					throw new XmlParsingException(
+					throw new MarkupParsingException(
 						string.Format(Strings.ErrorMessage_StartTagNotDeclared, endTagName),
 						_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 				}
@@ -410,13 +351,13 @@ namespace WebMarkupMin.Core.Parsers
 				{
 					if (_tagStack.Any(t => t.Name == endTagName))
 					{
-						throw new XmlParsingException(
+						throw new MarkupParsingException(
 							string.Format(Strings.ErrorMessage_NotClosedTag, stackedTag.Name),
 							stackedTag.Coordinates,
 							SourceCodeNavigator.GetSourceFragment(_innerContext.SourceCode, stackedTag.Coordinates));
 					}
 
-					throw new XmlParsingException(
+					throw new MarkupParsingException(
 						string.Format(Strings.ErrorMessage_StartTagNotDeclared, endTagName),
 						_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 				}

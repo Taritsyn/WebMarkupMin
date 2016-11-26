@@ -85,6 +85,11 @@ namespace WebMarkupMin.Core
 		private bool _emptyTagBeforeText;
 
 		/// <summary>
+		/// Flag indicating, that before the text node was located the ignored fragment
+		/// </summary>
+		private bool _ignoredFragmentBeforeText;
+
+		/// <summary>
 		/// List of the errors
 		/// </summary>
 		private readonly IList<MinificationErrorInfo> _errors;
@@ -114,7 +119,8 @@ namespace WebMarkupMin.Core
 				StartTag = StartTagHandler,
 				EndTag = EndTagHandler,
 				EmptyTag = EmptyTagHandler,
-				Text = TextHandler
+				Text = TextHandler,
+				IgnoredFragment = IgnoredFragmentHandler
 			});
 
 			_buffer = new List<string>();
@@ -210,7 +216,7 @@ namespace WebMarkupMin.Core
 						}
 					}
 				}
-				catch (XmlParsingException e)
+				catch (MarkupParsingException e)
 				{
 					WriteError(LogCategoryConstants.XmlParsingError, e.Message, fileContext,
 						e.LineNumber, e.ColumnNumber, e.SourceFragment);
@@ -344,7 +350,8 @@ namespace WebMarkupMin.Core
 
 			if (_settings.MinifyWhitespace && previousNodeType == XmlNodeType.Text
 				&& (_startTagBeforeText || _endTagBeforeText || _emptyTagBeforeText
-					|| _xmlDeclarationBeforeText || _processingInstructionBeforeText || _doctypeBeforeText))
+					|| _ignoredFragmentBeforeText || _xmlDeclarationBeforeText
+					|| _processingInstructionBeforeText || _doctypeBeforeText))
 			{
 				RemoveLastWhitespaceBufferItems();
 			}
@@ -443,6 +450,7 @@ namespace WebMarkupMin.Core
 			_startTagBeforeText = false;
 			_endTagBeforeText = false;
 			_emptyTagBeforeText = false;
+			_ignoredFragmentBeforeText = false;
 
 			switch (previousNodeType)
 			{
@@ -454,6 +462,9 @@ namespace WebMarkupMin.Core
 					break;
 				case XmlNodeType.EmptyTag:
 					_emptyTagBeforeText = true;
+					break;
+				case XmlNodeType.IgnoredFragment:
+					_ignoredFragmentBeforeText = true;
 					break;
 				case XmlNodeType.XmlDeclaration:
 					_xmlDeclarationBeforeText = true;
@@ -495,6 +506,26 @@ namespace WebMarkupMin.Core
 			if (text.Length > 0)
 			{
 				_buffer.Add(text);
+			}
+		}
+
+		/// <summary>
+		/// Ignored fragments handler
+		/// </summary>
+		/// <param name="context">Markup parsing context</param>
+		/// <param name="fragment">Ignored fragment</param>
+		private void IgnoredFragmentHandler(MarkupParsingContext context, string fragment)
+		{
+			_currentNodeType = XmlNodeType.IgnoredFragment;
+
+			if (_settings.MinifyWhitespace)
+			{
+				RemoveLastWhitespaceBufferItems();
+			}
+
+			if (fragment.Length > 0)
+			{
+				_buffer.Add(fragment);
 			}
 		}
 

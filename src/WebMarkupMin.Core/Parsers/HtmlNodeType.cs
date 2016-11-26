@@ -15,6 +15,7 @@
 		EndTag,
 		Text,
 		EmbeddedCode,
-		TemplateTag
+		TemplateTag,
+		IgnoredFragment
 	}
 }

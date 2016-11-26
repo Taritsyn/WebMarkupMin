@@ -196,11 +196,27 @@ namespace WebMarkupMin.Core.Resources
 		}
 
 		/// <summary>
+		/// Looks up a localized string similar to "Remain not closed the ignoring comment tag."
+		/// </summary>
+		public static string ErrorMessage_NotClosedIgnoringCommentTag
+		{
+			get { return GetString("ErrorMessage_NotClosedIgnoringCommentTag"); }
+		}
+
+		/// <summary>
 		/// Looks up a localized string similar to "Tag &lt;{0}&gt; was not closed."
 		/// </summary>
 		public static string ErrorMessage_NotClosedTag
 		{
 			get { return GetString("ErrorMessage_NotClosedTag"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "It is impossible to parse a end ignoring comment tag, because not declared the start ignoring..."
+		/// </summary>
+		public static string ErrorMessage_StartIgnoringCommentTagNotDeclared
+		{
+			get { return GetString("ErrorMessage_StartIgnoringCommentTagNotDeclared"); }
 		}
 
 		/// <summary>
