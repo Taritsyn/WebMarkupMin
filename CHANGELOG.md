@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## November 26, 2016 - v2.2.4
+ * Added the ability to ignore fragments of markup by using the ignoring comment tags (`<!--wmm:ignore--><!--/wmm:ignore-->`)
+
 ## November 23, 2016 - v2.2.3
  * All exceptions made serializable
  * Fixed a [error #21](https://github.com/Taritsyn/WebMarkupMin/issues/21) “Remove redundant attributes, except input”

@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                   README file for Web Markup Minifier: Core v2.2.3
+                   README file for Web Markup Minifier: Core v2.2.4
 
    --------------------------------------------------------------------------------
 
@@ -46,8 +46,8 @@
    =============
    RELEASE NOTES
    =============
-   1. All exceptions made serializable;
-   2. Fixed a error #21 “Remove redundant attributes, except input”.
+   Added the ability to ignore fragments of markup by using the ignoring comment
+   tags (`<!--wmm:ignore--><!--/wmm:ignore-->`).
 
    =============
    DOCUMENTATION

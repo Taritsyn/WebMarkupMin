@@ -1,11 +1,11 @@
 ﻿{
-	"version": "2.2.3",
+	"version": "2.2.4",
 
 	"dependencies": {
 		"AutoMapper": "5.1.1",
 		"Microsoft.AspNetCore.Mvc.Core": "1.0.1",
 		"Microsoft.AspNetCore.Mvc.ViewFeatures": "1.0.1",
-		"WebMarkupMin.Core": "2.2.3",
+		"WebMarkupMin.Core": "2.2.4",
 		"WebMarkupMin.NUglify": "2.2.0",
 		"WebMarkupMin.Sample.Resources": "2.2.3"
 	},
