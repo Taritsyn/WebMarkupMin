@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## December 22, 2016 - v2.2.5
+ * In WebMarkupMin.AspNetCore1 fixed a error due to which instead of the status code pages displayed an empty content
+
 ## November 26, 2016 - v2.2.4
  * Added the ability to ignore fragments of markup by using the ignoring comment tags (`<!--wmm:ignore--><!--/wmm:ignore-->`)
 
