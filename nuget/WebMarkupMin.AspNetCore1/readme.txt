@@ -17,9 +17,8 @@
    =============
    RELEASE NOTES
    =============
-   1. Fixed a error #20 “Adding WebMarkupMin with a ServiceStack .Net Core enabled
-      project fails”;
-   2. Added the ability to specify a level of GZip or Deflate compression.
+   Fixed a error due to which instead of the status code pages displayed an empty
+   content.
 
    =============
    DOCUMENTATION

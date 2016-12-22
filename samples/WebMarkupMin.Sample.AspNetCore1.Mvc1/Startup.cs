@@ -149,8 +149,10 @@ namespace WebMarkupMin.Sample.AspNetCore1.Mvc1
 			}
 			else
 			{
-				app.UseExceptionHandler("/Home/Error");
+				app.UseExceptionHandler("/error");
 			}
+
+			app.UseStatusCodePages();
 
 			app.UseStaticFiles();
 

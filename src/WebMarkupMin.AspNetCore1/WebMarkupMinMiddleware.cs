@@ -140,6 +140,11 @@ namespace WebMarkupMin.AspNetCore1
 				response.Body = originalStream;
 				cachedStream.Clear();
 
+				if (cachedByteCount == 0)
+				{
+					return;
+				}
+
 				if (request.Method == "GET" && response.StatusCode == 200
 					&& _options.IsAllowableResponseSize(cachedByteCount))
 				{

@@ -92,6 +92,7 @@ namespace WebMarkupMin.Sample.AspNetCore1.Mvc1.Controllers
 			};
 		}
 
+		[Route("error")]
 		public IActionResult Error()
 		{
 			return View();
