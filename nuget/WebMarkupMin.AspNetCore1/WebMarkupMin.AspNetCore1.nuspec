@@ -18,19 +18,19 @@
 		<tags>WebMarkupMin ASP.NET Middleware Markup HTML XHTML XML Minification Minifier Minify</tags>
 		<dependencies>
 			<group targetFramework=".NETFramework4.5.1">
-				<dependency id="Microsoft.AspNetCore.Hosting.Abstractions" version="1.0.0" />
-				<dependency id="Microsoft.AspNetCore.Http" version="1.0.0" />
-				<dependency id="Microsoft.AspNetCore.Http.Extensions" version="1.0.0" />
-				<dependency id="Microsoft.Extensions.Options" version="1.0.0" />
-				<dependency id="Microsoft.Net.Http.Headers" version="1.0.0" />
+				<dependency id="Microsoft.AspNetCore.Hosting.Abstractions" version="1.0.1" />
+				<dependency id="Microsoft.AspNetCore.Http" version="1.0.1" />
+				<dependency id="Microsoft.AspNetCore.Http.Extensions" version="1.0.1" />
+				<dependency id="Microsoft.Extensions.Options" version="1.0.1" />
+				<dependency id="Microsoft.Net.Http.Headers" version="1.0.1" />
 				<dependency id="WebMarkupMin.AspNet.Common" version="2.2.5" />
 			</group>
 			<group targetFramework=".NETStandard1.3">
-				<dependency id="Microsoft.AspNetCore.Hosting.Abstractions" version="1.0.0" />
-				<dependency id="Microsoft.AspNetCore.Http" version="1.0.0" />
-				<dependency id="Microsoft.AspNetCore.Http.Extensions" version="1.0.0" />
-				<dependency id="Microsoft.Extensions.Options" version="1.0.0" />
-				<dependency id="Microsoft.Net.Http.Headers" version="1.0.0" />
+				<dependency id="Microsoft.AspNetCore.Hosting.Abstractions" version="1.0.1" />
+				<dependency id="Microsoft.AspNetCore.Http" version="1.0.1" />
+				<dependency id="Microsoft.AspNetCore.Http.Extensions" version="1.0.1" />
+				<dependency id="Microsoft.Extensions.Options" version="1.0.1" />
+				<dependency id="Microsoft.Net.Http.Headers" version="1.0.1" />
 				<dependency id="WebMarkupMin.AspNet.Common" version="2.2.5" />
 			</group>
 		</dependencies>
