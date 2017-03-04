@@ -91,6 +91,9 @@
     <Compile Include="..\WebMarkupMin.Core.Test\Html\ParsingTests.cs">
       <Link>Html\ParsingTests.cs</Link>
     </Compile>
+    <Compile Include="..\WebMarkupMin.Core.Test\Html\PerformanceTests.cs">
+      <Link>Html\PerformanceTests.cs</Link>
+    </Compile>
     <Compile Include="..\WebMarkupMin.Core.Test\Html\Polymer\ParsingTests.cs">
       <Link>Html\Polymer\ParsingTests.cs</Link>
     </Compile>
