@@ -48,7 +48,7 @@
 
 
 		/// <summary>
-		/// Constructs instance of source code node coordinates
+		/// Constructs an instance of source code node coordinates
 		/// </summary>
 		/// <param name="lineNumber">Line number</param>
 		/// <param name="columnNumber">Column number</param>

@@ -249,7 +249,7 @@ namespace WebMarkupMin.Core.Utilities
 				do
 				{
 					string line;
-					int startLinePosition = (lineBreakPosition == int.MinValue) ? 0 : lineBreakPosition + lineBreakLength;
+					int startLinePosition = lineBreakPosition == int.MinValue ? 0 : lineBreakPosition + lineBreakLength;
 
 					FindNextLineBreak(sourceCode, startLinePosition, out lineBreakPosition, out lineBreakLength);
 
@@ -279,7 +279,7 @@ namespace WebMarkupMin.Core.Utilities
 				}
 				while (lineBreakPosition != -1 && lineCount <= nextLineNumber);
 
-				int lineNumberSize = (nextLineNumber).ToString(CultureInfo.InvariantCulture).Length;
+				int lineNumberSize = nextLineNumber.ToString(CultureInfo.InvariantCulture).Length;
 				if (currentLineNumber == lineCount)
 				{
 					lineNumberSize = currentLineNumber.ToString(CultureInfo.InvariantCulture).Length;
@@ -370,7 +370,7 @@ namespace WebMarkupMin.Core.Utilities
 			int lineLength = line.Length;
 
 			string processedLine;
-			if ((fragmentStartPosition == 0 && fragmentLength == lineLength))
+			if (fragmentStartPosition == 0 && fragmentLength == lineLength)
 			{
 				processedLine = line;
 			}
@@ -382,8 +382,8 @@ namespace WebMarkupMin.Core.Utilities
 			{
 				int fragmentEndPosition = fragmentStartPosition + fragmentLength - 1;
 
-				bool beginningCutOff = (fragmentStartPosition > 0);
-				bool endingCutOff = (fragmentEndPosition <= lineLength);
+				bool beginningCutOff = fragmentStartPosition > 0;
+				bool endingCutOff = fragmentEndPosition <= lineLength;
 				if (fragmentEndPosition + 1 == lineLength)
 				{
 					endingCutOff = false;
@@ -419,8 +419,11 @@ namespace WebMarkupMin.Core.Utilities
 				}
 
 				result += Environment.NewLine + string.Empty
-					.PadRight(processedLine.Substring(0, cursorOffset - 1)
-					.TabsToSpaces(tabSize).Length + lineNumberSize + leftPaddingSize)
+					.PadRight(
+						(cursorOffset < processedLine.Length ?
+							processedLine.Substring(0, cursorOffset - 1) : processedLine
+						).TabsToSpaces(tabSize).Length + lineNumberSize + leftPaddingSize
+					)
 					.Replace(" ", "-") + "^"
 					;
 			}
