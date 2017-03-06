@@ -24,6 +24,7 @@ namespace WebMarkupMin.AspNetCore1
 			SupportedMediaTypes = minificationOptions.SupportedMediaTypes;
 			IncludedPages = minificationOptions.IncludedPages;
 			ExcludedPages = minificationOptions.ExcludedPages;
+			GenerateStatistics = minificationOptions.GenerateStatistics;
 			JsMinifierFactory = minificationOptions.JsMinifierFactory;
 			CssMinifierFactory = minificationOptions.CssMinifierFactory;
 		}

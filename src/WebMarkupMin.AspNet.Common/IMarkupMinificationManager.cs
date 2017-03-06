@@ -47,6 +47,16 @@ namespace WebMarkupMin.AspNet.Common
 			get;
 		}
 
+		/// <summary>
+		/// Gets or sets a flag for whether to allow generate minification statistics
+		/// (available through the logger)
+		/// </summary>
+		bool GenerateStatistics
+		{
+			get;
+			set;
+		}
+
 
 		/// <summary>
 		/// Creates a instance of markup minifier

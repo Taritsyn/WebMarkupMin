@@ -200,7 +200,8 @@ namespace WebMarkupMin.AspNetCore1
 
 								IMarkupMinifier minifier = minificationManager.CreateMinifier();
 
-								MarkupMinificationResult minificationResult = minifier.Minify(processedContent, currentUrl, encoding, false);
+								MarkupMinificationResult minificationResult = minifier.Minify(processedContent,
+									currentUrl, encoding, minificationManager.GenerateStatistics);
 								if (minificationResult.Errors.Count == 0)
 								{
 									processedContent = minificationResult.MinifiedContent;

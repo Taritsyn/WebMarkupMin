@@ -154,7 +154,7 @@ namespace WebMarkupMin.AspNet4.Common
 					IMarkupMinifier minifier = _minificationManager.CreateMinifier();
 
 					MarkupMinificationResult minificationResult = minifier.Minify(content,
-						_currentUrl, _encoding, false);
+						_currentUrl, _encoding, _minificationManager.GenerateStatistics);
 					if (minificationResult.Errors.Count == 0)
 					{
 						if (_configuration.IsPoweredByHttpHeadersEnabled())

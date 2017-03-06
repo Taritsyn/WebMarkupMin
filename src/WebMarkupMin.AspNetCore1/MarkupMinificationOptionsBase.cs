@@ -49,6 +49,16 @@ namespace WebMarkupMin.AspNetCore1
 			set;
 		}
 
+		/// <summary>
+		/// Gets or sets a flag for whether to allow generate minification statistics
+		/// (available through the logger)
+		/// </summary>
+		public bool GenerateStatistics
+		{
+			get;
+			set;
+		}
+
 
 		/// <summary>
 		/// Constructs a instance of markup minification options
