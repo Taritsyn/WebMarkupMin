@@ -19,15 +19,15 @@
 		<tags>WebMarkupMin Markup HTML XHTML CSS JavaScript JS Minification Minifier Minify NUglify</tags>
 		<dependencies>
 			<group targetFramework=".NETFramework4.0-Client">
-				<dependency id="NUglify" version="1.5.2" />
+				<dependency id="NUglify" version="1.5.5" />
 				<dependency id="WebMarkupMin.Core" version="2.2.0" />
 			</group>
 			<group targetFramework=".NETFramework4.5">
-				<dependency id="NUglify" version="1.5.2" />
+				<dependency id="NUglify" version="1.5.5" />
 				<dependency id="WebMarkupMin.Core" version="2.2.0" />
 			</group>
 			<group targetFramework=".NETStandard1.3">
-				<dependency id="NUglify" version="1.5.2" />
+				<dependency id="NUglify" version="1.5.5" />
 				<dependency id="WebMarkupMin.Core" version="2.2.0" />
 			</group>
 		</dependencies>

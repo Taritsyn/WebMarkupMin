@@ -2,7 +2,7 @@
 	"version": "2.2.0",
 
 	"dependencies": {
-		"NUglify": "1.5.2",
+		"NUglify": "1.5.5",
 		"WebMarkupMin.Core": "2.2.0"
 	},
 
