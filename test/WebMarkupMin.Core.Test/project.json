@@ -5,7 +5,7 @@
 		"dotnet-test-xunit": "2.2.0-preview2-build1029",
 		"Microsoft.Extensions.PlatformAbstractions": "1.0.0",
 		"Microsoft.NETCore.Platforms": "1.0.2",
-		"xunit": "2.2.0-beta4-build3444",
+		"xunit": "2.2.0",
 		"WebMarkupMin.Core": "2.2.4"
 	},
 

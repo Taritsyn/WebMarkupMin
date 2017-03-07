@@ -19,7 +19,7 @@
 				"System.Threading": "4.0.11"
 			}
 		},
-		"net451": {}
+		"net45": {}
 	},
 
 	"buildOptions": {

@@ -22,7 +22,7 @@
 				<dependency id="NUglify" version="1.5.2" />
 				<dependency id="WebMarkupMin.Core" version="2.2.0" />
 			</group>
-			<group targetFramework=".NETFramework4.5.1">
+			<group targetFramework=".NETFramework4.5">
 				<dependency id="NUglify" version="1.5.2" />
 				<dependency id="WebMarkupMin.Core" version="2.2.0" />
 			</group>

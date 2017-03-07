@@ -8,7 +8,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 	/// </summary>
 	public sealed class DeflateCompressor : ICompressor
 	{
-#if NETSTANDARD1_3 || NET451
+#if NETSTANDARD1_3 || NET45
 		/// <summary>
 		/// Deflate compression settings
 		/// </summary>
@@ -23,7 +23,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 			get { return EncodingTokenConstants.Deflate; }
 		}
 
-#if NETSTANDARD1_3 || NET451
+#if NETSTANDARD1_3 || NET45
 
 		/// <summary>
 		/// Constructs an instance of the deflate compressor
@@ -50,7 +50,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		/// <returns>The compressed stream</returns>
 		public Stream Compress(Stream stream)
 		{
-#if NETSTANDARD1_3 || NET451
+#if NETSTANDARD1_3 || NET45
 			return new DeflateStream(stream, _settings.Level);
 #else
 			return new DeflateStream(stream, CompressionMode.Compress);

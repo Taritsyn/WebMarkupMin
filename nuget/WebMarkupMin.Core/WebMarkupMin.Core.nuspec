@@ -24,7 +24,7 @@ Also supports minification of views of popular JavaScript template engines: Knoc
 		<tags>WebMarkupMin Markup HTML XHTML XML Minification Minifier Minify Performance Optimization Compression</tags>
 		<dependencies>
 			<group targetFramework=".NETFramework4.0-Client" />
-			<group targetFramework=".NETFramework4.5.1" />
+			<group targetFramework=".NETFramework4.5" />
 			<group targetFramework=".NETStandard1.3">
 				<dependency id="System.Collections" version="4.0.11" />
 				<dependency id="System.Collections.Concurrent" version="4.0.12" />

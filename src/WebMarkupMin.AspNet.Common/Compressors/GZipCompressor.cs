@@ -8,7 +8,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 	/// </summary>
 	public sealed class GZipCompressor : ICompressor
 	{
-#if NETSTANDARD1_3 || NET451
+#if NETSTANDARD1_3 || NET45
 		/// <summary>
 		/// GZip compression settings
 		/// </summary>
@@ -23,7 +23,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 			get { return EncodingTokenConstants.GZip; }
 		}
 
-#if NETSTANDARD1_3 || NET451
+#if NETSTANDARD1_3 || NET45
 
 		/// <summary>
 		/// Constructs an instance of the GZip compressor
@@ -50,7 +50,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		/// <returns>The compressed stream</returns>
 		public Stream Compress(Stream stream)
 		{
-#if NETSTANDARD1_3 || NET451
+#if NETSTANDARD1_3 || NET45
 			return new GZipStream(stream, _settings.Level);
 #else
 			return new GZipStream(stream, CompressionMode.Compress);

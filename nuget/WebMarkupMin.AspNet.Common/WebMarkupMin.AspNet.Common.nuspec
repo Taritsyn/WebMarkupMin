@@ -19,7 +19,7 @@
 			<group targetFramework=".NETFramework4.0">
 				<dependency id="WebMarkupMin.Core" version="2.2.4" />
 			</group>
-			<group targetFramework=".NETFramework4.5.1">
+			<group targetFramework=".NETFramework4.5">
 				<dependency id="WebMarkupMin.Core" version="2.2.4" />
 			</group>
 			<group targetFramework=".NETStandard1.3">

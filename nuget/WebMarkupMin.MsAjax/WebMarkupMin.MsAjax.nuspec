@@ -21,7 +21,7 @@
 				<dependency id="AjaxMin" version="5.14.5506.26202" />
 				<dependency id="WebMarkupMin.Core" version="2.2.0" />
 			</group>
-			<group targetFramework=".NETFramework4.5.1">
+			<group targetFramework=".NETFramework4.5">
 				<dependency id="AjaxMin" version="5.14.5506.26202" />
 				<dependency id="WebMarkupMin.Core" version="2.2.0" />
 			</group>
