@@ -15,7 +15,10 @@ namespace WebMarkupMin.AspNetCore1
 		/// <param name="options">HTTP compression options</param>
 		public HttpCompressionManager(IOptions<HttpCompressionOptions> options)
 		{
-			CompressorFactories = options.Value.CompressorFactories;
+			HttpCompressionOptions compressionOptions = options.Value;
+
+			CompressorFactories = compressionOptions.CompressorFactories;
+			SupportedMediaTypePredicate = compressionOptions.SupportedMediaTypePredicate;
 		}
 	}
 }

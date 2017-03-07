@@ -32,7 +32,7 @@ namespace WebMarkupMin.AspNet.Common
 		}
 
 		/// <summary>
-		/// Gets or sets a list of supported media types
+		/// Gets or sets a list of supported media-types
 		/// </summary>
 		public ISet<string> SupportedMediaTypes
 		{

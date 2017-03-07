@@ -11,7 +11,7 @@ namespace WebMarkupMin.AspNet.Common
 	public interface IMarkupMinificationManager
 	{
 		/// <summary>
-		/// Gets or sets a list of supported media types
+		/// Gets or sets a list of supported media-types
 		/// </summary>
 		ISet<string> SupportedMediaTypes
 		{

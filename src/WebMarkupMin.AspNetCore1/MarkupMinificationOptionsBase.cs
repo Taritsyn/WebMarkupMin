@@ -21,7 +21,7 @@ namespace WebMarkupMin.AspNetCore1
 		}
 
 		/// <summary>
-		/// Gets or sets a list of supported media types
+		/// Gets or sets a list of supported media-types
 		/// </summary>
 		public virtual ISet<string> SupportedMediaTypes
 		{

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using WebMarkupMin.AspNet.Common.Compressors;
 
@@ -13,6 +14,15 @@ namespace WebMarkupMin.AspNetCore1
 		/// Gets or sets a list of HTTP compressor factories
 		/// </summary>
 		public IList<ICompressorFactory> CompressorFactories
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets or sets a delegate that determines whether the media-type is supported
+		/// </summary>
+		public Func<string, bool> SupportedMediaTypePredicate
 		{
 			get;
 			set;

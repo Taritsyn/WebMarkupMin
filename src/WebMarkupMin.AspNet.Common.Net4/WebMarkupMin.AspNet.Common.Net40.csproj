@@ -84,11 +84,17 @@
     <Compile Include="..\WebMarkupMin.AspNet.Common\EncodingTokenConstants.cs">
       <Link>EncodingTokenConstants.cs</Link>
     </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\Helpers\MediaTypeHelpers.cs">
+      <Link>Helpers\MediaTypeHelpers.cs</Link>
+    </Compile>
     <Compile Include="..\WebMarkupMin.AspNet.Common\HtmlMinificationManagerBase.cs">
       <Link>HtmlMinificationManagerBase.cs</Link>
     </Compile>
     <Compile Include="..\WebMarkupMin.AspNet.Common\HttpCompressionManagerBase.cs">
       <Link>HttpCompressionManagerBase.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\HttpCompressionManagerExtensions.cs">
+      <Link>HttpCompressionManagerExtensions.cs</Link>
     </Compile>
     <Compile Include="..\WebMarkupMin.AspNet.Common\ICommonHtmlMinificationManager.cs">
       <Link>ICommonHtmlMinificationManager.cs</Link>
