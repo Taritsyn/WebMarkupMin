@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>WebMarkupMin.Yui</id>
-		<version>2.2.0</version>
+		<version>2.3.0</version>
 		<title>Web Markup Minifier: YUI</title>
 		<authors>Andrey Taritsyn</authors>
 		<owners>Andrey Taritsyn</owners>
@@ -12,18 +12,18 @@
 		<requireLicenseAcceptance>true</requireLicenseAcceptance>
 		<description>WebMarkupMin.Yui contains 2 minifier-adapters: `YuiCssMinifier` (for minification of CSS code) and `YuiJsMinifier` (for minification of JS code). These adapters perform minification using the YUI Compressor for .NET (http://github.com/PureKrome/YUICompressor.NET).</description>
 		<summary>WebMarkupMin.Yui contains 2 minifier-adapters: `YuiCssMinifier` (for minification of CSS code) and `YuiJsMinifier` (for minification of JS code). These adapters perform minification using the YUI Compressor for .NET.</summary>
-		<releaseNotes>Downgraded .NET Framework version from 4.5.2 to 4.5.1.</releaseNotes>
-		<copyright>Copyright (c) 2013-2016 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
+		<releaseNotes>Downgraded .NET Framework version from 4.5.1 to 4.5.</releaseNotes>
+		<copyright>Copyright (c) 2013-2017 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
 		<language>en-US</language>
 		<tags>WebMarkupMin Markup HTML XHTML CSS JavaScript JS Minification Minifier Minify Obfuscation YUICompressor</tags>
 		<dependencies>
 			<group targetFramework=".NETFramework4.0-Client">
 				<dependency id="YUICompressor.NET" version="2.7.0" />
-				<dependency id="WebMarkupMin.Core" version="2.2.0" />
+				<dependency id="WebMarkupMin.Core" version="2.3.0" />
 			</group>
 			<group targetFramework=".NETFramework4.5">
 				<dependency id="YUICompressor.NET" version="2.7.0" />
-				<dependency id="WebMarkupMin.Core" version="2.2.0" />
+				<dependency id="WebMarkupMin.Core" version="2.3.0" />
 			</group>
 		</dependencies>
 		<references>

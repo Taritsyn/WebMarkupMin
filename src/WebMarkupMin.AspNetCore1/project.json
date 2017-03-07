@@ -1,5 +1,5 @@
 {
-	"version": "2.2.5",
+	"version": "2.3.0",
 
 	"dependencies": {
 		"Microsoft.AspNetCore.Hosting.Abstractions": "1.0.1",
@@ -7,7 +7,7 @@
 		"Microsoft.AspNetCore.Http.Extensions": "1.0.1",
 		"Microsoft.Extensions.Options": "1.0.1",
 		"Microsoft.Net.Http.Headers": "1.0.1",
-		"WebMarkupMin.AspNet.Common": "2.2.5"
+		"WebMarkupMin.AspNet.Common": "2.3.0"
 	},
 
 	"frameworks": {

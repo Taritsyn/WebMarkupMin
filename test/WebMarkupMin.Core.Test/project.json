@@ -1,12 +1,12 @@
 ﻿{
-	"version": "2.2.4",
+	"version": "2.3.0",
 
 	"dependencies": {
 		"dotnet-test-xunit": "2.2.0-preview2-build1029",
 		"Microsoft.Extensions.PlatformAbstractions": "1.0.0",
 		"Microsoft.NETCore.Platforms": "1.0.2",
 		"xunit": "2.2.0",
-		"WebMarkupMin.Core": "2.2.4"
+		"WebMarkupMin.Core": "2.3.0"
 	},
 
 	"testRunner": "xunit",

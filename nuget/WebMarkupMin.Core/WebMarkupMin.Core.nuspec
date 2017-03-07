@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>WebMarkupMin.Core</id>
-		<version>2.2.4</version>
+		<version>2.3.0</version>
 		<title>Web Markup Minifier: Core</title>
 		<authors>Andrey Taritsyn</authors>
 		<owners>Andrey Taritsyn</owners>
@@ -18,8 +18,11 @@ Minification of markup produces by removing extra whitespaces, comments and redu
 
 Also supports minification of views of popular JavaScript template engines: KnockoutJS, Kendo UI MVVM and AngularJS 1.X.</description>
 		<summary>The Web Markup Minifier (abbreviated WebMarkupMin) is a .NET library that contains a set of markup minifiers. The objective of this project is to improve the performance of web applications by reducing the size of HTML, XHTML and XML code.</summary>
-		<releaseNotes>Added the ability to ignore fragments of markup by using the ignoring comment tags (`<!--wmm:ignore--><!--/wmm:ignore-->`).</releaseNotes>
-		<copyright>Copyright (c) 2013-2016 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
+		<releaseNotes>1. Added support of .NET Core 1.0.3;
+2. Downgraded .NET Framework version from 4.5.1 to 4.5;
+3. Fixed a error #31 “Perfomance is very slow when a HTML comment is inside a JavaScript block”;
+4. Fixed a error in `SourceCodeNavigator` class.</releaseNotes>
+		<copyright>Copyright (c) 2013-2017 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
 		<language>en-US</language>
 		<tags>WebMarkupMin Markup HTML XHTML XML Minification Minifier Minify Performance Optimization Compression</tags>
 		<dependencies>

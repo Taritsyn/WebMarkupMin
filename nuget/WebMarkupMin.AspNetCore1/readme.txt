@@ -1,11 +1,11 @@
 
 
    --------------------------------------------------------------------------------
-             README file for Web Markup Minifier: ASP.NET Core 1.X v2.2.5
+             README file for Web Markup Minifier: ASP.NET Core 1.X v2.3.0
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2016 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2017 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========
@@ -17,8 +17,11 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a error due to which instead of the status code pages displayed an empty
-   content.
+   1. Added support of .NET Core 1.0.3;
+   2. In `MarkupMinificationOptionsBase` class was added a new property -
+      `GenerateStatistics` (default `false`);
+   3. In `HttpCompressionOptions` class was added a new property -
+      `SupportedMediaTypePredicate` (default `null`).
 
    =============
    DOCUMENTATION

@@ -1,5 +1,17 @@
 ﻿<p>An overview of new features and fixes:</p>
 
+<h3>2.3.0 - March 7, 2017</h3>
+<ul>
+	<li>Downgraded .NET Framework version from 4.5.1 to 4.5</li>
+	<li>Added support of .NET Core 1.0.3</li>
+	<li>Fixed a <a href="https://github.com/Taritsyn/WebMarkupMin/issues/31" target="_blank">error #31</a> “Perfomance is very slow when a HTML comment is inside a JavaScript block”</li>
+	<li>Fixed a error in <code>SourceCodeNavigator</code> class</li>
+	<li>In WebMarkupMin.NUglify added support of the NUglify version 1.5.5</li>
+	<li>In <code>IMarkupMinificationManager</code> interface and <code>MarkupMinificationOptionsBase</code> class was added a new property - <code>GenerateStatistics</code> (default <code>false</code>)</li>
+	<li>From <code>IHttpCompressionManager</code> interface was removed <code>IsSupportedMediaType</code> method</li>
+	<li>In <code>IHttpCompressionManager</code> interface and <code>HttpCompressionOptions</code> class was added a new property - <code>SupportedMediaTypePredicate</code> (default <code>null</code>)</li>
+</ul>
+
 <h3>2.2.5 - December 22, 2016</h3>
 <ul>
 	<li>In WebMarkupMin.AspNetCore1 fixed a error due to which instead of the status code pages displayed an empty content</li>

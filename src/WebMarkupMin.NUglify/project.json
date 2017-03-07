@@ -1,9 +1,9 @@
 ﻿{
-	"version": "2.2.0",
+	"version": "2.3.0",
 
 	"dependencies": {
 		"NUglify": "1.5.5",
-		"WebMarkupMin.Core": "2.2.0"
+		"WebMarkupMin.Core": "2.3.0"
 	},
 
 	"frameworks": {

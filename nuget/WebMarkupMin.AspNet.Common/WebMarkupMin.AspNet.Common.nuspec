@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>WebMarkupMin.AspNet.Common</id>
-		<version>2.2.5</version>
+		<version>2.3.0</version>
 		<title>Web Markup Minifier: ASP.NET Common</title>
 		<authors>Andrey Taritsyn</authors>
 		<owners>Andrey Taritsyn</owners>
@@ -12,18 +12,23 @@
 		<requireLicenseAcceptance>true</requireLicenseAcceptance>
 		<description>WebMarkupMin.AspNet.Common is auxiliary package, that contains classes and interfaces for all ASP.NET extensions.</description>
 		<summary>WebMarkupMin.AspNet.Common is auxiliary package, that contains classes and interfaces for all ASP.NET extensions.</summary>
-		<copyright>Copyright (c) 2013-2016 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
+		<releaseNotes>1. Added support of .NET Core 1.0.3;
+2. Downgraded .NET Framework version from 4.5.1 to 4.5;
+3. In `IMarkupMinificationManager` interface was added a new property - `GenerateStatistics` (default `false`);
+4. From `IHttpCompressionManager` interface was removed `IsSupportedMediaType` method;
+5. In `IHttpCompressionManager` interface was added a new property - `SupportedMediaTypePredicate` (default `null`).</releaseNotes>
+		<copyright>Copyright (c) 2013-2017 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
 		<language>en-US</language>
 		<tags>WebMarkupMin ASP.NET Markup HTML XHTML XML Minification Minifier Minify</tags>
 		<dependencies>
 			<group targetFramework=".NETFramework4.0">
-				<dependency id="WebMarkupMin.Core" version="2.2.4" />
+				<dependency id="WebMarkupMin.Core" version="2.3.0" />
 			</group>
 			<group targetFramework=".NETFramework4.5">
-				<dependency id="WebMarkupMin.Core" version="2.2.4" />
+				<dependency id="WebMarkupMin.Core" version="2.3.0" />
 			</group>
 			<group targetFramework=".NETStandard1.3">
-				<dependency id="WebMarkupMin.Core" version="2.2.4" />
+				<dependency id="WebMarkupMin.Core" version="2.3.0" />
 			</group>
 		</dependencies>
 		<references>

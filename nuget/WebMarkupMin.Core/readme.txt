@@ -1,11 +1,11 @@
 
 
    --------------------------------------------------------------------------------
-                   README file for Web Markup Minifier: Core v2.2.4
+                   README file for Web Markup Minifier: Core v2.3.0
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2016 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2017 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========
@@ -46,8 +46,11 @@
    =============
    RELEASE NOTES
    =============
-   Added the ability to ignore fragments of markup by using the ignoring comment
-   tags (`<!--wmm:ignore--><!--/wmm:ignore-->`).
+   1. Added support of .NET Core 1.0.3;
+   2. Downgraded .NET Framework version from 4.5.1 to 4.5;
+   3. Fixed a error #31 “Perfomance is very slow when a HTML comment is inside a
+      JavaScript block”;
+   4. Fixed a error in `SourceCodeNavigator` class.
 
    =============
    DOCUMENTATION

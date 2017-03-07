@@ -101,7 +101,7 @@ namespace WebMarkupMin.AspNet4.WebForms.Components
 					{
 						IMarkupMinifier minifier = minificationManager.CreateMinifier();
 						MarkupMinificationResult minificationResult = minifier.Minify(content,
-							currentUrl, encoding, _minificationManager.GenerateStatistics);
+							currentUrl, encoding, minificationManager.GenerateStatistics);
 						if (minificationResult.Errors.Count == 0)
 						{
 							if (_configuration.IsPoweredByHttpHeadersEnabled())

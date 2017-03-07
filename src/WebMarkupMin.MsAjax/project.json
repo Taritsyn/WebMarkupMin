@@ -1,9 +1,9 @@
 ﻿{
-	"version": "2.2.0",
+	"version": "2.3.0",
 
 	"dependencies": {
 		"AjaxMin": "5.14.5506.26202",
-		"WebMarkupMin.Core": "2.2.0"
+		"WebMarkupMin.Core": "2.3.0"
 	},
 
 	"frameworks": {
