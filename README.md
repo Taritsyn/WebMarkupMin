@@ -41,6 +41,7 @@ If you have used old versions of WebMarkupMin, then I recommend to first read [â
 If you use WebMarkupMin in some project, please send me a message so I can include it in this list:
 
 ### Software
+ * [AngularTemplates.Compile](http://github.com/vadimi/AngularTemplates.Compile) by Vadim Ivanou
  * [Blog-Umbraco](http://github.com/radyz/Blog-Umbraco) by Ernesto Chavez Sanchez
  * [Constellation.Sitecore.Presentation.Mvc](http://github.com/sitecorerick/constellation.sitecore.presentation.mvc) by Rick Cabral
  * [FAV Rocks](http://github.com/billbogaiv/fav-rocks) by Bill Boga
