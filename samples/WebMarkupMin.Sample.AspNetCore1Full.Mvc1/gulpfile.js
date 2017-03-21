@@ -14,7 +14,6 @@ var minifyCss = require('gulp-minify-css');
 var uglify = require('gulp-uglify');
 var watch = require('gulp-watch');
 
-var project = require("./project.json");
 var webRootPath = "./wwwroot";
 var bowerDirPath = "bower_components";
 var styleDirPath = webRootPath + '/styles';
