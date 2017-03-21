@@ -6,13 +6,13 @@ use import="Files"
 use import="BuildEnv"
 use import="Environment"
 
-default BASE_DIR='${Directory.GetCurrentDirectory()}'
+default BASE_DIR="${Directory.GetCurrentDirectory()}"
 
-var AUTHORS='Andrey Taritsyn'
+var AUTHORS="Andrey Taritsyn"
 
 use-standard-lifecycle
 
-#resx description='Converts .resx files to .Designer.cs' target='initialize'
+#resx description="Converts .resx files to .Designer.cs" target="initialize"
 	@{
 		string currentDirPath;
 		string originalCurrentDirPath = Environment.GetEnvironmentVariable("ORIGINAL_CURRENT_DIR");
@@ -41,8 +41,8 @@ use-standard-lifecycle
 			Log.Info(string.Format('	* "{0}" is processed', relativeFilePath));
 		}
 		
-		Log.Info('');
+		Log.Info("");
 	}
 
-macro name="GenerateResx" resxFile='string'
+macro name="GenerateResx" resxFile="string"
 	generate-resx

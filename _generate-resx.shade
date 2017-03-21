@@ -276,7 +276,6 @@ functions @{
 
 	private static string GetProjectDirectoryName(string resourceDirPath)
 	{
-		const string projectFileName = "project.json";
 		string rootPath = RemoveLastSlash(Path.GetPathRoot(resourceDirPath));
 		string projectDirPath = RemoveLastSlash(resourceDirPath);
 
@@ -287,9 +286,7 @@ functions @{
 				throw new FileNotFoundException("Project file not exist.");
 			}
 
-			string projectFilePath = Path.Combine(projectDirPath, projectFileName);
-			if (File.Exists(projectFilePath)
-				|| Directory.EnumerateFiles(projectDirPath, "*.csproj", SearchOption.TopDirectoryOnly).Any())
+			if (Directory.EnumerateFiles(projectDirPath, "*.csproj", SearchOption.TopDirectoryOnly).Any())
 			{
 				break;
 			}
