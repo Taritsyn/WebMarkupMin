@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("WebMarkupMin.Sample.AspNetCore1.Mvc1")]
 [assembly: AssemblyDescription("")]
@@ -9,9 +8,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright © 2013-2017 Andrey Taritsyn")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-
-[assembly: ComVisible(false)]
-[assembly: Guid("dfca7573-5e71-4a75-b45d-68679ab60d70")]
 
 [assembly: AssemblyVersion("2.3.0.0")]
 [assembly: AssemblyFileVersion("2.3.0.0")]

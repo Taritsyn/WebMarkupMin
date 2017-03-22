@@ -17,11 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Added support of .NET Core 1.0.3;
-   2. In `MarkupMinificationOptionsBase` class was added a new property -
-      `GenerateStatistics` (default `false`);
-   3. In `HttpCompressionOptions` class was added a new property -
-      `SupportedMediaTypePredicate` (default `null`).
+   Added support of ASP.NET Core 1.0.4.
 
    =============
    DOCUMENTATION

@@ -17,11 +17,6 @@
    (http://github.com/PureKrome/YUICompressor.NET).
 
    =============
-   RELEASE NOTES
-   =============
-   Downgraded .NET Framework version from 4.5.1 to 4.5.
-
-   =============
    DOCUMENTATION
    =============
    See documentation on GitHub - http://github.com/Taritsyn/WebMarkupMin/wiki

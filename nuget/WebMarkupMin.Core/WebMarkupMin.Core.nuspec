@@ -18,10 +18,7 @@ Minification of markup produces by removing extra whitespaces, comments and redu
 
 Also supports minification of views of popular JavaScript template engines: KnockoutJS, Kendo UI MVVM and AngularJS 1.X.</description>
 		<summary>The Web Markup Minifier (abbreviated WebMarkupMin) is a .NET library that contains a set of markup minifiers. The objective of this project is to improve the performance of web applications by reducing the size of HTML, XHTML and XML code.</summary>
-		<releaseNotes>1. Added support of .NET Core 1.0.3;
-2. Downgraded .NET Framework version from 4.5.1 to 4.5;
-3. Fixed a error #31 “Perfomance is very slow when a HTML comment is inside a JavaScript block”;
-4. Fixed a error in `SourceCodeNavigator` class.</releaseNotes>
+		<releaseNotes>Added support of .NET Core 1.0.4.</releaseNotes>
 		<copyright>Copyright (c) 2013-2017 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
 		<language>en-US</language>
 		<tags>WebMarkupMin Markup HTML XHTML XML Minification Minifier Minify Performance Optimization Compression</tags>
@@ -29,19 +26,7 @@ Also supports minification of views of popular JavaScript template engines: Knoc
 			<group targetFramework=".NETFramework4.0-Client" />
 			<group targetFramework=".NETFramework4.5" />
 			<group targetFramework=".NETStandard1.3">
-				<dependency id="System.Collections" version="4.0.11" />
-				<dependency id="System.Collections.Concurrent" version="4.0.12" />
-				<dependency id="System.Globalization" version="4.0.11" />
-				<dependency id="System.IO" version="4.1.0" />
-				<dependency id="System.IO.Compression" version="4.1.0" />
-				<dependency id="System.Linq" version="4.1.0" />
-				<dependency id="System.Reflection" version="4.1.0" />
-				<dependency id="System.Resources.ResourceManager" version="4.0.1" />
-				<dependency id="System.Runtime.Extensions" version="4.1.0" />
-				<dependency id="System.Runtime.InteropServices" version="4.1.0" />
-				<dependency id="System.Text.Encoding" version="4.0.11" />
-				<dependency id="System.Text.RegularExpressions" version="4.1.0" />
-				<dependency id="System.Threading" version="4.0.11" />
+				<dependency id="NETStandard.Library" version="1.6.0" />
 			</group>
 		</dependencies>
 		<references>

@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<VersionPrefix>2.3.0</VersionPrefix>
+		<TargetFramework>netcoreapp1.0</TargetFramework>
+		<RuntimeFrameworkVersion>1.0.4</RuntimeFrameworkVersion>
+		<OutputType>Exe</OutputType>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<PreserveCompilationContext>true</PreserveCompilationContext>
+
+		<GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+		<GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+		<GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+		<GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+		<GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="1.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="1.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="1.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="1.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="1.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="1.0.2" />
+
+		<ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore1\WebMarkupMin.AspNetCore1.csproj" />
+		<ProjectReference Include="..\WebMarkupMin.Sample.Logic\WebMarkupMin.Sample.Logic.csproj" />
+		<ProjectReference Include="..\WebMarkupMin.Sample.Resources\WebMarkupMin.Sample.Resources.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="wwwroot\**\*;Views\**\*">
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</None>
+	</ItemGroup>
+
+	<Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
+		<Exec Command="npm install" />
+		<Exec Command="bower install" />
+		<Exec Command="gulp copy-libraries" />
+		<Exec Command="gulp build-assets" />
+	</Target>
+
+</Project>

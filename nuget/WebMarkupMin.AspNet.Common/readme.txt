@@ -17,14 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Added support of .NET Core 1.0.3;
-   2. Downgraded .NET Framework version from 4.5.1 to 4.5;
-   3. In `IMarkupMinificationManager` interface was added a new property -
-      `GenerateStatistics` (default `false`);
-   4. From `IHttpCompressionManager` interface was removed `IsSupportedMediaType`
-      method;
-   5. In `IHttpCompressionManager` interface was added a new property -
-      `SupportedMediaTypePredicate` (default `null`).
+   Added support of .NET Core 1.0.4.
 
    =============
    DOCUMENTATION
