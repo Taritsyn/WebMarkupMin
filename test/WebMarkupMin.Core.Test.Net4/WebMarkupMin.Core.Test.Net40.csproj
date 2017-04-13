@@ -115,6 +115,7 @@
     <Compile Include="..\WebMarkupMin.Core.Test\Xml\ParsingTests.cs">
       <Link>Xml\ParsingTests.cs</Link>
     </Compile>
+    <Compile Include="Html\JavaScriptPerfomanceMinificationIssue.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
