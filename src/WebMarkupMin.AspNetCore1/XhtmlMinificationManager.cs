@@ -21,6 +21,7 @@ namespace WebMarkupMin.AspNetCore1
 
 			XhtmlMinificationOptions minificationOptions = options.Value;
 			MinificationSettings = minificationOptions.MinificationSettings;
+			SupportedHttpMethods = minificationOptions.SupportedHttpMethods;
 			SupportedMediaTypes = minificationOptions.SupportedMediaTypes;
 			IncludedPages = minificationOptions.IncludedPages;
 			ExcludedPages = minificationOptions.ExcludedPages;

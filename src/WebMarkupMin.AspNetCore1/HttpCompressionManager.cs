@@ -18,6 +18,7 @@ namespace WebMarkupMin.AspNetCore1
 			HttpCompressionOptions compressionOptions = options.Value;
 
 			CompressorFactories = compressionOptions.CompressorFactories;
+			SupportedHttpMethods = compressionOptions.SupportedHttpMethods;
 			SupportedMediaTypePredicate = compressionOptions.SupportedMediaTypePredicate;
 		}
 	}

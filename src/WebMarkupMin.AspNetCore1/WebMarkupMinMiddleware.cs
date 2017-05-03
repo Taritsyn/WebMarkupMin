@@ -145,9 +145,9 @@ namespace WebMarkupMin.AspNetCore1
 					return;
 				}
 
-				if (request.Method == "GET" && response.StatusCode == 200
-					&& _options.IsAllowableResponseSize(cachedByteCount))
+				if (response.StatusCode == 200)
 				{
+					string httpMethod = request.Method;
 					string contentType = response.ContentType;
 					string mediaType = null;
 					Encoding encoding = null;
@@ -181,11 +181,12 @@ namespace WebMarkupMin.AspNetCore1
 						responseHeaders.Append(key, new StringValues(value));
 					};
 
-					if (useMinification)
+					if (useMinification && _options.IsAllowableResponseSize(cachedByteCount))
 					{
 						foreach (IMarkupMinificationManager minificationManager in _minificationManagers)
 						{
-							if (mediaType != null && minificationManager.IsSupportedMediaType(mediaType)
+							if (minificationManager.IsSupportedHttpMethod(httpMethod)
+								&& mediaType != null && minificationManager.IsSupportedMediaType(mediaType)
 								&& minificationManager.IsProcessablePage(currentUrl))
 							{
 								if (isEncodedContent)
@@ -222,6 +223,7 @@ namespace WebMarkupMin.AspNetCore1
 					}
 
 					if (useCompression && !isEncodedContent
+						&& _compressionManager.IsSupportedHttpMethod(httpMethod)
 						&& _compressionManager.IsSupportedMediaType(mediaType))
 					{
 						byte[] processedBytes = encoding.GetBytes(processedContent);

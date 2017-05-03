@@ -11,6 +11,15 @@ namespace WebMarkupMin.AspNet.Common
 	public interface IMarkupMinificationManager
 	{
 		/// <summary>
+		/// Gets or sets a list of supported HTTP methods
+		/// </summary>
+		ISet<string> SupportedHttpMethods
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets a list of supported media-types
 		/// </summary>
 		ISet<string> SupportedMediaTypes

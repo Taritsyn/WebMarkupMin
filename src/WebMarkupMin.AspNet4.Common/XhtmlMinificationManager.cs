@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 using WebMarkupMin.AspNet.Common;
-using WebMarkupMin.AspNet.Common.UrlMatchers;
 using WebMarkupMin.Core;
 using WebMarkupMin.Core.Loggers;
 
@@ -121,11 +120,8 @@ namespace WebMarkupMin.AspNet4.Common
 		{
 			MinificationSettings = settings;
 			SupportedMediaTypes = new HashSet<string>(MediaTypeGroupConstants.Xhtml);
-			IncludedPages = new List<IUrlMatcher>();
-			ExcludedPages = new List<IUrlMatcher>();
 			CssMinifierFactory = cssMinifierFactory;
 			JsMinifierFactory = jsMinifierFactory;
-
 			Logger = logger;
 		}
 	}

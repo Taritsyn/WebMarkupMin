@@ -32,6 +32,15 @@ namespace WebMarkupMin.AspNet.Common
 		}
 
 		/// <summary>
+		/// Gets or sets a list of supported HTTP methods
+		/// </summary>
+		public ISet<string> SupportedHttpMethods
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets a list of supported media-types
 		/// </summary>
 		public ISet<string> SupportedMediaTypes
@@ -77,6 +86,18 @@ namespace WebMarkupMin.AspNet.Common
 		{
 			get;
 			set;
+		}
+
+
+		/// <summary>
+		/// Constructs a instance of markup minification manager
+		/// </summary>
+		protected MarkupMinificationManagerBase()
+		{
+			SupportedHttpMethods = new HashSet<string> { "GET" };
+			IncludedPages = new List<IUrlMatcher>();
+			ExcludedPages = new List<IUrlMatcher>();
+			GenerateStatistics = false;
 		}
 
 

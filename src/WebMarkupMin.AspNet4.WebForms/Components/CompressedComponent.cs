@@ -75,9 +75,11 @@ namespace WebMarkupMin.AspNet4.WebForms.Components
 			HttpContext context = HttpContext.Current;
 			HttpRequest request = context.Request;
 			HttpResponse response = context.Response;
+			string httpMethod = request.HttpMethod;
 			string mediaType = response.ContentType;
 
 			if (response.StatusCode == 200
+				&& compressionManager.IsSupportedHttpMethod(httpMethod)
 				&& compressionManager.IsSupportedMediaType(mediaType))
 			{
 				context.Items["originalResponseFilter"] = response.Filter;

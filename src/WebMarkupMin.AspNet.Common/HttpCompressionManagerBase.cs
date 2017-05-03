@@ -21,12 +21,31 @@ namespace WebMarkupMin.AspNet.Common
 		}
 
 		/// <summary>
+		/// Gets or sets a list of supported HTTP methods
+		/// </summary>
+		public ISet<string> SupportedHttpMethods
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets a delegate that determines whether the media-type is supported
 		/// </summary>
 		public Func<string, bool> SupportedMediaTypePredicate
 		{
 			get;
 			set;
+		}
+
+
+		/// <summary>
+		/// Constructs a instance of HTTP compression manager
+		/// </summary>
+		protected HttpCompressionManagerBase()
+		{
+			SupportedHttpMethods = new HashSet<string> { "GET" };
+			SupportedMediaTypePredicate = null;
 		}
 
 

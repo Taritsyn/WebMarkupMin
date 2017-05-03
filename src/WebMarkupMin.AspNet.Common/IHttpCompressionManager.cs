@@ -20,6 +20,15 @@ namespace WebMarkupMin.AspNet.Common
 		}
 
 		/// <summary>
+		/// Gets or sets a list of supported HTTP methods
+		/// </summary>
+		ISet<string> SupportedHttpMethods
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets a delegate that determines whether the media-type is supported
 		/// </summary>
 		Func<string, bool> SupportedMediaTypePredicate

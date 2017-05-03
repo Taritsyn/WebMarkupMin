@@ -91,11 +91,13 @@ namespace WebMarkupMin.AspNet4.WebForms.Components
 
 					Encoding encoding = response.ContentEncoding;
 					int responseSize = encoding.GetByteCount(content);
+					string httpMethod = request.HttpMethod;
 					string mediaType = response.ContentType;
 					string currentUrl = request.RawUrl;
 
 					if (response.StatusCode == 200
 						&& _configuration.IsAllowableResponseSize(responseSize)
+						&& minificationManager.IsSupportedHttpMethod(httpMethod)
 						&& minificationManager.IsSupportedMediaType(mediaType)
 						&& minificationManager.IsProcessablePage(currentUrl))
 					{

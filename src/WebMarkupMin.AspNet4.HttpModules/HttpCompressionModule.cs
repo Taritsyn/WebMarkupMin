@@ -73,9 +73,11 @@ namespace WebMarkupMin.AspNet4.HttpModules
 			HttpContext context = ((HttpApplication)sender).Context;
 			HttpRequest request = context.Request;
 			HttpResponse response = context.Response;
+			string httpMethod = request.HttpMethod;
 			string mediaType = response.ContentType;
 
-			if (request.HttpMethod == "GET" && response.StatusCode == 200
+			if (response.StatusCode == 200
+				&& compressionManager.IsSupportedHttpMethod(httpMethod)
 				&& compressionManager.IsSupportedMediaType(mediaType)
 				&& !request.Path.EndsWith("WebResource.axd", StringComparison.OrdinalIgnoreCase))
 			{

@@ -69,11 +69,12 @@ namespace WebMarkupMin.AspNet4.HttpModules
 			HttpRequest request = context.Request;
 			HttpResponse response = context.Response;
 			Encoding encoding = response.ContentEncoding;
+			string httpMethod = request.HttpMethod;
 			string mediaType = response.ContentType;
 			string currentUrl = request.RawUrl;
 
-			if (request.HttpMethod == "GET" && response.StatusCode == 200
-				&& context.CurrentHandler != null
+			if (context.CurrentHandler != null && response.StatusCode == 200
+				&& minificationManager.IsSupportedHttpMethod(httpMethod)
 				&& minificationManager.IsSupportedMediaType(mediaType)
 				&& minificationManager.IsProcessablePage(currentUrl))
 			{

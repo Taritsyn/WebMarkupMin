@@ -20,6 +20,15 @@ namespace WebMarkupMin.AspNetCore1
 		}
 
 		/// <summary>
+		/// Gets or sets a list of supported HTTP methods
+		/// </summary>
+		public ISet<string> SupportedHttpMethods
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets a delegate that determines whether the media-type is supported
 		/// </summary>
 		public Func<string, bool> SupportedMediaTypePredicate
@@ -39,6 +48,8 @@ namespace WebMarkupMin.AspNetCore1
 				new DeflateCompressorFactory(),
 				new GZipCompressorFactory()
 			};
+			SupportedHttpMethods = new HashSet<string> { "GET" };
+			SupportedMediaTypePredicate = null;
 		}
 	}
 }

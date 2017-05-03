@@ -51,10 +51,11 @@ namespace WebMarkupMin.AspNet4.Mvc
 			HttpContextBase context = filterContext.HttpContext;
 			HttpRequestBase request = context.Request;
 			HttpResponseBase response = context.Response;
+			string httpMethod = request.HttpMethod;
 			string mediaType = response.ContentType;
 
-			if (response.Filter != null
-				&& response.StatusCode == 200
+			if (response.Filter != null && response.StatusCode == 200
+				&& compressionManager.IsSupportedHttpMethod(httpMethod)
 				&& compressionManager.IsSupportedMediaType(mediaType))
 			{
 				context.Items["originalResponseFilter"] = response.Filter;
