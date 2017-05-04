@@ -8,17 +8,8 @@ namespace WebMarkupMin.AspNet.Common
 	/// <summary>
 	/// Defines a interface of markup minification manager
 	/// </summary>
-	public interface IMarkupMinificationManager
+	public interface IMarkupMinificationManager : IContentProcessingManager
 	{
-		/// <summary>
-		/// Gets or sets a list of supported HTTP methods
-		/// </summary>
-		ISet<string> SupportedHttpMethods
-		{
-			get;
-			set;
-		}
-
 		/// <summary>
 		/// Gets or sets a list of supported media-types
 		/// </summary>

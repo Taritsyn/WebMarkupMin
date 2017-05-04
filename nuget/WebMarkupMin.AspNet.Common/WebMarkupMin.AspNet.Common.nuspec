@@ -12,7 +12,8 @@
 		<requireLicenseAcceptance>true</requireLicenseAcceptance>
 		<description>WebMarkupMin.AspNet.Common is auxiliary package, that contains classes and interfaces for all ASP.NET extensions.</description>
 		<summary>WebMarkupMin.AspNet.Common is auxiliary package, that contains classes and interfaces for all ASP.NET extensions.</summary>
-		<releaseNotes>Added support of .NET Core 1.0.4.</releaseNotes>
+		<releaseNotes>1. Added support of .NET Core 1.0.4;
+2. In `IMarkupMinificationManager` and `IHttpCompressionManager` interfaces was added a new property - `SupportedHttpMethods` (default `GET`).</releaseNotes>
 		<copyright>Copyright (c) 2013-2017 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
 		<language>en-US</language>
 		<tags>WebMarkupMin ASP.NET Markup HTML XHTML XML Minification Minifier Minify</tags>

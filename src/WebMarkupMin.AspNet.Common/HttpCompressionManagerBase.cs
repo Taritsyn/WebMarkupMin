@@ -9,21 +9,12 @@ namespace WebMarkupMin.AspNet.Common
 	/// <summary>
 	/// Base class of HTTP compression manager
 	/// </summary>
-	public abstract class HttpCompressionManagerBase : IHttpCompressionManager
+	public abstract class HttpCompressionManagerBase : ContentProcessingManagerBase, IHttpCompressionManager
 	{
 		/// <summary>
 		/// Gets or sets a list of HTTP compressor factories
 		/// </summary>
 		public IList<ICompressorFactory> CompressorFactories
-		{
-			get;
-			set;
-		}
-
-		/// <summary>
-		/// Gets or sets a list of supported HTTP methods
-		/// </summary>
-		public ISet<string> SupportedHttpMethods
 		{
 			get;
 			set;
@@ -44,7 +35,6 @@ namespace WebMarkupMin.AspNet.Common
 		/// </summary>
 		protected HttpCompressionManagerBase()
 		{
-			SupportedHttpMethods = new HashSet<string> { "GET" };
 			SupportedMediaTypePredicate = null;
 		}
 

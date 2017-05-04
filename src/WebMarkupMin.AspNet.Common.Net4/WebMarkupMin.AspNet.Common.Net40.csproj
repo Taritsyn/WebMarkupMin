@@ -81,6 +81,12 @@
     <Compile Include="..\WebMarkupMin.AspNet.Common\Compressors\NullCompressor.cs">
       <Link>Compressors\NullCompressor.cs</Link>
     </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\ContentProcessingManagerBase.cs">
+      <Link>ContentProcessingManagerBase.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\ContentProcessingManagerExtensions.cs">
+      <Link>ContentProcessingManagerExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\WebMarkupMin.AspNet.Common\EncodingTokenConstants.cs">
       <Link>EncodingTokenConstants.cs</Link>
     </Compile>
@@ -98,6 +104,9 @@
     </Compile>
     <Compile Include="..\WebMarkupMin.AspNet.Common\ICommonHtmlMinificationManager.cs">
       <Link>ICommonHtmlMinificationManager.cs</Link>
+    </Compile>
+    <Compile Include="..\WebMarkupMin.AspNet.Common\IContentProcessingManager.cs">
+      <Link>IContentProcessingManager.cs</Link>
     </Compile>
     <Compile Include="..\WebMarkupMin.AspNet.Common\IHtmlMinificationManager.cs">
       <Link>IHtmlMinificationManager.cs</Link>

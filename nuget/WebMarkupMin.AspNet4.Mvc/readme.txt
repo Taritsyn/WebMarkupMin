@@ -18,6 +18,12 @@
    Deflate).
 
    =============
+   RELEASE NOTES
+   =============
+   Now, by default, only the `GET` requests are minified and compressed (this
+   behavior can be changed by using the `SupportedHttpMethods` property).
+
+   =============
    DOCUMENTATION
    =============
    See documentation on GitHub - http://github.com/Taritsyn/WebMarkupMin/wiki

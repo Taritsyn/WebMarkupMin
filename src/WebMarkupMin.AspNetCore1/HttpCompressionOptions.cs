@@ -8,21 +8,12 @@ namespace WebMarkupMin.AspNetCore1
 	/// <summary>
 	/// HTTP compression options
 	/// </summary>
-	public sealed class HttpCompressionOptions
+	public sealed class HttpCompressionOptions : ContentProcessingOptionsBase
 	{
 		/// <summary>
 		/// Gets or sets a list of HTTP compressor factories
 		/// </summary>
 		public IList<ICompressorFactory> CompressorFactories
-		{
-			get;
-			set;
-		}
-
-		/// <summary>
-		/// Gets or sets a list of supported HTTP methods
-		/// </summary>
-		public ISet<string> SupportedHttpMethods
 		{
 			get;
 			set;
@@ -48,7 +39,6 @@ namespace WebMarkupMin.AspNetCore1
 				new DeflateCompressorFactory(),
 				new GZipCompressorFactory()
 			};
-			SupportedHttpMethods = new HashSet<string> { "GET" };
 			SupportedMediaTypePredicate = null;
 		}
 	}

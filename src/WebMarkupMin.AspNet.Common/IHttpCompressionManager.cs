@@ -8,21 +8,12 @@ namespace WebMarkupMin.AspNet.Common
 	/// <summary>
 	/// Defines a interface of HTTP compression manager
 	/// </summary>
-	public interface IHttpCompressionManager
+	public interface IHttpCompressionManager : IContentProcessingManager
 	{
 		/// <summary>
 		/// Gets or sets a list of HTTP compressor factories
 		/// </summary>
 		IList<ICompressorFactory> CompressorFactories
-		{
-			get;
-			set;
-		}
-
-		/// <summary>
-		/// Gets or sets a list of supported HTTP methods
-		/// </summary>
-		ISet<string> SupportedHttpMethods
 		{
 			get;
 			set;

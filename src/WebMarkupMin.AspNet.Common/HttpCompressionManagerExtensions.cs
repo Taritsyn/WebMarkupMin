@@ -10,18 +10,6 @@ namespace WebMarkupMin.AspNet.Common
 	public static class HttpCompressionManagerExtensions
 	{
 		/// <summary>
-		/// Checks whether the HTTP method is supported
-		/// </summary>
-		/// <param name="compressionManager">HTTP compression manager</param>
-		/// <param name="method">HTTP method</param>
-		/// <returns>Result of check (true - supported; false - not supported)</returns>
-		public static bool IsSupportedHttpMethod(this IHttpCompressionManager compressionManager,
-			string method)
-		{
-			return compressionManager.SupportedHttpMethods.Contains(method);
-		}
-
-		/// <summary>
 		/// Checks whether the media-type is supported
 		/// </summary>
 		/// <param name="compressionManager">HTTP compression manager</param>

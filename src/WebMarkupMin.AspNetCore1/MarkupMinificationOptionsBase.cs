@@ -8,18 +8,9 @@ namespace WebMarkupMin.AspNetCore1
 	/// Base class of markup minification options
 	/// </summary>
 	/// <typeparam name="TSettings">The type of markup minification settings</typeparam>
-	public abstract class MarkupMinificationOptionsBase<TSettings>
+	public abstract class MarkupMinificationOptionsBase<TSettings> : ContentProcessingOptionsBase
 		where TSettings : class, new()
 	{
-		/// <summary>
-		/// Gets or sets a list of supported HTTP methods
-		/// </summary>
-		public ISet<string> SupportedHttpMethods
-		{
-			get;
-			set;
-		}
-
 		/// <summary>
 		/// Gets or sets a markup minification settings used to configure the HTML minifier
 		/// </summary>
@@ -74,7 +65,6 @@ namespace WebMarkupMin.AspNetCore1
 		/// </summary>
 		protected MarkupMinificationOptionsBase()
 		{
-			SupportedHttpMethods = new HashSet<string> { "GET" };
 			IncludedPages = new List<IUrlMatcher>();
 			ExcludedPages = new List<IUrlMatcher>();
 			GenerateStatistics = false;
