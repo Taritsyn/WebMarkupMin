@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using WebMarkupMin.AspNet.Common.UrlMatchers;
 using WebMarkupMin.Core;
 using WebMarkupMin.Core.Loggers;
 
@@ -41,26 +40,6 @@ namespace WebMarkupMin.AspNet.Common
 		}
 
 		/// <summary>
-		/// Gets or sets a list of URL matchers, which is used to include pages to processing
-		/// by markup minifier
-		/// </summary>
-		public IList<IUrlMatcher> IncludedPages
-		{
-			get;
-			set;
-		}
-
-		/// <summary>
-		/// Gets or sets a list of URL matchers, which is used to exclude pages from processing
-		/// by markup minifier
-		/// </summary>
-		public IList<IUrlMatcher> ExcludedPages
-		{
-			get;
-			set;
-		}
-
-		/// <summary>
 		/// Gets a <code>*-Minification-Powered-By</code> HTTP-header
 		/// </summary>
 		public KeyValuePair<string, string> PoweredByHttpHeader
@@ -85,8 +64,6 @@ namespace WebMarkupMin.AspNet.Common
 		/// </summary>
 		protected MarkupMinificationManagerBase()
 		{
-			IncludedPages = new List<IUrlMatcher>();
-			ExcludedPages = new List<IUrlMatcher>();
 			GenerateStatistics = false;
 		}
 

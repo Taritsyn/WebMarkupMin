@@ -75,10 +75,12 @@ namespace WebMarkupMin.AspNet4.HttpModules
 			HttpResponse response = context.Response;
 			string httpMethod = request.HttpMethod;
 			string mediaType = response.ContentType;
+			string currentUrl = request.RawUrl;
 
 			if (response.StatusCode == 200
 				&& compressionManager.IsSupportedHttpMethod(httpMethod)
 				&& compressionManager.IsSupportedMediaType(mediaType)
+				&& compressionManager.IsProcessablePage(currentUrl)
 				&& !request.Path.EndsWith("WebResource.axd", StringComparison.OrdinalIgnoreCase))
 			{
 				context.Items["originalResponseFilter"] = response.Filter;

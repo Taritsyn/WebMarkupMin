@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using WebMarkupMin.AspNet.Common.UrlMatchers;
+
 namespace WebMarkupMin.AspNetCore1
 {
 	/// <summary>
@@ -16,6 +18,26 @@ namespace WebMarkupMin.AspNetCore1
 			set;
 		}
 
+		/// <summary>
+		/// Gets or sets a list of URL matchers, which is used to include pages to processing
+		/// by markup minifier
+		/// </summary>
+		public IList<IUrlMatcher> IncludedPages
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets or sets a list of URL matchers, which is used to exclude pages from processing
+		/// by markup minifier
+		/// </summary>
+		public IList<IUrlMatcher> ExcludedPages
+		{
+			get;
+			set;
+		}
+
 
 		/// <summary>
 		/// Constructs a instance of content processing options
@@ -23,6 +45,8 @@ namespace WebMarkupMin.AspNetCore1
 		protected ContentProcessingOptionsBase()
 		{
 			SupportedHttpMethods = new HashSet<string> { "GET" };
+			IncludedPages = new List<IUrlMatcher>();
+			ExcludedPages = new List<IUrlMatcher>();
 		}
 	}
 }

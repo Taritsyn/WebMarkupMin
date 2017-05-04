@@ -224,7 +224,8 @@ namespace WebMarkupMin.AspNetCore1
 
 					if (useCompression && !isEncodedContent
 						&& _compressionManager.IsSupportedHttpMethod(httpMethod)
-						&& _compressionManager.IsSupportedMediaType(mediaType))
+						&& _compressionManager.IsSupportedMediaType(mediaType)
+						&& _compressionManager.IsProcessablePage(currentUrl))
 					{
 						byte[] processedBytes = encoding.GetBytes(processedContent);
 

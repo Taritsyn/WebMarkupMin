@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using WebMarkupMin.AspNet.Common.UrlMatchers;
-
 namespace WebMarkupMin.AspNetCore1
 {
 	/// <summary>
@@ -30,26 +28,6 @@ namespace WebMarkupMin.AspNetCore1
 		}
 
 		/// <summary>
-		/// Gets or sets a list of URL matchers, which is used to include pages to processing
-		/// by markup minifier
-		/// </summary>
-		public IList<IUrlMatcher> IncludedPages
-		{
-			get;
-			set;
-		}
-
-		/// <summary>
-		/// Gets or sets a list of URL matchers, which is used to exclude pages from processing
-		/// by markup minifier
-		/// </summary>
-		public IList<IUrlMatcher> ExcludedPages
-		{
-			get;
-			set;
-		}
-
-		/// <summary>
 		/// Gets or sets a flag for whether to allow generate minification statistics
 		/// (available through the logger)
 		/// </summary>
@@ -65,8 +43,6 @@ namespace WebMarkupMin.AspNetCore1
 		/// </summary>
 		protected MarkupMinificationOptionsBase()
 		{
-			IncludedPages = new List<IUrlMatcher>();
-			ExcludedPages = new List<IUrlMatcher>();
 			GenerateStatistics = false;
 		}
 	}

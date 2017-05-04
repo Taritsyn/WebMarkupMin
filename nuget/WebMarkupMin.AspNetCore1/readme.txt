@@ -19,7 +19,9 @@
    =============
    1. Added support of ASP.NET Core 1.0.4;
    2. In `MarkupMinificationOptionsBase` and `HttpCompressionOptions` classes was
-      added a new property - `SupportedHttpMethods` (default `GET`).
+      added a new property - `SupportedHttpMethods` (default `GET`);
+   3. In `HttpCompressionOptions` class was added two new properties -
+      `IncludedPages` (default empty list) and `ExcludedPages` (default empty list).
 
    =============
    DOCUMENTATION

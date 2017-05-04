@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using WebMarkupMin.AspNet.Common.UrlMatchers;
 using WebMarkupMin.Core;
 
 namespace WebMarkupMin.AspNet.Common
@@ -14,26 +13,6 @@ namespace WebMarkupMin.AspNet.Common
 		/// Gets or sets a list of supported media-types
 		/// </summary>
 		ISet<string> SupportedMediaTypes
-		{
-			get;
-			set;
-		}
-
-		/// <summary>
-		/// Gets or sets a list of URL matchers, which is used to include pages to processing
-		/// by markup minifier
-		/// </summary>
-		IList<IUrlMatcher> IncludedPages
-		{
-			get;
-			set;
-		}
-
-		/// <summary>
-		/// Gets or sets a list of URL matchers, which is used to exclude pages from processing
-		/// by markup minifier
-		/// </summary>
-		IList<IUrlMatcher> ExcludedPages
 		{
 			get;
 			set;

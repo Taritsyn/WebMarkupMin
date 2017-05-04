@@ -19,7 +19,9 @@
    =============
    1. Added support of .NET Core 1.0.4;
    2. In `IMarkupMinificationManager` and `IHttpCompressionManager` interfaces was
-      added a new property - `SupportedHttpMethods` (default `GET`).
+      added a new property - `SupportedHttpMethods` (default `GET`);
+   3. In `IHttpCompressionManager` interface was added two new properties -
+      `IncludedPages` (default empty list) and `ExcludedPages` (default empty list).
 
    =============
    DOCUMENTATION

@@ -20,6 +20,8 @@ namespace WebMarkupMin.AspNetCore1
 			CompressorFactories = compressionOptions.CompressorFactories;
 			SupportedHttpMethods = compressionOptions.SupportedHttpMethods;
 			SupportedMediaTypePredicate = compressionOptions.SupportedMediaTypePredicate;
+			IncludedPages = compressionOptions.IncludedPages;
+			ExcludedPages = compressionOptions.ExcludedPages;
 		}
 	}
 }
