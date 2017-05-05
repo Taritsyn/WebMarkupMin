@@ -82,8 +82,10 @@ namespace WebMarkupMin.AspNet4.HttpModules
 				&& !request.Path.EndsWith("WebResource.axd", StringComparison.OrdinalIgnoreCase))
 			{
 				context.Items["originalResponseFilter"] = response.Filter;
-				response.Filter = new HttpCompressionFilterStream(new HttpRequestWrapper(request),
-					new HttpResponseWrapper(response), compressionManager);
+
+				string acceptEncoding = request.Headers["Accept-Encoding"];
+				response.Filter = new HttpCompressionFilterStream(new HttpResponseWrapper(response),
+					compressionManager, acceptEncoding);
 			}
 		}
 

@@ -83,8 +83,10 @@ namespace WebMarkupMin.AspNet4.WebForms.Components
 				&& compressionManager.IsProcessablePage(currentUrl))
 			{
 				context.Items["originalResponseFilter"] = response.Filter;
-				response.Filter = new HttpCompressionFilterStream(new HttpRequestWrapper(request),
-					new HttpResponseWrapper(response), compressionManager);
+
+				string acceptEncoding = request.Headers["Accept-Encoding"];
+				response.Filter = new HttpCompressionFilterStream(new HttpResponseWrapper(response),
+					compressionManager, acceptEncoding);
 			}
 		}
 
