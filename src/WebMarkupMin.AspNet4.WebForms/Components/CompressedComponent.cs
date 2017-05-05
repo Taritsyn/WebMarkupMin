@@ -76,19 +76,15 @@ namespace WebMarkupMin.AspNet4.WebForms.Components
 			HttpRequest request = context.Request;
 			HttpResponse response = context.Response;
 			string httpMethod = request.HttpMethod;
-			string mediaType = response.ContentType;
 			string currentUrl = request.RawUrl;
 
 			if (response.StatusCode == 200
 				&& compressionManager.IsSupportedHttpMethod(httpMethod)
-				&& compressionManager.IsSupportedMediaType(mediaType)
 				&& compressionManager.IsProcessablePage(currentUrl))
 			{
 				context.Items["originalResponseFilter"] = response.Filter;
-
-				string acceptEncoding = request.Headers["Accept-Encoding"];
-				response.Filter = new HttpCompressionFilterStream(new HttpResponseWrapper(response),
-					compressionManager, acceptEncoding);
+				response.Filter = new HttpCompressionFilterStream(new HttpRequestWrapper(request),
+					new HttpResponseWrapper(response), compressionManager);
 			}
 		}
 

@@ -15,6 +15,12 @@
    ASP.NET 4.X extensions.
 
    =============
+   RELEASE NOTES
+   =============
+   Fixed a error of filtering media-types, which led to incorrect usage of HTTP
+   compression.
+
+   =============
    DOCUMENTATION
    =============
    See documentation on GitHub - http://github.com/Taritsyn/WebMarkupMin/wiki

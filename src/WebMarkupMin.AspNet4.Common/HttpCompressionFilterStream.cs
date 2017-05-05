@@ -14,6 +14,11 @@ namespace WebMarkupMin.AspNet4.Common
 	public sealed class HttpCompressionFilterStream : Stream
 	{
 		/// <summary>
+		/// HTTP request
+		/// </summary>
+		private readonly HttpRequestBase _request;
+
+		/// <summary>
 		/// HTTP response
 		/// </summary>
 		private readonly HttpResponseBase _response;
@@ -42,11 +47,6 @@ namespace WebMarkupMin.AspNet4.Common
 		/// HTTP compressor
 		/// </summary>
 		private ICompressor _compressor;
-
-		/// <summary>
-		/// Value of the Accept-Encoding HTTP header
-		/// </summary>
-		private readonly string _acceptEncoding;
 
 		/// <summary>
 		/// Flag that indicates if the HTTP headers is appended
@@ -89,17 +89,17 @@ namespace WebMarkupMin.AspNet4.Common
 		/// <summary>
 		/// Constructs a instance of HTTP compression response filter
 		/// </summary>
+		/// <param name="request">HTTP request</param>
 		/// <param name="response">HTTP response</param>
 		/// <param name="compressionManager">HTTP compression manager</param>
-		/// <param name="acceptEncoding">Value of the Accept-Encoding HTTP header</param>
-		public HttpCompressionFilterStream(HttpResponseBase response,
-			IHttpCompressionManager compressionManager,
-			string acceptEncoding)
+		public HttpCompressionFilterStream(HttpRequestBase request,
+			HttpResponseBase response,
+			IHttpCompressionManager compressionManager)
 		{
+			_request = request;
 			_response = response;
 			_originalStream = response.Filter;
 			_compressionManager = compressionManager;
-			_acceptEncoding = acceptEncoding;
 		}
 
 
@@ -107,13 +107,14 @@ namespace WebMarkupMin.AspNet4.Common
 		{
 			if (_outputStreamInitializedFlag.Set())
 			{
-				if (HttpHeadersHelpers.IsEncodedContent(_response.Headers))
+				if (HttpHeadersHelpers.IsEncodedContent(_response.Headers)
+					|| !_compressionManager.IsSupportedMediaType(_response.ContentType))
 				{
 					_outputStream = _originalStream;
 				}
 				else
 				{
-					_compressor = _compressionManager.CreateCompressor(_acceptEncoding);
+					_compressor = _compressionManager.CreateCompressor(_request.Headers["Accept-Encoding"]);
 					_outputStream = _compressor.Compress(_originalStream);
 				}
 			}

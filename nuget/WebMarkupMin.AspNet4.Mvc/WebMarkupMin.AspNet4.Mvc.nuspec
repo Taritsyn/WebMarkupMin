@@ -12,7 +12,8 @@
 		<requireLicenseAcceptance>true</requireLicenseAcceptance>
 		<description>WebMarkupMin.AspNet4.Mvc contains 4 action filters: `MinifyHtmlAttribute` (for minification of HTML code), `MinifyXhtmlAttribute` (for minification of XHTML code), `MinifyXmlAttribute` (for minification of XML code) and `CompressContentAttribute` (for compression of text content by using GZIP or Deflate).</description>
 		<summary>WebMarkupMin.AspNet4.Mvc contains 4 action filters: `MinifyHtmlAttribute` (for minification of HTML code), `MinifyXhtmlAttribute` (for minification of XHTML code), `MinifyXmlAttribute` (for minification of XML code) and `CompressContentAttribute` (for compression of text content by using GZIP or Deflate).</summary>
-		<releaseNotes>Now, by default, only the `GET` requests are minified and compressed (this behavior can be changed by using the `SupportedHttpMethods` property).</releaseNotes>
+		<releaseNotes>1. Now, by default, only the `GET` requests are minified and compressed (this behavior can be changed by using the `SupportedHttpMethods` property);
+2. Fixed a error of filtering media-types, which led to incorrect usage of HTTP compression.</releaseNotes>
 		<copyright>Copyright (c) 2013-2017 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
 		<language>en-US</language>
 		<tags>WebMarkupMin ASP.NET MVC Markup HTML XHTML XML Minification Minifier Minify</tags>

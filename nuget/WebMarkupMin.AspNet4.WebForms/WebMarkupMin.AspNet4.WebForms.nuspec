@@ -14,7 +14,8 @@
 
 Сlasses of the Web Forms pages and master pages cannot be used together.</description>
 		<summary>WebMarkupMin.AspNet4.WebForms contains 5 Web Forms page classes: `MinifiedHtmlPage` (supports HTML minification only), `MinifiedXhtmlPage` (supports XHTML minification only), `CompressedPage` (supports HTTP compression only), `MinifiedAndCompressedHtmlPage` (supports HTML minification and HTTP compression) and `MinifiedAndCompressedXhtmlPage` (supports XHTML minification and HTTP compression); and 5 master page classes: `MinifiedHtmlMasterPage` (supports HTML minification only), `MinifiedXhtmlMasterPage` (supports XHTML minification only), `CompressedMasterPage` (supports HTTP compression only), `MinifiedAndCompressedHtmlMasterPage` (supports HTML minification and HTTP compression) and `MinifiedAndCompressedXhtmlMasterPage` (supports XHTML minification and HTTP compression).</summary>
-		<releaseNotes>Now, by default, only the `GET` requests are minified and compressed (this behavior can be changed by using the `SupportedHttpMethods` property).</releaseNotes>
+		<releaseNotes>1. Now, by default, only the `GET` requests are minified and compressed (this behavior can be changed by using the `SupportedHttpMethods` property);
+2. Fixed a error of filtering media-types, which led to incorrect usage of HTTP compression.</releaseNotes>
 		<copyright>Copyright (c) 2013-2017 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
 		<language>en-US</language>
 		<tags>WebMarkupMin ASP.NET WebForms Markup HTML XHTML Minification Minifier Minify</tags>

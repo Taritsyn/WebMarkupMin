@@ -28,8 +28,10 @@
    =============
    RELEASE NOTES
    =============
-   Now, by default, only the `GET` requests are minified and compressed (this
-   behavior can be changed by using the `SupportedHttpMethods` property).
+   1. Now, by default, only the `GET` requests are minified and compressed (this
+      behavior can be changed by using the `SupportedHttpMethods` property);
+   2. Fixed a error of filtering media-types, which led to incorrect usage of HTTP
+      compression.
 
    =============
    DOCUMENTATION

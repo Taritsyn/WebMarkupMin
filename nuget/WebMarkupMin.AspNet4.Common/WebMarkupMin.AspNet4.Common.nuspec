@@ -12,6 +12,7 @@
 		<requireLicenseAcceptance>true</requireLicenseAcceptance>
 		<description>WebMarkupMin.AspNet4.Common is auxiliary package, that contains classes for ASP.NET 4.X extensions.</description>
 		<summary>WebMarkupMin.AspNet4.Common is auxiliary package, that contains classes for ASP.NET 4.X extensions.</summary>
+		<releaseNotes>Fixed a error of filtering media-types, which led to incorrect usage of HTTP compression.</releaseNotes>
 		<copyright>Copyright (c) 2013-2017 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
 		<language>en-US</language>
 		<tags>WebMarkupMin ASP.NET Markup HTML XHTML XML Minification Minifier Minify</tags>
