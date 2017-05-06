@@ -24,6 +24,15 @@
 		}
 
 		/// <summary>
+		/// CDATA sections handler
+		/// </summary>
+		public CdataSectionDelegate CdataSection
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Text handler
 		/// </summary>
 		public TextDelegate Text
@@ -55,6 +64,13 @@
 		/// <param name="context">Markup parsing context</param>
 		/// <param name="comment">Comment text</param>
 		public delegate void CommentDelegate(MarkupParsingContext context, string comment);
+
+		/// <summary>
+		/// CDATA sections delegate
+		/// </summary>
+		/// <param name="context">Markup parsing context</param>
+		/// <param name="cdataText">CDATA text</param>
+		public delegate void CdataSectionDelegate(MarkupParsingContext context, string cdataText);
 
 		/// <summary>
 		/// Text delegate

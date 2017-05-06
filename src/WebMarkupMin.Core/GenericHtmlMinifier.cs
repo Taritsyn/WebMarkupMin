@@ -84,17 +84,17 @@ namespace WebMarkupMin.Core
 			RegexOptions.RightToLeft);
 
 		private static readonly Regex _beginCdataSectionRegex = new Regex(
-			@"^\s*<!\[CDATA\[(?:[ \t\v]*\r?\n)?", RegexOptions.IgnoreCase);
+			@"^\s*<!\[CDATA\[(?:[ \t\v]*\r?\n)?");
 		private static readonly Regex _endCdataSectionRegex = new Regex(@"(?:\r?\n[ \t\v]*)?\]\]>\s*$",
 			RegexOptions.RightToLeft);
 
 		private static readonly Regex _styleBeginCdataSectionRegex = new Regex(
-			@"^\s*/\*\s*<!\[CDATA\[\s*\*/(?:[ \t\v]*\r?\n)?", RegexOptions.IgnoreCase);
+			@"^\s*/\*\s*<!\[CDATA\[\s*\*/(?:[ \t\v]*\r?\n)?");
 		private static readonly Regex _styleEndCdataSectionRegex = new Regex(@"(?:\r?\n[ \t\v]*)?/\*\s*\]\]>\s*\*/\s*$",
 			RegexOptions.RightToLeft);
 
 		private static readonly Regex _styleBeginMaxCompatibleCdataSectionRegex = new Regex(
-			@"^\s*<!--\s*/\*\s*--><!\[CDATA\[\s*/\*\s*><!--\s*\*/(?:[ \t\v]*\r?\n)?", RegexOptions.IgnoreCase);
+			@"^\s*<!--\s*/\*\s*--><!\[CDATA\[\s*/\*\s*><!--\s*\*/(?:[ \t\v]*\r?\n)?");
 		private static readonly Regex _styleEndMaxCompatibleCdataSectionRegex = new Regex(
 			@"(?:\r?\n[ \t\v]*)?/\*\s*\]\]>\s*\*/\s*-->\s*$", RegexOptions.RightToLeft);
 
@@ -104,14 +104,13 @@ namespace WebMarkupMin.Core
 			RegexOptions.RightToLeft);
 
 		private static readonly Regex _scriptBeginCdataSectionRegex = new Regex(
-			@"^\s*(?://[ \t\v]*<!\[CDATA\[[ \t\v\S]*\r?\n|/\*\s*<!\[CDATA\[\s*\*/(?:[ \t\v]*\r?\n)?)",
-			RegexOptions.IgnoreCase);
+			@"^\s*(?://[ \t\v]*<!\[CDATA\[[ \t\v\S]*\r?\n|/\*\s*<!\[CDATA\[\s*\*/(?:[ \t\v]*\r?\n)?)");
 		private static readonly Regex _scriptEndCdataSectionRegex = new Regex(
 			@"(?:\r?\n//[ \t\v\S]*\]\]>|(?:\r?\n[ \t\v]*)?/\*\s*\]\]>\s*\*/)\s*$", RegexOptions.RightToLeft);
 
 		private static readonly Regex _scriptBeginMaxCompatibleCdataSectionRegex = new Regex(
 			@"^\s*(?:<!--[ \t\v]*//[ \t\v]*--><!\[CDATA\[[ \t\v]*//[ \t\v]*><!--[ \t\v]*\r?\n" +
-			@"|<!--\s*/\*\s*--><!\[CDATA\[\s*/\*\s*><!--\s*\*/(?:[ \t\v]*\r?\n)?)", RegexOptions.IgnoreCase);
+			@"|<!--\s*/\*\s*--><!\[CDATA\[\s*/\*\s*><!--\s*\*/(?:[ \t\v]*\r?\n)?)");
 		private static readonly Regex _scriptEndMaxCompatibleCdataSectionRegex = new Regex(
 			@"(?:\r?\n[ \t\v]*//[ \t\v]*--><!\]\]>" +
 			@"|(?:\r?\n[ \t\v]*)?/\*\s*\]\]>\s*\*/\s*-->)\s*$", RegexOptions.RightToLeft);
@@ -324,6 +323,7 @@ namespace WebMarkupMin.Core
 				Comment = CommentHandler,
 				IfConditionalComment = IfConditionalCommentHandler,
 				EndIfConditionalComment = EndIfConditionalCommentHandler,
+				CdataSection = CdataSectionHandler,
 				StartTag = StartTagHandler,
 				EndTag = EndTagHandler,
 				Text = TextHandler,
@@ -686,6 +686,20 @@ namespace WebMarkupMin.Core
 			{
 				_currentNodeType = previousNodeType;
 			}
+		}
+
+		/// <summary>
+		/// CDATA sections handler
+		/// </summary>
+		/// <param name="context">Markup parsing context</param>
+		/// <param name="cdataText">CDATA text</param>
+		private void CdataSectionHandler(MarkupParsingContext context, string cdataText)
+		{
+			_currentNodeType = HtmlNodeType.CdataSection;
+
+			_buffer.Add("<![CDATA[");
+			_buffer.Add(cdataText);
+			_buffer.Add("]]>");
 		}
 
 		/// <summary>

@@ -202,14 +202,19 @@ namespace WebMarkupMin.Core.Parsers
 													break;
 
 												case '!':
+													int fourthCharPosition = thirdCharPosition + 1;
+													char fourthCharValue;
+													bool fourthCharExist = content.TryGetChar(fourthCharPosition, out fourthCharValue);
+
+													if (!fourthCharExist)
+													{
+														break;
+													}
+
 													switch (thirdCharValue)
 													{
 														case '-':
-															int fourthCharPosition = thirdCharPosition + 1;
-															char fourthCharValue;
-															bool fourthCharExist = content.TryGetChar(fourthCharPosition, out fourthCharValue);
-
-															if (fourthCharExist && fourthCharValue == '-')
+															if (fourthCharValue == '-')
 															{
 																// Comments
 																int fifthCharPosition = fourthCharPosition + 1;
@@ -247,21 +252,29 @@ namespace WebMarkupMin.Core.Parsers
 															break;
 
 														case '[':
-															// Remaining conditional comments
-
-															// Hidden End If conditional comment (e.g. <![endif]-->)
-															isProcessed = ProcessHiddenEndIfComment();
-
-															if (!isProcessed)
+															if (fourthCharValue == 'C')
 															{
-																// Revealed If conditional comment (e.g. <![if ... ]>)
-																isProcessed = ProcessRevealedIfComment();
+																// CDATA sections
+																isProcessed = ProcessCdataSection();
 															}
-
-															if (!isProcessed)
+															else
 															{
-																// Revealed End If conditional comment (e.g. <![endif]>)
-																isProcessed = ProcessRevealedEndIfComment();
+																// Remaining conditional comments
+
+																// Hidden End If conditional comment (e.g. <![endif]-->)
+																isProcessed = ProcessHiddenEndIfComment();
+
+																if (!isProcessed)
+																{
+																	// Revealed If conditional comment (e.g. <![if ... ]>)
+																	isProcessed = ProcessRevealedIfComment();
+																}
+
+																if (!isProcessed)
+																{
+																	// Revealed End If conditional comment (e.g. <![endif]>)
+																	isProcessed = ProcessRevealedEndIfComment();
+																}
 															}
 															break;
 

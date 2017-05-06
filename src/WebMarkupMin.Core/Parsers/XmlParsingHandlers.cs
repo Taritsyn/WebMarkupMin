@@ -26,15 +26,6 @@ namespace WebMarkupMin.Core.Parsers
 		}
 
 		/// <summary>
-		/// CDATA sections handler
-		/// </summary>
-		public CdataSectionDelegate CdataSection
-		{
-			get;
-			set;
-		}
-
-		/// <summary>
 		/// Start tags handler
 		/// </summary>
 		public StartTagDelegate StartTag
@@ -77,13 +68,6 @@ namespace WebMarkupMin.Core.Parsers
 		/// <param name="attributes">List of attributes</param>
 		public delegate void ProcessingInstructionDelegate(MarkupParsingContext context, string instructionName,
 			IList<XmlAttribute> attributes);
-
-		/// <summary>
-		/// CDATA sections delegate
-		/// </summary>
-		/// <param name="context">Markup parsing context</param>
-		/// <param name="cdataText">CDATA text</param>
-		public delegate void CdataSectionDelegate(MarkupParsingContext context, string cdataText);
 
 		/// <summary>
 		/// Start tags delegate

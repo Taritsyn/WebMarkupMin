@@ -186,14 +186,24 @@ namespace WebMarkupMin.Core.Test.Html
 				"</apply>" +
 				"</math>"
 				;
+			const string input3 = "<math>" +
+				"<ms><![CDATA[x<y]]></ms>" +
+				"<mo>+</mo>" +
+				"<mn>3</mn>" +
+				"<mo>=</mo>" +
+				"<ms><![CDATA[x<y3]]></ms>" +
+				"</math>"
+				;
 
 			// Act
 			string output1 = minifier.Minify(input1).MinifiedContent;
 			string output2 = minifier.Minify(input2).MinifiedContent;
+			string output3 = minifier.Minify(input3).MinifiedContent;
 
 			// Assert
 			Assert.Equal(input1, output1);
 			Assert.Equal(input2, output2);
+			Assert.Equal(input3, output3);
 		}
 
 		[Fact]

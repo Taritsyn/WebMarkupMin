@@ -1374,7 +1374,30 @@ namespace WebMarkupMin.Core.Test.Html
 			const string targetOutput16D = targetOutput16C;
 
 
-			const string input17 = "<div>\n" +
+			const string input17 = "<svg width=\"300\" height=\"50\" viewBox=\"0 0 300 50\">\n" +
+				"	<rect x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" fill=\"#f6f8fa\" />\n" +
+				"	<text x=\"50%\" y=\"50%\" fill=\"#24292e\" font-size=\"16\" text-anchor=\"middle\">\n" +
+				"	<![CDATA[\n" +
+				"	Vasya Pupkin <vasya-pupkin@mail.ru>\n" +
+				"	]]>\n" +
+				"	</text>\n" +
+				"</svg>"
+				;
+			const string targetOutput17A = input17;
+			const string targetOutput17B = "<svg width=\"300\" height=\"50\" viewBox=\"0 0 300 50\">" +
+				"<rect x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" fill=\"#f6f8fa\" />" +
+				"<text x=\"50%\" y=\"50%\" fill=\"#24292e\" font-size=\"16\" text-anchor=\"middle\">\n" +
+				"	<![CDATA[\n" +
+				"	Vasya Pupkin <vasya-pupkin@mail.ru>\n" +
+				"	]]>\n" +
+				"	</text>" +
+				"</svg>"
+				;
+			const string targetOutput17C = targetOutput17B;
+			const string targetOutput17D = targetOutput17C;
+
+
+			const string input18 = "<div>\n" +
 				"	<math>\n" +
 				"		<mrow>\n" +
 				"			<mrow>\n" +
@@ -1397,8 +1420,8 @@ namespace WebMarkupMin.Core.Test.Html
 				"	</math>\n" +
 				"</div>"
 				;
-			const string targetOutput17A = input17;
-			const string targetOutput17B = "<div> " +
+			const string targetOutput18A = input18;
+			const string targetOutput18B = "<div> " +
 				"<math>" +
 				"<mrow>" +
 				"<mrow>" +
@@ -1421,7 +1444,7 @@ namespace WebMarkupMin.Core.Test.Html
 				"</math> " +
 				"</div>"
 				;
-			const string targetOutput17C = "<div>" +
+			const string targetOutput18C = "<div>" +
 				"<math>" +
 				"<mrow>" +
 				"<mrow>" +
@@ -1444,10 +1467,10 @@ namespace WebMarkupMin.Core.Test.Html
 				"</math>" +
 				"</div>"
 				;
-			const string targetOutput17D = targetOutput17C;
+			const string targetOutput18D = targetOutput18C;
 
 
-			const string input18 = "<dl>\n" +
+			const string input19 = "<dl>\n" +
 				"	<dt>  Name:  </dt>\n" +
 				"	<dd>  John Doe  \n" +
 				"</dd>\n\n" +
@@ -1459,8 +1482,8 @@ namespace WebMarkupMin.Core.Test.Html
 				"</dd>\n" +
 				"</dl>"
 				;
-			const string targetOutput18A = input18;
-			const string targetOutput18B = "<dl>" +
+			const string targetOutput19A = input19;
+			const string targetOutput19B = "<dl>" +
 				"<dt> Name: </dt> " +
 				"<dd> John Doe </dd> " +
 				"<dt> Gender: </dt> " +
@@ -1469,7 +1492,7 @@ namespace WebMarkupMin.Core.Test.Html
 				"<dd> Unknown </dd>" +
 				"</dl>"
 				;
-			const string targetOutput18C = "<dl>" +
+			const string targetOutput19C = "<dl>" +
 				"<dt>Name:</dt>" +
 				"<dd>John Doe</dd>" +
 				"<dt>Gender:</dt>" +
@@ -1478,10 +1501,10 @@ namespace WebMarkupMin.Core.Test.Html
 				"<dd>Unknown</dd>" +
 				"</dl>"
 				;
-			const string targetOutput18D = targetOutput18C;
+			const string targetOutput19D = targetOutput19C;
 
 
-			const string input19 = "<menu>\n" +
+			const string input20 = "<menu>\n" +
 				"	<menuitem label=\"New\" icon=\"icons/new.png\" onclick=\"new()\">\n" +
 				"	</menuitem>\n" +
 				"	<menuitem label=\"Open\" icon=\"icons/open.png\" onclick=\"open()\">\n" +
@@ -1490,23 +1513,23 @@ namespace WebMarkupMin.Core.Test.Html
 				"	</menuitem>\n" +
 				"</menu>"
 				;
-			const string targetOutput19A = input19;
-			const string targetOutput19B = "<menu>" +
+			const string targetOutput20A = input20;
+			const string targetOutput20B = "<menu>" +
 				"<menuitem label=\"New\" icon=\"icons/new.png\" onclick=\"new()\"> </menuitem>" +
 				"<menuitem label=\"Open\" icon=\"icons/open.png\" onclick=\"open()\"> </menuitem>" +
 				"<menuitem label=\"Save\" icon=\"icons/save.png\" onclick=\"save()\"> </menuitem>" +
 				"</menu>"
 				;
-			const string targetOutput19C = "<menu>" +
+			const string targetOutput20C = "<menu>" +
 				"<menuitem label=\"New\" icon=\"icons/new.png\" onclick=\"new()\"></menuitem>" +
 				"<menuitem label=\"Open\" icon=\"icons/open.png\" onclick=\"open()\"></menuitem>" +
 				"<menuitem label=\"Save\" icon=\"icons/save.png\" onclick=\"save()\"></menuitem>" +
 				"</menu>"
 				;
-			const string targetOutput19D = targetOutput19C;
+			const string targetOutput20D = targetOutput20C;
 
 
-			const string input20 = "<menu>\n" +
+			const string input21 = "<menu>\n" +
 				"	<command type=\"command\" label=\"New\" icon=\"icons/new.png\" onclick=\"new()\">\n" +
 				"	</command>\n" +
 				"	<command type=\"command\" label=\"Open\" icon=\"icons/open.png\" onclick=\"open()\">\n" +
@@ -1515,43 +1538,43 @@ namespace WebMarkupMin.Core.Test.Html
 				"	</command>\n" +
 				"</menu>"
 				;
-			const string targetOutput20A = input20;
-			const string targetOutput20B = "<menu>" +
+			const string targetOutput21A = input21;
+			const string targetOutput21B = "<menu>" +
 				"<command type=\"command\" label=\"New\" icon=\"icons/new.png\" onclick=\"new()\"> </command>" +
 				"<command type=\"command\" label=\"Open\" icon=\"icons/open.png\" onclick=\"open()\"> </command>" +
 				"<command type=\"command\" label=\"Save\" icon=\"icons/save.png\" onclick=\"save()\"> </command>" +
 				"</menu>"
 				;
-			const string targetOutput20C = "<menu>" +
+			const string targetOutput21C = "<menu>" +
 				"<command type=\"command\" label=\"New\" icon=\"icons/new.png\" onclick=\"new()\"></command>" +
 				"<command type=\"command\" label=\"Open\" icon=\"icons/open.png\" onclick=\"open()\"></command>" +
 				"<command type=\"command\" label=\"Save\" icon=\"icons/save.png\" onclick=\"save()\"></command>" +
 				"</menu>"
 				;
-			const string targetOutput20D = targetOutput20C;
+			const string targetOutput21D = targetOutput21C;
 
 
-			const string input21 = "<figure>\n" +
+			const string input22 = "<figure>\n" +
 				"	<img src=\"libsass-logo.png\" alt=\"LibSass logo\" width=\"640\" height=\"320\">\n" +
 				"	<figcaption>  Fig 1.  -  LibSass logo. \n" +
 				"</figcaption>\n" +
 				"</figure>"
 				;
-			const string targetOutput21A = input21;
-			const string targetOutput21B = "<figure>" +
+			const string targetOutput22A = input22;
+			const string targetOutput22B = "<figure>" +
 				" <img src=\"libsass-logo.png\" alt=\"LibSass logo\" width=\"640\" height=\"320\"> " +
 				"<figcaption> Fig 1. - LibSass logo. </figcaption>" +
 				"</figure>"
 				;
-			const string targetOutput21C = "<figure>" +
+			const string targetOutput22C = "<figure>" +
 				"<img src=\"libsass-logo.png\" alt=\"LibSass logo\" width=\"640\" height=\"320\">" +
 				"<figcaption>Fig 1. - LibSass logo.</figcaption>" +
 				"</figure>"
 				;
-			const string targetOutput21D = targetOutput21C;
+			const string targetOutput22D = targetOutput22C;
 
 
-			const string input22 = "<form>\n" +
+			const string input23 = "<form>\n" +
 				"	<fieldset>\n" +
 				"		<legend>  Personal data \n" +
 				"</legend>\n" +
@@ -1561,8 +1584,8 @@ namespace WebMarkupMin.Core.Test.Html
 				"	</fieldset>\n" +
 				"</form>"
 				;
-			const string targetOutput22A = input22;
-			const string targetOutput22B = "<form> " +
+			const string targetOutput23A = input23;
+			const string targetOutput23B = "<form> " +
 				"<fieldset>" +
 				"<legend> Personal data </legend>" +
 				"Name: <input type=\"text\" size=\"50\"><br> " +
@@ -1571,7 +1594,7 @@ namespace WebMarkupMin.Core.Test.Html
 				"</fieldset> " +
 				"</form>"
 				;
-			const string targetOutput22C = "<form>" +
+			const string targetOutput23C = "<form>" +
 				"<fieldset>" +
 				"<legend>Personal data</legend>" +
 				"Name: <input type=\"text\" size=\"50\"><br> " +
@@ -1580,63 +1603,63 @@ namespace WebMarkupMin.Core.Test.Html
 				"</fieldset>" +
 				"</form>"
 				;
-			const string targetOutput22D = targetOutput22C;
+			const string targetOutput23D = targetOutput23C;
 
 
-			const string input23 = "<ruby>\n" +
+			const string input24 = "<ruby>\n" +
 				"	漢  <rt>  Kan  </rt>\n" +
 				"	字  <rt>  ji  </rt>\n" +
 				"</ruby>"
 				;
-			const string targetOutput23A = input23;
-			const string targetOutput23B = "<ruby> " +
+			const string targetOutput24A = input24;
+			const string targetOutput24B = "<ruby> " +
 				"漢 <rt> Kan </rt> " +
 				"字 <rt> ji </rt> " +
 				"</ruby>"
 				;
-			const string targetOutput23C = targetOutput23B;
-			const string targetOutput23D = "<ruby>" +
+			const string targetOutput24C = targetOutput24B;
+			const string targetOutput24D = "<ruby>" +
 				"漢 <rt>Kan</rt> " +
 				"字 <rt>ji</rt>" +
 				"</ruby>"
 				;
 
 
-			const string input24 = "<ruby>\n" +
+			const string input25 = "<ruby>\n" +
 				"	漢  <rp>  (</rp>  <rt>  Kan  </rt>  <rp>)  </rp>\n" +
 				"	字  <rp>  (</rp>  <rt>  ji  </rt>  <rp>)  </rp>\n" +
 				"</ruby>"
 				;
-			const string targetOutput24A = input24;
-			const string targetOutput24B = "<ruby> " +
+			const string targetOutput25A = input25;
+			const string targetOutput25B = "<ruby> " +
 				"漢 <rp> (</rp> <rt> Kan </rt> <rp>) </rp> " +
 				"字 <rp> (</rp> <rt> ji </rt> <rp>) </rp> " +
 				"</ruby>"
 				;
-			const string targetOutput24C = targetOutput24B;
-			const string targetOutput24D = "<ruby>" +
+			const string targetOutput25C = targetOutput25B;
+			const string targetOutput25D = "<ruby>" +
 				"漢 <rp>(</rp> <rt>Kan</rt> <rp>)</rp> " +
 				"字 <rp>(</rp> <rt>ji</rt> <rp>)</rp>" +
 				"</ruby>"
 				;
 
 
-			const string input25 = "<ruby>\n" +
+			const string input26 = "<ruby>\n" +
 				"	東\n" +
 				"	<rb>  京  </rb>\n" +
 				"	<rt>  とう  </rt>\n" +
 				"	<rt>  きょう  </rt>\n" +
 				"</ruby>"
 				;
-			const string targetOutput25A = input25;
-			const string targetOutput25B = "<ruby> " +
+			const string targetOutput26A = input26;
+			const string targetOutput26B = "<ruby> " +
 				"東 " +
 				"<rb> 京 </rb> " +
 				"<rt> とう </rt> " +
 				"<rt> きょう </rt> " +
 				"</ruby>";
-			const string targetOutput25C = targetOutput25B;
-			const string targetOutput25D = "<ruby>" +
+			const string targetOutput26C = targetOutput26B;
+			const string targetOutput26D = "<ruby>" +
 				"東 " +
 				"<rb>京</rb> " +
 				"<rt>とう</rt> " +
@@ -1645,7 +1668,7 @@ namespace WebMarkupMin.Core.Test.Html
 				;
 
 
-			const string input26 = "<ruby>\n" +
+			const string input27 = "<ruby>\n" +
 				"	♥\n" +
 				"	<rp>:  </rp>\n" +
 				"	<rt>  Heart  </rt>\n" +
@@ -1672,8 +1695,8 @@ namespace WebMarkupMin.Core.Test.Html
 				"	<rp>.  </rp>\n" +
 				"</ruby>"
 				;
-			const string targetOutput26A = input26;
-			const string targetOutput26B = "<ruby> " +
+			const string targetOutput27A = input27;
+			const string targetOutput27B = "<ruby> " +
 				"♥ " +
 				"<rp>: </rp> " +
 				"<rt> Heart </rt> " +
@@ -1700,8 +1723,8 @@ namespace WebMarkupMin.Core.Test.Html
 				"<rp>. </rp> " +
 				"</ruby>"
 				;
-			const string targetOutput26C = targetOutput26B;
-			const string targetOutput26D = "<ruby>" +
+			const string targetOutput27C = targetOutput27B;
+			const string targetOutput27D = "<ruby>" +
 				"♥ " +
 				"<rp>:</rp> " +
 				"<rt>Heart</rt> " +
@@ -1730,21 +1753,21 @@ namespace WebMarkupMin.Core.Test.Html
 				;
 
 
-			const string input27 = "<ruby>\n" +
+			const string input28 = "<ruby>\n" +
 				"	<rb>  旧  </rb>  <rb>  金  </rb>  <rb>  山  </rb>\n" +
 				"	<rt>  jiù  </rt>  <rt>  jīn  </rt> <rt>  shān  </rt>\n" +
 				"	<rtc>  Сан-Франциско  </rtc>\n" +
 				"</ruby>"
 				;
-			const string targetOutput27A = input27;
-			const string targetOutput27B = "<ruby> " +
+			const string targetOutput28A = input28;
+			const string targetOutput28B = "<ruby> " +
 				"<rb> 旧 </rb> <rb> 金 </rb> <rb> 山 </rb> " +
 				"<rt> jiù </rt> <rt> jīn </rt> <rt> shān </rt> " +
 				"<rtc> Сан-Франциско </rtc> " +
 				"</ruby>"
 				;
-			const string targetOutput27C = targetOutput27B;
-			const string targetOutput27D = "<ruby>" +
+			const string targetOutput28C = targetOutput28B;
+			const string targetOutput28D = "<ruby>" +
 				"<rb>旧</rb> <rb>金</rb> <rb>山</rb> " +
 				"<rt>jiù</rt> <rt>jīn</rt> <rt>shān</rt> " +
 				"<rtc>Сан-Франциско</rtc>" +
@@ -1887,6 +1910,11 @@ namespace WebMarkupMin.Core.Test.Html
 			string output27C = mediumRemovingWhitespaceMinifier.Minify(input27).MinifiedContent;
 			string output27D = aggressiveRemovingWhitespaceMinifier.Minify(input27).MinifiedContent;
 
+			string output28A = keepingWhitespaceMinifier.Minify(input28).MinifiedContent;
+			string output28B = safeRemovingWhitespaceMinifier.Minify(input28).MinifiedContent;
+			string output28C = mediumRemovingWhitespaceMinifier.Minify(input28).MinifiedContent;
+			string output28D = aggressiveRemovingWhitespaceMinifier.Minify(input28).MinifiedContent;
+
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
@@ -2022,6 +2050,11 @@ namespace WebMarkupMin.Core.Test.Html
 			Assert.Equal(targetOutput27B, output27B);
 			Assert.Equal(targetOutput27C, output27C);
 			Assert.Equal(targetOutput27D, output27D);
+
+			Assert.Equal(targetOutput28A, output28A);
+			Assert.Equal(targetOutput28B, output28B);
+			Assert.Equal(targetOutput28C, output28C);
+			Assert.Equal(targetOutput28D, output28D);
 		}
 
 		#endregion

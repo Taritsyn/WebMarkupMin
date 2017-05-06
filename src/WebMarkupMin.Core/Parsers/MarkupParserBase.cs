@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 
 using WebMarkupMin.Core.Resources;
+using WebMarkupMin.Core.Utilities;
 
 namespace WebMarkupMin.Core.Parsers
 {
@@ -168,6 +169,39 @@ namespace WebMarkupMin.Core.Parsers
 			throw new MarkupParsingException(
 				Strings.ErrorMessage_StartIgnoringCommentTagNotDeclared,
 				_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
+		}
+
+		/// <summary>
+		/// Process a CDATA sections
+		/// </summary>
+		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		protected bool ProcessCdataSection()
+		{
+			bool isProcessed = false;
+			string content = _innerContext.SourceCode;
+
+			if (content.CustomStartsWith("<![CDATA[", _innerContext.Position, StringComparison.Ordinal))
+			{
+				int cdataStartPosition = _innerContext.Position;
+				int cdataEndPosition = content.IndexOf("]]>", cdataStartPosition, StringComparison.Ordinal);
+
+				if (cdataEndPosition > cdataStartPosition)
+				{
+					string cdataText = content.Substring(cdataStartPosition + 9,
+						cdataEndPosition - cdataStartPosition - 9);
+
+					var cdataSectionHandler = CommonHandlers.CdataSection;
+					if (cdataSectionHandler != null)
+					{
+						cdataSectionHandler(_context, cdataText);
+					}
+
+					_innerContext.IncreasePosition(cdataEndPosition + 3 - cdataStartPosition);
+					isProcessed = true;
+				}
+			}
+
+			return isProcessed;
 		}
 
 		#endregion

@@ -1,4 +1,7 @@
-<img src="logo.png" width="440" height="86" alt="WebMarkupMin logo" />
+Web Markup Minifier
+===================
+
+<img src="https://raw.githubusercontent.com/Taritsyn/WebMarkupMin/master/images/WebMarkupMin_Logo.png" width="440" height="86" alt="WebMarkupMin logo" />
 
 The **Web Markup Minifier** (abbreviated WebMarkupMin) - a .NET library that contains a set of markup minifiers. The objective of this project is to improve the performance of web applications by reducing the size of HTML, XHTML and XML code.
 

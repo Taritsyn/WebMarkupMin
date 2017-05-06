@@ -11,6 +11,7 @@
 		Comment,
 		IfConditionalComment,
 		EndIfConditionalComment,
+		CdataSection,
 		StartTag,
 		EndTag,
 		Text,

@@ -46,7 +46,9 @@
    =============
    RELEASE NOTES
    =============
-   Added support of .NET Core 1.0.4.
+   1. Added support of .NET Core 1.0.4;
+   2. HTML and XHTML minifiers now support processing of CDATA sections outside the
+      `script` and `style` tags.
 
    =============
    DOCUMENTATION

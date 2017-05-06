@@ -247,38 +247,6 @@ namespace WebMarkupMin.Core.Parsers
 		}
 
 		/// <summary>
-		/// Process a CDATA sections
-		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
-		private bool ProcessCdataSection()
-		{
-			bool isProcessed = false;
-			string content = _innerContext.SourceCode;
-
-			if (content.CustomStartsWith("<![CDATA[", _innerContext.Position, StringComparison.OrdinalIgnoreCase))
-			{
-				int cdataStartPosition = _innerContext.Position;
-				int cdataEndPosition = content.IndexOf("]]>", cdataStartPosition, StringComparison.Ordinal);
-
-				if (cdataEndPosition > cdataStartPosition)
-				{
-					string cdataText = content.Substring(cdataStartPosition + 9,
-						cdataEndPosition - cdataStartPosition - 9);
-
-					if (_handlers.CdataSection != null)
-					{
-						_handlers.CdataSection(_context, cdataText);
-					}
-
-					_innerContext.IncreasePosition(cdataEndPosition + 3 - cdataStartPosition);
-					isProcessed = true;
-				}
-			}
-
-			return isProcessed;
-		}
-
-		/// <summary>
 		/// Process a start tag
 		/// </summary>
 		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
