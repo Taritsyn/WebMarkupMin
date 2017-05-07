@@ -252,29 +252,30 @@ namespace WebMarkupMin.Core.Parsers
 															break;
 
 														case '[':
-															if (fourthCharValue == 'C')
+															switch (fourthCharValue)
 															{
-																// CDATA sections
-																isProcessed = ProcessCdataSection();
-															}
-															else
-															{
-																// Remaining conditional comments
-
-																// Hidden End If conditional comment (e.g. <![endif]-->)
-																isProcessed = ProcessHiddenEndIfComment();
-
-																if (!isProcessed)
-																{
+																case 'i':
+																case 'I':
 																	// Revealed If conditional comment (e.g. <![if ... ]>)
 																	isProcessed = ProcessRevealedIfComment();
-																}
+																	break;
 
-																if (!isProcessed)
-																{
-																	// Revealed End If conditional comment (e.g. <![endif]>)
-																	isProcessed = ProcessRevealedEndIfComment();
-																}
+																case 'e':
+																case 'E':
+																	// Hidden End If conditional comment (e.g. <![endif]-->)
+																	isProcessed = ProcessHiddenEndIfComment();
+
+																	if (!isProcessed)
+																	{
+																		// Revealed End If conditional comment (e.g. <![endif]>)
+																		isProcessed = ProcessRevealedEndIfComment();
+																	}
+																	break;
+
+																case 'C':
+																	// CDATA sections
+																	isProcessed = ProcessCdataSection();
+																	break;
 															}
 															break;
 
