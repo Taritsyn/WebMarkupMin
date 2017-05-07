@@ -1,6 +1,14 @@
 Change log
 ==========
 
+## May 7, 2017 - v2.4.0
+ * Added support of .NET Core 1.0.4
+ * HTML and XHTML minifiers now support processing of CDATA sections outside the `script` and `style` tags
+ * In `IMarkupMinificationManager` interface, `MarkupMinificationOptionsBase` class, `IHttpCompressionManager` interface and `HttpCompressionOptions` class was added a new property - `SupportedHttpMethods` (default `GET`)
+ * In WebMarkupMin.AspNet4.Mvc and WebMarkupMin.AspNet4.WebForms now, by default, only the `GET` requests are minified and compressed (this behavior can be changed by using the `SupportedHttpMethods` property)
+ * In `IHttpCompressionManager` interface and `HttpCompressionOptions` class was added two new properties - `IncludedPages` (default empty list) and `ExcludedPages` (default empty list)
+ * In ASP.NET 4.X Extensions fixed a error of filtering media-types, which led to incorrect usage of HTTP compression
+
 ## March 7, 2017 - v2.3.0
  * Downgraded .NET Framework version from 4.5.1 to 4.5
  * Added support of .NET Core 1.0.3

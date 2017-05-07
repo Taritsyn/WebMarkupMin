@@ -7,6 +7,8 @@ call ../setup.cmd
 
 rmdir lib /Q/S
 
+%dotnet_cli% restore "%dotnet_project_source_dir%"
+
 %dotnet_cli% build "%dotnet_project_source_dir%" --framework net451 --configuration Release --no-dependencies --no-incremental
 xcopy "%dotnet_project_bin_dir%\net451\%project_name%.dll" lib\net451\ /E
 xcopy "%dotnet_project_bin_dir%\net451\%project_name%.xml" lib\net451\ /E
