@@ -20,7 +20,7 @@ namespace WebMarkupMin.AspNetCore1
 
 		/// <summary>
 		/// Gets or sets a list of URL matchers, which is used to include pages to processing
-		/// by markup minifier
+		/// by markup minifier or compressor
 		/// </summary>
 		public IList<IUrlMatcher> IncludedPages
 		{
@@ -30,7 +30,7 @@ namespace WebMarkupMin.AspNetCore1
 
 		/// <summary>
 		/// Gets or sets a list of URL matchers, which is used to exclude pages from processing
-		/// by markup minifier
+		/// by markup minifier or compressor
 		/// </summary>
 		public IList<IUrlMatcher> ExcludedPages
 		{
