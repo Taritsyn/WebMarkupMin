@@ -1,6 +1,9 @@
 ﻿@using System.Collections.Generic
 @using System.Web.Optimization
 
+@using JavaScriptEngineSwitcher.Core
+@using JavaScriptEngineSwitcher.Msie
+
 @using BundleTransformer.Core.Bundles
 @using BundleTransformer.Core.Orderers
 
@@ -12,6 +15,14 @@
 @using WebMarkupMin.MsAjax
 
 @{
+	#region JavaScript Engine Switcher
+
+	JsEngineSwitcher.Instance.EngineFactories
+		.AddMsie()
+		;
+
+	#endregion
+
 	#region Bundle Transformer
 
 	var bundles = BundleTable.Bundles;

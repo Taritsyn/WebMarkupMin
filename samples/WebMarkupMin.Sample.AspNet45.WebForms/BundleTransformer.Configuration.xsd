@@ -59,7 +59,7 @@
 			</xs:element>
 			<xs:element name="assetHandler" type="AssetHandlerSettings_SchemaType" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
-					<xs:documentation>Configuration settings of the debugging HTTP-handler, that responsible for text output of processed asset</xs:documentation>
+					<xs:documentation>Configuration settings of the debugging HTTP handler, that responsible for text output of processed asset</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:all>
@@ -71,7 +71,7 @@
 		<xs:attribute name="jsFilesWithMicrosoftStyleExtensions" type="xs:string"
 			use="optional" default="MicrosoftAjax.js,MicrosoftMvcAjax.js,MicrosoftMvcValidation.js,knockout-$version$.js">
 			<xs:annotation>
-				<xs:documentation>List of JS-files with Microsoft-style extensions</xs:documentation>
+				<xs:documentation>List of JS files with Microsoft-style extensions</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
@@ -187,7 +187,7 @@
 			<xs:extension base="AddAssetProcessorRegistrationBase_SchemaType">
 				<xs:attribute name="useInDebugMode" type="Boolean_SchemaType" use="optional" default="false">
 					<xs:annotation>
-						<xs:documentation>Flag for whether to use postprocessor in the debugging HTTP-handlers</xs:documentation>
+						<xs:documentation>Flag for whether to use postprocessor in the debugging HTTP handlers</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 			</xs:extension>
@@ -258,7 +258,7 @@
 		</xs:attribute>
 		<xs:attribute name="type" type="xs:string" use="required">
 			<xs:annotation>
-				<xs:documentation>Processor .NET-type name</xs:documentation>
+				<xs:documentation>Processor .NET type name</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
@@ -309,11 +309,11 @@
 
 	<xs:complexType name="JsEngineSettings_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Configuration settings of JavaScript engine</xs:documentation>
+			<xs:documentation>Configuration settings of JS engine</xs:documentation>
 		</xs:annotation>
 		<xs:attribute name="name" type="xs:string" use="optional" default="">
 			<xs:annotation>
-				<xs:documentation>JavaScript engine name</xs:documentation>
+				<xs:documentation>JS engine name</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
@@ -346,7 +346,7 @@
 	<!-- LESS settings -->
 	<xs:complexType name="LessSettings_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Configuration settings of LESS-translator</xs:documentation>
+			<xs:documentation>Configuration settings of LESS translator</xs:documentation>
 		</xs:annotation>
 		<xs:all>
 			<xs:element name="jsEngine" type="JsEngineSettings_SchemaType" minOccurs="0" maxOccurs="1" />
@@ -402,7 +402,7 @@
 		</xs:attribute>
 		<xs:attribute name="javascriptEnabled" type="Boolean_SchemaType" use="optional" default="true">
 			<xs:annotation>
-				<xs:documentation>Flag for whether to enable JavaScript in less files</xs:documentation>
+				<xs:documentation>Flag for whether to enable JS in less files</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="globalVariables" type="xs:string" use="optional" default="">
@@ -415,48 +415,131 @@
 				<xs:documentation>String representation of variable list, that modifies a variables already declared in the file (semicolon-separated list of values of the form VAR=VALUE)</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+		<xs:attribute name="severity" use="optional" default="0">
+			<xs:annotation>
+				<xs:documentation>
+					Severity level of errors:
+					0 - only error messages;
+					1 - only error messages and warnings.
+				</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:int">
+					<xs:minInclusive value="0" />
+					<xs:maxInclusive value="1" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
 	</xs:complexType>
 	<!-- /LESS settings -->
 
 	<!-- Sass and SCSS settings -->
 	<xs:complexType name="SassAndScssSettings_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Configuration settings of Sass- and SCSS-translator</xs:documentation>
+			<xs:documentation>Configuration settings of Sass and SCSS translator</xs:documentation>
 		</xs:annotation>
+		<xs:all>
+			<xs:element name="includePaths" type="IncludedPathRegistrationCollection_SchemaType" minOccurs="0" maxOccurs="1" />
+		</xs:all>
 		<xs:attribute name="useNativeMinification" type="Boolean_SchemaType" use="optional" default="false">
 			<xs:annotation>
 				<xs:documentation>Flag for whether to allow the use of native minification</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="lineNumbers" type="Boolean_SchemaType" use="optional" default="false">
+		<xs:attribute name="indentType" use="optional" default="Space">
 			<xs:annotation>
-				<xs:documentation>Flag for whether to output the line number and file within comments</xs:documentation>
+				<xs:documentation>Indent type</xs:documentation>
 			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="Space" />
+					<xs:enumeration value="Tab" />
+				</xs:restriction>
+			</xs:simpleType>
 		</xs:attribute>
-		<xs:attribute name="traceSelectors" type="Boolean_SchemaType" use="optional" default="false">
+		<xs:attribute name="indentWidth" use="optional" default="2">
 			<xs:annotation>
-				<xs:documentation>Flag for whether to output the full trace of imports and mixins before each selector</xs:documentation>
+				<xs:documentation>Number of spaces or tabs to be used for indentation</xs:documentation>
 			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:int">
+					<xs:minInclusive value="0" />
+					<xs:maxInclusive value="2147483647" />
+				</xs:restriction>
+			</xs:simpleType>
 		</xs:attribute>
-		<xs:attribute name="debugInfo" type="Boolean_SchemaType" use="optional" default="false">
+		<xs:attribute name="lineFeedType" use="optional" default="CrLf">
 			<xs:annotation>
-				<xs:documentation>Flag for whether to output the line number and file within a fake media query</xs:documentation>
+				<xs:documentation>Line feed type</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="Cr" />
+					<xs:enumeration value="CrLf" />
+					<xs:enumeration value="Lf" />
+					<xs:enumeration value="LfCr" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="precision" use="optional" default="5">
+			<xs:annotation>
+				<xs:documentation>Precision for fractional numbers</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:int">
+					<xs:minInclusive value="-1" />
+					<xs:maxInclusive value="2147483647" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="sourceComments" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to emit comments in the generated CSS indicating the corresponding source line</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
+
+	<xs:complexType name="IncludedPathRegistrationCollection_SchemaType">
+		<xs:annotation>
+			<xs:documentation>Collection of registered included paths</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="add" type="AddIncludedPathRegistration_SchemaType" />
+			<xs:element name="remove" type="RemoveIncludedPathRegistration_SchemaType" />
+			<xs:element name="clear" type="ClearIncludedPathRegistration_SchemaType" />
+		</xs:choice>
+	</xs:complexType>
+
+	<xs:complexType name="AddIncludedPathRegistration_SchemaType">
+		<xs:attribute name="path" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Path</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="RemoveIncludedPathRegistration_SchemaType">
+		<xs:attribute name="path" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Path</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="ClearIncludedPathRegistration_SchemaType" />
 	<!-- /Sass and SCSS settings -->
 
 	<!-- CoffeeScript settings -->
 	<xs:complexType name="CoffeeScriptSettings_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Configuration settings of CoffeeScript-translator</xs:documentation>
+			<xs:documentation>Configuration settings of CoffeeScript translator</xs:documentation>
 		</xs:annotation>
 		<xs:all>
 			<xs:element name="jsEngine" type="JsEngineSettings_SchemaType" minOccurs="0" maxOccurs="1" />
 		</xs:all>
 		<xs:attribute name="bare" type="Boolean_SchemaType" use="optional" default="true">
 			<xs:annotation>
-				<xs:documentation>Flag for whether to allow compilation to JavaScript without the top-level function safety wrapper</xs:documentation>
+				<xs:documentation>Flag for whether to allow compilation to JS without the top-level function safety wrapper</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
@@ -465,14 +548,35 @@
 	<!-- TypeScript settings -->
 	<xs:complexType name="TypeScriptSettings_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Configuration settings of TypeScript-translator</xs:documentation>
+			<xs:documentation>Configuration settings of TypeScript translator</xs:documentation>
 		</xs:annotation>
 		<xs:all>
 			<xs:element name="jsEngine" type="JsEngineSettings_SchemaType" minOccurs="0" maxOccurs="1" />
+			<xs:element name="libs" type="LibraryFileRegistrationCollection_SchemaType" minOccurs="0" maxOccurs="1" />
 		</xs:all>
-		<xs:attribute name="experimentalAsyncFunctions" type="Boolean_SchemaType" use="optional" default="false">
+		<xs:attribute name="allowUnreachableCode" type="Boolean_SchemaType" use="optional" default="false">
 			<xs:annotation>
-				<xs:documentation>Flag for whether to enable experimental support for ES7 async functions</xs:documentation>
+				<xs:documentation>Flag for whether to do not report errors on unreachable code</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="allowUnusedLabels" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to do not report errors on unused labels</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="alwaysStrict" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to parse in strict mode and emit `use strict` for each source file</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="downlevelIteration" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to provide full support for iterables in `for-of`, spread, and destructuring when targeting 'ES5' or 'ES3'</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="forceConsistentCasingInFileNames" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to disallow inconsistently-cased references to the same file</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="newLine" use="optional" default="CrLf">
@@ -501,14 +605,54 @@
 				<xs:documentation>Flag for whether to do not emit outputs if any errors were reported</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+		<xs:attribute name="noErrorTruncation" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to do not truncate type name in error messages</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="noFallthroughCasesInSwitch" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to report errors for fallthrough cases in switch statement</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 		<xs:attribute name="noImplicitAny" type="Boolean_SchemaType" use="optional" default="false">
 			<xs:annotation>
 				<xs:documentation>Flag for whether to raise error on expressions and declarations with an implied `any` type</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+		<xs:attribute name="noImplicitReturns" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to report error when not all code paths in function return a value</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="noImplicitThis" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to raise error on `this` expressions with an implied `any` type</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 		<xs:attribute name="noLib" type="Boolean_SchemaType" use="optional" default="false">
 			<xs:annotation>
 				<xs:documentation>Flag for whether to do not include a default library (`lib.d.ts` or `lib.es6.d.ts`)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="noResolve" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to do not resolve a script references</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="noStrictGenericChecks" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to disable strict checking of generic signatures</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="noUnusedLocals" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to report errors on unused locals</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="noUnusedParameters" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to report errors on unused parameters</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="preserveConstEnums" type="Boolean_SchemaType" use="optional" default="false">
@@ -526,6 +670,16 @@
 				<xs:documentation>Flag for whether to skip a default library checking</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+		<xs:attribute name="skipLibCheck" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to skip type checking of declaration files</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="strictNullChecks" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to enable strict null checks</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 		<xs:attribute name="stripInternal" type="Boolean_SchemaType" use="optional" default="false">
 			<xs:annotation>
 				<xs:documentation>Flag for whether to do not emit declarations for code that has an `@internal` annotation</xs:documentation>
@@ -541,25 +695,68 @@
 				<xs:documentation>Flag for whether to suppress noImplicitAny errors for indexing objects lacking index signatures</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+		<xs:attribute name="suppressTypeCheckingErrors" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to suppress type checking errors</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 		<xs:attribute name="target" use="optional" default="EcmaScript3">
 			<xs:annotation>
-				<xs:documentation>ECMAScript target version: `EcmaScript3` (default), `EcmaScript5`, or `EcmaScript6` (experimental)</xs:documentation>
+				<xs:documentation>ECMAScript target version: `EcmaScript3` (default), `EcmaScript5`, `EcmaScript2015`, `EcmaScript2016`, `EcmaScript2017`, or `EcmaScriptNext`</xs:documentation>
 			</xs:annotation>
 			<xs:simpleType>
 				<xs:restriction base="xs:NMTOKEN">
 					<xs:enumeration value="EcmaScript3" />
 					<xs:enumeration value="EcmaScript5" />
 					<xs:enumeration value="EcmaScript6" />
+					<xs:enumeration value="EcmaScript2015" />
+					<xs:enumeration value="EcmaScript2016" />
+					<xs:enumeration value="EcmaScript2017" />
+					<xs:enumeration value="EcmaScriptNext" />
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:attribute>
+		<xs:attribute name="transpileOnly" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to run TypeScript to JS transpilation only (skip other passes)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 	</xs:complexType>
+
+	<xs:complexType name="LibraryFileRegistrationCollection_SchemaType">
+		<xs:annotation>
+			<xs:documentation>Collection of registered library files</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="add" type="AddLibraryFileRegistration_SchemaType" />
+			<xs:element name="remove" type="RemoveLibraryFileRegistration_SchemaType" />
+			<xs:element name="clear" type="ClearLibraryFileRegistration_SchemaType" />
+		</xs:choice>
+	</xs:complexType>
+
+	<xs:complexType name="AddLibraryFileRegistration_SchemaType">
+		<xs:attribute name="libraryFileName" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Library file name</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="RemoveLibraryFileRegistration_SchemaType">
+		<xs:attribute name="libraryFileName" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Library file name</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="ClearLibraryFileRegistration_SchemaType" />
 	<!-- /TypeScript settings -->
 
 	<!-- Hogan settings -->
 	<xs:complexType name="HoganSettings_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Configuration settings of Hogan-translator</xs:documentation>
+			<xs:documentation>Configuration settings of Hogan translator</xs:documentation>
 		</xs:annotation>
 		<xs:all>
 			<xs:element name="sectionTags" type="SectionTagRegistrationCollection_SchemaType" minOccurs="0" maxOccurs="1" />
@@ -630,7 +827,7 @@
 	<!-- Handlebars settings -->
 	<xs:complexType name="HandlebarsSettings_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Configuration settings of Handlebars-translator</xs:documentation>
+			<xs:documentation>Configuration settings of Handlebars translator</xs:documentation>
 		</xs:annotation>
 		<xs:all>
 			<xs:element name="jsEngine" type="JsEngineSettings_SchemaType" minOccurs="0" maxOccurs="1" />
@@ -666,7 +863,7 @@
 	<!-- Autoprefixer settings -->
 	<xs:complexType name="AutoprefixerSettings_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Configuration settings of Andrey Sitnik's Autoprefix CSS-postprocessor</xs:documentation>
+			<xs:documentation>Configuration settings of Andrey Sitnik's Autoprefix CSS postprocessor</xs:documentation>
 		</xs:annotation>
 		<xs:all>
 			<xs:element name="browsers" type="BrowserConditionalExpressionCollection_SchemaType" minOccurs="0" maxOccurs="1" />
@@ -677,14 +874,34 @@
 				<xs:documentation>Flag for whether to create nice visual cascade of prefixes</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+		<xs:attribute name="add" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to add new prefixes</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 		<xs:attribute name="remove" type="Boolean_SchemaType" use="optional" default="true">
 			<xs:annotation>
 				<xs:documentation>Flag for whether to remove outdated prefixes</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="add" type="Boolean_SchemaType" use="optional" default="true">
+		<xs:attribute name="supports" type="Boolean_SchemaType" use="optional" default="true">
 			<xs:annotation>
-				<xs:documentation>Flag for whether to add new prefixes</xs:documentation>
+				<xs:documentation>Flag for whether to add prefixes for `@supports` parameters</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="flexbox" type="xs:string" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to add prefixes for flexbox properties. With 'no-2009' value Autoprefixer will add prefixes only for final and IE versions of specification.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="grid" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to add IE prefixes for Grid Layout properties</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="stats" type="xs:string" use="optional" default="">
+			<xs:annotation>
+				<xs:documentation>Virtual path to file, that contains custom usage statistics for `&gt; 10% in my stats` browsers query</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
@@ -732,7 +949,7 @@
 
 	<xs:complexType name="MicrosoftAjaxCssMinifierSettings_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Configuration settings of Microsoft Ajax CSS-minifier</xs:documentation>
+			<xs:documentation>Configuration settings of Microsoft Ajax CSS minifier</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="MicrosoftAjaxMinifierSettingsBase_SchemaType">
@@ -797,7 +1014,7 @@ Leave all other color names or hex values as-specified.</xs:documentation>
 				</xs:attribute>
 				<xs:attribute name="minifyExpressions" type="Boolean_SchemaType" use="optional" default="true">
 					<xs:annotation>
-						<xs:documentation>Value indicating whether to minify the JavaScript within expression functions</xs:documentation>
+						<xs:documentation>Value indicating whether to minify the JS within expression functions</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 				<xs:attribute name="removeEmptyBlocks" type="Boolean_SchemaType" use="optional" default="true">
@@ -811,7 +1028,7 @@ Leave all other color names or hex values as-specified.</xs:documentation>
 
 	<xs:complexType name="MicrosoftAjaxJsMinifierSettings_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Configuration settings of Microsoft Ajax JS-minifier</xs:documentation>
+			<xs:documentation>Configuration settings of Microsoft Ajax JS minifier</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="MicrosoftAjaxMinifierSettingsBase_SchemaType">
@@ -1112,7 +1329,7 @@ Not easily human-readable.</xs:documentation>
 
 	<xs:complexType name="YuiCssMinifierSettings_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Configuration settings of YUI CSS-minifier</xs:documentation>
+			<xs:documentation>Configuration settings of YUI CSS minifier</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="YuiMinifierSettingsBase_SchemaType">
@@ -1127,7 +1344,7 @@ Not easily human-readable.</xs:documentation>
 
 	<xs:complexType name="YuiJsMinifierSettings_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Configuration settings of YUI JS-minifier</xs:documentation>
+			<xs:documentation>Configuration settings of YUI JS minifier</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="YuiMinifierSettingsBase_SchemaType">
@@ -1204,7 +1421,7 @@ This affects the treatment of numbers etc - e.g. 9.00 could be output as 9,00 (t
 		<xs:attribute name="lineBreakPosition" type="xs:int" use="optional" default="-1">
 			<xs:annotation>
 				<xs:documentation>Column number, after which must be inserted a line break.
-Specify 0 to get a line break after each semi-colon in JavaScript, and after each rule in CSS.</xs:documentation>
+Specify 0 to get a line break after each semi-colon in JS, and after each rule in CSS.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
@@ -1222,7 +1439,7 @@ Specify 0 to get a line break after each semi-colon in JavaScript, and after eac
 
 	<xs:complexType name="ClosureJsSettings_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Configuration settings of minification JS-assets</xs:documentation>
+			<xs:documentation>Configuration settings of minification JS assets</xs:documentation>
 		</xs:annotation>
 		<xs:all>
 			<xs:element name="remote" type="ClosureRemoteJsMinifierSettings_SchemaType" minOccurs="0" maxOccurs="1" />
@@ -1255,7 +1472,7 @@ Specify 0 to get a line break after each semi-colon in JavaScript, and after eac
 
 	<xs:complexType name="ClosureRemoteJsMinifierSettings_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Configuration settings of Closure remote JS-minifier</xs:documentation>
+			<xs:documentation>Configuration settings of Closure remote JS minifier</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="ClosureJsMinifierSettingsBase_SchemaType">
@@ -1280,7 +1497,7 @@ Specify 0 to get a line break after each semi-colon in JavaScript, and after eac
 
 	<xs:complexType name="ClosureLocalJsMinifierSettings_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Configuration settings of Closure local JS-minifier</xs:documentation>
+			<xs:documentation>Configuration settings of Closure local JS minifier</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="ClosureJsMinifierSettingsBase_SchemaType">
@@ -1396,14 +1613,14 @@ Specify 0 to get a line break after each semi-colon in JavaScript, and after eac
 		</xs:attribute>
 		<xs:attribute name="compilationLevel" use="optional" default="Simple">
 			<xs:annotation>
-				<xs:documentation>Degree of compression and optimization to apply to your JavaScript.
+				<xs:documentation>Degree of compression and optimization to apply to your JS.
 There are 3 possible compilation levels:
-WhitespaceOnly - just removes whitespace and comments from your JavaScript;
+WhitespaceOnly - just removes whitespace and comments from your JS;
 Simple - performs compression and optimization that does not interfere with
-the interaction between the compiled JavaScript and other JavaScript.
+the interaction between the compiled JS and other JS.
 This level renames only local variables;
 Advanced - achieves the highest level of compression by renaming symbols in your
-JavaScript. When using this type of compilation you must perform extra steps
+JS. When using this type of compilation you must perform extra steps
 to preserve references to external symbols.</xs:documentation>
 			</xs:annotation>
 			<xs:simpleType>
@@ -1443,7 +1660,7 @@ to preserve references to external symbols.</xs:documentation>
 
 	<xs:complexType name="CommonJsExternsFileRegistrationCollection_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Collection of registered common JS-externs files</xs:documentation>
+			<xs:documentation>Collection of registered common JS externs files</xs:documentation>
 		</xs:annotation>
 		<xs:choice minOccurs="0" maxOccurs="unbounded">
 			<xs:element name="add" type="AddCommonJsExternsFileRegistration_SchemaType" />
@@ -1472,7 +1689,7 @@ to preserve references to external symbols.</xs:documentation>
 
 	<xs:complexType name="JsExternsFileMappingRegistrationCollection_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Collection of registered JS-externs file mappings</xs:documentation>
+			<xs:documentation>Collection of registered JS externs file mappings</xs:documentation>
 		</xs:annotation>
 		<xs:choice minOccurs="0" maxOccurs="unbounded">
 			<xs:element name="add" type="AddJsExternsFileMappingRegistration_SchemaType" />
@@ -1518,7 +1735,7 @@ to preserve references to external symbols.</xs:documentation>
 
 	<xs:complexType name="UglifyJsMinifierSettings_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Configuration settings of Uglify JS-minifier</xs:documentation>
+			<xs:documentation>Configuration settings of Uglify JS minifier</xs:documentation>
 		</xs:annotation>
 		<xs:all>
 			<xs:element name="parsing" type="UglifyParsingSettings_SchemaType" minOccurs="0" maxOccurs="1" />
@@ -1526,14 +1743,14 @@ to preserve references to external symbols.</xs:documentation>
 			<xs:element name="mangling" type="UglifyManglingSettings_SchemaType" minOccurs="0" maxOccurs="1" />
 			<xs:element name="codeGeneration" type="UglifyCodeGenerationSettings_SchemaType" minOccurs="0" maxOccurs="1" />
 		</xs:all>
-		<xs:attribute name="screwIe8" type="Boolean_SchemaType" use="optional" default="false">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to disable full compliance with Internet Explorer 6-8 quirks</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
 		<xs:attribute name="keepFunctionNames" type="Boolean_SchemaType" use="optional" default="false">
 			<xs:annotation>
 				<xs:documentation>Flag for whether to do not mangle/drop function names. Useful for code relying on `Function.prototype.name`.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="screwIe8" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to disable full compliance with Internet Explorer 6-8 quirks</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="severity" use="optional" default="0">
@@ -1555,14 +1772,14 @@ to preserve references to external symbols.</xs:documentation>
 		<xs:annotation>
 			<xs:documentation>Configuration settings of parsing</xs:documentation>
 		</xs:annotation>
-		<xs:attribute name="strict" type="Boolean_SchemaType" use="optional" default="false">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to disable automatic semicolon insertion and support for trailing comma in arrays and objects</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
 		<xs:attribute name="bareReturns" type="Boolean_SchemaType" use="optional" default="false">
 			<xs:annotation>
 				<xs:documentation>Flag for whether to allow return outside of functions. Useful when minifying CommonJS modules.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="strict" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to disable automatic semicolon insertion and support for trailing comma in arrays and objects</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
@@ -1571,49 +1788,9 @@ to preserve references to external symbols.</xs:documentation>
 		<xs:annotation>
 			<xs:documentation>Configuration settings of compression</xs:documentation>
 		</xs:annotation>
-		<xs:attribute name="compress" type="Boolean_SchemaType" use="optional" default="true">
+		<xs:attribute name="angular" type="Boolean_SchemaType" use="optional" default="false">
 			<xs:annotation>
-				<xs:documentation>Flag for whether to compress code</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="sequences" type="Boolean_SchemaType" use="optional" default="true">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to join consecutive simple statements using the comma operator</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="propertiesDotNotation" type="Boolean_SchemaType" use="optional" default="true">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to rewrite property access using the dot notation</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="deadCode" type="Boolean_SchemaType" use="optional" default="true">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to remove unreachable code</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="dropDebugger" type="Boolean_SchemaType" use="optional" default="true">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to remove debugger; statements</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="unsafe" type="Boolean_SchemaType" use="optional" default="false">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to apply "unsafe" transformations</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="conditionals" type="Boolean_SchemaType" use="optional" default="true">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to apply optimizations for if-s and conditional expressions</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="comparisons" type="Boolean_SchemaType" use="optional" default="true">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to apply certain optimizations to binary nodes, attempts to negate binary nodes, etc.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="evaluate" type="Boolean_SchemaType" use="optional" default="true">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to attempt to evaluate constant expressions</xs:documentation>
+				<xs:documentation>Flag for whether to enable support of `@ngInject` annotations</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="booleans" type="Boolean_SchemaType" use="optional" default="true">
@@ -1621,24 +1798,59 @@ to preserve references to external symbols.</xs:documentation>
 				<xs:documentation>Flag for whether to enable various optimizations for boolean context</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="loops" type="Boolean_SchemaType" use="optional" default="true">
+		<xs:attribute name="cascade" type="Boolean_SchemaType" use="optional" default="true">
 			<xs:annotation>
-				<xs:documentation>Flag for whether to enable optimizations for do, while and for loops when we can statically determine the condition</xs:documentation>
+				<xs:documentation>Flag for whether to small optimization for sequences</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="unused" type="Boolean_SchemaType" use="optional" default="true">
+		<xs:attribute name="collapseVars" type="Boolean_SchemaType" use="optional" default="true">
 			<xs:annotation>
-				<xs:documentation>Flag for whether to drop unreferenced functions and variables</xs:documentation>
+				<xs:documentation>Flag for whether to collapse single-use `var` and `const` definitions when possible</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="comparisons" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to apply certain optimizations to binary nodes, attempts to negate binary nodes, etc.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="compress" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to compress code</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="conditionals" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to apply optimizations for if-s and conditional expressions</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="deadCode" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to remove unreachable code</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="dropConsole" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to discard calls to `console.*` functions</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="dropDebugger" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to remove debugger; statements</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="evaluate" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to attempt to evaluate constant expressions</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="globalDefinitions" type="xs:string" use="optional" default="">
+			<xs:annotation>
+				<xs:documentation>String representation of the object (comma-separated list of values of the form SYMBOL[=value]) with properties named after symbols to replace (except where symbol has properly declared by a var declaration or use as function parameter or similar) and the values representing the AST replacement value</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="hoistFunctions" type="Boolean_SchemaType" use="optional" default="true">
 			<xs:annotation>
 				<xs:documentation>Flag for whether to hoist function declarations</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="keepFunctionArgs" type="Boolean_SchemaType" use="optional" default="true">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to prevent the compressor from discarding unused function arguments</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="hoistVars" type="Boolean_SchemaType" use="optional" default="false">
@@ -1656,14 +1868,40 @@ to preserve references to external symbols.</xs:documentation>
 				<xs:documentation>Flag for whether to join consecutive var statements</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="cascade" type="Boolean_SchemaType" use="optional" default="true">
+		<xs:attribute name="keepFunctionArgs" type="Boolean_SchemaType" use="optional" default="true">
 			<xs:annotation>
-				<xs:documentation>Flag for whether to small optimization for sequences</xs:documentation>
+				<xs:documentation>Flag for whether to prevent the compressor from discarding unused function arguments</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="globalDefinitions" type="xs:string" use="optional" default="">
+		<xs:attribute name="keepInfinity" type="Boolean_SchemaType" use="optional" default="false">
 			<xs:annotation>
-				<xs:documentation>String representation of the object (comma-separated list of values of the form SYMBOL[=value]) with properties named after symbols to replace (except where symbol has properly declared by a var declaration or use as function parameter or similar) and the values representing the AST replacement value</xs:documentation>
+				<xs:documentation>Flag for whether to prevent `Infinity` from being compressed into `1/0`, which may cause performance issues on Chrome</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="loops" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to enable optimizations for do, while and for loops when we can statically determine the condition</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="negateIife" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to negate IIFEs</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="passes" use="optional" default="1">
+			<xs:annotation>
+				<xs:documentation>Number of times to run compress</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:int">
+					<xs:minInclusive value="1" />
+					<xs:maxInclusive value="2147483647" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="propertiesDotNotation" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to rewrite property access using the dot notation</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="pureGetters" type="Boolean_SchemaType" use="optional" default="false">
@@ -1673,17 +1911,52 @@ to preserve references to external symbols.</xs:documentation>
 		</xs:attribute>
 		<xs:attribute name="pureFunctions" type="xs:string" use="optional" default="">
 			<xs:annotation>
-				<xs:documentation>String representation of the function names list, which UglifyJS will assume that those functions do not produce side effects</xs:documentation>
+				<xs:documentation>String representation of the functions list, that can be safely removed if their return value is not used</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="dropConsole" type="Boolean_SchemaType" use="optional" default="false">
+		<xs:attribute name="reduceVars" type="Boolean_SchemaType" use="optional" default="true">
 			<xs:annotation>
-				<xs:documentation>Flag for whether to discard calls to `console.*` functions</xs:documentation>
+				<xs:documentation>Flag for whether to improve optimization on variables assigned with and used as constant values</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="angular" type="Boolean_SchemaType" use="optional" default="false">
+		<xs:attribute name="sequences" type="Boolean_SchemaType" use="optional" default="true">
 			<xs:annotation>
-				<xs:documentation>Flag for whether to enable support of `@ngInject` annotations</xs:documentation>
+				<xs:documentation>Flag for whether to join consecutive simple statements using the comma operator</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="topLevel" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to drop unreferenced functions and variables in the toplevel scope</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="topRetain" type="xs:string" use="optional" default="">
+			<xs:annotation>
+				<xs:documentation>Comma-separated list of toplevel functions and variables to exclude from `unused` removal</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="unsafe" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to apply "unsafe" transformations</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="unsafeMath" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to optimize numerical expressions like `2 * x * 3` into `6 * x`, which may give imprecise floating point results</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="unsafeProto" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to optimize expressions like `Array.prototype.slice.call(a)` into `[].slice.call(a)`</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="unsafeRegExp" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to enable substitutions of variables with `RegExp` values the same way as if they are constants</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="unused" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to drop unreferenced functions and variables</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
@@ -1692,9 +1965,9 @@ to preserve references to external symbols.</xs:documentation>
 		<xs:annotation>
 			<xs:documentation>Configuration settings of mangling</xs:documentation>
 		</xs:annotation>
-		<xs:attribute name="mangle" type="Boolean_SchemaType" use="optional" default="true">
+		<xs:attribute name="eval" type="Boolean_SchemaType" use="optional" default="false">
 			<xs:annotation>
-				<xs:documentation>Flag for whether to mangle names</xs:documentation>
+				<xs:documentation>Flag for whether to mangle names visible in scopes where eval or when are used</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="except" type="xs:string" use="optional" default="">
@@ -1702,14 +1975,9 @@ to preserve references to external symbols.</xs:documentation>
 				<xs:documentation>Comma-separated list of names to exclude from mangling</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="eval" type="Boolean_SchemaType" use="optional" default="false">
+		<xs:attribute name="mangle" type="Boolean_SchemaType" use="optional" default="true">
 			<xs:annotation>
-				<xs:documentation>Flag for whether to mangle names visible in scopes where eval or when are used</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="sort" type="Boolean_SchemaType" use="optional" default="false">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to assign shorter names to most frequently used variables</xs:documentation>
+				<xs:documentation>Flag for whether to mangle names</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="topLevel" type="Boolean_SchemaType" use="optional" default="false">
@@ -1723,9 +1991,28 @@ to preserve references to external symbols.</xs:documentation>
 		<xs:annotation>
 			<xs:documentation>Configuration settings of code generation</xs:documentation>
 		</xs:annotation>
+		<xs:attribute name="asciiOnly" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to escape Unicode characters in strings and regexps</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 		<xs:attribute name="beautify" type="Boolean_SchemaType" use="optional" default="false">
 			<xs:annotation>
 				<xs:documentation>Flag for whether to beautify the output</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="bracketize" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to insert brackets in if, for, do, while or with statements, even if their body is a single statement</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="comments" type="xs:string" use="optional" default="">
+			<xs:annotation>
+				<xs:documentation>Value that determines what kind of comments need to preserve:
+ "all" - keep all comments;
+ "some" - keep JSDoc-style (e.g. `@license` or `@preserve`) and conditional compilation comments;
+ valid JS RegExp like `/foo/`or `/^!/` - keep only comments that match;
+ empty string - remove all comments.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="indentLevel" type="xs:int" use="optional" default="4">
@@ -1738,29 +2025,14 @@ to preserve references to external symbols.</xs:documentation>
 				<xs:documentation>Initial indentation in spaces</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="quoteKeys" type="Boolean_SchemaType" use="optional" default="false">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to quote all keys in literal objects</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="spaceColon" type="Boolean_SchemaType" use="optional" default="true">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to insert a space after the colon signs</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="asciiOnly" type="Boolean_SchemaType" use="optional" default="false">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to escape Unicode characters in strings and regexps</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="inlineScript" type="Boolean_SchemaType" use="optional" default="false">
+		<xs:attribute name="inlineScript" type="Boolean_SchemaType" use="optional" default="true">
 			<xs:annotation>
 				<xs:documentation>Flag for whether to escape the slash in occurrences of &lt;/script in strings</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="width" type="xs:int" use="optional" default="80">
+		<xs:attribute name="keepQuotedProperties" type="Boolean_SchemaType" use="optional" default="false">
 			<xs:annotation>
-				<xs:documentation>Orientative line width that the beautifier will try to obey</xs:documentation>
+				<xs:documentation>Flag for whether to prevent stripping quotes from property names in object literals</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="maxLineLength" type="xs:int" use="optional" default="32000">
@@ -1768,33 +2040,14 @@ to preserve references to external symbols.</xs:documentation>
 				<xs:documentation>Maximum line length (for uglified code)</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="bracketize" type="Boolean_SchemaType" use="optional" default="false">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to insert brackets in if, for, do, while or with statements, even if their body is a single statement</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="semicolons" type="Boolean_SchemaType" use="optional" default="true">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to separate statements with semicolons</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="comments" type="xs:string" use="optional" default="">
-			<xs:annotation>
-				<xs:documentation>Value that determines what kind of comments need to preserve:
- "all" - keep all comments;
- "copyright" - keep JSDoc-style comments that contain `@license` or `@preserve`;
- valid JS regexp (needs to start with a slash) - keep only comments that match;
- empty string - remove all comments.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
 		<xs:attribute name="preserveLine" type="Boolean_SchemaType" use="optional" default="false">
 			<xs:annotation>
 				<xs:documentation>Flag for whether to preserve line breaks</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="unescapeRegexps" type="Boolean_SchemaType" use="optional" default="false">
+		<xs:attribute name="quoteKeys" type="Boolean_SchemaType" use="optional" default="false">
 			<xs:annotation>
-				<xs:documentation>Flag for whether to unescape regular expressions</xs:documentation>
+				<xs:documentation>Flag for whether to quote all keys in literal objects</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="quoteStyle" use="optional" default="Auto">
@@ -1826,6 +2079,31 @@ to preserve references to external symbols.</xs:documentation>
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:attribute>
+		<xs:attribute name="semicolons" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to separate statements with semicolons</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="spaceColon" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to insert a space after the colon signs</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="unescapeRegexps" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to unescape regular expressions</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="width" type="xs:int" use="optional" default="80">
+			<xs:annotation>
+				<xs:documentation>Orientative line width that the beautifier will try to obey</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="wrapIife" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to wrap IIFEs in parenthesis</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 	</xs:complexType>
 	<!-- /UglifyJs settings -->
 
@@ -1842,7 +2120,7 @@ to preserve references to external symbols.</xs:documentation>
 
 	<xs:complexType name="PackerJsMinifierSettings_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Configuration settings of Dean Edwards' JS-minifier</xs:documentation>
+			<xs:documentation>Configuration settings of Dean Edwards' JS minifier</xs:documentation>
 		</xs:annotation>
 		<xs:attribute name="shrinkVariables" type="Boolean_SchemaType" use="optional" default="true">
 			<xs:annotation>
@@ -1870,12 +2148,36 @@ to preserve references to external symbols.</xs:documentation>
 
 	<xs:complexType name="CssoCssMinifierSettings_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Configuration settings of Sergey Kryzhanovsky's CSS-minifier</xs:documentation>
+			<xs:documentation>Configuration settings of Sergey Kryzhanovsky's CSS minifier</xs:documentation>
 		</xs:annotation>
 		<xs:attribute name="disableRestructuring" type="Boolean_SchemaType" use="optional" default="false">
 			<xs:annotation>
 				<xs:documentation>Flag for whether to disable structure minification</xs:documentation>
 			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="comments" use="optional" default="Exclamation">
+			<xs:annotation>
+				<xs:documentation>Comments mode</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="Exclamation">
+						<xs:annotation>
+							<xs:documentation>Keep all exclamation comments</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>
+					<xs:enumeration value="FirstExclamation">
+						<xs:annotation>
+							<xs:documentation>Keep first one exclamation comment</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>
+					<xs:enumeration value="None">
+						<xs:annotation>
+							<xs:documentation>Remove all exclamation comments</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>
+				</xs:restriction>
+			</xs:simpleType>
 		</xs:attribute>
 	</xs:complexType>
 	<!-- /CSSO settings -->
@@ -1892,7 +2194,7 @@ to preserve references to external symbols.</xs:documentation>
 
 	<xs:complexType name="WgCssMinifierSettings_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Configuration settings of WebGrease Semantic CSS-minifier</xs:documentation>
+			<xs:documentation>Configuration settings of WebGrease Semantic CSS minifier</xs:documentation>
 		</xs:annotation>
 		<xs:attribute name="shouldMinify" type="Boolean_SchemaType" use="optional" default="true">
 			<xs:annotation>
@@ -1920,85 +2222,33 @@ to preserve references to external symbols.</xs:documentation>
 
 	<xs:complexType name="CleanCssMinifierSettings_SchemaType">
 		<xs:annotation>
-			<xs:documentation>Configuration settings of Clean CSS-minifier</xs:documentation>
+			<xs:documentation>Configuration settings of Clean CSS minifier</xs:documentation>
 		</xs:annotation>
-		<xs:attribute name="advanced" type="Boolean_SchemaType" use="optional" default="true">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to enable advanced optimizations (selector and property merging, reduction, etc)</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="aggressiveMerging" type="Boolean_SchemaType" use="optional" default="true">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to enable properties merging based on their order</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
+		<xs:all>
+			<xs:element name="formatting" type="CleanFormattingSettings_SchemaType" minOccurs="0" maxOccurs="1" />
+			<xs:element name="level1Optimizations" type="CleanLevel1OptimizationSettings_SchemaType" minOccurs="0" maxOccurs="1" />
+			<xs:element name="level2Optimizations" type="CleanLevel2OptimizationSettings_SchemaType" minOccurs="0" maxOccurs="1" />
+		</xs:all>
 		<xs:attribute name="compatibility" type="xs:string" use="optional" default="*">
 			<xs:annotation>
 				<xs:documentation>Compatibility mode:
- "ie7" - Internet Explorer 7 compatibility mode;
- "ie8" - Internet Explorer 8 compatibility mode;
- "*" - Internet Explorer 9+ compatibility mode.</xs:documentation>
+ "*" (default) - Internet Explorer 10+ compatibility mode;
+ "ie9" - Internet Explorer 9+ compatibility mode;
+ "ie8" - Internet Explorer 8+ compatibility mode;
+ "ie7" - Internet Explorer 7+ compatibility mode.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="keepBreaks" type="Boolean_SchemaType" use="optional" default="false">
+		<xs:attribute name="level" use="optional" default="One">
 			<xs:annotation>
-				<xs:documentation>Flag for whether to keep line breaks</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="keepSpecialComments" use="optional" default="KeepAll">
-			<xs:annotation>
-				<xs:documentation>Special comments mode</xs:documentation>
+				<xs:documentation>Optimization level</xs:documentation>
 			</xs:annotation>
 			<xs:simpleType>
 				<xs:restriction base="xs:NMTOKEN">
-					<xs:enumeration value="KeepAll">
-						<xs:annotation>
-							<xs:documentation>Keep all special comments</xs:documentation>
-						</xs:annotation>
-					</xs:enumeration>
-					<xs:enumeration value="KeepFirstOne">
-						<xs:annotation>
-							<xs:documentation>Keep first one special comment</xs:documentation>
-						</xs:annotation>
-					</xs:enumeration>
-					<xs:enumeration value="RemoveAll">
-						<xs:annotation>
-							<xs:documentation>Remove all special comments</xs:documentation>
-						</xs:annotation>
-					</xs:enumeration>
+					<xs:enumeration value="Zero" />
+					<xs:enumeration value="One" />
+					<xs:enumeration value="Two" />
 				</xs:restriction>
 			</xs:simpleType>
-		</xs:attribute>
-		<xs:attribute name="mediaMerging" type="Boolean_SchemaType" use="optional" default="true">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to enable `@media` merging</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="restructuring" type="Boolean_SchemaType" use="optional" default="true">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to enable restructuring optimizations</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="roundingPrecision" use="optional" default="2">
-			<xs:annotation>
-				<xs:documentation>Rounding precision. -1 disables rounding.</xs:documentation>
-			</xs:annotation>
-			<xs:simpleType>
-				<xs:restriction base="xs:int">
-					<xs:minInclusive value="-1" />
-					<xs:maxInclusive value="2147483647" />
-				</xs:restriction>
-			</xs:simpleType>
-		</xs:attribute>
-		<xs:attribute name="semanticMerging" type="Boolean_SchemaType" use="optional" default="false">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to enable unsafe mode by assuming BEM-like semantic stylesheets (warning, this may break your styling!)</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="shorthandCompacting" type="Boolean_SchemaType" use="optional" default="true">
-			<xs:annotation>
-				<xs:documentation>Flag for whether to enable shorthand compacting</xs:documentation>
-			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="severity" use="optional" default="0">
 			<xs:annotation>
@@ -2012,6 +2262,318 @@ to preserve references to external symbols.</xs:documentation>
 					<xs:maxInclusive value="1" />
 				</xs:restriction>
 			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="CleanFormattingSettings_SchemaType">
+		<xs:annotation>
+			<xs:documentation>Configuration settings of output CSS formatting</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element name="breaksInserting" type="CleanBreaksInsertingSettings_SchemaType" minOccurs="0" maxOccurs="1" />
+			<xs:element name="spacesInserting" type="CleanSpacesInsertingSettings_SchemaType" minOccurs="0" maxOccurs="1" />
+		</xs:all>
+		<xs:attribute name="indentBy" use="optional" default="0">
+			<xs:annotation>
+				<xs:documentation>Number of characters to indent with</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:int">
+					<xs:minInclusive value="0" />
+					<xs:maxInclusive value="2147483647" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="indentWith" use="optional" default="Space">
+			<xs:annotation>
+				<xs:documentation>Character to indent with</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="Space" />
+					<xs:enumeration value="Tab" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="wrapAt" use="optional" default="0">
+			<xs:annotation>
+				<xs:documentation>Maximum line length</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:int">
+					<xs:minInclusive value="0" />
+					<xs:maxInclusive value="2147483647" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="CleanBreaksInsertingSettings_SchemaType">
+		<xs:annotation>
+			<xs:documentation>Configuration settings of breaks inserting</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="afterAtRule" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to insert a line break after at-rule (e.g. `@charset`)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="afterBlockBegins" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to insert a line break after a beginning of block (e.g. `@media`)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="afterBlockEnds" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to insert a line break after a ending of block</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="afterComment" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to insert a line break after a comment</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="afterProperty" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to insert a line break after a property</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="afterRuleBegins" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to insert a line break after a rule begins</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="afterRuleEnds" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to insert a line break after a rule ends</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="beforeBlockEnds" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to insert a line break before a block ends</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="betweenSelectors" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to insert a line break between selectors</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="CleanSpacesInsertingSettings_SchemaType">
+		<xs:annotation>
+			<xs:documentation>Configuration settings of spaces inserting</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="aroundSelectorRelation" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to insert a spaces around selector relations (e.g. `div &gt; a`>)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="beforeBlockBegins" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to insert a space before a block begins (e.g. `.block {`)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="beforeValue" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to insert a space before a value (e.g. `width: 1rem`)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="CleanLevel1OptimizationSettings_SchemaType">
+		<xs:annotation>
+			<xs:documentation>Configuration settings of level 1 optimizations</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="cleanupCharsets" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to move `@charset` to the front of a stylesheet</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="normalizeUrls" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to normalize URL</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="optimizeBackground" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to optimize `background` property</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="optimizeBorderRadius" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to optimize `border-radius` property</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="optimizeFilter" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to optimize `filter` property</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="optimizeFont" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to optimize `font` property</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="optimizeFontWeight" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to optimize `font-weight` property</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="optimizeOutline" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to optimize `outline` property</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="removeEmpty" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to remove empty rules and nested blocks</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="removeNegativePaddings" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to remove negative paddings</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="removeQuotes" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to remove unnecessary quotes</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="removeWhitespace" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to remove unused whitespace</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="replaceMultipleZeros" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to remove redundant zeros</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="replaceTimeUnits" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to replace time units with shorter values</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="replaceZeroUnits" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to replace zero values with units</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="roundingPrecision" type="xs:string" use="optional" default="off">
+			<xs:annotation>
+				<xs:documentation>Rounding precision:
+ "off" (default) - all precision changes are disabled;
+ N - number of decimal places.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="selectorsSortingMethod" use="optional" default="Standard">
+			<xs:annotation>
+				<xs:documentation>Selector sorting method</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="None" />
+					<xs:enumeration value="Standard" />
+					<xs:enumeration value="Natural" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="specialComments" type="xs:string" use="optional" default="all">
+			<xs:annotation>
+				<xs:documentation>Number of `/*! ... */` comments preserved</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="tidyAtRules" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to optimize at-rules (e.g. `@charset`, `@import`)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="tidyBlockScopes" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to optimize block scopes (e.g. `@media`)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="tidySelectors" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to optimize selectors</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="CleanLevel2OptimizationSettings_SchemaType">
+		<xs:annotation>
+			<xs:documentation>Configuration settings of level 2 optimizations</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="mergeAdjacentRules" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to merge adjacent rules</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="mergeIntoShorthands" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to merge properties into shorthands</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="mergeMedia" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to merge `@media`</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="mergeNonAdjacentRules" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to merge non-adjacent rules</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="mergeSemantically" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to merge semantically</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="overrideProperties" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to override properties based on understandability</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="removeEmpty" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to remove empty rules and nested blocks</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="reduceNonAdjacentRules" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to reduce non-adjacent rules</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="removeDuplicateFontRules" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to remove duplicate `@font-face`</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="removeDuplicateMediaBlocks" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to remove duplicate `@media`</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="removeDuplicateRules" type="Boolean_SchemaType" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to remove duplicate rules</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="removeUnusedAtRules" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to remove unused at rules</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="restructureRules" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to restructure rules</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="skipProperties" type="xs:string" use="optional" default="">
+			<xs:annotation>
+				<xs:documentation>Comma-separated list of properties to skip during optimization</xs:documentation>
+			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
 	<!-- /Clean-css settings -->

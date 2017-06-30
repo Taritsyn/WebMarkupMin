@@ -3,6 +3,8 @@ using System.Web;
 using System.Web.Optimization;
 using System.Web.Routing;
 
+using JavaScriptEngineSwitcher.Core;
+
 using WebMarkupMin.AspNet4.Common;
 
 namespace WebMarkupMin.Sample.AspNet45.WebForms
@@ -13,6 +15,7 @@ namespace WebMarkupMin.Sample.AspNet45.WebForms
 		{
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			WebMarkupMinConfig.Configure(WebMarkupMinConfiguration.Instance);
+			JsEngineSwitcherConfig.Configure(JsEngineSwitcher.Instance);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 		}
 

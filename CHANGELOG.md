@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## June 30, 2017 - v2.4.1
+ * In WebMarkupMin.NUglify added support of the NUglify version 1.5.6
+
 ## May 7, 2017 - v2.4.0
  * Added support of .NET Core 1.0.4
  * HTML and XHTML minifiers now support processing of CDATA sections outside the `script` and `style` tags
