@@ -80,7 +80,7 @@ namespace WebMarkupMin.NUglify
 
 			CodeSettings originalJsSettings = isInlineCode ?
 				_originalInlineJsSettings : _originalEmbeddedJsSettings;
-			UgliflyResult originalResult = Uglify.Js(content, originalJsSettings);
+			UglifyResult originalResult = Uglify.Js(content, originalJsSettings);
 			CodeMinificationResult result = GetCodeMinificationResult(originalResult);
 
 			return result;

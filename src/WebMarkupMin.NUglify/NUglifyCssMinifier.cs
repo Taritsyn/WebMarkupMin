@@ -87,7 +87,7 @@ namespace WebMarkupMin.NUglify
 
 			CssSettings originalCssSettings = isInlineCode ?
 				_originalInlineCssSettings : _originalEmbeddedCssSettings;
-			UgliflyResult originalResult = Uglify.Css(content, originalCssSettings, _originalJsSettings);
+			UglifyResult originalResult = Uglify.Css(content, originalCssSettings, _originalJsSettings);
 			CodeMinificationResult result = GetCodeMinificationResult(originalResult);
 
 			return result;

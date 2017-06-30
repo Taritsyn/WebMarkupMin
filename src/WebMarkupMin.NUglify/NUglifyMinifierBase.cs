@@ -42,7 +42,7 @@ namespace WebMarkupMin.NUglify
 		/// </summary>
 		/// <param name="originalResult">Original minification result</param>
 		/// <returns>Code minification result</returns>
-		protected static CodeMinificationResult GetCodeMinificationResult(UgliflyResult originalResult)
+		protected static CodeMinificationResult GetCodeMinificationResult(UglifyResult originalResult)
 		{
 			var errors = new List<MinificationErrorInfo>();
 			var warnings = new List<MinificationErrorInfo>();

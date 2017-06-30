@@ -19,7 +19,7 @@
    =============
    RELEASE NOTES
    =============
-   Added support of .NET Core 1.0.4.
+   Added support of the NUglify version 1.5.6.
 
    =============
    DOCUMENTATION
