@@ -7,7 +7,7 @@ The **Web Markup Minifier** (abbreviated WebMarkupMin) - a .NET library that con
 
 WebMarkupMin absorbed the best of existing solutions from non-microsoft platforms: Juriy Zaytsev's [Experimental HTML Minifier](http://kangax.github.com/html-minifier/) (written in JavaScript) and Sergiy Kovalchuk's [HtmlCompressor](http://code.google.com/p/htmlcompressor/) (written in Java).
 
-Minification of markup produces by removing extra whitespace, comments and redundant code (only for HTML and XHTML). In addition, HTML and XHTML minifiers supports the minification of CSS code from `style` tags and attributes, and minification of JavaScript code from `script` tags, event attributes and hyperlinks with `javascript:` protocol. WebMarkupMin.Core contains built-in JavaScript minifier based on the Douglas Crockford's [JSMin](http://github.com/douglascrockford/JSMin) and built-in CSS minifier based on the Mads Kristensen's [Efficient stylesheet minifier](http://madskristensen.net/post/efficient-stylesheet-minification-in-c). The above mentioned minifiers produce only the most simple minifications of CSS and JavaScript code, but you can always install additional modules that support the more powerful algorithms of minification: WebMarkupMin.MsAjax (contains minifier-adapters for the [Microsoft Ajax Minifier](http://ajaxmin.codeplex.com)), WebMarkupMin.Yui (contains minifier-adapters for [YUI Compressor for .Net](http://github.com/PureKrome/YUICompressor.NET)) and WebMarkupMin.NUglify (contains minifier-adapters for the [NUglify](http://github.com/xoofx/NUglify)).
+Minification of markup produces by removing extra whitespace, comments and redundant code (only for HTML and XHTML). In addition, HTML and XHTML minifiers supports the minification of CSS code from `style` tags and attributes, and minification of JavaScript code from `script` tags, event attributes and hyperlinks with `javascript:` protocol. WebMarkupMin.Core contains built-in JavaScript minifier based on the Douglas Crockford's [JSMin](https://github.com/douglascrockford/JSMin) and built-in CSS minifier based on the Mads Kristensen's [Efficient stylesheet minifier](http://madskristensen.net/post/efficient-stylesheet-minification-in-c). The above mentioned minifiers produce only the most simple minifications of CSS and JavaScript code, but you can always install additional modules that support the more powerful algorithms of minification: WebMarkupMin.MsAjax (contains minifier-adapters for the [Microsoft Ajax Minifier](https://ajaxmin.codeplex.com)), WebMarkupMin.Yui (contains minifier-adapters for [YUI Compressor for .Net](https://github.com/PureKrome/YUICompressor.NET)) and WebMarkupMin.NUglify (contains minifier-adapters for the [NUglify](https://github.com/xoofx/NUglify)).
 
 Also supports minification of views of popular JavaScript template engines: [KnockoutJS](http://knockoutjs.com/), [Kendo UI MVVM](http://www.telerik.com/kendo-ui) and [AngularJS](http://angularjs.org/) 1.X.
 
@@ -37,23 +37,24 @@ Requires NuGet Package Manager version 2.8.6 or higher.
 Documentation is located on the [wiki](https://github.com/Taritsyn/WebMarkupMin/wiki) of this Repo.
 
 ## Previous Versions
-Source code and documentation for previous versions of WebMarkupMin are located on [CodePlex](http://webmarkupmin.codeplex.com/).
+Source code and documentation for previous versions of WebMarkupMin are located on [CodePlex](https://webmarkupmin.codeplex.com/).
 If you have used old versions of WebMarkupMin, then I recommend to first read [“How to upgrade applications to version 2.X”](https://github.com/Taritsyn/WebMarkupMin/wiki/How-to-upgrade-applications-to-version-2.X) section of the documentation.
 
 ## Who's Using WebMarkupMin
 If you use WebMarkupMin in some project, please send me a message so I can include it in this list:
 
 ### Software
- * [AngularTemplates.Compile](http://github.com/vadimi/AngularTemplates.Compile) by Vadim Ivanou
- * [Blog-Umbraco](http://github.com/radyz/Blog-Umbraco) by Ernesto Chavez Sanchez
- * [Constellation.Sitecore.Presentation.Mvc](http://github.com/sitecorerick/constellation.sitecore.presentation.mvc) by Rick Cabral
- * [FAV Rocks](http://github.com/billbogaiv/fav-rocks) by Bill Boga
+ * [AngularTemplates.Compile](https://github.com/vadimi/AngularTemplates.Compile) by Vadim Ivanou
+ * [Blog-Umbraco](https://github.com/radyz/Blog-Umbraco) by Ernesto Chavez Sanchez
+ * [Constellation.Sitecore.Presentation.Mvc](https://github.com/sitecorerick/constellation.sitecore.presentation.mvc) by Rick Cabral
+ * [FAV Rocks](https://github.com/billbogaiv/fav-rocks) by Bill Boga
  * [File Sharing Application](http://bitbucket.org/Artur2/filesharingapplication) by Artur N
- * [Orchard HTML Minifier](http://github.com/JadeX/Orchard.HtmlMinifier) by Liam 'Xeevis' Aqil
- * [MiniBlog](http://github.com/madskristensen/MiniBlog) by Mads Kristensen
- * [Minit](http://minit.codeplex.com/) by Joan Caron
- * [StaticWebHelper](http://github.com/madskristensen/StaticWebHelper) by Mads Kristensen
- * [Web Essentials 2013](http://github.com/madskristensen/WebEssentials2013) by Mads Kristensen
+ * [iTEAMConsulting.FormHandler](https://github.com/iteam-consulting/csharp-form-handler)
+ * [Orchard HTML Minifier](https://github.com/JadeX/Orchard.HtmlMinifier) by Liam 'Xeevis' Aqil
+ * [MiniBlog](https://github.com/madskristensen/MiniBlog) by Mads Kristensen
+ * [Minit](https://minit.codeplex.com/) by Joan Caron
+ * [StaticWebHelper](https://github.com/madskristensen/StaticWebHelper) by Mads Kristensen
+ * [Web Essentials 2013](https://github.com/madskristensen/WebEssentials2013) by Mads Kristensen
  * [Wyam](http://wyam.io/)
 
 ### Websites
