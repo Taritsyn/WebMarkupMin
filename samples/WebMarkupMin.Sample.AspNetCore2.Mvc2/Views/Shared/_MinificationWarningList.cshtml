@@ -1,0 +1,16 @@
+﻿@using WebMarkupMin.Core
+@using WebMarkupMin.Sample.AspNetCore2.Mvc2.Infrastructure.Helpers
+
+@model IList<MinificationErrorInfo>
+
+<h3 class="minification-warning-header">Found <strong>@Model.Count</strong> warning(s):</h3>
+<ul class="minification-warning-list list-unstyled">
+@foreach (var warning in Model)
+{
+	<li>
+		Line @warning.LineNumber, Column @warning.ColumnNumber:
+		<strong>@warning.Category.</strong> @Html.EncodedReplace(@warning.Message, "\n\r?", "<br />")
+		<pre>@warning.SourceFragment</pre>
+	</li>
+}
+</ul>

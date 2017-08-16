@@ -4,7 +4,13 @@ using Microsoft.Extensions.Options;
 
 using WebMarkupMin.Core;
 
+#if ASPNETCORE1
 namespace WebMarkupMin.AspNetCore1
+#elif ASPNETCORE2
+namespace WebMarkupMin.AspNetCore2
+#else
+#error No implementation for this target
+#endif
 {
 	/// <summary>
 	/// Sets up default options for <see cref="XhtmlMinificationOptions"/>

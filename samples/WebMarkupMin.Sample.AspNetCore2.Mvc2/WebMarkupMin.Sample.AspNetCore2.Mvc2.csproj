@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<VersionPrefix>2.4.2</VersionPrefix>
+		<TargetFramework>netcoreapp2.0</TargetFramework>
+		<RuntimeFrameworkVersion>2.0.0</RuntimeFrameworkVersion>
+		<OutputType>Exe</OutputType>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<PreserveCompilationContext>true</PreserveCompilationContext>
+
+		<GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+		<GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+		<GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+		<GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+		<GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
+
+		<ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore2\WebMarkupMin.AspNetCore2.csproj" />
+		<ProjectReference Include="..\WebMarkupMin.Sample.Logic\WebMarkupMin.Sample.Logic.csproj" />
+		<ProjectReference Include="..\WebMarkupMin.Sample.Resources\WebMarkupMin.Sample.Resources.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="wwwroot\**\*;Views\**\*">
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</None>
+	</ItemGroup>
+
+	<Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
+		<Exec Command="npm install" />
+		<Exec Command="bower install" />
+		<Exec Command="gulp copy-libraries" />
+		<Exec Command="gulp build-assets" />
+	</Target>
+
+</Project>

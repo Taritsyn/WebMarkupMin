@@ -16,7 +16,13 @@ using WebMarkupMin.Core;
 using WebMarkupMin.Core.Utilities;
 using AspNetCommonStrings = WebMarkupMin.AspNet.Common.Resources.Strings;
 
+#if ASPNETCORE1
 namespace WebMarkupMin.AspNetCore1
+#elif ASPNETCORE2
+namespace WebMarkupMin.AspNetCore2
+#else
+#error No implementation for this target
+#endif
 {
 	/// <summary>
 	/// WebMarkupMin middleware
@@ -158,7 +164,12 @@ namespace WebMarkupMin.AspNetCore1
 
 						if (MediaTypeHeaderValue.TryParse(contentType, out mediaTypeHeader))
 						{
-							mediaType = mediaTypeHeader.MediaType.ToLowerInvariant();
+							mediaType = mediaTypeHeader.MediaType
+#if ASPNETCORE2
+								.Value
+#endif
+								.ToLowerInvariant()
+								;
 							encoding = mediaTypeHeader.Encoding;
 						}
 					}

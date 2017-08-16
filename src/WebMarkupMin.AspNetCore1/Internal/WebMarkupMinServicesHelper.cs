@@ -1,8 +1,16 @@
 ﻿using System;
 
-using AspNetCore1Strings = WebMarkupMin.AspNetCore1.Resources.Strings;
+#if ASPNETCORE1
+using AspNetCoreStrings = WebMarkupMin.AspNetCore1.Resources.Strings;
 
 namespace WebMarkupMin.AspNetCore1.Internal
+#elif ASPNETCORE2
+using AspNetCoreStrings = WebMarkupMin.AspNetCore2.Resources.Strings;
+
+namespace WebMarkupMin.AspNetCore2.Internal
+#else
+#error No implementation for this target
+#endif
 {
 	/// <summary>
 	/// Helper class which contains WebMarkupMinServices related helpers
@@ -19,7 +27,7 @@ namespace WebMarkupMin.AspNetCore1.Internal
 			if (services.GetService(typeof(WebMarkupMinMarkerService)) == null)
 			{
 				throw new InvalidOperationException(string.Format(
-					AspNetCore1Strings.UnableToFindServices,
+					AspNetCoreStrings.UnableToFindServices,
 					"IServiceCollection.AddWebMarkupMin()",
 					"IApplicationBuilder.ConfigureServices(...)",
 					"IApplicationBuilder.UseWebMarkupMin(...)"

@@ -1,0 +1,128 @@
+﻿html,
+body {
+  margin: 0;
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin */
+}
+
+/* Wrapper for page content to push down footer */
+.l-wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by it's height */
+  margin: 0 auto (-1 * @footer-height);
+}
+
+.l-constrained {
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  max-width: 1200px;
+  min-width: 800px;
+}
+
+.l-header {
+  border-top: solid 10px @black;
+  border-bottom: 1px solid #b2b2b2;
+  background-color: @gray-lighter;
+
+  .l-constrained {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    .clearfix();
+  }
+}
+
+.l-content {
+  .clearfix();
+}
+
+.l-main-content {
+  float: left;
+  width: 70%;
+}
+
+.l-sidebar {
+  float: right;
+  width: 30%;
+}
+
+/* Set the fixed height of the footer here */
+.l-push,
+.l-footer {
+  height: @footer-height;
+}
+
+.l-footer {
+  width: 100%;
+  background-color: @black;
+  color: @gray-lighter;
+  font-size: @font-size-small;
+  line-height: 100%;
+
+  .l-constrained {
+    padding-top: (@footer-height - 32) / 2;
+    .clearfix();
+  }
+
+  a {
+    color: @gray-lighter;
+    text-decoration: none;
+
+    &:hover,
+    &:active {
+      text-decoration: underline;
+    }
+  }
+}
+
+
+// Header
+// -------------------------
+
+.logo {
+  margin: 0;
+
+  a {
+    display: block;
+    float: left;
+    width: 320px;
+    height: 39px;
+    background: transparent url("../images/webmarkupmin-logo.png") no-repeat scroll 0 0;
+    text-indent: -9999em;
+  }
+}
+
+.primary-nav {
+  position: relative;
+  left: 40px;
+  float: left;
+}
+
+
+// Footer
+// -------------------------
+
+.l-copyright {
+  float: left;
+    p {
+      margin: 0;
+      padding: 0;
+  }
+}
+
+.l-social {
+  float: right;
+
+  li {
+    display: inline;
+    list-style: none outside none;
+    padding-left: 10px;
+
+    a {
+      text-indent: -9999px;
+      outline: none;
+    }
+  }
+}

@@ -1,0 +1,79 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<VersionPrefix>2.4.2</VersionPrefix>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<OutputType>Library</OutputType>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<AssemblyOriginatorKeyFile>../../tools/Key.snk</AssemblyOriginatorKeyFile>
+		<SignAssembly>true</SignAssembly>
+		<PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+		<NoWarn>$(NoWarn);CS1591</NoWarn>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+		<GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+		<GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+		<GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+		<GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+		<GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DefineConstants>TRACE;ASPNETCORE2</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DefineConstants>TRACE;DEBUG;ASPNETCORE2</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="..\WebMarkupMin.AspNetCore1\BuilderExtensions.cs" Link="BuilderExtensions.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\CommonHtmlMinificationOptionsBase.cs" Link="CommonHtmlMinificationOptionsBase.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\ContentProcessingOptionsBase.cs" Link="ContentProcessingOptionsBase.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\HeaderDictionaryExtensions.cs" Link="HeaderDictionaryExtensions.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\HtmlMinificationManager.cs" Link="HtmlMinificationManager.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\HtmlMinificationOptions.cs" Link="HtmlMinificationOptions.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\HtmlMinificationOptionsSetup.cs" Link="HtmlMinificationOptionsSetup.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\HttpCompressionManager.cs" Link="HttpCompressionManager.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\HttpCompressionOptions.cs" Link="HttpCompressionOptions.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\Internal\WebMarkupMinMarkerService.cs" Link="Internal\WebMarkupMinMarkerService.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\Internal\WebMarkupMinServicesHelper.cs" Link="Internal\WebMarkupMinServicesHelper.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\MarkupMinificationOptionsBase.cs" Link="MarkupMinificationOptionsBase.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\WebMarkupMinMiddleware.cs" Link="WebMarkupMinMiddleware.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\WebMarkupMinOptions.cs" Link="WebMarkupMinOptions.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\WebMarkupMinOptionsExtensions.cs" Link="WebMarkupMinOptionsExtensions.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\WebMarkupMinOptionsSetup.cs" Link="WebMarkupMinOptionsSetup.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\WebMarkupMinServiceCollectionExtensions.cs" Link="WebMarkupMinServiceCollectionExtensions.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\WebMarkupMinServicesBuilder.cs" Link="WebMarkupMinServicesBuilder.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\XhtmlMinificationManager.cs" Link="XhtmlMinificationManager.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\XhtmlMinificationOptions.cs" Link="XhtmlMinificationOptions.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\XhtmlMinificationOptionsSetup.cs" Link="XhtmlMinificationOptionsSetup.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\XmlMinificationManager.cs" Link="XmlMinificationManager.cs" />
+		<Compile Include="..\WebMarkupMin.AspNetCore1\XmlMinificationOptions.cs" Link="XmlMinificationOptions.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Options" Version="2.0.0" />
+		<PackageReference Include="Microsoft.Net.Http.Headers" Version="2.0.0" />
+
+		<ProjectReference Include="..\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.csproj" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Internal\" />
+	</ItemGroup>
+
+	<Target Name="PrecompileScript" BeforeTargets="BeforeBuild" Condition=" '$(IsCrossTargetingBuild)' != 'true' ">
+		<Exec Command="../../build resx" />
+	</Target>
+
+</Project>

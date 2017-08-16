@@ -3,11 +3,23 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
+#if ASPNETCORE1
 using WebMarkupMin.AspNetCore1.Internal;
+#elif ASPNETCORE2
+using WebMarkupMin.AspNetCore2.Internal;
+#else
+#error No implementation for this target
+#endif
 using WebMarkupMin.Core;
 using WebMarkupMin.Core.Loggers;
 
+#if ASPNETCORE1
 namespace WebMarkupMin.AspNetCore1
+#elif ASPNETCORE2
+namespace WebMarkupMin.AspNetCore2
+#else
+#error No implementation for this target
+#endif
 {
 	public static class WebMarkupMinServiceCollectionExtensions
 	{

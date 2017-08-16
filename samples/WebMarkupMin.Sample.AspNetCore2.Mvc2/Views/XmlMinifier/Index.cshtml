@@ -1,0 +1,53 @@
+﻿@using WebMarkupMin.Sample.Logic.Models
+@using WebMarkupMin.Sample.Resources
+
+@model XmlMinificationViewModel
+
+@{
+	ViewBag.Title = "XML Minifier";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<form asp-controller="minifiers/xml-minifier" asp-action="index" method="post" data-form-type="minification-form">
+	<div class="minification-form">
+		<div class="minification-input-output">
+			@{await Html.RenderPartialAsync("_MinificationInputOutput", Model); }
+		</div>
+		<div class="minification-settings">
+			<div class="minification-settings-inner">
+				<fieldset>
+					<legend>@XmlMinificationStrings.ControlGroup_Options</legend>
+					<div class="checkbox">
+						<label asp-for="Settings.MinifyWhitespace">
+							<input asp-for="Settings.MinifyWhitespace" />
+							@Html.DisplayNameFor(m => m.Settings.MinifyWhitespace)
+						</label>
+					</div>
+					<div class="checkbox">
+						<label asp-for="Settings.RemoveXmlComments">
+							<input asp-for="Settings.RemoveXmlComments" />
+							@Html.DisplayNameFor(m => m.Settings.RemoveXmlComments)
+						</label>
+					</div>
+					<div class="checkbox">
+						<label asp-for="Settings.RenderEmptyTagsWithSpace">
+							<input asp-for="Settings.RenderEmptyTagsWithSpace" />
+							@Html.DisplayNameFor(m => m.Settings.RenderEmptyTagsWithSpace)
+						</label>
+					</div>
+					<div class="checkbox">
+						<label asp-for="Settings.CollapseTagsWithoutContent">
+							<input asp-for="Settings.CollapseTagsWithoutContent" />
+							@Html.DisplayNameFor(m => m.Settings.CollapseTagsWithoutContent)
+						</label>
+					</div>
+				</fieldset>
+			</div>
+		</div>
+	</div>
+</form>
+
+@section Scripts {
+	@{await Html.RenderPartialAsync("_MinificationFormScriptsPartial"); }
+}

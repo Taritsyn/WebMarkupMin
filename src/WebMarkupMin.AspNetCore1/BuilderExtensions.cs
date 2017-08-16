@@ -2,9 +2,17 @@
 
 using Microsoft.AspNetCore.Builder;
 
+#if ASPNETCORE1
 using WebMarkupMin.AspNetCore1.Internal;
 
 namespace WebMarkupMin.AspNetCore1
+#elif ASPNETCORE2
+using WebMarkupMin.AspNetCore2.Internal;
+
+namespace WebMarkupMin.AspNetCore2
+#else
+#error No implementation for this target
+#endif
 {
 	/// <summary>
 	/// Extension methods for <see cref="IApplicationBuilder"/> to add

@@ -1,0 +1,122 @@
+﻿//
+// Forms
+// --------------------------------------------------
+
+// GENERAL STYLES
+// --------------
+
+fieldset {
+  margin-bottom: @line-height-computed / 2;
+}
+
+// Groups of fields with labels on top (legends)
+legend {
+  margin-bottom: 0.35em;
+  font-size: @font-size-base * 1.85;
+  font-family: "League Gothic";
+  line-height: @line-height-computed * 2;
+  border: 0;
+  border-bottom: 1px solid #b2b2b2;
+}
+
+label {
+  font-weight: normal;
+}
+
+
+// Form controls
+// -------------------------
+
+// Common form controls
+.form-control {
+  line-height: @input-height-base;
+}
+
+.textarea-wrapper {
+  position: relative;
+}
+
+// Form groups
+.form-group {
+  margin-bottom: 0;
+}
+
+// Checkboxes
+.checkbox-unsafe label {
+  color: #bd362f;
+}
+
+// Info and errors
+// --------------------------
+.message-info {
+  border: 1px solid;
+  clear: both;
+  padding: 10px 20px;
+  color: @state-info-text;
+}
+
+.message-error {
+  clear: both;
+  color: @state-danger-text;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin: 20px 0 10px 0;
+}
+
+.message-success {
+  color: @state-success-text;
+  font-size: 1.3em;
+  font-weight: bold;
+  margin: 20px 0 10px 0;
+}
+
+.error {
+  color: @state-danger-text;
+}
+
+// Styles for validation helpers
+// --------------------------
+.validators {
+  font-style: normal;
+  padding-bottom: 0.5em;
+}
+
+.field-validation-error {
+  display: block;
+  padding-bottom: 0.5em;
+  color: @state-danger-text;
+  font-weight: bold;
+}
+
+.field-validation-valid {
+  display: none;
+}
+
+input.input-validation-error,
+textarea.input-validation-error,
+select.input-validation-error
+{
+  border: 1px solid @state-danger-border;
+  background-color: @state-danger-bg;
+  .box-shadow(inset 0 1px 1px rgba(0,0,0,.075)); // Redeclare so transitions work
+
+  &:focus {
+    border-color: @state-danger-border;
+    @shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px lighten(@state-danger-text, 20%);
+    .box-shadow(@shadow);
+  }
+}
+
+input[type="checkbox"].input-validation-error {
+  border: 0 none;
+}
+
+.validation-summary-errors {
+  color: @state-danger-text;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.validation-summary-valid {
+  display: none;
+}

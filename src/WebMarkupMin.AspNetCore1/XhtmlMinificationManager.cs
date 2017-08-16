@@ -3,7 +3,13 @@
 using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.Core.Loggers;
 
+#if ASPNETCORE1
 namespace WebMarkupMin.AspNetCore1
+#elif ASPNETCORE2
+namespace WebMarkupMin.AspNetCore2
+#else
+#error No implementation for this target
+#endif
 {
 	/// <summary>
 	/// XHTML minification manager

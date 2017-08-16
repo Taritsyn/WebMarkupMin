@@ -1,0 +1,18 @@
+﻿@using WebMarkupMin.Sample.Logic.Models
+@using WebMarkupMin.Sample.Resources
+
+@model MinificationStatisticsViewModel
+
+<dl class="minification-statistics dl-horizontal">
+	<dt>@MinificationStrings.DisplayName_OriginalSize:</dt>
+	<dd>@Model.OriginalSizeFormatted (@Model.OriginalGzipSizeFormatted gzipped)</dd>
+
+	<dt>@MinificationStrings.DisplayName_MinifiedSize:</dt>
+	<dd>@Model.MinifiedSizeFormatted (@Model.MinifiedGzipSizeFormatted gzipped)</dd>
+
+	<dt>@MinificationStrings.DisplayName_Saved:</dt>
+	<dd>@Model.SavedInPercent% (@Model.SavedGzipInPercent% gzipped)</dd>
+
+	<dt>@MinificationStrings.DisplayName_MinificationDuration:</dt>
+	<dd>@Model.MinificationDuration milliseconds</dd>
+</dl>
