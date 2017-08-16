@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+	<metadata>
+		<id>WebMarkupMin.AspNetCore2</id>
+		<version>2.4.2</version>
+		<title>Web Markup Minifier: ASP.NET Core 2.X</title>
+		<authors>Andrey Taritsyn</authors>
+		<owners>Andrey Taritsyn</owners>
+		<licenseUrl>http://raw.githubusercontent.com/Taritsyn/WebMarkupMin/master/LICENSE</licenseUrl>
+		<projectUrl>http://github.com/Taritsyn/WebMarkupMin</projectUrl>
+		<iconUrl>https://raw.githubusercontent.com/Taritsyn/WebMarkupMin/master/images/WebMarkupMin_Logo_128x128.png</iconUrl>
+		<requireLicenseAcceptance>true</requireLicenseAcceptance>
+		<description>WebMarkupMin.AspNetCore2 contains one ASP.NET Core 2.X Middleware - `WebMarkupMinMiddleware`.</description>
+		<summary>WebMarkupMin.AspNetCore2 contains one ASP.NET Core 2.X Middleware - `WebMarkupMinMiddleware`.</summary>
+		<copyright>Copyright (c) 2013-2017 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
+		<language>en-US</language>
+		<tags>WebMarkupMin ASP.NET Middleware Markup HTML XHTML XML Minification Minifier Minify</tags>
+		<dependencies>
+			<group targetFramework=".NETStandard2.0">
+				<dependency id="Microsoft.AspNetCore.Hosting.Abstractions" version="2.0.0" />
+				<dependency id="Microsoft.AspNetCore.Http" version="2.0.0" />
+				<dependency id="Microsoft.AspNetCore.Http.Extensions" version="2.0.0" />
+				<dependency id="Microsoft.Extensions.Options" version="2.0.0" />
+				<dependency id="Microsoft.Net.Http.Headers" version="2.0.0" />
+				<dependency id="WebMarkupMin.AspNet.Common" version="2.4.0" />
+			</group>
+		</dependencies>
+		<references>
+			<reference file="WebMarkupMin.AspNetCore2.dll" />
+		</references>
+	</metadata>
+	<files>
+		<file src="**\*.*" exclude="build-package.cmd" />
+	</files>
+</package>

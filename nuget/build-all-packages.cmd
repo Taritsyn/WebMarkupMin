@@ -37,3 +37,7 @@ cd ..
 cd WebMarkupMin.AspNetCore1
 call build-package.cmd
 cd ..
+
+cd WebMarkupMin.AspNetCore2
+call build-package.cmd
+cd ..
