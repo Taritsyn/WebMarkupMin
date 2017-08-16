@@ -12,22 +12,22 @@
 		<requireLicenseAcceptance>true</requireLicenseAcceptance>
 		<description>WebMarkupMin.NUglify contains 2 minifier-adapters: `NUglifyCssMinifier` (for minification of CSS code) and `NUglifyJsMinifier` (for minification of JS code). These adapters perform minification using the NUglify (http://github.com/xoofx/NUglify).</description>
 		<summary>WebMarkupMin.NUglify contains 2 minifier-adapters: `NUglifyCssMinifier` (for minification of CSS code) and `NUglifyJsMinifier` (for minification of JS code). These adapters perform minification using the NUglify.</summary>
-		<releaseNotes>Added support of the NUglify version 1.5.6.</releaseNotes>
+		<releaseNotes>Added support of the NUglify version 1.5.8.</releaseNotes>
 		<copyright>Copyright (c) 2013-2017 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
 		<language>en-US</language>
 		<tags>WebMarkupMin Markup HTML XHTML CSS JavaScript JS Minification Minifier Minify NUglify</tags>
 		<dependencies>
 			<group targetFramework=".NETFramework4.0-Client">
-				<dependency id="NUglify" version="1.5.6" />
+				<dependency id="NUglify" version="1.5.8" />
 				<dependency id="WebMarkupMin.Core" version="2.4.0" />
 			</group>
 			<group targetFramework=".NETFramework4.5">
-				<dependency id="NUglify" version="1.5.6" />
+				<dependency id="NUglify" version="1.5.8" />
 				<dependency id="WebMarkupMin.Core" version="2.4.0" />
 			</group>
 			<group targetFramework=".NETStandard1.3">
 				<dependency id="NETStandard.Library" version="1.6.0" />
-				<dependency id="NUglify" version="1.5.6" />
+				<dependency id="NUglify" version="1.5.8" />
 				<dependency id="WebMarkupMin.Core" version="2.4.0" />
 			</group>
 		</dependencies>
