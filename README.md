@@ -53,6 +53,7 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
  * [iTEAMConsulting.FormHandler](https://github.com/iteam-consulting/csharp-form-handler)
  * [Orchard HTML Minifier](https://github.com/JadeX/Orchard.HtmlMinifier) by Liam 'Xeevis' Aqil
  * [MiniBlog](https://github.com/madskristensen/MiniBlog) by Mads Kristensen
+ * [Miniblog.Core](https://github.com/madskristensen/Miniblog.Core) by Mads Kristensen
  * [Minit](https://minit.codeplex.com/) by Joan Caron
  * [StaticWebHelper](https://github.com/madskristensen/StaticWebHelper) by Mads Kristensen
  * [Web Essentials 2013](https://github.com/madskristensen/WebEssentials2013) by Mads Kristensen
