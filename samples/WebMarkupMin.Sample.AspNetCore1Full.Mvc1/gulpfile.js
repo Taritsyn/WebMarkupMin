@@ -15,7 +15,8 @@ var uglify = require('gulp-uglify');
 var watch = require('gulp-watch');
 
 var webRootPath = "./wwwroot";
-var bowerDirPath = "bower_components";
+var bowerDirPath = "../bower_components";
+var initialBowerPrefix = 2;
 var styleDirPath = webRootPath + '/styles';
 var scriptDirPath = webRootPath + '/scripts';
 
@@ -51,7 +52,7 @@ gulp.task('clean-builded-assets', ['clean-builded-styles', 'clean-builded-script
 gulp.task('copy-bootstrap-styles', ['clean-style-libraries'], function () {
 	return gulp
 		.src([bowerDirPath + '/bootstrap/less/**/*.less'])
-		.pipe(copy(styleDirPath + '/lib/bootstrap', { prefix: 3 }))
+		.pipe(copy(styleDirPath + '/lib/bootstrap', { prefix: initialBowerPrefix + 2 }))
 		;
 });
 
@@ -62,7 +63,7 @@ gulp.task('copy-style-libraries', ['copy-bootstrap-styles'], function () { });
 gulp.task('copy-modernizr-scripts', ['clean-script-libraries'], function () {
 	return gulp
 		.src([bowerDirPath + '/modernizr/modernizr.js'])
-		.pipe(copy(scriptDirPath + '/lib', { prefix: 2 }))
+		.pipe(copy(scriptDirPath + '/lib', { prefix: initialBowerPrefix }))
 		;
 });
 
@@ -70,7 +71,7 @@ gulp.task('copy-jquery-compat-scripts', ['clean-script-libraries'], function () 
 	return gulp
 		.src([bowerDirPath + '/jquery-compat/jquery.js', bowerDirPath + '/jquery-compat/jquery.min.js',
 			bowerDirPath + '/jquery-compat/jquery.min.map'])
-		.pipe(copy(scriptDirPath + '/lib/jquery-compat', { prefix: 2 }))
+		.pipe(copy(scriptDirPath + '/lib/jquery-compat', { prefix: initialBowerPrefix }))
 		;
 });
 
@@ -78,21 +79,21 @@ gulp.task('copy-jquery-scripts', ['clean-script-libraries'], function () {
 	return gulp
 		.src([bowerDirPath + '/jquery/jquery.js', bowerDirPath + '/jquery/jquery.min.js',
 			bowerDirPath + '/jquery/jquery.min.map'])
-		.pipe(copy(scriptDirPath + '/lib/jquery', { prefix: 2 }))
+		.pipe(copy(scriptDirPath + '/lib/jquery', { prefix: initialBowerPrefix }))
 		;
 });
 
 gulp.task('copy-jquery-validation-scripts', ['clean-script-libraries'], function () {
 	return gulp
 		.src([bowerDirPath + '/jquery-validation/dist/jquery.validate.js'])
-		.pipe(copy(scriptDirPath + '/lib', { prefix: 3 }))
+		.pipe(copy(scriptDirPath + '/lib', { prefix: initialBowerPrefix + 1 }))
 		;
 });
 
 gulp.task('copy-bootstrap-scripts', ['clean-script-libraries'], function () {
 	return gulp
 		.src([bowerDirPath + '/bootstrap/js/*.js'])
-		.pipe(copy(scriptDirPath + '/lib/bootstrap', { prefix: 3 }))
+		.pipe(copy(scriptDirPath + '/lib/bootstrap', { prefix: initialBowerPrefix + 1 }))
 		;
 });
 

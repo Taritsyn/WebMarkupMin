@@ -319,13 +319,6 @@
     <Content Include="Views\XmlMinifier\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".bowerrc" />
-    <Content Include="bower.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="package.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="scripts\build\minification-form-scripts.js.map" />
     <Content Include="scripts\build\minification-form-scripts.min.js.map" />
   </ItemGroup>

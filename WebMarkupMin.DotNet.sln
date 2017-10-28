@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.3
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{472CB832-1B6A-4479-9389-77E0C2E7B355}"
 EndProject
@@ -26,6 +26,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{D6646163-2C7
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{93F36312-DACD-42F9-8652-DC03D5545113}"
+	ProjectSection(SolutionItems) = preProject
+		samples\.bowerrc = samples\.bowerrc
+		samples\bower.json = samples\bower.json
+		samples\package.json = samples\package.json
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedData", "SharedData", "{6E9983A1-18F0-4A77-8179-7E0D5362B5A1}"
 EndProject
@@ -143,5 +148,8 @@ Global
 		{CBB7FD4C-8A94-4797-AA55-55DA5A63F070} = {93F36312-DACD-42F9-8652-DC03D5545113}
 		{93545F28-4C2E-4C43-B864-AF369D6E71BB} = {93F36312-DACD-42F9-8652-DC03D5545113}
 		{70C0F396-9D87-4E02-AF0B-27F94940478D} = {93F36312-DACD-42F9-8652-DC03D5545113}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7E056B7D-640D-49E5-BFD7-D64C25744378}
 	EndGlobalSection
 EndGlobal
