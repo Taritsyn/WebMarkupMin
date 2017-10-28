@@ -101,7 +101,7 @@
     <Content Include="fonts\bebas-neue\bebas-neue-webfont.svg" />
     <Content Include="fonts\league-gothic\league-gothic-webfont.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Gruntfile.js" />
+    <Content Include="gulpfile.js" />
     <Content Include="images\0.gif" />
     <Content Include="images\clear-text.png" />
     <Content Include="images\icons\32x32\facebook.png" />
