@@ -43,11 +43,19 @@
 		</None>
 	</ItemGroup>
 
+	<Target Name="GulpClean" AfterTargets="Clean" Condition=" '$(IsCrossTargetingBuild)' != 'true' ">
+		<Exec Command="gulp clean-builded-assets" />
+	</Target>
+	<Target Name="GulpBuild" AfterTargets="AfterBuild" Condition=" '$(IsCrossTargetingBuild)' != 'true' ">
+		<Exec Command="gulp build-assets" />
+	</Target>
+	<Target Name="GulpRebuild" AfterTargets="AfterRebuild" Condition=" '$(IsCrossTargetingBuild)' != 'true' ">
+		<Exec Command="gulp" />
+	</Target>
 	<Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
 		<Exec Command="npm install" />
 		<Exec Command="bower install" />
-		<Exec Command="gulp copy-libraries" />
-		<Exec Command="gulp build-assets" />
+		<Exec Command="gulp" />
 	</Target>
 
 </Project>

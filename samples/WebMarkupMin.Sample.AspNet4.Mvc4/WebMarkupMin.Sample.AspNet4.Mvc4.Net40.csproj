@@ -157,9 +157,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
+    <Content Include=".bowerrc" />
+    <Content Include="bower.json" />
+    <Content Include="package.json" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -203,10 +203,10 @@
     <Content Include="fonts\league-gothic\league-gothic-webfont.eot" />
     <Content Include="fonts\league-gothic\league-gothic-webfont.ttf" />
     <Content Include="fonts\league-gothic\league-gothic-webfont.woff" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="scripts\build\common-scripts.js.map" />
     <Content Include="scripts\build\common-scripts.min.js.map" />
+    <Content Include="scripts\build\minification-form-scripts.js.map" />
+    <Content Include="scripts\build\minification-form-scripts.min.js.map" />
     <Content Include="scripts\build\modernizr.min.js.map" />
     <Content Include="scripts\lib\jquery-compat\jquery.min.map" />
     <Content Include="scripts\lib\jquery\jquery.min.map" />
@@ -297,30 +297,17 @@
     <Content Include="styles\page-socials.less" />
     <Content Include="styles\type.less" />
     <Content Include="styles\variables.less" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Home\ChangeLog.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Home\Minifiers.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\HtmlMinifier\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="Views\XhtmlMinifier\Index.cshtml" />
+    <Content Include="Views\XmlMinifier\Index.cshtml" />
     <Content Include="Views\Shared\_MinificationErrorList.cshtml" />
+    <Content Include="Views\Shared\_MinificationFormScriptsPartial.cshtml" />
     <Content Include="Views\Shared\_MinificationInputOutput.cshtml" />
     <Content Include="Views\Shared\_MinificationStatistics.cshtml" />
     <Content Include="Views\Shared\_MinificationWarningList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\XhtmlMinifier\Index.cshtml" />
-    <Content Include="Views\XmlMinifier\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="scripts\build\minification-form-scripts.js.map" />
-    <Content Include="scripts\build\minification-form-scripts.min.js.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -331,6 +318,15 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <Target Name="GulpClean" AfterTargets="Clean">
+    <Exec Command="gulp clean-builded-assets" />
+  </Target>
+  <Target Name="GulpBuild" AfterTargets="AfterBuild">
+    <Exec Command="gulp build-assets" />
+  </Target>
+  <Target Name="GulpRebuild" AfterTargets="AfterRebuild">
+    <Exec Command="gulp" />
   </Target>
   <ProjectExtensions>
     <VisualStudio>
@@ -357,10 +353,4 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target> -->
 </Project>

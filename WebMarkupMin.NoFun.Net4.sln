@@ -30,17 +30,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{A6C04256-22C
 		test\SharedFiles\xml\xml-document-without-bom.xml = test\SharedFiles\xml\xml-document-without-bom.xml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{890F681B-7DA9-477F-B7D3-17E5BDAFE092}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedData", "SharedData", "{2466A270-B65A-4F25-99EE-ACB1D1216747}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "text-content", "text-content", "{A39B2D68-509C-410C-8E9F-1437D17DC0CE}"
-	ProjectSection(SolutionItems) = preProject
-		samples\SharedData\text-content\change-log.html = samples\SharedData\text-content\change-log.html
-		samples\SharedData\text-content\contact.html = samples\SharedData\text-content\contact.html
-		samples\SharedData\text-content\index.html = samples\SharedData\text-content\index.html
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Core.Net40", "src\WebMarkupMin.Core.Net4\WebMarkupMin.Core.Net40.csproj", "{5148CF68-CC23-4FEE-AA0E-2EEE01BDABF7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.MsAjax.Net40", "src\WebMarkupMin.MsAjax.Net4\WebMarkupMin.MsAjax.Net40.csproj", "{C2CF53B0-E2C5-4ACF-8248-8FABF99FDFFE}"
@@ -60,37 +49,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.AspNet4.WebForms.Net40", "src\WebMarkupMin.AspNet4.WebForms\WebMarkupMin.AspNet4.WebForms.Net40.csproj", "{A2AE7CEA-5BB7-4610-AB22-33A4EB2F9D10}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Core.Test.Net40", "test\WebMarkupMin.Core.Test.Net4\WebMarkupMin.Core.Test.Net40.csproj", "{B6CBE565-C391-4599-AC86-11C6301296AA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Sample.Resources.Net40", "samples\WebMarkupMin.Sample.Resources.Net4\WebMarkupMin.Sample.Resources.Net40.csproj", "{8E7E319A-0718-4BE1-82F9-FB8578D5C260}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Sample.Logic.Net40", "samples\WebMarkupMin.Sample.Logic.Net4\WebMarkupMin.Sample.Logic.Net40.csproj", "{8842EEF0-E7F6-4E34-B4BE-E620ABF35E2D}"
-EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebMarkupMin.Sample.AspNet4.WebPages2", "http://localhost:33452", "{E2BBC80A-9C2B-40F9-A3E8-127B00E05AAD}"
-	ProjectSection(WebsiteProperties) = preProject
-		UseIISExpress = "true"
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{bf6ef6dd-9e9c-428e-92a9-24968c4f7ffe}|WebMarkupMin.AspNet.Common.dll;{5148CF68-CC23-4FEE-AA0E-2EEE01BDABF7}|WebMarkupMin.Core.dll;{3f7995d0-393c-40b9-b16a-51f8499c3565}|WebMarkupMin.AspNet4.Common.dll;{29935491-4376-4e06-ad75-68661f04ac09}|WebMarkupMin.AspNet4.HttpModules.dll;{8842eef0-e7f6-4e34-b4be-e620abf35e2d}|WebMarkupMin.Sample.Logic.dll;{C2CF53B0-E2C5-4ACF-8248-8FABF99FDFFE}|WebMarkupMin.MsAjax.dll;{8E7E319A-0718-4BE1-82F9-FB8578D5C260}|WebMarkupMin.Sample.Resources.dll;{AB138BB6-CB90-4BE4-9E24-864EEF4ED581}|WebMarkupMin.Yui.dll;{D8BE51CD-5AF8-4B99-9B5C-436B006C047C}|WebMarkupMin.NUglify.dll;"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_33452"
-		Debug.AspNetCompiler.PhysicalPath = "samples\WebMarkupMin.Sample.AspNet4.WebPages2\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_33452\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_33452"
-		Release.AspNetCompiler.PhysicalPath = "samples\WebMarkupMin.Sample.AspNet4.WebPages2\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_33452\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "samples\WebMarkupMin.Sample.AspNet4.WebPages2\"
-		DefaultWebSiteLanguage = "Visual C#"
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Sample.AspNet4.Mvc4.Net40", "samples\WebMarkupMin.Sample.AspNet4.Mvc4\WebMarkupMin.Sample.AspNet4.Mvc4.Net40.csproj", "{5CF180F1-8A21-4DA6-9550-85F6210389A4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Sample.AspNet45.WebForms.Net40", "samples\WebMarkupMin.Sample.AspNet45.WebForms\WebMarkupMin.Sample.AspNet45.WebForms.Net40.csproj", "{E7808547-E984-4F80-97B8-B19E99BE3A76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -204,56 +162,6 @@ Global
 		{B6CBE565-C391-4599-AC86-11C6301296AA}.Release|ARM.ActiveCfg = Release|Any CPU
 		{B6CBE565-C391-4599-AC86-11C6301296AA}.Release|x64.ActiveCfg = Release|Any CPU
 		{B6CBE565-C391-4599-AC86-11C6301296AA}.Release|x86.ActiveCfg = Release|Any CPU
-		{8E7E319A-0718-4BE1-82F9-FB8578D5C260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8E7E319A-0718-4BE1-82F9-FB8578D5C260}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8E7E319A-0718-4BE1-82F9-FB8578D5C260}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{8E7E319A-0718-4BE1-82F9-FB8578D5C260}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{8E7E319A-0718-4BE1-82F9-FB8578D5C260}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{8E7E319A-0718-4BE1-82F9-FB8578D5C260}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8E7E319A-0718-4BE1-82F9-FB8578D5C260}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8E7E319A-0718-4BE1-82F9-FB8578D5C260}.Release|ARM.ActiveCfg = Release|Any CPU
-		{8E7E319A-0718-4BE1-82F9-FB8578D5C260}.Release|x64.ActiveCfg = Release|Any CPU
-		{8E7E319A-0718-4BE1-82F9-FB8578D5C260}.Release|x86.ActiveCfg = Release|Any CPU
-		{8842EEF0-E7F6-4E34-B4BE-E620ABF35E2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8842EEF0-E7F6-4E34-B4BE-E620ABF35E2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8842EEF0-E7F6-4E34-B4BE-E620ABF35E2D}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{8842EEF0-E7F6-4E34-B4BE-E620ABF35E2D}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{8842EEF0-E7F6-4E34-B4BE-E620ABF35E2D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{8842EEF0-E7F6-4E34-B4BE-E620ABF35E2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8842EEF0-E7F6-4E34-B4BE-E620ABF35E2D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8842EEF0-E7F6-4E34-B4BE-E620ABF35E2D}.Release|ARM.ActiveCfg = Release|Any CPU
-		{8842EEF0-E7F6-4E34-B4BE-E620ABF35E2D}.Release|x64.ActiveCfg = Release|Any CPU
-		{8842EEF0-E7F6-4E34-B4BE-E620ABF35E2D}.Release|x86.ActiveCfg = Release|Any CPU
-		{E2BBC80A-9C2B-40F9-A3E8-127B00E05AAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2BBC80A-9C2B-40F9-A3E8-127B00E05AAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E2BBC80A-9C2B-40F9-A3E8-127B00E05AAD}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{E2BBC80A-9C2B-40F9-A3E8-127B00E05AAD}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{E2BBC80A-9C2B-40F9-A3E8-127B00E05AAD}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E2BBC80A-9C2B-40F9-A3E8-127B00E05AAD}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2BBC80A-9C2B-40F9-A3E8-127B00E05AAD}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{E2BBC80A-9C2B-40F9-A3E8-127B00E05AAD}.Release|ARM.ActiveCfg = Debug|Any CPU
-		{E2BBC80A-9C2B-40F9-A3E8-127B00E05AAD}.Release|x64.ActiveCfg = Debug|Any CPU
-		{E2BBC80A-9C2B-40F9-A3E8-127B00E05AAD}.Release|x86.ActiveCfg = Debug|Any CPU
-		{5CF180F1-8A21-4DA6-9550-85F6210389A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5CF180F1-8A21-4DA6-9550-85F6210389A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5CF180F1-8A21-4DA6-9550-85F6210389A4}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{5CF180F1-8A21-4DA6-9550-85F6210389A4}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{5CF180F1-8A21-4DA6-9550-85F6210389A4}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{5CF180F1-8A21-4DA6-9550-85F6210389A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5CF180F1-8A21-4DA6-9550-85F6210389A4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5CF180F1-8A21-4DA6-9550-85F6210389A4}.Release|ARM.ActiveCfg = Release|Any CPU
-		{5CF180F1-8A21-4DA6-9550-85F6210389A4}.Release|x64.ActiveCfg = Release|Any CPU
-		{5CF180F1-8A21-4DA6-9550-85F6210389A4}.Release|x86.ActiveCfg = Release|Any CPU
-		{E7808547-E984-4F80-97B8-B19E99BE3A76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E7808547-E984-4F80-97B8-B19E99BE3A76}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E7808547-E984-4F80-97B8-B19E99BE3A76}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{E7808547-E984-4F80-97B8-B19E99BE3A76}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{E7808547-E984-4F80-97B8-B19E99BE3A76}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E7808547-E984-4F80-97B8-B19E99BE3A76}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E7808547-E984-4F80-97B8-B19E99BE3A76}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E7808547-E984-4F80-97B8-B19E99BE3A76}.Release|ARM.ActiveCfg = Release|Any CPU
-		{E7808547-E984-4F80-97B8-B19E99BE3A76}.Release|x64.ActiveCfg = Release|Any CPU
-		{E7808547-E984-4F80-97B8-B19E99BE3A76}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -262,8 +170,6 @@ Global
 		{302D8256-C94F-49A0-8F3A-C3E3DF71AACE} = {F4439CD7-A4E4-4F82-AA53-4031C4ED3A97}
 		{672FB1B6-5863-4F6E-8C7A-80536594A588} = {302D8256-C94F-49A0-8F3A-C3E3DF71AACE}
 		{A6C04256-22C9-462B-856E-3B5802320B5E} = {302D8256-C94F-49A0-8F3A-C3E3DF71AACE}
-		{2466A270-B65A-4F25-99EE-ACB1D1216747} = {890F681B-7DA9-477F-B7D3-17E5BDAFE092}
-		{A39B2D68-509C-410C-8E9F-1437D17DC0CE} = {2466A270-B65A-4F25-99EE-ACB1D1216747}
 		{5148CF68-CC23-4FEE-AA0E-2EEE01BDABF7} = {FF90A935-F84B-4B73-A2E7-238BF376FD36}
 		{C2CF53B0-E2C5-4ACF-8248-8FABF99FDFFE} = {FF90A935-F84B-4B73-A2E7-238BF376FD36}
 		{AB138BB6-CB90-4BE4-9E24-864EEF4ED581} = {FF90A935-F84B-4B73-A2E7-238BF376FD36}
@@ -274,10 +180,5 @@ Global
 		{88DD173D-0BD0-4841-9D6E-211E2C49FBB4} = {FF90A935-F84B-4B73-A2E7-238BF376FD36}
 		{A2AE7CEA-5BB7-4610-AB22-33A4EB2F9D10} = {FF90A935-F84B-4B73-A2E7-238BF376FD36}
 		{B6CBE565-C391-4599-AC86-11C6301296AA} = {F4439CD7-A4E4-4F82-AA53-4031C4ED3A97}
-		{8E7E319A-0718-4BE1-82F9-FB8578D5C260} = {890F681B-7DA9-477F-B7D3-17E5BDAFE092}
-		{8842EEF0-E7F6-4E34-B4BE-E620ABF35E2D} = {890F681B-7DA9-477F-B7D3-17E5BDAFE092}
-		{E2BBC80A-9C2B-40F9-A3E8-127B00E05AAD} = {890F681B-7DA9-477F-B7D3-17E5BDAFE092}
-		{5CF180F1-8A21-4DA6-9550-85F6210389A4} = {890F681B-7DA9-477F-B7D3-17E5BDAFE092}
-		{E7808547-E984-4F80-97B8-B19E99BE3A76} = {890F681B-7DA9-477F-B7D3-17E5BDAFE092}
 	EndGlobalSection
 EndGlobal
