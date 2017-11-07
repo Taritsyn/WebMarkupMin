@@ -21,12 +21,10 @@ namespace WebMarkupMin.Sample.Resources
 		private static Lazy<ResourceManager> _resourceManager =
 			new Lazy<ResourceManager>(() => new ResourceManager(
 				"WebMarkupMin.Sample.Resources.CommonStrings",
-#if NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP1_0 || NETCOREAPP2_0 || NET45 || NET451 || NET452 || NET46 || NET461 || NET462 || NET463
-				typeof(CommonStrings).GetTypeInfo().Assembly
-#elif NET40
+#if NET40
 				typeof(CommonStrings).Assembly
 #else
-#error No implementation for this target
+				typeof(CommonStrings).GetTypeInfo().Assembly
 #endif
 			));
 

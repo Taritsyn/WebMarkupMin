@@ -23,8 +23,15 @@
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
 	</ItemGroup>
 
-	<Target Name="PrecompileScript" BeforeTargets="BeforeBuild" Condition=" '$(IsCrossTargetingBuild)' != 'true' ">
-		<Exec Command="../../build resx" />
+	<ItemGroup>
+		<DotNetCliToolReference Include="dotnet-resx2cs" Version="1.0.0-alpha2" />
+	</ItemGroup>
+
+	<Target Name="СonvertResxToCs" BeforeTargets="BeforeCompile" Condition=" '$(ResxToCsConversionWasRun)' != 'true' ">
+		<Exec Command="dotnet resx2cs" />
+		<PropertyGroup>
+			<ResxToCsConversionWasRun>true</ResxToCsConversionWasRun>
+		</PropertyGroup>
 	</Target>
 
 </Project>

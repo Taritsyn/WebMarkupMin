@@ -11,6 +11,9 @@
     <AssemblyName>WebMarkupMin.AspNet.Common</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <NuGetPackageImportStamp>012248c0</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,7 +36,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\..\tools\Key.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\..\build\Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -46,9 +49,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\tools\Key.snk">
+    <None Include="..\..\build\Key.snk">
       <Link>Key.snk</Link>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
@@ -172,17 +176,19 @@
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>SET VS_PROJECT_DIR=$(ProjectDir)..\WebMarkupMin.AspNet.Common
-
-cd "$(ProjectDir)..\..\"
-build resx</PreBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+    <Error Condition="!Exists('..\..\packages\ResxToCs.MSBuild.1.0.0-alpha2\build\ResxToCs.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\ResxToCs.MSBuild.1.0.0-alpha2\build\ResxToCs.MSBuild.targets'))" />
   </Target>
-  <Target Name="AfterBuild">
+  <Import Project="..\..\packages\ResxToCs.MSBuild.1.0.0-alpha2\build\ResxToCs.MSBuild.targets" Condition="Exists('..\..\packages\ResxToCs.MSBuild.1.0.0-alpha2\build\ResxToCs.MSBuild.targets')" />
+  <Target Name="СonvertResxToCs" BeforeTargets="BeforeCompile" Condition=" '$(ResxToCsConversionWasRun)' != 'true' ">
+    <ResxToCsTask ResourceDirectory="..\WebMarkupMin.AspNet.Common\Resources\" />
+    <PropertyGroup>
+      <ResxToCsConversionWasRun>true</ResxToCsConversionWasRun>
+    </PropertyGroup>
   </Target>
-  -->
 </Project>

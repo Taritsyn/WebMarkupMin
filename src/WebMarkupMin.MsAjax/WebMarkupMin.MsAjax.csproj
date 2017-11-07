@@ -5,7 +5,7 @@
 		<TargetFramework>net45</TargetFramework>
 		<OutputType>Library</OutputType>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-		<AssemblyOriginatorKeyFile>../../tools/Key.snk</AssemblyOriginatorKeyFile>
+		<AssemblyOriginatorKeyFile>../../build/Key.snk</AssemblyOriginatorKeyFile>
 		<SignAssembly>true</SignAssembly>
 		<PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
 		<NoWarn>$(NoWarn);CS1591</NoWarn>

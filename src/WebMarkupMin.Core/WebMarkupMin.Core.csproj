@@ -6,7 +6,7 @@
 		<NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.3' ">1.6.0</NetStandardImplicitPackageVersion>
 		<OutputType>Library</OutputType>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-		<AssemblyOriginatorKeyFile>../../tools/Key.snk</AssemblyOriginatorKeyFile>
+		<AssemblyOriginatorKeyFile>../../build/Key.snk</AssemblyOriginatorKeyFile>
 		<SignAssembly>true</SignAssembly>
 		<PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
 		<NoWarn>$(NoWarn);CS1591</NoWarn>
@@ -28,8 +28,15 @@
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
 	</ItemGroup>
 
-	<Target Name="PrecompileScript" BeforeTargets="BeforeBuild" Condition=" '$(IsCrossTargetingBuild)' != 'true' ">
-		<Exec Command="../../build resx" />
+	<ItemGroup>
+		<DotNetCliToolReference Include="dotnet-resx2cs" Version="1.0.0-alpha2" />
+	</ItemGroup>
+
+	<Target Name="СonvertResxToCs" BeforeTargets="BeforeCompile" Condition=" '$(ResxToCsConversionWasRun)' != 'true' ">
+		<Exec Command="dotnet resx2cs ./Resources/" />
+		<PropertyGroup>
+			<ResxToCsConversionWasRun>true</ResxToCsConversionWasRun>
+		</PropertyGroup>
 	</Target>
 
 </Project>
