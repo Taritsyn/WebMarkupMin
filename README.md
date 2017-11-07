@@ -1,4 +1,4 @@
-Web Markup Minifier
+Web Markup Minifier [![NuGet version](http://img.shields.io/nuget/v/WebMarkupMin.Core.svg)](https://www.nuget.org/packages/WebMarkupMin.Core/)  [![Download count](https://img.shields.io/nuget/dt/WebMarkupMin.Core.svg)](https://www.nuget.org/packages/WebMarkupMin.Core/)
 ===================
 
 <img src="https://raw.githubusercontent.com/Taritsyn/WebMarkupMin/master/images/WebMarkupMin_Logo.png" width="440" height="86" alt="WebMarkupMin logo" />
