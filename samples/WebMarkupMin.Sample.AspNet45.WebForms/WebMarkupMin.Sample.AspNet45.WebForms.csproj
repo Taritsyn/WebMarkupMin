@@ -21,6 +21,8 @@
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -261,33 +263,33 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\WebMarkupMin.AspNet.Common.Net4\WebMarkupMin.AspNet.Common.Net40.csproj">
-      <Project>{bf6ef6dd-9e9c-428e-92a9-24968c4f7ffe}</Project>
-      <Name>WebMarkupMin.AspNet.Common.Net40</Name>
+    <ProjectReference Include="..\..\src\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.csproj">
+      <Project>{dfce4d45-cfd5-40c2-8e1e-9276b589a3ff}</Project>
+      <Name>WebMarkupMin.AspNet.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\WebMarkupMin.AspNet4.Common\WebMarkupMin.AspNet4.Common.Net40.csproj">
-      <Project>{3f7995d0-393c-40b9-b16a-51f8499c3565}</Project>
-      <Name>WebMarkupMin.AspNet4.Common.Net40</Name>
+    <ProjectReference Include="..\..\src\WebMarkupMin.AspNet4.Common\WebMarkupMin.AspNet4.Common.csproj">
+      <Project>{b9908e9f-c933-46fa-a8d0-55938fdb5cc6}</Project>
+      <Name>WebMarkupMin.AspNet4.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\WebMarkupMin.AspNet4.WebForms\WebMarkupMin.AspNet4.WebForms.Net40.csproj">
-      <Project>{a2ae7cea-5bb7-4610-ab22-33a4eb2f9d10}</Project>
-      <Name>WebMarkupMin.AspNet4.WebForms.Net40</Name>
+    <ProjectReference Include="..\..\src\WebMarkupMin.AspNet4.WebForms\WebMarkupMin.AspNet4.WebForms.csproj">
+      <Project>{27d7454a-f570-4acc-bb7e-1dd5b264ac22}</Project>
+      <Name>WebMarkupMin.AspNet4.WebForms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\WebMarkupMin.Core.Net4\WebMarkupMin.Core.Net40.csproj">
-      <Project>{5148cf68-cc23-4fee-aa0e-2eee01bdabf7}</Project>
-      <Name>WebMarkupMin.Core.Net40</Name>
+    <ProjectReference Include="..\..\src\WebMarkupMin.Core\WebMarkupMin.Core.csproj">
+      <Project>{b13de315-c4a0-4bbf-86b1-d916483f5c63}</Project>
+      <Name>WebMarkupMin.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\WebMarkupMin.MsAjax.Net4\WebMarkupMin.MsAjax.Net40.csproj">
-      <Project>{c2cf53b0-e2c5-4acf-8248-8fabf99fdffe}</Project>
-      <Name>WebMarkupMin.MsAjax.Net40</Name>
+    <ProjectReference Include="..\..\src\WebMarkupMin.MsAjax\WebMarkupMin.MsAjax.csproj">
+      <Project>{16e16699-8950-45b3-9fc9-0e06a2aa0385}</Project>
+      <Name>WebMarkupMin.MsAjax</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WebMarkupMin.Sample.Logic.Net4\WebMarkupMin.Sample.Logic.Net40.csproj">
-      <Project>{8842eef0-e7f6-4e34-b4be-e620abf35e2d}</Project>
-      <Name>WebMarkupMin.Sample.Logic.Net40</Name>
+    <ProjectReference Include="..\WebMarkupMin.Sample.Logic\WebMarkupMin.Sample.Logic.csproj">
+      <Project>{d29e22ef-eaf3-4056-bc7b-e02bb4048281}</Project>
+      <Name>WebMarkupMin.Sample.Logic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WebMarkupMin.Sample.Resources.Net4\WebMarkupMin.Sample.Resources.Net40.csproj">
-      <Project>{8e7e319a-0718-4be1-82f9-fb8578d5c260}</Project>
-      <Name>WebMarkupMin.Sample.Resources.Net40</Name>
+    <ProjectReference Include="..\WebMarkupMin.Sample.Resources\WebMarkupMin.Sample.Resources.csproj">
+      <Project>{8efc1c84-d831-45ce-926a-a9cf99b2164c}</Project>
+      <Name>WebMarkupMin.Sample.Resources</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

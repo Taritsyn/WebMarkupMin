@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<VersionPrefix>2.4.2</VersionPrefix>
-		<TargetFrameworks>netstandard1.3;net45</TargetFrameworks>
+		<TargetFrameworks>net40-client;net45;netstandard1.3</TargetFrameworks>
 		<NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.3' ">1.6.0</NetStandardImplicitPackageVersion>
 		<OutputType>Library</OutputType>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -23,15 +23,21 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="MSBuild.Sdk.Extras" Version="1.1.0" PrivateAssets="All" />
 		<PackageReference Include="NUglify" Version="1.5.8" />
 
 		<ProjectReference Include="..\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
 	</ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net40-client' ">
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
 	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+	</ItemGroup>
+
+	<Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 
 </Project>

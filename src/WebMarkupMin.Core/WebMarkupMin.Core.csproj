@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<VersionPrefix>2.4.0</VersionPrefix>
-		<TargetFrameworks>netstandard1.3;net45</TargetFrameworks>
+		<TargetFrameworks>net40-client;net45;netstandard1.3</TargetFrameworks>
 		<NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.3' ">1.6.0</NetStandardImplicitPackageVersion>
 		<OutputType>Library</OutputType>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -22,10 +22,17 @@
 		<GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
 	</PropertyGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+	<ItemGroup>
+		<PackageReference Include="MSBuild.Sdk.Extras" Version="1.1.0" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net40-client' ">
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
 	</ItemGroup>
 
 	<ItemGroup>
@@ -38,5 +45,7 @@
 			<ResxToCsConversionWasRun>true</ResxToCsConversionWasRun>
 		</PropertyGroup>
 	</Target>
+
+	<Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 
 </Project>

@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<VersionPrefix>2.4.0</VersionPrefix>
-		<TargetFramework>net45</TargetFramework>
+		<TargetFrameworks>net40-client;net45</TargetFrameworks>
 		<OutputType>Library</OutputType>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<NoWarn>$(NoWarn);CS1591</NoWarn>
@@ -19,9 +19,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="MSBuild.Sdk.Extras" Version="1.1.0" PrivateAssets="All" />
 		<PackageReference Include="YUICompressor.NET" Version="2.7.0" />
 
 		<ProjectReference Include="..\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
 	</ItemGroup>
+
+	<Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 
 </Project>

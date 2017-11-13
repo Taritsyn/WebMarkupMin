@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<VersionPrefix>2.4.0</VersionPrefix>
-		<TargetFrameworks>net40-client;net45</TargetFrameworks>
+		<TargetFrameworks>net40</TargetFrameworks>
 		<OutputType>Library</OutputType>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<AssemblyOriginatorKeyFile>../../build/Key.snk</AssemblyOriginatorKeyFile>
@@ -22,12 +22,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="MSBuild.Sdk.Extras" Version="1.1.0" PrivateAssets="All" />
-		<PackageReference Include="AjaxMin" Version="5.14.5506.26202" />
+		<Reference Include="System.Web" />
 
-		<ProjectReference Include="..\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
+		<ProjectReference Include="..\WebMarkupMin.AspNet4.Common\WebMarkupMin.AspNet4.Common.csproj" />
 	</ItemGroup>
-
-	<Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 
 </Project>
