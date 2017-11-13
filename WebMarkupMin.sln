@@ -64,7 +64,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Sample.Resourc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Sample.Logic", "samples\WebMarkupMin.Sample.Logic\WebMarkupMin.Sample.Logic.csproj", "{D29E22EF-EAF3-4056-BC7B-E02BB4048281}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Sample.AspNet4.Mvc4.Net40", "samples\WebMarkupMin.Sample.AspNet4.Mvc4\WebMarkupMin.Sample.AspNet4.Mvc4.Net40.csproj", "{5CF180F1-8A21-4DA6-9550-85F6210389A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Sample.AspNet4.Mvc4", "samples\WebMarkupMin.Sample.AspNet4.Mvc4\WebMarkupMin.Sample.AspNet4.Mvc4.csproj", "{5CF180F1-8A21-4DA6-9550-85F6210389A4}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebMarkupMin.Sample.AspNet4.WebPages2", "samples\WebMarkupMin.Sample.AspNet4.WebPages2\", "{90B64798-5F93-4132-ACE9-A3A4BB05451D}"
 	ProjectSection(WebsiteProperties) = preProject
