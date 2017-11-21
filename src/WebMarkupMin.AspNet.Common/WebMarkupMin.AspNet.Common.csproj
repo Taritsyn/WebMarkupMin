@@ -24,6 +24,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="MSBuild.Sdk.Extras" Version="1.1.0" PrivateAssets="All" />
+		<PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha3" PrivateAssets="All" />
 
 		<ProjectReference Include="..\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
 	</ItemGroup>
@@ -37,12 +38,8 @@
 	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
 	</ItemGroup>
 
-	<ItemGroup>
-		<DotNetCliToolReference Include="dotnet-resx2cs" Version="1.0.0-alpha2" />
-	</ItemGroup>
-
 	<Target Name="СonvertResxToCs" BeforeTargets="BeforeCompile" Condition=" '$(ResxToCsConversionWasRun)' != 'true' ">
-		<Exec Command="dotnet resx2cs ./Resources/" />
+		<ResxToCsTask ResourceDirectory="./Resources/" />
 		<PropertyGroup>
 			<ResxToCsConversionWasRun>true</ResxToCsConversionWasRun>
 		</PropertyGroup>

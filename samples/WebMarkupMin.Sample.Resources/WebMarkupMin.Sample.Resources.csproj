@@ -17,6 +17,10 @@
 		<GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
 	</PropertyGroup>
 
+	<ItemGroup>
+		<PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha3" PrivateAssets="All" />
+	</ItemGroup>
+
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
 	</ItemGroup>
 
@@ -25,16 +29,5 @@
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
 	</ItemGroup>
-
-	<ItemGroup>
-		<DotNetCliToolReference Include="dotnet-resx2cs" Version="1.0.0-alpha2" />
-	</ItemGroup>
-
-	<Target Name="СonvertResxToCs" BeforeTargets="BeforeCompile" Condition=" '$(ResxToCsConversionWasRun)' != 'true' ">
-		<Exec Command="dotnet resx2cs" />
-		<PropertyGroup>
-			<ResxToCsConversionWasRun>true</ResxToCsConversionWasRun>
-		</PropertyGroup>
-	</Target>
 
 </Project>
