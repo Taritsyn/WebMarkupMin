@@ -11,6 +11,7 @@
 		<PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
 		<NoWarn>$(NoWarn);CS1591</NoWarn>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
 
 		<GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
 		<GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
@@ -36,7 +37,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="1.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Options" Version="1.0.2" />
 		<PackageReference Include="Microsoft.Net.Http.Headers" Version="1.0.2" />
-		<PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha3" PrivateAssets="All" />
+		<PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha4" PrivateAssets="All" />
 
 		<ProjectReference Include="..\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.csproj" />
 	</ItemGroup>
@@ -47,11 +48,11 @@
 	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
 	</ItemGroup>
 
-	<Target Name="СonvertResxToCs" BeforeTargets="BeforeCompile" Condition=" '$(ResxToCsConversionWasRun)' != 'true' ">
-		<ResxToCsTask ResourceDirectory="./Resources/" />
-		<PropertyGroup>
-			<ResxToCsConversionWasRun>true</ResxToCsConversionWasRun>
-		</PropertyGroup>
+	<Target Name="СonvertResxToCs" BeforeTargets="BeforeCompile">
+		<ResxToCsTask
+			InputDirectory="./Resources/"
+			Namespace="$(RootNamespace).Resources"
+			InternalAccessModifier="true" />
 	</Target>
 
 </Project>

@@ -177,11 +177,11 @@ namespace WebMarkupMin.Sample.Resources
 			get { return GetString("ListItem_EmptyTagRenderMode_SpaceAndSlash"); }
 		}
 
-			private static string GetString(string name)
-			{
-				string value = ResourceManager.GetString(name, _resourceCulture);
+		private static string GetString(string name)
+		{
+			string value = ResourceManager.GetString(name, _resourceCulture);
 
-				return value;
-			}
+			return value;
 		}
 	}
+}

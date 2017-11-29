@@ -97,11 +97,11 @@ namespace WebMarkupMin.Sample.Resources
 			get { return GetString("DisplayName_RenderEmptyTagsWithSpace"); }
 		}
 
-			private static string GetString(string name)
-			{
-				string value = ResourceManager.GetString(name, _resourceCulture);
+		private static string GetString(string name)
+		{
+			string value = ResourceManager.GetString(name, _resourceCulture);
 
-				return value;
-			}
+			return value;
 		}
 	}
+}
