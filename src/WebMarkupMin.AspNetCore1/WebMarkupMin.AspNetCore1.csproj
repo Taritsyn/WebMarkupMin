@@ -32,12 +32,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="1.0.2" />
-		<PackageReference Include="Microsoft.AspNetCore.Http" Version="1.0.2" />
-		<PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="1.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="1.0.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Http" Version="1.0.4" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="1.0.4" />
 		<PackageReference Include="Microsoft.Extensions.Options" Version="1.0.2" />
-		<PackageReference Include="Microsoft.Net.Http.Headers" Version="1.0.2" />
-		<PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha4" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.Net.Http.Headers" Version="1.0.4" />
+		<PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha5" PrivateAssets="All" />
 
 		<ProjectReference Include="..\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.csproj" />
 	</ItemGroup>

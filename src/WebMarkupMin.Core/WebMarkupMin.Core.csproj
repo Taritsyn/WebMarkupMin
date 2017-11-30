@@ -25,7 +25,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="MSBuild.Sdk.Extras" Version="1.1.0" PrivateAssets="All" />
-		<PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha4" PrivateAssets="All" />
+		<PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha5" PrivateAssets="All" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net40-client' ">

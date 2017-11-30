@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<VersionPrefix>2.4.1</VersionPrefix>
 		<TargetFrameworks>net452;netcoreapp1.0</TargetFrameworks>
-		<RuntimeFrameworkVersion Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">1.0.7</RuntimeFrameworkVersion>
+		<RuntimeFrameworkVersion Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">1.0.8</RuntimeFrameworkVersion>
 		<OutputType>Library</OutputType>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 

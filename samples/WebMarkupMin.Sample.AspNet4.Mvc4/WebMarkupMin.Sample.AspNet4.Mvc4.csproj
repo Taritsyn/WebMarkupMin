@@ -331,9 +331,6 @@
   <Target Name="GulpBuild" AfterTargets="AfterBuild">
     <Exec Command="gulp build-assets" />
   </Target>
-  <Target Name="GulpRebuild" AfterTargets="AfterRebuild">
-    <Exec Command="gulp" />
-  </Target>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">

@@ -3,7 +3,6 @@
 	<PropertyGroup>
 		<VersionPrefix>2.4.2</VersionPrefix>
 		<TargetFramework>netcoreapp2.0</TargetFramework>
-		<RuntimeFrameworkVersion>2.0.0</RuntimeFrameworkVersion>
 		<OutputType>Exe</OutputType>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<PreserveCompilationContext>true</PreserveCompilationContext>
@@ -19,7 +18,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
@@ -32,7 +31,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+		<DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -41,14 +40,11 @@
 		</None>
 	</ItemGroup>
 
-	<Target Name="GulpClean" AfterTargets="Clean" Condition=" '$(IsCrossTargetingBuild)' != 'true' ">
+	<Target Name="GulpClean" AfterTargets="Clean">
 		<Exec Command="gulp clean-builded-assets" />
 	</Target>
-	<Target Name="GulpBuild" AfterTargets="AfterBuild" Condition=" '$(IsCrossTargetingBuild)' != 'true' ">
+	<Target Name="GulpBuild" AfterTargets="AfterBuild">
 		<Exec Command="gulp build-assets" />
-	</Target>
-	<Target Name="GulpRebuild" AfterTargets="AfterRebuild" Condition=" '$(IsCrossTargetingBuild)' != 'true' ">
-		<Exec Command="gulp" />
 	</Target>
 	<Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
 		<Exec Command="npm install" />
