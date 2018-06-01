@@ -24,7 +24,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="MSBuild.Sdk.Extras" Version="1.1.0" PrivateAssets="All" />
-		<PackageReference Include="NUglify" Version="1.5.8" />
+		<PackageReference Include="NUglify" Version="1.5.11" />
 
 		<ProjectReference Include="..\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
 	</ItemGroup>

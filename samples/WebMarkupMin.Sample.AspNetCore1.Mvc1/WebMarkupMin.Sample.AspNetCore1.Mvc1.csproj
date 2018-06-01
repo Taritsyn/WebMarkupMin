@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<VersionPrefix>2.4.1</VersionPrefix>
 		<TargetFramework>netcoreapp1.0</TargetFramework>
-		<RuntimeFrameworkVersion>1.0.8</RuntimeFrameworkVersion>
+		<RuntimeFrameworkVersion>1.0.9</RuntimeFrameworkVersion>
 		<OutputType>Exe</OutputType>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<PreserveCompilationContext>true</PreserveCompilationContext>
