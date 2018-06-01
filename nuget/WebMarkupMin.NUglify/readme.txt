@@ -1,11 +1,11 @@
 
 
    --------------------------------------------------------------------------------
-                  README file for Web Markup Minifier: NUglify v2.4.2
+                  README file for Web Markup Minifier: NUglify v2.4.3
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2017 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2018 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========

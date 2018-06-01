@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Web Markup Minifier: NUglify")]
-[assembly: AssemblyCopyright("Copyright © 2013-2017 Andrey Taritsyn")]
+[assembly: AssemblyCopyright("Copyright © 2013-2018 Andrey Taritsyn")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -17,5 +17,5 @@ using System.Runtime.InteropServices;
 [assembly: Guid("32566dc1-7999-4a09-8219-db1279436955")]
 #endif
 
-[assembly: AssemblyVersion("2.4.2.0")]
-[assembly: AssemblyFileVersion("2.4.2.0")]
+[assembly: AssemblyVersion("2.4.3.0")]
+[assembly: AssemblyFileVersion("2.4.3.0")]

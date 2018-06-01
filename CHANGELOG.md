@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## v2.4.3 - June 1, 2018
+ * In WebMarkupMin.NUglify added support of the NUglify version 1.5.11
+
 ## v2.4.2 - August 16, 2017
  * Created the WebMarkupMin.AspNetCore2 module, that contains middleware for ASP.NET Core 2.0
  * In WebMarkupMin.NUglify added support of the NUglify version 1.5.8

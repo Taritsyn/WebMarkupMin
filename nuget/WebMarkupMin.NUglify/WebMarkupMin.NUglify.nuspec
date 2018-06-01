@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>WebMarkupMin.NUglify</id>
-		<version>2.4.2</version>
+		<version>2.4.3</version>
 		<title>Web Markup Minifier: NUglify</title>
 		<authors>Andrey Taritsyn</authors>
 		<owners>Andrey Taritsyn</owners>
@@ -13,7 +13,7 @@
 		<description>WebMarkupMin.NUglify contains 2 minifier-adapters: `NUglifyCssMinifier` (for minification of CSS code) and `NUglifyJsMinifier` (for minification of JS code). These adapters perform minification using the NUglify (http://github.com/xoofx/NUglify).</description>
 		<summary>WebMarkupMin.NUglify contains 2 minifier-adapters: `NUglifyCssMinifier` (for minification of CSS code) and `NUglifyJsMinifier` (for minification of JS code). These adapters perform minification using the NUglify.</summary>
 		<releaseNotes>Added support of the NUglify version 1.5.11.</releaseNotes>
-		<copyright>Copyright (c) 2013-2017 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
+		<copyright>Copyright (c) 2013-2018 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
 		<language>en-US</language>
 		<tags>WebMarkupMin Markup HTML XHTML CSS JavaScript JS Minification Minifier Minify NUglify</tags>
 		<dependencies>

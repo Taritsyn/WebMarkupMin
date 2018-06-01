@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<VersionPrefix>2.4.1</VersionPrefix>
+		<VersionPrefix>2.4.3</VersionPrefix>
 		<TargetFrameworks>net40;net451;netstandard1.6</TargetFrameworks>
 		<NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.6' ">1.6.1</NetStandardImplicitPackageVersion>
 		<OutputType>Library</OutputType>

@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Web Markup Minifier: Logic for Samples")]
-[assembly: AssemblyCopyright("Copyright © 2013-2017 Andrey Taritsyn")]
+[assembly: AssemblyCopyright("Copyright © 2013-2018 Andrey Taritsyn")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -17,5 +17,5 @@ using System.Runtime.InteropServices;
 [assembly: Guid("0ae6534b-a16d-45a0-ae00-176df29118ff")]
 #endif
 
-[assembly: AssemblyVersion("2.4.1.0")]
-[assembly: AssemblyFileVersion("2.4.1.0")]
+[assembly: AssemblyVersion("2.4.3.0")]
+[assembly: AssemblyFileVersion("2.4.3.0")]
