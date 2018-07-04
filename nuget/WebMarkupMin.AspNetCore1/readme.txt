@@ -5,7 +5,7 @@
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2017 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2018 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========
@@ -17,11 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Added support of ASP.NET Core 1.0.4;
-   2. In `MarkupMinificationOptionsBase` and `HttpCompressionOptions` classes was
-      added a new property - `SupportedHttpMethods` (default `GET`);
-   3. In `HttpCompressionOptions` class was added two new properties -
-      `IncludedPages` (default empty list) and `ExcludedPages` (default empty list).
+   Fixed a error #63 “The middleware blocks content streaming”.
 
    =============
    DOCUMENTATION

@@ -5,7 +5,7 @@
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2017 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2018 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========
@@ -13,6 +13,11 @@
    ===========
    WebMarkupMin.AspNetCore2 contains one ASP.NET Core 2.X Middleware -
    `WebMarkupMinMiddleware`.
+
+   =============
+   RELEASE NOTES
+   =============
+   Fixed a error #63 “The middleware blocks content streaming”.
 
    =============
    DOCUMENTATION

@@ -29,7 +29,7 @@ namespace WebMarkupMin.AspNetCore2
 		{
 			if (app == null)
 			{
-				throw new ArgumentNullException("app");
+				throw new ArgumentNullException(nameof(app));
 			}
 
 			// Verify if `AddWebMarkupMin` was done before calling `UseWebMarkupMin`.

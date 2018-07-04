@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<VersionPrefix>2.4.2</VersionPrefix>
@@ -31,6 +31,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Compile Include="..\WebMarkupMin.AspNetCore1\BodyWrapperStream.cs" Link="BodyWrapperStream.cs" />
 		<Compile Include="..\WebMarkupMin.AspNetCore1\BuilderExtensions.cs" Link="BuilderExtensions.cs" />
 		<Compile Include="..\WebMarkupMin.AspNetCore1\CommonHtmlMinificationOptionsBase.cs" Link="CommonHtmlMinificationOptionsBase.cs" />
 		<Compile Include="..\WebMarkupMin.AspNetCore1\ContentProcessingOptionsBase.cs" Link="ContentProcessingOptionsBase.cs" />

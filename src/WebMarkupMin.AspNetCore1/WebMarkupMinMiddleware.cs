@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Primitives;
-using Microsoft.Net.Http.Headers;
 
 using WebMarkupMin.AspNet.Common;
-using WebMarkupMin.AspNet.Common.Compressors;
-using WebMarkupMin.Core;
-using WebMarkupMin.Core.Utilities;
-using AspNetCommonStrings = WebMarkupMin.AspNet.Common.Resources.Strings;
 
 #if ASPNETCORE1
 namespace WebMarkupMin.AspNetCore1
@@ -62,17 +56,17 @@ namespace WebMarkupMin.AspNetCore2
 		{
 			if (next == null)
 			{
-				throw new ArgumentNullException("next");
+				throw new ArgumentNullException(nameof(next));
 			}
 
 			if (options == null)
 			{
-				throw new ArgumentNullException("options");
+				throw new ArgumentNullException(nameof(options));
 			}
 
 			if (services == null)
 			{
-				throw new ArgumentNullException("services");
+				throw new ArgumentNullException(nameof(services));
 			}
 
 			_next = next;
@@ -118,168 +112,32 @@ namespace WebMarkupMin.AspNetCore2
 				await _next.Invoke(context);
 				return;
 			}
-
-			HttpRequest request = context.Request;
-			HttpResponse response = context.Response;
-
-			using (var cachedStream = new MemoryStream())
+			else
 			{
+				HttpResponse response = context.Response;
+				IFeatureCollection features = context.Features;
+
 				Stream originalStream = response.Body;
-				response.Body = cachedStream;
+				IHttpBufferingFeature originalBufferFeature = features.Get<IHttpBufferingFeature>();
+				BodyWrapperStream bodyWrapperStream = new BodyWrapperStream(context, originalStream, _options,
+					useMinification ? _minificationManagers : new List<IMarkupMinificationManager>(),
+					useCompression ? _compressionManager : null,
+					originalBufferFeature);
+
+				response.Body = bodyWrapperStream;
+				features.Set<IHttpBufferingFeature>(bodyWrapperStream);
 
 				try
 				{
-					await _next.Invoke(context);
+					await _next(context);
+					await bodyWrapperStream.Finish();
 				}
-				catch (Exception)
+				finally
 				{
+					bodyWrapperStream.Dispose();
+
 					response.Body = originalStream;
-					cachedStream.Clear();
-
-					throw;
-				}
-
-				byte[] cachedBytes = cachedStream.ToArray();
-				int cachedByteCount = cachedBytes.Length;
-				bool isProcessed = false;
-
-				response.Body = originalStream;
-				cachedStream.Clear();
-
-				if (cachedByteCount == 0)
-				{
-					return;
-				}
-
-				if (response.StatusCode == 200)
-				{
-					string httpMethod = request.Method;
-					string contentType = response.ContentType;
-					string mediaType = null;
-					Encoding encoding = null;
-
-					if (contentType != null)
-					{
-						MediaTypeHeaderValue mediaTypeHeader;
-
-						if (MediaTypeHeaderValue.TryParse(contentType, out mediaTypeHeader))
-						{
-							mediaType = mediaTypeHeader.MediaType
-#if ASPNETCORE2
-								.Value
-#endif
-								.ToLowerInvariant()
-								;
-							encoding = mediaTypeHeader.Encoding;
-						}
-					}
-
-					encoding = encoding ?? Encoding.GetEncoding(0);
-
-					string currentUrl = request.Path.Value;
-					QueryString queryString = request.QueryString;
-					if (queryString.HasValue)
-					{
-						currentUrl += queryString.Value;
-					}
-
-					string content = encoding.GetString(cachedBytes);
-					string processedContent = content;
-					IHeaderDictionary responseHeaders = response.Headers;
-					bool isEncodedContent = responseHeaders.IsEncodedContent();
-					Action<string, string> appendHttpHeader = (key, value) =>
-					{
-						responseHeaders.Append(key, new StringValues(value));
-					};
-
-					if (useMinification && _options.IsAllowableResponseSize(cachedByteCount))
-					{
-						foreach (IMarkupMinificationManager minificationManager in _minificationManagers)
-						{
-							if (minificationManager.IsSupportedHttpMethod(httpMethod)
-								&& mediaType != null && minificationManager.IsSupportedMediaType(mediaType)
-								&& minificationManager.IsProcessablePage(currentUrl))
-							{
-								if (isEncodedContent)
-								{
-									throw new InvalidOperationException(
-										string.Format(
-											AspNetCommonStrings.MarkupMinificationIsNotApplicableToEncodedContent,
-											responseHeaders["Content-Encoding"]
-										)
-									);
-								}
-
-								IMarkupMinifier minifier = minificationManager.CreateMinifier();
-
-								MarkupMinificationResult minificationResult = minifier.Minify(processedContent,
-									currentUrl, encoding, minificationManager.GenerateStatistics);
-								if (minificationResult.Errors.Count == 0)
-								{
-									processedContent = minificationResult.MinifiedContent;
-									if (_options.IsPoweredByHttpHeadersEnabled())
-									{
-										minificationManager.AppendPoweredByHttpHeader(appendHttpHeader);
-									}
-
-									isProcessed = true;
-								}
-							}
-
-							if (isProcessed)
-							{
-								break;
-							}
-						}
-					}
-
-					if (useCompression && !isEncodedContent
-						&& _compressionManager.IsSupportedHttpMethod(httpMethod)
-						&& _compressionManager.IsSupportedMediaType(mediaType)
-						&& _compressionManager.IsProcessablePage(currentUrl))
-					{
-						byte[] processedBytes = encoding.GetBytes(processedContent);
-
-						using (var inputStream = new MemoryStream(processedBytes))
-						using (var outputStream = new MemoryStream())
-						{
-							string acceptEncoding = request.Headers["Accept-Encoding"];
-							ICompressor compressor = _compressionManager.CreateCompressor(acceptEncoding);
-
-							using (Stream compressedStream = compressor.Compress(outputStream))
-							{
-								await inputStream.CopyToAsync(compressedStream);
-							}
-
-							byte[] compressedBytes = outputStream.ToArray();
-							int compressedByteCount = compressedBytes.Length;
-
-							outputStream.Clear();
-							inputStream.Clear();
-
-							responseHeaders["Content-Length"] = compressedByteCount.ToString();
-							compressor.AppendHttpHeaders(appendHttpHeader);
-							await originalStream.WriteAsync(compressedBytes, 0, compressedByteCount);
-						}
-
-						isProcessed = true;
-					}
-					else
-					{
-						if (isProcessed)
-						{
-							byte[] processedBytes = encoding.GetBytes(processedContent);
-							int processedByteCount = processedBytes.Length;
-
-							responseHeaders["Content-Length"] = processedByteCount.ToString();
-							await originalStream.WriteAsync(processedBytes, 0, processedByteCount);
-						}
-					}
-				}
-
-				if (!isProcessed)
-				{
-					await originalStream.WriteAsync(cachedBytes, 0, cachedByteCount);
+					features.Set(originalBufferFeature);
 				}
 			}
 		}

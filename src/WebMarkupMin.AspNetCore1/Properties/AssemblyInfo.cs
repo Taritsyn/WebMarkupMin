@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Web Markup Minifier: ASP.NET Core 1.X")]
-[assembly: AssemblyCopyright("Copyright © 2013-2017 Andrey Taritsyn")]
+[assembly: AssemblyCopyright("Copyright © 2013-2018 Andrey Taritsyn")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

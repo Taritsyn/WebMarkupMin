@@ -33,12 +33,12 @@ namespace WebMarkupMin.AspNetCore2
 		{
 			if (services == null)
 			{
-				throw new ArgumentNullException("services");
+				throw new ArgumentNullException(nameof(services));
 			}
 
 			if (configure == null)
 			{
-				throw new ArgumentNullException("configure");
+				throw new ArgumentNullException(nameof(configure));
 			}
 
 			return services.Configure(configure);
@@ -53,7 +53,7 @@ namespace WebMarkupMin.AspNetCore2
 		{
 			if (services == null)
 			{
-				throw new ArgumentNullException("services");
+				throw new ArgumentNullException(nameof(services));
 			}
 
 			return services.AddWebMarkupMin(configure: null);
@@ -70,7 +70,7 @@ namespace WebMarkupMin.AspNetCore2
 		{
 			if (services == null)
 			{
-				throw new ArgumentNullException("services");
+				throw new ArgumentNullException(nameof(services));
 			}
 
 			services.AddSingleton<IConfigureOptions<WebMarkupMinOptions>, WebMarkupMinOptionsSetup>();

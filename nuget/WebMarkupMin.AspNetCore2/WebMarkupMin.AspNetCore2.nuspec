@@ -12,7 +12,8 @@
 		<requireLicenseAcceptance>true</requireLicenseAcceptance>
 		<description>WebMarkupMin.AspNetCore2 contains one ASP.NET Core 2.X Middleware - `WebMarkupMinMiddleware`.</description>
 		<summary>WebMarkupMin.AspNetCore2 contains one ASP.NET Core 2.X Middleware - `WebMarkupMinMiddleware`.</summary>
-		<copyright>Copyright (c) 2013-2017 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
+		<releaseNotes>Fixed a error #63 “The middleware blocks content streaming”.</releaseNotes>
+		<copyright>Copyright (c) 2013-2018 Andrey Taritsyn - http://www.taritsyn.ru</copyright>
 		<language>en-US</language>
 		<tags>WebMarkupMin ASP.NET Middleware Markup HTML XHTML XML Minification Minifier Minify</tags>
 		<dependencies>

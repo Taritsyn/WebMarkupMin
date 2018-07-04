@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Microsoft.AspNetCore.Http;
+using Microsoft.Net.Http.Headers;
 
 #if ASPNETCORE1
 namespace WebMarkupMin.AspNetCore1
@@ -22,8 +23,8 @@ namespace WebMarkupMin.AspNetCore2
 		/// <returns>Result of check (true - content is encoded; false - content is not encoded)</returns>
 		public static bool IsEncodedContent(this IHeaderDictionary headers)
 		{
-			return headers.ContainsKey("Content-Encoding")
-				&& !headers["Content-Encoding"].ToString().Equals("identity", StringComparison.OrdinalIgnoreCase);
+			return headers.ContainsKey(HeaderNames.ContentEncoding)
+				&& !headers[HeaderNames.ContentEncoding].ToString().Equals("identity", StringComparison.OrdinalIgnoreCase);
 		}
 	}
 }
