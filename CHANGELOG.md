@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## v2.4.4 - July 4, 2018
+ * Fixed a [error #63](https://github.com/Taritsyn/WebMarkupMin/issues/63) “The middleware blocks content streaming”
+
 ## v2.4.3 - June 1, 2018
  * In WebMarkupMin.NUglify added support of the NUglify version 1.5.11
 

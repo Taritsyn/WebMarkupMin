@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<VersionPrefix>2.4.2</VersionPrefix>
+		<VersionPrefix>2.4.4</VersionPrefix>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<OutputType>Library</OutputType>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -61,6 +61,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="2.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Options" Version="2.0.0" />
 		<PackageReference Include="Microsoft.Net.Http.Headers" Version="2.0.1" />
 		<PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha5" PrivateAssets="All" />

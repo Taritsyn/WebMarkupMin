@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<VersionPrefix>2.4.0</VersionPrefix>
+		<VersionPrefix>2.4.4</VersionPrefix>
 		<TargetFrameworks>net451;netstandard1.3</TargetFrameworks>
 		<NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.3' ">1.6.0</NetStandardImplicitPackageVersion>
 		<OutputType>Library</OutputType>
@@ -35,6 +35,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="1.0.5" />
 		<PackageReference Include="Microsoft.AspNetCore.Http" Version="1.0.4" />
 		<PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="1.0.4" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="1.0.4" />
 		<PackageReference Include="Microsoft.Extensions.Options" Version="1.0.2" />
 		<PackageReference Include="Microsoft.Net.Http.Headers" Version="1.0.4" />
 		<PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha5" PrivateAssets="All" />
@@ -49,10 +50,7 @@
 	</ItemGroup>
 
 	<Target Name="СonvertResxToCs" BeforeTargets="BeforeCompile">
-		<ResxToCsTask
-			InputDirectory="./Resources/"
-			Namespace="$(RootNamespace).Resources"
-			InternalAccessModifier="true" />
+		<ResxToCsTask InputDirectory="./Resources/" Namespace="$(RootNamespace).Resources" InternalAccessModifier="true" />
 	</Target>
 
 </Project>

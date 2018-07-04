@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<VersionPrefix>2.4.3</VersionPrefix>
+		<VersionPrefix>2.4.4</VersionPrefix>
 		<TargetFramework>netcoreapp1.0</TargetFramework>
 		<RuntimeFrameworkVersion>1.0.9</RuntimeFrameworkVersion>
 		<OutputType>Exe</OutputType>
