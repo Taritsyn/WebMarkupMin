@@ -29,7 +29,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Regular expression for working with the doctype declaration
 		/// </summary>
-		private static readonly Regex _doctypeRegex = new Regex(@"^<!DOCTYPE [^>]+?>", RegexOptions.IgnoreCase);
+		private static readonly Regex _doctypeRegex = new Regex(@"^<!DOCTYPE\s[^>]+?>", RegexOptions.IgnoreCase);
 
 		/// <summary>
 		/// Inner markup parsing context

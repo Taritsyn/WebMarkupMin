@@ -528,7 +528,17 @@ namespace WebMarkupMin.Core.Test.Html
 			const string targetOutput2A = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">";
 			const string targetOutput2B = "<!DOCTYPE html>";
 
-			const string input3 = "<!DOCTYPE html>";
+			const string input3 = "<!DOCTYPE\n" +
+				"    html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"\n" +
+				"    \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">"
+				;
+			const string targetOutput3A = "<!DOCTYPE " +
+				"html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" " +
+				"\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">"
+				;
+			const string targetOutput3B = "<!DOCTYPE html>";
+
+			const string input4 = "<!DOCTYPE html>";
 
 			// Act
 			string output1A = originalDoctypeMinifier.Minify(input1).MinifiedContent;
@@ -540,6 +550,9 @@ namespace WebMarkupMin.Core.Test.Html
 			string output3A = originalDoctypeMinifier.Minify(input3).MinifiedContent;
 			string output3B = shortDoctypeMinifier.Minify(input3).MinifiedContent;
 
+			string output4A = originalDoctypeMinifier.Minify(input4).MinifiedContent;
+			string output4B = shortDoctypeMinifier.Minify(input4).MinifiedContent;
+
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
@@ -547,8 +560,11 @@ namespace WebMarkupMin.Core.Test.Html
 			Assert.Equal(targetOutput2A, output2A);
 			Assert.Equal(targetOutput2B, output2B);
 
-			Assert.Equal(input3, output3A);
-			Assert.Equal(input3, output3B);
+			Assert.Equal(targetOutput3A, output3A);
+			Assert.Equal(targetOutput3B, output3B);
+
+			Assert.Equal(input4, output4A);
+			Assert.Equal(input4, output4B);
 		}
 
 		#endregion
