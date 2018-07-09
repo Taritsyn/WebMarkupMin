@@ -51,12 +51,16 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
 ### Software
  * [AngularTemplates.Compile](https://github.com/vadimi/AngularTemplates.Compile) by Vadim Ivanou
  * [Blog-Umbraco](https://github.com/radyz/Blog-Umbraco) by Ernesto Chavez Sanchez
+ * [Colorful.Cache.Web](https://www.nuget.org/packages/Colorful.Cache.Web)
  * [Colorful.CMS.Core](https://www.nuget.org/packages/Colorful.CMS.Core/)
+ * [Constellation.Foundation.Mvc](https://github.com/sitecorerick/constellation-sitecore9) by Rick Cabral
  * [Constellation.Sitecore.Presentation.Mvc](https://github.com/sitecorerick/constellation.sitecore.presentation.mvc) by Rick Cabral
+ * [Elect AspNetCore Useful Middlewares](https://github.com/topnguyen/Elect/tree/master/src/Web/Elect.Web.Middlewares) by Top Nguyen
  * [FAV Rocks](https://github.com/billbogaiv/fav-rocks) by Bill Boga
  * [File Sharing Application](http://bitbucket.org/Artur2/filesharingapplication) by Artur N
  * [Google Pagespeed Tools for NopCommerce](https://www.foxnetsoft.com/noppagespeedtools) by FoxNetSoft
  * [iTEAMConsulting.FormHandler](https://github.com/iteam-consulting/csharp-form-handler)
+ * [Karambolo.AspNetCore.Bundling.WebMarkupMin](https://github.com/adams85/bundling)
  * [Lightweight NetCore MVC Template](https://marketplace.visualstudio.com/items?itemName=PabloMorelli.LightweightNetCoreMVCTemplate) by Pablo Morelli
  * [MiniBlog](https://github.com/madskristensen/MiniBlog) by Mads Kristensen
  * [Miniblog.Core](https://github.com/madskristensen/Miniblog.Core) by Mads Kristensen
