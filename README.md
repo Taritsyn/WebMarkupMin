@@ -32,6 +32,10 @@ You can try WebMarkupMin in action and experiment with different minification se
  * [WebMarkupMin: ASP.NET Core 1.X](http://nuget.org/packages/WebMarkupMin.AspNetCore1/) (supports .NET Framework 4.5.1 and .NET Standard 1.3)
  * [WebMarkupMin: ASP.NET Core 2.X](http://nuget.org/packages/WebMarkupMin.AspNetCore2/) (supports .NET Standard 2.0)
 
+### Unofficial modules
+ * [Syku.WebMarkupMin.Config](https://www.nuget.org/packages/Syku.WebMarkupMin.Config/) (supports .NET Standard 2.0) by Michał Sykutera
+ * [WebMarkupMin.Brotli](https://www.nuget.org/packages/WebMarkupMin.Brotli/) (supports .NET Standard 1.3) by Michał Sykutera
+
 Requires NuGet Package Manager version 2.8.6 or higher.
 
 ## Documentation
