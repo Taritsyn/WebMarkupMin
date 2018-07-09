@@ -46,7 +46,8 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a DOCTYPE parsing error.
+   1. Fixed a DOCTYPE parsing error;
+   2. React DOM component comments are no longer removed.
 
    =============
    DOCUMENTATION
