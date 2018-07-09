@@ -1,11 +1,11 @@
 
 
    --------------------------------------------------------------------------------
-                   README file for Web Markup Minifier: Core v2.4.0
+                   README file for Web Markup Minifier: Core v2.4.5
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2017 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2018 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========

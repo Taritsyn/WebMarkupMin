@@ -1,6 +1,10 @@
 Change log
 ==========
 
+## v2.4.5 - July 9, 2018
+ * Fixed a DOCTYPE parsing error
+ * React DOM component comments are no longer removed
+
 ## v2.4.4 - July 4, 2018
  * Fixed a [error #63](https://github.com/Taritsyn/WebMarkupMin/issues/63) “The middleware blocks content streaming”
 
