@@ -55,6 +55,9 @@ namespace WebMarkupMin.Sample.AspNetCore2.Mvc2
 		{
 			services.AddSingleton(Configuration);
 
+			// Add response caching service.
+			services.AddResponseCaching();
+
 			// Add WebMarkupMin services to the services container.
 			services.AddWebMarkupMin(options =>
 			{
@@ -122,7 +125,7 @@ namespace WebMarkupMin.Sample.AspNetCore2.Mvc2
 					{
 						NoStore = HostingEnvironment.IsDevelopment(),
 						Duration = 300,
-						Location = ResponseCacheLocation.Client,
+						Location = ResponseCacheLocation.Any,
 						VaryByHeader = "Accept-Encoding"
 					}
 				);
@@ -155,6 +158,8 @@ namespace WebMarkupMin.Sample.AspNetCore2.Mvc2
 			app.UseStatusCodePages();
 
 			app.UseStaticFiles();
+
+			app.UseResponseCaching();
 
 			app.UseWebMarkupMin();
 

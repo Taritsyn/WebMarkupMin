@@ -4,6 +4,7 @@ using System.IO.Compression;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -116,6 +117,11 @@ namespace WebMarkupMin.Sample.AspNetCore1Full.Mvc1
 				;
 
 			// Add framework services.
+			var manager = new ApplicationPartManager();
+			manager.ApplicationParts.Add(new AssemblyPart(typeof(Startup).Assembly));
+
+			services.AddSingleton(manager);
+
 			services.AddMvc(options =>
 			{
 				options.CacheProfiles.Add("CacheCompressedContent5Minutes",
