@@ -18,8 +18,8 @@
 
    WebMarkupMin absorbed the best of existing solutions from non-microsoft
    platforms: Juriy Zaytsev's Experimental HTML Minifier
-   (http://github.com/kangax/html-minifier/) (written in JavaScript) and Sergiy
-   Kovalchuk's HtmlCompressor (http://code.google.com/p/htmlcompressor/) (written
+   (https://github.com/kangax/html-minifier/) (written in JavaScript) and Sergiy
+   Kovalchuk's HtmlCompressor (https://github.com/serg472/htmlcompressor) (written
    in Java).
 
    Minification of markup produces by removing extra whitespaces, comments and
@@ -28,17 +28,17 @@
    minification of JavaScript code from script tags, event attributes and
    hyperlinks with javascript: protocol. WebMarkupMin.Core contains built-in
    JavaScript minifier based on the Douglas Crockford's JSMin
-   (http://github.com/douglascrockford/JSMin) and built-in CSS minifier based on
+   (https://github.com/douglascrockford/JSMin) and built-in CSS minifier based on
    the Mads Kristensen's Efficient stylesheet minifier
-   (http://madskristensen.net/post/Efficient-stylesheet-minification-in-C).
+   (https://madskristensen.net/blog/Efficient-stylesheet-minification-in-C).
    The above mentioned minifiers produce only the most simple minifications of
    CSS and JavaScript code, but you can always install additional modules that
    support the more powerful algorithms of minification: WebMarkupMin.MsAjax
    (contains minifier-adapters for the Microsoft Ajax Minifier -
-   http://ajaxmin.codeplex.com), WebMarkupMin.Yui (contains minifier-adapters
-   for YUI Compressor for .Net - http://github.com/PureKrome/YUICompressor.NET)
-   and WebMarkupMin.NUglify (contains minifier-adapters for the NUglify -
-   http://github.com/xoofx/NUglify).
+   https://ajaxmin.codeplex.com), WebMarkupMin.Yui (contains minifier-adapters
+   for YUI Compressor for .Net -
+   https://github.com/YUICompressor-NET/YUICompressor.NET) and WebMarkupMin.NUglify
+   (contains minifier-adapters for the NUglify - https://github.com/xoofx/NUglify).
 
    Also supports minification of views of popular JavaScript template engines:
    KnockoutJS, Kendo UI MVVM and AngularJS 1.X.
