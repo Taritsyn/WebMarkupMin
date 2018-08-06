@@ -1,0 +1,15 @@
+<Project>
+	<PropertyGroup>
+		<Title>$(Product)</Title>
+		<Authors>Andrey Taritsyn</Authors>
+		<PackageLicenseUrl>https://github.com/Taritsyn/WebMarkupMin/blob/master/LICENSE</PackageLicenseUrl>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageProjectUrl>https://github.com/Taritsyn/WebMarkupMin</PackageProjectUrl>
+		<PackageIconUrl>https://raw.githubusercontent.com/Taritsyn/WebMarkupMin/master/images/WebMarkupMin_Logo_128x128.png</PackageIconUrl>
+		<RepositoryUrl>https://github.com/Taritsyn/WebMarkupMin</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<NeutralLanguage>en-US</NeutralLanguage>
+	</PropertyGroup>
+
+	<Import Project="nuget-common.props" />
+</Project>

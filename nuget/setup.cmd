@@ -1,1 +1,0 @@
-set dotnet_cli="%ProgramFiles%\dotnet\dotnet.exe"

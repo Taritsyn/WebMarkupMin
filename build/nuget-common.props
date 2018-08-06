@@ -1,0 +1,6 @@
+<Project>
+	<PropertyGroup>
+		<PackageOutputPath>../../nuget</PackageOutputPath>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	</PropertyGroup>
+</Project>
