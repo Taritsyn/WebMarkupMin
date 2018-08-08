@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<Product>Web Markup Minifier: Logic for Samples</Product>
 		<VersionPrefix>2.4.3</VersionPrefix>
-		<TargetFrameworks>net40;net451;netstandard1.6</TargetFrameworks>
+		<TargetFrameworks>net40;net451;netstandard1.6;netstandard2.0</TargetFrameworks>
 		<NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.6' ">1.6.1</NetStandardImplicitPackageVersion>
 		<OutputType>Library</OutputType>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -20,7 +20,7 @@
 		<ProjectReference Include="..\WebMarkupMin.Sample.Resources\WebMarkupMin.Sample.Resources.csproj" />
 	</ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net40' Or '$(TargetFramework)' == 'net451' ">
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net40' Or '$(TargetFramework)' == 'net451' Or '$(TargetFramework)' == 'netstandard2.0' ">
 		<ProjectReference Include="..\..\src\WebMarkupMin.MsAjax\WebMarkupMin.MsAjax.csproj" />
 		<ProjectReference Include="..\..\src\WebMarkupMin.Yui\WebMarkupMin.Yui.csproj" />
 	</ItemGroup>
@@ -35,6 +35,11 @@
 	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' Or '$(TargetFramework)' == 'net451' ">
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="1.0.6" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="1.0.6" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.0.4" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.0.4" />
 	</ItemGroup>
 
 </Project>

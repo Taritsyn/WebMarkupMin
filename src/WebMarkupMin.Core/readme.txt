@@ -17,7 +17,7 @@
    code.
 
    WebMarkupMin absorbed the best of existing solutions from non-microsoft
-   platforms: Juriy Zaytsev's Experimental HTML Minifier
+   platforms: Juriy Zaytsev's HTML Minifier
    (https://github.com/kangax/html-minifier/) (written in JavaScript) and Sergiy
    Kovalchuk's HtmlCompressor (https://github.com/serg472/htmlcompressor) (written
    in Java).
@@ -46,8 +46,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Fixed a DOCTYPE parsing error;
-   2. React DOM component comments are no longer removed.
+   Added support of .NET Standard 2.0.
 
    =============
    DOCUMENTATION

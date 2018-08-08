@@ -14,7 +14,12 @@
    WebMarkupMin.MsAjax contains 2 minifier-adapters: `MsAjaxCssMinifier` (for
    minification of CSS code) and `MsAjaxJsMinifier` (for minification of JS code).
    These adapters perform minification using the Microsoft Ajax Minifier
-   (http://ajaxmin.codeplex.com).
+   (https://ajaxmin.codeplex.com).
+
+   =============
+   RELEASE NOTES
+   =============
+   Added support of .NET Standard 2.0.
 
    =============
    DOCUMENTATION

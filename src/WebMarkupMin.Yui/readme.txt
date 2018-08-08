@@ -14,7 +14,12 @@
    WebMarkupMin.Yui contains 2 minifier-adapters: `YuiCssMinifier` for minification
    of CSS code) and `YuiJsMinifier` (for minification of JS code). These adapters
    perform minification using the YUI Compressor for .NET
-   (http://github.com/PureKrome/YUICompressor.NET).
+   (https://github.com/YUICompressor-NET/YUICompressor.NET).
+
+   =============
+   RELEASE NOTES
+   =============
+   Added support of .NET Standard 2.0.
 
    =============
    DOCUMENTATION

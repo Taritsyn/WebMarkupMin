@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<Product>Web Markup Minifier: Core Tests</Product>
 		<VersionPrefix>2.4.5</VersionPrefix>
-		<TargetFrameworks>net452;netcoreapp1.0</TargetFrameworks>
+		<TargetFrameworks>net452;netcoreapp1.0;netcoreapp2.0</TargetFrameworks>
 		<RuntimeFrameworkVersion Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">1.0.9</RuntimeFrameworkVersion>
 		<OutputType>Library</OutputType>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>

@@ -1,4 +1,4 @@
-﻿#if NETSTANDARD1_3 || NET45
+﻿#if NET45 || NETSTANDARD
 using System.IO.Compression;
 
 namespace WebMarkupMin.AspNet.Common.Compressors
