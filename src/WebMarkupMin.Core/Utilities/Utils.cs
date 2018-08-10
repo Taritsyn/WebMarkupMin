@@ -55,7 +55,7 @@ namespace WebMarkupMin.Core.Utilities
 		{
 			if (value == null)
 			{
-				throw new ArgumentNullException("value");
+				throw new ArgumentNullException(nameof(value));
 			}
 
 			if (value.Length == 0
@@ -125,7 +125,7 @@ namespace WebMarkupMin.Core.Utilities
 		{
 			if (value == null)
 			{
-				throw new ArgumentNullException("value");
+				throw new ArgumentNullException(nameof(value));
 			}
 
 			if (value.Length == 0)
@@ -155,17 +155,17 @@ namespace WebMarkupMin.Core.Utilities
 		{
 			if (value == null)
 			{
-				throw new ArgumentNullException("value");
+				throw new ArgumentNullException(nameof(value));
 			}
 
 			if (prefixRegex == null)
 			{
-				throw new ArgumentNullException("prefixRegex");
+				throw new ArgumentNullException(nameof(prefixRegex));
 			}
 
 			if (postfixRegex == null)
 			{
-				throw new ArgumentNullException("postfixRegex");
+				throw new ArgumentNullException(nameof(postfixRegex));
 			}
 
 			if (value.Length == 0)
@@ -208,7 +208,7 @@ namespace WebMarkupMin.Core.Utilities
 		{
 			if (value == null)
 			{
-				throw new ArgumentNullException("value");
+				throw new ArgumentNullException(nameof(value));
 			}
 
 			string bomPreamble = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
@@ -231,7 +231,7 @@ namespace WebMarkupMin.Core.Utilities
 		{
 			if (value == null)
 			{
-				throw new ArgumentNullException("value");
+				throw new ArgumentNullException(nameof(value));
 			}
 
 			int charCount = value.Length;

@@ -17,7 +17,7 @@ namespace WebMarkupMin.Core.Utilities
 		{
 			if (source == null)
 			{
-				throw new ArgumentNullException("source");
+				throw new ArgumentNullException(nameof(source));
 			}
 
 			string result = source.Replace("\t", "".PadRight(tabSize));
@@ -40,7 +40,7 @@ namespace WebMarkupMin.Core.Utilities
 		{
 			if (source == null)
 			{
-				throw new ArgumentNullException("source");
+				throw new ArgumentNullException(nameof(source));
 			}
 
 			int count = value.Length;
@@ -64,7 +64,7 @@ namespace WebMarkupMin.Core.Utilities
 		{
 			if (source == null)
 			{
-				throw new ArgumentNullException("source");
+				throw new ArgumentNullException(nameof(source));
 			}
 
 			return source.Equals(value, StringComparison.OrdinalIgnoreCase);
@@ -84,7 +84,7 @@ namespace WebMarkupMin.Core.Utilities
 		{
 			if (source == null)
 			{
-				throw new ArgumentNullException("source");
+				throw new ArgumentNullException(nameof(source));
 			}
 
 			bool isSuccess;

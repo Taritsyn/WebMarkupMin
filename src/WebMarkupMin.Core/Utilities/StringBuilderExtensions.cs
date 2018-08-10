@@ -24,7 +24,7 @@ namespace WebMarkupMin.Core.Utilities
 		{
 			if (source == null)
 			{
-				throw new ArgumentNullException("source");
+				throw new ArgumentNullException(nameof(source));
 			}
 
 			return source.AppendLine();
@@ -44,7 +44,7 @@ namespace WebMarkupMin.Core.Utilities
 		{
 			if (source == null)
 			{
-				throw new ArgumentNullException("source");
+				throw new ArgumentNullException(nameof(source));
 			}
 
 			if (_formatPlaceholderRegExp.IsMatch(format))
@@ -64,7 +64,7 @@ namespace WebMarkupMin.Core.Utilities
 		{
 			if (source == null)
 			{
-				throw new ArgumentNullException("source");
+				throw new ArgumentNullException(nameof(source));
 			}
 
 			int charCount = source.Length;

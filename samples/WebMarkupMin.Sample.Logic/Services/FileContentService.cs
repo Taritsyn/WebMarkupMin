@@ -44,7 +44,7 @@ namespace WebMarkupMin.Sample.Logic.Services
 			{
 				throw new ArgumentException(
 					string.Format(CommonStrings.ErrorMessage_FilePathNotSpecified, filePath),
-					"filePath"
+					nameof(filePath)
 				);
 			}
 

@@ -170,14 +170,6 @@ namespace WebMarkupMin.Core.Resources
 		}
 
 		/// <summary>
-		/// Looks up a localized string similar to "During minification of {0}-code error has occurred: &quot;{1}&quot;."
-		/// </summary>
-		public static string ErrorMessage_MarkupMinificationFailed
-		{
-			get { return GetString("ErrorMessage_MarkupMinificationFailed"); }
-		}
-
-		/// <summary>
 		/// Looks up a localized string similar to "During parsing of {0}-code error has occurred."
 		/// </summary>
 		public static string ErrorMessage_MarkupParsingFailed

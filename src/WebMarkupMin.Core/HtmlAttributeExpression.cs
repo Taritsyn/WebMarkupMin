@@ -128,7 +128,7 @@ namespace WebMarkupMin.Core
 		{
 			if (attributeName == null)
 			{
-				throw new ArgumentNullException("attributeName");
+				throw new ArgumentNullException(nameof(attributeName));
 			}
 
 			string processedTagName = !string.IsNullOrWhiteSpace(tagName) ? tagName.Trim() : null;
@@ -136,7 +136,7 @@ namespace WebMarkupMin.Core
 
 			if (processedAttributeName.Length == 0)
 			{
-				throw new ArgumentException(Strings.Common_ValueIsEmpty, "attributeName");
+				throw new ArgumentException(Strings.Common_ValueIsEmpty, nameof(attributeName));
 			}
 
 			_tagName = processedTagName;
@@ -161,7 +161,7 @@ namespace WebMarkupMin.Core
 		{
 			if (attributeExpressionString == null)
 			{
-				throw new ArgumentNullException("attributeExpressionString");
+				throw new ArgumentNullException(nameof(attributeExpressionString));
 			}
 
 			HtmlAttributeExpression expression = InnerParse(attributeExpressionString);
@@ -231,12 +231,12 @@ namespace WebMarkupMin.Core
 		{
 			if (attributeNameInLowercase == null)
 			{
-				throw new ArgumentNullException("attributeNameInLowercase");
+				throw new ArgumentNullException(nameof(attributeNameInLowercase));
 			}
 
 			if (string.IsNullOrWhiteSpace(attributeNameInLowercase))
 			{
-				throw new ArgumentException(Strings.Common_ValueIsEmpty, "attributeNameInLowercase");
+				throw new ArgumentException(Strings.Common_ValueIsEmpty, nameof(attributeNameInLowercase));
 			}
 
 			bool result = _attributeNameInLowercase == attributeNameInLowercase

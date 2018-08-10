@@ -136,12 +136,12 @@ namespace WebMarkupMin.Core.Utilities
 
 			if (fragmentStartPosition < 0)
 			{
-				throw new ArgumentException("", "fragmentStartPosition");
+				throw new ArgumentException("", nameof(fragmentStartPosition));
 			}
 
 			if (fragmentLength > sourceCodeLength - fragmentStartPosition)
 			{
-				throw new ArgumentException("", "fragmentLength");
+				throw new ArgumentException("", nameof(fragmentLength));
 			}
 
 			int fragmentEndPosition = fragmentStartPosition + fragmentLength - 1;
@@ -590,7 +590,7 @@ namespace WebMarkupMin.Core.Utilities
 			int sourceCodeLength = sourceCode.Length;
 			if (currentPosition >= sourceCodeLength)
 			{
-				throw new ArgumentException("", "currentPosition");
+				throw new ArgumentException("", nameof(currentPosition));
 			}
 
 			string currentChar = sourceCode.Substring(currentPosition, 1);

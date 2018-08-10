@@ -30,12 +30,12 @@ namespace WebMarkupMin.AspNet.Common.UrlMatchers
 		{
 			if (pattern == null)
 			{
-				throw new ArgumentNullException("pattern");
+				throw new ArgumentNullException(nameof(pattern));
 			}
 
 			if (string.IsNullOrWhiteSpace(pattern))
 			{
-				throw new ArgumentException(CoreStrings.Common_ValueIsEmpty, "pattern");
+				throw new ArgumentException(CoreStrings.Common_ValueIsEmpty, nameof(pattern));
 			}
 
 			_exemplaryUrl = pattern.TrimEnd('/');
@@ -52,12 +52,12 @@ namespace WebMarkupMin.AspNet.Common.UrlMatchers
 		{
 			if (url == null)
 			{
-				throw new ArgumentNullException("url");
+				throw new ArgumentNullException(nameof(url));
 			}
 
 			if (string.IsNullOrWhiteSpace(url))
 			{
-				throw new ArgumentException(CoreStrings.Common_ValueIsEmpty, "url");
+				throw new ArgumentException(CoreStrings.Common_ValueIsEmpty, nameof(url));
 			}
 
 			string processedUrl = url.TrimEnd('/');
