@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<Product>Web Markup Minifier: Sample ASP.NET Core 1.0 Full MVC 1 Site</Product>
 		<VersionPrefix>2.4.5</VersionPrefix>
-		<TargetFramework>net451</TargetFramework>
+		<TargetFramework>net452</TargetFramework>
 		<OutputType>Exe</OutputType>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<PreserveCompilationContext>true</PreserveCompilationContext>

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-#if NET451 || NETSTANDARD
+#if NET452 || NETSTANDARD
 using Microsoft.AspNetCore.Hosting;
 #elif NET40
 using System.Web;
@@ -15,12 +15,12 @@ namespace WebMarkupMin.Sample.Logic.Services
 	public sealed class FileContentService
 	{
 		private readonly string _textContentDirectoryPath;
-#if NET451 || NETSTANDARD
+#if NET452 || NETSTANDARD
 		private readonly IHostingEnvironment _hostingEnvironment;
 #endif
 
 
-#if NET451 || NETSTANDARD
+#if NET452 || NETSTANDARD
 		public FileContentService(
 			string textContentDirectoryPath,
 			IHostingEnvironment hostingEnvironment
@@ -76,7 +76,7 @@ namespace WebMarkupMin.Sample.Logic.Services
 
 		private string GetPhysicalFilePath(string filePath)
 		{
-#if NET451 || NETSTANDARD
+#if NET452 || NETSTANDARD
 			string applicationDirectoryPath = _hostingEnvironment.ContentRootPath;
 #elif NET40
 			HttpContext context = HttpContext.Current;

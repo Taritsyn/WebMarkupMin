@@ -189,10 +189,6 @@
       <Project>{32566dc1-7999-4a09-8219-db1279436955}</Project>
       <Name>WebMarkupMin.NUglify</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\WebMarkupMin.Yui\WebMarkupMin.Yui.csproj">
-      <Project>{e1986812-2cf2-4b83-99a4-0a73d6da407a}</Project>
-      <Name>WebMarkupMin.Yui</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WebMarkupMin.Sample.Logic\WebMarkupMin.Sample.Logic.csproj">
       <Project>{d29e22ef-eaf3-4056-bc7b-e02bb4048281}</Project>
       <Name>WebMarkupMin.Sample.Logic</Name>
