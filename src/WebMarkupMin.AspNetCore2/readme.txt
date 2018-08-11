@@ -22,4 +22,4 @@
    =============
    DOCUMENTATION
    =============
-   See documentation on GitHub - http://github.com/Taritsyn/WebMarkupMin/wiki
+   See documentation on GitHub - https://github.com/Taritsyn/WebMarkupMin/wiki

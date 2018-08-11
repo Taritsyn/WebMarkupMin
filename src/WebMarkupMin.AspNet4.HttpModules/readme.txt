@@ -5,7 +5,7 @@
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2017 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2018 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========
@@ -27,4 +27,4 @@
    =============
    DOCUMENTATION
    =============
-   See documentation on GitHub - http://github.com/Taritsyn/WebMarkupMin/wiki
+   See documentation on GitHub - https://github.com/Taritsyn/WebMarkupMin/wiki

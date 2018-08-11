@@ -21,8 +21,8 @@ namespace WebMarkupMin.Core
 
 		/// <summary>
 		/// Gets or sets a flag for whether to remove all HTML comments
-		/// except conditional, noindex, KnockoutJS containerless comments
-		/// and AngularJS 1.X comment directives
+		/// except conditional, noindex, KnockoutJS containerless comments,
+		/// AngularJS 1.X comment directives and React DOM component comments
 		/// </summary>
 		public bool RemoveHtmlComments
 		{
