@@ -23,6 +23,23 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 			get { return EncodingTokenConstants.GZip; }
 		}
 
+		/// <summary>
+		/// Gets a value that indicates if the compressor supports flushing
+		/// </summary>
+		public bool SupportsFlush
+		{
+			get
+			{
+#if NETFULL
+				return false;
+#elif NETSTANDARD
+				return true;
+#else
+#error No implementation for this target
+#endif
+			}
+		}
+
 #if NET45 || NETSTANDARD
 
 		/// <summary>

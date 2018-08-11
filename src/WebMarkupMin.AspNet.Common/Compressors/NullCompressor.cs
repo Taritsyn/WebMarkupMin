@@ -15,6 +15,14 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 			get { return string.Empty; }
 		}
 
+		/// <summary>
+		/// Gets a value that indicates if the compressor supports flushing
+		/// </summary>
+		public bool SupportsFlush
+		{
+			get { return false; }
+		}
+
 
 		/// <summary>
 		/// Do not performs operations with the stream

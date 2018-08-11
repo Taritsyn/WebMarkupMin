@@ -50,6 +50,11 @@ namespace WebMarkupMin.AspNetCore2
 		private Stream _compressionStream;
 
 		/// <summary>
+		/// Flag for whether to do automatically flush the compression stream
+		/// </summary>
+		private bool _autoFlushCompressionStream = false;
+
+		/// <summary>
 		/// WebMarkupMin configuration
 		/// </summary>
 		private readonly WebMarkupMinOptions _options;
@@ -68,6 +73,11 @@ namespace WebMarkupMin.AspNetCore2
 		/// HTTP buffering feature
 		/// </summary>
 		private readonly IHttpBufferingFeature _bufferingFeature;
+
+		/// <summary>
+		/// Flag indicating whether the stream wrapper is initialized
+		/// </summary>
+		private InterlockedStatedFlag _wrapperInitializedFlag = new InterlockedStatedFlag();
 
 		/// <summary>
 		/// Flag indicating whether a markup minification is enabled
@@ -100,9 +110,9 @@ namespace WebMarkupMin.AspNetCore2
 		private ICompressor _currentCompressor;
 
 		/// <summary>
-		/// Flag indicating whether the stream wrapper is initialized
+		/// Flag indicating whether the current HTTP compressor is initialized
 		/// </summary>
-		private InterlockedStatedFlag _initialized = new InterlockedStatedFlag();
+		private InterlockedStatedFlag _currentCompressorInitializedFlag = new InterlockedStatedFlag();
 
 		/// <summary>
 		/// Flag that indicates if the HTTP headers is modified for compression
@@ -134,7 +144,7 @@ namespace WebMarkupMin.AspNetCore2
 
 		private void Initialize()
 		{
-			if (_initialized.Set())
+			if (_wrapperInitializedFlag.Set())
 			{
 				HttpRequest request = _context.Request;
 				HttpResponse response = _context.Response;
@@ -205,11 +215,10 @@ namespace WebMarkupMin.AspNetCore2
 						&& _compressionManager.IsProcessablePage(currentUrl))
 					{
 						string acceptEncoding = request.Headers[HeaderNames.AcceptEncoding];
-						ICompressor compressor;
+						ICompressor compressor = InitializeCurrentCompressor(acceptEncoding);
 
-						if (_compressionManager.TryCreateCompressor(acceptEncoding, out compressor))
+						if (compressor != null)
 						{
-							_currentCompressor = compressor;
 							_compressionStream = compressor.Compress(_originalStream);
 							_compressionEnabled = true;
 						}
@@ -219,6 +228,16 @@ namespace WebMarkupMin.AspNetCore2
 					_encoding = encoding;
 				}
 			}
+		}
+
+		private ICompressor InitializeCurrentCompressor(string acceptEncoding)
+		{
+			if (_currentCompressorInitializedFlag.Set())
+			{
+				_compressionManager?.TryCreateCompressor(acceptEncoding, out _currentCompressor);
+			}
+
+			return _currentCompressor;
 		}
 
 		private void ModifyHttpHeadersForCompressionOnce()
@@ -441,6 +460,10 @@ namespace WebMarkupMin.AspNetCore2
 			{
 				ModifyHttpHeadersForCompressionOnce();
 				_compressionStream.Write(buffer, offset, count);
+				if (_autoFlushCompressionStream)
+				{
+					_compressionStream.Flush();
+				}
 			}
 			else
 			{
@@ -461,6 +484,10 @@ namespace WebMarkupMin.AspNetCore2
 			{
 				ModifyHttpHeadersForCompressionOnce();
 				await _compressionStream.WriteAsync(buffer, offset, count, cancellationToken);
+				if (_autoFlushCompressionStream)
+				{
+					await _compressionStream.FlushAsync(cancellationToken);
+				}
 			}
 			else
 			{
@@ -501,11 +528,20 @@ namespace WebMarkupMin.AspNetCore2
 
 		public void DisableResponseBuffering()
 		{
-			if (_initialized.Set())
+			string acceptEncoding = _context.Request.Headers[HeaderNames.AcceptEncoding];
+			ICompressor compressor = InitializeCurrentCompressor(acceptEncoding);
+
+			if (compressor?.SupportsFlush == false)
 			{
+				// Some of the compressors don't support flushing which would block real-time
+				// responses like SignalR.
 				_compressionEnabled = false;
 				_currentCompressor = null;
 				_compressionStream = null;
+			}
+			else
+			{
+				_autoFlushCompressionStream = true;
 			}
 
 			_bufferingFeature?.DisableResponseBuffering();

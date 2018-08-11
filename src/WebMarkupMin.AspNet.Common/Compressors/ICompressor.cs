@@ -12,6 +12,11 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		/// </summary>
 		string EncodingToken { get; }
 
+		/// <summary>
+		/// Gets a value that indicates if the compressor supports flushing
+		/// </summary>
+		bool SupportsFlush { get; }
+
 
 		/// <summary>
 		/// Compress a stream

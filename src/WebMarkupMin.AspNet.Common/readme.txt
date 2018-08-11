@@ -19,7 +19,8 @@
    =============
    1. Added support of .NET Standard 2.0;
    2. In `IHttpCompressionManager` interface was added one new method -
-      `TryCreateCompressor`.
+      `TryCreateCompressor`;
+   3. In `ICompressor` interface was added one new property - `SupportsFlush`.
 
    =============
    DOCUMENTATION
