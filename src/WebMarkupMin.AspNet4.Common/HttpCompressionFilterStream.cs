@@ -114,7 +114,10 @@ namespace WebMarkupMin.AspNet4.Common
 				}
 				else
 				{
-					_compressor = _compressionManager.CreateCompressor(_acceptEncoding);
+					if (!_compressionManager.TryCreateCompressor(_acceptEncoding, out _compressor))
+					{
+						_compressor = new NullCompressor();
+					}
 					_outputStream = _compressor.Compress(_originalStream);
 				}
 			}

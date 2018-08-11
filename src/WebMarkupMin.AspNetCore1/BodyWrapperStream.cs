@@ -205,9 +205,9 @@ namespace WebMarkupMin.AspNetCore2
 						&& _compressionManager.IsProcessablePage(currentUrl))
 					{
 						string acceptEncoding = request.Headers[HeaderNames.AcceptEncoding];
+						ICompressor compressor;
 
-						ICompressor compressor = _compressionManager.CreateCompressor(acceptEncoding);
-						if (!(compressor is NullCompressor))
+						if (_compressionManager.TryCreateCompressor(acceptEncoding, out compressor))
 						{
 							_currentCompressor = compressor;
 							_compressionStream = compressor.Compress(_originalStream);

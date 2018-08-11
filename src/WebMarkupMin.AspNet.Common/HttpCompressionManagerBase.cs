@@ -46,7 +46,26 @@ namespace WebMarkupMin.AspNet.Common
 		/// <returns>Instance of compressor</returns>
 		public ICompressor CreateCompressor(string acceptEncoding)
 		{
-			ICompressor compressor = null;
+			ICompressor compressor;
+
+			if (!TryCreateCompressor(acceptEncoding, out compressor))
+			{
+				compressor = new NullCompressor();
+			}
+
+			return compressor;
+		}
+
+		/// <summary>
+		/// Tries to create a instance of compressor.
+		/// A return value indicates whether the creation succeeded.
+		/// </summary>
+		/// <param name="acceptEncoding">Value of the Accept-Encoding HTTP header</param>
+		/// <param name="compressor">Instance of compressor</param>
+		/// <returns>true if the compressor was created; otherwise, false</returns>
+		public bool TryCreateCompressor(string acceptEncoding, out ICompressor compressor)
+		{
+			compressor = null;
 			IList<ICompressorFactory> factories = CompressorFactories;
 
 			if (acceptEncoding != null && factories != null && factories.Count > 0)
@@ -67,9 +86,9 @@ namespace WebMarkupMin.AspNet.Common
 				}
 			}
 
-			compressor = compressor ?? new NullCompressor();
+			bool result = compressor != null;
 
-			return compressor;
+			return result;
 		}
 	}
 }

@@ -17,7 +17,9 @@
    =============
    RELEASE NOTES
    =============
-   Added support of .NET Standard 2.0.
+   1. Added support of .NET Standard 2.0;
+   2. In `IHttpCompressionManager` interface was added one new method -
+      `TryCreateCompressor`.
 
    =============
    DOCUMENTATION
