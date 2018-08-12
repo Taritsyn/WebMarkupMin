@@ -8,19 +8,24 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 	/// </summary>
 	public sealed class GZipCompressor : ICompressor
 	{
+		/// <summary>
+		/// Encoding token of compressor
+		/// </summary>
+		public const string CompressorEncodingToken = "gzip";
 #if NET45 || NETSTANDARD
+
 		/// <summary>
 		/// GZip compression settings
 		/// </summary>
 		private readonly GZipCompressionSettings _settings;
-
 #endif
+
 		/// <summary>
 		/// Gets a encoding token
 		/// </summary>
 		public string EncodingToken
 		{
-			get { return EncodingTokenConstants.GZip; }
+			get { return CompressorEncodingToken; }
 		}
 
 		/// <summary>

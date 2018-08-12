@@ -21,7 +21,7 @@
 		/// </summary>
 		public string EncodingToken
 		{
-			get { return EncodingTokenConstants.Deflate; }
+			get { return DeflateCompressor.CompressorEncodingToken; }
 		}
 
 #if NET45 || NETSTANDARD

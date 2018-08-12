@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.NUglify", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.AspNet.Common", "src\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.csproj", "{DFCE4D45-CFD5-40C2-8E1E-9276B589A3FF}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.AspNet.Brotli", "src\WebMarkupMin.AspNet.Brotli\WebMarkupMin.AspNet.Brotli.csproj", "{F0269570-0F49-4E40-AF98-CB5BAAF48DDB}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.AspNet4.Common", "src\WebMarkupMin.AspNet4.Common\WebMarkupMin.AspNet4.Common.csproj", "{B9908E9F-C933-46FA-A8D0-55938FDB5CC6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.AspNet4.HttpModules", "src\WebMarkupMin.AspNet4.HttpModules\WebMarkupMin.AspNet4.HttpModules.csproj", "{23C293BD-171B-47CE-936E-16B41BBF666B}"
@@ -103,6 +105,10 @@ Global
 		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0269570-0F49-4E40-AF98-CB5BAAF48DDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0269570-0F49-4E40-AF98-CB5BAAF48DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0269570-0F49-4E40-AF98-CB5BAAF48DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0269570-0F49-4E40-AF98-CB5BAAF48DDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,6 +129,7 @@ Global
 		{5F014AC3-7F5D-4EBB-850C-01513CBF1D49} = {227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}
 		{FB743652-E1C4-40B3-B499-53780DCBAA8F} = {227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}
 		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68} = {1AEA1D1F-45BC-4A6C-BCD8-71C50DC839BA}
+		{F0269570-0F49-4E40-AF98-CB5BAAF48DDB} = {227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E056B7D-640D-49E5-BFD7-D64C25744378}

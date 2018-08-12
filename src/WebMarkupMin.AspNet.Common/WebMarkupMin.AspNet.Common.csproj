@@ -23,7 +23,6 @@
 	<Import Project="../../build/nuget-metadata.props" />
 
 	<ItemGroup>
-		<PackageReference Include="MSBuild.Sdk.Extras" Version="1.1.0" PrivateAssets="All" />
 		<PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha5" PrivateAssets="All" />
 
 		<ProjectReference Include="..\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
@@ -37,9 +36,9 @@
 	</ItemGroup>
 
 	<Target Name="СonvertResxToCs" BeforeTargets="BeforeCompile">
-		<ResxToCsTask InputDirectory="./Resources/" Namespace="$(RootNamespace).Resources" />
+		<ResxToCsTask
+			InputDirectory="./Resources/"
+			Namespace="$(RootNamespace).Resources" />
 	</Target>
-
-	<Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 
 </Project>

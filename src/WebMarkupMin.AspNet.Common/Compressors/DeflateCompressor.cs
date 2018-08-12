@@ -8,19 +8,24 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 	/// </summary>
 	public sealed class DeflateCompressor : ICompressor
 	{
+		/// <summary>
+		/// Encoding token of compressor
+		/// </summary>
+		public const string CompressorEncodingToken = "deflate";
 #if NET45 || NETSTANDARD
+
 		/// <summary>
 		/// Deflate compression settings
 		/// </summary>
 		private readonly DeflateCompressionSettings _settings;
-
 #endif
+
 		/// <summary>
 		/// Gets a encoding token
 		/// </summary>
 		public string EncodingToken
 		{
-			get { return EncodingTokenConstants.Deflate; }
+			get { return CompressorEncodingToken; }
 		}
 
 		/// <summary>

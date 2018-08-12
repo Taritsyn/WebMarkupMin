@@ -21,7 +21,7 @@
 		/// </summary>
 		public string EncodingToken
 		{
-			get { return EncodingTokenConstants.GZip; }
+			get { return GZipCompressor.CompressorEncodingToken; }
 		}
 
 #if NET45 || NETSTANDARD

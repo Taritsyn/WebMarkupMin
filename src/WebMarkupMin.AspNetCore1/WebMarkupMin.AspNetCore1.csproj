@@ -40,7 +40,10 @@
 	</ItemGroup>
 
 	<Target Name="СonvertResxToCs" BeforeTargets="BeforeCompile">
-		<ResxToCsTask InputDirectory="./Resources/" Namespace="$(RootNamespace).Resources" InternalAccessModifier="true" />
+		<ResxToCsTask
+			InputDirectory="./Resources/"
+			Namespace="$(RootNamespace).Resources"
+			InternalAccessModifier="true" />
 	</Target>
 
 </Project>

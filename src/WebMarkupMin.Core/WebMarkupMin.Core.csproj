@@ -38,7 +38,9 @@ Also supports minification of views of popular JavaScript template engines: Knoc
 	</ItemGroup>
 
 	<Target Name="СonvertResxToCs" BeforeTargets="BeforeCompile">
-		<ResxToCsTask InputDirectory="./Resources/" Namespace="$(RootNamespace).Resources" />
+		<ResxToCsTask
+			InputDirectory="./Resources/"
+			Namespace="$(RootNamespace).Resources" />
 	</Target>
 
 	<Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />

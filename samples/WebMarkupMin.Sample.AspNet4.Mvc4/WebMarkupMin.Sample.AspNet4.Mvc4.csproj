@@ -165,6 +165,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\WebMarkupMin.AspNet.Brotli\WebMarkupMin.AspNet.Brotli.csproj">
+      <Project>{43f35909-cf70-4369-a31d-bd597a3a6615}</Project>
+      <Name>WebMarkupMin.AspNet.Brotli</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.csproj">
       <Project>{dfce4d45-cfd5-40c2-8e1e-9276b589a3ff}</Project>
       <Name>WebMarkupMin.AspNet.Common</Name>

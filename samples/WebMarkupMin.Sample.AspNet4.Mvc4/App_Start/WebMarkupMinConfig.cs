@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 
+using WebMarkupMin.AspNet.Brotli;
 using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.AspNet.Common.Compressors;
 using WebMarkupMin.AspNet4.Common;
@@ -37,6 +38,7 @@ namespace WebMarkupMin.Sample.AspNet4.Mvc4
 			IHttpCompressionManager httpCompressionManager = HttpCompressionManager.Current;
 			httpCompressionManager.CompressorFactories = new List<ICompressorFactory>
 			{
+				new BrotliCompressorFactory(),
 				new DeflateCompressorFactory(),
 				new GZipCompressorFactory()
 			};

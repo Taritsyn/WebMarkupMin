@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+using WebMarkupMin.AspNet.Brotli;
 using WebMarkupMin.AspNet.Common.Compressors;
 using WebMarkupMin.AspNet.Common.UrlMatchers;
 using WebMarkupMin.AspNetCore1;
@@ -104,6 +105,10 @@ namespace WebMarkupMin.Sample.AspNetCore1Full.Mvc1
 				{
 					options.CompressorFactories = new List<ICompressorFactory>
 					{
+						new BrotliCompressorFactory(new BrotliCompressionSettings
+						{
+							Level = 1
+						}),
 						new DeflateCompressorFactory(new DeflateCompressionSettings
 						{
 							Level = CompressionLevel.Fastest
