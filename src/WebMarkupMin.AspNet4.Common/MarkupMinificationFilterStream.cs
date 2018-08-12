@@ -29,7 +29,7 @@ namespace WebMarkupMin.AspNet4.Common
 		/// <summary>
 		/// Stream that original content is read into
 		/// </summary>
-		private readonly MemoryStream _cachedStream = new MemoryStream();
+		private MemoryStream _cachedStream = new MemoryStream();
 
 		/// <summary>
 		/// WebMarkupMin configuration
@@ -193,6 +193,22 @@ namespace WebMarkupMin.AspNet4.Common
 					)
 				);
 			}
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				if (_cachedStream != null)
+				{
+					_cachedStream.Dispose();
+					_cachedStream = null;
+				}
+
+				_originalStream.Dispose();
+			}
+
+			base.Dispose(disposing);
 		}
 	}
 }

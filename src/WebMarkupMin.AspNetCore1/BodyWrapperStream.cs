@@ -307,12 +307,14 @@ namespace WebMarkupMin.AspNetCore2
 
 					if (!isMinified)
 					{
-						Stream outputStream = _compressionStream ?? _originalStream;
+						Stream outputStream = _compressionEnabled ? _compressionStream : _originalStream;
 
 						_cachedStream.Seek(0, SeekOrigin.Begin);
 						await _cachedStream.CopyToAsync(outputStream);
 					}
 				}
+
+				_cachedStream.Clear();
 			}
 		}
 #if NET451 || NETSTANDARD2_0
@@ -515,6 +517,8 @@ namespace WebMarkupMin.AspNetCore2
 
 				_currentMinificationManager = null;
 			}
+
+			base.Dispose(disposing);
 		}
 
 		#endregion
@@ -537,7 +541,6 @@ namespace WebMarkupMin.AspNetCore2
 				// responses like SignalR.
 				_compressionEnabled = false;
 				_currentCompressor = null;
-				_compressionStream = null;
 			}
 			else
 			{

@@ -28,10 +28,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Now, by default, only the `GET` requests are minified and compressed (this
-      behavior can be changed by using the `SupportedHttpMethods` property);
-   2. Fixed a error of filtering media-types, which led to incorrect usage of HTTP
-      compression.
+   Added support of .NET Framework 4.5.
 
    =============
    DOCUMENTATION

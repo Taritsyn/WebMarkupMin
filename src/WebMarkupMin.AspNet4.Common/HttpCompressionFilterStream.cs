@@ -107,18 +107,15 @@ namespace WebMarkupMin.AspNet4.Common
 		{
 			if (_outputStreamInitializedFlag.Set())
 			{
-				if (HttpHeadersHelpers.IsEncodedContent(_response.Headers)
-					|| !_compressionManager.IsSupportedMediaType(_response.ContentType))
+				if (!HttpHeadersHelpers.IsEncodedContent(_response.Headers)
+					&& _compressionManager.IsSupportedMediaType(_response.ContentType)
+					&& _compressionManager.TryCreateCompressor(_acceptEncoding, out _compressor))
 				{
-					_outputStream = _originalStream;
+					_outputStream = _compressor.Compress(_originalStream);
 				}
 				else
 				{
-					if (!_compressionManager.TryCreateCompressor(_acceptEncoding, out _compressor))
-					{
-						_compressor = new NullCompressor();
-					}
-					_outputStream = _compressor.Compress(_originalStream);
+					_outputStream = _originalStream;
 				}
 			}
 
@@ -127,15 +124,12 @@ namespace WebMarkupMin.AspNet4.Common
 
 		private void AppendHttpHeadersOnce()
 		{
-			if (_httpHeadersAppendedFlag.Set())
+			if (_httpHeadersAppendedFlag.Set() && _compressor != null)
 			{
-				if (_compressor != null)
+				_compressor.AppendHttpHeaders((key, value) =>
 				{
-					_compressor.AppendHttpHeaders((key, value) =>
-					{
-						_response.Headers[key] = value;
-					});
-				}
+					_response.Headers[key] = value;
+				});
 			}
 		}
 
@@ -170,6 +164,22 @@ namespace WebMarkupMin.AspNet4.Common
 		public override void Close()
 		{
 			GetOutputStream().Close();
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				if (_outputStream != null)
+				{
+					_outputStream.Dispose();
+					_outputStream = null;
+				}
+
+				_compressor = null;
+			}
+
+			base.Dispose(disposing);
 		}
 	}
 }

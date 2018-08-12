@@ -21,8 +21,7 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a error of filtering media-types, which led to incorrect usage of HTTP
-   compression.
+   Added support of .NET Framework 4.5.
 
    =============
    DOCUMENTATION
