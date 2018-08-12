@@ -17,7 +17,8 @@
    =============
    RELEASE NOTES
    =============
-   Added support of .NET Framework 4.5.
+   1. Added support of .NET Framework 4.5;
+   2. Now the `NullLogger` class is used as the default logger.
 
    =============
    DOCUMENTATION

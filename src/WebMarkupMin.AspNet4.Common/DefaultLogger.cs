@@ -12,8 +12,8 @@ namespace WebMarkupMin.AspNet4.Common
 		/// <summary>
 		/// Default instance of logger
 		/// </summary>
-		private static readonly Lazy<ThrowExceptionLogger> _default
-			= new Lazy<ThrowExceptionLogger>(() => new ThrowExceptionLogger());
+		private static readonly Lazy<NullLogger> _default
+			= new Lazy<NullLogger>(() => new NullLogger());
 
 		/// <summary>
 		/// Current instance of logger

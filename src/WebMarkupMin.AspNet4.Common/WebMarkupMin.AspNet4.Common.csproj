@@ -10,7 +10,8 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<Description>WebMarkupMin.AspNet4.Common is auxiliary package, that contains classes for ASP.NET 4.X extensions.</Description>
 		<PackageTags>WebMarkupMin;ASP.NET;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
-		<PackageReleaseNotes>Added support of .NET Framework 4.5.</PackageReleaseNotes>
+		<PackageReleaseNotes>1. Added support of .NET Framework 4.5;
+2. Now the `NullLogger` class is used as the default logger.</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<Import Project="../../build/common.props" />

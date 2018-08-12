@@ -17,7 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a error #63 “The middleware blocks content streaming”.
+   Now the `NullLogger` class is used as the default logger.
 
    =============
    DOCUMENTATION

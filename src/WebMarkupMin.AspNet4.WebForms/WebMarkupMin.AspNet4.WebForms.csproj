@@ -12,7 +12,8 @@
 
 Сlasses of the Web Forms pages and master pages cannot be used together.</Description>
 		<PackageTags>WebMarkupMin;ASP.NET;WebForms;Markup;HTML;XHTML;Minification;Minifier;Minify</PackageTags>
-		<PackageReleaseNotes>Added support of .NET Framework 4.5.</PackageReleaseNotes>
+		<PackageReleaseNotes>1. Added support of .NET Framework 4.5;
+2. Now the `NullLogger` class is used as the default logger.</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<Import Project="../../build/common.props" />

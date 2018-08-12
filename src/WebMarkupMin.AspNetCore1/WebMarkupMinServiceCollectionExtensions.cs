@@ -80,7 +80,7 @@ namespace WebMarkupMin.AspNetCore2
 				services.Configure(configure);
 			}
 
-			services.AddSingleton<ILogger, ThrowExceptionLogger>();
+			services.AddSingleton<ILogger, NullLogger>();
 			services.AddSingleton<ICssMinifierFactory, KristensenCssMinifierFactory>();
 			services.AddSingleton<IJsMinifierFactory, CrockfordJsMinifierFactory>();
 
