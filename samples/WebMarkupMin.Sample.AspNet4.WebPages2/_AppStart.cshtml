@@ -13,6 +13,7 @@
 @using WebMarkupMin.AspNet.Common.UrlMatchers
 @using WebMarkupMin.AspNet4.Common
 @using WebMarkupMin.Core
+@using WebMarkupMin.Core.Loggers;
 @using WebMarkupMin.MsAjax
 
 @{
@@ -65,6 +66,7 @@
 	configuration.AllowMinificationInDebugMode = true;
 	configuration.AllowCompressionInDebugMode = true;
 
+	DefaultLogger.Current = new ThrowExceptionLogger();
 	DefaultCssMinifierFactory.Current = new MsAjaxCssMinifierFactory();
 	DefaultJsMinifierFactory.Current = new MsAjaxJsMinifierFactory();
 
@@ -95,7 +97,10 @@
 	IHttpCompressionManager httpCompressionManager = HttpCompressionManager.Current;
 	httpCompressionManager.CompressorFactories = new List<ICompressorFactory>
 	{
-		new BrotliCompressorFactory(),
+		new BrotliCompressorFactory(new BrotliCompressionSettings
+		{
+			Level = 1
+		}),
 		new DeflateCompressorFactory(),
 		new GZipCompressorFactory()
 	};

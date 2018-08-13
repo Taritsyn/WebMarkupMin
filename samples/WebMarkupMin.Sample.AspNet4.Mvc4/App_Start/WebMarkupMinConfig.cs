@@ -5,6 +5,7 @@ using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.AspNet.Common.Compressors;
 using WebMarkupMin.AspNet4.Common;
 using WebMarkupMin.Core;
+using WebMarkupMin.Core.Loggers;
 using WebMarkupMin.MsAjax;
 
 namespace WebMarkupMin.Sample.AspNet4.Mvc4
@@ -16,6 +17,7 @@ namespace WebMarkupMin.Sample.AspNet4.Mvc4
 			configuration.AllowMinificationInDebugMode = true;
 			configuration.AllowCompressionInDebugMode = true;
 
+			DefaultLogger.Current = new ThrowExceptionLogger();
 			DefaultCssMinifierFactory.Current = new MsAjaxCssMinifierFactory();
 			DefaultJsMinifierFactory.Current = new MsAjaxJsMinifierFactory();
 
@@ -38,7 +40,10 @@ namespace WebMarkupMin.Sample.AspNet4.Mvc4
 			IHttpCompressionManager httpCompressionManager = HttpCompressionManager.Current;
 			httpCompressionManager.CompressorFactories = new List<ICompressorFactory>
 			{
-				new BrotliCompressorFactory(),
+				new BrotliCompressorFactory(new BrotliCompressionSettings
+				{
+					Level = 1
+				}),
 				new DeflateCompressorFactory(),
 				new GZipCompressorFactory()
 			};

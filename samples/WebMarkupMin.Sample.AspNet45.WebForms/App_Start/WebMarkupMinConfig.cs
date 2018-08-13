@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.IO.Compression;
 
 using WebMarkupMin.AspNet.Brotli;
 using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.AspNet.Common.Compressors;
 using WebMarkupMin.AspNet4.Common;
 using WebMarkupMin.Core;
+using WebMarkupMin.Core.Loggers;
 using WebMarkupMin.MsAjax;
 
 namespace WebMarkupMin.Sample.AspNet45.WebForms
@@ -16,6 +18,7 @@ namespace WebMarkupMin.Sample.AspNet45.WebForms
 			configuration.AllowMinificationInDebugMode = true;
 			configuration.AllowCompressionInDebugMode = true;
 
+			DefaultLogger.Current = new ThrowExceptionLogger();
 			DefaultCssMinifierFactory.Current = new MsAjaxCssMinifierFactory();
 			DefaultJsMinifierFactory.Current = new MsAjaxJsMinifierFactory();
 
@@ -34,9 +37,18 @@ namespace WebMarkupMin.Sample.AspNet45.WebForms
 			IHttpCompressionManager httpCompressionManager = HttpCompressionManager.Current;
 			httpCompressionManager.CompressorFactories = new List<ICompressorFactory>
 			{
-				new BrotliCompressorFactory(),
-				new DeflateCompressorFactory(),
-				new GZipCompressorFactory()
+				new BrotliCompressorFactory(new BrotliCompressionSettings
+				{
+					Level = 1
+				}),
+				new DeflateCompressorFactory(new DeflateCompressionSettings
+				{
+					Level = CompressionLevel.Fastest
+				}),
+				new GZipCompressorFactory(new GZipCompressionSettings
+				{
+					Level = CompressionLevel.Fastest
+				})
 			};
 		}
 	}
