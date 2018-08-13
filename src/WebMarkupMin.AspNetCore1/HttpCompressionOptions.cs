@@ -42,8 +42,8 @@ namespace WebMarkupMin.AspNetCore2
 		{
 			CompressorFactories = new List<ICompressorFactory>
 			{
-				new DeflateCompressorFactory(),
-				new GZipCompressorFactory()
+				new GZipCompressorFactory(),
+				new DeflateCompressorFactory()
 			};
 			SupportedMediaTypePredicate = null;
 		}

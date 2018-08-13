@@ -13,7 +13,8 @@
 Сlasses of the Web Forms pages and master pages cannot be used together.</Description>
 		<PackageTags>WebMarkupMin;ASP.NET;WebForms;Markup;HTML;XHTML;Minification;Minifier;Minify</PackageTags>
 		<PackageReleaseNotes>1. Added support of .NET Framework 4.5;
-2. Now the `NullLogger` class is used as the default logger.</PackageReleaseNotes>
+2. Now the `NullLogger` class is used as the default logger;
+3. Now, by default, the GZip algorithm has a higher priority than the Deflate.</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<Import Project="../../build/common.props" />

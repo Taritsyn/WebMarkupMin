@@ -13,7 +13,8 @@
 		<DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
 		<Description>WebMarkupMin.AspNetCore1 contains one ASP.NET Core 1.X Middleware - `WebMarkupMinMiddleware`.</Description>
 		<PackageTags>WebMarkupMin;ASP.NET;Middleware;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
-		<PackageReleaseNotes>Now the `NullLogger` class is used as the default logger.</PackageReleaseNotes>
+		<PackageReleaseNotes>1. Now the `NullLogger` class is used as the default logger;
+2. Now, by default, the GZip algorithm has a higher priority than the Deflate.</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<Import Project="../../build/common.props" />

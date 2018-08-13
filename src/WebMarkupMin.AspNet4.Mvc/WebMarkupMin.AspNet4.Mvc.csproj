@@ -11,7 +11,8 @@
 		<Description>WebMarkupMin.AspNet4.Mvc contains 4 action filters: `MinifyHtmlAttribute` (for minification of HTML code), `MinifyXhtmlAttribute` (for minification of XHTML code), `MinifyXmlAttribute` (for minification of XML code) and `CompressContentAttribute` (for compression of text content by using GZIP or Deflate).</Description>
 		<PackageTags>WebMarkupMin;ASP.NET;MVC;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
 		<PackageReleaseNotes>1. Added support of .NET Framework 4.5;
-2. Now the `NullLogger` class is used as the default logger.</PackageReleaseNotes>
+2. Now the `NullLogger` class is used as the default logger;
+3. Now, by default, the GZip algorithm has a higher priority than the Deflate.</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<Import Project="../../build/common.props" />

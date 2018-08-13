@@ -22,7 +22,8 @@
    RELEASE NOTES
    =============
    1. Added support of .NET Framework 4.5;
-   2. Now the `NullLogger` class is used as the default logger.
+   2. Now the `NullLogger` class is used as the default logger;
+   3. Now, by default, the GZip algorithm has a higher priority than the Deflate.
 
    =============
    DOCUMENTATION

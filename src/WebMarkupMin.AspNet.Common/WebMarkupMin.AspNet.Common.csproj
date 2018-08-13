@@ -14,8 +14,7 @@
 		<PackageTags>WebMarkupMin;ASP.NET;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
 		<PackageReleaseNotes>1. Added support of .NET Standard 2.0;
 2. In `IHttpCompressionManager` interface was added one new method - `TryCreateCompressor`;
-3. In `ICompressor` interface was added one new property - `SupportsFlush`;
-4. Now the `NullLogger` class is used as the default logger.</PackageReleaseNotes>
+3. In `ICompressor` interface was added one new property - `SupportsFlush`.</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<Import Project="../../build/common.props" />

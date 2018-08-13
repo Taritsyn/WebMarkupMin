@@ -44,8 +44,8 @@ namespace WebMarkupMin.AspNet4.Common
 		public HttpCompressionManager()
 			: this(new List<ICompressorFactory>
 			{
-				new DeflateCompressorFactory(),
-				new GZipCompressorFactory()
+				new GZipCompressorFactory(),
+				new DeflateCompressorFactory()
 			})
 		{ }
 

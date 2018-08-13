@@ -17,7 +17,8 @@
    =============
    RELEASE NOTES
    =============
-   Now the `NullLogger` class is used as the default logger.
+   1. Now the `NullLogger` class is used as the default logger;
+   2. Now, by default, the GZip algorithm has a higher priority than the Deflate.
 
    =============
    DOCUMENTATION

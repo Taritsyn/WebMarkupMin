@@ -20,8 +20,7 @@
    1. Added support of .NET Standard 2.0;
    2. In `IHttpCompressionManager` interface was added one new method -
       `TryCreateCompressor`;
-   3. In `ICompressor` interface was added one new property - `SupportsFlush`;
-   4. Now the `NullLogger` class is used as the default logger.
+   3. In `ICompressor` interface was added one new property - `SupportsFlush`.
 
    =============
    DOCUMENTATION
