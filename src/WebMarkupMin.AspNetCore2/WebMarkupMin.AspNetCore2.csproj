@@ -20,12 +20,12 @@
 	<Import Project="../../build/nuget-metadata.props" />
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.0.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.0.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="2.0.1" />
-		<PackageReference Include="Microsoft.Extensions.Options" Version="2.0.0" />
-		<PackageReference Include="Microsoft.Net.Http.Headers" Version="2.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="2.0.3" />
+		<PackageReference Include="Microsoft.Extensions.Options" Version="2.0.2" />
+		<PackageReference Include="Microsoft.Net.Http.Headers" Version="2.0.3" />
 		<PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha5" PrivateAssets="All" />
 
 		<ProjectReference Include="..\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.csproj" />

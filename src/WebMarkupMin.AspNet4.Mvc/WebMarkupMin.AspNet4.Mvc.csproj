@@ -21,7 +21,7 @@
 	<ItemGroup>
 		<Reference Include="System.Web" Pack="false" />
 
-		<PackageReference Include="Microsoft.AspNet.Mvc" Version="3.0.20105.1" />
+		<PackageReference Include="Microsoft.AspNet.Mvc" Version="3.0.20105.1" PrivateAssets="All" />
 
 		<ProjectReference Include="..\WebMarkupMin.AspNet4.Common\WebMarkupMin.AspNet4.Common.csproj" />
 	</ItemGroup>

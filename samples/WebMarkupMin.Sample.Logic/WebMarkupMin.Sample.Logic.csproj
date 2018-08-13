@@ -13,7 +13,7 @@
 	<Import Project="../../build/common.props" />
 
 	<ItemGroup>
-		<PackageReference Include="AutoMapper" Version="6.2.0" />
+		<PackageReference Include="AutoMapper" Version="6.2.2" />
 
 		<ProjectReference Include="..\..\src\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
 		<ProjectReference Include="..\..\src\WebMarkupMin.NUglify\WebMarkupMin.NUglify.csproj" />

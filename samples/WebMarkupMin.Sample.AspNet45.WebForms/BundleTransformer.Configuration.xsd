@@ -41,6 +41,37 @@
 	</xs:simpleType>
 	<!-- /Simple types -->
 
+	<!-- Complex types -->
+	<xs:complexType name="IncludedPathRegistrationCollection_SchemaType">
+		<xs:annotation>
+			<xs:documentation>Collection of registered included paths</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="add" type="AddIncludedPathRegistration_SchemaType" />
+			<xs:element name="remove" type="RemoveIncludedPathRegistration_SchemaType" />
+			<xs:element name="clear" type="ClearIncludedPathRegistration_SchemaType" />
+		</xs:choice>
+	</xs:complexType>
+
+	<xs:complexType name="AddIncludedPathRegistration_SchemaType">
+		<xs:attribute name="path" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Path</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="RemoveIncludedPathRegistration_SchemaType">
+		<xs:attribute name="path" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Path</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="ClearIncludedPathRegistration_SchemaType" />
+	<!-- /Complex types -->
+
 	<!-- Core settings -->
 	<xs:complexType name="CoreSettings_SchemaType">
 		<xs:annotation>
@@ -349,6 +380,7 @@
 			<xs:documentation>Configuration settings of LESS translator</xs:documentation>
 		</xs:annotation>
 		<xs:all>
+			<xs:element name="includePaths" type="IncludedPathRegistrationCollection_SchemaType" minOccurs="0" maxOccurs="1" />
 			<xs:element name="jsEngine" type="JsEngineSettings_SchemaType" minOccurs="0" maxOccurs="1" />
 		</xs:all>
 		<xs:attribute name="useNativeMinification" type="Boolean_SchemaType" use="optional" default="false">
@@ -498,35 +530,6 @@
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
-
-	<xs:complexType name="IncludedPathRegistrationCollection_SchemaType">
-		<xs:annotation>
-			<xs:documentation>Collection of registered included paths</xs:documentation>
-		</xs:annotation>
-		<xs:choice minOccurs="0" maxOccurs="unbounded">
-			<xs:element name="add" type="AddIncludedPathRegistration_SchemaType" />
-			<xs:element name="remove" type="RemoveIncludedPathRegistration_SchemaType" />
-			<xs:element name="clear" type="ClearIncludedPathRegistration_SchemaType" />
-		</xs:choice>
-	</xs:complexType>
-
-	<xs:complexType name="AddIncludedPathRegistration_SchemaType">
-		<xs:attribute name="path" type="xs:string" use="required">
-			<xs:annotation>
-				<xs:documentation>Path</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-	</xs:complexType>
-
-	<xs:complexType name="RemoveIncludedPathRegistration_SchemaType">
-		<xs:attribute name="path" type="xs:string" use="required">
-			<xs:annotation>
-				<xs:documentation>Path</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-	</xs:complexType>
-
-	<xs:complexType name="ClearIncludedPathRegistration_SchemaType" />
 	<!-- /Sass and SCSS settings -->
 
 	<!-- CoffeeScript settings -->
@@ -577,6 +580,11 @@
 		<xs:attribute name="forceConsistentCasingInFileNames" type="Boolean_SchemaType" use="optional" default="false">
 			<xs:annotation>
 				<xs:documentation>Flag for whether to disallow inconsistently-cased references to the same file</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="keyofStringsOnly" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to resolve `keyof` to string valued property names only (no numbers or symbols)</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="newLine" use="optional" default="CrLf">
@@ -680,6 +688,16 @@
 				<xs:documentation>Flag for whether to enable strict null checks</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+		<xs:attribute name="strictFunctionTypes" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to enable strict checking of function types</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="strictPropertyInitialization" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to enable strict checking of property initialization in classes</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 		<xs:attribute name="stripInternal" type="Boolean_SchemaType" use="optional" default="false">
 			<xs:annotation>
 				<xs:documentation>Flag for whether to do not emit declarations for code that has an `@internal` annotation</xs:documentation>
@@ -702,7 +720,7 @@
 		</xs:attribute>
 		<xs:attribute name="target" use="optional" default="EcmaScript3">
 			<xs:annotation>
-				<xs:documentation>ECMAScript target version: `EcmaScript3` (default), `EcmaScript5`, `EcmaScript2015`, `EcmaScript2016`, `EcmaScript2017`, or `EcmaScriptNext`</xs:documentation>
+				<xs:documentation>ECMAScript target version: `EcmaScript3` (default), `EcmaScript5`, `EcmaScript2015`, `EcmaScript2016`, `EcmaScript2017`, `EcmaScript2018` or `EcmaScriptNext`</xs:documentation>
 			</xs:annotation>
 			<xs:simpleType>
 				<xs:restriction base="xs:NMTOKEN">
@@ -712,6 +730,7 @@
 					<xs:enumeration value="EcmaScript2015" />
 					<xs:enumeration value="EcmaScript2016" />
 					<xs:enumeration value="EcmaScript2017" />
+					<xs:enumeration value="EcmaScript2018" />
 					<xs:enumeration value="EcmaScriptNext" />
 				</xs:restriction>
 			</xs:simpleType>
@@ -2153,6 +2172,11 @@ to preserve references to external symbols.</xs:documentation>
 		<xs:attribute name="disableRestructuring" type="Boolean_SchemaType" use="optional" default="false">
 			<xs:annotation>
 				<xs:documentation>Flag for whether to disable structure minification</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="forceMediaMerge" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to enable unsafe merge of `@media` rules</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="comments" use="optional" default="Exclamation">
