@@ -22,11 +22,11 @@ Also supports minification of views of popular JavaScript template engines: Knoc
 	</PropertyGroup>
 
 	<Import Project="../../build/common.props" />
+	<Import Project="../../build/net40-client-target.props" />
 	<Import Project="../../build/strong-name-signing.props" />
 	<Import Project="../../build/nuget-metadata.props" />
 
 	<ItemGroup>
-		<PackageReference Include="MSBuild.Sdk.Extras" Version="1.1.0" PrivateAssets="All" />
 		<PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha5" PrivateAssets="All" />
 	</ItemGroup>
 
@@ -42,7 +42,5 @@ Also supports minification of views of popular JavaScript template engines: Knoc
 			InputDirectory="./Resources/"
 			Namespace="$(RootNamespace).Resources" />
 	</Target>
-
-	<Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 
 </Project>

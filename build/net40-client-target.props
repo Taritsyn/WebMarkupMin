@@ -1,0 +1,7 @@
+<Project>
+	<PropertyGroup Condition=" '$(TargetFramework)' == 'net40-client' ">
+		<TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
+		<TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+		<TargetFrameworkProfile>client</TargetFrameworkProfile>
+	</PropertyGroup>
+</Project>
