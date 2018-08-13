@@ -1,6 +1,19 @@
 Change log
 ==========
 
+## v2.5.0 - August 13, 2018
+ * In WebMarkupMin.Core, WebMarkupMin.MsAjax, WebMarkupMin.Yui, WebMarkupMin.NUglify and WebMarkupMin.AspNet.Common modules added support of .NET Standard 2.0
+ * In WebMarkupMin.Yui:
+   * YUI Compressor for .NET was updated to version 3.0.0
+   * Now requires .NET Framework 4.5.2 or greater
+ * In ASP.NET extensions:
+   * Now the `NullLogger` class is used as the default logger
+   * In `IHttpCompressionManager` interface was added one new method - `TryCreateCompressor`
+   * In `ICompressor` interface was added one new property - `SupportsFlush`
+   * Now, by default, the GZip algorithm has a higher priority than the Deflate
+   * Added module based on the [Brotli](https://en.wikipedia.org/wiki/Brotli) compression algorithm
+ * In ASP.NET 4.X extensions added support of .NET Framework 4.5
+
 ## v2.4.5 - July 9, 2018
  * Fixed a DOCTYPE parsing error
  * React DOM component comments are no longer removed

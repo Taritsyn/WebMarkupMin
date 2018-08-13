@@ -1,5 +1,26 @@
 ﻿<p>An overview of new features and fixes:</p>
 
+<h3>2.5.0 - August 13, 2018</h3>
+<ul>
+	<li>In WebMarkupMin.Core, WebMarkupMin.MsAjax, WebMarkupMin.Yui, WebMarkupMin.NUglify and WebMarkupMin.AspNet.Common modules added support of .NET Standard 2.0</li>
+	<li>In WebMarkupMin.Yui:
+		<ul>
+			<li>YUI Compressor for .NET was updated to version 3.0.0</li>
+			<li>Now requires .NET Framework 4.5.2 or greater</li>
+		</ul>
+	</li>
+	<li>In ASP.NET extensions:
+		<ul>
+			<li>Now the <code>NullLogger</code> class is used as the default logger</li>
+			<li>In <code>IHttpCompressionManager</code> interface was added one new method - <code>TryCreateCompressor</code></li>
+			<li>In <code>ICompressor</code> interface was added one new property - <code>SupportsFlush</code></li>
+			<li>Now, by default, the GZip algorithm has a higher priority than the Deflate</li>
+			<li>Added module based on the <a href="https://en.wikipedia.org/wiki/Brotli" target="_blank">Brotli</a> compression algorithm</li>
+		</ul>
+	</li>
+	<li>In ASP.NET 4.X extensions added support of .NET Framework 4.5</li>
+</ul>
+
 <h3>2.4.5 - July 9, 2018</h3>
 <ul>
 	<li>Fixed a DOCTYPE parsing error</li>
