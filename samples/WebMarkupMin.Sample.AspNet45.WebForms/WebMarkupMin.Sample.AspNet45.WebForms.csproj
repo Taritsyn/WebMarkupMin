@@ -53,9 +53,8 @@
     <Reference Include="BundleTransformer.Core, Version=1.9.171.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
       <HintPath>..\..\packages\BundleTransformer.Core.1.9.171\lib\net40\BundleTransformer.Core.dll</HintPath>
     </Reference>
-    <Reference Include="BundleTransformer.Less, Version=1.9.160.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\BundleTransformer.Less.1.9.160\lib\net40\BundleTransformer.Less.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="BundleTransformer.Less, Version=1.9.205.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\BundleTransformer.Less.1.9.205\lib\net40\BundleTransformer.Less.dll</HintPath>
     </Reference>
     <Reference Include="BundleTransformer.MicrosoftAjax, Version=1.9.160.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
       <HintPath>..\..\packages\BundleTransformer.MicrosoftAjax.1.9.160\lib\net40\BundleTransformer.MicrosoftAjax.dll</HintPath>
