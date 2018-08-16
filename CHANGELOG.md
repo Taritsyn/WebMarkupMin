@@ -1,6 +1,10 @@
 Change log
 ==========
 
+## v2.5.1 - August 16, 2018
+ * Improved a performance of processing attribute values
+ * Fixed a error that occurred when processing of the ignoring fragments of markup
+
 ## v2.5.0 - August 13, 2018
  * In WebMarkupMin.Core, WebMarkupMin.MsAjax, WebMarkupMin.Yui, WebMarkupMin.NUglify and WebMarkupMin.AspNet.Common modules added support of .NET Standard 2.0
  * In WebMarkupMin.Yui:
