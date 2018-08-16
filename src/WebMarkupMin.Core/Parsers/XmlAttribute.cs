@@ -54,6 +54,11 @@ namespace WebMarkupMin.Core.Parsers
 		/// <returns>The decoded string</returns>
 		public static string XmlAttributeDecode(string value)
 		{
+			if (value.IndexOf('&') == -1 || value.IndexOf(';') == -1)
+			{
+				return value;
+			}
+
 			return WebUtility.HtmlDecode(value);
 		}
 

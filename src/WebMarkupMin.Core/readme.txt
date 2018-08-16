@@ -46,7 +46,7 @@
    =============
    RELEASE NOTES
    =============
-   Added support of .NET Standard 2.0.
+   Improved a performance of processing attribute values.
 
    =============
    DOCUMENTATION
