@@ -119,16 +119,25 @@ namespace WebMarkupMin.Core.Test.Html
 			const string input5 = "<!--wmm:ignore--><!--/wmm:ignore-->";
 			const string targetOutput5 = "";
 
-			const string input6 = "<!--wmm:ignore-->";
+			const string input6 = "<!--wmm:ignore-->\n" +
+				"<!DOCTYPE html>\n" +
+				"<!--/wmm:ignore-->\n" +
+				"    <p>   Hola mundo!!!   </p>"
+				;
+			const string targetOutput6 = "\n" +
+				"<!DOCTYPE html>\n" +
+				"<p>Hola mundo!!!</p>";
 
-			const string input7 = "<p>Some text...</p>\n\n" +
+			const string input7 = "<!--wmm:ignore-->";
+
+			const string input8 = "<p>Some text...</p>\n\n" +
 				"    <!--wmm:ignore--><p>Any other text...</p>\n" +
 				"<p>And some text...</p>"
 				;
 
-			const string input8 = "<!--/wmm:ignore-->";
+			const string input9 = "<!--/wmm:ignore-->";
 
-			const string input9 = "<p>Some text...</p>\n" +
+			const string input10 = "<p>Some text...</p>\n" +
 				"  <!--/wmm:ignore--><p>Any other text...</p>\n" +
 				"<p>And some text...</p>"
 				;
@@ -139,10 +148,11 @@ namespace WebMarkupMin.Core.Test.Html
 			string output3 = minifier.Minify(input3).MinifiedContent;
 			string output4 = minifier.Minify(input4).MinifiedContent;
 			string output5 = minifier.Minify(input5).MinifiedContent;
-			IList<MinificationErrorInfo> errors6 = minifier.Minify(input6).Errors;
+			string output6 = minifier.Minify(input6).MinifiedContent;
 			IList<MinificationErrorInfo> errors7 = minifier.Minify(input7).Errors;
 			IList<MinificationErrorInfo> errors8 = minifier.Minify(input8).Errors;
 			IList<MinificationErrorInfo> errors9 = minifier.Minify(input9).Errors;
+			IList<MinificationErrorInfo> errors10 = minifier.Minify(input10).Errors;
 
 			// Assert
 			Assert.Equal(targetOutput1, output1);
@@ -150,22 +160,23 @@ namespace WebMarkupMin.Core.Test.Html
 			Assert.Equal(targetOutput3, output3);
 			Assert.Equal(targetOutput4, output4);
 			Assert.Equal(targetOutput5, output5);
-
-			Assert.Equal(1, errors6.Count);
-			Assert.Equal(1, errors6[0].LineNumber);
-			Assert.Equal(1, errors6[0].ColumnNumber);
+			Assert.Equal(targetOutput6, output6);
 
 			Assert.Equal(1, errors7.Count);
-			Assert.Equal(3, errors7[0].LineNumber);
-			Assert.Equal(5, errors7[0].ColumnNumber);
+			Assert.Equal(1, errors7[0].LineNumber);
+			Assert.Equal(1, errors7[0].ColumnNumber);
 
 			Assert.Equal(1, errors8.Count);
-			Assert.Equal(1, errors8[0].LineNumber);
-			Assert.Equal(1, errors8[0].ColumnNumber);
+			Assert.Equal(3, errors8[0].LineNumber);
+			Assert.Equal(5, errors8[0].ColumnNumber);
 
 			Assert.Equal(1, errors9.Count);
-			Assert.Equal(2, errors9[0].LineNumber);
-			Assert.Equal(3, errors9[0].ColumnNumber);
+			Assert.Equal(1, errors9[0].LineNumber);
+			Assert.Equal(1, errors9[0].ColumnNumber);
+
+			Assert.Equal(1, errors10.Count);
+			Assert.Equal(2, errors10[0].LineNumber);
+			Assert.Equal(3, errors10[0].ColumnNumber);
 		}
 
 		#endregion

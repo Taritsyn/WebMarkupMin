@@ -1215,6 +1215,7 @@ namespace WebMarkupMin.Core
 			if (fragment.Length > 0)
 			{
 				_buffer.Add(fragment);
+				FlushBuffer();
 			}
 		}
 

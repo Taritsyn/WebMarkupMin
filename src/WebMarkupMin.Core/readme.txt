@@ -46,7 +46,9 @@
    =============
    RELEASE NOTES
    =============
-   Improved a performance of processing attribute values.
+   1. Improved a performance of processing attribute values;
+   2. Fixed a error that occurred when processing of the ignoring fragments of
+      markup.
 
    =============
    DOCUMENTATION
