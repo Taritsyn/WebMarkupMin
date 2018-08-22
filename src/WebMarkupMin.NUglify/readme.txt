@@ -19,7 +19,7 @@
    =============
    RELEASE NOTES
    =============
-   Added support of .NET Standard 2.0.
+   Added support of the NUglify version 1.5.12.
 
    =============
    DOCUMENTATION
