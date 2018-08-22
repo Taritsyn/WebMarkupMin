@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## v2.5.2 - August 22, 2018
+ * In WebMarkupMin.NUglify added support of the NUglify version 1.5.12
+
 ## v2.5.1 - August 16, 2018
  * Improved a performance of processing attribute values
  * Fixed a error that occurred when processing of the ignoring fragments of markup
