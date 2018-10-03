@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<Product>Web Markup Minifier: Core Benchmarks</Product>
+		<VersionPrefix>2.5.2</VersionPrefix>
+		<TargetFrameworks>net461;netcoreapp2.0</TargetFrameworks>
+		<OutputType>Exe</OutputType>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+	<Import Project="../../build/common.props" />
+
+	<ItemGroup>
+		<PackageReference Include="BenchmarkDotNet" Version="0.11.1" />
+		<PackageReference Include="NUglify" Version="1.5.12" />
+
+		<ProjectReference Include="..\..\src\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+		<PackageReference Include="ZetaProducerHtmlCompressor" Version="1.0.3" />
+	</ItemGroup>
+
+</Project>
