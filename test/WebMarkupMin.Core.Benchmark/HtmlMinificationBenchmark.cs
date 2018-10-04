@@ -25,11 +25,11 @@ namespace WebMarkupMin.Core.Benchmark
 
 		private static readonly Dictionary<string, Document> s_documents = new Dictionary<string, Document>
 		{
-			{ "dotnet.ru", new Document("http://dotnet.ru/") },
-			{ "ozon.ru", new Document("https://www.ozon.ru/") },
-			{ "moskva.mts.ru", new Document("https://moskva.mts.ru/") },
 			{ "afisha.ru", new Document("https://www.afisha.ru/") },
-			{ "html50-specification", new Document("https://www.w3.org/TR/html50/single-page.html") }
+			{ "dotnet.ru", new Document("http://dotnet.ru/") },
+			{ "html50-specification", new Document("https://www.w3.org/TR/html50/single-page.html") },
+			{ "moskva.mts.ru", new Document("https://moskva.mts.ru/") },
+			{ "ozon.ru", new Document("https://www.ozon.ru/") }
 		};
 
 		[ParamsSource(nameof(DocumentNames))]

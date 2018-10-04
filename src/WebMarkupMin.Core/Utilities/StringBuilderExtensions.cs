@@ -78,7 +78,7 @@ namespace WebMarkupMin.Core.Utilities
 			while (charIndex < charCount)
 			{
 				char charValue = source[charIndex];
-				if (!charValue.IsWhitespace())
+				if (!char.IsWhiteSpace(charValue))
 				{
 					break;
 				}

@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 using WebMarkupMin.Core.Parsers;
 
@@ -35,8 +36,9 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// Regular expression for working with the template tags
 		/// </summary>
-		private static readonly Regex _templateTagRegex = new Regex(
-			CURLY_BRACKET_TAG_PATTERN + "|" + ES6_STRING_INTERPOLATION_PATTERN + "|" + SQUARE_BRACKET_TAG_PATTERN);
+		private static readonly Regex _templateTagRegex = new Regex(CURLY_BRACKET_TAG_PATTERN +
+			"|" + ES6_STRING_INTERPOLATION_PATTERN +
+			"|" + SQUARE_BRACKET_TAG_PATTERN);
 
 
 		/// <summary>
@@ -46,7 +48,12 @@ namespace WebMarkupMin.Core.Helpers
 		/// <returns>Result of check (true - contains; false - not contains)</returns>
 		public static bool ContainsTag(string content)
 		{
-			return content.IndexOfAny(_templateTagFirstChars) != -1 && _templateTagRegex.IsMatch(content);
+			if (content.IndexOfAny(_templateTagFirstChars) == -1)
+			{
+				return false;
+			}
+
+			return _templateTagRegex.IsMatch(content);
 		}
 
 		/// <summary>

@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 using WebMarkupMin.Core.Parsers;
 
@@ -9,6 +10,11 @@ namespace WebMarkupMin.Core.Helpers
 	/// </summary>
 	internal static class AngularHelpers
 	{
+		/// <summary>
+		/// Angular comment directive prefix
+		/// </summary>
+		const string NG_COMMENT_DIRECTIVE_PREFIX = "directive:";
+
 		/// <summary>
 		/// Regular expression for working with the Angular directive prefixes
 		/// </summary>
@@ -69,8 +75,12 @@ namespace WebMarkupMin.Core.Helpers
 		/// <returns>Result of check (true - is class directive; false - is not class directive)</returns>
 		public static bool IsClassDirective(string className)
 		{
-			bool isClassDirective = _ngClassDirectiveRegex.IsMatch(className)
-				&& (className.IndexOf(':') != -1 || className.IndexOf(';') != -1);
+			if (className.IndexOf(':') == -1 && className.IndexOf(';') == -1)
+			{
+				return false;
+			}
+
+			bool isClassDirective = _ngClassDirectiveRegex.IsMatch(className);
 
 			return isClassDirective;
 		}
@@ -149,6 +159,11 @@ namespace WebMarkupMin.Core.Helpers
 		/// <returns>Result of check (true - is comment directive; false - is not comment directive)</returns>
 		public static bool IsCommentDirective(string commentText)
 		{
+			if (commentText.IndexOf(NG_COMMENT_DIRECTIVE_PREFIX, StringComparison.Ordinal) == -1)
+			{
+				return false;
+			}
+
 			return _ngCommentDirectiveRegex.IsMatch(commentText);
 		}
 

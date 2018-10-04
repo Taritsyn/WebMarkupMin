@@ -8,12 +8,6 @@ namespace WebMarkupMin.Core.Utilities
 	internal static class CharExtensions
 	{
 		[MethodImpl((MethodImplOptions)256 /* AggressiveInlining */)]
-		public static bool IsWhitespace(this char source)
-		{
-			return source == ' ' || (source >= '\t' && source <= '\r');
-		}
-
-		[MethodImpl((MethodImplOptions)256 /* AggressiveInlining */)]
 		public static bool IsNumeric(this char source)
 		{
 			return source >= '0' && source <= '9';

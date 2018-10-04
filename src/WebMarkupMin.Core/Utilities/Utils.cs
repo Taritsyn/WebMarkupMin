@@ -72,7 +72,7 @@ namespace WebMarkupMin.Core.Utilities
 			for (int charIndex = 0; charIndex < charCount; charIndex++)
 			{
 				char charValue = value[charIndex];
-				bool currentWhitespace = charValue.IsWhitespace();
+				bool currentWhitespace = char.IsWhiteSpace(charValue);
 
 				if (currentWhitespace)
 				{

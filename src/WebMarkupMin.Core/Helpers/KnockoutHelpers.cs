@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 using WebMarkupMin.Core.Parsers;
 
@@ -10,14 +11,21 @@ namespace WebMarkupMin.Core.Helpers
 	internal static class KnockoutHelpers
 	{
 		/// <summary>
+		/// Knockout containerless comment prefix
+		/// </summary>
+		const string KO_CONTAINERLESS_COMMENT_PREFIX = "ko";
+
+		/// <summary>
 		/// Regular expression for working with the Knockout begin containerless comment
 		/// </summary>
-		private static readonly Regex _koBeginContainerlessCommentRegex = new Regex(@"^\s*ko(?:\s+(?<expression>[\s\S]+))?\s*$");
+		private static readonly Regex _koBeginContainerlessCommentRegex =
+			new Regex(@"^\s*" + KO_CONTAINERLESS_COMMENT_PREFIX + @"(?:\s+(?<expression>[\s\S]+))?\s*$");
 
 		/// <summary>
 		/// Regular expression for working with the Knockout end containerless comment
 		/// </summary>
-		private static readonly Regex _koEndContainerlessCommentRegex = new Regex(@"^\s*/ko\s*$");
+		private static readonly Regex _koEndContainerlessCommentRegex =
+			new Regex(@"^\s*/" + KO_CONTAINERLESS_COMMENT_PREFIX + @"\s*$");
 
 
 		/// <summary>
@@ -27,6 +35,11 @@ namespace WebMarkupMin.Core.Helpers
 		/// <returns>Result of check (true - is begin containerless comment; false - is not begin containerless comment)</returns>
 		public static bool IsBeginContainerlessComment(string commentText)
 		{
+			if (commentText.IndexOf(KO_CONTAINERLESS_COMMENT_PREFIX, StringComparison.Ordinal) == -1)
+			{
+				return false;
+			}
+
 			return _koBeginContainerlessCommentRegex.IsMatch(commentText);
 		}
 
@@ -65,6 +78,11 @@ namespace WebMarkupMin.Core.Helpers
 		/// <returns>Result of check (true - is end containerless comment; false - is not end containerless comment)</returns>
 		public static bool IsEndContainerlessComment(string commentText)
 		{
+			if (commentText.IndexOf(KO_CONTAINERLESS_COMMENT_PREFIX, StringComparison.Ordinal) == -1)
+			{
+				return false;
+			}
+
 			return _koEndContainerlessCommentRegex.IsMatch(commentText);
 		}
 

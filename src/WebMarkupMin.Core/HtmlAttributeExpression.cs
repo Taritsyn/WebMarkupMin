@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
+using WebMarkupMin.Core.Helpers;
 using WebMarkupMin.Core.Parsers;
 using WebMarkupMin.Core.Resources;
 using WebMarkupMin.Core.Utilities;
@@ -256,7 +257,7 @@ namespace WebMarkupMin.Core
 		private static string GetQuoteForAttributeValue(string attributeValue)
 		{
 			if (attributeValue.Length > 0 && !attributeValue.EndsWith("/")
-				&& CommonRegExps.Html5AttributeValueNotRequireQuotes.IsMatch(attributeValue))
+				&& HtmlAttributeValueHelpers.IsHtml5AttributeValueNotRequireQuotes(attributeValue))
 			{
 				return string.Empty;
 			}

@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace WebMarkupMin.Core.Helpers
 {
@@ -21,7 +22,8 @@ namespace WebMarkupMin.Core.Helpers
 		public static string WrapStringInCurlyBraces(string value)
 		{
 			string processedValue = value.Trim();
-			if (!(processedValue.StartsWith("{") && processedValue.EndsWith("}")))
+			if (!(processedValue.StartsWith("{", StringComparison.Ordinal)
+				&& processedValue.EndsWith("}", StringComparison.Ordinal)))
 			{
 				processedValue = "{" + processedValue + "}";
 			}

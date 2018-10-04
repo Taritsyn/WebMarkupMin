@@ -74,7 +74,6 @@ namespace WebMarkupMin.Core
 			RegexOptions.IgnoreCase);
 		private static readonly Regex _metaContentTypeTagValueRegex =
 			new Regex(@"^(?:[a-zA-Z0-9-+./]+);\s*charset=(?<charset>[a-zA-Z0-9-]+)$", RegexOptions.IgnoreCase);
-		private static readonly Regex _html4AttributeValueNotRequireQuotesRegex = new Regex(@"^[a-zA-Z0-9-_:.]+$");
 		private static readonly Regex _jsProtocolRegex = new Regex(@"^javascript:\s*", RegexOptions.IgnoreCase);
 		private static readonly Regex _separatingCommaWithSpacesRegex = new Regex(@"\s*,\s*");
 		private static readonly Regex _endingCommaWithSpacesRegex = new Regex(@"\s*,\s*$");
@@ -1567,11 +1566,11 @@ namespace WebMarkupMin.Core
 				{
 					if (attributeQuotesRemovalMode == HtmlAttributeQuotesRemovalMode.Html4)
 					{
-						result = _html4AttributeValueNotRequireQuotesRegex.IsMatch(attributeValue);
+						result = HtmlAttributeValueHelpers.IsHtml4AttributeValueNotRequireQuotes(attributeValue);
 					}
 					else if (attributeQuotesRemovalMode == HtmlAttributeQuotesRemovalMode.Html5)
 					{
-						result = CommonRegExps.Html5AttributeValueNotRequireQuotes.IsMatch(attributeValue);
+						result = HtmlAttributeValueHelpers.IsHtml5AttributeValueNotRequireQuotes(attributeValue);
 					}
 				}
 			}
