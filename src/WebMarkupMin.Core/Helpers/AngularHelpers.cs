@@ -95,17 +95,19 @@ namespace WebMarkupMin.Core.Helpers
 		public static void ParseClassDirective(string className, DirectiveNameDelegate directiveNameHandler,
 			ExpressionDelegate expressionHandler, SemicolonDelegate semicolonHandler)
 		{
-			MatchCollection ngClassDirectiveMatches = _ngClassDirectiveRegex.Matches(className);
+			MatchCollection matches = _ngClassDirectiveRegex.Matches(className);
+			int matchCount = matches.Count;
 
-			if (ngClassDirectiveMatches.Count > 0)
+			if (matchCount > 0)
 			{
 				var innerContext = new InnerMarkupParsingContext(className);
 				var context = new MarkupParsingContext(innerContext);
 				int currentPosition = 0;
 
-				foreach (Match ngClassDirectiveMatch in ngClassDirectiveMatches)
+				for (int matchIndex = 0; matchIndex < matchCount; matchIndex++)
 				{
-					GroupCollection groups = ngClassDirectiveMatch.Groups;
+					Match match = matches[matchIndex];
+					GroupCollection groups = match.Groups;
 
 					Group directiveNameGroup = groups["directiveName"];
 					int directiveNamePosition = directiveNameGroup.Index;

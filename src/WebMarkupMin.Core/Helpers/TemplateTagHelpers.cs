@@ -69,8 +69,10 @@ namespace WebMarkupMin.Core.Helpers
 			var innerContext = new InnerMarkupParsingContext(content);
 			var context = new MarkupParsingContext(innerContext);
 
-			MatchCollection templateTagMatches = _templateTagRegex.Matches(content);
-			if (templateTagMatches.Count == 0)
+			MatchCollection matches = _templateTagRegex.Matches(content);
+			int matchCount = matches.Count;
+
+			if (matchCount == 0)
 			{
 				if (textHandler != null)
 				{
@@ -85,10 +87,11 @@ namespace WebMarkupMin.Core.Helpers
 			int currentPosition = 0;
 			int endPosition = content.Length - 1;
 
-			foreach (Match templateTagMatch in templateTagMatches)
+			for (int matchIndex = 0; matchIndex < matchCount; matchIndex++)
 			{
-				int templateTagPosition = templateTagMatch.Index;
-				int templateTagLength = templateTagMatch.Length;
+				Match match = matches[matchIndex];
+				int templateTagPosition = match.Index;
+				int templateTagLength = match.Length;
 
 				if (templateTagPosition > currentPosition)
 				{
@@ -102,11 +105,10 @@ namespace WebMarkupMin.Core.Helpers
 					innerContext.IncreasePosition(text.Length);
 				}
 
-				GroupCollection templateTagGroups = templateTagMatch.Groups;
-
-				string expression = templateTagGroups["expression"].Value;
-				string startDelimiter = templateTagGroups["startDelimiter"].Value;
-				string endDelimiter = templateTagGroups["endDelimiter"].Value;
+				GroupCollection groups = match.Groups;
+				string expression = groups["expression"].Value;
+				string startDelimiter = groups["startDelimiter"].Value;
+				string endDelimiter = groups["endDelimiter"].Value;
 
 				if (templateTagHandler != null)
 				{

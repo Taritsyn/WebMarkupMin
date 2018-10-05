@@ -386,11 +386,13 @@ namespace WebMarkupMin.Core.Parsers
 				return attributes;
 			}
 
-			MatchCollection attributeMatches = _attributeRegex.Matches(attributesString);
+			MatchCollection matches = _attributeRegex.Matches(attributesString);
+			int matchCount = matches.Count;
 
-			foreach (Match attributeMatch in attributeMatches)
+			for (int matchIndex = 0; matchIndex < matchCount; matchIndex++)
 			{
-				GroupCollection groups = attributeMatch.Groups;
+				Match match = matches[matchIndex];
+				GroupCollection groups = match.Groups;
 
 				string attributeName = groups["attributeName"].Value;
 				string attributeValue = groups["attributeValue"].Value;

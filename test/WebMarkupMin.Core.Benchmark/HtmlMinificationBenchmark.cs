@@ -6,13 +6,15 @@ using System.Net;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Diagnosers;
 
+#if HTML_MINIFIER_COMPARISON
 using NuMinifier = NUglify.Uglify;
 using NuSettings = NUglify.Html.HtmlSettings;
+#endif
 using WmmMinifier = WebMarkupMin.Core.HtmlMinifier;
 using WmmNullCssMinifier = WebMarkupMin.Core.NullCssMinifier;
 using WmmNullJsMinifier = WebMarkupMin.Core.NullJsMinifier;
 using WmmSettings = WebMarkupMin.Core.HtmlMinificationSettings;
-#if NET461
+#if HTML_MINIFIER_COMPARISON && NET461
 using ZphcMinifier = ZetaProducerHtmlCompressor.HtmlContentCompressor;
 #endif
 
@@ -21,8 +23,6 @@ namespace WebMarkupMin.Core.Benchmark
 	[MemoryDiagnoser]
 	public class HtmlMinificationBenchmark
 	{
-		private const string DocumentsDirectoryPath = "../../../Files";
-
 		private static readonly Dictionary<string, Document> s_documents = new Dictionary<string, Document>
 		{
 			{ "afisha.ru", new Document("https://www.afisha.ru/") },
@@ -38,14 +38,16 @@ namespace WebMarkupMin.Core.Benchmark
 
 		static HtmlMinificationBenchmark()
 		{
-			List<Document> nonExistentDocuments = null;
+			string documentsDirectoryPath = Path.GetFullPath(
+				Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../Files"));
+			List <Document> nonExistentDocuments = null;
 
 			foreach (string documentName in s_documents.Keys)
 			{
 				Document document = s_documents[documentName];
 				if (document.Content == null)
 				{
-					string path = Path.Combine(DocumentsDirectoryPath, $"{documentName}.html");
+					string path = Path.Combine(documentsDirectoryPath, $"{documentName}.html");
 					document.Path = path;
 	
 					if (File.Exists(path))
@@ -86,9 +88,9 @@ namespace WebMarkupMin.Core.Benchmark
 					Console.WriteLine($"Downloading content from {url}...");
 					content = webClient.DownloadString(url);
 
-					if (!Directory.Exists(DocumentsDirectoryPath))
+					if (!Directory.Exists(documentsDirectoryPath))
 					{
-						Directory.CreateDirectory(DocumentsDirectoryPath);
+						Directory.CreateDirectory(documentsDirectoryPath);
 					}
 					File.WriteAllText(path, content);
 
@@ -109,6 +111,7 @@ namespace WebMarkupMin.Core.Benchmark
 				yield return key;
 			}
 		}
+#if HTML_MINIFIER_COMPARISON
 
 		[Benchmark]
 		public void NUglify()
@@ -120,6 +123,7 @@ namespace WebMarkupMin.Core.Benchmark
 			};
 			NuMinifier.Html(s_documents[DocumentName].Content, settings);
 		}
+#endif
 
 		[Benchmark]
 		public void WebMarkupMin()
@@ -134,7 +138,7 @@ namespace WebMarkupMin.Core.Benchmark
 			var minifier = new WmmMinifier(settings, new WmmNullCssMinifier(), new WmmNullJsMinifier());
 			minifier.Minify(s_documents[DocumentName].Content);
 		}
-#if NET461
+#if HTML_MINIFIER_COMPARISON && NET461
 
 		[Benchmark]
 		public void ZetaProducerHtmlCompressor()
