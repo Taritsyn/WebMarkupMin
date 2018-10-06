@@ -19,7 +19,8 @@
    =============
    RELEASE NOTES
    =============
-   Added support of the BrotliSharpLib version 0.3.1.
+   1. Added support of the BrotliSharpLib version 0.3.1;
+   2. Added strong name signing for assembly.
 
    =============
    DOCUMENTATION
