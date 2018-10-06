@@ -14,7 +14,12 @@
    WebMarkupMin.AspNet.Brotli contains one compressor-adapter for compression of
    text content by using the Brotli algorithm (https://github.com/google/brotli) -
    `BrotliCompressor`. `BrotliCompressor` is based on the BrotliSharpLib
-   (https://github.com/master131/BrotliSharpLib) version 0.3.0.
+   (https://github.com/master131/BrotliSharpLib) version 0.3.1.
+
+   =============
+   RELEASE NOTES
+   =============
+   Added support of the BrotliSharpLib version 0.3.1.
 
    =============
    DOCUMENTATION
