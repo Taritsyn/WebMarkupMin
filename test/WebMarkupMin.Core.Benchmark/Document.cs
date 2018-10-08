@@ -21,6 +21,10 @@
 		}
 
 
+		public Document()
+			: this(string.Empty)
+		{ }
+
 		public Document(string url)
 		{
 			Url = url;

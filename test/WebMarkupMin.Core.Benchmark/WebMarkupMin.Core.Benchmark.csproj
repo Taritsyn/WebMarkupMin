@@ -6,7 +6,7 @@
 		<TargetFrameworks>net461;netcoreapp2.0</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-		<DefineConstants>$(DefineConstants);HTML_MINIFIER_COMPARISON</DefineConstants>
+		<DefineConstants>$(DefineConstants);HTML_MINIFIER_COMPARISON;XML_MINIFIER_COMPARISON</DefineConstants>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 

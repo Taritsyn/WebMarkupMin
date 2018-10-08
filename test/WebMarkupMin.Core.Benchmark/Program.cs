@@ -1,4 +1,6 @@
-﻿using BenchmarkDotNet.Running;
+﻿using System.Reflection;
+
+using BenchmarkDotNet.Running;
 
 namespace WebMarkupMin.Core.Benchmark
 {
@@ -6,7 +8,7 @@ namespace WebMarkupMin.Core.Benchmark
 	{
 		public static void Main(string[] args)
 		{
-			BenchmarkRunner.Run<HtmlMinificationBenchmark>();
+			BenchmarkSwitcher.FromAssembly(typeof(Program).GetTypeInfo().Assembly).Run(args);
 		}
 	}
 }
