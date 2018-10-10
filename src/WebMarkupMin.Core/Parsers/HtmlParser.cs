@@ -33,8 +33,8 @@ namespace WebMarkupMin.Core.Parsers
 			"(?<attributes>" +
 				"(?:" +
 					"(?:" +
-						@"(?:\s+|(?<=[""'\s]))" + CommonRegExps.HtmlAttributeNamePattern +
-						@"(?:\s*=\s*(?:(?:""[^""]*?"")|(?:'[^']*?')|[^>""'\s]+)?)?" +
+						@"(?:\s+|(?<=[""']))" + CommonRegExps.HtmlAttributeNamePattern +
+						@"(?:\s*=\s*(?:(?:""[^""]*"")|(?:'[^']*')|[^\s""'`=<>]+)?)?" +
 					")" +
 					@"|(?:\s*(?<invalidCharacters>(?:[^/>\s][^>\s]*?)|(?:/[^>\s]*?(?!>))))" +
 				")*" +
@@ -44,9 +44,9 @@ namespace WebMarkupMin.Core.Parsers
 		private static readonly Regex _attributeRegex =
 			new Regex(@"(?<attributeName>" + CommonRegExps.HtmlAttributeNamePattern + @")(?:\s*(?<attributeEqualSign>=)\s*" +
 				@"(?:" +
-					@"(?:""(?<attributeValue>[^""]*?)"")" +
-					@"|(?:'(?<attributeValue>[^']*?)')" +
-					@"|(?<attributeValue>[^>""'\s]+)" +
+					@"(?:""(?<attributeValue>[^""]*)"")" +
+					@"|(?:'(?<attributeValue>[^']*)')" +
+					@"|(?<attributeValue>[^\s""'`=<>]+)" +
 				@")?)?")
 				;
 
@@ -370,7 +370,7 @@ namespace WebMarkupMin.Core.Parsers
 					_handlers.XmlDeclaration(_context, xmlDeclaration);
 				}
 
-				_innerContext.IncreasePosition(xmlDeclaration.Length);
+				_innerContext.IncreasePosition(match.Length);
 				isProcessed = true;
 			}
 
@@ -387,17 +387,15 @@ namespace WebMarkupMin.Core.Parsers
 			string content = _innerContext.SourceCode;
 			int contentRemainderLength = _innerContext.RemainderLength;
 
-			var hiddenIfCommentMatch = _hiddenIfCommentRegex.Match(content, _innerContext.Position,
-				contentRemainderLength);
-			if (hiddenIfCommentMatch.Success)
+			var match = _hiddenIfCommentRegex.Match(content, _innerContext.Position, contentRemainderLength);
+			if (match.Success)
 			{
-				string hiddenIfComment = hiddenIfCommentMatch.Value;
-				var groups = hiddenIfCommentMatch.Groups;
+				var groups = match.Groups;
 				string expression = groups["expression"].Value.Trim();
 
 				ParseIfConditionalComment(expression, HtmlConditionalCommentType.Hidden);
 
-				_innerContext.IncreasePosition(hiddenIfComment.Length);
+				_innerContext.IncreasePosition(match.Length);
 				isProcessed = true;
 			}
 
@@ -414,15 +412,12 @@ namespace WebMarkupMin.Core.Parsers
 			string content = _innerContext.SourceCode;
 			int contentRemainderLength = _innerContext.RemainderLength;
 
-			var hiddenEndIfCommentMatch = _hiddenEndIfCommentRegex.Match(content, _innerContext.Position,
-				contentRemainderLength);
-			if (hiddenEndIfCommentMatch.Success)
+			var match = _hiddenEndIfCommentRegex.Match(content, _innerContext.Position, contentRemainderLength);
+			if (match.Success)
 			{
-				string hiddenEndIfComment = hiddenEndIfCommentMatch.Value;
-
 				ParseEndIfConditionalComment(HtmlConditionalCommentType.Hidden);
 
-				_innerContext.IncreasePosition(hiddenEndIfComment.Length);
+				_innerContext.IncreasePosition(match.Length);
 				isProcessed = true;
 			}
 
@@ -439,17 +434,15 @@ namespace WebMarkupMin.Core.Parsers
 			string content = _innerContext.SourceCode;
 			int contentRemainderLength = _innerContext.RemainderLength;
 
-			var revealedIfCommentMatch = _revealedIfCommentRegex.Match(content, _innerContext.Position,
-				contentRemainderLength);
-			if (revealedIfCommentMatch.Success)
+			var match = _revealedIfCommentRegex.Match(content, _innerContext.Position, contentRemainderLength);
+			if (match.Success)
 			{
-				string revealedIfComment = revealedIfCommentMatch.Value;
-				var groups = revealedIfCommentMatch.Groups;
+				var groups = match.Groups;
 				string expression = groups["expression"].Value.Trim();
 
 				ParseIfConditionalComment(expression, HtmlConditionalCommentType.Revealed);
 
-				_innerContext.IncreasePosition(revealedIfComment.Length);
+				_innerContext.IncreasePosition(match.Length);
 				isProcessed = true;
 			}
 
@@ -466,15 +459,12 @@ namespace WebMarkupMin.Core.Parsers
 			string content = _innerContext.SourceCode;
 			int contentRemainderLength = _innerContext.RemainderLength;
 
-			var revealedEndIfCommentMatch = _revealedEndIfCommentRegex.Match(content, _innerContext.Position,
-				contentRemainderLength);
-			if (revealedEndIfCommentMatch.Success)
+			var match = _revealedEndIfCommentRegex.Match(content, _innerContext.Position, contentRemainderLength);
+			if (match.Success)
 			{
-				string revealedEndIfComment = revealedEndIfCommentMatch.Value;
-
 				ParseEndIfConditionalComment(HtmlConditionalCommentType.Revealed);
 
-				_innerContext.IncreasePosition(revealedEndIfComment.Length);
+				_innerContext.IncreasePosition(match.Length);
 				isProcessed = true;
 			}
 
@@ -491,15 +481,12 @@ namespace WebMarkupMin.Core.Parsers
 			string content = _innerContext.SourceCode;
 			int contentRemainderLength = _innerContext.RemainderLength;
 
-			var revealedValidatingIfCommentMatch = _revealedValidatingIfCommentRegex.Match(content,
-				_innerContext.Position, contentRemainderLength);
-			if (revealedValidatingIfCommentMatch.Success)
+			var match = _revealedValidatingIfCommentRegex.Match(content, _innerContext.Position, contentRemainderLength);
+			if (match.Success)
 			{
-				string revealedValidatingIfComment = revealedValidatingIfCommentMatch.Value;
-				var groups = revealedValidatingIfCommentMatch.Groups;
+				var groups = match.Groups;
 				string expression = groups["expression"].Value.Trim();
-				string ltAndPling = groups["ltAndPling"].Value;
-				var type = ltAndPling.Length > 0 ?
+				var type = groups["ltAndPling"].Success ?
 					HtmlConditionalCommentType.RevealedValidating
 					:
 					HtmlConditionalCommentType.RevealedValidatingSimplified
@@ -507,7 +494,7 @@ namespace WebMarkupMin.Core.Parsers
 
 				ParseIfConditionalComment(expression, type);
 
-				_innerContext.IncreasePosition(revealedValidatingIfComment.Length);
+				_innerContext.IncreasePosition(match.Length);
 				isProcessed = true;
 			}
 
@@ -524,15 +511,13 @@ namespace WebMarkupMin.Core.Parsers
 			string content = _innerContext.SourceCode;
 			int contentRemainderLength = _innerContext.RemainderLength;
 
-			var revealedValidatingEndIfCommentMatch = _revealedValidatingEndIfCommentRegex.Match(content,
-				_innerContext.Position, contentRemainderLength);
-			if (revealedValidatingEndIfCommentMatch.Success)
+			var match = _revealedValidatingEndIfCommentRegex.Match(content, _innerContext.Position,
+				contentRemainderLength);
+			if (match.Success)
 			{
-				string revealedValidatingEndIfComment = revealedValidatingEndIfCommentMatch.Value;
-
 				ParseEndIfConditionalComment(HtmlConditionalCommentType.RevealedValidating);
 
-				_innerContext.IncreasePosition(revealedValidatingEndIfComment.Length);
+				_innerContext.IncreasePosition(match.Length);
 				isProcessed = true;
 			}
 
@@ -573,7 +558,6 @@ namespace WebMarkupMin.Core.Parsers
 						_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 				}
 
-				string startTag = match.Value;
 				bool isEmptyTag = groups["emptyTagSlash"].Success;
 
 				Group attributesGroup = groups["attributes"];
@@ -606,7 +590,7 @@ namespace WebMarkupMin.Core.Parsers
 				ParseStartTag(startTagName, startTagNameInLowercase, attributesString, attributesCoordinates,
 					isEmptyTag);
 
-				_innerContext.IncreasePosition(startTag.Length);
+				_innerContext.IncreasePosition(match.Length);
 				isProcessed = true;
 			}
 
@@ -626,7 +610,6 @@ namespace WebMarkupMin.Core.Parsers
 			var match = _endTagRegex.Match(content, _innerContext.Position, contentRemainderLength);
 			if (match.Success)
 			{
-				string endTag = match.Value;
 				string endTagName = match.Groups["tagName"].Value;
 				string endTagNameInLowercase = endTagName;
 				if (Utils.ContainsUppercaseCharacters(endTagName))
@@ -636,7 +619,7 @@ namespace WebMarkupMin.Core.Parsers
 
 				ParseEndTag(endTagName, endTagNameInLowercase);
 
-				_innerContext.IncreasePosition(endTag.Length);
+				_innerContext.IncreasePosition(match.Length);
 				isProcessed = true;
 			}
 
@@ -659,18 +642,20 @@ namespace WebMarkupMin.Core.Parsers
 				Regex stackedTagRegex = _tagWithEmbeddedRegexCache.GetOrAdd(stackedTagNameInLowercase,
 					key => new Regex(@"([\s\S]*?)</" + Regex.Escape(key) + @"\s*>", RegexOptions.IgnoreCase));
 
-				var stackedTagMatch = stackedTagRegex.Match(content, _innerContext.Position, contentRemainderLength);
-				string htmlFragment = stackedTagMatch.Value;
-				string code = stackedTagMatch.Groups[1].Value;
-
-				if (_handlers.EmbeddedCode != null)
+				Match match = stackedTagRegex.Match(content, _innerContext.Position, contentRemainderLength);
+				if (match.Success)
 				{
-					_handlers.EmbeddedCode(_context, code);
+					string code = match.Groups[1].Value;
+
+					if (_handlers.EmbeddedCode != null)
+					{
+						_handlers.EmbeddedCode(_context, code);
+					}
+
+					ParseEndTag(stackedTagName, stackedTagNameInLowercase);
+
+					_innerContext.IncreasePosition(match.Length);
 				}
-
-				ParseEndTag(stackedTagName, stackedTagNameInLowercase);
-
-				_innerContext.IncreasePosition(htmlFragment.Length);
 			}
 		}
 
@@ -894,16 +879,16 @@ namespace WebMarkupMin.Core.Parsers
 		private IList<HtmlAttribute> ParseAttributes(string tagName, string tagNameInLowercase, HtmlTagFlags tagFlags,
 			string attributesString, SourceCodeNodeCoordinates attributesCoordinates)
 		{
-			var attributes = new List<HtmlAttribute>();
 			if (string.IsNullOrWhiteSpace(attributesString))
 			{
-				return attributes;
+				return new List<HtmlAttribute>();
 			}
 
 			SourceCodeNodeCoordinates currentAttributesCoordinates = attributesCoordinates;
 			int currentPosition = 0;
 			MatchCollection matches = _attributeRegex.Matches(attributesString);
 			int matchCount = matches.Count;
+			var attributes = new List<HtmlAttribute>(matchCount);
 
 			for (int matchIndex = 0; matchIndex < matchCount; matchIndex++)
 			{
@@ -929,7 +914,7 @@ namespace WebMarkupMin.Core.Parsers
 						attributeValue = attributeValueGroup.Value;
 						if (!string.IsNullOrWhiteSpace(attributeValue))
 						{
-							attributeValue = HtmlAttribute.HtmlAttributeDecode(attributeValue);
+							attributeValue = HtmlAttributeValueHelpers.Decode(attributeValue);
 						}
 					}
 					else
@@ -982,9 +967,10 @@ namespace WebMarkupMin.Core.Parsers
 
 				HtmlAttributeType attributeType = GetAttributeType(tagNameInLowercase, tagFlags,
 					attributeNameInLowercase, attributes);
+				var attribute = new HtmlAttribute(attributeName, attributeNameInLowercase, attributeValue,
+					attributeType, attributeNameCoordinates, attributeValueCoordinates);
 
-				attributes.Add(new HtmlAttribute(attributeName, attributeNameInLowercase, attributeValue,
-					attributeType, attributeNameCoordinates, attributeValueCoordinates));
+				attributes.Add(attribute);
 			}
 
 			return attributes;

@@ -51,14 +51,13 @@ namespace WebMarkupMin.Core.Helpers
 		public static void ParseBeginContainerlessComment(string commentText,
 			ExpressionDelegate expressionHandler)
 		{
-			Match koBeginContainerlessCommentMatch = _koBeginContainerlessCommentRegex.Match(commentText);
-
-			if (koBeginContainerlessCommentMatch.Success)
+			Match match = _koBeginContainerlessCommentRegex.Match(commentText);
+			if (match.Success)
 			{
 				var innerContext = new InnerMarkupParsingContext(commentText);
 				var context = new MarkupParsingContext(innerContext);
 
-				Group expressionGroup = koBeginContainerlessCommentMatch.Groups["expression"];
+				Group expressionGroup = match.Groups["expression"];
 				int expressionPosition = expressionGroup.Index;
 				string expression = expressionGroup.Value.TrimEnd();
 

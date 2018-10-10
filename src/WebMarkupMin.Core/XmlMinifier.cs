@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+using WebMarkupMin.Core.Helpers;
 using WebMarkupMin.Core.Loggers;
 using WebMarkupMin.Core.Parsers;
 using WebMarkupMin.Core.Resources;
@@ -627,7 +628,7 @@ namespace WebMarkupMin.Core
 		/// <returns>String representation of the XML attribute</returns>
 		private static string BuildAttributeString(XmlAttribute attribute)
 		{
-			string encodedAttributeValue = XmlAttribute.XmlAttributeEncode(attribute.Value);
+			string encodedAttributeValue = XmlAttributeValueHelpers.Encode(attribute.Value);
 
 			return string.Concat(" ", attribute.Name, "=", "\"", encodedAttributeValue, "\"");
 		}

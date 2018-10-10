@@ -47,7 +47,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// Represents a empty HTML tag
 		/// </summary>
 		public static readonly HtmlTag Empty = new HtmlTag(string.Empty, string.Empty,
-			new List<HtmlAttribute>().AsReadOnly(), HtmlTagFlags.None);
+			new List<HtmlAttribute>(), HtmlTagFlags.None);
 
 
 		/// <summary>

@@ -78,7 +78,7 @@ namespace WebMarkupMin.Core.Parsers
 					doctypeHandler(_context, doctype);
 				}
 
-				_innerContext.IncreasePosition(doctype.Length);
+				_innerContext.IncreasePosition(match.Length);
 				isProcessed = true;
 			}
 

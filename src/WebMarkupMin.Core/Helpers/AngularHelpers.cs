@@ -178,14 +178,13 @@ namespace WebMarkupMin.Core.Helpers
 		public static void ParseCommentDirective(string commentText, DirectiveNameDelegate directiveNameHandler,
 			ExpressionDelegate expressionHandler)
 		{
-			Match ngCommentDirectiveMatch = _ngCommentDirectiveRegex.Match(commentText);
-
-			if (ngCommentDirectiveMatch.Success)
+			Match match = _ngCommentDirectiveRegex.Match(commentText);
+			if (match.Success)
 			{
 				var innerContext = new InnerMarkupParsingContext(commentText);
 				var context = new MarkupParsingContext(innerContext);
 
-				GroupCollection groups = ngCommentDirectiveMatch.Groups;
+				GroupCollection groups = match.Groups;
 
 				Group directiveNameGroup = groups["directiveName"];
 				int directiveNamePosition = directiveNameGroup.Index;

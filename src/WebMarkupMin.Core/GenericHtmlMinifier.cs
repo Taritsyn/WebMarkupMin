@@ -1528,7 +1528,7 @@ namespace WebMarkupMin.Core
 		{
 			string displayAttributeName = CanPreserveCase() ? attribute.Name : attribute.NameInLowercase;
 			string encodedAttributeValue = !omitValue ?
-				HtmlAttribute.HtmlAttributeEncode(attribute.Value, HtmlAttributeQuotesType.Double) : null;
+				HtmlAttributeValueHelpers.Encode(attribute.Value, HtmlAttributeQuotesType.Double) : null;
 			var attributeViewModel = new HtmlAttributeViewModel(displayAttributeName, encodedAttributeValue, addQuotes);
 
 			return attributeViewModel;
