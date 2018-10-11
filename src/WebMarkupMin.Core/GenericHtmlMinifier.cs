@@ -68,10 +68,11 @@ namespace WebMarkupMin.Core
 		const string VBS_CONTENT_TYPE = "text/vbscript";
 		const string CSS_CONTENT_TYPE = "text/css";
 
+		const string BEGIN_NOINDEX_COMMENT = "noindex";
+		const string END_NOINDEX_COMMENT = "/noindex";
+
 		#region Regular expressions
 
-		private static readonly Regex _noindexCommentRegex = new Regex(@"^(?<closingSlash>/)?noindex$",
-			RegexOptions.IgnoreCase);
 		private static readonly Regex _metaContentTypeTagValueRegex =
 			new Regex(@"^(?:[a-zA-Z0-9-+./]+);\s*charset=(?<charset>[a-zA-Z0-9-]+)$", RegexOptions.IgnoreCase);
 		private static readonly Regex _jsProtocolRegex = new Regex(@"^javascript:\s*", RegexOptions.IgnoreCase);
@@ -607,11 +608,15 @@ namespace WebMarkupMin.Core
 			string processedCommentText;
 			bool removeComment = false;
 
-			if (_noindexCommentRegex.IsMatch(commentText))
+			if (commentText.Equals(BEGIN_NOINDEX_COMMENT, StringComparison.OrdinalIgnoreCase))
 			{
-				// Processing of noindex comment
-				Match noindexCommentMatch = _noindexCommentRegex.Match(commentText);
-				processedCommentText = noindexCommentMatch.Groups["closingSlash"].Success ? "/noindex" : "noindex";
+				// Processing of begin noindex comment
+				processedCommentText = BEGIN_NOINDEX_COMMENT;
+			}
+			else if (commentText.Equals(END_NOINDEX_COMMENT, StringComparison.OrdinalIgnoreCase))
+			{
+				// Processing of end noindex comment
+				processedCommentText = END_NOINDEX_COMMENT;
 			}
 			else if (KnockoutHelpers.IsEndContainerlessComment(commentText))
 			{
@@ -620,7 +625,7 @@ namespace WebMarkupMin.Core
 			}
 			else if (KnockoutHelpers.IsBeginContainerlessComment(commentText))
 			{
-				// Processing of start Knockout containerless comment
+				// Processing of begin Knockout containerless comment
 				string koExpression = string.Empty;
 
 				KnockoutHelpers.ParseBeginContainerlessComment(commentText,
