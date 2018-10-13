@@ -76,7 +76,7 @@ namespace WebMarkupMin.Core.Parsers
 		public HtmlAttributeType Type
 		{
 			get;
-			private set;
+			set;
 		}
 
 		/// <summary>

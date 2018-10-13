@@ -28,26 +28,27 @@ namespace WebMarkupMin.Core.Parsers
 	{
 		#region Regular expressions for parsing tags and attributes
 
-		private static readonly Regex _xmlDeclarationRegex = new Regex(@"^<\?xml\s*[^>]+?\s*\?>", RegexOptions.IgnoreCase);
+		private static readonly Regex _xmlDeclarationRegex = new Regex(@"^<\?xml\s+[^>]+\s*\?>", RegexOptions.IgnoreCase);
 		private static readonly Regex _startTagRegex = new Regex(@"^<(?<tagName>" + CommonRegExps.HtmlTagNamePattern + ")" +
-			"(?<attributes>" +
+			"(?:" +
 				"(?:" +
-					"(?:" +
-						@"(?:\s+|(?<=[""']))" + CommonRegExps.HtmlAttributeNamePattern +
-						@"(?:\s*=\s*(?:(?:""[^""]*"")|(?:'[^']*')|[^\s""'`=<>]+)?)?" +
-					")" +
-					@"|(?:\s*(?<invalidCharacters>(?:[^/>\s][^>\s]*?)|(?:/[^>\s]*?(?!>))))" +
-				")*" +
-			")" +
+					@"(?:\s+|(?<=[""']))" + CommonRegExps.HtmlAttributeNamePattern +
+					@"(?:\s*=\s*(?:(?:""[^""]*"")|(?:'[^']*')|[^\s""'`=<>]+)?)?" +
+				")" +
+				@"|(?:\s*(?<invalidCharacters>(?:[^/>\s][^>\s]*?)|(?:/[^>\s]*?(?!>))))" +
+			")*" +
 			@"\s*(?<emptyTagSlash>/)?>");
 		private static readonly Regex _endTagRegex = new Regex(@"^<\/(?<tagName>" + CommonRegExps.HtmlTagNamePattern + @")\s*>");
 		private static readonly Regex _attributeRegex =
-			new Regex(@"(?<attributeName>" + CommonRegExps.HtmlAttributeNamePattern + @")(?:\s*(?<attributeEqualSign>=)\s*" +
-				@"(?:" +
-					@"(?:""(?<attributeValue>[^""]*)"")" +
-					@"|(?:'(?<attributeValue>[^']*)')" +
-					@"|(?<attributeValue>[^\s""'`=<>]+)" +
-				@")?)?")
+			new Regex(@"(?<attributeName>" + CommonRegExps.HtmlAttributeNamePattern + @")" +
+				"(?:" +
+					@"\s*(?<attributeEqualSign>=)\s*" +
+					"(?:" +
+						@"(?:""(?<attributeValue>[^""]*)"")" +
+						@"|(?:'(?<attributeValue>[^']*)')" +
+						@"|(?<attributeValue>[^\s""'`=<>]+)" +
+					")?" +
+				")?")
 				;
 
 		private static readonly Regex _hiddenIfCommentRegex =
@@ -532,13 +533,16 @@ namespace WebMarkupMin.Core.Parsers
 		{
 			bool isProcessed = false;
 			string content = _innerContext.SourceCode;
+			int contentPosition = _innerContext.Position;
 			int contentRemainderLength = _innerContext.RemainderLength;
 
-			var match = _startTagRegex.Match(content, _innerContext.Position, contentRemainderLength);
+			var match = _startTagRegex.Match(content, contentPosition, contentRemainderLength);
 			if (match.Success)
 			{
 				GroupCollection groups = match.Groups;
-				string startTagName = groups["tagName"].Value;
+
+				Group startTagNameGroup = groups["tagName"];
+				string startTagName = startTagNameGroup.Value;
 				string startTagNameInLowercase = startTagName;
 				if (Utils.ContainsUppercaseCharacters(startTagName))
 				{
@@ -549,7 +553,7 @@ namespace WebMarkupMin.Core.Parsers
 				if (invalidCharactersGroup.Success)
 				{
 					int invalidCharactersPosition = invalidCharactersGroup.Index;
-					int invalidCharactersOffset = invalidCharactersPosition - _innerContext.Position;
+					int invalidCharactersOffset = invalidCharactersPosition - contentPosition;
 
 					_innerContext.IncreasePosition(invalidCharactersOffset);
 
@@ -558,39 +562,19 @@ namespace WebMarkupMin.Core.Parsers
 						_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 				}
 
+				int attributesPosition = startTagNameGroup.Index + startTagNameGroup.Length;
+				int attributesOffset = attributesPosition - contentPosition;
+				int startTagRemainderLength = contentPosition + match.Length - attributesPosition;
+
+				_innerContext.IncreasePosition(attributesOffset);
+
+				IList<HtmlAttribute> attributes = ParseAttributes(content, attributesPosition,
+					startTagRemainderLength, _innerContext.NodeCoordinates);
 				bool isEmptyTag = groups["emptyTagSlash"].Success;
 
-				Group attributesGroup = groups["attributes"];
-				var attributesCoordinates = SourceCodeNodeCoordinates.Empty;
-				int attributesPosition = -1;
-				string attributesString = string.Empty;
+				ParseStartTag(startTagName, startTagNameInLowercase, attributes, isEmptyTag);
 
-				if (attributesGroup.Success)
-				{
-					attributesPosition = attributesGroup.Index;
-					attributesString = attributesGroup.Value;
-				}
-
-				if (attributesPosition != -1)
-				{
-					int nodePosition = _innerContext.Position;
-					SourceCodeNodeCoordinates nodeCoordinates = _innerContext.NodeCoordinates;
-					int attributesOffset = attributesPosition - nodePosition;
-
-					int lineBreakCount;
-					int charRemainderCount;
-
-					SourceCodeNavigator.CalculateLineBreakCount(content, nodePosition,
-						attributesOffset, out lineBreakCount, out charRemainderCount);
-
-					attributesCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
-						nodeCoordinates, lineBreakCount, charRemainderCount);
-				}
-
-				ParseStartTag(startTagName, startTagNameInLowercase, attributesString, attributesCoordinates,
-					isEmptyTag);
-
-				_innerContext.IncreasePosition(match.Length);
+				_innerContext.IncreasePosition(startTagRemainderLength);
 				isProcessed = true;
 			}
 
@@ -798,11 +782,10 @@ namespace WebMarkupMin.Core.Parsers
 		/// </summary>
 		/// <param name="tagName">Tag name</param>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
-		/// <param name="attributesString">String representation of the attribute list</param>
-		/// <param name="attributesCoordinates">Attributes coordinates</param>
+		/// <param name="attributes">List of attributes</param>
 		/// <param name="isEmptyTag">Flag that tag is empty</param>
-		private void ParseStartTag(string tagName, string tagNameInLowercase, string attributesString,
-			SourceCodeNodeCoordinates attributesCoordinates, bool isEmptyTag)
+		private void ParseStartTag(string tagName, string tagNameInLowercase, IList<HtmlAttribute> attributes,
+			bool isEmptyTag)
 		{
 			HtmlTagFlags tagFlags = GetTagFlagsByName(tagNameInLowercase);
 
@@ -832,8 +815,12 @@ namespace WebMarkupMin.Core.Parsers
 				tagFlags |= HtmlTagFlags.Empty;
 			}
 
-			var attributes = ParseAttributes(tagName, tagNameInLowercase, tagFlags,
-				attributesString, attributesCoordinates);
+			foreach (HtmlAttribute attribute in attributes)
+			{
+				attribute.Type = GetAttributeType(tagNameInLowercase, tagFlags,
+					attribute.NameInLowercase, attributes);
+			}
+
 			var tag = new HtmlTag(tagName, tagNameInLowercase, attributes, tagFlags);
 
 			if (!isEmptyTag)
@@ -870,31 +857,22 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Parses a attributes
 		/// </summary>
-		/// <param name="tagName">Tag name</param>
-		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
-		/// <param name="tagFlags">Tag flags</param>
-		/// <param name="attributesString">String representation of the attribute list</param>
+		/// <param name="sourceCode">Source code</param>
+		/// <param name="attributesPosition">Start position of attributes</param>
+		/// <param name="startTagRemainderLength">Length of attributes and remaining characters in start tag</param>
 		/// <param name="attributesCoordinates">Attributes coordinates</param>
 		/// <returns>List of attributes</returns>
-		private IList<HtmlAttribute> ParseAttributes(string tagName, string tagNameInLowercase, HtmlTagFlags tagFlags,
-			string attributesString, SourceCodeNodeCoordinates attributesCoordinates)
+		private IList<HtmlAttribute> ParseAttributes(string sourceCode, int attributesPosition,
+			int startTagRemainderLength, SourceCodeNodeCoordinates attributesCoordinates)
 		{
-			if (string.IsNullOrWhiteSpace(attributesString))
-			{
-				return new List<HtmlAttribute>();
-			}
+			Match match = _attributeRegex.Match(sourceCode, attributesPosition, startTagRemainderLength);
+			var attributes = new List<HtmlAttribute>();
+			int currentPosition = attributesPosition;
+			SourceCodeNodeCoordinates currentCoordinates = attributesCoordinates;
 
-			SourceCodeNodeCoordinates currentAttributesCoordinates = attributesCoordinates;
-			int currentPosition = 0;
-			MatchCollection matches = _attributeRegex.Matches(attributesString);
-			int matchCount = matches.Count;
-			var attributes = new List<HtmlAttribute>(matchCount);
-
-			for (int matchIndex = 0; matchIndex < matchCount; matchIndex++)
+			while (match.Success)
 			{
-				Match match = matches[matchIndex];
 				GroupCollection groups = match.Groups;
-
 				Group attributeNameGroup = groups["attributeName"];
 				Group attributeEqualSignGroup = groups["attributeEqualSign"];
 				Group attributeValueGroup = groups["attributeValue"];
@@ -935,13 +913,13 @@ namespace WebMarkupMin.Core.Parsers
 					int lineBreakCount;
 					int charRemainderCount;
 
-					SourceCodeNavigator.CalculateLineBreakCount(attributesString, currentPosition,
+					SourceCodeNavigator.CalculateLineBreakCount(sourceCode, currentPosition,
 						attributeNamePosition - currentPosition, out lineBreakCount, out charRemainderCount);
 					attributeNameCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
-						currentAttributesCoordinates, lineBreakCount, charRemainderCount);
+						currentCoordinates, lineBreakCount, charRemainderCount);
 
-					currentAttributesCoordinates = attributeNameCoordinates;
 					currentPosition = attributeNamePosition;
+					currentCoordinates = attributeNameCoordinates;
 				}
 
 				var attributeValueCoordinates = SourceCodeNodeCoordinates.Empty;
@@ -956,21 +934,20 @@ namespace WebMarkupMin.Core.Parsers
 					int lineBreakCount;
 					int charRemainderCount;
 
-					SourceCodeNavigator.CalculateLineBreakCount(attributesString, currentPosition,
+					SourceCodeNavigator.CalculateLineBreakCount(sourceCode, currentPosition,
 						attributeValuePosition - currentPosition, out lineBreakCount, out charRemainderCount);
 					attributeValueCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
-						currentAttributesCoordinates, lineBreakCount, charRemainderCount);
+						currentCoordinates, lineBreakCount, charRemainderCount);
 
-					currentAttributesCoordinates = attributeValueCoordinates;
 					currentPosition = attributeValuePosition;
+					currentCoordinates = attributeValueCoordinates;
 				}
 
-				HtmlAttributeType attributeType = GetAttributeType(tagNameInLowercase, tagFlags,
-					attributeNameInLowercase, attributes);
 				var attribute = new HtmlAttribute(attributeName, attributeNameInLowercase, attributeValue,
-					attributeType, attributeNameCoordinates, attributeValueCoordinates);
-
+					HtmlAttributeType.Unknown, attributeNameCoordinates, attributeValueCoordinates);
 				attributes.Add(attribute);
+
+				match = match.NextMatch();
 			}
 
 			return attributes;
