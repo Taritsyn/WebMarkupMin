@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                   README file for Web Markup Minifier: Core v2.5.1
+                   README file for Web Markup Minifier: Core v2.5.3
 
    --------------------------------------------------------------------------------
 
@@ -46,7 +46,7 @@
    =============
    RELEASE NOTES
    =============
-   Small performance improvements.
+   Improved performance of markup minification.
 
    =============
    DOCUMENTATION

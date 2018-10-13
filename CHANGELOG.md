@@ -1,6 +1,12 @@
 Change log
 ==========
 
+## v2.5.3 - October 13, 2018
+ * Improved performance of markup minification
+ * In WebMarkupMin.AspNet.Brotli:
+   * Added support of the BrotliSharpLib version 0.3.1
+   * Added strong name signing for assembly
+
 ## v2.5.2 - August 22, 2018
  * In WebMarkupMin.NUglify added support of the NUglify version 1.5.12
 
