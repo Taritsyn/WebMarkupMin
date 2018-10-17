@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 
-using BenchmarkDotNet.Attributes;
-
-namespace WebMarkupMin.Core.Benchmark
+namespace WebMarkupMin.Benchmarks
 {
 	internal static class Utils
 	{

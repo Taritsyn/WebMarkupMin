@@ -15,7 +15,7 @@ using WmmSettings = WebMarkupMin.Core.HtmlMinificationSettings;
 using ZphcMinifier = ZetaProducerHtmlCompressor.HtmlContentCompressor;
 #endif
 
-namespace WebMarkupMin.Core.Benchmark
+namespace WebMarkupMin.Benchmarks
 {
 	[MemoryDiagnoser]
 	public class HtmlMinificationBenchmark

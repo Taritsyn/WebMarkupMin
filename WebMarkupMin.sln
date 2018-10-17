@@ -60,7 +60,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.AspNetCore1", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.AspNetCore2", "src\WebMarkupMin.AspNetCore2\WebMarkupMin.AspNetCore2.csproj", "{FB743652-E1C4-40B3-B499-53780DCBAA8F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Core.Benchmark", "test\WebMarkupMin.Core.Benchmark\WebMarkupMin.Core.Benchmark.csproj", "{73A9EE62-426A-4E54-9A92-C5B601DAB70F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Benchmarks", "test\WebMarkupMin.Benchmarks\WebMarkupMin.Benchmarks.csproj", "{73A9EE62-426A-4E54-9A92-C5B601DAB70F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Core.Test", "test\WebMarkupMin.Core.Test\WebMarkupMin.Core.Test.csproj", "{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}"
 EndProject

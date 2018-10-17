@@ -2,7 +2,7 @@
 
 using BenchmarkDotNet.Running;
 
-namespace WebMarkupMin.Core.Benchmark
+namespace WebMarkupMin.Benchmarks
 {
 	public static class Program
 	{

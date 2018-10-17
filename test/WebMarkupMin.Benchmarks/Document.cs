@@ -1,4 +1,4 @@
-﻿namespace WebMarkupMin.Core.Benchmark
+﻿namespace WebMarkupMin.Benchmarks
 {
 	internal sealed class Document
 	{

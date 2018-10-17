@@ -8,7 +8,7 @@ using WmmNullCssMinifier = WebMarkupMin.Core.NullCssMinifier;
 using WmmNullJsMinifier = WebMarkupMin.Core.NullJsMinifier;
 using WmmSettings = WebMarkupMin.Core.XhtmlMinificationSettings;
 
-namespace WebMarkupMin.Core.Benchmark
+namespace WebMarkupMin.Benchmarks
 {
 	[MemoryDiagnoser]
 	public class XhtmlMinificationBenchmark

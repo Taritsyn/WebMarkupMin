@@ -13,7 +13,7 @@ using LinqXmlSaveOptions = System.Xml.Linq.SaveOptions;
 #endif
 using WmmMinifier = WebMarkupMin.Core.XmlMinifier;
 
-namespace WebMarkupMin.Core.Benchmark
+namespace WebMarkupMin.Benchmarks
 {
 	[MemoryDiagnoser]
 	public class XmlMinificationBenchmark
