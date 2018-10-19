@@ -14,11 +14,6 @@ namespace WebMarkupMin.Core.Utilities
 		/// </summary>
 		private static readonly char[] _otherWhitespaceChars = { '\t', '\r', '\n', '\v', '\f' };
 
-		/// <summary>
-		/// Regular expression for working with ending semicolons
-		/// </summary>
-		private static readonly Regex _endingSemicolonWithSpacesRegex = new Regex(@"\s*;\s*$");
-
 
 		/// <summary>
 		/// Converts value of source enumeration type to value of destination enumeration type
@@ -117,29 +112,49 @@ namespace WebMarkupMin.Core.Utilities
 		}
 
 		/// <summary>
-		/// Removes a ending semicolon
+		/// Removes a ending semicolons
 		/// </summary>
 		/// <param name="value">String value</param>
-		/// <returns>String value without ending semicolon</returns>
-		internal static string RemoveEndingSemicolon(string value)
+		/// <returns>String value without ending semicolons</returns>
+		internal static string RemoveEndingSemicolons(string value)
 		{
 			if (value == null)
 			{
 				throw new ArgumentNullException(nameof(value));
 			}
 
-			if (value.Length == 0)
+			int charCount = value.Length;
+			if (charCount == 0 || value.LastIndexOf(';') == -1)
 			{
 				return value;
 			}
 
-			string result = value;
-
-			Match match = _endingSemicolonWithSpacesRegex.Match(value);
-			if (match.Success)
+			// If the string value consists only of a semicolon character, then return an empty string
+			if (charCount == 1)
 			{
-				result = value.Substring(0, match.Index);
+				return string.Empty;
 			}
+
+			int resultLength = charCount;
+			bool isContainsSemicolon = false;
+
+			for (int charIndex = charCount - 1; charIndex >= 0; charIndex--)
+			{
+				char charValue = value[charIndex];
+				bool currentSemicolon = charValue == ';';
+				isContainsSemicolon = isContainsSemicolon || currentSemicolon;
+
+				if (currentSemicolon || char.IsWhiteSpace(charValue))
+				{
+					resultLength--;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			string result = isContainsSemicolon ? value.Substring(0, resultLength) : value;
 
 			return result;
 		}

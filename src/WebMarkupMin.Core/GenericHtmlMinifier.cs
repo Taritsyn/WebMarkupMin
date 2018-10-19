@@ -1477,7 +1477,7 @@ namespace WebMarkupMin.Core
 						break;
 					case HtmlAttributeType.Style:
 						processedAttributeValue = processedAttributeValue.Trim();
-						processedAttributeValue = Utils.RemoveEndingSemicolon(processedAttributeValue);
+						processedAttributeValue = Utils.RemoveEndingSemicolons(processedAttributeValue);
 						break;
 					default:
 						if (_settings.MinifyAngularBindingExpressions && tag.Flags.HasFlag(HtmlTagFlags.Custom))
@@ -2725,7 +2725,7 @@ namespace WebMarkupMin.Core
 				}
 			}
 
-			result = Utils.RemoveEndingSemicolon(result);
+			result = Utils.RemoveEndingSemicolons(result);
 
 			return result;
 		}
@@ -2787,7 +2787,7 @@ namespace WebMarkupMin.Core
 				result = result.Trim();
 			}
 
-			result = Utils.RemoveEndingSemicolon(result);
+			result = Utils.RemoveEndingSemicolons(result);
 
 			return result;
 		}
@@ -3002,7 +3002,7 @@ namespace WebMarkupMin.Core
 					sourceFragment);
 			}
 
-			result = Utils.RemoveEndingSemicolon(result);
+			result = Utils.RemoveEndingSemicolons(result);
 
 			return result;
 		}
