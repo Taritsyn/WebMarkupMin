@@ -18,12 +18,12 @@ namespace WebMarkupMin.Core
 	/// </summary>
 	public sealed class KristensenCssMinifier : ICssMinifier
 	{
-		private static readonly Regex _redundantIdSelectorRegex = new Regex(@"[a-zA-Z]+#");
+		private static readonly Regex _commentRegex = new Regex(@"/\*[\s\S]*?\*/");
 		private static readonly Regex _lineBreakRegex = new Regex(@"[\n\r]+\s*");
 		private static readonly Regex _multipleSpacesRegex = new Regex(@"\s+");
 		private static readonly Regex _separatingCharacters = new Regex(@"\s?([:,;{}])\s?");
-		private static readonly Regex _zeroValue = new Regex(@"([\s:]0)(px|%|em|in|cm|mm|ex|pt|pc|ch|rem|vh|vm|vmin|vmax|vw)");
-		private static readonly Regex _commentRegex = new Regex(@"/\*[\s\S]*?\*/");
+		private static readonly Regex _redundantSelectorRegex = new Regex(@"[a-zA-Z]+#");
+		private static readonly Regex _zeroValue = new Regex(@"([\s:]0)(px|em|ex|cm|mm|in|pt|pc|%|ch|rem|vh|vm(?:ax|in)?|vw)");
 
 		/// <summary>
 		/// Gets a value indicating the minifier supports inline code minification
@@ -62,21 +62,29 @@ namespace WebMarkupMin.Core
 			}
 
 			string newContent = content;
+
+			// Remove comments from CSS
+			newContent = _commentRegex.Replace(newContent, string.Empty);
+
+			// Minify whitespace
 			if (!isInlineCode)
 			{
-				newContent = _redundantIdSelectorRegex.Replace(newContent, "#");
 				newContent = _lineBreakRegex.Replace(newContent, string.Empty);
 			}
 			newContent = _multipleSpacesRegex.Replace(newContent, " ");
 			newContent = _separatingCharacters.Replace(newContent, "$1");
+
 			if (!isInlineCode)
 			{
+				// Remove redundant selectors
+				newContent = _redundantSelectorRegex.Replace(newContent, "#");
+
+				// Removing last semicolons
 				newContent = newContent.Replace(";}", "}");
 			}
-			newContent = _zeroValue.Replace(newContent, "$1");
 
-			// Remove comments from CSS
-			newContent = _commentRegex.Replace(newContent, string.Empty);
+			// Remove units from zero values
+			newContent = _zeroValue.Replace(newContent, "$1");
 
 			return new CodeMinificationResult(newContent);
 		}
