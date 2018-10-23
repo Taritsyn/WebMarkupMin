@@ -45,13 +45,34 @@ namespace WebMarkupMin.Core.Test.Css.Kristensen
 			const string input1 = "background-image:	url('/images/products/392.jpg')";
 			const string targetOutput1 = "background-image:url('/images/products/392.jpg')";
 
-			const string input2 = "font-size:	120%;  " +
+			const string input2 = "  	font-size:	120%;  " +
 				"font-family: Verdana,	Arial,   Helvetica,  sans-serif ;" +
-				"color : #336"
+				"color : #336	  "
 				;
 			const string targetOutput2 = "font-size:120%;" +
 				"font-family:Verdana,Arial,Helvetica,sans-serif;" +
 				"color:#336";
+
+			// Act
+			string output1 = minifier.Minify(input1, true).MinifiedContent;
+			string output2 = minifier.Minify(input2, true).MinifiedContent;
+
+			// Assert
+			Assert.Equal(targetOutput1, output1);
+			Assert.Equal(targetOutput2, output2);
+		}
+
+		[Fact]
+		public void RemovingLastSemicolonsIsCorrect()
+		{
+			// Arrange
+			var minifier = new KristensenCssMinifier();
+
+			const string input1 = "color:blue;";
+			const string targetOutput1 = "color:blue";
+
+			const string input2 = "color:red;background-color:yellow;font-weight:bold;";
+			const string targetOutput2 = "color:red;background-color:yellow;font-weight:bold";
 
 			// Act
 			string output1 = minifier.Minify(input1, true).MinifiedContent;
@@ -159,13 +180,13 @@ namespace WebMarkupMin.Core.Test.Css.Kristensen
 			// Arrange
 			var minifier = new KristensenCssMinifier();
 
-			const string input = "width:	640px; " +
+			const string input = "  	width:	640px; " +
 				"/*max-width: 1020px; */" +
 				"margin: 10px  0px; " +
 				"border: 4px  double   black; " +
 				"font-size:  120%; " +
 				"font-family: Verdana,	 Arial,   Helvetica,  sans-serif ; " +
-				"color : #336"
+				"color : #336	 ; "
 				;
 			const string targetOutput = "width:640px;" +
 				"margin:10px 0;" +

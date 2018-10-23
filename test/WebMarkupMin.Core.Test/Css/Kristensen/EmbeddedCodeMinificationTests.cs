@@ -88,9 +88,9 @@ namespace WebMarkupMin.Core.Test.Css.Kristensen
 				"}"
 				;
 
-			const string input3 = "p.note > b {\r " +
+			const string input3 = "  	p.note > b {\r " +
 				"   color: red\r" +
-				"}"
+				"}	  "
 				;
 			const string targetOutput3 = "p.note > b{" +
 				"color:red" +
@@ -126,6 +126,27 @@ namespace WebMarkupMin.Core.Test.Css.Kristensen
 		}
 
 		[Fact]
+		public void RemovingLastSemicolonsIsCorrect()
+		{
+			// Arrange
+			var minifier = new KristensenCssMinifier();
+
+			const string input1 = "a{color:blue;}";
+			const string targetOutput1 = "a{color:blue}";
+
+			const string input2 = ".note{color:red;background-color:yellow;font-weight:bold;}";
+			const string targetOutput2 = ".note{color:red;background-color:yellow;font-weight:bold}";
+
+			// Act
+			string output1 = minifier.Minify(input1, false).MinifiedContent;
+			string output2 = minifier.Minify(input2, false).MinifiedContent;
+
+			// Assert
+			Assert.Equal(targetOutput1, output1);
+			Assert.Equal(targetOutput2, output2);
+		}
+
+		[Fact]
 		public void RemovingRedundantSelectorsIsCorrect()
 		{
 			// Arrange
@@ -146,27 +167,6 @@ namespace WebMarkupMin.Core.Test.Css.Kristensen
 			Assert.Equal(targetOutput1, output1);
 			Assert.Equal(input2, output2);
 			Assert.Equal(input3, output3);
-		}
-
-		[Fact]
-		public void RemovingLastSemicolonsIsCorrect()
-		{
-			// Arrange
-			var minifier = new KristensenCssMinifier();
-
-			const string input1 = "a{color:blue;}";
-			const string targetOutput1 = "a{color:blue}";
-
-			const string input2 = ".note{color:red;background-color:yellow;font-weight:bold;}";
-			const string targetOutput2 = ".note{color:red;background-color:yellow;font-weight:bold}";
-
-			// Act
-			string output1 = minifier.Minify(input1, false).MinifiedContent;
-			string output2 = minifier.Minify(input2, false).MinifiedContent;
-
-			// Assert
-			Assert.Equal(targetOutput1, output1);
-			Assert.Equal(targetOutput2, output2);
 		}
 
 		[Fact]
@@ -266,7 +266,7 @@ namespace WebMarkupMin.Core.Test.Css.Kristensen
 			// Arrange
 			var minifier = new KristensenCssMinifier();
 
-			const string input = "div#idDiv\n" +
+			const string input = "  	div#idDiv\n" +
 				"{\n" +
 				"	/*max-width: 1020px;*/\n" +
 				"	margin: 10px  0px;\n" +
@@ -289,7 +289,7 @@ namespace WebMarkupMin.Core.Test.Css.Kristensen
 				"p::first-letter\n" +
 				"{\n" +
 				"	font-size: 32px;\n" +
-				"}\n"
+				"}	  "
 				;
 			const string targetOutput = "#idDiv" +
 				"{" +

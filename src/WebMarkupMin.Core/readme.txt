@@ -46,7 +46,9 @@
    =============
    RELEASE NOTES
    =============
-   Improved performance of markup minification.
+   1. `RemoveEndingSemicolon` method of `Utils` class was renamed to the
+      `RemoveEndingSemicolons` (implementation has also been changed);
+   2. Mads Kristensen's CSS minifier has been refactored.
 
    =============
    DOCUMENTATION
