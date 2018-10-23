@@ -12,6 +12,11 @@ namespace WebMarkupMin.Core
 	public sealed class CrockfordJsMinifier : IJsMinifier
 	{
 		/// <summary>
+		/// Original JS minifier
+		/// </summary>
+		private readonly JsMinifier _originalJsMinifier = new JsMinifier();
+
+		/// <summary>
 		/// Gets a value indicating the minifier supports inline code minification
 		/// </summary>
 		public bool IsInlineCodeMinificationSupported
@@ -52,8 +57,7 @@ namespace WebMarkupMin.Core
 
 			try
 			{
-				var jsMin = new JsMinifier();
-				newContent = jsMin.Minify(content);
+				newContent = _originalJsMinifier.Minify(content);
 			}
 			catch (JsMinificationException e)
 			{

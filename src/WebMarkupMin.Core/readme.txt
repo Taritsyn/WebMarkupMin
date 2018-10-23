@@ -48,7 +48,8 @@
    =============
    1. `RemoveEndingSemicolon` method of `Utils` class was renamed to the
       `RemoveEndingSemicolons` (implementation has also been changed);
-   2. Mads Kristensen's CSS minifier has been refactored.
+   2. Mads Kristensen's CSS minifier has been refactored;
+   3. Improved performance of the Douglas Crockford's JS minifier.
 
    =============
    DOCUMENTATION

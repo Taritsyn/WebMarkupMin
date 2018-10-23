@@ -71,7 +71,7 @@ namespace WebMarkupMin.Core.DouglasCrockford
 		/// </summary>
 		/// <param name="content">JavaScript content</param>
 		/// <returns>Minified JavaScript content</returns>
-		public String Minify(string content)
+		public string Minify(string content)
 		{
 			string minifiedContent;
 
