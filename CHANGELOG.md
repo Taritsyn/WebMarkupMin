@@ -1,6 +1,12 @@
 Change log
 ==========
 
+## v2.5.4 - October 24, 2018
+ * Fixed a error that occurred when removing quotes from attribute with an empty value
+ * `RemoveEndingSemicolon` method of `Utils` class was renamed to the `RemoveEndingSemicolons` (implementation has also been changed)
+ * Mads Kristensen's CSS minifier has been refactored
+ * Improved performance of adapter for the Douglas Crockford's JS minifier
+
 ## v2.5.3 - October 13, 2018
  * Improved performance of markup minification
  * In WebMarkupMin.AspNet.Brotli:
