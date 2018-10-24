@@ -1565,19 +1565,20 @@ namespace WebMarkupMin.Core
 			string attributeValue = attribute.Value;
 			bool result = false;
 
-			if (attributeQuotesRemovalMode != HtmlAttributeQuotesRemovalMode.KeepQuotes)
+			switch (attributeQuotesRemovalMode)
 			{
-				if (!attributeValue.EndsWith("/"))
-				{
-					if (attributeQuotesRemovalMode == HtmlAttributeQuotesRemovalMode.Html4)
-					{
-						result = HtmlAttributeValueHelpers.IsHtml4AttributeValueNotRequireQuotes(attributeValue);
-					}
-					else if (attributeQuotesRemovalMode == HtmlAttributeQuotesRemovalMode.Html5)
-					{
-						result = HtmlAttributeValueHelpers.IsHtml5AttributeValueNotRequireQuotes(attributeValue);
-					}
-				}
+				case HtmlAttributeQuotesRemovalMode.KeepQuotes:
+					result = false;
+					break;
+				case HtmlAttributeQuotesRemovalMode.Html4:
+					result = HtmlAttributeValueHelpers.IsNotRequireQuotesInHtml4(attributeValue);
+					break;
+				case HtmlAttributeQuotesRemovalMode.Html5:
+					result = HtmlAttributeValueHelpers.IsNotRequireQuotesInHtml5(attributeValue);
+					break;
+				default:
+					result = false;
+					break;
 			}
 
 			return result;

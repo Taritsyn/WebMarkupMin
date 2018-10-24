@@ -46,10 +46,12 @@
    =============
    RELEASE NOTES
    =============
-   1. `RemoveEndingSemicolon` method of `Utils` class was renamed to the
+   1. Fixed a error that occurred when removing quotes from attribute with an empty
+      value;
+   2. `RemoveEndingSemicolon` method of `Utils` class was renamed to the
       `RemoveEndingSemicolons` (implementation has also been changed);
-   2. Mads Kristensen's CSS minifier has been refactored;
-   3. Improved performance of the Douglas Crockford's JS minifier.
+   3. Mads Kristensen's CSS minifier has been refactored;
+   4. Improved performance of adapter for the Douglas Crockford's JS minifier.
 
    =============
    DOCUMENTATION

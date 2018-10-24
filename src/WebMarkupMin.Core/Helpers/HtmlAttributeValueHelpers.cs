@@ -19,10 +19,16 @@ namespace WebMarkupMin.Core.Helpers
 		/// </summary>
 		private static readonly char[] _encodingCharsWithSingleQuote = { '\'', '&', '<' };
 
-		public static bool IsHtml4AttributeValueNotRequireQuotes(string value)
+
+		public static bool IsNotRequireQuotesInHtml4(string value)
 		{
-			bool result = true;
 			int charCount = value.Length;
+			if (charCount == 0 || value[charCount - 1] == '/')
+			{
+				return false;
+			}
+
+			bool result = true;
 
 			for (int charIndex = 0; charIndex < charCount; charIndex++)
 			{
@@ -46,10 +52,15 @@ namespace WebMarkupMin.Core.Helpers
 			return result;
 		}
 
-		public static bool IsHtml5AttributeValueNotRequireQuotes(string value)
+		public static bool IsNotRequireQuotesInHtml5(string value)
 		{
-			bool result = true;
 			int charCount = value.Length;
+			if (charCount == 0 || value[charCount - 1] == '/')
+			{
+				return false;
+			}
+
+			bool result = true;
 
 			for (int charIndex = 0; charIndex < charCount; charIndex++)
 			{

@@ -256,8 +256,7 @@ namespace WebMarkupMin.Core
 		/// <returns>Quotation mark</returns>
 		private static string GetQuoteForAttributeValue(string attributeValue)
 		{
-			if (attributeValue.Length > 0 && !attributeValue.EndsWith("/")
-				&& HtmlAttributeValueHelpers.IsHtml5AttributeValueNotRequireQuotes(attributeValue))
+			if (HtmlAttributeValueHelpers.IsNotRequireQuotesInHtml5(attributeValue))
 			{
 				return string.Empty;
 			}

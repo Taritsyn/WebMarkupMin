@@ -5274,6 +5274,8 @@ namespace WebMarkupMin.Core.Test.Html
 				;
 			const string targetOutput18C = targetOutput18B;
 
+			const string input19 = "<input data-options=\"\">";
+
 			// Act
 			string output1A = keepingAttributeQuotesMinifier.Minify(input1).MinifiedContent;
 			string output1B = html4RemovingAttributeQuotesMinifier.Minify(input1).MinifiedContent;
@@ -5347,6 +5349,10 @@ namespace WebMarkupMin.Core.Test.Html
 			string output18B = html4RemovingAttributeQuotesMinifier.Minify(input18).MinifiedContent;
 			string output18C = html5RemovingAttributeQuotesMinifier.Minify(input18).MinifiedContent;
 
+			string output19A = keepingAttributeQuotesMinifier.Minify(input19).MinifiedContent;
+			string output19B = html4RemovingAttributeQuotesMinifier.Minify(input19).MinifiedContent;
+			string output19C = html5RemovingAttributeQuotesMinifier.Minify(input19).MinifiedContent;
+
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
@@ -5419,6 +5425,10 @@ namespace WebMarkupMin.Core.Test.Html
 			Assert.Equal(targetOutput18A, output18A);
 			Assert.Equal(targetOutput18B, output18B);
 			Assert.Equal(targetOutput18C, output18C);
+
+			Assert.Equal(input19, output19A);
+			Assert.Equal(input19, output19B);
+			Assert.Equal(input19, output19C);
 		}
 
 		#endregion
