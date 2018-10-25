@@ -51,6 +51,7 @@ namespace WebMarkupMin.Yui
 		/// Creates a instance of original CSS minifier
 		/// </summary>
 		/// <param name="settings">CSS minifier settings</param>
+		/// <returns>Instance of original CSS minifier</returns>
 		private static CssCompressor CreateOriginalCssMinifierInstance(YuiCssMinificationSettings settings)
 		{
 			var originalMinifier = new CssCompressor();

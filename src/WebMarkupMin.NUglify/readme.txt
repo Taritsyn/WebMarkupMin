@@ -19,7 +19,7 @@
    =============
    RELEASE NOTES
    =============
-   Added support of the NUglify version 1.5.12.
+   Improved performance of adapter for the NUglify CSS Minifier.
 
    =============
    DOCUMENTATION

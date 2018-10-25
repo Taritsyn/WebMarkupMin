@@ -140,13 +140,13 @@ namespace WebMarkupMin.Yui
 				}
 				finally
 				{
+					_originalJsMinifier.ErrorReporter = null;
+					_originalJsMinifier.Encoding = Encoding.Default;
+
 					errors.AddRange(_errorReporter.Errors);
 					warnings.AddRange(_errorReporter.Warnings);
 
 					_errorReporter.Clear();
-
-					_originalJsMinifier.ErrorReporter = null;
-					_originalJsMinifier.Encoding = Encoding.Default;
 				}
 			}
 

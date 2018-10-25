@@ -1,13 +1,13 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 
-using NUglify;
 using NUglify.Css;
-using NUglify.JavaScript;
 using NuCssColor = NUglify.Css.CssColor;
 using NuCssComment = NUglify.Css.CssComment;
 
 using WebMarkupMin.Core;
 using WebMarkupMin.Core.Utilities;
+using WebMarkupMin.NUglify.Reporters;
 using WmmCssColor = WebMarkupMin.NUglify.CssColor;
 using WmmCssComment = WebMarkupMin.NUglify.CssComment;
 
@@ -19,33 +19,36 @@ namespace WebMarkupMin.NUglify
 	public sealed class NUglifyCssMinifier : NUglifyMinifierBase, ICssMinifier
 	{
 		/// <summary>
-		/// Original CSS minifier settings for embedded code
+		/// NUglify CSS Minifier settings
 		/// </summary>
-		private readonly CssSettings _originalEmbeddedCssSettings;
+		private readonly NUglifyCssMinificationSettings _settings;
 
 		/// <summary>
-		/// Original CSS minifier settings for inline code
+		/// Error reporter
 		/// </summary>
-		private readonly CssSettings _originalInlineCssSettings;
+		private NUglifyErrorReporter _errorReporter;
 
 		/// <summary>
-		/// Original JS minifier settings
+		/// Original CSS parser for embedded code
 		/// </summary>
-		private readonly CodeSettings _originalJsSettings;
+		private CssParser _originalEmbeddedCssParser;
 
 		/// <summary>
-		/// Gets a value indicating the minifier supports inline code minification
+		/// Original CSS parser for inline code
 		/// </summary>
-		public bool IsInlineCodeMinificationSupported
-		{
-			get { return true; }
-		}
+		private CssParser _originalInlineCssParser;
+
+		/// <summary>
+		/// Synchronizer of minification
+		/// </summary>
+		private readonly object _minificationSynchronizer = new object();
 
 
 		/// <summary>
 		/// Constructs an instance of the NUglify CSS Minifier
 		/// </summary>
-		public NUglifyCssMinifier() : this(new NUglifyCssMinificationSettings())
+		public NUglifyCssMinifier()
+			: this(new NUglifyCssMinificationSettings())
 		{ }
 
 		/// <summary>
@@ -54,11 +57,47 @@ namespace WebMarkupMin.NUglify
 		/// <param name="settings">NUglify CSS Minifier settings</param>
 		public NUglifyCssMinifier(NUglifyCssMinificationSettings settings)
 		{
-			_originalEmbeddedCssSettings = CreateOriginalCssMinifierSettings(settings, false);
-			_originalInlineCssSettings = CreateOriginalCssMinifierSettings(settings, true);
-			_originalJsSettings = new CodeSettings();
+			_settings = settings;
 		}
 
+
+		/// <summary>
+		/// Creates a instance of original CSS parser
+		/// </summary>
+		/// <param name="settings">CSS minifier settings</param>
+		/// <param name="isInlineCode">Flag for whether to create a settings for inline code</param>
+		/// <returns>Instance of original CSS parser</returns>
+		private static CssParser CreateOriginalCssParserInstance(NUglifyCssMinificationSettings settings,
+			bool isInlineCode)
+		{
+			var originalSettings = new CssSettings();
+			MapCommonSettings(originalSettings, settings);
+			originalSettings.ColorNames = Utils.GetEnumFromOtherEnum<WmmCssColor, NuCssColor>(
+				settings.ColorNames);
+			originalSettings.CommentMode = Utils.GetEnumFromOtherEnum<WmmCssComment, NuCssComment>(
+				settings.CommentMode);
+			originalSettings.MinifyExpressions = settings.MinifyExpressions;
+			originalSettings.RemoveEmptyBlocks = settings.RemoveEmptyBlocks;
+			originalSettings.CssType = isInlineCode ? CssType.DeclarationList : CssType.FullStyleSheet;
+
+			var originalParser = new CssParser()
+			{
+				FileContext = string.Empty,
+				Settings = originalSettings
+			};
+
+			return originalParser;
+		}
+
+		#region ICssMinifier implementation
+
+		/// <summary>
+		/// Gets a value indicating the minifier supports inline code minification
+		/// </summary>
+		public bool IsInlineCodeMinificationSupported
+		{
+			get { return true; }
+		}
 
 		/// <summary>
 		/// Produces a code minifiction of CSS content by using the NUglify CSS Minifier
@@ -85,45 +124,52 @@ namespace WebMarkupMin.NUglify
 				return new CodeMinificationResult(string.Empty);
 			}
 
-			CssSettings originalCssSettings = isInlineCode ?
-				_originalInlineCssSettings : _originalEmbeddedCssSettings;
-			UglifyResult originalResult = Uglify.Css(content, originalCssSettings, _originalJsSettings);
-			CodeMinificationResult result = GetCodeMinificationResult(originalResult);
+			string newContent = string.Empty;
+			var errors = new List<MinificationErrorInfo>();
+			var warnings = new List<MinificationErrorInfo>();
 
-			return result;
+			lock (_minificationSynchronizer)
+			{
+				if (_errorReporter == null)
+				{
+					_errorReporter = new NUglifyErrorReporter();
+				}
+
+				CssParser originalCssParser = isInlineCode ? _originalInlineCssParser : _originalEmbeddedCssParser;
+				if (originalCssParser == null)
+				{
+					originalCssParser = CreateOriginalCssParserInstance(_settings, isInlineCode);
+					if (isInlineCode)
+					{
+						_originalInlineCssParser = originalCssParser;
+					}
+					else
+					{
+						_originalEmbeddedCssParser = originalCssParser;
+					}
+				}
+
+				originalCssParser.CssError += _errorReporter.ParseErrorHandler;
+
+				try
+				{
+					// Parse the input
+					newContent = originalCssParser.Parse(content);
+				}
+				finally
+				{
+					originalCssParser.CssError -= _errorReporter.ParseErrorHandler;
+
+					errors.AddRange(_errorReporter.Errors);
+					warnings.AddRange(_errorReporter.Warnings);
+
+					_errorReporter.Clear();
+				}
+			}
+
+			return new CodeMinificationResult(newContent, errors, warnings);
 		}
 
-		/// <summary>
-		/// Creates a original CSS minifier settings
-		/// </summary>
-		/// <param name="settings">CSS minifier settings</param>
-		/// <param name="isInlineCode">Flag for whether to create a settings for inline code</param>
-		/// <returns>Original CSS minifier settings</returns>
-		private static CssSettings CreateOriginalCssMinifierSettings(NUglifyCssMinificationSettings settings,
-			bool isInlineCode)
-		{
-			var originalSettings = new CssSettings();
-			MapCssSettings(originalSettings, settings);
-			originalSettings.CssType = isInlineCode ? CssType.DeclarationList : CssType.FullStyleSheet;
-
-			return originalSettings;
-		}
-
-		/// <summary>
-		/// Maps a CSS minifier settings
-		/// </summary>
-		/// <param name="originalSettings">Original CSS minifier settings</param>
-		/// <param name="settings">CSS minifier settings</param>
-		private static void MapCssSettings(CssSettings originalSettings, NUglifyCssMinificationSettings settings)
-		{
-			MapCommonSettings(originalSettings, settings);
-
-			originalSettings.ColorNames = Utils.GetEnumFromOtherEnum<WmmCssColor, NuCssColor>(
-				settings.ColorNames);
-			originalSettings.CommentMode = Utils.GetEnumFromOtherEnum<WmmCssComment, NuCssComment>(
-				settings.CommentMode);
-			originalSettings.MinifyExpressions = settings.MinifyExpressions;
-			originalSettings.RemoveEmptyBlocks = settings.RemoveEmptyBlocks;
-		}
+		#endregion
 	}
 }

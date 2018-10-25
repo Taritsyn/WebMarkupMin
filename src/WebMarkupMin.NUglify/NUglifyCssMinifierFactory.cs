@@ -33,6 +33,8 @@ namespace WebMarkupMin.NUglify
 		}
 
 
+		#region ICssMinifierFactory implementation
+
 		/// <summary>
 		/// Creates a instance of the NUglify CSS Minifier
 		/// </summary>
@@ -41,5 +43,7 @@ namespace WebMarkupMin.NUglify
 		{
 			return new NUglifyCssMinifier(MinificationSettings);
 		}
+
+		#endregion
 	}
 }
