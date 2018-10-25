@@ -49,6 +49,18 @@ namespace WebMarkupMin.Yui.Reporters
 
 
 		/// <summary>
+		/// Clears a error and warning lists
+		/// </summary>
+		public void Clear()
+		{
+			_errors.Clear();
+			_warnings.Clear();
+		}
+
+
+		#region ErrorReporter implementation
+
+		/// <summary>
 		/// Creates a ECMAScript runtime exception
 		/// </summary>
 		/// <param name="message">Message</param>
@@ -88,5 +100,7 @@ namespace WebMarkupMin.Yui.Reporters
 		{
 			_warnings.Add(new MinificationErrorInfo(message, line, lineOffset, lineSource));
 		}
+
+		#endregion
 	}
 }

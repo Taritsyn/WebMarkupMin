@@ -19,7 +19,7 @@
    =============
    RELEASE NOTES
    =============
-   Improved performance of adapter for the YUI CSS Compressor.
+   Improved performance of adapters for the YUI Compressor.
 
    =============
    DOCUMENTATION

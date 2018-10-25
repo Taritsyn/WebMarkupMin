@@ -33,6 +33,8 @@ namespace WebMarkupMin.Yui
 		}
 
 
+		#region IJsMinifierFactory implementation
+
 		/// <summary>
 		/// Creates a instance of the YUI JS Minifier
 		/// </summary>
@@ -41,5 +43,7 @@ namespace WebMarkupMin.Yui
 		{
 			return new YuiJsMinifier(MinificationSettings);
 		}
+
+		#endregion
 	}
 }
