@@ -19,9 +19,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Added support of .NET Standard 2.0;
-   2. YUI Compressor for .NET was updated to version 3.0.0;
-   3. Now requires .NET Framework 4.5.2 or greater.
+   Improved performance of adapter for the YUI CSS Compressor.
 
    =============
    DOCUMENTATION

@@ -33,6 +33,8 @@ namespace WebMarkupMin.Yui
 		}
 
 
+		#region ICssMinifierFactory implementation
+
 		/// <summary>
 		/// Creates a instance of the YUI CSS Minifier
 		/// </summary>
@@ -41,5 +43,7 @@ namespace WebMarkupMin.Yui
 		{
 			return new YuiCssMinifier(MinificationSettings);
 		}
+
+		#endregion
 	}
 }

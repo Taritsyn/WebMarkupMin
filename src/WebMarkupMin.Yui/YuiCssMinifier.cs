@@ -15,19 +15,53 @@ namespace WebMarkupMin.Yui
 	public sealed class YuiCssMinifier : YuiMinifierBase, ICssMinifier
 	{
 		/// <summary>
-		/// Original CSS minifier for embedded code
+		/// Settings of the YUI CSS Minifier
 		/// </summary>
-		private readonly CssCompressor _originalEmbeddedCssMinifier;
+		private readonly YuiCssMinificationSettings _settings;
 
 		/// <summary>
-		/// Original CSS minifier for inline code
+		/// Original CSS minifier
 		/// </summary>
-		private readonly CssCompressor _originalInlineCssMinifier;
+		private CssCompressor _originalCssMinifier;
 
 		/// <summary>
 		/// Synchronizer of minification
 		/// </summary>
 		private readonly object _minificationSynchronizer = new object();
+
+
+		/// <summary>
+		/// Constructs an instance of the YUI CSS Minifier
+		/// </summary>
+		public YuiCssMinifier()
+			: this(new YuiCssMinificationSettings())
+		{ }
+
+		/// <summary>
+		/// Constructs an instance of the YUI CSS Minifier
+		/// </summary>
+		/// <param name="settings">Settings of the YUI CSS Minifier</param>
+		public YuiCssMinifier(YuiCssMinificationSettings settings)
+		{
+			_settings = settings;
+		}
+
+
+		/// <summary>
+		/// Creates a instance of original CSS minifier
+		/// </summary>
+		/// <param name="settings">CSS minifier settings</param>
+		private static CssCompressor CreateOriginalCssMinifierInstance(YuiCssMinificationSettings settings)
+		{
+			var originalMinifier = new CssCompressor();
+			ApplyCommonSettingsToOriginalMinifier(originalMinifier, settings);
+			originalMinifier.RemoveComments = settings.RemoveComments;
+
+			return originalMinifier;
+		}
+
+
+		#region ICssMinifier implementation
 
 		/// <summary>
 		/// Gets a value indicating the minifier supports inline code minification
@@ -35,23 +69,6 @@ namespace WebMarkupMin.Yui
 		public bool IsInlineCodeMinificationSupported
 		{
 			get { return true; }
-		}
-
-
-		/// <summary>
-		/// Constructs an instance of the YUI CSS Minifier
-		/// </summary>
-		public YuiCssMinifier() : this(new YuiCssMinificationSettings())
-		{ }
-
-		/// <summary>
-		/// Constructs an instance of the YUI CSS Minifier
-		/// </summary>
-		/// <param name="settings">Settings of YUI CSS Minifier</param>
-		public YuiCssMinifier(YuiCssMinificationSettings settings)
-		{
-			_originalEmbeddedCssMinifier = CreateOriginalCssMinifierInstance(settings, false);
-			_originalInlineCssMinifier = CreateOriginalCssMinifierInstance(settings, true);
 		}
 
 
@@ -80,9 +97,6 @@ namespace WebMarkupMin.Yui
 				return new CodeMinificationResult(string.Empty);
 			}
 
-			CssCompressor originalCssMinifier = isInlineCode ?
-				_originalInlineCssMinifier : _originalEmbeddedCssMinifier;
-
 			string newContent = string.Empty;
 			var errors = new List<MinificationErrorInfo>();
 
@@ -90,7 +104,12 @@ namespace WebMarkupMin.Yui
 			{
 				lock (_minificationSynchronizer)
 				{
-					newContent = originalCssMinifier.Compress(content);
+					if (_originalCssMinifier == null)
+					{
+						_originalCssMinifier = CreateOriginalCssMinifierInstance(_settings);
+					}
+
+					newContent = _originalCssMinifier.Compress(content);
 				}
 			}
 			catch (ArgumentOutOfRangeException)
@@ -101,36 +120,6 @@ namespace WebMarkupMin.Yui
 			return new CodeMinificationResult(newContent, errors);
 		}
 
-		/// <summary>
-		/// Creates a instance of original CSS minifier
-		/// </summary>
-		/// <param name="settings">CSS minifier settings</param>
-		/// <param name="isInlineCode">Flag for whether to create a settings for inline code</param>
-		/// <returns>Instance of original CSS minifier</returns>
-		private static CssCompressor CreateOriginalCssMinifierInstance(YuiCssMinificationSettings settings,
-			bool isInlineCode)
-		{
-			var originalMinifier = new CssCompressor();
-			ApplyCssSettingsToOriginalCssMinifier(originalMinifier, settings);
-			if (isInlineCode)
-			{
-				originalMinifier.LineBreakPosition = -1;
-			}
-
-			return originalMinifier;
-		}
-
-		/// <summary>
-		/// Applies a CSS settings to original CSS minifier
-		/// </summary>
-		/// <param name="originalMinifier">Original CSS minifier</param>
-		/// <param name="settings">CSS minifier settings</param>
-		private static void ApplyCssSettingsToOriginalCssMinifier(CssCompressor originalMinifier,
-			YuiCssMinificationSettings settings)
-		{
-			ApplyCommonSettingsToOriginalMinifier(originalMinifier, settings);
-
-			originalMinifier.RemoveComments = settings.RemoveComments;
-		}
+		#endregion
 	}
 }
