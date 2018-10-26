@@ -29,14 +29,9 @@ namespace WebMarkupMin.NUglify
 		private NUglifyErrorReporter _errorReporter;
 
 		/// <summary>
-		/// Original CSS parser for embedded code
+		/// Original CSS parser
 		/// </summary>
-		private CssParser _originalEmbeddedCssParser;
-
-		/// <summary>
-		/// Original CSS parser for inline code
-		/// </summary>
-		private CssParser _originalInlineCssParser;
+		private CssParser _originalCssParser;
 
 		/// <summary>
 		/// Synchronizer of minification
@@ -65,10 +60,8 @@ namespace WebMarkupMin.NUglify
 		/// Creates a instance of original CSS parser
 		/// </summary>
 		/// <param name="settings">CSS minifier settings</param>
-		/// <param name="isInlineCode">Flag for whether to create a settings for inline code</param>
 		/// <returns>Instance of original CSS parser</returns>
-		private static CssParser CreateOriginalCssParserInstance(NUglifyCssMinificationSettings settings,
-			bool isInlineCode)
+		private static CssParser CreateOriginalCssParserInstance(NUglifyCssMinificationSettings settings)
 		{
 			var originalSettings = new CssSettings();
 			MapCommonSettings(originalSettings, settings);
@@ -78,7 +71,6 @@ namespace WebMarkupMin.NUglify
 				settings.CommentMode);
 			originalSettings.MinifyExpressions = settings.MinifyExpressions;
 			originalSettings.RemoveEmptyBlocks = settings.RemoveEmptyBlocks;
-			originalSettings.CssType = isInlineCode ? CssType.DeclarationList : CssType.FullStyleSheet;
 
 			var originalParser = new CssParser()
 			{
@@ -135,30 +127,23 @@ namespace WebMarkupMin.NUglify
 					_errorReporter = new NUglifyErrorReporter();
 				}
 
-				CssParser originalCssParser = isInlineCode ? _originalInlineCssParser : _originalEmbeddedCssParser;
-				if (originalCssParser == null)
+				if (_originalCssParser == null)
 				{
-					originalCssParser = CreateOriginalCssParserInstance(_settings, isInlineCode);
-					if (isInlineCode)
-					{
-						_originalInlineCssParser = originalCssParser;
-					}
-					else
-					{
-						_originalEmbeddedCssParser = originalCssParser;
-					}
+					_originalCssParser = CreateOriginalCssParserInstance(_settings);
 				}
 
-				originalCssParser.CssError += _errorReporter.ParseErrorHandler;
+				_originalCssParser.Settings.CssType = isInlineCode ?
+					CssType.DeclarationList : CssType.FullStyleSheet;
+				_originalCssParser.CssError += _errorReporter.ParseErrorHandler;
 
 				try
 				{
 					// Parse the input
-					newContent = originalCssParser.Parse(content);
+					newContent = _originalCssParser.Parse(content);
 				}
 				finally
 				{
-					originalCssParser.CssError -= _errorReporter.ParseErrorHandler;
+					_originalCssParser.CssError -= _errorReporter.ParseErrorHandler;
 
 					errors.AddRange(_errorReporter.Errors);
 					warnings.AddRange(_errorReporter.Warnings);
