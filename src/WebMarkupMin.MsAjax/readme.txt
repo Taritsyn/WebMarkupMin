@@ -19,7 +19,7 @@
    =============
    RELEASE NOTES
    =============
-   Added support of .NET Standard 2.0.
+   Improved performance of adapter for the Microsoft Ajax CSS Minifier.
 
    =============
    DOCUMENTATION

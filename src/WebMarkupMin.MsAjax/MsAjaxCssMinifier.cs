@@ -7,6 +7,7 @@ using MsCssComment = Microsoft.Ajax.Utilities.CssComment;
 
 using WebMarkupMin.Core;
 using WebMarkupMin.Core.Utilities;
+using WebMarkupMin.MsAjax.Reporters;
 using WmmCssColor = WebMarkupMin.MsAjax.CssColor;
 using WmmCssComment = WebMarkupMin.MsAjax.CssComment;
 
@@ -18,33 +19,31 @@ namespace WebMarkupMin.MsAjax
 	public sealed class MsAjaxCssMinifier : MsAjaxMinifierBase, ICssMinifier
 	{
 		/// <summary>
-		/// Original CSS minifier settings for embedded code
+		/// Microsoft Ajax CSS Minifier settings
 		/// </summary>
-		private readonly CssSettings _originalEmbeddedCssSettings;
+		private readonly MsAjaxCssMinificationSettings _settings;
 
 		/// <summary>
-		/// Original CSS minifier settings for inline code
+		/// Error reporter
 		/// </summary>
-		private readonly CssSettings _originalInlineCssSettings;
+		private MsAjaxErrorReporter _errorReporter;
 
 		/// <summary>
-		/// Original JS minifier settings
+		/// Original CSS parser
 		/// </summary>
-		private readonly CodeSettings _originalJsSettings;
+		private CssParser _originalCssParser;
 
 		/// <summary>
-		/// Gets a value indicating the minifier supports inline code minification
+		/// Synchronizer of minification
 		/// </summary>
-		public bool IsInlineCodeMinificationSupported
-		{
-			get { return true; }
-		}
+		private readonly object _minificationSynchronizer = new object();
 
 
 		/// <summary>
 		/// Constructs an instance of the Microsoft Ajax CSS Minifier
 		/// </summary>
-		public MsAjaxCssMinifier() : this(new MsAjaxCssMinificationSettings())
+		public MsAjaxCssMinifier()
+			: this(new MsAjaxCssMinificationSettings())
 		{ }
 
 		/// <summary>
@@ -53,11 +52,43 @@ namespace WebMarkupMin.MsAjax
 		/// <param name="settings">Microsoft Ajax CSS Minifier settings</param>
 		public MsAjaxCssMinifier(MsAjaxCssMinificationSettings settings)
 		{
-			_originalEmbeddedCssSettings = CreateOriginalCssMinifierSettings(settings, false);
-			_originalInlineCssSettings = CreateOriginalCssMinifierSettings(settings, true);
-			_originalJsSettings = new CodeSettings();
+			_settings = settings;
 		}
 
+		/// <summary>
+		/// Creates a instance of original CSS parser
+		/// </summary>
+		/// <param name="settings">CSS minifier settings</param>
+		/// <returns>Instance of original CSS parser</returns>
+		private static CssParser CreateOriginalCssParserInstance(MsAjaxCssMinificationSettings settings)
+		{
+			var originalSettings = new CssSettings();
+			MapCommonSettings(originalSettings, settings);
+			originalSettings.ColorNames = Utils.GetEnumFromOtherEnum<WmmCssColor, MsCssColor>(
+				settings.ColorNames);
+			originalSettings.CommentMode = Utils.GetEnumFromOtherEnum<WmmCssComment, MsCssComment>(
+				settings.CommentMode);
+			originalSettings.MinifyExpressions = settings.MinifyExpressions;
+			originalSettings.RemoveEmptyBlocks = settings.RemoveEmptyBlocks;
+
+			var originalParser = new CssParser()
+			{
+				FileContext = string.Empty,
+				Settings = originalSettings
+			};
+
+			return originalParser;
+		}
+
+		#region ICssMinifier implementation
+
+		/// <summary>
+		/// Gets a value indicating the minifier supports inline code minification
+		/// </summary>
+		public bool IsInlineCodeMinificationSupported
+		{
+			get { return true; }
+		}
 
 		/// <summary>
 		/// Produces a code minifiction of CSS content by using the Microsoft Ajax CSS Minifier
@@ -84,54 +115,45 @@ namespace WebMarkupMin.MsAjax
 				return new CodeMinificationResult(string.Empty);
 			}
 
-			CssSettings originalCssSettings = isInlineCode ?
-				_originalInlineCssSettings : _originalEmbeddedCssSettings;
-			var originalMinifier = new Minifier
-			{
-				WarningLevel = 2
-			};
-
-			string newContent = originalMinifier.MinifyStyleSheet(content, originalCssSettings, _originalJsSettings);
-			ICollection<ContextError> originalErrors = originalMinifier.ErrorList;
-
+			string newContent = string.Empty;
 			var errors = new List<MinificationErrorInfo>();
 			var warnings = new List<MinificationErrorInfo>();
-			MapErrors(originalErrors, errors, warnings);
+
+			lock (_minificationSynchronizer)
+			{
+				if (_errorReporter == null)
+				{
+					_errorReporter = new MsAjaxErrorReporter();
+				}
+
+				if (_originalCssParser == null)
+				{
+					_originalCssParser = CreateOriginalCssParserInstance(_settings);
+				}
+
+				_originalCssParser.Settings.CssType = isInlineCode ?
+					CssType.DeclarationList : CssType.FullStyleSheet;
+				_originalCssParser.CssError += _errorReporter.ParseErrorHandler;
+
+				try
+				{
+					// Parse the input
+					newContent = _originalCssParser.Parse(content);
+				}
+				finally
+				{
+					_originalCssParser.CssError -= _errorReporter.ParseErrorHandler;
+
+					errors.AddRange(_errorReporter.Errors);
+					warnings.AddRange(_errorReporter.Warnings);
+
+					_errorReporter.Clear();
+				}
+			}
 
 			return new CodeMinificationResult(newContent, errors, warnings);
 		}
 
-		/// <summary>
-		/// Creates a original CSS minifier settings
-		/// </summary>
-		/// <param name="settings">CSS minifier settings</param>
-		/// <param name="isInlineCode">Flag for whether to create a settings for inline code</param>
-		/// <returns>Original CSS minifier settings</returns>
-		private static CssSettings CreateOriginalCssMinifierSettings(MsAjaxCssMinificationSettings settings,
-			bool isInlineCode)
-		{
-			var originalSettings = new CssSettings();
-			MapCssSettings(originalSettings, settings);
-			originalSettings.CssType = isInlineCode ? CssType.DeclarationList : CssType.FullStyleSheet;
-
-			return originalSettings;
-		}
-
-		/// <summary>
-		/// Maps a CSS minifier settings
-		/// </summary>
-		/// <param name="originalSettings">Original CSS minifier settings</param>
-		/// <param name="settings">CSS minifier settings</param>
-		private static void MapCssSettings(CssSettings originalSettings, MsAjaxCssMinificationSettings settings)
-		{
-			MapCommonSettings(originalSettings, settings);
-
-			originalSettings.ColorNames = Utils.GetEnumFromOtherEnum<WmmCssColor, MsCssColor>(
-				settings.ColorNames);
-			originalSettings.CommentMode = Utils.GetEnumFromOtherEnum<WmmCssComment, MsCssComment>(
-				settings.CommentMode);
-			originalSettings.MinifyExpressions = settings.MinifyExpressions;
-			originalSettings.RemoveEmptyBlocks = settings.RemoveEmptyBlocks;
-		}
+		#endregion
 	}
 }
