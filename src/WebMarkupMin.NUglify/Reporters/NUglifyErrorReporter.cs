@@ -47,7 +47,7 @@ namespace WebMarkupMin.NUglify.Reporters
 		/// Constructs an instance of the NUglify error reporter
 		/// </summary>
 		public NUglifyErrorReporter()
-			: this(2)
+			: this(0)
 		{ }
 
 		/// <summary>

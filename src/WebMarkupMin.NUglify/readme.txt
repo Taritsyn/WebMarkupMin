@@ -19,7 +19,7 @@
    =============
    RELEASE NOTES
    =============
-   Improved performance of adapter for the NUglify CSS Minifier.
+   Improved performance of adapters for the NUglify.
 
    =============
    DOCUMENTATION

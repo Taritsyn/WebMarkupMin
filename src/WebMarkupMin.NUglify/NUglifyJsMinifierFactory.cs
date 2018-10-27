@@ -32,6 +32,7 @@ namespace WebMarkupMin.NUglify
 			MinificationSettings = settings;
 		}
 
+		#region IJsMinifierFactory implementation
 
 		/// <summary>
 		/// Creates a instance of the NUglify JS Minifier
@@ -41,5 +42,7 @@ namespace WebMarkupMin.NUglify
 		{
 			return new NUglifyJsMinifier(MinificationSettings);
 		}
+
+		#endregion
 	}
 }
