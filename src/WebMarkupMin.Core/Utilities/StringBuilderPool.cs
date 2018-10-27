@@ -7,7 +7,7 @@ namespace WebMarkupMin.Core.Utilities
 	/// <summary>
 	/// Pool of string builders
 	/// </summary>
-	internal static class StringBuilderPool
+	public static class StringBuilderPool
 	{
 		/// <summary>
 		/// Maximum capacity of builder
