@@ -4,7 +4,7 @@
 		<Product>Web Markup Minifier: Sample ASP.NET Core 1.0 MVC 1 Site</Product>
 		<VersionPrefix>2.5.4</VersionPrefix>
 		<TargetFramework>netcoreapp1.0</TargetFramework>
-		<RuntimeFrameworkVersion>1.0.9</RuntimeFrameworkVersion>
+		<RuntimeFrameworkVersion>1.0.13</RuntimeFrameworkVersion>
 		<OutputType>Exe</OutputType>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<PreserveCompilationContext>true</PreserveCompilationContext>
