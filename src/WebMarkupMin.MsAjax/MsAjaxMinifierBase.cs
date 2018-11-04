@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-
-using Microsoft.Ajax.Utilities;
+﻿using Microsoft.Ajax.Utilities;
 using MsOutputMode = Microsoft.Ajax.Utilities.OutputMode;
 using MsBlockStart = Microsoft.Ajax.Utilities.BlockStart;
 
-using WebMarkupMin.Core;
 using WebMarkupMin.Core.Utilities;
 using WmmOutputMode = WebMarkupMin.MsAjax.OutputMode;
 using WmmBlockStart = WebMarkupMin.MsAjax.BlockStart;
@@ -34,36 +31,6 @@ namespace WebMarkupMin.MsAjax
 				settings.OutputMode);
 			originalSettings.PreprocessorDefineList = settings.PreprocessorDefineList;
 			originalSettings.TermSemicolons = settings.TermSemicolons;
-		}
-
-		/// <summary>
-		/// Maps a list of errors
-		/// </summary>
-		/// <param name="originalErrors">Original list of errors</param>
-		/// <param name="errors">List of errors</param>
-		/// <param name="warnings">List of warnings</param>
-		protected static void MapErrors(ICollection<ContextError> originalErrors,
-			IList<MinificationErrorInfo> errors,
-			IList<MinificationErrorInfo> warnings)
-		{
-			if (originalErrors.Count == 0)
-			{
-				return;
-			}
-
-			foreach (ContextError originalError in originalErrors)
-			{
-				var errorDetails = new MinificationErrorInfo(originalError.Message, originalError.StartLine,
-					originalError.StartColumn, string.Empty);
-				if (originalError.IsError)
-				{
-					errors.Add(errorDetails);
-				}
-				else
-				{
-					warnings.Add(errorDetails);
-				}
-			}
 		}
 	}
 }

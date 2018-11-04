@@ -33,6 +33,8 @@ namespace WebMarkupMin.MsAjax
 		}
 
 
+		#region IJsMinifierFactory implementation
+
 		/// <summary>
 		/// Creates a instance of the Microsoft Ajax JS Minifier
 		/// </summary>
@@ -41,5 +43,7 @@ namespace WebMarkupMin.MsAjax
 		{
 			return new MsAjaxJsMinifier(MinificationSettings);
 		}
+
+		#endregion
 	}
 }

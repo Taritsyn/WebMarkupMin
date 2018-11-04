@@ -19,7 +19,7 @@
    =============
    RELEASE NOTES
    =============
-   Improved performance of adapter for the Microsoft Ajax CSS Minifier.
+   Improved performance of adapters for the Microsoft Ajax Minifier.
 
    =============
    DOCUMENTATION
