@@ -29,9 +29,14 @@ namespace WebMarkupMin.MsAjax
 		private MsAjaxErrorReporter _errorReporter;
 
 		/// <summary>
-		/// Original CSS parser
+		/// Original CSS parser for embedded code
 		/// </summary>
-		private CssParser _originalCssParser;
+		private CssParser _originalEmbeddedCssParser;
+
+		/// <summary>
+		/// Original CSS parser for inline code
+		/// </summary>
+		private CssParser _originalInlineCssParser;
 
 		/// <summary>
 		/// Synchronizer of minification
@@ -59,8 +64,10 @@ namespace WebMarkupMin.MsAjax
 		/// Creates a instance of original CSS parser
 		/// </summary>
 		/// <param name="settings">CSS minifier settings</param>
+		/// <param name="isInlineCode">Flag for whether to create a CSS parser for inline code</param>
 		/// <returns>Instance of original CSS parser</returns>
-		private static CssParser CreateOriginalCssParserInstance(MsAjaxCssMinificationSettings settings)
+		private static CssParser CreateOriginalCssParserInstance(MsAjaxCssMinificationSettings settings,
+			bool isInlineCode)
 		{
 			var originalSettings = new CssSettings();
 			MapCommonSettings(originalSettings, settings);
@@ -68,6 +75,8 @@ namespace WebMarkupMin.MsAjax
 				settings.ColorNames);
 			originalSettings.CommentMode = Utils.GetEnumFromOtherEnum<WmmCssComment, MsCssComment>(
 				settings.CommentMode);
+			originalSettings.CssType = isInlineCode ?
+				CssType.DeclarationList : CssType.FullStyleSheet;
 			originalSettings.MinifyExpressions = settings.MinifyExpressions;
 			originalSettings.RemoveEmptyBlocks = settings.RemoveEmptyBlocks;
 
@@ -126,23 +135,31 @@ namespace WebMarkupMin.MsAjax
 					_errorReporter = new MsAjaxErrorReporter();
 				}
 
-				if (_originalCssParser == null)
+				CssParser originalCssParser = isInlineCode ?
+					_originalInlineCssParser : _originalEmbeddedCssParser;
+				if (originalCssParser == null)
 				{
-					_originalCssParser = CreateOriginalCssParserInstance(_settings);
+					originalCssParser = CreateOriginalCssParserInstance(_settings, isInlineCode);
+					if (isInlineCode)
+					{
+						_originalInlineCssParser = originalCssParser;
+					}
+					else
+					{
+						_originalEmbeddedCssParser = originalCssParser;
+					}
 				}
 
-				_originalCssParser.Settings.CssType = isInlineCode ?
-					CssType.DeclarationList : CssType.FullStyleSheet;
-				_originalCssParser.CssError += _errorReporter.ParseErrorHandler;
+				originalCssParser.CssError += _errorReporter.ParseErrorHandler;
 
 				try
 				{
 					// Parse the input
-					newContent = _originalCssParser.Parse(content);
+					newContent = originalCssParser.Parse(content);
 				}
 				finally
 				{
-					_originalCssParser.CssError -= _errorReporter.ParseErrorHandler;
+					originalCssParser.CssError -= _errorReporter.ParseErrorHandler;
 
 					errors.AddRange(_errorReporter.Errors);
 					warnings.AddRange(_errorReporter.Warnings);

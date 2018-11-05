@@ -32,9 +32,14 @@ namespace WebMarkupMin.MsAjax
 		private MsAjaxErrorReporter _errorReporter;
 
 		/// <summary>
-		/// Original JS parser
+		/// Original JS parser for embedded code
 		/// </summary>
-		private JSParser _originalJsParser;
+		private JSParser _originalEmbeddedJsParser;
+
+		/// <summary>
+		/// Original JS parser for inline code
+		/// </summary>
+		private JSParser _originalInlineJsParser;
 
 		/// <summary>
 		/// Synchronizer of minification
@@ -62,8 +67,10 @@ namespace WebMarkupMin.MsAjax
 		/// Creates a instance of original JS parser
 		/// </summary>
 		/// <param name="settings">JS minifier settings</param>
+		/// <param name="isInlineCode">Flag for whether to create a JS parser for inline code</param>
 		/// <returns>Instance of original JS parser</returns>
-		private static JSParser CreateOriginalJsParserInstance(MsAjaxJsMinificationSettings settings)
+		private static JSParser CreateOriginalJsParserInstance(MsAjaxJsMinificationSettings settings,
+			bool isInlineCode)
 		{
 			var originalSettings = new CodeSettings();
 			MapCommonSettings(originalSettings, settings);
@@ -92,6 +99,8 @@ namespace WebMarkupMin.MsAjax
 			originalSettings.RemoveUnneededCode = settings.RemoveUnneededCode;
 			originalSettings.RenamePairs = settings.RenamePairs;
 			originalSettings.ReorderScopeDeclarations = settings.ReorderScopeDeclarations;
+			originalSettings.SourceMode = isInlineCode ?
+				JavaScriptSourceMode.EventHandler : JavaScriptSourceMode.Program;
 			originalSettings.StrictMode = settings.StrictMode;
 			originalSettings.StripDebugStatements = settings.StripDebugStatements;
 
@@ -150,14 +159,22 @@ namespace WebMarkupMin.MsAjax
 					_errorReporter = new MsAjaxErrorReporter();
 				}
 
-				if (_originalJsParser == null)
+				JSParser originalJsParser = isInlineCode ?
+					_originalInlineJsParser : _originalEmbeddedJsParser;
+				if (originalJsParser == null)
 				{
-					_originalJsParser = CreateOriginalJsParserInstance(_settings);
+					originalJsParser = CreateOriginalJsParserInstance(_settings, isInlineCode);
+					if (isInlineCode)
+					{
+						_originalInlineJsParser = originalJsParser;
+					}
+					else
+					{
+						_originalEmbeddedJsParser = originalJsParser;
+					}
 				}
 
-				_originalJsParser.Settings.SourceMode = isInlineCode ?
-					JavaScriptSourceMode.EventHandler : JavaScriptSourceMode.Program;
-				_originalJsParser.CompilerError += _errorReporter.ParseErrorHandler;
+				originalJsParser.CompilerError += _errorReporter.ParseErrorHandler;
 
 				StringBuilder contentBuilder = WmmStringBuilderPool.GetBuilder();
 				var documentContext = new DocumentContext(content)
@@ -170,11 +187,11 @@ namespace WebMarkupMin.MsAjax
 					using (var stringWriter = new StringWriter(contentBuilder, CultureInfo.InvariantCulture))
 					{
 						// Parse the input
-						Block scriptBlock = _originalJsParser.Parse(documentContext);
+						Block scriptBlock = originalJsParser.Parse(documentContext);
 						if (scriptBlock != null)
 						{
 							// Use normal output visitor
-							OutputVisitor.Apply(stringWriter, scriptBlock, _originalJsParser.Settings);
+							OutputVisitor.Apply(stringWriter, scriptBlock, originalJsParser.Settings);
 						}
 					}
 
@@ -182,7 +199,7 @@ namespace WebMarkupMin.MsAjax
 				}
 				finally
 				{
-					_originalJsParser.CompilerError -= _errorReporter.ParseErrorHandler;
+					originalJsParser.CompilerError -= _errorReporter.ParseErrorHandler;
 					WmmStringBuilderPool.ReleaseBuilder(contentBuilder);
 
 					errors.AddRange(_errorReporter.Errors);
