@@ -261,7 +261,7 @@ namespace WebMarkupMin.Core
 			}
 
 			_buffer.Add("<?xml");
-			RenderAttributes(attributes);
+			WriteAttributes(attributes);
 			_buffer.Add("?>");
 		}
 
@@ -283,7 +283,7 @@ namespace WebMarkupMin.Core
 
 			_buffer.Add("<?");
 			_buffer.Add(instructionName);
-			RenderAttributes(attributes);
+			WriteAttributes(attributes);
 			_buffer.Add("?>");
 		}
 
@@ -359,7 +359,7 @@ namespace WebMarkupMin.Core
 
 			_buffer.Add("<");
 			_buffer.Add(tagName);
-			RenderAttributes(attributes);
+			WriteAttributes(attributes);
 			_buffer.Add(">");
 		}
 
@@ -422,7 +422,7 @@ namespace WebMarkupMin.Core
 
 			_buffer.Add("<");
 			_buffer.Add(tagName);
-			RenderAttributes(attributes);
+			WriteAttributes(attributes);
 			_buffer.Add(_settings.RenderEmptyTagsWithSpace ? " />" : "/>");
 		}
 
@@ -608,29 +608,24 @@ namespace WebMarkupMin.Core
 		#endregion
 
 		/// <summary>
-		/// Renders a list of attributes
+		/// Writes a attributes to buffer
 		/// </summary>
 		/// <param name="attributes">List of attributes</param>
-		private void RenderAttributes(IList<XmlAttribute> attributes)
+		private void WriteAttributes(IList<XmlAttribute> attributes)
 		{
 			int attributeCount = attributes.Count;
 
 			for (int attributeIndex = 0; attributeIndex < attributeCount; attributeIndex++)
 			{
-				_buffer.Add(BuildAttributeString(attributes[attributeIndex]));
+				XmlAttribute attribute = attributes[attributeIndex];
+				string encodedAttributeValue = XmlAttributeValueHelpers.Encode(attribute.Value);
+
+				_buffer.Add(" ");
+				_buffer.Add(attribute.Name);
+				_buffer.Add("=\"");
+				_buffer.Add(encodedAttributeValue);
+				_buffer.Add("\"");
 			}
-		}
-
-		/// <summary>
-		/// Builds a string representation of the attribute
-		/// </summary>
-		/// <param name="attribute">XML attribute</param>
-		/// <returns>String representation of the XML attribute</returns>
-		private static string BuildAttributeString(XmlAttribute attribute)
-		{
-			string encodedAttributeValue = XmlAttributeValueHelpers.Encode(attribute.Value);
-
-			return string.Concat(" ", attribute.Name, "=", "\"", encodedAttributeValue, "\"");
 		}
 
 		/// <summary>

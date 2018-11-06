@@ -46,7 +46,8 @@
    =============
    RELEASE NOTES
    =============
-   `StringBuilderPool` class has become public.
+   1. `StringBuilderPool` class has become public;
+   2. Improved performance of attributes generations in XML minifier.
 
    =============
    DOCUMENTATION
