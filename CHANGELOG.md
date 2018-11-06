@@ -1,6 +1,13 @@
 Change log
 ==========
 
+## v2.5.5 - November 6, 2018
+ * `StringBuilderPool` class has become public
+ * Improved performance of attributes generation in XML minifier
+ * In WebMarkupMin.MsAjax, WebMarkupMin.Yui and WebMarkupMin.NUglify improved performance of minifier-adapters
+ * In WebMarkupMin.MsAjax and WebMarkupMin.NUglify in configuration settings of CSS and JS minifiers was added one new property - `WarningLevel` (default `0`)
+ * In WebMarkupMin.Yui in configuration settings of JS minifier was added one new property - `WarningLevel` (default `0`)
+
 ## v2.5.4 - October 24, 2018
  * Fixed a error that occurred when removing quotes from attribute with an empty value
  * `RemoveEndingSemicolon` method of `Utils` class was renamed to the `RemoveEndingSemicolons` (implementation has also been changed)

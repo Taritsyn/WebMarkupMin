@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<Product>Web Markup Minifier: Core Benchmarks</Product>
-		<VersionPrefix>2.5.3</VersionPrefix>
+		<VersionPrefix>2.5.5</VersionPrefix>
 		<TargetFrameworks>net461;netcoreapp2.0</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>

@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                   README file for Web Markup Minifier: Core v2.5.4
+                   README file for Web Markup Minifier: Core v2.5.5
 
    --------------------------------------------------------------------------------
 
@@ -47,7 +47,7 @@
    RELEASE NOTES
    =============
    1. `StringBuilderPool` class has become public;
-   2. Improved performance of attributes generations in XML minifier.
+   2. Improved performance of attributes generation in XML minifier.
 
    =============
    DOCUMENTATION

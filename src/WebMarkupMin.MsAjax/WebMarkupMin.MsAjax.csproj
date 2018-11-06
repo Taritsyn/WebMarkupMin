@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<Product>Web Markup Minifier: MS Ajax</Product>
-		<VersionPrefix>2.5.0</VersionPrefix>
+		<VersionPrefix>2.5.5</VersionPrefix>
 		<TargetFrameworks>net40-client;net45;netstandard2.0</TargetFrameworks>
 		<OutputType>Library</OutputType>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>

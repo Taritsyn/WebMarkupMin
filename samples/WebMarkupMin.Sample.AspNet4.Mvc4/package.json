@@ -1,7 +1,7 @@
 {
 	"name": "webmarkupmin.sample.aspnet4.mvc4",
 	"private": true,
-	"version": "2.5.4",
+	"version": "2.5.5",
 	"devDependencies": {
 		"gulp": "3.9.1",
 		"del": "3.0.0",
