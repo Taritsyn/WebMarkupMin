@@ -88,6 +88,20 @@
 			set;
 		}
 
+		/// <summary>
+		/// Gets or sets a warning level threshold for reporting errors
+		///		0 - syntax error;
+		///		1 - the programmer probably did not intend to do this;
+		///		2 - this can lead to problems in the future;
+		///		3 - this can lead to performance problems;
+		///		4 - this is just not right.
+		/// </summary>
+		public int WarningLevel
+		{
+			get;
+			set;
+		}
+
 
 		/// <summary>
 		/// Constructs an instance of common settings of the Microsoft Ajax Minifier
@@ -102,6 +116,7 @@
 			OutputMode = OutputMode.SingleLine;
 			PreprocessorDefineList = string.Empty;
 			TermSemicolons = false;
+			WarningLevel = 2;
 		}
 	}
 }

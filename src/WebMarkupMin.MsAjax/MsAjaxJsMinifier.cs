@@ -156,7 +156,7 @@ namespace WebMarkupMin.MsAjax
 			{
 				if (_errorReporter == null)
 				{
-					_errorReporter = new MsAjaxErrorReporter();
+					_errorReporter = new MsAjaxErrorReporter(_settings.WarningLevel);
 				}
 
 				JSParser originalJsParser = isInlineCode ?

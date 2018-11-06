@@ -60,6 +60,7 @@ namespace WebMarkupMin.MsAjax
 			_settings = settings;
 		}
 
+
 		/// <summary>
 		/// Creates a instance of original CSS parser
 		/// </summary>
@@ -132,7 +133,7 @@ namespace WebMarkupMin.MsAjax
 			{
 				if (_errorReporter == null)
 				{
-					_errorReporter = new MsAjaxErrorReporter();
+					_errorReporter = new MsAjaxErrorReporter(_settings.WarningLevel);
 				}
 
 				CssParser originalCssParser = isInlineCode ?
