@@ -12,7 +12,7 @@ namespace WebMarkupMin.NUglify.Reporters
 	internal sealed class NUglifyErrorReporter
 	{
 		/// <summary>
-		/// Warning level
+		/// Warning level threshold for reporting errors
 		/// </summary>
 		private readonly int _warningLevel;
 
@@ -46,14 +46,7 @@ namespace WebMarkupMin.NUglify.Reporters
 		/// <summary>
 		/// Constructs an instance of the NUglify error reporter
 		/// </summary>
-		public NUglifyErrorReporter()
-			: this(0)
-		{ }
-
-		/// <summary>
-		/// Constructs an instance of the NUglify error reporter
-		/// </summary>
-		/// <param name="warningLevel">Warning level</param>
+		/// <param name="warningLevel">Warning level threshold for reporting errors</param>
 		public NUglifyErrorReporter(int warningLevel)
 		{
 			_warningLevel = warningLevel;
@@ -74,7 +67,7 @@ namespace WebMarkupMin.NUglify.Reporters
 			{
 				var errorDetails = new MinificationErrorInfo(error.Message, error.StartLine, error.StartColumn,
 					string.Empty);
-				if (error.IsError)
+				if (error.Severity < 1)
 				{
 					_errors.Add(errorDetails);
 				}

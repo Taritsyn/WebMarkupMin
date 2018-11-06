@@ -133,7 +133,7 @@ namespace WebMarkupMin.NUglify
 			{
 				if (_errorReporter == null)
 				{
-					_errorReporter = new NUglifyErrorReporter();
+					_errorReporter = new NUglifyErrorReporter(_settings.WarningLevel);
 				}
 
 				CssParser originalCssParser = isInlineCode ?

@@ -31,7 +31,7 @@ namespace WebMarkupMin.NUglify
 				settings.OutputMode);
 			originalSettings.PreprocessorDefineList = settings.PreprocessorDefineList;
 			originalSettings.TermSemicolons = settings.TermSemicolons;
-			originalSettings.WarningLevel = 0;
+			originalSettings.WarningLevel = settings.WarningLevel;
 		}
 	}
 }
