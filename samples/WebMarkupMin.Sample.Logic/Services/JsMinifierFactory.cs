@@ -39,16 +39,16 @@ namespace WebMarkupMin.Sample.Logic.Services
 					break;
 #if !NETSTANDARD1_6
 				case "MsAjaxJsMinifier":
-					minifier = new MsAjaxJsMinifier();
+					minifier = new MsAjaxJsMinifier(new MsAjaxJsMinificationSettings { WarningLevel = 2 });
 					break;
 #endif
 #if !NET40 && !NETSTANDARD1_6
 				case "YuiJsMinifier":
-					minifier = new YuiJsMinifier();
+					minifier = new YuiJsMinifier(new YuiJsMinificationSettings { WarningLevel = 1 });
 					break;
 #endif
 				case "NUglifyJsMinifier":
-					minifier = new NUglifyJsMinifier();
+					minifier = new NUglifyJsMinifier(new NUglifyJsMinificationSettings { WarningLevel = 2 });
 					break;
 				default:
 					throw new NotSupportedException();

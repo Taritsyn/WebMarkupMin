@@ -65,7 +65,7 @@
 			PreserveAllSemicolons = false;
 			DisableOptimizations = false;
 			IgnoreEval = false;
-			WarningLevel = 1;
+			WarningLevel = 0;
 		}
 	}
 }

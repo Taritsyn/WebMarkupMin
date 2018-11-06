@@ -39,7 +39,7 @@ namespace WebMarkupMin.Sample.Logic.Services
 					break;
 #if !NETSTANDARD1_6
 				case "MsAjaxCssMinifier":
-					minifier = new MsAjaxCssMinifier();
+					minifier = new MsAjaxCssMinifier(new MsAjaxCssMinificationSettings { WarningLevel = 2 });
 					break;
 #endif
 #if !NET40 && !NETSTANDARD1_6
@@ -48,7 +48,7 @@ namespace WebMarkupMin.Sample.Logic.Services
 					break;
 #endif
 				case "NUglifyCssMinifier":
-					minifier = new NUglifyCssMinifier();
+					minifier = new NUglifyCssMinifier(new NUglifyCssMinificationSettings { WarningLevel = 2 });
 					break;
 				default:
 					throw new NotSupportedException();

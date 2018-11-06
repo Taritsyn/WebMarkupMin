@@ -21,7 +21,7 @@
    =============
    1. Improved performance of adapters for the NUglify;
    2. In configuration settings of CSS and JS minifiers was added one new
-      property - `WarningLevel` (default `2`).
+      property - `WarningLevel` (default `0`).
 
    =============
    DOCUMENTATION

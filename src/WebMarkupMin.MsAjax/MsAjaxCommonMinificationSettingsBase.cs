@@ -116,7 +116,7 @@
 			OutputMode = OutputMode.SingleLine;
 			PreprocessorDefineList = string.Empty;
 			TermSemicolons = false;
-			WarningLevel = 2;
+			WarningLevel = 0;
 		}
 	}
 }
