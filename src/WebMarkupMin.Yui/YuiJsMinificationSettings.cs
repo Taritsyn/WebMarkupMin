@@ -43,6 +43,17 @@
 			set;
 		}
 
+		/// <summary>
+		/// Gets or sets a warning level threshold for reporting errors
+		///		0 - error;
+		///		1 - warning.
+		/// </summary>
+		public int WarningLevel
+		{
+			get;
+			set;
+		}
+
 
 		/// <summary>
 		/// Constructs an instance of the YUI JS Minifier settings
@@ -54,6 +65,7 @@
 			PreserveAllSemicolons = false;
 			DisableOptimizations = false;
 			IgnoreEval = false;
+			WarningLevel = 1;
 		}
 	}
 }

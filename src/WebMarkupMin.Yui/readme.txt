@@ -19,7 +19,9 @@
    =============
    RELEASE NOTES
    =============
-   Improved performance of adapters for the YUI Compressor.
+   1. Improved performance of adapters for the YUI Compressor;
+   2. In configuration settings of JS minifier was added one new property -
+      `WarningLevel` (default `1`).
 
    =============
    DOCUMENTATION

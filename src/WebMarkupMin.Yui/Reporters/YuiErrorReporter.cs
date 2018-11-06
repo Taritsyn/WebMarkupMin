@@ -12,6 +12,11 @@ namespace WebMarkupMin.Yui.Reporters
 	internal sealed class YuiJsErrorReporter : ErrorReporter
 	{
 		/// <summary>
+		/// Warning level threshold for reporting errors
+		/// </summary>
+		private readonly int _warningLevel;
+
+		/// <summary>
 		/// List of the errors
 		/// </summary>
 		private readonly IList<MinificationErrorInfo> _errors;
@@ -41,8 +46,10 @@ namespace WebMarkupMin.Yui.Reporters
 		/// <summary>
 		/// Constructs an instance of the YUI JS error reporter
 		/// </summary>
-		public YuiJsErrorReporter()
+		/// <param name="warningLevel">Warning level threshold for reporting errors</param>
+		public YuiJsErrorReporter(int warningLevel)
 		{
+			_warningLevel = warningLevel;
 			_errors = new List<MinificationErrorInfo>();
 			_warnings = new List<MinificationErrorInfo>();
 		}
@@ -98,7 +105,10 @@ namespace WebMarkupMin.Yui.Reporters
 		/// <param name="lineOffset">Column number</param>
 		public void Warning(string message, string sourceName, int line, string lineSource, int lineOffset)
 		{
-			_warnings.Add(new MinificationErrorInfo(message, line, lineOffset, lineSource));
+			if (_warningLevel >= 1)
+			{
+				_warnings.Add(new MinificationErrorInfo(message, line, lineOffset, lineSource));
+			}
 		}
 
 		#endregion

@@ -115,7 +115,7 @@ namespace WebMarkupMin.Yui
 			{
 				if (_errorReporter == null)
 				{
-					_errorReporter = new YuiJsErrorReporter();
+					_errorReporter = new YuiJsErrorReporter(_settings.WarningLevel);
 				}
 
 				if (_originalJsMinifier == null)
