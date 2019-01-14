@@ -21,7 +21,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="BrotliSharpLib" Version="0.3.1" />
-		<PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha5" PrivateAssets="All" />
+		<PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha6" PrivateAssets="All" />
 
 		<ProjectReference Include="..\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.csproj" />
 	</ItemGroup>

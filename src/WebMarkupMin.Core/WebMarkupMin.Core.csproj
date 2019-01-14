@@ -28,7 +28,7 @@ Also supports minification of views of popular JavaScript template engines: Knoc
 	<Import Project="../../build/nuget-metadata.props" />
 
 	<ItemGroup>
-		<PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha5" PrivateAssets="All" />
+		<PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha6" PrivateAssets="All" />
 	</ItemGroup>
 
 	<ItemGroup>
