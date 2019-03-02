@@ -1980,7 +1980,7 @@ namespace WebMarkupMin.Core
 		{
 			HtmlTag upgradedTag = tag;
 
-			HtmlAttribute contentAttribute = tag.Attributes.SingleOrDefault(a => a.NameInLowercase == "content");
+			HtmlAttribute contentAttribute = tag.Attributes.FirstOrDefault(a => a.NameInLowercase == "content");
 			if (contentAttribute != null)
 			{
 				string content = contentAttribute.Value.Trim();

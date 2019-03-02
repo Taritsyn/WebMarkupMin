@@ -108,6 +108,10 @@ namespace WebMarkupMin.Core.Test.Html
 				" accept-charset=\"utf-8\" , class=\"nav-searchbar-inner\"></form>"
 				;
 
+			const string input21 = "<head><td>m<head>l><html><body><h1>h1</h1><p>p</p></body></html>";
+			const string targetOutput21 = "<head><td>m<head>l><html></html></head><body><h1>h1</h1>" +
+				"<p>p</p></body></td></head>";
+
 			// Act
 			string output1 = minifier.Minify(input1).MinifiedContent;
 			string output2 = minifier.Minify(input2).MinifiedContent;
@@ -129,6 +133,7 @@ namespace WebMarkupMin.Core.Test.Html
 			string output18 = minifier.Minify(input18).MinifiedContent;
 			string output19 = minifier.Minify(input19).MinifiedContent;
 			string output20 = minifier.Minify(input20).MinifiedContent;
+			string output21 = minifier.Minify(input21).MinifiedContent;
 
 			// Assert
 			Assert.Equal(input1, output1);
@@ -151,6 +156,7 @@ namespace WebMarkupMin.Core.Test.Html
 			Assert.Equal(targetOutput18, output18);
 			Assert.Equal(targetOutput19, output19);
 			Assert.Equal(targetOutput20, output20);
+			Assert.Equal(targetOutput21, output21);
 		}
 
 		[Fact]

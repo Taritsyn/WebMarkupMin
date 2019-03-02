@@ -46,8 +46,7 @@
    =============
    RELEASE NOTES
    =============
-   1. `StringBuilderPool` class has become public;
-   2. Improved performance of attributes generation in XML minifier.
+   Fixed a error #77 “HtmlMinifier.Minify throws InvalidOperationException”.
 
    =============
    DOCUMENTATION

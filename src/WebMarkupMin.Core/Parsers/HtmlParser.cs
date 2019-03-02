@@ -800,7 +800,7 @@ namespace WebMarkupMin.Core.Parsers
 				{
 					if (tagNameInLowercase == "body" && _tagStack.Any(t => t.NameInLowercase == "head"))
 					{
-						HtmlTag headTag = _tagStack.Single(t => t.NameInLowercase == "head");
+						HtmlTag headTag = _tagStack.First(t => t.NameInLowercase == "head");
 						ParseEndTag(headTag.Name, headTag.NameInLowercase);
 					}
 				}
