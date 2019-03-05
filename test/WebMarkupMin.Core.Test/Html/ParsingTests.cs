@@ -1,11 +1,21 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 using Xunit;
 
 namespace WebMarkupMin.Core.Test.Html
 {
-	public class ParsingTests
+	public class ParsingTests : FileSystemTestsBase
 	{
+		private readonly string _htmlFilesDirectoryPath;
+
+
+		public ParsingTests()
+		{
+			_htmlFilesDirectoryPath = Path.GetFullPath(Path.Combine(_baseDirectoryPath, @"../SharedFiles/html/"));
+		}
+
+
 		[Fact]
 		public void ParsingNonTrivialMarkupIsCorrect()
 		{
@@ -259,6 +269,8 @@ namespace WebMarkupMin.Core.Test.Html
 				"</table."
 				;
 			const string input11 = "<link id=\"favicon\" rel=?\"shortcut icon\" type=?\"image/?png\" href=?\"#\">";
+			string input12 = File.ReadAllText(
+				Path.Combine(_htmlFilesDirectoryPath, "html-document-with-invalid-characters.html"));
 
 			// Act
 			IList<MinificationErrorInfo> errors1 = minifier.Minify(input1).Errors;
@@ -272,6 +284,7 @@ namespace WebMarkupMin.Core.Test.Html
 			IList<MinificationErrorInfo> errors9 = minifier.Minify(input9).Errors;
 			IList<MinificationErrorInfo> errors10 = minifier.Minify(input10).Errors;
 			IList<MinificationErrorInfo> errors11 = minifier.Minify(input11).Errors;
+			IList<MinificationErrorInfo> errors12 = minifier.Minify(input12).Errors;
 
 			// Assert
 			Assert.Equal(1, errors1.Count);
@@ -284,7 +297,7 @@ namespace WebMarkupMin.Core.Test.Html
 
 			Assert.Equal(1, errors3.Count);
 			Assert.Equal(1, errors3[0].LineNumber);
-			Assert.Equal(205, errors3[0].ColumnNumber);
+			Assert.Equal(120, errors3[0].ColumnNumber);
 
 			Assert.Equal(1, errors4.Count);
 			Assert.Equal(1, errors4[0].LineNumber);
@@ -304,7 +317,7 @@ namespace WebMarkupMin.Core.Test.Html
 
 			Assert.Equal(1, errors8.Count);
 			Assert.Equal(2, errors8[0].LineNumber);
-			Assert.Equal(80, errors8[0].ColumnNumber);
+			Assert.Equal(46, errors8[0].ColumnNumber);
 
 			Assert.Equal(1, errors9.Count);
 			Assert.Equal(1, errors9[0].LineNumber);
@@ -316,7 +329,11 @@ namespace WebMarkupMin.Core.Test.Html
 
 			Assert.Equal(1, errors11.Count);
 			Assert.Equal(1, errors11[0].LineNumber);
-			Assert.Equal(68, errors11[0].ColumnNumber);
+			Assert.Equal(25, errors11[0].ColumnNumber);
+
+			Assert.Equal(1, errors12.Count);
+			Assert.Equal(1, errors12[0].LineNumber);
+			Assert.Equal(3, errors12[0].ColumnNumber);
 		}
 
 		[Fact]

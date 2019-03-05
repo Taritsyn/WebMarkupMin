@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "html", "html", "{E16C8CAD-9
 	ProjectSection(SolutionItems) = preProject
 		test\SharedFiles\html\html-document-with-bom-at-start.html = test\SharedFiles\html\html-document-with-bom-at-start.html
 		test\SharedFiles\html\html-document-with-bom-in-body-tag.html = test\SharedFiles\html\html-document-with-bom-in-body-tag.html
+		test\SharedFiles\html\html-document-with-invalid-characters.html = test\SharedFiles\html\html-document-with-invalid-characters.html
 		test\SharedFiles\html\html-document-without-bom.html = test\SharedFiles\html\html-document-without-bom.html
 	EndProjectSection
 EndProject
@@ -49,7 +50,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.AspNetCore1", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.AspNetCore2", "src\WebMarkupMin.AspNetCore2\WebMarkupMin.AspNetCore2.csproj", "{FB743652-E1C4-40B3-B499-53780DCBAA8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Benchmarks", "test\WebMarkupMin.Benchmarks\WebMarkupMin.Benchmarks.csproj", "{213B17DB-6990-43CA-9585-A1557C6D27E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Benchmarks", "test\WebMarkupMin.Benchmarks\WebMarkupMin.Benchmarks.csproj", "{213B17DB-6990-43CA-9585-A1557C6D27E8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Core.Test", "test\WebMarkupMin.Core.Test\WebMarkupMin.Core.Test.csproj", "{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}"
 EndProject
@@ -107,14 +108,14 @@ Global
 		{FB743652-E1C4-40B3-B499-53780DCBAA8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB743652-E1C4-40B3-B499-53780DCBAA8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB743652-E1C4-40B3-B499-53780DCBAA8F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}.Release|Any CPU.Build.0 = Release|Any CPU
 		{213B17DB-6990-43CA-9585-A1557C6D27E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{213B17DB-6990-43CA-9585-A1557C6D27E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{213B17DB-6990-43CA-9585-A1557C6D27E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{213B17DB-6990-43CA-9585-A1557C6D27E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,8 +136,8 @@ Global
 		{27D7454A-F570-4ACC-BB7E-1DD5B264AC22} = {227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}
 		{5F014AC3-7F5D-4EBB-850C-01513CBF1D49} = {227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}
 		{FB743652-E1C4-40B3-B499-53780DCBAA8F} = {227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}
-		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68} = {1AEA1D1F-45BC-4A6C-BCD8-71C50DC839BA}
 		{213B17DB-6990-43CA-9585-A1557C6D27E8} = {1AEA1D1F-45BC-4A6C-BCD8-71C50DC839BA}
+		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68} = {1AEA1D1F-45BC-4A6C-BCD8-71C50DC839BA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E056B7D-640D-49E5-BFD7-D64C25744378}

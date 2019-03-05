@@ -110,6 +110,31 @@ namespace WebMarkupMin.Core.Utilities
 		}
 
 		/// <summary>
+		/// Finds a next non-whitespace character
+		/// </summary>
+		/// <param name="sourceCode">Source code</param>
+		/// <param name="startPosition">Position in the input string that defines the leftmost
+		/// position to be searched</param>
+		/// <param name="length">Number of characters in the substring to include in the search</param>
+		/// <returns>Position of non-whitespace character</returns>
+		internal static int FindNextNonWhitespaceChar(string sourceCode, int startPosition, int length)
+		{
+			int charPosition;
+			int endPosition = startPosition + length - 1;
+
+			for (charPosition = startPosition; charPosition <= endPosition; charPosition++)
+			{
+				char charValue = sourceCode[charPosition];
+				if (!char.IsWhiteSpace(charValue))
+				{
+					break;
+				}
+			}
+
+			return charPosition;
+		}
+
+		/// <summary>
 		/// Calculates a line break count
 		/// </summary>
 		/// <param name="sourceCode">Source code</param>

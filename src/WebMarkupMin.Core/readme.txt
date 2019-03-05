@@ -46,7 +46,8 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a error #77 “HtmlMinifier.Minify throws InvalidOperationException”.
+   1. Fixed a error #73 “HtmlMinifier.Minify hangs permanently”;
+   2. Fixed a error #77 “HtmlMinifier.Minify throws InvalidOperationException”.
 
    =============
    DOCUMENTATION
