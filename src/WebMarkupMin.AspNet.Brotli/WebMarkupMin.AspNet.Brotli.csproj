@@ -9,10 +9,9 @@
 		<NoWarn>$(NoWarn);CS1591</NoWarn>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
-		<Description>WebMarkupMin.AspNet.Brotli contains one compressor-adapter for compression of text content by using the Brotli algorithm (https://github.com/google/brotli) - `BrotliCompressor`. `BrotliCompressor` is based on the BrotliSharpLib (https://github.com/master131/BrotliSharpLib) version 0.3.1.</Description>
+		<Description>WebMarkupMin.AspNet.Brotli contains one compressor-adapter for compression of text content by using the Brotli algorithm (https://github.com/google/brotli) - `BrotliCompressor`. `BrotliCompressor` is based on the BrotliSharpLib (https://github.com/master131/BrotliSharpLib) version 0.3.3.</Description>
 		<PackageTags>WebMarkupMin;ASP.NET;Compression;Brotli</PackageTags>
-		<PackageReleaseNotes>1. Added support of the BrotliSharpLib version 0.3.1;
-2. Added strong name signing for assembly.</PackageReleaseNotes>
+		<PackageReleaseNotes>Added support of the BrotliSharpLib version 0.3.3.</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<Import Project="../../build/common.props" />
@@ -20,7 +19,7 @@
 	<Import Project="../../build/nuget-metadata.props" />
 
 	<ItemGroup>
-		<PackageReference Include="BrotliSharpLib" Version="0.3.1" />
+		<PackageReference Include="BrotliSharpLib" Version="0.3.3" />
 		<PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha6" PrivateAssets="All" />
 
 		<ProjectReference Include="..\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.csproj" />
