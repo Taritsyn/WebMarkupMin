@@ -255,14 +255,9 @@ namespace WebMarkupMin.Core
 		private Encoding _encoding;
 
 		/// <summary>
-		/// Result of HTML minification
+		/// HTML minification output writer
 		/// </summary>
-		private StringBuilder _result;
-
-		/// <summary>
-		/// HTML minification buffer
-		/// </summary>
-		private readonly List<string> _buffer;
+		private readonly HtmlMinificationOutputWriter _output;
 
 		private readonly Queue<string> _tagsWithNotRemovableWhitespaceQueue;
 
@@ -332,7 +327,7 @@ namespace WebMarkupMin.Core
 				IgnoredFragment = IgnoredFragmentHandler
 			});
 
-			_buffer = new List<string>();
+			_output = new HtmlMinificationOutputWriter();
 			_errors = new List<MinificationErrorInfo>();
 			_warnings = new List<MinificationErrorInfo>();
 			_tagsWithNotRemovableWhitespaceQueue = new Queue<string>();
@@ -449,6 +444,7 @@ namespace WebMarkupMin.Core
 			MinificationStatistics statistics = null;
 			string cleanedContent = Utils.RemoveByteOrderMark(content);
 			string minifiedContent = string.Empty;
+			StringBuilder sb = null;
 			var errors = new List<MinificationErrorInfo>();
 			var warnings = new List<MinificationErrorInfo>();
 
@@ -466,15 +462,16 @@ namespace WebMarkupMin.Core
 					}
 
 					int estimatedCapacity = (int)Math.Floor(cleanedContent.Length * AVERAGE_COMPRESSION_RATIO);
-					_result = StringBuilderPool.GetBuilder(estimatedCapacity);
+					sb = StringBuilderPool.GetBuilder(estimatedCapacity);
+					_output.StringBuilder = sb;
 
 					_htmlParser.Parse(cleanedContent);
 
-					FlushBuffer();
+					_output.Flush();
 
 					if (_errors.Count == 0)
 					{
-						minifiedContent = _result.ToString();
+						minifiedContent = _output.ToString();
 
 						if (generateStatistics)
 						{
@@ -489,8 +486,9 @@ namespace WebMarkupMin.Core
 				}
 				finally
 				{
-					StringBuilderPool.ReleaseBuilder(_result);
-					_buffer.Clear();
+					_output.Clear();
+					_output.StringBuilder = null;
+					StringBuilderPool.ReleaseBuilder(sb);
 					_tagsWithNotRemovableWhitespaceQueue.Clear();
 					_currentNodeType = HtmlNodeType.Unknown;
 					_currentTag = null;
@@ -531,7 +529,7 @@ namespace WebMarkupMin.Core
 			if (whitespaceMinificationMode != WhitespaceMinificationMode.None)
 			{
 				// Processing of whitespace, that followed before the document type declaration
-				TrimEndLastBufferItem();
+				_output.TrimEndLastItem();
 			}
 
 			if (_settings.UseXhtmlSyntax)
@@ -541,7 +539,7 @@ namespace WebMarkupMin.Core
 
 				if (minificationResult.Errors.Count == 0)
 				{
-					_buffer.Add(minificationResult.MinifiedContent);
+					_output.Write(minificationResult.MinifiedContent);
 				}
 				else
 				{
@@ -588,10 +586,10 @@ namespace WebMarkupMin.Core
 			if (whitespaceMinificationMode != WhitespaceMinificationMode.None)
 			{
 				// Processing of whitespace, that followed before the document type declaration
-				TrimEndLastBufferItem();
+				_output.TrimEndLastItem();
 			}
 
-			_buffer.Add(_settings.UseShortDoctype ? "<!DOCTYPE html>" : Utils.CollapseWhitespace(doctype));
+			_output.Write(_settings.UseShortDoctype ? "<!DOCTYPE html>" : Utils.CollapseWhitespace(doctype));
 		}
 
 		/// <summary>
@@ -683,12 +681,12 @@ namespace WebMarkupMin.Core
 
 			if (!removeComment)
 			{
-				_buffer.Add("<!--");
+				_output.Write("<!--");
 				if (processedCommentText.Length > 0)
 				{
-					_buffer.Add(processedCommentText);
+					_output.Write(processedCommentText);
 				}
-				_buffer.Add("-->");
+				_output.Write("-->");
 			}
 			else
 			{
@@ -705,9 +703,9 @@ namespace WebMarkupMin.Core
 		{
 			_currentNodeType = HtmlNodeType.CdataSection;
 
-			_buffer.Add("<![CDATA[");
-			_buffer.Add(cdataText);
-			_buffer.Add("]]>");
+			_output.Write("<![CDATA[");
+			_output.Write(cdataText);
+			_output.Write("]]>");
 		}
 
 		/// <summary>
@@ -750,9 +748,9 @@ namespace WebMarkupMin.Core
 					throw new NotSupportedException();
 			}
 
-			_buffer.Add(startPart);
-			_buffer.Add(htmlConditionalComment.Expression);
-			_buffer.Add(endPart);
+			_output.Write(startPart);
+			_output.Write(htmlConditionalComment.Expression);
+			_output.Write(endPart);
 		}
 
 		/// <summary>
@@ -782,7 +780,7 @@ namespace WebMarkupMin.Core
 					throw new NotSupportedException();
 			}
 
-			_buffer.Add(endIfComment);
+			_output.Write(endIfComment);
 		}
 
 		/// <summary>
@@ -834,7 +832,7 @@ namespace WebMarkupMin.Core
 
 					if (allowTrimEnd)
 					{
-						TrimEndLastBufferItem();
+						_output.TrimEndLastItem();
 					}
 				}
 
@@ -850,14 +848,14 @@ namespace WebMarkupMin.Core
 					&& previousTag.Flags.HasFlag(HtmlTagFlags.Optional)
 					&& CanRemoveOptionalEndTagByNextTag(previousTag, tag))
 				{
-					RemoveLastEndTagFromBuffer(previousTag);
+					_output.RemoveLastEndTag(previousTag.NameInLowercase);
 				}
 
-				FlushBuffer();
+				_output.Flush();
 			}
 
-			_buffer.Add("<");
-			_buffer.Add(CanPreserveCase() ? tagName : tagNameInLowercase);
+			_output.Write("<");
+			_output.Write(CanPreserveCase() ? tagName : tagNameInLowercase);
 
 			int attributeCount = attributes.Count;
 			bool unsafeLastAttribute = false;
@@ -869,19 +867,19 @@ namespace WebMarkupMin.Core
 					HtmlAttributeViewModel attributeViewModel = BuildAttributeViewModel(context, tag, attributes[attributeIndex]);
 					if (!attributeViewModel.IsEmpty)
 					{
-						_buffer.Add(" ");
-						_buffer.Add(attributeViewModel.Name);
+						_output.Write(" ");
+						_output.Write(attributeViewModel.Name);
 						if (attributeViewModel.HasValue)
 						{
-							_buffer.Add("=");
+							_output.Write("=");
 							if (attributeViewModel.HasQuotes)
 							{
-								_buffer.Add("\"");
+								_output.Write("\"");
 							}
-							_buffer.Add(attributeViewModel.Value);
+							_output.Write(attributeViewModel.Value);
 							if (attributeViewModel.HasQuotes)
 							{
-								_buffer.Add("\"");
+								_output.Write("\"");
 							}
 						}
 
@@ -906,14 +904,14 @@ namespace WebMarkupMin.Core
 
 				if (emptyTagRenderMode == HtmlEmptyTagRenderMode.Slash)
 				{
-					_buffer.Add("/");
+					_output.Write("/");
 				}
 				else if (emptyTagRenderMode == HtmlEmptyTagRenderMode.SpaceAndSlash)
 				{
-					_buffer.Add(" /");
+					_output.Write(" /");
 				}
 			}
-			_buffer.Add(">");
+			_output.Write(">");
 		}
 
 		/// <summary>
@@ -966,7 +964,7 @@ namespace WebMarkupMin.Core
 
 					if (allowTrimEnd)
 					{
-						TrimEndLastBufferItem();
+						_output.TrimEndLastItem();
 					}
 				}
 
@@ -984,7 +982,7 @@ namespace WebMarkupMin.Core
 					|| (previousTagNameInLowercase != tagNameInLowercase && string.IsNullOrWhiteSpace(previousText)))
 				&& CanRemoveOptionalEndTagByParentTag(previousTag, tag))
 			{
-				RemoveLastEndTagFromBuffer(previousTag);
+				_output.RemoveLastEndTag(previousTag.NameInLowercase);
 			}
 
 			bool isElementEmpty = string.IsNullOrWhiteSpace(previousText)
@@ -994,9 +992,9 @@ namespace WebMarkupMin.Core
 				&& CanRemoveTagWithoutContent(previousTag))
 			{
 				// Remove last "element" from buffer, return
-				if (RemoveLastStartTagFromBuffer(tag))
+				if (_output.RemoveLastStartTag(tag.NameInLowercase))
 				{
-					FlushBuffer();
+					_output.Flush();
 					return;
 				}
 			}
@@ -1006,14 +1004,14 @@ namespace WebMarkupMin.Core
 				&& CanRemoveSafeOptionalEndTag(tag))
 			{
 				// Leave only start tag in buffer
-				FlushBuffer();
+				_output.Flush();
 				return;
 			}
 
 			// Add end tag to buffer
-			_buffer.Add("</");
-			_buffer.Add(CanPreserveCase() ? tagName : tagNameInLowercase);
-			_buffer.Add(">");
+			_output.Write("</");
+			_output.Write(CanPreserveCase() ? tagName : tagNameInLowercase);
+			_output.Write(">");
 		}
 
 		/// <summary>
@@ -1119,7 +1117,7 @@ namespace WebMarkupMin.Core
 
 			if (text.Length > 0)
 			{
-				_buffer.Add(text);
+				_output.Write(text);
 			}
 			else
 			{
@@ -1202,9 +1200,9 @@ namespace WebMarkupMin.Core
 				processedExpression = MinifyAngularBindingExpression(context, expression);
 			}
 
-			_buffer.Add(startDelimiter);
-			_buffer.Add(processedExpression);
-			_buffer.Add(endDelimiter);
+			_output.Write(startDelimiter);
+			_output.Write(processedExpression);
+			_output.Write(endDelimiter);
 		}
 
 		/// <summary>
@@ -1218,163 +1216,9 @@ namespace WebMarkupMin.Core
 
 			if (fragment.Length > 0)
 			{
-				_buffer.Add(fragment);
-				FlushBuffer();
+				_output.Write(fragment);
+				_output.Flush();
 			}
-		}
-
-		#endregion
-
-		#region Buffer helpers
-
-		/// <summary>
-		/// Flush a HTML minification buffer
-		/// </summary>
-		private void FlushBuffer()
-		{
-			int bufferItemCount = _buffer.Count;
-
-			if (bufferItemCount > 0)
-			{
-				for (int bufferItemIndex = 0; bufferItemIndex < bufferItemCount; bufferItemIndex++)
-				{
-					string bufferItem = _buffer[bufferItemIndex];
-
-					if (bufferItem.Length > 0)
-					{
-						_result.Append(bufferItem);
-					}
-				}
-
-				_buffer.Clear();
-			}
-		}
-
-		/// <summary>
-		/// Removes all ending spaces in the last item of the HTML minification buffer
-		/// </summary>
-		private void TrimEndLastBufferItem()
-		{
-			int bufferItemCount = _buffer.Count;
-			if (bufferItemCount > 0)
-			{
-				for (int bufferItemIndex = bufferItemCount - 1; bufferItemIndex >= 0; bufferItemIndex--)
-				{
-					string bufferItem = _buffer[bufferItemIndex];
-
-					if (string.IsNullOrWhiteSpace(bufferItem))
-					{
-						_buffer.RemoveAt(bufferItemIndex);
-					}
-					else
-					{
-						_buffer[bufferItemIndex] = bufferItem.TrimEnd();
-						break;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Removes a last end tag from the HTML minification buffer
-		/// </summary>
-		/// <param name="endTag">End tag</param>
-		private void RemoveLastEndTagFromBuffer(HtmlTag endTag)
-		{
-			int bufferItemCount = _buffer.Count;
-			if (bufferItemCount == 0)
-			{
-				return;
-			}
-
-			int lastEndTagBeginAngleBracketIndex = _buffer.LastIndexOf("</");
-
-			if (lastEndTagBeginAngleBracketIndex != -1)
-			{
-				string lastEndTagName = _buffer[lastEndTagBeginAngleBracketIndex + 1];
-				if (lastEndTagName.IgnoreCaseEquals(endTag.NameInLowercase))
-				{
-					int lastEndTagEndAngleBracketIndex = _buffer.IndexOf(">", lastEndTagBeginAngleBracketIndex);
-					if (lastEndTagEndAngleBracketIndex != -1)
-					{
-						int lastBufferItemIndex = bufferItemCount - 1;
-						bool noMoreContent = true;
-						if (lastEndTagEndAngleBracketIndex != lastBufferItemIndex)
-						{
-							for (int bufferItemIndex = lastEndTagEndAngleBracketIndex + 1;
-								bufferItemIndex < bufferItemCount;
-								bufferItemIndex++)
-							{
-								if (!string.IsNullOrWhiteSpace(_buffer[bufferItemIndex]))
-								{
-									noMoreContent = false;
-									break;
-								}
-							}
-						}
-
-						if (noMoreContent)
-						{
-							int endTagLength = lastEndTagEndAngleBracketIndex - lastEndTagBeginAngleBracketIndex + 1;
-							_buffer.RemoveRange(lastEndTagBeginAngleBracketIndex, endTagLength);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Removes a last start tag from the HTML minification buffer
-		/// </summary>
-		/// <param name="startTag">Start tag</param>
-		/// <returns>Result of removing (true - has removed; false - has not removed)</returns>
-		private bool RemoveLastStartTagFromBuffer(HtmlTag startTag)
-		{
-			int bufferItemCount = _buffer.Count;
-			if (bufferItemCount == 0)
-			{
-				return false;
-			}
-
-			bool isEndTagRemoved = false;
-			int lastStartTagBeginAngleBracketIndex = _buffer.LastIndexOf("<");
-
-			if (lastStartTagBeginAngleBracketIndex != -1)
-			{
-				string lastTagName = _buffer[lastStartTagBeginAngleBracketIndex + 1];
-				if (lastTagName.IgnoreCaseEquals(startTag.NameInLowercase))
-				{
-					int lastStartTagEndAngleBracketIndex = _buffer.IndexOf(">", lastStartTagBeginAngleBracketIndex);
-					if (lastStartTagEndAngleBracketIndex != -1)
-					{
-						int lastBufferItemIndex = bufferItemCount - 1;
-						bool noMoreContent = true;
-						if (lastStartTagEndAngleBracketIndex != lastBufferItemIndex)
-						{
-							for (int bufferItemIndex = lastStartTagEndAngleBracketIndex + 1;
-								 bufferItemIndex < bufferItemCount;
-								 bufferItemIndex++)
-							{
-								if (!string.IsNullOrWhiteSpace(_buffer[bufferItemIndex]))
-								{
-									noMoreContent = false;
-									break;
-								}
-							}
-						}
-
-						if (noMoreContent)
-						{
-							_buffer.RemoveRange(lastStartTagBeginAngleBracketIndex,
-								bufferItemCount - lastStartTagBeginAngleBracketIndex);
-
-							isEndTagRemoved = true;
-						}
-					}
-				}
-			}
-
-			return isEndTagRemoved;
 		}
 
 		#endregion
@@ -2419,25 +2263,25 @@ namespace WebMarkupMin.Core
 
 				if (startPart.Length > 0)
 				{
-					_buffer.Add(startPart);
+					_output.Write(startPart);
 					if (newLine.Length > 0)
 					{
-						_buffer.Add(newLine);
+						_output.Write(newLine);
 					}
 					isNotEmpty = true;
 				}
 				if (code.Length > 0)
 				{
-					_buffer.Add(code);
+					_output.Write(code);
 					isNotEmpty = true;
 				}
 				if (endPart.Length > 0)
 				{
 					if (newLine.Length > 0)
 					{
-						_buffer.Add(newLine);
+						_output.Write(newLine);
 					}
-					_buffer.Add(endPart);
+					_output.Write(endPart);
 					isNotEmpty = true;
 				}
 
@@ -2497,7 +2341,7 @@ namespace WebMarkupMin.Core
 
 			if (code.Length > 0)
 			{
-				_buffer.Add(code);
+				_output.Write(code);
 				isNotEmpty = true;
 			}
 
@@ -2624,25 +2468,25 @@ namespace WebMarkupMin.Core
 
 			if (startPart.Length > 0)
 			{
-				_buffer.Add(startPart);
+				_output.Write(startPart);
 				if (newLine.Length > 0)
 				{
-					_buffer.Add(newLine);
+					_output.Write(newLine);
 				}
 				isNotEmpty = true;
 			}
 			if (code.Length > 0)
 			{
-				_buffer.Add(code);
+				_output.Write(code);
 				isNotEmpty = true;
 			}
 			if (endPart.Length > 0)
 			{
 				if (newLine.Length > 0)
 				{
-					_buffer.Add(newLine);
+					_output.Write(newLine);
 				}
-				_buffer.Add(endPart);
+				_output.Write(endPart);
 				isNotEmpty = true;
 			}
 

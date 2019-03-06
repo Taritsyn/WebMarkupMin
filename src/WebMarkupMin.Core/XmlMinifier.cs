@@ -36,14 +36,9 @@ namespace WebMarkupMin.Core
 		private readonly XmlParser _xmlParser;
 
 		/// <summary>
-		/// Result of HTML minification
+		/// XML minification output writer
 		/// </summary>
-		private StringBuilder _result;
-
-		/// <summary>
-		/// HTML minification buffer
-		/// </summary>
-		private readonly List<string> _buffer;
+		private readonly XmlMinificationOutputWriter _output;
 
 		/// <summary>
 		/// Current node type
@@ -124,7 +119,7 @@ namespace WebMarkupMin.Core
 				IgnoredFragment = IgnoredFragmentHandler
 			});
 
-			_buffer = new List<string>();
+			_output = new XmlMinificationOutputWriter();
 			_errors = new List<MinificationErrorInfo>();
 			_currentNodeType = XmlNodeType.Unknown;
 			_currentText = string.Empty;
@@ -188,6 +183,7 @@ namespace WebMarkupMin.Core
 			MinificationStatistics statistics = null;
 			string cleanedContent = Utils.RemoveByteOrderMark(content);
 			string minifiedContent = string.Empty;
+			StringBuilder sb = null;
 			var errors = new List<MinificationErrorInfo>();
 
 			lock (_minificationSynchronizer)
@@ -201,15 +197,16 @@ namespace WebMarkupMin.Core
 					}
 
 					int estimatedCapacity = (int)Math.Floor(cleanedContent.Length * AVERAGE_COMPRESSION_RATIO);
-					_result = StringBuilderPool.GetBuilder(estimatedCapacity);
+					sb = StringBuilderPool.GetBuilder(estimatedCapacity);
+					_output.StringBuilder = sb;
 
 					_xmlParser.Parse(cleanedContent);
 
-					FlushBuffer();
+					_output.Flush();
 
 					if (_errors.Count == 0)
 					{
-						minifiedContent = _result.ToString();
+						minifiedContent = _output.ToString();
 
 						if (generateStatistics)
 						{
@@ -224,8 +221,9 @@ namespace WebMarkupMin.Core
 				}
 				finally
 				{
-					StringBuilderPool.ReleaseBuilder(_result);
-					_buffer.Clear();
+					_output.Clear();
+					_output.StringBuilder = null;
+					StringBuilderPool.ReleaseBuilder(sb);
 					_currentNodeType = XmlNodeType.Unknown;
 					_currentText = string.Empty;
 
@@ -257,12 +255,12 @@ namespace WebMarkupMin.Core
 
 			if (_settings.MinifyWhitespace)
 			{
-				RemoveLastWhitespaceBufferItems();
+				_output.RemoveLastWhitespaceItems();
 			}
 
-			_buffer.Add("<?xml");
+			_output.Write("<?xml");
 			WriteAttributes(attributes);
-			_buffer.Add("?>");
+			_output.Write("?>");
 		}
 
 		/// <summary>
@@ -278,13 +276,13 @@ namespace WebMarkupMin.Core
 
 			if (_settings.MinifyWhitespace)
 			{
-				RemoveLastWhitespaceBufferItems();
+				_output.RemoveLastWhitespaceItems();
 			}
 
-			_buffer.Add("<?");
-			_buffer.Add(instructionName);
+			_output.Write("<?");
+			_output.Write(instructionName);
 			WriteAttributes(attributes);
-			_buffer.Add("?>");
+			_output.Write("?>");
 		}
 
 		/// <summary>
@@ -298,10 +296,10 @@ namespace WebMarkupMin.Core
 
 			if (_settings.MinifyWhitespace)
 			{
-				RemoveLastWhitespaceBufferItems();
+				_output.RemoveLastWhitespaceItems();
 			}
 
-			_buffer.Add(Utils.CollapseWhitespace(doctype));
+			_output.Write(Utils.CollapseWhitespace(doctype));
 		}
 
 		/// <summary>
@@ -315,9 +313,9 @@ namespace WebMarkupMin.Core
 			{
 				_currentNodeType = XmlNodeType.Comment;
 
-				_buffer.Add("<!--");
-				_buffer.Add(commentText);
-				_buffer.Add("-->");
+				_output.Write("<!--");
+				_output.Write(commentText);
+				_output.Write("-->");
 			}
 		}
 
@@ -330,9 +328,9 @@ namespace WebMarkupMin.Core
 		{
 			_currentNodeType = XmlNodeType.CdataSection;
 
-			_buffer.Add("<![CDATA[");
-			_buffer.Add(cdataText);
-			_buffer.Add("]]>");
+			_output.Write("<![CDATA[");
+			_output.Write(cdataText);
+			_output.Write("]]>");
 		}
 
 		/// <summary>
@@ -354,13 +352,13 @@ namespace WebMarkupMin.Core
 					|| _ignoredFragmentBeforeText || _xmlDeclarationBeforeText
 					|| _processingInstructionBeforeText || _doctypeBeforeText))
 			{
-				RemoveLastWhitespaceBufferItems();
+				_output.RemoveLastWhitespaceItems();
 			}
 
-			_buffer.Add("<");
-			_buffer.Add(tagName);
+			_output.Write("<");
+			_output.Write(tagName);
 			WriteAttributes(attributes);
-			_buffer.Add(">");
+			_output.Write(">");
 		}
 
 		/// <summary>
@@ -379,9 +377,9 @@ namespace WebMarkupMin.Core
 			if (_settings.CollapseTagsWithoutContent && previousNodeType == XmlNodeType.StartTag
 				&& previousText.Length == 0)
 			{
-				if (TransformLastStartTagToEmptyTag())
+				if (_output.TransformLastStartTagToEmptyTag(_settings.RenderEmptyTagsWithSpace))
 				{
-					FlushBuffer();
+					_output.Flush();
 					return;
 				}
 			}
@@ -389,15 +387,15 @@ namespace WebMarkupMin.Core
 			if (_settings.MinifyWhitespace && previousNodeType == XmlNodeType.Text
 				&& (_endTagBeforeText || _emptyTagBeforeText))
 			{
-				RemoveLastWhitespaceBufferItems();
+				_output.RemoveLastWhitespaceItems();
 			}
 
 			// Add end tag to buffer
-			_buffer.Add("</");
-			_buffer.Add(tagName);
-			_buffer.Add(">");
+			_output.Write("</");
+			_output.Write(tagName);
+			_output.Write(">");
 
-			FlushBuffer();
+			_output.Flush();
 		}
 
 		/// <summary>
@@ -417,13 +415,13 @@ namespace WebMarkupMin.Core
 			if (_settings.MinifyWhitespace && previousNodeType == XmlNodeType.Text
 				&& (_startTagBeforeText || _endTagBeforeText || _emptyTagBeforeText))
 			{
-				RemoveLastWhitespaceBufferItems();
+				_output.RemoveLastWhitespaceItems();
 			}
 
-			_buffer.Add("<");
-			_buffer.Add(tagName);
+			_output.Write("<");
+			_output.Write(tagName);
 			WriteAttributes(attributes);
-			_buffer.Add(_settings.RenderEmptyTagsWithSpace ? " />" : "/>");
+			_output.Write(_settings.RenderEmptyTagsWithSpace ? " />" : "/>");
 		}
 
 		/// <summary>
@@ -440,7 +438,7 @@ namespace WebMarkupMin.Core
 			if (previousNodeType == XmlNodeType.Text)
 			{
 				_currentText = text;
-				_buffer.Add(text);
+				_output.Write(text);
 
 				return;
 			}
@@ -506,7 +504,7 @@ namespace WebMarkupMin.Core
 
 			if (text.Length > 0)
 			{
-				_buffer.Add(text);
+				_output.Write(text);
 			}
 		}
 
@@ -521,87 +519,12 @@ namespace WebMarkupMin.Core
 
 			if (_settings.MinifyWhitespace)
 			{
-				RemoveLastWhitespaceBufferItems();
+				_output.RemoveLastWhitespaceItems();
 			}
 
 			if (fragment.Length > 0)
 			{
-				_buffer.Add(fragment);
-			}
-		}
-
-		#endregion
-
-		#region Buffer helpers
-
-		/// <summary>
-		/// Transform a last start tag to empty tag
-		/// </summary>
-		/// <returns>Result of transforming (true - has transformed; false - has not transformed)</returns>
-		private bool TransformLastStartTagToEmptyTag()
-		{
-			int bufferItemCount = _buffer.Count;
-			if (bufferItemCount == 0)
-			{
-				return false;
-			}
-
-			bool isTransformed = false;
-			int lastBufferItemIndex = bufferItemCount - 1;
-			int lastEndTagEndAngleBracketIndex = _buffer.LastIndexOf(">");
-
-			if (lastEndTagEndAngleBracketIndex == lastBufferItemIndex)
-			{
-				_buffer[lastBufferItemIndex] = _settings.RenderEmptyTagsWithSpace ? " />" : "/>";
-				isTransformed = true;
-			}
-
-			return isTransformed;
-		}
-
-		/// <summary>
-		/// Removes a last whitespace items from buffer
-		/// </summary>
-		private void RemoveLastWhitespaceBufferItems()
-		{
-			int bufferItemCount = _buffer.Count;
-			if (bufferItemCount > 0)
-			{
-				for (int bufferItemIndex = bufferItemCount - 1; bufferItemIndex >= 0; bufferItemIndex--)
-				{
-					string bufferItem = _buffer[bufferItemIndex];
-
-					if (string.IsNullOrWhiteSpace(bufferItem))
-					{
-						_buffer.RemoveAt(bufferItemIndex);
-					}
-					else
-					{
-						break;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Flush a HTML minification buffer
-		/// </summary>
-		private void FlushBuffer()
-		{
-			int bufferItemCount = _buffer.Count;
-
-			if (bufferItemCount > 0)
-			{
-				for (int bufferItemIndex = 0; bufferItemIndex < bufferItemCount; bufferItemIndex++)
-				{
-					string bufferItem = _buffer[bufferItemIndex];
-					if (bufferItem.Length > 0)
-					{
-						_result.Append(bufferItem);
-					}
-				}
-
-				_buffer.Clear();
+				_output.Write(fragment);
 			}
 		}
 
@@ -620,11 +543,11 @@ namespace WebMarkupMin.Core
 				XmlAttribute attribute = attributes[attributeIndex];
 				string encodedAttributeValue = XmlAttributeValueHelpers.Encode(attribute.Value);
 
-				_buffer.Add(" ");
-				_buffer.Add(attribute.Name);
-				_buffer.Add("=\"");
-				_buffer.Add(encodedAttributeValue);
-				_buffer.Add("\"");
+				_output.Write(" ");
+				_output.Write(attribute.Name);
+				_output.Write("=\"");
+				_output.Write(encodedAttributeValue);
+				_output.Write("\"");
 			}
 		}
 
