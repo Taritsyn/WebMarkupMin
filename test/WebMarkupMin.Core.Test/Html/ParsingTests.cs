@@ -333,7 +333,7 @@ namespace WebMarkupMin.Core.Test.Html
 
 			Assert.Equal(1, errors12.Count);
 			Assert.Equal(1, errors12[0].LineNumber);
-			Assert.Equal(3, errors12[0].ColumnNumber);
+			Assert.Equal(9, errors12[0].ColumnNumber);
 		}
 
 		[Fact]

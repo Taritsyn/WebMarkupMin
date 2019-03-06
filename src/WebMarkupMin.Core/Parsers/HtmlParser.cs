@@ -33,8 +33,7 @@ namespace WebMarkupMin.Core.Parsers
 		private static readonly Regex _startTagEndPartRegex = new Regex(@"^\s*(?<emptyTagSlash>/)?>");
 		private static readonly Regex _endTagRegex = new Regex(@"^<\/(?<tagName>" + CommonRegExps.HtmlTagNamePattern + @")\s*>");
 		private static readonly Regex _attributeRegex =
-			new Regex(@"(?:\s+|(?<=[""']))" +
-				"(?<attributeName>" + CommonRegExps.HtmlAttributeNamePattern + @")" +
+			new Regex(@"^\s*(?<attributeName>" + CommonRegExps.HtmlAttributeNamePattern + @")" +
 				"(?:" +
 					@"\s*(?<attributeEqualSign>=)\s*" +
 					"(?:" +
@@ -538,29 +537,28 @@ namespace WebMarkupMin.Core.Parsers
 				{
 					startTagNameInLowercase = startTagName.ToLowerInvariant();
 				}
+				IList<HtmlAttribute> attributes = null;
+				bool isEmptyTag;
 
 				_innerContext.IncreasePosition(startTagBeginPartMatch.Length);
 
-				IList<HtmlAttribute> attributes = ProcessAttributes();
-
-				int currentPosition = _innerContext.Position;
-				int currentRemainderLength = _innerContext.RemainderLength;
-
-				Match startTagEndPartMatch = _startTagEndPartRegex.Match(content, currentPosition,
-					currentRemainderLength);
-				if (startTagEndPartMatch.Success)
+				isProcessed = ProcessStartTagEndPart(out isEmptyTag);
+				if (!isProcessed)
 				{
-					bool isEmptyTag = startTagEndPartMatch.Groups["emptyTagSlash"].Success;
+					attributes = ProcessAttributes();
+					isProcessed = ProcessStartTagEndPart(out isEmptyTag);
+				}
 
+				if (isProcessed)
+				{
+					attributes = attributes ?? new List<HtmlAttribute>();
 					ParseStartTag(startTagName, startTagNameInLowercase, attributes, isEmptyTag);
-
-					_innerContext.IncreasePosition(startTagEndPartMatch.Length);
-					isProcessed = true;
 				}
 				else
 				{
+					int currentPosition = _innerContext.Position;
 					int invalidCharPosition = SourceCodeNavigator.FindNextNonWhitespaceChar(content,
-						currentPosition, currentRemainderLength);
+						currentPosition, _innerContext.RemainderLength);
 
 					int invalidCharOffset = invalidCharPosition - currentPosition;
 					if (invalidCharOffset > 0)
@@ -578,6 +576,30 @@ namespace WebMarkupMin.Core.Parsers
 		}
 
 		/// <summary>
+		/// Process a end part of start tag
+		/// </summary>
+		/// <param name="isEmptyTag">Flag that tag is empty</param>
+		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		private bool ProcessStartTagEndPart(out bool isEmptyTag)
+		{
+			bool isProcessed = false;
+			string content = _innerContext.SourceCode;
+			isEmptyTag = false;
+
+			Match startTagEndPartMatch = _startTagEndPartRegex.Match(content, _innerContext.Position,
+				_innerContext.RemainderLength);
+			if (startTagEndPartMatch.Success)
+			{
+				isEmptyTag = startTagEndPartMatch.Groups["emptyTagSlash"].Success;
+
+				_innerContext.IncreasePosition(startTagEndPartMatch.Length);
+				isProcessed = true;
+			}
+
+			return isProcessed;
+		}
+
+		/// <summary>
 		/// Process a end tag
 		/// </summary>
 		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
@@ -585,9 +607,8 @@ namespace WebMarkupMin.Core.Parsers
 		{
 			bool isProcessed = false;
 			string content = _innerContext.SourceCode;
-			int contentRemainderLength = _innerContext.RemainderLength;
 
-			var match = _endTagRegex.Match(content, _innerContext.Position, contentRemainderLength);
+			Match match = _endTagRegex.Match(content, _innerContext.Position, _innerContext.RemainderLength);
 			if (match.Success)
 			{
 				string endTagName = match.Groups["tagName"].Value;
@@ -690,6 +711,103 @@ namespace WebMarkupMin.Core.Parsers
 
 				_innerContext.IncreasePosition(text.Length);
 			}
+		}
+
+		/// <summary>
+		/// Process a attributes
+		/// </summary>
+		/// <returns>List of attributes</returns>
+		private IList<HtmlAttribute> ProcessAttributes()
+		{
+			var attributes = new List<HtmlAttribute>();
+			string content = _innerContext.SourceCode;
+			int currentPosition = _innerContext.Position;
+			SourceCodeNodeCoordinates currentCoordinates = _innerContext.NodeCoordinates;
+
+			Match match = _attributeRegex.Match(content, currentPosition, _innerContext.RemainderLength);
+
+			while (match.Success)
+			{
+				GroupCollection groups = match.Groups;
+				Group attributeNameGroup = groups["attributeName"];
+				Group attributeEqualSignGroup = groups["attributeEqualSign"];
+				Group attributeValueGroup = groups["attributeValue"];
+
+				string attributeName = attributeNameGroup.Value;
+				string attributeNameInLowercase = attributeName;
+				if (Utils.ContainsUppercaseCharacters(attributeName))
+				{
+					attributeNameInLowercase = attributeName.ToLowerInvariant();
+				}
+				string attributeValue = null;
+
+				if (attributeEqualSignGroup.Success)
+				{
+					if (attributeValueGroup.Success)
+					{
+						attributeValue = attributeValueGroup.Value;
+						if (!string.IsNullOrWhiteSpace(attributeValue))
+						{
+							attributeValue = HtmlAttributeValueHelpers.Decode(attributeValue);
+						}
+					}
+					else
+					{
+						attributeValue = string.Empty;
+					}
+				}
+
+				var attributeNameCoordinates = SourceCodeNodeCoordinates.Empty;
+				int attributeNamePosition = -1;
+				if (attributeNameGroup.Success)
+				{
+					attributeNamePosition = attributeNameGroup.Index;
+				}
+
+				if (attributeNamePosition != -1)
+				{
+					int lineBreakCount;
+					int charRemainderCount;
+
+					SourceCodeNavigator.CalculateLineBreakCount(content, currentPosition,
+						attributeNamePosition - currentPosition, out lineBreakCount, out charRemainderCount);
+					attributeNameCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
+						currentCoordinates, lineBreakCount, charRemainderCount);
+
+					currentPosition = attributeNamePosition;
+					currentCoordinates = attributeNameCoordinates;
+				}
+
+				var attributeValueCoordinates = SourceCodeNodeCoordinates.Empty;
+				int attributeValuePosition = -1;
+				if (attributeValueGroup.Success)
+				{
+					attributeValuePosition = attributeValueGroup.Index;
+				}
+
+				if (attributeValuePosition != -1)
+				{
+					int lineBreakCount;
+					int charRemainderCount;
+
+					SourceCodeNavigator.CalculateLineBreakCount(content, currentPosition,
+						attributeValuePosition - currentPosition, out lineBreakCount, out charRemainderCount);
+					attributeValueCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
+						currentCoordinates, lineBreakCount, charRemainderCount);
+
+					currentPosition = attributeValuePosition;
+					currentCoordinates = attributeValueCoordinates;
+				}
+
+				var attribute = new HtmlAttribute(attributeName, attributeNameInLowercase, attributeValue,
+					HtmlAttributeType.Unknown, attributeNameCoordinates, attributeValueCoordinates);
+				attributes.Add(attribute);
+
+				_innerContext.IncreasePosition(match.Length);
+				match = _attributeRegex.Match(content, _innerContext.Position, _innerContext.RemainderLength);
+			}
+
+			return attributes;
 		}
 
 		#endregion
@@ -848,109 +966,6 @@ namespace WebMarkupMin.Core.Parsers
 			{
 				_xmlTagStack.Push(tagNameInLowercase);
 			}
-		}
-
-		/// <summary>
-		/// Process a attributes
-		/// </summary>
-		/// <returns>List of attributes</returns>
-		private IList<HtmlAttribute> ProcessAttributes()
-		{
-			string content = _innerContext.SourceCode;
-			int currentPosition = _innerContext.Position;
-			int currentRemainderLength = _innerContext.RemainderLength;
-			SourceCodeNodeCoordinates currentCoordinates = _innerContext.NodeCoordinates;
-
-			Match match = _attributeRegex.Match(content, currentPosition, currentRemainderLength);
-			var attributes = new List<HtmlAttribute>();
-
-			while (match.Success)
-			{
-				if (match.Index != _innerContext.Position)
-				{
-					break;
-				}
-
-				GroupCollection groups = match.Groups;
-				Group attributeNameGroup = groups["attributeName"];
-				Group attributeEqualSignGroup = groups["attributeEqualSign"];
-				Group attributeValueGroup = groups["attributeValue"];
-
-				string attributeName = attributeNameGroup.Value;
-				string attributeNameInLowercase = attributeName;
-				if (Utils.ContainsUppercaseCharacters(attributeName))
-				{
-					attributeNameInLowercase = attributeName.ToLowerInvariant();
-				}
-				string attributeValue = null;
-
-				if (attributeEqualSignGroup.Success)
-				{
-					if (attributeValueGroup.Success)
-					{
-						attributeValue = attributeValueGroup.Value;
-						if (!string.IsNullOrWhiteSpace(attributeValue))
-						{
-							attributeValue = HtmlAttributeValueHelpers.Decode(attributeValue);
-						}
-					}
-					else
-					{
-						attributeValue = string.Empty;
-					}
-				}
-
-				var attributeNameCoordinates = SourceCodeNodeCoordinates.Empty;
-				int attributeNamePosition = -1;
-				if (attributeNameGroup.Success)
-				{
-					attributeNamePosition = attributeNameGroup.Index;
-				}
-
-				if (attributeNamePosition != -1)
-				{
-					int lineBreakCount;
-					int charRemainderCount;
-
-					SourceCodeNavigator.CalculateLineBreakCount(content, currentPosition,
-						attributeNamePosition - currentPosition, out lineBreakCount, out charRemainderCount);
-					attributeNameCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
-						currentCoordinates, lineBreakCount, charRemainderCount);
-
-					currentPosition = attributeNamePosition;
-					currentCoordinates = attributeNameCoordinates;
-				}
-
-				var attributeValueCoordinates = SourceCodeNodeCoordinates.Empty;
-				int attributeValuePosition = -1;
-				if (attributeValueGroup.Success)
-				{
-					attributeValuePosition = attributeValueGroup.Index;
-				}
-
-				if (attributeValuePosition != -1)
-				{
-					int lineBreakCount;
-					int charRemainderCount;
-
-					SourceCodeNavigator.CalculateLineBreakCount(content, currentPosition,
-						attributeValuePosition - currentPosition, out lineBreakCount, out charRemainderCount);
-					attributeValueCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
-						currentCoordinates, lineBreakCount, charRemainderCount);
-
-					currentPosition = attributeValuePosition;
-					currentCoordinates = attributeValueCoordinates;
-				}
-
-				var attribute = new HtmlAttribute(attributeName, attributeNameInLowercase, attributeValue,
-					HtmlAttributeType.Unknown, attributeNameCoordinates, attributeValueCoordinates);
-				attributes.Add(attribute);
-
-				_innerContext.IncreasePosition(match.Length);
-				match = match.NextMatch();
-			}
-
-			return attributes;
 		}
 
 		/// <summary>
