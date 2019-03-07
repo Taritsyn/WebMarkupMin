@@ -146,11 +146,27 @@ namespace WebMarkupMin.Core.Resources
 		}
 
 		/// <summary>
+		/// Looks up a localized string similar to "In the processing instruction &lt;?{0} ?&gt; found invalid characters."
+		/// </summary>
+		public static string ErrorMessage_InvalidCharactersInProcessingInstruction
+		{
+			get { return GetString("ErrorMessage_InvalidCharactersInProcessingInstruction"); }
+		}
+
+		/// <summary>
 		/// Looks up a localized string similar to "In the start tag &lt;{0}&gt; found invalid characters."
 		/// </summary>
 		public static string ErrorMessage_InvalidCharactersInStartTag
 		{
 			get { return GetString("ErrorMessage_InvalidCharactersInStartTag"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "In the XML declaration found invalid characters."
+		/// </summary>
+		public static string ErrorMessage_InvalidCharactersInXmlDeclaration
+		{
+			get { return GetString("ErrorMessage_InvalidCharactersInXmlDeclaration"); }
 		}
 
 		/// <summary>

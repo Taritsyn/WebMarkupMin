@@ -150,8 +150,14 @@
   <data name="ErrorMessage_IfConditionalCommentNotDeclared" xml:space="preserve">
     <value>It is impossible to parse a "End If conditional comment", because not declared "If conditional comment".</value>
   </data>
+  <data name="ErrorMessage_InvalidCharactersInProcessingInstruction" xml:space="preserve">
+    <value>In the processing instruction &lt;?{0} ?&gt; found invalid characters.</value>
+  </data>
   <data name="ErrorMessage_InvalidCharactersInStartTag" xml:space="preserve">
     <value>In the start tag &lt;{0}&gt; found invalid characters.</value>
+  </data>
+  <data name="ErrorMessage_InvalidCharactersInXmlDeclaration" xml:space="preserve">
+    <value>In the XML declaration found invalid characters.</value>
   </data>
   <data name="ErrorMessage_InvalidEndIfConditionalComment" xml:space="preserve">
     <value>Type of "End If conditional comment" does not match to the type of openened "If conditional comment".</value>

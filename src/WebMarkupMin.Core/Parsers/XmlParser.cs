@@ -17,18 +17,13 @@ namespace WebMarkupMin.Core.Parsers
 		#region Regular expressions for parsing tags and attributes
 
 		private const string NAME_PATTERN = @"[\w-:.]+";
-		private const string ATTRIBUTE_LIST = @"(?<attributes>(\s+" + NAME_PATTERN + @"\s*=\s*(?:(?:""[^""]*"")|(?:'[^']*')))*)";
 
-		private static readonly Regex _processingInstructionRegex =
-			new Regex(@"^<\?(?<instructionName>" + NAME_PATTERN + ")" +
-				ATTRIBUTE_LIST + 
-				@"\s*\?>");
-		private static readonly Regex _startTagRegex =
-			new Regex(@"^<(?<tagName>" + NAME_PATTERN + ")" +
-				ATTRIBUTE_LIST +
-				@"\s*(?<emptyTagSlash>/)?>");
+		private static readonly Regex _processingInstructionBeginPartRegex = new Regex(@"^<\?(?<instructionName>" + NAME_PATTERN + ")");
+		private static readonly Regex _processingInstructionEndPartRegex = new Regex(@"^\s*\?>");
+		private static readonly Regex _startTagBeginPartRegex = new Regex(@"^<(?<tagName>" + NAME_PATTERN + ")");
+		private static readonly Regex _startTagEndPartRegex = new Regex(@"^\s*(?<emptyTagSlash>/)?>");
 		private static readonly Regex _endTagRegex = new Regex(@"^<\/(?<tagName>" + NAME_PATTERN + @")\s*>");
-		private static readonly Regex _attributeRegex = new Regex(@"(?<attributeName>" + NAME_PATTERN + ")" +
+		private static readonly Regex _attributeRegex = new Regex(@"^\s*(?<attributeName>" + NAME_PATTERN + ")" +
 			@"\s*=\s*" +
 			@"(?:""(?<attributeValue>[^""]*)""|'(?<attributeValue>[^']*)')");
 
@@ -214,39 +209,84 @@ namespace WebMarkupMin.Core.Parsers
 		{
 			bool isProcessed = false;
 			string content = _innerContext.SourceCode;
-			int contentPosition = _innerContext.Position;
-			int contentRemainderLength = _innerContext.RemainderLength;
 
-			var match = _processingInstructionRegex.Match(content, contentPosition, contentRemainderLength);
-			if (match.Success)
+			Match processingInstructionBeginPartMatch = _processingInstructionBeginPartRegex.Match(content,
+				_innerContext.Position, _innerContext.RemainderLength);
+			if (processingInstructionBeginPartMatch.Success)
 			{
-				GroupCollection groups = match.Groups;
+				string instructionName = processingInstructionBeginPartMatch.Groups["instructionName"].Value;
+				bool isXmlDeclaration = instructionName.Equals("xml", StringComparison.OrdinalIgnoreCase);
+				IList<XmlAttribute> attributes = null;
 
-				Group instructionNameGroup = groups["instructionName"];
-				string instructionName = instructionNameGroup.Value;
-				int instructionLength = match.Length;
-				int attributesPosition = instructionNameGroup.Index + instructionNameGroup.Length;
-				int instructionRemainderLength = contentPosition + instructionLength - attributesPosition;
+				_innerContext.IncreasePosition(processingInstructionBeginPartMatch.Length);
 
-				IList<XmlAttribute> attributes = ParseAttributes(content, attributesPosition,
-					instructionRemainderLength);
-
-				if (instructionName.Equals("xml", StringComparison.OrdinalIgnoreCase))
+				isProcessed = ProcessProcessingInstructionEndPart();
+				if (!isProcessed)
 				{
-					if (_handlers.XmlDeclaration != null)
+					attributes = ProcessAttributes();
+					isProcessed = ProcessProcessingInstructionEndPart();
+				}
+
+				if (isProcessed)
+				{
+					attributes = attributes ?? new List<XmlAttribute>();
+
+					if (isXmlDeclaration)
 					{
-						_handlers.XmlDeclaration(_context, attributes);
+						if (_handlers.XmlDeclaration != null)
+						{
+							_handlers.XmlDeclaration(_context, attributes);
+						}
+					}
+					else
+					{
+						if (_handlers.ProcessingInstruction != null)
+						{
+							_handlers.ProcessingInstruction(_context, instructionName, attributes);
+						}
 					}
 				}
 				else
 				{
-					if (_handlers.ProcessingInstruction != null)
-					{
-						_handlers.ProcessingInstruction(_context, instructionName, attributes);
-					}
-				}
+					int currentPosition = _innerContext.Position;
+					int invalidCharPosition = SourceCodeNavigator.FindNextNonWhitespaceChar(content,
+						currentPosition, _innerContext.RemainderLength);
 
-				_innerContext.IncreasePosition(instructionLength);
+					int invalidCharOffset = invalidCharPosition - currentPosition;
+					if (invalidCharOffset > 0)
+					{
+						_innerContext.IncreasePosition(invalidCharOffset);
+					}
+
+					string errorMessage = isXmlDeclaration ?
+						Strings.ErrorMessage_InvalidCharactersInXmlDeclaration
+						:
+						string.Format(Strings.ErrorMessage_InvalidCharactersInProcessingInstruction,
+							instructionName)
+						;
+
+					throw new MarkupParsingException(errorMessage, _innerContext.NodeCoordinates,
+						_innerContext.GetSourceFragment());
+				}
+			}
+
+			return isProcessed;
+		}
+
+		/// <summary>
+		/// Process a end part of XML declaration and processing instructions
+		/// </summary>
+		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		private bool ProcessProcessingInstructionEndPart()
+		{
+			bool isProcessed = false;
+			string content = _innerContext.SourceCode;
+
+			Match processingInstructionEndPartMatch = _processingInstructionEndPartRegex.Match(content,
+				_innerContext.Position, _innerContext.RemainderLength);
+			if (processingInstructionEndPartMatch.Success)
+			{
+				_innerContext.IncreasePosition(processingInstructionEndPartMatch.Length);
 				isProcessed = true;
 			}
 
@@ -261,42 +301,84 @@ namespace WebMarkupMin.Core.Parsers
 		{
 			bool isProcessed = false;
 			string content = _innerContext.SourceCode;
-			int contentPosition = _innerContext.Position;
-			int contentRemainderLength = _innerContext.RemainderLength;
 
-			var match = _startTagRegex.Match(content, contentPosition, contentRemainderLength);
-			if (match.Success)
+			Match startTagBeginPartMatch = _startTagBeginPartRegex.Match(content, _innerContext.Position,
+				_innerContext.RemainderLength);
+			if (startTagBeginPartMatch.Success)
 			{
-				GroupCollection groups = match.Groups;
+				string startTagName = startTagBeginPartMatch.Groups["tagName"].Value;
+				IList<XmlAttribute> attributes = null;
+				bool isEmptyTag;
 
-				Group startTagNameGroup = groups["tagName"];
-				string startTagName = startTagNameGroup.Value;
-				int startTagLength = match.Length;
-				int attributesPosition = startTagNameGroup.Index + startTagNameGroup.Length;
-				int startTagRemainderLength = contentPosition + startTagLength - attributesPosition;
+				_innerContext.IncreasePosition(startTagBeginPartMatch.Length);
 
-				IList<XmlAttribute> attributes = ParseAttributes(content, attributesPosition,
-					startTagRemainderLength);
-				bool isEmptyTag = groups["emptyTagSlash"].Success;
-
-				if (isEmptyTag)
+				isProcessed = ProcessStartTagEndPart(out isEmptyTag);
+				if (!isProcessed)
 				{
-					if (_handlers.EmptyTag != null)
+					attributes = ProcessAttributes();
+					isProcessed = ProcessStartTagEndPart(out isEmptyTag);
+				}
+
+				if (isProcessed)
+				{
+					attributes = attributes ?? new List<XmlAttribute>();
+
+					if (isEmptyTag)
 					{
-						_handlers.EmptyTag(_context, startTagName, attributes);
+						if (_handlers.EmptyTag != null)
+						{
+							_handlers.EmptyTag(_context, startTagName, attributes);
+						}
+					}
+					else
+					{
+						_tagStack.Push(new StackedXmlTag(startTagName, _innerContext.NodeCoordinates));
+
+						if (_handlers.StartTag != null)
+						{
+							_handlers.StartTag(_context, startTagName, attributes);
+						}
 					}
 				}
 				else
 				{
-					_tagStack.Push(new StackedXmlTag(startTagName, _innerContext.NodeCoordinates));
+					int currentPosition = _innerContext.Position;
+					int invalidCharPosition = SourceCodeNavigator.FindNextNonWhitespaceChar(content,
+						currentPosition, _innerContext.RemainderLength);
 
-					if (_handlers.StartTag != null)
+					int invalidCharOffset = invalidCharPosition - currentPosition;
+					if (invalidCharOffset > 0)
 					{
-						_handlers.StartTag(_context, startTagName, attributes);
+						_innerContext.IncreasePosition(invalidCharOffset);
 					}
-				}
 
-				_innerContext.IncreasePosition(startTagLength);
+					throw new MarkupParsingException(
+						string.Format(Strings.ErrorMessage_InvalidCharactersInStartTag, startTagName),
+						_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
+				}
+			}
+
+			return isProcessed;
+		}
+
+		/// <summary>
+		/// Process a end part of start tag
+		/// </summary>
+		/// <param name="isEmptyTag">Flag that tag is empty</param>
+		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		private bool ProcessStartTagEndPart(out bool isEmptyTag)
+		{
+			bool isProcessed = false;
+			string content = _innerContext.SourceCode;
+			isEmptyTag = false;
+
+			Match startTagEndPartMatch = _startTagEndPartRegex.Match(content, _innerContext.Position,
+				_innerContext.RemainderLength);
+			if (startTagEndPartMatch.Success)
+			{
+				isEmptyTag = startTagEndPartMatch.Groups["emptyTagSlash"].Success;
+
+				_innerContext.IncreasePosition(startTagEndPartMatch.Length);
 				isProcessed = true;
 			}
 
@@ -311,9 +393,8 @@ namespace WebMarkupMin.Core.Parsers
 		{
 			bool isProcessed = false;
 			string content = _innerContext.SourceCode;
-			int contentRemainderLength = _innerContext.RemainderLength;
 
-			var match = _endTagRegex.Match(content, _innerContext.Position, contentRemainderLength);
+			Match match = _endTagRegex.Match(content, _innerContext.Position, _innerContext.RemainderLength);
 			if (match.Success)
 			{
 				string endTagName = match.Groups["tagName"].Value;
@@ -380,23 +461,16 @@ namespace WebMarkupMin.Core.Parsers
 			_innerContext.IncreasePosition(text.Length);
 		}
 
-		#endregion
-
-		#region Parsing methods
-
 		/// <summary>
-		/// Parses a attributes
+		/// Process a attributes
 		/// </summary>
-		/// <param name="sourceCode">Source code</param>
-		/// <param name="attributesPosition">Start position of attributes</param>
-		/// <param name="remainderLength">Length of attributes and remaining characters in start tag or
-		/// processing instruction</param>
 		/// <returns>List of attributes</returns>
-		private IList<XmlAttribute> ParseAttributes(string sourceCode, int attributesPosition,
-			int remainderLength)
+		private IList<XmlAttribute> ProcessAttributes()
 		{
-			Match match = _attributeRegex.Match(sourceCode, attributesPosition, remainderLength);
 			var attributes = new List<XmlAttribute>();
+			string content = _innerContext.SourceCode;
+
+			Match match = _attributeRegex.Match(content, _innerContext.Position, _innerContext.RemainderLength);
 
 			while (match.Success)
 			{
@@ -412,7 +486,8 @@ namespace WebMarkupMin.Core.Parsers
 
 				attributes.Add(attribute);
 
-				match = match.NextMatch();
+				_innerContext.IncreasePosition(match.Length);
+				match = _attributeRegex.Match(content, _innerContext.Position, _innerContext.RemainderLength);
 			}
 
 			return attributes;
