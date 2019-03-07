@@ -1,11 +1,11 @@
 
 
    --------------------------------------------------------------------------------
-            README file for Web Markup Minifier: Brotli for ASP.NET v2.5.3
+            README file for Web Markup Minifier: Brotli for ASP.NET v2.5.6
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2018 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2019 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========

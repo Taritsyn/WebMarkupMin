@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Web Markup Minifier: Sample ASP.NET MVC 4 Site")]
-[assembly: AssemblyCopyright("Copyright © 2013-2018 Andrey Taritsyn")]
+[assembly: AssemblyCopyright("Copyright © 2013-2019 Andrey Taritsyn")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
 [assembly: Guid("d94caf32-2855-453e-a282-60f6b5cc7955")]
 
-[assembly: AssemblyVersion("2.5.5.0")]
-[assembly: AssemblyFileVersion("2.5.5.0")]
+[assembly: AssemblyVersion("2.5.6.0")]
+[assembly: AssemblyFileVersion("2.5.6.0")]

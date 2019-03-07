@@ -1,6 +1,13 @@
 Change log
 ==========
 
+## v2.5.6 - March 7, 2019
+ * Fixed a [error #73](https://github.com/Taritsyn/WebMarkupMin/issues/73) “HtmlMinifier.Minify hangs permanently”
+ * Fixed a [error #77](https://github.com/Taritsyn/WebMarkupMin/issues/77) “HtmlMinifier.Minify throws InvalidOperationException”
+ * Slightly improved performance of markup minification
+ * Code for working with the output buffers was extracted from the markup minifiers into separate classes
+ * In WebMarkupMin.AspNet.Brotli added support of the BrotliSharpLib version 0.3.3
+
 ## v2.5.5 - November 6, 2018
  * `StringBuilderPool` class has become public
  * Improved performance of attributes generation in XML minifier
