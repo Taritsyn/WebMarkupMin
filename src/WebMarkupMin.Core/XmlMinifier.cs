@@ -261,6 +261,7 @@ namespace WebMarkupMin.Core
 			_output.Write("<?xml");
 			WriteAttributes(attributes);
 			_output.Write("?>");
+			_output.Flush();
 		}
 
 		/// <summary>
@@ -283,6 +284,7 @@ namespace WebMarkupMin.Core
 			_output.Write(instructionName);
 			WriteAttributes(attributes);
 			_output.Write("?>");
+			_output.Flush();
 		}
 
 		/// <summary>
@@ -300,6 +302,7 @@ namespace WebMarkupMin.Core
 			}
 
 			_output.Write(Utils.CollapseWhitespace(doctype));
+			_output.Flush();
 		}
 
 		/// <summary>

@@ -540,6 +540,7 @@ namespace WebMarkupMin.Core
 				if (minificationResult.Errors.Count == 0)
 				{
 					_output.Write(minificationResult.MinifiedContent);
+					_output.Flush();
 				}
 				else
 				{
@@ -590,6 +591,7 @@ namespace WebMarkupMin.Core
 			}
 
 			_output.Write(_settings.UseShortDoctype ? "<!DOCTYPE html>" : Utils.CollapseWhitespace(doctype));
+			_output.Flush();
 		}
 
 		/// <summary>

@@ -46,11 +46,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Fixed a error #73 “HtmlMinifier.Minify hangs permanently”;
-   2. Fixed a error #77 “HtmlMinifier.Minify throws InvalidOperationException”;
-   3. Slightly improved performance of markup minification;
-   4. Code for working with the output buffers was extracted from the markup
-      minifiers into separate classes.
+   In markup minifiers, buffer is now flushed more frequently.
 
    =============
    DOCUMENTATION
