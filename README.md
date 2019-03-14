@@ -60,6 +60,7 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
  * [FAV Rocks](https://github.com/billbogaiv/fav-rocks) by Bill Boga
  * [File Sharing Application](http://bitbucket.org/Artur2/filesharingapplication) by Artur N
  * [Google Pagespeed Tools for NopCommerce](https://www.foxnetsoft.com/noppagespeedtools) by FoxNetSoft
+ * [GrandNode](https://github.com/grandnode/grandnode)
  * [iTEAMConsulting.FormHandler](https://github.com/iteam-consulting/csharp-form-handler)
  * [Karambolo.AspNetCore.Bundling.WebMarkupMin](https://github.com/adams85/bundling)
  * [Lightweight NetCore MVC Template](https://marketplace.visualstudio.com/items?itemName=PabloMorelli.LightweightNetCoreMVCTemplate) by Pablo Morelli
