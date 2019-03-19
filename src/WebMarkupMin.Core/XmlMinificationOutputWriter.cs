@@ -10,22 +10,35 @@
 		/// </summary>
 		public void RemoveLastWhitespaceItems()
 		{
-			int bufferItemCount = _buffer.Count;
-			if (bufferItemCount > 0)
+			int itemCount = _buffer.Count;
+			if (itemCount == 0)
 			{
-				for (int bufferItemIndex = bufferItemCount - 1; bufferItemIndex >= 0; bufferItemIndex--)
-				{
-					string bufferItem = _buffer[bufferItemIndex];
+				return;
+			}
 
-					if (string.IsNullOrWhiteSpace(bufferItem))
-					{
-						_buffer.RemoveAt(bufferItemIndex);
-					}
-					else
-					{
-						break;
-					}
+			int whitespaceItemCount = 0;
+
+			for (int itemIndex = itemCount - 1; itemIndex >= 0; itemIndex--)
+			{
+				string item = _buffer[itemIndex];
+
+				if (string.IsNullOrWhiteSpace(item))
+				{
+					whitespaceItemCount++;
 				}
+				else
+				{
+					break;
+				}
+			}
+
+			if (whitespaceItemCount == 1)
+			{
+				_buffer.RemoveAt(itemCount - 1);
+			}
+			else if (whitespaceItemCount > 1)
+			{
+				_buffer.RemoveRange(itemCount - whitespaceItemCount, whitespaceItemCount);
 			}
 		}
 
@@ -35,19 +48,19 @@
 		/// <returns>Result of transforming (true - has transformed; false - has not transformed)</returns>
 		public bool TransformLastStartTagToEmptyTag(bool renderEmptyTagsWithSpace)
 		{
-			int bufferItemCount = _buffer.Count;
-			if (bufferItemCount == 0)
+			int itemCount = _buffer.Count;
+			if (itemCount == 0)
 			{
 				return false;
 			}
 
 			bool isTransformed = false;
-			int lastBufferItemIndex = bufferItemCount - 1;
-			int lastEndTagEndAngleBracketIndex = _buffer.LastIndexOf(">");
+			int lastItemIndex = itemCount - 1;
+			int tagEndPartItemIndex = _buffer.LastIndexOf(">");
 
-			if (lastEndTagEndAngleBracketIndex == lastBufferItemIndex)
+			if (tagEndPartItemIndex == lastItemIndex)
 			{
-				_buffer[lastBufferItemIndex] = renderEmptyTagsWithSpace ? " />" : "/>";
+				_buffer[tagEndPartItemIndex] = renderEmptyTagsWithSpace ? " />" : "/>";
 				isTransformed = true;
 			}
 

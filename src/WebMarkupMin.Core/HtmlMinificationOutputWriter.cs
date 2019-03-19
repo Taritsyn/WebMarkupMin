@@ -12,23 +12,36 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		public void TrimEndLastItem()
 		{
-			int bufferItemCount = _buffer.Count;
-			if (bufferItemCount > 0)
+			int itemCount = _buffer.Count;
+			if (itemCount == 0)
 			{
-				for (int bufferItemIndex = bufferItemCount - 1; bufferItemIndex >= 0; bufferItemIndex--)
-				{
-					string bufferItem = _buffer[bufferItemIndex];
+				return;
+			}
 
-					if (string.IsNullOrWhiteSpace(bufferItem))
-					{
-						_buffer.RemoveAt(bufferItemIndex);
-					}
-					else
-					{
-						_buffer[bufferItemIndex] = bufferItem.TrimEnd();
-						break;
-					}
+			int whitespaceItemCount = 0;
+
+			for (int itemIndex = itemCount - 1; itemIndex >= 0; itemIndex--)
+			{
+				string item = _buffer[itemIndex];
+
+				if (string.IsNullOrWhiteSpace(item))
+				{
+					whitespaceItemCount++;
 				}
+				else
+				{
+					_buffer[itemIndex] = item.TrimEnd();
+					break;
+				}
+			}
+
+			if (whitespaceItemCount == 1)
+			{
+				_buffer.RemoveAt(itemCount - 1);
+			}
+			else if (whitespaceItemCount > 1)
+			{
+				_buffer.RemoveRange(itemCount - whitespaceItemCount, whitespaceItemCount);
 			}
 		}
 
@@ -39,32 +52,31 @@ namespace WebMarkupMin.Core
 		/// <returns>Result of removing (true - has removed; false - has not removed)</returns>
 		public bool RemoveLastStartTag(string tagName)
 		{
-			int bufferItemCount = _buffer.Count;
-			if (bufferItemCount == 0)
+			int itemCount = _buffer.Count;
+			if (itemCount == 0)
 			{
 				return false;
 			}
 
-			bool isEndTagRemoved = false;
-			int lastStartTagBeginAngleBracketIndex = _buffer.LastIndexOf("<");
+			bool isStartTagRemoved = false;
+			int tagBeginPartItemIndex = _buffer.LastIndexOf("<");
 
-			if (lastStartTagBeginAngleBracketIndex != -1)
+			if (tagBeginPartItemIndex != -1 && itemCount - tagBeginPartItemIndex >= 3)
 			{
-				string lastTagName = _buffer[lastStartTagBeginAngleBracketIndex + 1];
+				string lastTagName = _buffer[tagBeginPartItemIndex + 1];
 				if (lastTagName.IgnoreCaseEquals(tagName))
 				{
-					int lastStartTagEndAngleBracketIndex = _buffer.IndexOf(">", lastStartTagBeginAngleBracketIndex);
-					if (lastStartTagEndAngleBracketIndex != -1)
+					int tagEndPartItemIndex = _buffer.IndexOf(">", tagBeginPartItemIndex);
+					if (tagEndPartItemIndex != -1)
 					{
-						int lastBufferItemIndex = bufferItemCount - 1;
+						int lastItemIndex = itemCount - 1;
 						bool noMoreContent = true;
-						if (lastStartTagEndAngleBracketIndex != lastBufferItemIndex)
+
+						if (tagEndPartItemIndex != lastItemIndex)
 						{
-							for (int bufferItemIndex = lastStartTagEndAngleBracketIndex + 1;
-								 bufferItemIndex < bufferItemCount;
-								 bufferItemIndex++)
+							for (int itemIndex = tagEndPartItemIndex + 1; itemIndex < itemCount; itemIndex++)
 							{
-								if (!string.IsNullOrWhiteSpace(_buffer[bufferItemIndex]))
+								if (!string.IsNullOrWhiteSpace(_buffer[itemIndex]))
 								{
 									noMoreContent = false;
 									break;
@@ -74,16 +86,16 @@ namespace WebMarkupMin.Core
 
 						if (noMoreContent)
 						{
-							_buffer.RemoveRange(lastStartTagBeginAngleBracketIndex,
-								bufferItemCount - lastStartTagBeginAngleBracketIndex);
+							int remainingItemCount = itemCount - tagBeginPartItemIndex;
+							_buffer.RemoveRange(tagBeginPartItemIndex, remainingItemCount);
 
-							isEndTagRemoved = true;
+							isStartTagRemoved = true;
 						}
 					}
 				}
 			}
 
-			return isEndTagRemoved;
+			return isStartTagRemoved;
 		}
 
 		/// <summary>
@@ -92,31 +104,29 @@ namespace WebMarkupMin.Core
 		/// <param name="tagName">Tag name</param>
 		public void RemoveLastEndTag(string tagName)
 		{
-			int bufferItemCount = _buffer.Count;
-			if (bufferItemCount == 0)
+			int itemCount = _buffer.Count;
+			if (itemCount == 0)
 			{
 				return;
 			}
 
-			int lastEndTagBeginAngleBracketIndex = _buffer.LastIndexOf("</");
-
-			if (lastEndTagBeginAngleBracketIndex != -1)
+			int tagBeginPartItemIndex = _buffer.LastIndexOf("</");
+			if (tagBeginPartItemIndex != -1 && itemCount - tagBeginPartItemIndex >= 3)
 			{
-				string lastEndTagName = _buffer[lastEndTagBeginAngleBracketIndex + 1];
-				if (lastEndTagName.IgnoreCaseEquals(tagName))
+				string lastTagName = _buffer[tagBeginPartItemIndex + 1];
+				if (lastTagName.IgnoreCaseEquals(tagName))
 				{
-					int lastEndTagEndAngleBracketIndex = _buffer.IndexOf(">", lastEndTagBeginAngleBracketIndex);
-					if (lastEndTagEndAngleBracketIndex != -1)
+					int tagEndPartItemIndex = _buffer.IndexOf(">", tagBeginPartItemIndex);
+					if (tagEndPartItemIndex != -1)
 					{
-						int lastBufferItemIndex = bufferItemCount - 1;
+						int lastItemIndex = itemCount - 1;
 						bool noMoreContent = true;
-						if (lastEndTagEndAngleBracketIndex != lastBufferItemIndex)
+
+						if (tagEndPartItemIndex != lastItemIndex)
 						{
-							for (int bufferItemIndex = lastEndTagEndAngleBracketIndex + 1;
-								bufferItemIndex < bufferItemCount;
-								bufferItemIndex++)
+							for (int itemIndex = tagEndPartItemIndex + 1; itemIndex < itemCount; itemIndex++)
 							{
-								if (!string.IsNullOrWhiteSpace(_buffer[bufferItemIndex]))
+								if (!string.IsNullOrWhiteSpace(_buffer[itemIndex]))
 								{
 									noMoreContent = false;
 									break;
@@ -126,8 +136,8 @@ namespace WebMarkupMin.Core
 
 						if (noMoreContent)
 						{
-							int endTagLength = lastEndTagEndAngleBracketIndex - lastEndTagBeginAngleBracketIndex + 1;
-							_buffer.RemoveRange(lastEndTagBeginAngleBracketIndex, endTagLength);
+							int tagItemCount = tagEndPartItemIndex - tagBeginPartItemIndex + 1;
+							_buffer.RemoveRange(tagBeginPartItemIndex, tagItemCount);
 						}
 					}
 				}

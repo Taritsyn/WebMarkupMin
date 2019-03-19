@@ -46,7 +46,8 @@
    =============
    RELEASE NOTES
    =============
-   In markup minifiers, buffer is now flushed more frequently.
+   1. In markup minifiers, buffer is now flushed more frequently;
+   2. Markup minification output writers have been refactored.
 
    =============
    DOCUMENTATION
