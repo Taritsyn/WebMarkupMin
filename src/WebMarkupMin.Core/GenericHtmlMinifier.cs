@@ -689,6 +689,8 @@ namespace WebMarkupMin.Core
 					_output.Write(processedCommentText);
 				}
 				_output.Write("-->");
+
+				_output.Flush();
 			}
 			else
 			{
@@ -708,6 +710,8 @@ namespace WebMarkupMin.Core
 			_output.Write("<![CDATA[");
 			_output.Write(cdataText);
 			_output.Write("]]>");
+
+			_output.Flush();
 		}
 
 		/// <summary>
@@ -753,6 +757,8 @@ namespace WebMarkupMin.Core
 			_output.Write(startPart);
 			_output.Write(htmlConditionalComment.Expression);
 			_output.Write(endPart);
+
+			_output.Flush();
 		}
 
 		/// <summary>
@@ -783,6 +789,7 @@ namespace WebMarkupMin.Core
 			}
 
 			_output.Write(endIfComment);
+			_output.Flush();
 		}
 
 		/// <summary>
@@ -852,9 +859,9 @@ namespace WebMarkupMin.Core
 				{
 					_output.RemoveLastEndTag(previousTag.NameInLowercase);
 				}
-
-				_output.Flush();
 			}
+
+			_output.Flush();
 
 			_output.Write("<");
 			_output.Write(CanPreserveCase() ? tagName : tagNameInLowercase);
@@ -985,6 +992,7 @@ namespace WebMarkupMin.Core
 				&& CanRemoveOptionalEndTagByParentTag(previousTag, tag))
 			{
 				_output.RemoveLastEndTag(previousTag.NameInLowercase);
+				_output.Flush();
 			}
 
 			bool isElementEmpty = string.IsNullOrWhiteSpace(previousText)
@@ -1205,6 +1213,8 @@ namespace WebMarkupMin.Core
 			_output.Write(startDelimiter);
 			_output.Write(processedExpression);
 			_output.Write(endDelimiter);
+
+			_output.Flush();
 		}
 
 		/// <summary>

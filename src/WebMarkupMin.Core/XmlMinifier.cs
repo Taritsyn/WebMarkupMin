@@ -261,6 +261,7 @@ namespace WebMarkupMin.Core
 			_output.Write("<?xml");
 			WriteAttributes(attributes);
 			_output.Write("?>");
+
 			_output.Flush();
 		}
 
@@ -284,6 +285,7 @@ namespace WebMarkupMin.Core
 			_output.Write(instructionName);
 			WriteAttributes(attributes);
 			_output.Write("?>");
+
 			_output.Flush();
 		}
 
@@ -319,6 +321,8 @@ namespace WebMarkupMin.Core
 				_output.Write("<!--");
 				_output.Write(commentText);
 				_output.Write("-->");
+
+				_output.Flush();
 			}
 		}
 
@@ -334,6 +338,8 @@ namespace WebMarkupMin.Core
 			_output.Write("<![CDATA[");
 			_output.Write(cdataText);
 			_output.Write("]]>");
+
+			_output.Flush();
 		}
 
 		/// <summary>
@@ -357,6 +363,8 @@ namespace WebMarkupMin.Core
 			{
 				_output.RemoveLastWhitespaceItems();
 			}
+
+			_output.Flush();
 
 			_output.Write("<");
 			_output.Write(tagName);
@@ -425,6 +433,8 @@ namespace WebMarkupMin.Core
 			_output.Write(tagName);
 			WriteAttributes(attributes);
 			_output.Write(_settings.RenderEmptyTagsWithSpace ? " />" : "/>");
+
+			_output.Flush();
 		}
 
 		/// <summary>
@@ -528,6 +538,7 @@ namespace WebMarkupMin.Core
 			if (fragment.Length > 0)
 			{
 				_output.Write(fragment);
+				_output.Flush();
 			}
 		}
 
