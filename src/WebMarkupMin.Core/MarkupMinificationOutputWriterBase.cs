@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace WebMarkupMin.Core
@@ -10,6 +10,11 @@ namespace WebMarkupMin.Core
 	internal abstract class MarkupMinificationOutputWriterBase
 	{
 		/// <summary>
+		/// The default capacity of buffer
+		/// </summary>
+		protected const int DefaultBufferCapacity = 16;
+
+		/// <summary>
 		/// Underlying string builder
 		/// </summary>
 		private StringBuilder _sb;
@@ -17,7 +22,12 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Buffer for items
 		/// </summary>
-		protected readonly List<string> _buffer;
+		protected string[] _items;
+
+		/// <summary>
+		/// Size of used part of the buffer
+		/// </summary>
+		protected int _size;
 
 		/// <summary>
 		/// Gets or sets a underlying string builder
@@ -32,11 +42,39 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Constructs an instance of the markup minification output writer
 		/// </summary>
-		protected MarkupMinificationOutputWriterBase()
+		/// <param name="initialBufferCapacity">Initial capacity of buffer</param>
+		protected MarkupMinificationOutputWriterBase(int initialBufferCapacity)
 		{
-			_buffer = new List<string>();
+			_items = new string[initialBufferCapacity];
 		}
 
+
+		/// <summary>
+		/// Ensures that the capacity of the output buffer is at least the given minimum value
+		/// </summary>
+		/// <param name="minCapacity">Minimum capacity</param>
+		[MethodImpl((MethodImplOptions)256 /* AggressiveInlining */)]
+		private void EnsureCapacity(int minCapacity)
+		{
+			int capacity = _items.Length;
+			if (minCapacity <= capacity)
+			{
+				return;
+			}
+
+			int newCapacity = capacity > 0 ? capacity + DefaultBufferCapacity : DefaultBufferCapacity;
+			if (newCapacity < minCapacity)
+			{
+				newCapacity = minCapacity;
+			}
+
+			if (newCapacity <= capacity)
+			{
+				return;
+			}
+
+			Array.Resize(ref _items, newCapacity);
+		}
 
 		/// <summary>
 		/// Writes a string to the output buffer
@@ -44,7 +82,12 @@ namespace WebMarkupMin.Core
 		/// <param name="value">The string to write</param>
 		public void Write(string value)
 		{
-			_buffer.Add(value);
+			if (_size == _items.Length)
+			{
+				EnsureCapacity(_size + 1);
+			}
+
+			_items[_size++] = value;
 		}
 
 		/// <summary>
@@ -58,21 +101,20 @@ namespace WebMarkupMin.Core
 				throw new InvalidOperationException();
 			}
 
-			int bufferItemCount = _buffer.Count;
-
-			if (bufferItemCount > 0)
+			int itemCount = _size;
+			if (itemCount > 0)
 			{
-				for (int bufferItemIndex = 0; bufferItemIndex < bufferItemCount; bufferItemIndex++)
+				for (int itemIndex = 0; itemIndex < itemCount; itemIndex++)
 				{
-					string bufferItem = _buffer[bufferItemIndex];
+					string item = _items[itemIndex];
 
-					if (bufferItem.Length > 0)
+					if (item.Length > 0)
 					{
-						_sb.Append(bufferItem);
+						_sb.Append(item);
 					}
 				}
 
-				_buffer.Clear();
+				_size = 0;
 			}
 		}
 
@@ -86,7 +128,12 @@ namespace WebMarkupMin.Core
 				throw new InvalidOperationException();
 			}
 
-			_buffer.Clear();
+			if (_size > 0)
+			{
+				Array.Clear(_items, 0, _items.Length);
+				_size = 0;
+			}
+
 			_sb.Clear();
 		}
 
@@ -103,7 +150,7 @@ namespace WebMarkupMin.Core
 				throw new InvalidOperationException();
 			}
 
-			if (_buffer.Count > 0)
+			if (_size > 0)
 			{
 				Flush();
 			}

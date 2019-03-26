@@ -1,4 +1,6 @@
-﻿namespace WebMarkupMin.Core
+﻿using System;
+
+namespace WebMarkupMin.Core
 {
 	/// <summary>
 	/// XML minification output writer
@@ -6,11 +8,27 @@
 	internal sealed class XmlMinificationOutputWriter : MarkupMinificationOutputWriterBase
 	{
 		/// <summary>
+		/// Constructs an instance of the XML minification output writer
+		/// </summary>
+		public XmlMinificationOutputWriter()
+			: base(DefaultBufferCapacity)
+		{ }
+
+		/// <summary>
+		/// Constructs an instance of the XML minification output writer
+		/// </summary>
+		/// <param name="initialBufferCapacity">Initial capacity of buffer</param>
+		public XmlMinificationOutputWriter(int initialBufferCapacity)
+			: base(initialBufferCapacity)
+		{ }
+
+
+		/// <summary>
 		/// Removes a last whitespace items from the output buffer
 		/// </summary>
 		public void RemoveLastWhitespaceItems()
 		{
-			int itemCount = _buffer.Count;
+			int itemCount = _size;
 			if (itemCount == 0)
 			{
 				return;
@@ -20,7 +38,7 @@
 
 			for (int itemIndex = itemCount - 1; itemIndex >= 0; itemIndex--)
 			{
-				string item = _buffer[itemIndex];
+				string item = _items[itemIndex];
 
 				if (string.IsNullOrWhiteSpace(item))
 				{
@@ -32,13 +50,9 @@
 				}
 			}
 
-			if (whitespaceItemCount == 1)
+			if (whitespaceItemCount > 0)
 			{
-				_buffer.RemoveAt(itemCount - 1);
-			}
-			else if (whitespaceItemCount > 1)
-			{
-				_buffer.RemoveRange(itemCount - whitespaceItemCount, whitespaceItemCount);
+				_size = itemCount - whitespaceItemCount;
 			}
 		}
 
@@ -48,7 +62,7 @@
 		/// <returns>Result of transforming (true - has transformed; false - has not transformed)</returns>
 		public bool TransformLastStartTagToEmptyTag(bool renderEmptyTagsWithSpace)
 		{
-			int itemCount = _buffer.Count;
+			int itemCount = _size;
 			if (itemCount == 0)
 			{
 				return false;
@@ -56,11 +70,11 @@
 
 			bool isTransformed = false;
 			int lastItemIndex = itemCount - 1;
-			int tagEndPartItemIndex = _buffer.LastIndexOf(">");
+			int tagEndPartItemIndex = Array.LastIndexOf(_items, ">", lastItemIndex, itemCount);
 
 			if (tagEndPartItemIndex == lastItemIndex)
 			{
-				_buffer[tagEndPartItemIndex] = renderEmptyTagsWithSpace ? " />" : "/>";
+				_items[tagEndPartItemIndex] = renderEmptyTagsWithSpace ? " />" : "/>";
 				isTransformed = true;
 			}
 

@@ -119,7 +119,7 @@ namespace WebMarkupMin.Core
 				IgnoredFragment = IgnoredFragmentHandler
 			});
 
-			_output = new XmlMinificationOutputWriter();
+			_output = new XmlMinificationOutputWriter(48);
 			_errors = new List<MinificationErrorInfo>();
 			_currentNodeType = XmlNodeType.Unknown;
 			_currentText = string.Empty;
@@ -321,8 +321,6 @@ namespace WebMarkupMin.Core
 				_output.Write("<!--");
 				_output.Write(commentText);
 				_output.Write("-->");
-
-				_output.Flush();
 			}
 		}
 
@@ -338,8 +336,6 @@ namespace WebMarkupMin.Core
 			_output.Write("<![CDATA[");
 			_output.Write(cdataText);
 			_output.Write("]]>");
-
-			_output.Flush();
 		}
 
 		/// <summary>
