@@ -23,6 +23,11 @@ namespace WebMarkupMin.Core.Parsers
 		private SourceCodeNodeCoordinates _nodeCoordinates;
 
 		/// <summary>
+		/// Offset for peeked character
+		/// </summary>
+		private int _peekedCharOffset;
+
+		/// <summary>
 		/// Gets a source code
 		/// </summary>
 		public string SourceCode
@@ -72,6 +77,7 @@ namespace WebMarkupMin.Core.Parsers
 			_sourceCode = sourceCode;
 			_position = 0;
 			_nodeCoordinates = new SourceCodeNodeCoordinates(1, 1);
+			_peekedCharOffset = 0;
 		}
 
 		/// <summary>
@@ -96,6 +102,7 @@ namespace WebMarkupMin.Core.Parsers
 			_nodeCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(currentNodeCoordinates,
 				lineBreakCount, charRemainderCount);
 			_position = newPosition;
+			_peekedCharOffset = 0;
 		}
 
 		/// <summary>
@@ -105,6 +112,50 @@ namespace WebMarkupMin.Core.Parsers
 		public string GetSourceFragment()
 		{
 			return SourceCodeNavigator.GetSourceFragment(_sourceCode, _nodeCoordinates);
+		}
+
+		/// <summary>
+		/// Returns the current character without changing the current position
+		/// </summary>
+		/// <returns>Current character</returns>
+		public char PeekCurrentChar()
+		{
+			int currentCharPosition = _position + _peekedCharOffset;
+			char peekedChar;
+
+			if (currentCharPosition < _sourceCode.Length)
+			{
+				peekedChar = _sourceCode[currentCharPosition];
+			}
+			else
+			{
+				peekedChar = '\0';
+			}
+
+			return peekedChar;
+		}
+
+		/// <summary>
+		/// Returns the next character without changing the current position
+		/// </summary>
+		/// <returns>Next character</returns>
+		public char PeekNextChar()
+		{
+			_peekedCharOffset++;
+
+			int nextCharPosition = _position + _peekedCharOffset;
+			char peekedChar;
+
+			if (nextCharPosition < _sourceCode.Length)
+			{
+				peekedChar = _sourceCode[nextCharPosition];
+			}
+			else
+			{
+				peekedChar = '\0';
+			}
+
+			return peekedChar;
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 using WebMarkupMin.Core.Helpers;
@@ -84,77 +85,52 @@ namespace WebMarkupMin.Core.Parsers
 					while (_innerContext.Position <= endPosition)
 					{
 						bool isProcessed = false;
-						int firstCharPosition = _innerContext.Position;
-						char firstCharValue;
-						bool firstCharExist = content.TryGetChar(firstCharPosition, out firstCharValue);
 
-						if (firstCharExist && firstCharValue == '<')
+						if (_innerContext.PeekCurrentChar() == '<')
 						{
-							int secondCharPosition = firstCharPosition + 1;
-							char secondCharValue;
-							bool secondCharExist = content.TryGetChar(secondCharPosition, out secondCharValue);
-
-							if (secondCharExist)
+							switch (_innerContext.PeekNextChar())
 							{
-								if (IsTagFirstChar(secondCharValue))
-								{
+								case char c when IsTagFirstChar(c):
 									// Start tag
 									isProcessed = ProcessStartTag();
-								}
-								else
-								{
-									int thirdCharPosition = secondCharPosition + 1;
-									char thirdCharValue;
-									bool thirdCharExist = content.TryGetChar(thirdCharPosition, out thirdCharValue);
+									break;
 
-									if (thirdCharExist)
+								case '/':
+									if (IsTagFirstChar(_innerContext.PeekNextChar()))
 									{
-										switch (secondCharValue)
-										{
-											case '/':
-												if (IsTagFirstChar(thirdCharValue))
-												{
-													// End tag
-													isProcessed = ProcessEndTag();
-												}
-												break;
-
-											case '!':
-												switch (thirdCharValue)
-												{
-													case '-':
-														int fourthCharPosition = thirdCharPosition + 1;
-														char fourthCharValue;
-														bool fourthCharExist = content.TryGetChar(
-															fourthCharPosition, out fourthCharValue);
-
-														if (fourthCharExist && fourthCharValue == '-')
-														{
-															// XML comments
-															isProcessed = ProcessComment();
-														}
-														break;
-
-													case '[':
-														// CDATA sections
-														isProcessed = ProcessCdataSection();
-														break;
-
-													case 'D':
-													case 'd':
-														// Doctype declaration
-														isProcessed = ProcessDoctype();
-														break;
-												}
-												break;
-
-											case '?':
-												// XML declaration and processing instructions
-												isProcessed = ProcessProcessingInstruction();
-												break;
-										}
+										// End tag
+										isProcessed = ProcessEndTag();
 									}
-								}
+									break;
+
+								case '!':
+									switch (_innerContext.PeekNextChar())
+									{
+										case '-':
+											if (_innerContext.PeekNextChar() == '-')
+											{
+												// XML comments
+												isProcessed = ProcessComment();
+											}
+											break;
+
+										case '[':
+											// CDATA sections
+											isProcessed = ProcessCdataSection();
+											break;
+
+										case 'D':
+										case 'd':
+											// Doctype declaration
+											isProcessed = ProcessDoctype();
+											break;
+									}
+									break;
+
+								case '?':
+									// XML declaration and processing instructions
+									isProcessed = ProcessProcessingInstruction();
+									break;
 							}
 						}
 
@@ -502,6 +478,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// </summary>
 		/// <param name="value">Character value</param>
 		/// <returns>Result of check (true - valid; false - not valid)</returns>
+		[MethodImpl((MethodImplOptions)256 /* AggressiveInlining */)]
 		private static bool IsTagFirstChar(char value)
 		{
 			return char.IsLetter(value) || value == '_';

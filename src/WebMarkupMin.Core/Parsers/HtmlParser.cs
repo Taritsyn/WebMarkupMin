@@ -161,133 +161,97 @@ namespace WebMarkupMin.Core.Parsers
 						// Make sure we're not in a tag, that contains embedded code
 						if (lastStackedTag == null || !lastStackedTag.Flags.HasFlag(HtmlTagFlags.EmbeddedCode))
 						{
-							int firstCharPosition = _innerContext.Position;
-							char firstCharValue;
-							bool firstCharExist = content.TryGetChar(firstCharPosition, out firstCharValue);
-
-							if (firstCharExist && firstCharValue == '<')
+							if (_innerContext.PeekCurrentChar() == '<')
 							{
-								int secondCharPosition = firstCharPosition + 1;
-								char secondCharValue;
-								bool secondCharExist = content.TryGetChar(secondCharPosition, out secondCharValue);
-
-								if (secondCharExist)
+								switch (_innerContext.PeekNextChar())
 								{
-									if (secondCharValue.IsAlphaNumeric())
-									{
+									case char c when c.IsAlphaNumeric():
 										// Start tag
 										isProcessed = ProcessStartTag();
-									}
-									else
-									{
-										int thirdCharPosition = secondCharPosition + 1;
-										char thirdCharValue;
-										bool thirdCharExist = content.TryGetChar(thirdCharPosition, out thirdCharValue);
+										break;
 
-										if (thirdCharExist)
+									case '/':
+										if (_innerContext.PeekNextChar().IsAlphaNumeric())
 										{
-											switch (secondCharValue)
-											{
-												case '/':
-													if (thirdCharValue.IsAlphaNumeric())
-													{
-														isProcessed = ProcessEndTag();
-													}
-													break;
-
-												case '!':
-													int fourthCharPosition = thirdCharPosition + 1;
-													char fourthCharValue;
-													bool fourthCharExist = content.TryGetChar(fourthCharPosition, out fourthCharValue);
-
-													if (!fourthCharExist)
-													{
-														break;
-													}
-
-													switch (thirdCharValue)
-													{
-														case '-':
-															if (fourthCharValue == '-')
-															{
-																// Comments
-																int fifthCharPosition = fourthCharPosition + 1;
-																char fifthCharValue;
-																bool fifthCharExist = content.TryGetChar(fifthCharPosition, out fifthCharValue);
-
-																if (fifthCharExist)
-																{
-																	if (fifthCharValue == '[')
-																	{
-																		// Revealed validating If conditional comments
-																		// (e.g. <!--[if ... ]><!--> or <!--[if ... ]>-->)
-																		isProcessed = ProcessRevealedValidatingIfComment();
-
-																		if (!isProcessed)
-																		{
-																			// Hidden If conditional comments (e.g. <!--[if ... ]>)
-																			isProcessed = ProcessHiddenIfComment();
-																		}
-																	}
-																	else
-																	{
-																		// Revealed validating End If conditional comments
-																		// (e.g. <!--<![endif]-->)
-																		isProcessed = ProcessRevealedValidatingEndIfComment();
-																	}
-																}
-
-																if (!isProcessed)
-																{
-																	// HTML comments
-																	isProcessed = ProcessComment();
-																}
-															}
-															break;
-
-														case '[':
-															switch (fourthCharValue)
-															{
-																case 'i':
-																case 'I':
-																	// Revealed If conditional comment (e.g. <![if ... ]>)
-																	isProcessed = ProcessRevealedIfComment();
-																	break;
-
-																case 'e':
-																case 'E':
-																	// Hidden End If conditional comment (e.g. <![endif]-->)
-																	isProcessed = ProcessHiddenEndIfComment();
-
-																	if (!isProcessed)
-																	{
-																		// Revealed End If conditional comment (e.g. <![endif]>)
-																		isProcessed = ProcessRevealedEndIfComment();
-																	}
-																	break;
-
-																case 'C':
-																	// CDATA sections
-																	isProcessed = ProcessCdataSection();
-																	break;
-															}
-															break;
-
-														case 'D':
-														case 'd':
-															// Doctype declaration
-															isProcessed = ProcessDoctype();
-															break;
-													}
-													break;
-
-												case '?':
-													// XML declaration
-													isProcessed = ProcessXmlDeclaration();
-													break;
-											}
+											// End tag
+											isProcessed = ProcessEndTag();
 										}
-									}
+										break;
+
+									case '!':
+										switch (_innerContext.PeekNextChar())
+										{
+											case '-':
+												if (_innerContext.PeekNextChar() == '-')
+												{
+													// Comments
+													if (_innerContext.PeekNextChar() == '[')
+													{
+														// Revealed validating If conditional comments
+														// (e.g. <!--[if ... ]><!--> or <!--[if ... ]>-->)
+														isProcessed = ProcessRevealedValidatingIfComment();
+
+														if (!isProcessed)
+														{
+															// Hidden If conditional comments (e.g. <!--[if ... ]>)
+															isProcessed = ProcessHiddenIfComment();
+														}
+													}
+													else
+													{
+														// Revealed validating End If conditional comments
+														// (e.g. <!--<![endif]-->)
+														isProcessed = ProcessRevealedValidatingEndIfComment();
+													}
+
+													if (!isProcessed)
+													{
+														// HTML comments
+														isProcessed = ProcessComment();
+													}
+												}
+												break;
+
+											case '[':
+												switch (_innerContext.PeekNextChar())
+												{
+													case 'i':
+													case 'I':
+														// Revealed If conditional comment (e.g. <![if ... ]>)
+														isProcessed = ProcessRevealedIfComment();
+														break;
+
+													case 'e':
+													case 'E':
+														// Hidden End If conditional comment (e.g. <![endif]-->)
+														isProcessed = ProcessHiddenEndIfComment();
+
+														if (!isProcessed)
+														{
+															// Revealed End If conditional comment (e.g. <![endif]>)
+															isProcessed = ProcessRevealedEndIfComment();
+														}
+														break;
+
+													case 'C':
+														// CDATA sections
+														isProcessed = ProcessCdataSection();
+														break;
+												}
+												break;
+
+											case 'D':
+											case 'd':
+												// Doctype declaration
+												isProcessed = ProcessDoctype();
+												break;
+										}
+										break;
+
+									case '?':
+										// XML declaration
+										isProcessed = ProcessXmlDeclaration();
+										break;
 								}
 							}
 
