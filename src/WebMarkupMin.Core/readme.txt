@@ -48,7 +48,11 @@
    =============
    1. In markup minifiers, buffer is now flushed more frequently;
    2. Markup parsers and output writers have been refactored;
-   3. Slightly improved performance of markup minification.
+   3. Slightly improved performance of markup minification;
+   4. Added support of JSON data minification in `script` tags with
+      `application/json` and `application/ld+json` types;
+   5. In HTML/XHTML minification settings was added one new property -
+      `MinifyEmbeddedJsonData` (default `true`).
 
    =============
    DOCUMENTATION

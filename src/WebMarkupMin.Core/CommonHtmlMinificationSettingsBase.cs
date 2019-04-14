@@ -271,6 +271,15 @@ namespace WebMarkupMin.Core
 			set;
 		}
 
+		/// <summary>
+		/// Gets or sets a flag for whether to minify JSON data in <code>script</code> tags
+		/// </summary>
+		public bool MinifyEmbeddedJsonData
+		{
+			get;
+			set;
+		}
+
 		#region Processable script types
 
 		/// <summary>
@@ -514,6 +523,7 @@ namespace WebMarkupMin.Core
 				MinifyInlineCssCode = true;
 				MinifyEmbeddedJsCode = true;
 				MinifyInlineJsCode = true;
+				MinifyEmbeddedJsonData = true;
 				_processableScriptTypes = new HashSet<string> { "text/html" };
 			}
 			else
@@ -527,6 +537,7 @@ namespace WebMarkupMin.Core
 				MinifyInlineCssCode = false;
 				MinifyEmbeddedJsCode = false;
 				MinifyInlineJsCode = false;
+				MinifyEmbeddedJsonData = false;
 				_processableScriptTypes = new HashSet<string>();
 			}
 			RemoveTagsWithoutContent = false;

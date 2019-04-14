@@ -2972,6 +2972,194 @@ namespace WebMarkupMin.Core.Test.Html
 				"</script>"
 				;
 
+
+			const string input18 = "<script type=\"application/json\">\r\n" +
+				"<!--\r\n" +
+				"{\r\n" +
+				"  \"vars\" : {\r\n" +
+				"    \"gtag_id\": \"UA-39595497-1\",\r\n" +
+				"    \"config\" : {\r\n" +
+				"      \"UA-39595497-1\": { \"groups\": \"default\" }\r\n" +
+				"    }\r\n" +
+				"  }\r\n" +
+				"}\r\n" +
+				"-->\r\n" +
+				"</script>"
+				;
+			const string targetOutput18A = "<script type=\"application/json\">" +
+				"<!--\r\n" +
+				"{\r\n" +
+				"  \"vars\" : {\r\n" +
+				"    \"gtag_id\": \"UA-39595497-1\",\r\n" +
+				"    \"config\" : {\r\n" +
+				"      \"UA-39595497-1\": { \"groups\": \"default\" }\r\n" +
+				"    }\r\n" +
+				"  }\r\n" +
+				"}\r\n" +
+				"-->" +
+				"</script>"
+				;
+			const string targetOutput18B = "<script type=\"application/json\">" +
+				"<!--\r\n" +
+				"{\r\n" +
+				"  \"vars\" : {\r\n" +
+				"    \"gtag_id\": \"UA-39595497-1\",\r\n" +
+				"    \"config\" : {\r\n" +
+				"      \"UA-39595497-1\": { \"groups\": \"default\" }\r\n" +
+				"    }\r\n" +
+				"  }\r\n" +
+				"}\r\n" +
+				"-->" +
+				"</script>"
+				;
+			const string targetOutput18C = "<script type=\"application/json\">" +
+				"{\r\n" +
+				"  \"vars\" : {\r\n" +
+				"    \"gtag_id\": \"UA-39595497-1\",\r\n" +
+				"    \"config\" : {\r\n" +
+				"      \"UA-39595497-1\": { \"groups\": \"default\" }\r\n" +
+				"    }\r\n" +
+				"  }\r\n" +
+				"}" +
+				"</script>"
+				;
+
+
+			const string input19 = "<script type=\"application/ld+json\">\r\n" +
+				"<!--\r\n" +
+				"{\r\n" +
+				"	\"@context\": \"http:\\/\\/schema.org\",\r\n" +
+				"	\"@type\": \"Article\",\r\n" +
+				"	\"mainEntityOfPage\": {\r\n" +
+				"		\"@type\": \"WebPage\",\r\n" +
+				"		\"@id\": \"https:\\/\\/habr.com\\/ru\\/post\\/306484\\/\"\r\n" +
+				"	},\r\n" +
+				"	\"headline\": \"Переходим на WebMarkupMin 2.X\",\r\n" +
+				"	\"datePublished\": \"2016-07-26T22:47:45+03:00\",\r\n" +
+				"	\"dateModified\": \"2016-07-27T09:40:50+03:00\",\r\n" +
+				"	\"author\": {\r\n" +
+				"		\"@type\": \"Person\",\r\n" +
+				"		\"name\": \"Андрей Тарицын\"\r\n" +
+				"	},\r\n" +
+				"	\"publisher\": {\r\n" +
+				"		\"@type\": \"Organization\",\r\n" +
+				"		\"name\": \"Habr\",\r\n" +
+				"		\"logo\": {\r\n" +
+				"			\"@type\": \"ImageObject\",\r\n" +
+				"			\"url\": \"https:\\/\\/dr.habracdn.net\\/habrcom\\/images\\/habr_google.png\"\r\n" +
+				"		}\r\n" +
+				"	},\r\n" +
+				"	\"description\": \"Весной прошлого года, когда ASP.NET 5 был еще в стадии Beta 3, " +
+				"я начал получать от пользователей письма с просьбами сделать WebMarkupMin совместимым " +
+				"с DNX 4.5.1...\",\r\n" +
+				"	\"image\": [\r\n" +
+				"		\"https:\\/\\/habrastorage.org\\/getpro\\/habr\\/post_images\\/560\\/f32\\/1b2\\/560f321b29f23528ac5ccd18035783d1.png\"\r\n" +
+				"	]\r\n" +
+				"}\r\n" +
+				"-->\r\n" +
+				"</script>"
+				;
+			const string targetOutput19A = "<script type=\"application/ld+json\">" +
+				"<!--\r\n" +
+				"{\r\n" +
+				"	\"@context\": \"http:\\/\\/schema.org\",\r\n" +
+				"	\"@type\": \"Article\",\r\n" +
+				"	\"mainEntityOfPage\": {\r\n" +
+				"		\"@type\": \"WebPage\",\r\n" +
+				"		\"@id\": \"https:\\/\\/habr.com\\/ru\\/post\\/306484\\/\"\r\n" +
+				"	},\r\n" +
+				"	\"headline\": \"Переходим на WebMarkupMin 2.X\",\r\n" +
+				"	\"datePublished\": \"2016-07-26T22:47:45+03:00\",\r\n" +
+				"	\"dateModified\": \"2016-07-27T09:40:50+03:00\",\r\n" +
+				"	\"author\": {\r\n" +
+				"		\"@type\": \"Person\",\r\n" +
+				"		\"name\": \"Андрей Тарицын\"\r\n" +
+				"	},\r\n" +
+				"	\"publisher\": {\r\n" +
+				"		\"@type\": \"Organization\",\r\n" +
+				"		\"name\": \"Habr\",\r\n" +
+				"		\"logo\": {\r\n" +
+				"			\"@type\": \"ImageObject\",\r\n" +
+				"			\"url\": \"https:\\/\\/dr.habracdn.net\\/habrcom\\/images\\/habr_google.png\"\r\n" +
+				"		}\r\n" +
+				"	},\r\n" +
+				"	\"description\": \"Весной прошлого года, когда ASP.NET 5 был еще в стадии Beta 3, " +
+				"я начал получать от пользователей письма с просьбами сделать WebMarkupMin совместимым " +
+				"с DNX 4.5.1...\",\r\n" +
+				"	\"image\": [\r\n" +
+				"		\"https:\\/\\/habrastorage.org\\/getpro\\/habr\\/post_images\\/560\\/f32\\/1b2\\/560f321b29f23528ac5ccd18035783d1.png\"\r\n" +
+				"	]\r\n" +
+				"}\r\n" +
+				"-->" +
+				"</script>"
+				;
+			const string targetOutput19B = "<script type=\"application/ld+json\">" +
+				"<!--\r\n" +
+				"{\r\n" +
+				"	\"@context\": \"http:\\/\\/schema.org\",\r\n" +
+				"	\"@type\": \"Article\",\r\n" +
+				"	\"mainEntityOfPage\": {\r\n" +
+				"		\"@type\": \"WebPage\",\r\n" +
+				"		\"@id\": \"https:\\/\\/habr.com\\/ru\\/post\\/306484\\/\"\r\n" +
+				"	},\r\n" +
+				"	\"headline\": \"Переходим на WebMarkupMin 2.X\",\r\n" +
+				"	\"datePublished\": \"2016-07-26T22:47:45+03:00\",\r\n" +
+				"	\"dateModified\": \"2016-07-27T09:40:50+03:00\",\r\n" +
+				"	\"author\": {\r\n" +
+				"		\"@type\": \"Person\",\r\n" +
+				"		\"name\": \"Андрей Тарицын\"\r\n" +
+				"	},\r\n" +
+				"	\"publisher\": {\r\n" +
+				"		\"@type\": \"Organization\",\r\n" +
+				"		\"name\": \"Habr\",\r\n" +
+				"		\"logo\": {\r\n" +
+				"			\"@type\": \"ImageObject\",\r\n" +
+				"			\"url\": \"https:\\/\\/dr.habracdn.net\\/habrcom\\/images\\/habr_google.png\"\r\n" +
+				"		}\r\n" +
+				"	},\r\n" +
+				"	\"description\": \"Весной прошлого года, когда ASP.NET 5 был еще в стадии Beta 3, " +
+				"я начал получать от пользователей письма с просьбами сделать WebMarkupMin совместимым " +
+				"с DNX 4.5.1...\",\r\n" +
+				"	\"image\": [\r\n" +
+				"		\"https:\\/\\/habrastorage.org\\/getpro\\/habr\\/post_images\\/560\\/f32\\/1b2\\/560f321b29f23528ac5ccd18035783d1.png\"\r\n" +
+				"	]\r\n" +
+				"}\r\n" +
+				"-->" +
+				"</script>"
+				;
+			const string targetOutput19C = "<script type=\"application/ld+json\">" +
+				"{\r\n" +
+				"	\"@context\": \"http:\\/\\/schema.org\",\r\n" +
+				"	\"@type\": \"Article\",\r\n" +
+				"	\"mainEntityOfPage\": {\r\n" +
+				"		\"@type\": \"WebPage\",\r\n" +
+				"		\"@id\": \"https:\\/\\/habr.com\\/ru\\/post\\/306484\\/\"\r\n" +
+				"	},\r\n" +
+				"	\"headline\": \"Переходим на WebMarkupMin 2.X\",\r\n" +
+				"	\"datePublished\": \"2016-07-26T22:47:45+03:00\",\r\n" +
+				"	\"dateModified\": \"2016-07-27T09:40:50+03:00\",\r\n" +
+				"	\"author\": {\r\n" +
+				"		\"@type\": \"Person\",\r\n" +
+				"		\"name\": \"Андрей Тарицын\"\r\n" +
+				"	},\r\n" +
+				"	\"publisher\": {\r\n" +
+				"		\"@type\": \"Organization\",\r\n" +
+				"		\"name\": \"Habr\",\r\n" +
+				"		\"logo\": {\r\n" +
+				"			\"@type\": \"ImageObject\",\r\n" +
+				"			\"url\": \"https:\\/\\/dr.habracdn.net\\/habrcom\\/images\\/habr_google.png\"\r\n" +
+				"		}\r\n" +
+				"	},\r\n" +
+				"	\"description\": \"Весной прошлого года, когда ASP.NET 5 был еще в стадии Beta 3, " +
+				"я начал получать от пользователей письма с просьбами сделать WebMarkupMin совместимым " +
+				"с DNX 4.5.1...\",\r\n" +
+				"	\"image\": [\r\n" +
+				"		\"https:\\/\\/habrastorage.org\\/getpro\\/habr\\/post_images\\/560\\/f32\\/1b2\\/560f321b29f23528ac5ccd18035783d1.png\"\r\n" +
+				"	]\r\n" +
+				"}" +
+				"</script>"
+				;
+
 			// Act
 			string output1A = minifier.Minify(input1).MinifiedContent;
 			string output1B = removingWhitespaceMinifier.Minify(input1).MinifiedContent;
@@ -3041,6 +3229,14 @@ namespace WebMarkupMin.Core.Test.Html
 			string output17B = removingWhitespaceMinifier.Minify(input17).MinifiedContent;
 			string output17C = removingHtmlCommentsMinifier.Minify(input17).MinifiedContent;
 
+			string output18A = minifier.Minify(input18).MinifiedContent;
+			string output18B = removingWhitespaceMinifier.Minify(input18).MinifiedContent;
+			string output18C = removingHtmlCommentsMinifier.Minify(input18).MinifiedContent;
+
+			string output19A = minifier.Minify(input19).MinifiedContent;
+			string output19B = removingWhitespaceMinifier.Minify(input19).MinifiedContent;
+			string output19C = removingHtmlCommentsMinifier.Minify(input19).MinifiedContent;
+
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
@@ -3109,6 +3305,14 @@ namespace WebMarkupMin.Core.Test.Html
 			Assert.Equal(targetOutput17A, output17A);
 			Assert.Equal(targetOutput17B, output17B);
 			Assert.Equal(targetOutput17C, output17C);
+
+			Assert.Equal(targetOutput18A, output18A);
+			Assert.Equal(targetOutput18B, output18B);
+			Assert.Equal(targetOutput18C, output18C);
+
+			Assert.Equal(targetOutput19A, output19A);
+			Assert.Equal(targetOutput19B, output19B);
+			Assert.Equal(targetOutput19C, output19C);
 		}
 
 		#endregion
@@ -3688,6 +3892,194 @@ namespace WebMarkupMin.Core.Test.Html
 				;
 			const string targetOutput12C = targetOutput12A;
 
+
+			const string input13 = "<script type=\"application/json\">\r\n" +
+				"<![CDATA[\r\n" +
+				"{\r\n" +
+				"  \"vars\" : {\r\n" +
+				"    \"gtag_id\": \"UA-39595497-1\",\r\n" +
+				"    \"config\" : {\r\n" +
+				"      \"UA-39595497-1\": { \"groups\": \"default\" }\r\n" +
+				"    }\r\n" +
+				"  }\r\n" +
+				"}\r\n" +
+				"]]>\r\n" +
+				"</script>"
+				;
+			const string targetOutput13A = "<script type=\"application/json\">" +
+				"<![CDATA[\r\n" +
+				"{\r\n" +
+				"  \"vars\" : {\r\n" +
+				"    \"gtag_id\": \"UA-39595497-1\",\r\n" +
+				"    \"config\" : {\r\n" +
+				"      \"UA-39595497-1\": { \"groups\": \"default\" }\r\n" +
+				"    }\r\n" +
+				"  }\r\n" +
+				"}\r\n" +
+				"]]>" +
+				"</script>"
+				;
+			const string targetOutput13B = "<script type=\"application/json\">" +
+				"<![CDATA[\r\n" +
+				"{\r\n" +
+				"  \"vars\" : {\r\n" +
+				"    \"gtag_id\": \"UA-39595497-1\",\r\n" +
+				"    \"config\" : {\r\n" +
+				"      \"UA-39595497-1\": { \"groups\": \"default\" }\r\n" +
+				"    }\r\n" +
+				"  }\r\n" +
+				"}\r\n" +
+				"]]>" +
+				"</script>"
+				;
+			const string targetOutput13C = "<script type=\"application/json\">" +
+				"{\r\n" +
+				"  \"vars\" : {\r\n" +
+				"    \"gtag_id\": \"UA-39595497-1\",\r\n" +
+				"    \"config\" : {\r\n" +
+				"      \"UA-39595497-1\": { \"groups\": \"default\" }\r\n" +
+				"    }\r\n" +
+				"  }\r\n" +
+				"}" +
+				"</script>"
+				;
+
+
+			const string input14 = "<script type=\"application/ld+json\">\r\n" +
+				"<![CDATA[\r\n" +
+				"{\r\n" +
+				"	\"@context\": \"http:\\/\\/schema.org\",\r\n" +
+				"	\"@type\": \"Article\",\r\n" +
+				"	\"mainEntityOfPage\": {\r\n" +
+				"		\"@type\": \"WebPage\",\r\n" +
+				"		\"@id\": \"https:\\/\\/habr.com\\/ru\\/post\\/306484\\/\"\r\n" +
+				"	},\r\n" +
+				"	\"headline\": \"Переходим на WebMarkupMin 2.X\",\r\n" +
+				"	\"datePublished\": \"2016-07-26T22:47:45+03:00\",\r\n" +
+				"	\"dateModified\": \"2016-07-27T09:40:50+03:00\",\r\n" +
+				"	\"author\": {\r\n" +
+				"		\"@type\": \"Person\",\r\n" +
+				"		\"name\": \"Андрей Тарицын\"\r\n" +
+				"	},\r\n" +
+				"	\"publisher\": {\r\n" +
+				"		\"@type\": \"Organization\",\r\n" +
+				"		\"name\": \"Habr\",\r\n" +
+				"		\"logo\": {\r\n" +
+				"			\"@type\": \"ImageObject\",\r\n" +
+				"			\"url\": \"https:\\/\\/dr.habracdn.net\\/habrcom\\/images\\/habr_google.png\"\r\n" +
+				"		}\r\n" +
+				"	},\r\n" +
+				"	\"description\": \"Весной прошлого года, когда ASP.NET 5 был еще в стадии Beta 3, " +
+				"я начал получать от пользователей письма с просьбами сделать WebMarkupMin совместимым " +
+				"с DNX 4.5.1...\",\r\n" +
+				"	\"image\": [\r\n" +
+				"		\"https:\\/\\/habrastorage.org\\/getpro\\/habr\\/post_images\\/560\\/f32\\/1b2\\/560f321b29f23528ac5ccd18035783d1.png\"\r\n" +
+				"	]\r\n" +
+				"}\r\n" +
+				"]]>\r\n" +
+				"</script>"
+				;
+			const string targetOutput14A = "<script type=\"application/ld+json\">" +
+				"<![CDATA[\r\n" +
+				"{\r\n" +
+				"	\"@context\": \"http:\\/\\/schema.org\",\r\n" +
+				"	\"@type\": \"Article\",\r\n" +
+				"	\"mainEntityOfPage\": {\r\n" +
+				"		\"@type\": \"WebPage\",\r\n" +
+				"		\"@id\": \"https:\\/\\/habr.com\\/ru\\/post\\/306484\\/\"\r\n" +
+				"	},\r\n" +
+				"	\"headline\": \"Переходим на WebMarkupMin 2.X\",\r\n" +
+				"	\"datePublished\": \"2016-07-26T22:47:45+03:00\",\r\n" +
+				"	\"dateModified\": \"2016-07-27T09:40:50+03:00\",\r\n" +
+				"	\"author\": {\r\n" +
+				"		\"@type\": \"Person\",\r\n" +
+				"		\"name\": \"Андрей Тарицын\"\r\n" +
+				"	},\r\n" +
+				"	\"publisher\": {\r\n" +
+				"		\"@type\": \"Organization\",\r\n" +
+				"		\"name\": \"Habr\",\r\n" +
+				"		\"logo\": {\r\n" +
+				"			\"@type\": \"ImageObject\",\r\n" +
+				"			\"url\": \"https:\\/\\/dr.habracdn.net\\/habrcom\\/images\\/habr_google.png\"\r\n" +
+				"		}\r\n" +
+				"	},\r\n" +
+				"	\"description\": \"Весной прошлого года, когда ASP.NET 5 был еще в стадии Beta 3, " +
+				"я начал получать от пользователей письма с просьбами сделать WebMarkupMin совместимым " +
+				"с DNX 4.5.1...\",\r\n" +
+				"	\"image\": [\r\n" +
+				"		\"https:\\/\\/habrastorage.org\\/getpro\\/habr\\/post_images\\/560\\/f32\\/1b2\\/560f321b29f23528ac5ccd18035783d1.png\"\r\n" +
+				"	]\r\n" +
+				"}\r\n" +
+				"]]>" +
+				"</script>"
+				;
+			const string targetOutput14B = "<script type=\"application/ld+json\">" +
+				"<![CDATA[\r\n" +
+				"{\r\n" +
+				"	\"@context\": \"http:\\/\\/schema.org\",\r\n" +
+				"	\"@type\": \"Article\",\r\n" +
+				"	\"mainEntityOfPage\": {\r\n" +
+				"		\"@type\": \"WebPage\",\r\n" +
+				"		\"@id\": \"https:\\/\\/habr.com\\/ru\\/post\\/306484\\/\"\r\n" +
+				"	},\r\n" +
+				"	\"headline\": \"Переходим на WebMarkupMin 2.X\",\r\n" +
+				"	\"datePublished\": \"2016-07-26T22:47:45+03:00\",\r\n" +
+				"	\"dateModified\": \"2016-07-27T09:40:50+03:00\",\r\n" +
+				"	\"author\": {\r\n" +
+				"		\"@type\": \"Person\",\r\n" +
+				"		\"name\": \"Андрей Тарицын\"\r\n" +
+				"	},\r\n" +
+				"	\"publisher\": {\r\n" +
+				"		\"@type\": \"Organization\",\r\n" +
+				"		\"name\": \"Habr\",\r\n" +
+				"		\"logo\": {\r\n" +
+				"			\"@type\": \"ImageObject\",\r\n" +
+				"			\"url\": \"https:\\/\\/dr.habracdn.net\\/habrcom\\/images\\/habr_google.png\"\r\n" +
+				"		}\r\n" +
+				"	},\r\n" +
+				"	\"description\": \"Весной прошлого года, когда ASP.NET 5 был еще в стадии Beta 3, " +
+				"я начал получать от пользователей письма с просьбами сделать WebMarkupMin совместимым " +
+				"с DNX 4.5.1...\",\r\n" +
+				"	\"image\": [\r\n" +
+				"		\"https:\\/\\/habrastorage.org\\/getpro\\/habr\\/post_images\\/560\\/f32\\/1b2\\/560f321b29f23528ac5ccd18035783d1.png\"\r\n" +
+				"	]\r\n" +
+				"}\r\n" +
+				"]]>" +
+				"</script>"
+				;
+			const string targetOutput14C = "<script type=\"application/ld+json\">" +
+				"{\r\n" +
+				"	\"@context\": \"http:\\/\\/schema.org\",\r\n" +
+				"	\"@type\": \"Article\",\r\n" +
+				"	\"mainEntityOfPage\": {\r\n" +
+				"		\"@type\": \"WebPage\",\r\n" +
+				"		\"@id\": \"https:\\/\\/habr.com\\/ru\\/post\\/306484\\/\"\r\n" +
+				"	},\r\n" +
+				"	\"headline\": \"Переходим на WebMarkupMin 2.X\",\r\n" +
+				"	\"datePublished\": \"2016-07-26T22:47:45+03:00\",\r\n" +
+				"	\"dateModified\": \"2016-07-27T09:40:50+03:00\",\r\n" +
+				"	\"author\": {\r\n" +
+				"		\"@type\": \"Person\",\r\n" +
+				"		\"name\": \"Андрей Тарицын\"\r\n" +
+				"	},\r\n" +
+				"	\"publisher\": {\r\n" +
+				"		\"@type\": \"Organization\",\r\n" +
+				"		\"name\": \"Habr\",\r\n" +
+				"		\"logo\": {\r\n" +
+				"			\"@type\": \"ImageObject\",\r\n" +
+				"			\"url\": \"https:\\/\\/dr.habracdn.net\\/habrcom\\/images\\/habr_google.png\"\r\n" +
+				"		}\r\n" +
+				"	},\r\n" +
+				"	\"description\": \"Весной прошлого года, когда ASP.NET 5 был еще в стадии Beta 3, " +
+				"я начал получать от пользователей письма с просьбами сделать WebMarkupMin совместимым " +
+				"с DNX 4.5.1...\",\r\n" +
+				"	\"image\": [\r\n" +
+				"		\"https:\\/\\/habrastorage.org\\/getpro\\/habr\\/post_images\\/560\\/f32\\/1b2\\/560f321b29f23528ac5ccd18035783d1.png\"\r\n" +
+				"	]\r\n" +
+				"}" +
+				"</script>"
+				;
+
 			// Act
 			string output1A = minifier.Minify(input1).MinifiedContent;
 			string output1B = removingWhitespaceMinifier.Minify(input1).MinifiedContent;
@@ -3737,6 +4129,14 @@ namespace WebMarkupMin.Core.Test.Html
 			string output12B = removingWhitespaceMinifier.Minify(input12).MinifiedContent;
 			string output12C = removingCdataSectionsMinifier.Minify(input12).MinifiedContent;
 
+			string output13A = minifier.Minify(input13).MinifiedContent;
+			string output13B = removingWhitespaceMinifier.Minify(input13).MinifiedContent;
+			string output13C = removingCdataSectionsMinifier.Minify(input13).MinifiedContent;
+
+			string output14A = minifier.Minify(input14).MinifiedContent;
+			string output14B = removingWhitespaceMinifier.Minify(input14).MinifiedContent;
+			string output14C = removingCdataSectionsMinifier.Minify(input14).MinifiedContent;
+
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
@@ -3785,6 +4185,14 @@ namespace WebMarkupMin.Core.Test.Html
 			Assert.Equal(targetOutput12A, output12A);
 			Assert.Equal(targetOutput12B, output12B);
 			Assert.Equal(targetOutput12C, output12C);
+
+			Assert.Equal(targetOutput13A, output13A);
+			Assert.Equal(targetOutput13B, output13B);
+			Assert.Equal(targetOutput13C, output13C);
+
+			Assert.Equal(targetOutput14A, output14A);
+			Assert.Equal(targetOutput14B, output14B);
+			Assert.Equal(targetOutput14C, output14C);
 		}
 
 		#endregion
@@ -6076,6 +6484,124 @@ namespace WebMarkupMin.Core.Test.Html
 
 			Assert.Equal(targetOutput5, output5A);
 			Assert.Equal(targetOutput5, output5B);
+		}
+
+		#endregion
+
+		#region Minification of embedded JSON data
+
+		[Fact]
+		public void MinificationOfEmbeddedJsonDataIsCorrect()
+		{
+			// Arrange
+			var keepingEmbeddedJsonDataMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true) { MinifyEmbeddedJsonData = false });
+			var minifyingEmbeddedJsonDataMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true) { MinifyEmbeddedJsonData = true });
+
+			const string input1 = "<script type=\"application/json\">\r\n" +
+				"{\r\n" +
+				"  \"vars\" : {\r\n" +
+				"    \"gtag_id\": \"UA-39595497-1\",\r\n" +
+				"    \"config\" : {\r\n" +
+				"      \"UA-39595497-1\": { \"groups\": \"default\" }\r\n" +
+				"    }\r\n" +
+				"  }\r\n" +
+				"}\r\n" +
+				"</script>"
+				;
+			const string targetOutput1A = input1;
+			const string targetOutput1B = "<script type=\"application/json\">" +
+				"{" +
+				"\"vars\":{" +
+				"\"gtag_id\":\"UA-39595497-1\"," +
+				"\"config\":{" +
+				"\"UA-39595497-1\":{\"groups\":\"default\"}" +
+				"}" +
+				"}" +
+				"}" +
+				"</script>"
+				;
+
+			const string input2 = "<script type=\"application/ld+json\">\r\n" +
+				"{\r\n" +
+				"	\"@context\": \"http:\\/\\/schema.org\",\r\n" +
+				"	\"@type\": \"Article\",\r\n" +
+				"	\"mainEntityOfPage\": {\r\n" +
+				"		\"@type\": \"WebPage\",\r\n" +
+				"		\"@id\": \"https:\\/\\/habr.com\\/ru\\/post\\/306484\\/\"\r\n" +
+				"	},\r\n" +
+				"	\"headline\": \"Переходим на WebMarkupMin 2.X\",\r\n" +
+				"	\"datePublished\": \"2016-07-26T22:47:45+03:00\",\r\n" +
+				"	\"dateModified\": \"2016-07-27T09:40:50+03:00\",\r\n" +
+				"	\"author\": {\r\n" +
+				"		\"@type\": \"Person\",\r\n" +
+				"		\"name\": \"Андрей Тарицын\"\r\n" +
+				"	},\r\n" +
+				"	\"publisher\": {\r\n" +
+				"		\"@type\": \"Organization\",\r\n" +
+				"		\"name\": \"Habr\",\r\n" +
+				"		\"logo\": {\r\n" +
+				"			\"@type\": \"ImageObject\",\r\n" +
+				"			\"url\": \"https:\\/\\/dr.habracdn.net\\/habrcom\\/images\\/habr_google.png\"\r\n" +
+				"		}\r\n" +
+				"	},\r\n" +
+				"	\"description\": \"Весной прошлого года, когда ASP.NET 5 был еще в стадии Beta 3, " +
+				"я начал получать от пользователей письма с просьбами сделать WebMarkupMin совместимым " +
+				"с DNX 4.5.1...\",\r\n" +
+				"	\"image\": [\r\n" +
+				"		\"https:\\/\\/habrastorage.org\\/getpro\\/habr\\/post_images\\/560\\/f32\\/1b2\\/560f321b29f23528ac5ccd18035783d1.png\"\r\n" +
+				"	]\r\n" +
+				"}\r\n" +
+				"</script>"
+				;
+			const string targetOutput2A = input2;
+			const string targetOutput2B = "<script type=\"application/ld+json\">" +
+				"{" +
+				"\"@context\":\"http:\\/\\/schema.org\"," +
+				"\"@type\":\"Article\"," +
+				"\"mainEntityOfPage\":{" +
+				"\"@type\":\"WebPage\"," +
+				"\"@id\":\"https:\\/\\/habr.com\\/ru\\/post\\/306484\\/\"" +
+				"}," +
+				"\"headline\":\"Переходим на WebMarkupMin 2.X\"," +
+				"\"datePublished\":\"2016-07-26T22:47:45+03:00\"," +
+				"\"dateModified\":\"2016-07-27T09:40:50+03:00\"," +
+				"\"author\":{" +
+				"\"@type\":\"Person\"," +
+				"\"name\":\"Андрей Тарицын\"" +
+				"}," +
+				"\"publisher\":{" +
+				"\"@type\":\"Organization\"," +
+				"\"name\":\"Habr\"," +
+				"\"logo\":{" +
+				"\"@type\":\"ImageObject\"," +
+				"\"url\":\"https:\\/\\/dr.habracdn.net\\/habrcom\\/images\\/habr_google.png\"" +
+				"}" +
+				"}," +
+				"\"description\":\"Весной прошлого года, когда ASP.NET 5 был еще в стадии Beta 3, " +
+				"я начал получать от пользователей письма с просьбами сделать WebMarkupMin совместимым " +
+				"с DNX 4.5.1...\"," +
+				"\"image\":[" +
+				"\"https:\\/\\/habrastorage.org\\/getpro\\/habr\\/post_images\\/560\\/f32\\/1b2\\/560f321b29f23528ac5ccd18035783d1.png\"" +
+				"]" +
+				"}" +
+				"</script>"
+				;
+
+			// Act
+			string output1A = keepingEmbeddedJsonDataMinifier.Minify(input1).MinifiedContent;
+			string output1B = minifyingEmbeddedJsonDataMinifier.Minify(input1).MinifiedContent;
+
+			string output2A = keepingEmbeddedJsonDataMinifier.Minify(input2).MinifiedContent;
+			string output2B = minifyingEmbeddedJsonDataMinifier.Minify(input2).MinifiedContent;
+
+			// Assert
+			Assert.Equal(targetOutput1A, output1A);
+			Assert.Equal(targetOutput1B, output1B);
+
+			Assert.Equal(targetOutput2A, output2A);
+			Assert.Equal(targetOutput2B, output2B);
 		}
 
 		#endregion

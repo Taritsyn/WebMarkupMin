@@ -126,6 +126,9 @@
   <data name="ControlGroup_EmbeddedAndInlineJavaScript" xml:space="preserve">
     <value>Embedded and inline JavaScript</value>
   </data>
+  <data name="ControlGroup_EmbeddedJson" xml:space="preserve">
+    <value>Embedded JSON</value>
+  </data>
   <data name="ControlGroup_JavaScriptTemplating" xml:space="preserve">
     <value>JavaScript templating</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="DisplayName_MinifyEmbeddedJsCode" xml:space="preserve">
     <value>Minify embedded JavaScript code</value>
+  </data>
+  <data name="DisplayName_MinifyEmbeddedJsonData" xml:space="preserve">
+    <value>Minify embedded JSON data</value>
   </data>
   <data name="DisplayName_MinifyInlineCssCode" xml:space="preserve">
     <value>Minify inline CSS code</value>

@@ -174,6 +174,14 @@ namespace WebMarkupMin.Core
 		};
 
 		/// <summary>
+		/// List of JSON content types
+		/// </summary>
+		private static readonly HashSet<string> _jsonContentTypes = new HashSet<string>
+		{
+			"application/json", "application/ld+json"
+		};
+
+		/// <summary>
 		/// List of names of built-in Angular directives, that contain expressions
 		/// </summary>
 		private static readonly HashSet<string> _builtinAngularDirectivesWithExpressions = new HashSet<string>
@@ -2137,10 +2145,11 @@ namespace WebMarkupMin.Core
 			string processedContentType = !string.IsNullOrWhiteSpace(contentType) ?
 				contentType.Trim().ToLowerInvariant() : JS_CONTENT_TYPE;
 			bool isJavaScript = _jsContentTypes.Contains(processedContentType);
+			bool isJson = _jsonContentTypes.Contains(processedContentType);
 			bool isVbScript = processedContentType == VBS_CONTENT_TYPE;
 			bool minifyWhitespace = _settings.WhitespaceMinificationMode != WhitespaceMinificationMode.None;
 
-			if (isJavaScript || isVbScript)
+			if (isJavaScript || isJson || isVbScript)
 			{
 				bool removeHtmlComments = _settings.RemoveHtmlCommentsFromScriptsAndStyles;
 				bool removeCdataSections = _settings.RemoveCdataSectionsFromScriptsAndStyles;
@@ -2244,11 +2253,14 @@ namespace WebMarkupMin.Core
 				}
 				else
 				{
-					// Processing of VBScript code
+					// Processing of JSON or VBScript code
 					if (_beginCdataSectionRegex.IsMatch(content))
 					{
-						startPart = "<![CDATA[";
-						endPart = "]]>";
+						if (!(isJson && removeCdataSections))
+						{
+							startPart = "<![CDATA[";
+							endPart = "]]>";
+						}
 						code = Utils.RemovePrefixAndPostfix(content, _beginCdataSectionRegex, _endCdataSectionRegex);
 					}
 					else if (_beginHtmlCommentRegex.IsMatch(content))
@@ -2260,6 +2272,37 @@ namespace WebMarkupMin.Core
 						}
 
 						code = Utils.RemovePrefixAndPostfix(content, _beginHtmlCommentRegex, _endHtmlCommentRegex);
+					}
+
+					if (isJson && _settings.MinifyEmbeddedJsonData)
+					{
+						CrockfordJsMinifier innerCrockfordJsMinifier = GetInnerCrockfordJsMinifierInstance();
+						CodeMinificationResult minificationResult = innerCrockfordJsMinifier.Minify(code, false);
+						IList<MinificationErrorInfo> errors = minificationResult.Errors;
+
+						if (errors.Count == 0)
+						{
+							code = minificationResult.MinifiedContent ?? string.Empty;
+						}
+						else
+						{
+							string sourceCode = context.SourceCode;
+							var documentCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
+								context.NodeCoordinates, beforeCodeContent);
+
+							MinificationErrorInfo error = errors[0];
+							var relativeErrorCoordinates = new SourceCodeNodeCoordinates(error.LineNumber,
+								error.ColumnNumber);
+							var absoluteErrorCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
+								documentCoordinates, relativeErrorCoordinates);
+							string sourceFragment = SourceCodeNavigator.GetSourceFragment(
+								sourceCode, absoluteErrorCoordinates);
+							string message = error.Message.Trim();
+
+							WriteError(LogCategoryConstants.JsMinificationError, message, _fileContext,
+								absoluteErrorCoordinates.LineNumber, absoluteErrorCoordinates.ColumnNumber,
+								sourceFragment);
+						}
 					}
 				}
 

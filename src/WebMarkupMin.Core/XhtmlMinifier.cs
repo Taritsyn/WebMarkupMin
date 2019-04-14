@@ -55,6 +55,7 @@ namespace WebMarkupMin.Core
 					MinifyInlineCssCode = settings.MinifyInlineCssCode,
 					MinifyEmbeddedJsCode = settings.MinifyEmbeddedJsCode,
 					MinifyInlineJsCode = settings.MinifyInlineJsCode,
+					MinifyEmbeddedJsonData = settings.MinifyEmbeddedJsonData,
 					ProcessableScriptTypeList = settings.ProcessableScriptTypeList,
 					MinifyKnockoutBindingExpressions = settings.MinifyKnockoutBindingExpressions,
 					MinifyAngularBindingExpressions = settings.MinifyAngularBindingExpressions,

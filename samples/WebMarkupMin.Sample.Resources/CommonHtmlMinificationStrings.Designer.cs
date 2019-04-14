@@ -82,6 +82,14 @@ namespace WebMarkupMin.Sample.Resources
 		}
 
 		/// <summary>
+		/// Looks up a localized string similar to "Embedded JSON"
+		/// </summary>
+		public static string ControlGroup_EmbeddedJson
+		{
+			get { return GetString("ControlGroup_EmbeddedJson"); }
+		}
+
+		/// <summary>
 		/// Looks up a localized string similar to "JavaScript templating"
 		/// </summary>
 		public static string ControlGroup_JavaScriptTemplating
@@ -143,6 +151,14 @@ namespace WebMarkupMin.Sample.Resources
 		public static string DisplayName_MinifyEmbeddedJsCode
 		{
 			get { return GetString("DisplayName_MinifyEmbeddedJsCode"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Minify embedded JSON data"
+		/// </summary>
+		public static string DisplayName_MinifyEmbeddedJsonData
+		{
+			get { return GetString("DisplayName_MinifyEmbeddedJsonData"); }
 		}
 
 		/// <summary>

@@ -187,6 +187,15 @@
 					</div>
 				</fieldset>
 				<fieldset>
+					<legend>@CommonHtmlMinificationStrings.ControlGroup_EmbeddedJson</legend>
+					<div class="checkbox">
+						<label asp-for="Settings.MinifyEmbeddedJsonData">
+							<input asp-for="Settings.MinifyEmbeddedJsonData" />
+							@Html.DisplayNameFor(m => m.Settings.MinifyEmbeddedJsonData)
+						</label>
+					</div>
+				</fieldset>
+				<fieldset>
 					<legend>@CommonHtmlMinificationStrings.ControlGroup_JavaScriptTemplating</legend>
 					<div class="form-group">
 						<input asp-for="Settings.ProcessableScriptTypeList" class="form-control"

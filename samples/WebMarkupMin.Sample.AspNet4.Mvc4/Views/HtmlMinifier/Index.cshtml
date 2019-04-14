@@ -119,6 +119,12 @@
 					</div>
 				</fieldset>
 				<fieldset>
+					<legend>@CommonHtmlMinificationStrings.ControlGroup_EmbeddedJson</legend>
+					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.MinifyEmbeddedJsonData)
+					</div>
+				</fieldset>
+				<fieldset>
 					<legend>@CommonHtmlMinificationStrings.ControlGroup_JavaScriptTemplating</legend>
 					<div class="form-group">
 						@(Html.TextBoxFor(m => m.Settings.ProcessableScriptTypeList,

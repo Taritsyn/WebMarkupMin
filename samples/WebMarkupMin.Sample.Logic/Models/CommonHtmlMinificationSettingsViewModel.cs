@@ -159,6 +159,13 @@ namespace WebMarkupMin.Sample.Logic.Models
 			get { return _availableJsMinifierList; }
 		}
 
+		[Display(Name = "DisplayName_MinifyEmbeddedJsonData", ResourceType = typeof(CommonHtmlMinificationStrings))]
+		public bool MinifyEmbeddedJsonData
+		{
+			get;
+			set;
+		}
+
 		[Display(Name = "DisplayName_ProcessableScriptTypeList", ResourceType = typeof(CommonHtmlMinificationStrings))]
 		[StringLength(256)]
 		public string ProcessableScriptTypeList
