@@ -1,6 +1,13 @@
 Change log
 ==========
 
+## v2.5.7 - April 15, 2019
+ * In markup minifiers, buffer is now flushed more frequently
+ * Markup parsers and output writers have been refactored
+ * Slightly improved performance of markup minification
+ * Added support of JSON data minification in `script` tags with `application/json` and `application/ld+json` types
+ * In HTML/XHTML minification settings was added one new property - `MinifyEmbeddedJsonData` (default `true`)
+
 ## v2.5.6 - March 7, 2019
  * Fixed a [error #73](https://github.com/Taritsyn/WebMarkupMin/issues/73) “HtmlMinifier.Minify hangs permanently”
  * Fixed a [error #77](https://github.com/Taritsyn/WebMarkupMin/issues/77) “HtmlMinifier.Minify throws InvalidOperationException”
