@@ -2144,10 +2144,26 @@ namespace WebMarkupMin.Core
 			bool isNotEmpty = false;
 			string processedContentType = !string.IsNullOrWhiteSpace(contentType) ?
 				contentType.Trim().ToLowerInvariant() : JS_CONTENT_TYPE;
-			bool isJavaScript = _jsContentTypes.Contains(processedContentType);
-			bool isJson = _jsonContentTypes.Contains(processedContentType);
-			bool isVbScript = processedContentType == VBS_CONTENT_TYPE;
 			bool minifyWhitespace = _settings.WhitespaceMinificationMode != WhitespaceMinificationMode.None;
+
+			bool isJavaScript = false;
+			bool isJson = false;
+			bool isVbScript = false;
+
+			switch (processedContentType)
+			{
+				case string s when _jsContentTypes.Contains(s):
+					isJavaScript = true;
+					break;
+
+				case string s when _jsonContentTypes.Contains(s):
+					isJson = true;
+					break;
+
+				case VBS_CONTENT_TYPE:
+					isVbScript = true;
+					break;
+			}
 
 			if (isJavaScript || isJson || isVbScript)
 			{
