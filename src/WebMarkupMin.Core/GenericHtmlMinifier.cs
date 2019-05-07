@@ -2168,7 +2168,8 @@ namespace WebMarkupMin.Core
 			if (isJavaScript || isJson || isVbScript)
 			{
 				bool removeHtmlComments = _settings.RemoveHtmlCommentsFromScriptsAndStyles;
-				bool removeCdataSections = _settings.RemoveCdataSectionsFromScriptsAndStyles;
+				bool removeCdataSections = _settings.RemoveCdataSectionsFromScriptsAndStyles
+					&& !_currentTag.Flags.HasFlag(HtmlTagFlags.Xml);
 
 				string startPart = string.Empty;
 				string endPart = string.Empty;
@@ -2272,7 +2273,7 @@ namespace WebMarkupMin.Core
 					// Processing of JSON or VBScript code
 					if (_beginCdataSectionRegex.IsMatch(content))
 					{
-						if (!(isJson && removeCdataSections))
+						if (!removeCdataSections)
 						{
 							startPart = "<![CDATA[";
 							endPart = "]]>";
@@ -2422,138 +2423,147 @@ namespace WebMarkupMin.Core
 		/// <param name="contentType">Content type (MIME type) of the style</param>
 		private void ProcessEmbeddedStyleContent(MarkupParsingContext context, string content, string contentType)
 		{
-			string code;
+			string code = content;
 			bool isNotEmpty = false;
 			string processedContentType = !string.IsNullOrWhiteSpace(contentType) ?
 				contentType.Trim().ToLowerInvariant() : CSS_CONTENT_TYPE;
 			bool minifyWhitespace = _settings.WhitespaceMinificationMode != WhitespaceMinificationMode.None;
-			bool removeHtmlComments = _settings.RemoveHtmlCommentsFromScriptsAndStyles;
-			bool removeCdataSections = _settings.RemoveCdataSectionsFromScriptsAndStyles;
 
-			string startPart = string.Empty;
-			string endPart = string.Empty;
-			string newLine = string.Empty;
-			string beforeCodeContent = string.Empty;
-
-			if (_beginCdataSectionRegex.IsMatch(content))
+			if (processedContentType == CSS_CONTENT_TYPE)
 			{
-				beforeCodeContent = _beginCdataSectionRegex.Match(content).Value;
-				startPart = "<![CDATA[";
-				endPart = "]]>";
-				newLine = Environment.NewLine;
-				code = Utils.RemovePrefixAndPostfix(content, _beginCdataSectionRegex, _endCdataSectionRegex);
-			}
-			else if (_styleBeginCdataSectionRegex.IsMatch(content))
-			{
-				beforeCodeContent = _styleBeginCdataSectionRegex.Match(content).Value;
+				bool removeHtmlComments = _settings.RemoveHtmlCommentsFromScriptsAndStyles;
+				bool removeCdataSections = _settings.RemoveCdataSectionsFromScriptsAndStyles
+					&& !_currentTag.Flags.HasFlag(HtmlTagFlags.Xml);
 
-				if (!removeCdataSections)
+				string startPart = string.Empty;
+				string endPart = string.Empty;
+				string beforeCodeContent = string.Empty;
+
+				if (_beginCdataSectionRegex.IsMatch(content))
 				{
-					startPart = "/*<![CDATA[*/";
-					endPart = "/*]]>*/";
+					beforeCodeContent = _beginCdataSectionRegex.Match(content).Value;
+
+					if (!removeCdataSections)
+					{
+						startPart = "<![CDATA[";
+						endPart = "]]>";
+					}
+
+					code = Utils.RemovePrefixAndPostfix(content, _beginCdataSectionRegex, _endCdataSectionRegex);
+				}
+				else if (_styleBeginCdataSectionRegex.IsMatch(content))
+				{
+					beforeCodeContent = _styleBeginCdataSectionRegex.Match(content).Value;
+
+					if (!removeCdataSections)
+					{
+						startPart = "/*<![CDATA[*/";
+						endPart = "/*]]>*/";
+					}
+
+					code = Utils.RemovePrefixAndPostfix(content, _styleBeginCdataSectionRegex, _styleEndCdataSectionRegex);
+				}
+				else if (_styleBeginMaxCompatibleCdataSectionRegex.IsMatch(content))
+				{
+					beforeCodeContent = _styleBeginMaxCompatibleCdataSectionRegex.Match(content).Value;
+
+					if (!removeCdataSections)
+					{
+						startPart = "<!--/*--><![CDATA[/*><!--*/";
+						endPart = "/*]]>*/-->";
+					}
+
+					code = Utils.RemovePrefixAndPostfix(content, _styleBeginMaxCompatibleCdataSectionRegex,
+						_styleEndMaxCompatibleCdataSectionRegex);
+				}
+				else if (_beginHtmlCommentRegex.IsMatch(content))
+				{
+					beforeCodeContent = _beginHtmlCommentRegex.Match(content).Value;
+
+					if (!removeHtmlComments)
+					{
+						startPart = "<!--";
+						endPart = "-->";
+					}
+
+					code = Utils.RemovePrefixAndPostfix(content, _beginHtmlCommentRegex, _endHtmlCommentRegex);
 				}
 
-				code = Utils.RemovePrefixAndPostfix(content, _styleBeginCdataSectionRegex, _styleEndCdataSectionRegex);
-			}
-			else if (_styleBeginMaxCompatibleCdataSectionRegex.IsMatch(content))
-			{
-				beforeCodeContent = _styleBeginMaxCompatibleCdataSectionRegex.Match(content).Value;
-
-				if (!removeCdataSections)
+				if (_settings.MinifyEmbeddedCssCode)
 				{
-					startPart = "<!--/*--><![CDATA[/*><!--*/";
-					endPart = "/*]]>*/-->";
+					CodeMinificationResult minificationResult = _cssMinifier.Minify(code, false);
+					if (minificationResult.Errors.Count == 0)
+					{
+						code = minificationResult.MinifiedContent ?? string.Empty;
+					}
+
+					if (minificationResult.Errors.Count > 0 || minificationResult.Warnings.Count > 0)
+					{
+						string sourceCode = context.SourceCode;
+						var documentNodeCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
+							context.NodeCoordinates, beforeCodeContent);
+
+						foreach (MinificationErrorInfo error in minificationResult.Errors)
+						{
+							var embeddedContentNodeCoordinates = new SourceCodeNodeCoordinates(error.LineNumber, error.ColumnNumber);
+							var absoluteNodeCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
+								documentNodeCoordinates, embeddedContentNodeCoordinates);
+							string sourceFragment = SourceCodeNavigator.GetSourceFragment(
+								sourceCode, absoluteNodeCoordinates);
+							string message = error.Message.Trim();
+
+							WriteError(LogCategoryConstants.CssMinificationError, message, _fileContext,
+								absoluteNodeCoordinates.LineNumber, absoluteNodeCoordinates.ColumnNumber, sourceFragment);
+						}
+
+						foreach (MinificationErrorInfo warning in minificationResult.Warnings)
+						{
+							var embeddedContentNodeCoordinates = new SourceCodeNodeCoordinates(warning.LineNumber, warning.ColumnNumber);
+							var absoluteNodeCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
+								documentNodeCoordinates, embeddedContentNodeCoordinates);
+							string sourceFragment = SourceCodeNavigator.GetSourceFragment(
+								sourceCode, absoluteNodeCoordinates);
+							string message = warning.Message.Trim();
+
+							WriteWarning(LogCategoryConstants.CssMinificationWarning, message, _fileContext,
+								absoluteNodeCoordinates.LineNumber, absoluteNodeCoordinates.ColumnNumber, sourceFragment);
+						}
+					}
 				}
 
-				code = Utils.RemovePrefixAndPostfix(content, _styleBeginMaxCompatibleCdataSectionRegex,
-					_styleEndMaxCompatibleCdataSectionRegex);
-			}
-			else if (_beginHtmlCommentRegex.IsMatch(content))
-			{
-				beforeCodeContent = _beginHtmlCommentRegex.Match(content).Value;
-
-				if (!removeHtmlComments)
+				if (minifyWhitespace && code.Length > 0)
 				{
-					startPart = "<!--";
-					endPart = "-->";
+					code = code.Trim();
 				}
 
-				code = Utils.RemovePrefixAndPostfix(content, _beginHtmlCommentRegex, _endHtmlCommentRegex);
+				if (startPart.Length > 0)
+				{
+					_output.Write(startPart);
+					isNotEmpty = true;
+				}
+				if (code.Length > 0)
+				{
+					_output.Write(code);
+					isNotEmpty = true;
+				}
+				if (endPart.Length > 0)
+				{
+					_output.Write(endPart);
+					isNotEmpty = true;
+				}
 			}
 			else
 			{
-				code = content;
-			}
-
-			if (processedContentType == CSS_CONTENT_TYPE && _settings.MinifyEmbeddedCssCode)
-			{
-				CodeMinificationResult minificationResult = _cssMinifier.Minify(code, false);
-				if (minificationResult.Errors.Count == 0)
+				if (minifyWhitespace && code.Length > 0)
 				{
-					code = minificationResult.MinifiedContent ?? string.Empty;
+					code = code.Trim();
 				}
 
-				if (minificationResult.Errors.Count > 0 || minificationResult.Warnings.Count > 0)
+				if (code.Length > 0)
 				{
-					string sourceCode = context.SourceCode;
-					var documentNodeCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
-						context.NodeCoordinates, beforeCodeContent);
-
-					foreach (MinificationErrorInfo error in minificationResult.Errors)
-					{
-						var embeddedContentNodeCoordinates = new SourceCodeNodeCoordinates(error.LineNumber, error.ColumnNumber);
-						var absoluteNodeCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
-							documentNodeCoordinates, embeddedContentNodeCoordinates);
-						string sourceFragment = SourceCodeNavigator.GetSourceFragment(
-							sourceCode, absoluteNodeCoordinates);
-						string message = error.Message.Trim();
-
-						WriteError(LogCategoryConstants.CssMinificationError, message, _fileContext,
-							absoluteNodeCoordinates.LineNumber, absoluteNodeCoordinates.ColumnNumber, sourceFragment);
-					}
-
-					foreach (MinificationErrorInfo warning in minificationResult.Warnings)
-					{
-						var embeddedContentNodeCoordinates = new SourceCodeNodeCoordinates(warning.LineNumber, warning.ColumnNumber);
-						var absoluteNodeCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
-							documentNodeCoordinates, embeddedContentNodeCoordinates);
-						string sourceFragment = SourceCodeNavigator.GetSourceFragment(
-							sourceCode, absoluteNodeCoordinates);
-						string message = warning.Message.Trim();
-
-						WriteWarning(LogCategoryConstants.CssMinificationWarning, message, _fileContext,
-							absoluteNodeCoordinates.LineNumber, absoluteNodeCoordinates.ColumnNumber, sourceFragment);
-					}
+					_output.Write(code);
+					isNotEmpty = true;
 				}
-			}
-
-			if (minifyWhitespace && code.Length > 0)
-			{
-				code = code.Trim();
-			}
-
-			if (startPart.Length > 0)
-			{
-				_output.Write(startPart);
-				if (newLine.Length > 0)
-				{
-					_output.Write(newLine);
-				}
-				isNotEmpty = true;
-			}
-			if (code.Length > 0)
-			{
-				_output.Write(code);
-				isNotEmpty = true;
-			}
-			if (endPart.Length > 0)
-			{
-				if (newLine.Length > 0)
-				{
-					_output.Write(newLine);
-				}
-				_output.Write(endPart);
-				isNotEmpty = true;
 			}
 
 			_currentText = isNotEmpty ? EMBEDDED_CODE_PLACEHOLDER : string.Empty;
@@ -2947,7 +2957,7 @@ namespace WebMarkupMin.Core
 		/// <param name="filePath">File path</param>
 		/// <param name="lineNumber">Line number on which the error occurred</param>
 		/// <param name="columnNumber">Column number on which the error occurred</param>
-		/// <param name="sourceFragment">Fragment of source svgContent</param>
+		/// <param name="sourceFragment">Fragment of source content</param>
 		private void WriteError(string category, string message, string filePath, int lineNumber, int columnNumber,
 			string sourceFragment)
 		{
@@ -2963,7 +2973,7 @@ namespace WebMarkupMin.Core
 		/// <param name="filePath">File path</param>
 		/// <param name="lineNumber">Line number on which the warning occurred</param>
 		/// <param name="columnNumber">Column number on which the warning occurred</param>
-		/// <param name="sourceFragment">Fragment of source svgContent</param>
+		/// <param name="sourceFragment">Fragment of source content</param>
 		private void WriteWarning(string category, string message, string filePath, int lineNumber, int columnNumber,
 			string sourceFragment)
 		{

@@ -673,7 +673,7 @@ namespace WebMarkupMin.Core.Test.Html
 				"</svg>"
 				;
 			const string targetOutput5 = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\r\n" +
-				"	<style type=\"text/css\"><![CDATA[\r\n" +
+				"	<style type=\"text/css\"><![CDATA[" +
 				"	circle.myGreen {\r\n" +
 				"		stroke: #006600;\r\n" +
 				"		fill: #00cc00;\r\n" +
@@ -681,7 +681,7 @@ namespace WebMarkupMin.Core.Test.Html
 				"	circle.myRed {\r\n" +
 				"		stroke: #660000;\r\n" +
 				"		fill: #cc0000;\r\n" +
-				"	}\r\n" +
+				"	}" +
 				"]]></style>\r\n" +
 				"	<circle class=\"myGreen\" cx=\"40\" cy=\"40\" r=\"24\" />\r\n" +
 				"	<circle class=\"myRed\" cx=\"40\" cy=\"100\" r=\"24\" />\r\n" +
@@ -3464,17 +3464,7 @@ namespace WebMarkupMin.Core.Test.Html
 				"<circle cx=\"50\" cy=\"50\" r=\"40\" />" +
 				"</svg>"
 				;
-			const string targetOutput5C = "<svg width=\"100%\" height=\"100%\" viewBox=\"0 0 100 100\">\r\n" +
-				"	<style>" +
-				"	circle {\r\n" +
-				"		fill: orange;\r\n" +
-				"		stroke: black;\r\n" +
-				"		stroke-width: 10px; // Note that the value of a pixel depend on the viewBox\r\n" +
-				"	}" +
-				"</style>\r\n" +
-				"	<circle cx=\"50\" cy=\"50\" r=\"40\" />\r\n" +
-				"</svg>"
-				;
+			const string targetOutput5C = targetOutput5A;
 
 
 			const string input6 = "<svg version=\"1.1\" width=\"10cm\" height=\"5cm\" viewBox=\"0 0 1000 500\">\r\n" +
@@ -3495,12 +3485,12 @@ namespace WebMarkupMin.Core.Test.Html
 			const string targetOutput6A = "<svg version=\"1.1\" width=\"10cm\" height=\"5cm\" viewBox=\"0 0 1000 500\">\r\n" +
 				"	<defs>\r\n" +
 				"		<style type=\"text/css\">" +
-				"<![CDATA[\r\n" +
+				"<![CDATA[" +
 				"		rect {\r\n" +
 				"			fill: red;\r\n" +
 				"			stroke: blue;\r\n" +
 				"			stroke-width: 3;\r\n" +
-				"		}\r\n" +
+				"		}" +
 				"]]>" +
 				"</style>\r\n" +
 				"	</defs>\r\n" +
@@ -3510,12 +3500,12 @@ namespace WebMarkupMin.Core.Test.Html
 			const string targetOutput6B = "<svg version=\"1.1\" width=\"10cm\" height=\"5cm\" viewBox=\"0 0 1000 500\">" +
 				"<defs>" +
 				"<style type=\"text/css\">" +
-				"<![CDATA[\r\n" +
+				"<![CDATA[" +
 				"rect {\r\n" +
 				"			fill: red;\r\n" +
 				"			stroke: blue;\r\n" +
 				"			stroke-width: 3;\r\n" +
-				"		}\r\n" +
+				"		}" +
 				"]]>" +
 				"</style>" +
 				"</defs>" +
@@ -3863,7 +3853,11 @@ namespace WebMarkupMin.Core.Test.Html
 				"]]>" +
 				"</script>"
 				;
-			const string targetOutput11C = targetOutput11A;
+			const string targetOutput11C = "<script type=\"text/vbscript\">" +
+				"	Function CanDeliver(Dt)\r\n" +
+				"		CanDeliver = (CDate(Dt) - Now()) > 2\r\n" +
+				"	End Function" +
+				"</script>";
 
 
 			const string input12 = "<script language=\"VBScript\">\r\n" +
@@ -3890,7 +3884,11 @@ namespace WebMarkupMin.Core.Test.Html
 				"]]>" +
 				"</script>"
 				;
-			const string targetOutput12C = targetOutput12A;
+			const string targetOutput12C = "<script language=\"VBScript\">" +
+				"	Function CanDeliver(Dt)\r\n" +
+				"		CanDeliver = (CDate(Dt) - Now()) > 2\r\n" +
+				"	End Function" +
+				"</script>";
 
 
 			const string input13 = "<script type=\"application/json\">\r\n" +
