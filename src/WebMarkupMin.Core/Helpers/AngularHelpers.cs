@@ -117,10 +117,7 @@ namespace WebMarkupMin.Core.Helpers
 					innerContext.IncreasePosition(directiveNamePosition - currentPosition);
 					currentPosition = directiveNamePosition;
 
-					if (directiveNameHandler != null)
-					{
-						directiveNameHandler(context, originalDirectiveName, normalizedDirectiveName);
-					}
+					directiveNameHandler?.Invoke(context, originalDirectiveName, normalizedDirectiveName);
 
 					Group expressionGroup = groups["expression"];
 					if (expressionGroup.Success)
@@ -131,10 +128,7 @@ namespace WebMarkupMin.Core.Helpers
 						innerContext.IncreasePosition(expressionPosition - currentPosition);
 						currentPosition = expressionPosition;
 
-						if (expressionHandler != null)
-						{
-							expressionHandler(context, expression);
-						}
+						expressionHandler?.Invoke(context, expression);
 					}
 
 					Group semicolonGroup = groups["semicolon"];
@@ -145,10 +139,7 @@ namespace WebMarkupMin.Core.Helpers
 						innerContext.IncreasePosition(semicolonPosition - currentPosition);
 						currentPosition = semicolonPosition;
 
-						if (semicolonHandler != null)
-						{
-							semicolonHandler(context);
-						}
+						semicolonHandler?.Invoke(context);
 					}
 				}
 			}
@@ -192,11 +183,7 @@ namespace WebMarkupMin.Core.Helpers
 				string normalizedDirectiveName = NormalizeDirectiveName(originalDirectiveName);
 
 				innerContext.IncreasePosition(directiveNamePosition);
-
-				if (directiveNameHandler != null)
-				{
-					directiveNameHandler(context, originalDirectiveName, normalizedDirectiveName);
-				}
+				directiveNameHandler?.Invoke(context, originalDirectiveName, normalizedDirectiveName);
 
 				Group expressionGroup = groups["expression"];
 				if (expressionGroup.Success)
@@ -205,11 +192,7 @@ namespace WebMarkupMin.Core.Helpers
 					string expression = expressionGroup.Value.Trim();
 
 					innerContext.IncreasePosition(expressionPosition - directiveNamePosition);
-
-					if (expressionHandler != null)
-					{
-						expressionHandler(context, expression);
-					}
+					expressionHandler?.Invoke(context, expression);
 				}
 			}
 		}

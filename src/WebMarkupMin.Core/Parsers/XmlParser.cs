@@ -209,17 +209,11 @@ namespace WebMarkupMin.Core.Parsers
 
 					if (isXmlDeclaration)
 					{
-						if (_handlers.XmlDeclaration != null)
-						{
-							_handlers.XmlDeclaration(_context, attributes);
-						}
+						_handlers.XmlDeclaration?.Invoke(_context, attributes);
 					}
 					else
 					{
-						if (_handlers.ProcessingInstruction != null)
-						{
-							_handlers.ProcessingInstruction(_context, instructionName, attributes);
-						}
+						_handlers.ProcessingInstruction?.Invoke(_context, instructionName, attributes);
 					}
 				}
 				else
@@ -301,19 +295,12 @@ namespace WebMarkupMin.Core.Parsers
 
 					if (isEmptyTag)
 					{
-						if (_handlers.EmptyTag != null)
-						{
-							_handlers.EmptyTag(_context, startTagName, attributes);
-						}
+						_handlers.EmptyTag?.Invoke(_context, startTagName, attributes);
 					}
 					else
 					{
 						_tagStack.Push(new StackedXmlTag(startTagName, _innerContext.NodeCoordinates));
-
-						if (_handlers.StartTag != null)
-						{
-							_handlers.StartTag(_context, startTagName, attributes);
-						}
+						_handlers.StartTag?.Invoke(_context, startTagName, attributes);
 					}
 				}
 				else
@@ -398,10 +385,7 @@ namespace WebMarkupMin.Core.Parsers
 						_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 				}
 
-				if (_handlers.EndTag != null)
-				{
-					_handlers.EndTag(_context, endTagName);
-				}
+				_handlers.EndTag?.Invoke(_context, endTagName);
 
 				_innerContext.IncreasePosition(match.Length);
 				isProcessed = true;
@@ -429,11 +413,7 @@ namespace WebMarkupMin.Core.Parsers
 				text = content.Substring(_innerContext.Position);
 			}
 
-			if (_handlers.Text != null)
-			{
-				_handlers.Text(_context, text);
-			}
-
+			_handlers.Text?.Invoke(_context, text);
 			_innerContext.IncreasePosition(text.Length);
 		}
 

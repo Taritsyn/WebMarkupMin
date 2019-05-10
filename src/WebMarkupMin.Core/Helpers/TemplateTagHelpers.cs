@@ -74,11 +74,7 @@ namespace WebMarkupMin.Core.Helpers
 
 			if (matchCount == 0)
 			{
-				if (textHandler != null)
-				{
-					textHandler(context, content);
-				}
-
+				textHandler?.Invoke(context, content);
 				innerContext.IncreasePosition(content.Length);
 
 				return;
@@ -97,11 +93,7 @@ namespace WebMarkupMin.Core.Helpers
 				{
 					string text = content.Substring(currentPosition, templateTagPosition - currentPosition);
 
-					if (textHandler != null)
-					{
-						textHandler(context, text);
-					}
-
+					textHandler?.Invoke(context, text);
 					innerContext.IncreasePosition(text.Length);
 				}
 
@@ -110,10 +102,7 @@ namespace WebMarkupMin.Core.Helpers
 				string startDelimiter = groups["startDelimiter"].Value;
 				string endDelimiter = groups["endDelimiter"].Value;
 
-				if (templateTagHandler != null)
-				{
-					templateTagHandler(context, expression, startDelimiter, endDelimiter);
-				}
+				templateTagHandler?.Invoke(context, expression, startDelimiter, endDelimiter);
 
 				innerContext.IncreasePosition(templateTagLength);
 				currentPosition = templateTagPosition + templateTagLength;
@@ -122,11 +111,7 @@ namespace WebMarkupMin.Core.Helpers
 			if (currentPosition > 0 && currentPosition <= endPosition)
 			{
 				string text = content.Substring(currentPosition, endPosition - currentPosition + 1);
-
-				if (textHandler != null)
-				{
-					textHandler(context, text);
-				}
+				textHandler?.Invoke(context, text);
 
 				innerContext.IncreasePosition(text.Length);
 			}

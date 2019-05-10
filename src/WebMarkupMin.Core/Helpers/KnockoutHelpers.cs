@@ -62,11 +62,7 @@ namespace WebMarkupMin.Core.Helpers
 				string expression = expressionGroup.Value.TrimEnd();
 
 				innerContext.IncreasePosition(expressionPosition);
-
-				if (expressionHandler != null)
-				{
-					expressionHandler(context, expression);
-				}
+				expressionHandler?.Invoke(context, expression);
 			}
 		}
 

@@ -322,11 +322,7 @@ namespace WebMarkupMin.Core.Parsers
 			if (match.Success)
 			{
 				string xmlDeclaration = match.Value;
-
-				if (_handlers.XmlDeclaration != null)
-				{
-					_handlers.XmlDeclaration(_context, xmlDeclaration);
-				}
+				_handlers.XmlDeclaration?.Invoke(_context, xmlDeclaration);
 
 				_innerContext.IncreasePosition(match.Length);
 				isProcessed = true;
@@ -611,11 +607,7 @@ namespace WebMarkupMin.Core.Parsers
 				if (match.Success)
 				{
 					string code = match.Groups[1].Value;
-
-					if (_handlers.EmbeddedCode != null)
-					{
-						_handlers.EmbeddedCode(_context, code);
-					}
+					_handlers.EmbeddedCode?.Invoke(_context, code);
 
 					ParseEndTag(stackedTagName, stackedTagNameInLowercase);
 
@@ -648,31 +640,19 @@ namespace WebMarkupMin.Core.Parsers
 				TemplateTagHelpers.ParseMarkup(text,
 					(localContext, expression, startDelimiter, endDelimiter) =>
 					{
-						if (_handlers.TemplateTag != null)
-						{
-							_handlers.TemplateTag(_context, expression, startDelimiter, endDelimiter);
-						}
-
+						_handlers.TemplateTag?.Invoke(_context, expression, startDelimiter, endDelimiter);
 						_innerContext.IncreasePosition(startDelimiter.Length + expression.Length + endDelimiter.Length);
 					},
 					(localContext, textValue) =>
 					{
-						if (_handlers.Text != null)
-						{
-							_handlers.Text(_context, textValue);
-						}
-
+						_handlers.Text?.Invoke(_context, textValue);
 						_innerContext.IncreasePosition(textValue.Length);
 					}
 				);
 			}
 			else
 			{
-				if (_handlers.Text != null)
-				{
-					_handlers.Text(_context, text);
-				}
-
+				_handlers.Text?.Invoke(_context, text);
 				_innerContext.IncreasePosition(text.Length);
 			}
 		}
@@ -800,10 +780,7 @@ namespace WebMarkupMin.Core.Parsers
 				_conditionalCommentOpened = true;
 			}
 
-			if (_handlers.IfConditionalComment != null)
-			{
-				_handlers.IfConditionalComment(_context, new HtmlConditionalComment(processedExpression, type));
-			}
+			_handlers.IfConditionalComment?.Invoke(_context, new HtmlConditionalComment(processedExpression, type));
 		}
 
 		/// <summary>
@@ -849,10 +826,7 @@ namespace WebMarkupMin.Core.Parsers
 					_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 			}
 
-			if (_handlers.EndIfConditionalComment != null)
-			{
-				_handlers.EndIfConditionalComment(_context, type);
-			}
+			_handlers.EndIfConditionalComment?.Invoke(_context, type);
 		}
 
 		/// <summary>
@@ -921,10 +895,7 @@ namespace WebMarkupMin.Core.Parsers
 				}
 			}
 
-			if (_handlers.StartTag != null)
-			{
-				_handlers.StartTag(_context, tag);
-			}
+			_handlers.StartTag?.Invoke(_context, tag);
 
 			if (tagFlags.HasFlag(HtmlTagFlags.Xml) && !tagFlags.HasFlag(HtmlTagFlags.NonIndependent))
 			{
@@ -1011,10 +982,7 @@ namespace WebMarkupMin.Core.Parsers
 				}
 
 				var endTag = new HtmlTag(tagName, tagNameInLowercase, GetTagFlagsByName(tagNameInLowercase));
-				if (endTagHandler != null)
-				{
-					endTagHandler(_context, endTag);
-				}
+				endTagHandler?.Invoke(_context, endTag);
 			}
 		}
 

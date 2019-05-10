@@ -71,12 +71,7 @@ namespace WebMarkupMin.Core.Parsers
 			if (match.Success)
 			{
 				string doctype = match.Value;
-
-				var doctypeHandler = CommonHandlers.Doctype;
-				if (doctypeHandler != null)
-				{
-					doctypeHandler(_context, doctype);
-				}
+				CommonHandlers.Doctype?.Invoke(_context, doctype);
 
 				_innerContext.IncreasePosition(match.Length);
 				isProcessed = true;
@@ -112,11 +107,7 @@ namespace WebMarkupMin.Core.Parsers
 						isProcessed = ProcessEndIgnoringCommentTag();
 						break;
 					default:
-						var commentHandler = CommonHandlers.Comment;
-						if (commentHandler != null)
-						{
-							commentHandler(_context, commentText);
-						}
+						CommonHandlers.Comment?.Invoke(_context, commentText);
 
 						_innerContext.IncreasePosition(commentEndPosition + 3 - commentStartPosition);
 						isProcessed = true;
@@ -144,12 +135,7 @@ namespace WebMarkupMin.Core.Parsers
 			{
 				string fragment = content.Substring(startTagPosition + startTagLength,
 					endTagPosition - startTagPosition - startTagLength);
-
-				var ignoredFragmentHandler = CommonHandlers.IgnoredFragment;
-				if (ignoredFragmentHandler != null)
-				{
-					ignoredFragmentHandler(_context, fragment);
-				}
+				CommonHandlers.IgnoredFragment?.Invoke(_context, fragment);
 
 				_innerContext.IncreasePosition(endTagPosition + endTagLength - startTagPosition);
 				return true;
@@ -189,12 +175,7 @@ namespace WebMarkupMin.Core.Parsers
 				{
 					string cdataText = content.Substring(cdataStartPosition + 9,
 						cdataEndPosition - cdataStartPosition - 9);
-
-					var cdataSectionHandler = CommonHandlers.CdataSection;
-					if (cdataSectionHandler != null)
-					{
-						cdataSectionHandler(_context, cdataText);
-					}
+					CommonHandlers.CdataSection?.Invoke(_context, cdataText);
 
 					_innerContext.IncreasePosition(cdataEndPosition + 3 - cdataStartPosition);
 					isProcessed = true;
