@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-using WebMarkupMin.Core.Helpers;
+using WebMarkupMin.Core.Parsers;
 using WebMarkupMin.Core.Utilities;
 
 namespace WebMarkupMin.Core
@@ -95,7 +95,7 @@ namespace WebMarkupMin.Core
 			if (!string.IsNullOrWhiteSpace(optionalTag))
 			{
 				string processedOptionalTag = optionalTag.Trim().ToLowerInvariant();
-				if (HtmlTagFlagsHelpers.IsOptionalTag(processedOptionalTag))
+				if (HtmlTagTypeDeterminer.Instance.IsOptionalTag(processedOptionalTag))
 				{
 					_preservableOptionalTags.Add(processedOptionalTag);
 					return true;

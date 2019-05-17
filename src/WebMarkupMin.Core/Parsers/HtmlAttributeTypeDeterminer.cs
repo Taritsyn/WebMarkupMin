@@ -2,22 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using WebMarkupMin.Core.Parsers;
 using WebMarkupMin.Core.Utilities;
 
-namespace WebMarkupMin.Core.Helpers
+namespace WebMarkupMin.Core.Parsers
 {
 	/// <summary>
-	/// HTML attribute type helpers
+	/// HTML attribute type determiner
 	/// </summary>
-	internal static class HtmlAttributeTypeHelpers
+	internal class HtmlAttributeTypeDeterminer
 	{
+		/// <summary>
+		/// Instance of HTML attribute type determiner
+		/// </summary>
+		private static readonly Lazy<HtmlAttributeTypeDeterminer> _lazyInstance =
+			new Lazy<HtmlAttributeTypeDeterminer>(() => new HtmlAttributeTypeDeterminer());
+
 		#region Boolean attributes
 
 		/// <summary>
 		/// List of boolean attributes
 		/// </summary>
-		private static readonly HashSet<string> _booleanAttributes = new HashSet<string>
+		private readonly HashSet<string> _booleanAttributes = new HashSet<string>
 		{
 			// HTML5
 			"allowfullscreen", "async", "autofocus", "autoplay",
@@ -51,7 +56,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of tags with href attribute
 		/// </summary>
-		private static readonly HashSet<string> _tagsWithHrefAttribute = new HashSet<string>
+		private readonly HashSet<string> _tagsWithHrefAttribute = new HashSet<string>
 		{
 			"a", "area", "base", "link"
 		};
@@ -59,7 +64,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of tags with src attribute
 		/// </summary>
-		private static readonly HashSet<string> _tagsWithSrcAttribute = new HashSet<string>
+		private readonly HashSet<string> _tagsWithSrcAttribute = new HashSet<string>
 		{
 			"audio", "embed", "frame", "iframe", "img", "input", "script", "source", "track", "video"
 		};
@@ -67,7 +72,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of tags with cite attribute
 		/// </summary>
-		private static readonly HashSet<string> _tagsWithCiteAttribute = new HashSet<string>
+		private readonly HashSet<string> _tagsWithCiteAttribute = new HashSet<string>
 		{
 			"blockquote", "del", "ins", "q"
 		};
@@ -75,7 +80,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of tags with longdesc attribute
 		/// </summary>
-		private static readonly HashSet<string> _tagsWithLongdescAttribute = new HashSet<string>
+		private readonly HashSet<string> _tagsWithLongdescAttribute = new HashSet<string>
 		{
 			"frame", "iframe", "img"
 		};
@@ -83,7 +88,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// URI based params
 		/// </summary>
-		private static readonly HashSet<string> _uriBasedParams = new HashSet<string>
+		private readonly HashSet<string> _uriBasedParams = new HashSet<string>
 		{
 			"movie", "pluginspage"
 		};
@@ -95,7 +100,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of tags with width attribute
 		/// </summary>
-		private static readonly HashSet<string> _tagsWithWidthAttribute = new HashSet<string>
+		private readonly HashSet<string> _tagsWithWidthAttribute = new HashSet<string>
 		{
 			"applet",
 			"canvas", "col", "colgroup",
@@ -111,7 +116,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of tags with height attribute
 		/// </summary>
-		private static readonly HashSet<string> _tagsWithHeightAttribute = new HashSet<string>
+		private readonly HashSet<string> _tagsWithHeightAttribute = new HashSet<string>
 		{
 			"applet", "canvas", "embed", "iframe", "img", "input", "object", "td", "th", "video"
 		};
@@ -119,7 +124,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of tags with border attribute
 		/// </summary>
-		private static readonly HashSet<string> _tagsWithBorderAttribute = new HashSet<string>
+		private readonly HashSet<string> _tagsWithBorderAttribute = new HashSet<string>
 		{
 			"img", "object", "table"
 		};
@@ -127,7 +132,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of tags with size attribute
 		/// </summary>
-		private static readonly HashSet<string> _tagsWithSizeAttribute = new HashSet<string>
+		private readonly HashSet<string> _tagsWithSizeAttribute = new HashSet<string>
 		{
 			"basefont", "font", "hr", "input", "select"
 		};
@@ -135,7 +140,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of tags with max attribute
 		/// </summary>
-		private static readonly HashSet<string> _tagsWithMaxAttribute = new HashSet<string>
+		private readonly HashSet<string> _tagsWithMaxAttribute = new HashSet<string>
 		{
 			"input", "meter", "progress"
 		};
@@ -143,7 +148,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of tags with min attribute
 		/// </summary>
-		private static readonly HashSet<string> _tagsWithMinAttribute = new HashSet<string>
+		private readonly HashSet<string> _tagsWithMinAttribute = new HashSet<string>
 		{
 			"input", "meter"
 		};
@@ -151,7 +156,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of tags with value attribute
 		/// </summary>
-		private static readonly HashSet<string> _tagsWithValueAttribute = new HashSet<string>
+		private readonly HashSet<string> _tagsWithValueAttribute = new HashSet<string>
 		{
 			"li", "meter", "progress"
 		};
@@ -159,20 +164,87 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of tags with charoff attribute
 		/// </summary>
-		private static readonly HashSet<string> _tagsWithCharoffAttribute = new HashSet<string>
+		private readonly HashSet<string> _tagsWithCharoffAttribute = new HashSet<string>
 		{
 			"col", "colgroup", "tbody", "td", "tfoot", "th", "thead", "tr"
 		};
 
 		#endregion
 
+		/// <summary>
+		/// Gets a instance of HTML attribute type determiner
+		/// </summary>
+		public static HtmlAttributeTypeDeterminer Instance
+		{
+			get { return _lazyInstance.Value; }
+		}
+
+
+		/// <summary>
+		/// Private constructor
+		/// </summary>
+		private HtmlAttributeTypeDeterminer()
+		{ }
+
+
+		/// <summary>
+		/// Gets a HTML attribute type
+		/// </summary>
+		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
+		/// <param name="tagFlags">Tag flags</param>
+		/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
+		/// <param name="attributes">List of attributes</param>
+		/// <returns>Attribute type</returns>
+		public HtmlAttributeType GetAttributeType(string tagNameInLowercase, HtmlTagFlags tagFlags,
+			string attributeNameInLowercase, IList<HtmlAttribute> attributes)
+		{
+			HtmlAttributeType attributeType = HtmlAttributeType.Unknown;
+
+			if (attributeNameInLowercase == "class")
+			{
+				attributeType = HtmlAttributeType.ClassName;
+			}
+			else if (attributeNameInLowercase == "style")
+			{
+				attributeType = HtmlAttributeType.Style;
+			}
+			else if (IsEventAttribute(attributeNameInLowercase))
+			{
+				attributeType = HtmlAttributeType.Event;
+			}
+
+			if (attributeType == HtmlAttributeType.Unknown && !tagFlags.HasFlag(HtmlTagFlags.Xml))
+			{
+				if (IsBooleanAttribute(attributeNameInLowercase))
+				{
+					attributeType = HtmlAttributeType.Boolean;
+				}
+				else if (IsNumericAttribute(tagNameInLowercase, attributeNameInLowercase))
+				{
+					attributeType = HtmlAttributeType.Numeric;
+				}
+				else if (IsUriBasedAttribute(tagNameInLowercase, attributeNameInLowercase,
+					attributes))
+				{
+					attributeType = HtmlAttributeType.Uri;
+				}
+			}
+
+			if (attributeType == HtmlAttributeType.Unknown)
+			{
+				attributeType = IsXmlBasedAttribute(attributeNameInLowercase) ?
+					HtmlAttributeType.Xml : HtmlAttributeType.Text;
+			}
+
+			return attributeType;
+		}
 
 		/// <summary>
 		/// Checks whether the attribute is boolean
 		/// </summary>
 		/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
 		/// <returns>Result of check (true - boolean; false - not boolean)</returns>
-		public static bool IsBooleanAttribute(string attributeNameInLowercase)
+		private bool IsBooleanAttribute(string attributeNameInLowercase)
 		{
 			return _booleanAttributes.Contains(attributeNameInLowercase);
 		}
@@ -183,7 +255,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
 		/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
 		/// <returns>Result of check (true - numeric; false - not numeric)</returns>
-		public static bool IsNumericAttribute(string tagNameInLowercase, string attributeNameInLowercase)
+		private bool IsNumericAttribute(string tagNameInLowercase, string attributeNameInLowercase)
 		{
 			bool isNumeric;
 
@@ -270,7 +342,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
 		/// <param name="attributes">List of attributes</param>
 		/// <returns>Result of check (true - URI-based; false - not URI-based)</returns>
-		public static bool IsUriBasedAttribute(string tagNameInLowercase, string attributeNameInLowercase,
+		private bool IsUriBasedAttribute(string tagNameInLowercase, string attributeNameInLowercase,
 			IList<HtmlAttribute> attributes)
 		{
 			bool isUriBased;
@@ -334,7 +406,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// </summary>
 		/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
 		/// <returns>Result of check (true - event; false - not event)</returns>
-		public static bool IsEventAttribute(string attributeNameInLowercase)
+		private bool IsEventAttribute(string attributeNameInLowercase)
 		{
 			bool isEventAttribute = false;
 			int charCount = attributeNameInLowercase.Length;
@@ -363,7 +435,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// </summary>
 		/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
 		/// <returns>Result of check (true - XML-based; false - not XML-based)</returns>
-		public static bool IsXmlBasedAttribute(string attributeNameInLowercase)
+		private bool IsXmlBasedAttribute(string attributeNameInLowercase)
 		{
 			bool isXmlAttribute = false;
 

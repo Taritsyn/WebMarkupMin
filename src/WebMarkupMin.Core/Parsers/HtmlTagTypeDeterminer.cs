@@ -1,20 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 using WebMarkupMin.Core.Utilities;
 
-namespace WebMarkupMin.Core.Helpers
+namespace WebMarkupMin.Core.Parsers
 {
 	/// <summary>
-	/// HTML tag flags helpers
+	/// HTML tag type determiner
 	/// </summary>
-	internal static class HtmlTagFlagsHelpers
+	internal class HtmlTagTypeDeterminer
 	{
+		/// <summary>
+		/// Instance of HTML tag type determiner
+		/// </summary>
+		private static readonly Lazy<HtmlTagTypeDeterminer> _lazyInstance =
+			new Lazy<HtmlTagTypeDeterminer>(() => new HtmlTagTypeDeterminer());
+
+		/// <summary>
+		/// Cache of the flags of HTML tags
+		/// </summary>
+		private readonly ConcurrentDictionary<string, HtmlTagFlags> _htmlTagFlagsCache =
+			new ConcurrentDictionary<string, HtmlTagFlags>();
+
 		#region HTML tags
 
 		/// <summary>
 		/// List of HTML tags
 		/// </summary>
-		private static readonly HashSet<string> _htmlTags = new HashSet<string>
+		private readonly HashSet<string> _htmlTags = new HashSet<string>
 		{
 			// HTML5
 			"a", "abbr", "address", "area", "article", "aside", "audio",
@@ -75,7 +89,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of invisible tags
 		/// </summary>
-		private static readonly HashSet<string> _invisibleTags = new HashSet<string>
+		private readonly HashSet<string> _invisibleTags = new HashSet<string>
 		{
 			// HTML5
 			"base", "body",
@@ -104,7 +118,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of empty tags
 		/// </summary>
-		private static readonly HashSet<string> _emptyTags = new HashSet<string>
+		private readonly HashSet<string> _emptyTags = new HashSet<string>
 		{
 			// HTML5
 			"area",
@@ -136,7 +150,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of block tags
 		/// </summary>
-		private static readonly HashSet<string> _blockTags = new HashSet<string>
+		private readonly HashSet<string> _blockTags = new HashSet<string>
 		{
 			// HTML5
 			"address", "article", "aside",
@@ -176,7 +190,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of inline tags
 		/// </summary>
-		private static readonly HashSet<string> _inlineTags = new HashSet<string>
+		private readonly HashSet<string> _inlineTags = new HashSet<string>
 		{
 			// HTML5
 			"a", "abbr",
@@ -219,7 +233,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of inline-block tags
 		/// </summary>
-		private static readonly HashSet<string> _inlineBlockTags = new HashSet<string>
+		private readonly HashSet<string> _inlineBlockTags = new HashSet<string>
 		{
 			// HTML5
 			"area", "audio",
@@ -248,7 +262,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of non-independent tags
 		/// </summary>
-		private static readonly HashSet<string> _nonIndependentTags = new HashSet<string>
+		private readonly HashSet<string> _nonIndependentTags = new HashSet<string>
 		{
 			// HTML5
 			"area",
@@ -277,7 +291,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of tags, that can be omitted
 		/// </summary>
-		private static readonly HashSet<string> _optionalTags = new HashSet<string>
+		private readonly HashSet<string> _optionalTags = new HashSet<string>
 		{
 			"body",
 			"colgroup",
@@ -297,7 +311,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of the tags, that can contain embedded code
 		/// </summary>
-		private static readonly HashSet<string> _tagsWithEmbeddedCode = new HashSet<string>
+		private readonly HashSet<string> _tagsWithEmbeddedCode = new HashSet<string>
 		{
 			"script", "style"
 		};
@@ -309,7 +323,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// List of the XML-based tags
 		/// </summary>
-		private static readonly HashSet<string> _xmlBasedTags = new HashSet<string>
+		private readonly HashSet<string> _xmlBasedTags = new HashSet<string>
 		{
 			"svg", "math"
 		};
@@ -317,11 +331,105 @@ namespace WebMarkupMin.Core.Helpers
 		#endregion
 
 		/// <summary>
+		/// Gets a instance of HTML tag type determiner
+		/// </summary>
+		public static HtmlTagTypeDeterminer Instance
+		{
+			get { return _lazyInstance.Value; }
+		}
+
+
+		/// <summary>
+		/// Private constructor
+		/// </summary>
+		private HtmlTagTypeDeterminer()
+		{ }
+
+
+		/// <summary>
+		/// Gets a HTML tag flags by tag name
+		/// </summary>
+		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
+		/// <returns>Tag flags</returns>
+		public HtmlTagFlags GetTagFlagsByName(string tagNameInLowercase)
+		{
+			HtmlTagFlags tagFlags = _htmlTagFlagsCache.GetOrAdd(tagNameInLowercase, InnerGetTagFlagsByName);
+
+			return tagFlags;
+		}
+
+		private HtmlTagFlags InnerGetTagFlagsByName(string tagNameInLowercase)
+		{
+			HtmlTagFlags tagFlags = HtmlTagFlags.None;
+			bool isXml = false;
+
+			var isHtml = IsHtmlTag(tagNameInLowercase);
+			if (!isHtml)
+			{
+				isXml = IsXmlBasedTag(tagNameInLowercase);
+			}
+
+			if (isHtml || isXml)
+			{
+				if (IsInvisibleTag(tagNameInLowercase))
+				{
+					tagFlags |= HtmlTagFlags.Invisible;
+				}
+
+				if (IsEmptyTag(tagNameInLowercase))
+				{
+					tagFlags |= HtmlTagFlags.Empty;
+				}
+
+				if (IsBlockTag(tagNameInLowercase))
+				{
+					tagFlags |= HtmlTagFlags.Block;
+				}
+
+				if (IsInlineTag(tagNameInLowercase))
+				{
+					tagFlags |= HtmlTagFlags.Inline;
+				}
+
+				if (IsInlineBlockTag(tagNameInLowercase))
+				{
+					tagFlags |= HtmlTagFlags.InlineBlock;
+				}
+
+				if (IsNonIndependentTag(tagNameInLowercase))
+				{
+					tagFlags |= HtmlTagFlags.NonIndependent;
+				}
+
+				if (IsOptionalTag(tagNameInLowercase))
+				{
+					tagFlags |= HtmlTagFlags.Optional;
+				}
+
+				if (IsTagWithEmbeddedCode(tagNameInLowercase))
+				{
+					tagFlags |= HtmlTagFlags.EmbeddedCode;
+				}
+
+				if (isXml)
+				{
+					tagFlags |= HtmlTagFlags.Xml;
+				}
+			}
+			else
+			{
+				tagFlags = HtmlTagFlags.Custom;
+			}
+
+			return tagFlags;
+		}
+
+		/// <summary>
 		/// Checks whether the tag is HTML
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
 		/// <returns>Result of check (true - HTML; false - not HTML)</returns>
-		public static bool IsHtmlTag(string tagNameInLowercase)
+		private bool IsHtmlTag(string tagNameInLowercase)
 		{
 			bool isHtmlTag = false;
 			int charCount = tagNameInLowercase.Length;
@@ -355,7 +463,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
 		/// <returns>Result of check (true - invisible; false - not invisible)</returns>
-		public static bool IsInvisibleTag(string tagNameInLowercase)
+		private bool IsInvisibleTag(string tagNameInLowercase)
 		{
 			return _invisibleTags.Contains(tagNameInLowercase);
 		}
@@ -365,7 +473,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
 		/// <returns>Result of check (true - empty; false - not empty)</returns>
-		public static bool IsEmptyTag(string tagNameInLowercase)
+		private bool IsEmptyTag(string tagNameInLowercase)
 		{
 			return _emptyTags.Contains(tagNameInLowercase);
 		}
@@ -375,7 +483,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
 		/// <returns>Result of check (true - block; false - not block)</returns>
-		public static bool IsBlockTag(string tagNameInLowercase)
+		private bool IsBlockTag(string tagNameInLowercase)
 		{
 			return _blockTags.Contains(tagNameInLowercase);
 		}
@@ -385,7 +493,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
 		/// <returns>Result of check (true - inline; false - not inline)</returns>
-		public static bool IsInlineTag(string tagNameInLowercase)
+		private bool IsInlineTag(string tagNameInLowercase)
 		{
 			return _inlineTags.Contains(tagNameInLowercase);
 		}
@@ -395,7 +503,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
 		/// <returns>Result of check (true - inline-block; false - not inline-block)</returns>
-		public static bool IsInlineBlockTag(string tagNameInLowercase)
+		private bool IsInlineBlockTag(string tagNameInLowercase)
 		{
 			return _inlineBlockTags.Contains(tagNameInLowercase);
 		}
@@ -405,7 +513,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
 		/// <returns>Result of check (true - non-independent; false - independent)</returns>
-		public static bool IsNonIndependentTag(string tagNameInLowercase)
+		private bool IsNonIndependentTag(string tagNameInLowercase)
 		{
 			return _nonIndependentTags.Contains(tagNameInLowercase);
 		}
@@ -415,7 +523,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
 		/// <returns>Result of check (true - tag is optional; false - tag is required)</returns>
-		public static bool IsOptionalTag(string tagNameInLowercase)
+		public bool IsOptionalTag(string tagNameInLowercase)
 		{
 			return _optionalTags.Contains(tagNameInLowercase);
 		}
@@ -425,7 +533,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
 		/// <returns>Result of check (true - can contain embedded code; false - cannot contain embedded code)</returns>
-		public static bool IsTagWithEmbeddedCode(string tagNameInLowercase)
+		public bool IsTagWithEmbeddedCode(string tagNameInLowercase)
 		{
 			return _tagsWithEmbeddedCode.Contains(tagNameInLowercase);
 		}
@@ -435,7 +543,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
 		/// <returns>Result of check (true - is XML-based; false - is not XML-based)</returns>
-		public static bool IsXmlBasedTag(string tagNameInLowercase)
+		public bool IsXmlBasedTag(string tagNameInLowercase)
 		{
 			return _xmlBasedTags.Contains(tagNameInLowercase);
 		}

@@ -58,44 +58,52 @@ namespace WebMarkupMin.Core.Parsers
 		#endregion
 
 		/// <summary>
+		/// Cache of the regular expressions for working with end tags, that can contain embedded code
+		/// </summary>
+		private static readonly ConcurrentDictionary<string, Regex> _endTagWithEmbeddedCodeRegexCache =
+			new ConcurrentDictionary<string, Regex>();
+
+		/// <summary>
 		/// HTML parsing handlers
 		/// </summary>
 		private readonly HtmlParsingHandlers _handlers;
 
 		/// <summary>
+		/// HTML tag type determiner
+		/// </summary>
+		private readonly HtmlTagTypeDeterminer _tagTypeDeterminer = HtmlTagTypeDeterminer.Instance;
+
+		/// <summary>
 		/// Stack of tags
 		/// </summary>
-		private readonly List<HtmlTag> _tagStack;
+		private readonly List<HtmlTag> _tagStack = new List<HtmlTag>();
 
 		/// <summary>
-		/// Cache of the flags of HTML tags
+		/// HTML attribute type determiner
 		/// </summary>
-		private readonly Dictionary<string, HtmlTagFlags> _htmlTagFlagsCache;
+		private readonly HtmlAttributeTypeDeterminer _attributeTypeDeterminer =
+			HtmlAttributeTypeDeterminer.Instance;
 
 		/// <summary>
-		/// Cache of the flags of custom HTML tags
+		/// Temporary list of attributes
 		/// </summary>
-		private readonly Dictionary<string, HtmlTagFlags> _customHtmlTagFlagsCache;
-
-		/// <summary>
-		/// Cache of the tag with embedded code regular expressions
-		/// </summary>
-		private static readonly ConcurrentDictionary<string, Regex> _tagWithEmbeddedRegexCache;
+		private List<HtmlAttribute> _tempAttributes = new List<HtmlAttribute>();
 
 		/// <summary>
 		/// Stack of conditional comments
 		/// </summary>
-		private readonly Stack<HtmlConditionalComment> _conditionalCommentStack;
+		private readonly Stack<HtmlConditionalComment> _conditionalCommentStack =
+			new Stack<HtmlConditionalComment>();
 
 		/// <summary>
 		/// Flag for whether the conditional comment is open
 		/// </summary>
-		private bool _conditionalCommentOpened;
+		private bool _conditionalCommentOpened = false;
 
 		/// <summary>
 		/// Stack of XML-based tags
 		/// </summary>
-		private readonly Stack<string> _xmlTagStack;
+		private readonly Stack<string> _xmlTagStack = new Stack<string>();
 
 		/// <summary>
 		/// Gets a common markup parsing handlers
@@ -107,27 +115,12 @@ namespace WebMarkupMin.Core.Parsers
 
 
 		/// <summary>
-		/// Static constructor
-		/// </summary>
-		static HtmlParser()
-		{
-			_tagWithEmbeddedRegexCache = new ConcurrentDictionary<string, Regex>();
-		}
-
-		/// <summary>
 		/// Constructs instance of HTML parser
 		/// </summary>
 		/// <param name="handlers">HTML parsing handlers</param>
 		public HtmlParser(HtmlParsingHandlers handlers)
 		{
 			_handlers = handlers;
-
-			_tagStack = new List<HtmlTag>();
-			_htmlTagFlagsCache = new Dictionary<string, HtmlTagFlags>();
-			_customHtmlTagFlagsCache = new Dictionary<string, HtmlTagFlags>();
-			_conditionalCommentStack = new Stack<HtmlConditionalComment>();
-			_conditionalCommentOpened = false;
-			_xmlTagStack = new Stack<string>();
 		}
 
 
@@ -295,8 +288,7 @@ namespace WebMarkupMin.Core.Parsers
 				finally
 				{
 					_tagStack.Clear();
-					_htmlTagFlagsCache.Clear();
-					_customHtmlTagFlagsCache.Clear();
+					_tempAttributes.Clear();
 					_conditionalCommentStack.Clear();
 					_conditionalCommentOpened = false;
 					_xmlTagStack.Clear();
@@ -592,26 +584,33 @@ namespace WebMarkupMin.Core.Parsers
 		/// </summary>
 		private void ProcessEmbeddedCode()
 		{
-			string content = _innerContext.SourceCode;
-			int contentRemainderLength = _innerContext.RemainderLength;
-
 			HtmlTag stackedTag = _tagStack.LastOrDefault();
 			if (stackedTag != null)
 			{
+				string content = _innerContext.SourceCode;
+				int currentPosition = _innerContext.Position;
+				int contentRemainderLength = _innerContext.RemainderLength;
+
 				string stackedTagName = stackedTag.Name;
 				string stackedTagNameInLowercase = stackedTag.NameInLowercase;
-				Regex stackedTagRegex = _tagWithEmbeddedRegexCache.GetOrAdd(stackedTagNameInLowercase,
-					key => new Regex(@"([\s\S]*?)</" + Regex.Escape(key) + @"\s*>", RegexOptions.IgnoreCase));
+				Regex stackedTagRegex = _endTagWithEmbeddedCodeRegexCache.GetOrAdd(stackedTagNameInLowercase,
+					key => new Regex(@"</" + Regex.Escape(key) + @"\s*>", RegexOptions.IgnoreCase));
 
-				Match match = stackedTagRegex.Match(content, _innerContext.Position, contentRemainderLength);
+				Match match = stackedTagRegex.Match(content, currentPosition, contentRemainderLength);
 				if (match.Success)
 				{
-					string code = match.Groups[1].Value;
+					int endTagPosition = match.Index;
+					int endTagLength = match.Length;
+					int codeLength = endTagPosition - currentPosition;
+
+					string code = codeLength > 0 ? content.Substring(currentPosition, codeLength) : string.Empty;
+					int codeAndEndTagLength = codeLength + endTagLength;
+
 					_handlers.EmbeddedCode?.Invoke(_context, code);
 
 					ParseEndTag(stackedTagName, stackedTagNameInLowercase);
 
-					_innerContext.IncreasePosition(match.Length);
+					_innerContext.IncreasePosition(codeAndEndTagLength);
 				}
 			}
 		}
@@ -663,7 +662,6 @@ namespace WebMarkupMin.Core.Parsers
 		/// <returns>List of attributes</returns>
 		private IList<HtmlAttribute> ProcessAttributes()
 		{
-			var attributes = new List<HtmlAttribute>();
 			string content = _innerContext.SourceCode;
 			int currentPosition = _innerContext.Position;
 			SourceCodeNodeCoordinates currentCoordinates = _innerContext.NodeCoordinates;
@@ -745,11 +743,21 @@ namespace WebMarkupMin.Core.Parsers
 
 				var attribute = new HtmlAttribute(attributeName, attributeNameInLowercase, attributeValue,
 					HtmlAttributeType.Unknown, attributeNameCoordinates, attributeValueCoordinates);
-				attributes.Add(attribute);
+				_tempAttributes.Add(attribute);
 
 				_innerContext.IncreasePosition(match.Length);
 				match = _attributeRegex.Match(content, _innerContext.Position, _innerContext.RemainderLength);
 			}
+
+			int attributeCount = _tempAttributes.Count;
+			var attributes = new List<HtmlAttribute>(attributeCount);
+
+			for (int attributeIndex = 0; attributeIndex < attributeCount; attributeIndex++)
+			{
+				attributes.Add(_tempAttributes[attributeIndex]);
+			}
+
+			_tempAttributes.Clear();
 
 			return attributes;
 		}
@@ -869,7 +877,7 @@ namespace WebMarkupMin.Core.Parsers
 
 			foreach (HtmlAttribute attribute in attributes)
 			{
-				attribute.Type = GetAttributeType(tagNameInLowercase, tagFlags,
+				attribute.Type = _attributeTypeDeterminer.GetAttributeType(tagNameInLowercase, tagFlags,
 					attribute.NameInLowercase, attributes);
 			}
 
@@ -976,7 +984,7 @@ namespace WebMarkupMin.Core.Parsers
 			}
 			else if (tagNameNotEmpty && _conditionalCommentOpened)
 			{
-				if (_xmlTagStack.Count > 0 && HtmlTagFlagsHelpers.IsXmlBasedTag(tagNameInLowercase))
+				if (_xmlTagStack.Count > 0 && _tagTypeDeterminer.IsXmlBasedTag(tagNameInLowercase))
 				{
 					_xmlTagStack.Pop();
 				}
@@ -1001,142 +1009,18 @@ namespace WebMarkupMin.Core.Parsers
 
 			if (_xmlTagStack.Count == 0)
 			{
-				if (_htmlTagFlagsCache.ContainsKey(tagNameInLowercase))
-				{
-					tagFlags = _htmlTagFlagsCache[tagNameInLowercase];
-				}
-				else if (_customHtmlTagFlagsCache.ContainsKey(tagNameInLowercase))
-				{
-					tagFlags = _customHtmlTagFlagsCache[tagNameInLowercase];
-				}
-				else
-				{
-					tagFlags = HtmlTagFlags.None;
-					bool isXml = false;
-
-					var isHtml = HtmlTagFlagsHelpers.IsHtmlTag(tagNameInLowercase);
-					if (!isHtml)
-					{
-						isXml = HtmlTagFlagsHelpers.IsXmlBasedTag(tagNameInLowercase);
-					}
-
-					if (isHtml || isXml)
-					{
-						if (HtmlTagFlagsHelpers.IsInvisibleTag(tagNameInLowercase))
-						{
-							tagFlags |= HtmlTagFlags.Invisible;
-						}
-
-						if (HtmlTagFlagsHelpers.IsEmptyTag(tagNameInLowercase))
-						{
-							tagFlags |= HtmlTagFlags.Empty;
-						}
-
-						if (HtmlTagFlagsHelpers.IsBlockTag(tagNameInLowercase))
-						{
-							tagFlags |= HtmlTagFlags.Block;
-						}
-
-						if (HtmlTagFlagsHelpers.IsInlineTag(tagNameInLowercase))
-						{
-							tagFlags |= HtmlTagFlags.Inline;
-						}
-
-						if (HtmlTagFlagsHelpers.IsInlineBlockTag(tagNameInLowercase))
-						{
-							tagFlags |= HtmlTagFlags.InlineBlock;
-						}
-
-						if (HtmlTagFlagsHelpers.IsNonIndependentTag(tagNameInLowercase))
-						{
-							tagFlags |= HtmlTagFlags.NonIndependent;
-						}
-
-						if (HtmlTagFlagsHelpers.IsOptionalTag(tagNameInLowercase))
-						{
-							tagFlags |= HtmlTagFlags.Optional;
-						}
-
-						if (HtmlTagFlagsHelpers.IsTagWithEmbeddedCode(tagNameInLowercase))
-						{
-							tagFlags |= HtmlTagFlags.EmbeddedCode;
-						}
-
-						if (isXml)
-						{
-							tagFlags |= HtmlTagFlags.Xml;
-						}
-
-						_htmlTagFlagsCache[tagNameInLowercase] = tagFlags;
-					}
-					else
-					{
-						tagFlags = HtmlTagFlags.Custom;
-					}
-				}
+				tagFlags = _tagTypeDeterminer.GetTagFlagsByName(tagNameInLowercase);
 			}
 			else
 			{
 				tagFlags = HtmlTagFlags.Xml | HtmlTagFlags.NonIndependent;
-				if (HtmlTagFlagsHelpers.IsTagWithEmbeddedCode(tagNameInLowercase))
+				if (_tagTypeDeterminer.IsTagWithEmbeddedCode(tagNameInLowercase))
 				{
 					tagFlags |= HtmlTagFlags.EmbeddedCode;
 				}
 			}
 
 			return tagFlags;
-		}
-
-		/// <summary>
-		/// Gets a HTML attribute type
-		/// </summary>
-		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
-		/// <param name="tagFlags">Tag flags</param>
-		/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
-		/// <param name="attributes">List of attributes</param>
-		/// <returns>Attribute type</returns>
-		private HtmlAttributeType GetAttributeType(string tagNameInLowercase, HtmlTagFlags tagFlags,
-			string attributeNameInLowercase, IList<HtmlAttribute> attributes)
-		{
-			HtmlAttributeType attributeType = HtmlAttributeType.Unknown;
-
-			if (attributeNameInLowercase == "class")
-			{
-				attributeType = HtmlAttributeType.ClassName;
-			}
-			else if (attributeNameInLowercase == "style")
-			{
-				attributeType = HtmlAttributeType.Style;
-			}
-			else if (HtmlAttributeTypeHelpers.IsEventAttribute(attributeNameInLowercase))
-			{
-				attributeType = HtmlAttributeType.Event;
-			}
-
-			if (attributeType == HtmlAttributeType.Unknown && !tagFlags.HasFlag(HtmlTagFlags.Xml))
-			{
-				if (HtmlAttributeTypeHelpers.IsBooleanAttribute(attributeNameInLowercase))
-				{
-					attributeType = HtmlAttributeType.Boolean;
-				}
-				else if (HtmlAttributeTypeHelpers.IsNumericAttribute(tagNameInLowercase, attributeNameInLowercase))
-				{
-					attributeType = HtmlAttributeType.Numeric;
-				}
-				else if (HtmlAttributeTypeHelpers.IsUriBasedAttribute(tagNameInLowercase, attributeNameInLowercase,
-					attributes))
-				{
-					attributeType = HtmlAttributeType.Uri;
-				}
-			}
-
-			if (attributeType == HtmlAttributeType.Unknown)
-			{
-				attributeType = HtmlAttributeTypeHelpers.IsXmlBasedAttribute(attributeNameInLowercase) ?
-					HtmlAttributeType.Xml : HtmlAttributeType.Text;
-			}
-
-			return attributeType;
 		}
 
 		#endregion

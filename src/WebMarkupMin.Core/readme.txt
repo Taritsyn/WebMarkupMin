@@ -46,8 +46,9 @@
    =============
    RELEASE NOTES
    =============
-   Now CDATA sections are not removed from scripts and styles if they are inside
-   XML-based tags.
+   1. Now CDATA sections are not removed from scripts and styles if they are inside
+      XML-based tags;
+   2. Improved performance of HTML minification.
 
    =============
    DOCUMENTATION
