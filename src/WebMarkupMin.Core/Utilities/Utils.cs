@@ -23,22 +23,21 @@ namespace WebMarkupMin.Core.Utilities
 		/// <param name="value">Value of source enumeration type</param>
 		/// <returns>Value of destination enumeration type</returns>
 		public static TDest GetEnumFromOtherEnum<TSource, TDest>(TSource value)
+			where TSource : struct
+			where TDest : struct
 		{
 			string name = value.ToString();
-			var destEnumValues = (TDest[])Enum.GetValues(typeof(TDest));
+			TDest destEnum;
 
-			foreach (var destEnum in destEnumValues)
+			if (!Enum.TryParse(name, out destEnum))
 			{
-				if (string.Equals(destEnum.ToString(), name, StringComparison.OrdinalIgnoreCase))
-				{
-					return destEnum;
-				}
+				throw new InvalidCastException(
+					string.Format(Strings.Common_EnumValueConversionFailed,
+						name, typeof(TSource), typeof(TDest))
+				);
 			}
 
-			throw new InvalidCastException(
-				string.Format(Strings.Common_EnumValueConversionFailed,
-					name, typeof(TSource), typeof(TDest))
-			);
+			return destEnum;
 		}
 
 		/// <summary>

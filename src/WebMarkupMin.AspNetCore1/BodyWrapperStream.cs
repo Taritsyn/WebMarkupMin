@@ -182,10 +182,12 @@ namespace WebMarkupMin.AspNetCore2
 					IHeaderDictionary responseHeaders = response.Headers;
 					bool isEncodedContent = responseHeaders.IsEncodedContent();
 
-					if (_minificationManagers.Count > 0)
+					int minificationManagerCount = _minificationManagers.Count;
+					if (minificationManagerCount > 0)
 					{
-						foreach (IMarkupMinificationManager minificationManager in _minificationManagers)
+						for (int managerIndex = 0; managerIndex < minificationManagerCount; managerIndex++)
 						{
+							IMarkupMinificationManager minificationManager = _minificationManagers[managerIndex];
 							if (minificationManager.IsSupportedHttpMethod(httpMethod)
 								&& mediaType != null && minificationManager.IsSupportedMediaType(mediaType)
 								&& minificationManager.IsProcessablePage(currentUrl))

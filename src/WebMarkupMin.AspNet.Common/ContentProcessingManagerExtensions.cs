@@ -31,18 +31,21 @@ namespace WebMarkupMin.AspNet.Common
 			string pageUrl)
 		{
 			IList<IUrlMatcher> includedPages = contentProcessingManager.IncludedPages;
-			IList<IUrlMatcher> excludedPages = contentProcessingManager.ExcludedPages;
+			int includedPageCount = includedPages.Count;
 
-			if (includedPages.Count == 0 && excludedPages.Count == 0)
+			IList<IUrlMatcher> excludedPages = contentProcessingManager.ExcludedPages;
+			int excludedPageCount = excludedPages.Count;
+
+			if (includedPageCount == 0 && excludedPageCount == 0)
 			{
 				return true;
 			}
 
-			if (excludedPages.Count > 0)
+			if (excludedPageCount > 0)
 			{
-				foreach (IUrlMatcher matcher in excludedPages)
+				for (int matcherIndex = 0; matcherIndex < excludedPageCount; matcherIndex++)
 				{
-					bool isExcludedPage = matcher.IsMatch(pageUrl);
+					bool isExcludedPage = excludedPages[matcherIndex].IsMatch(pageUrl);
 					if (isExcludedPage)
 					{
 						return false;
@@ -50,13 +53,13 @@ namespace WebMarkupMin.AspNet.Common
 				}
 			}
 
-			if (includedPages.Count > 0)
+			if (includedPageCount > 0)
 			{
 				bool isIncludedPage = false;
 
-				foreach (IUrlMatcher matcher in includedPages)
+				for (int matcherIndex = 0; matcherIndex < includedPageCount; matcherIndex++)
 				{
-					isIncludedPage = matcher.IsMatch(pageUrl);
+					isIncludedPage = includedPages[matcherIndex].IsMatch(pageUrl);
 					if (isIncludedPage)
 					{
 						break;

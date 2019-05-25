@@ -28,7 +28,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Gets a list of attributes
 		/// </summary>
-		public IList<HtmlAttribute> Attributes
+		public List<HtmlAttribute> Attributes
 		{
 			get;
 			private set;
@@ -67,7 +67,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <param name="nameInLowercase">Name in lowercase</param>
 		/// <param name="attributes">List of attributes</param>
 		/// <param name="flags">Flags</param>
-		public HtmlTag(string name, string nameInLowercase, IList<HtmlAttribute> attributes, HtmlTagFlags flags)
+		public HtmlTag(string name, string nameInLowercase, List<HtmlAttribute> attributes, HtmlTagFlags flags)
 		{
 			Name = name;
 			NameInLowercase = nameInLowercase;

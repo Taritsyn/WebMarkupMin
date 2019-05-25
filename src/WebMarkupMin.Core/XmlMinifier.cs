@@ -88,7 +88,7 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// List of the errors
 		/// </summary>
-		private readonly IList<MinificationErrorInfo> _errors;
+		private readonly List<MinificationErrorInfo> _errors;
 
 		/// <summary>
 		/// Synchronizer of minification
@@ -249,7 +249,7 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		/// <param name="context">Markup parsing context</param>
 		/// <param name="attributes">List of attributes</param>
-		private void XmlDeclarationHandler(MarkupParsingContext context, IList<XmlAttribute> attributes)
+		private void XmlDeclarationHandler(MarkupParsingContext context, List<XmlAttribute> attributes)
 		{
 			_currentNodeType = XmlNodeType.XmlDeclaration;
 
@@ -272,7 +272,7 @@ namespace WebMarkupMin.Core
 		/// <param name="instructionName">Instruction name</param>
 		/// <param name="attributes">List of attributes</param>
 		private void ProcessingInstructionHandler(MarkupParsingContext context, string instructionName,
-			IList<XmlAttribute> attributes)
+			List<XmlAttribute> attributes)
 		{
 			_currentNodeType = XmlNodeType.ProcessingInstruction;
 
@@ -345,7 +345,7 @@ namespace WebMarkupMin.Core
 		/// <param name="tagName">Tag name</param>
 		/// <param name="attributes">List of attributes</param>
 		private void StartTagHandler(MarkupParsingContext context, string tagName,
-			IList<XmlAttribute> attributes)
+			List<XmlAttribute> attributes)
 		{
 			XmlNodeType previousNodeType = _currentNodeType;
 
@@ -412,7 +412,7 @@ namespace WebMarkupMin.Core
 		/// <param name="tagName">Tag name</param>
 		/// <param name="attributes">List of attributes</param>
 		private void EmptyTagHandler(MarkupParsingContext context, string tagName,
-			IList<XmlAttribute> attributes)
+			List<XmlAttribute> attributes)
 		{
 			XmlNodeType previousNodeType = _currentNodeType;
 
@@ -544,7 +544,7 @@ namespace WebMarkupMin.Core
 		/// Writes a attributes to buffer
 		/// </summary>
 		/// <param name="attributes">List of attributes</param>
-		private void WriteAttributes(IList<XmlAttribute> attributes)
+		private void WriteAttributes(List<XmlAttribute> attributes)
 		{
 			int attributeCount = attributes.Count;
 

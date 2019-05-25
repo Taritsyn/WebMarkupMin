@@ -58,7 +58,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// </summary>
 		/// <param name="context">Markup parsing context</param>
 		/// <param name="attributes">List of attributes</param>
-		public delegate void XmlDeclarationDelegate(MarkupParsingContext context, IList<XmlAttribute> attributes);
+		public delegate void XmlDeclarationDelegate(MarkupParsingContext context, List<XmlAttribute> attributes);
 
 		/// <summary>
 		/// Processing instruction delegate
@@ -67,7 +67,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <param name="instructionName">Instruction name</param>
 		/// <param name="attributes">List of attributes</param>
 		public delegate void ProcessingInstructionDelegate(MarkupParsingContext context, string instructionName,
-			IList<XmlAttribute> attributes);
+			List<XmlAttribute> attributes);
 
 		/// <summary>
 		/// Start tags delegate
@@ -76,7 +76,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <param name="tagName">Tag name</param>
 		/// <param name="attributes">List of attributes</param>
 		public delegate void StartTagDelegate(MarkupParsingContext context, string tagName,
-			IList<XmlAttribute> attributes);
+			List<XmlAttribute> attributes);
 
 		/// <summary>
 		/// End tags delegate
@@ -92,6 +92,6 @@ namespace WebMarkupMin.Core.Parsers
 		/// <param name="tagName">Tag name</param>
 		/// <param name="attributes">List of attributes</param>
 		public delegate void EmptyTagDelegate(MarkupParsingContext context, string tagName,
-			IList<XmlAttribute> attributes);
+			List<XmlAttribute> attributes);
 	}
 }

@@ -196,7 +196,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <param name="attributes">List of attributes</param>
 		/// <returns>Attribute type</returns>
 		public HtmlAttributeType GetAttributeType(string tagNameInLowercase, HtmlTagFlags tagFlags,
-			string attributeNameInLowercase, IList<HtmlAttribute> attributes)
+			string attributeNameInLowercase, List<HtmlAttribute> attributes)
 		{
 			HtmlAttributeType attributeType = HtmlAttributeType.Unknown;
 
@@ -343,7 +343,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <param name="attributes">List of attributes</param>
 		/// <returns>Result of check (true - URI-based; false - not URI-based)</returns>
 		private bool IsUriBasedAttribute(string tagNameInLowercase, string attributeNameInLowercase,
-			IList<HtmlAttribute> attributes)
+			List<HtmlAttribute> attributes)
 		{
 			bool isUriBased;
 

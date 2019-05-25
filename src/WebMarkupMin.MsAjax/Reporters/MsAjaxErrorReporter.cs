@@ -19,17 +19,17 @@ namespace WebMarkupMin.MsAjax.Reporters
 		/// <summary>
 		/// List of the errors
 		/// </summary>
-		private readonly IList<MinificationErrorInfo> _errors;
+		private readonly List<MinificationErrorInfo> _errors;
 
 		/// <summary>
 		/// List of the warnings
 		/// </summary>
-		private readonly IList<MinificationErrorInfo> _warnings;
+		private readonly List<MinificationErrorInfo> _warnings;
 
 		/// <summary>
 		/// Gets a list of the errors
 		/// </summary>
-		public IList<MinificationErrorInfo> Errors
+		public List<MinificationErrorInfo> Errors
 		{
 			get { return _errors; }
 		}
@@ -37,7 +37,7 @@ namespace WebMarkupMin.MsAjax.Reporters
 		/// <summary>
 		/// Gets a list of the warnings
 		/// </summary>
-		public IList<MinificationErrorInfo> Warnings
+		public List<MinificationErrorInfo> Warnings
 		{
 			get { return _warnings; }
 		}

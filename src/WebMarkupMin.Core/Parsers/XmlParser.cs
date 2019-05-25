@@ -192,7 +192,7 @@ namespace WebMarkupMin.Core.Parsers
 			{
 				string instructionName = processingInstructionBeginPartMatch.Groups["instructionName"].Value;
 				bool isXmlDeclaration = instructionName.Equals("xml", StringComparison.OrdinalIgnoreCase);
-				IList<XmlAttribute> attributes = null;
+				List<XmlAttribute> attributes = null;
 
 				_innerContext.IncreasePosition(processingInstructionBeginPartMatch.Length);
 
@@ -277,7 +277,7 @@ namespace WebMarkupMin.Core.Parsers
 			if (startTagBeginPartMatch.Success)
 			{
 				string startTagName = startTagBeginPartMatch.Groups["tagName"].Value;
-				IList<XmlAttribute> attributes = null;
+				List<XmlAttribute> attributes = null;
 				bool isEmptyTag;
 
 				_innerContext.IncreasePosition(startTagBeginPartMatch.Length);
@@ -421,7 +421,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// Process a attributes
 		/// </summary>
 		/// <returns>List of attributes</returns>
-		private IList<XmlAttribute> ProcessAttributes()
+		private List<XmlAttribute> ProcessAttributes()
 		{
 			var attributes = new List<XmlAttribute>();
 			string content = _innerContext.SourceCode;

@@ -287,12 +287,12 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// List of the errors
 		/// </summary>
-		private readonly IList<MinificationErrorInfo> _errors;
+		private readonly List<MinificationErrorInfo> _errors;
 
 		/// <summary>
 		/// List of the warnings
 		/// </summary>
-		private readonly IList<MinificationErrorInfo> _warnings;
+		private readonly List<MinificationErrorInfo> _warnings;
 
 		/// <summary>
 		/// Synchronizer of minification
@@ -811,7 +811,7 @@ namespace WebMarkupMin.Core
 			string tagName = tag.Name;
 			string tagNameInLowercase = tag.NameInLowercase;
 			HtmlTagFlags tagFlags = tag.Flags;
-			IList<HtmlAttribute> attributes = tag.Attributes;
+			List<HtmlAttribute> attributes = tag.Attributes;
 
 			_currentNodeType = HtmlNodeType.StartTag;
 			_currentTag = tag;
@@ -1152,7 +1152,7 @@ namespace WebMarkupMin.Core
 			HtmlNodeType previousNodeType = _currentNodeType;
 			HtmlTag tag = _currentTag ?? HtmlTag.Empty;
 			string tagNameInLowercase = tag.NameInLowercase;
-			IList<HtmlAttribute> attributes = tag.Attributes;
+			List<HtmlAttribute> attributes = tag.Attributes;
 
 			_currentNodeType = HtmlNodeType.EmbeddedCode;
 
@@ -1404,7 +1404,7 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		/// <param name="attributes">List of attributes</param>
 		/// <returns>Result of check (true - contains; false - does not contain)</returns>
-		private static bool ContainsRelExternalAttribute(IList<HtmlAttribute> attributes)
+		private static bool ContainsRelExternalAttribute(List<HtmlAttribute> attributes)
 		{
 			bool containsRelExternalAttribute = attributes.Any(a => a.NameInLowercase == "rel"
 				 && _relExternalAttributeRegex.IsMatch(a.Value));
@@ -1452,7 +1452,7 @@ namespace WebMarkupMin.Core
 		private static bool IsAttributeRedundant(HtmlTag tag, HtmlAttribute attribute)
 		{
 			string tagNameInLowercase = tag.NameInLowercase;
-			IList<HtmlAttribute> attributes = tag.Attributes;
+			List<HtmlAttribute> attributes = tag.Attributes;
 			string attributeNameInLowercase = attribute.NameInLowercase;
 			string attributeValue = attribute.Value;
 			string processedAttributeValue = attributeValue.Trim();
@@ -1499,7 +1499,7 @@ namespace WebMarkupMin.Core
 			string tagNameInLowercase = tag.NameInLowercase;
 			string attributeNameInLowercase = attribute.NameInLowercase;
 			string attributeValue = attribute.Value;
-			IList<HtmlAttribute> attributes = tag.Attributes;
+			List<HtmlAttribute> attributes = tag.Attributes;
 			bool isCssTypeAttribute = false;
 
 			if (tagNameInLowercase == "link" || tagNameInLowercase == "style")
@@ -1575,7 +1575,7 @@ namespace WebMarkupMin.Core
 
 			string processedAttributeValue = attributeValue;
 			string tagNameInLowercase = tag.NameInLowercase;
-			IList<HtmlAttribute> attributes = tag.Attributes;
+			List<HtmlAttribute> attributes = tag.Attributes;
 			string attributeNameInLowercase = attribute.NameInLowercase;
 			HtmlAttributeType attributeType = attribute.Type;
 
@@ -1750,7 +1750,10 @@ namespace WebMarkupMin.Core
 		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
 		private bool CanRemoveAttribute(HtmlTag tag, HtmlAttribute attribute)
 		{
-			if (_settings.PreservableAttributeCollection.Count == 0)
+			IList<HtmlAttributeExpression> expressions = _settings.PreservableAttributeCollection;
+			int expressionCount = expressions.Count;
+
+			if (expressionCount == 0)
 			{
 				return true;
 			}
@@ -1761,10 +1764,10 @@ namespace WebMarkupMin.Core
 
 			bool result = true;
 
-			foreach (HtmlAttributeExpression attributeExpression in _settings.PreservableAttributeCollection)
+			for (int expressionIndex = 0; expressionIndex < expressionCount; expressionIndex++)
 			{
-				bool cannotRemove = attributeExpression.IsMatch(tagNameInLowercase, attributeNameInLowercase,
-					attributeValue);
+				bool cannotRemove = expressions[expressionIndex].IsMatch(tagNameInLowercase,
+					attributeNameInLowercase, attributeValue);
 				if (cannotRemove)
 				{
 					result = false;
@@ -2113,7 +2116,7 @@ namespace WebMarkupMin.Core
 		{
 			string tagNameInLowercase = tag.NameInLowercase;
 			HtmlTagFlags tagFlags = tag.Flags;
-			IList<HtmlAttribute> attributes = tag.Attributes;
+			List<HtmlAttribute> attributes = tag.Attributes;
 
 			return !(tagFlags.HasFlag(HtmlTagFlags.Custom)
 				|| (tagFlags.HasFlag(HtmlTagFlags.Xml) && tagFlags.HasFlag(HtmlTagFlags.NonIndependent))
@@ -2816,7 +2819,7 @@ namespace WebMarkupMin.Core
 		{
 			string tagNameInLowercase = tag.NameInLowercase;
 			string attributeNameInLowercase = attribute.NameInLowercase;
-			IList<HtmlAttribute> attributes = tag.Attributes;
+			List<HtmlAttribute> attributes = tag.Attributes;
 
 			bool canMinify = false;
 

@@ -67,8 +67,9 @@ namespace WebMarkupMin.AspNet.Common
 		{
 			compressor = null;
 			IList<ICompressorFactory> factories = CompressorFactories;
+			int factoryCount = factories.Count;
 
-			if (acceptEncoding != null && factories != null && factories.Count > 0)
+			if (acceptEncoding != null && factoryCount > 0)
 			{
 				string[] encodingTokens = acceptEncoding
 					.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
@@ -76,8 +77,9 @@ namespace WebMarkupMin.AspNet.Common
 					.ToArray()
 					;
 
-				foreach (ICompressorFactory factory in factories)
+				for (int factoryIndex = 0; factoryIndex < factoryCount; factoryIndex++)
 				{
+					ICompressorFactory factory = factories[factoryIndex];
 					if (encodingTokens.Contains(factory.EncodingToken))
 					{
 						compressor = factory.CreateCompressor();

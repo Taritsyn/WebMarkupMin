@@ -489,7 +489,7 @@ namespace WebMarkupMin.Core.Parsers
 				{
 					startTagNameInLowercase = startTagName.ToLowerInvariant();
 				}
-				IList<HtmlAttribute> attributes = null;
+				List<HtmlAttribute> attributes = null;
 				bool isEmptyTag;
 
 				_innerContext.IncreasePosition(startTagBeginPartMatch.Length);
@@ -660,7 +660,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// Process a attributes
 		/// </summary>
 		/// <returns>List of attributes</returns>
-		private IList<HtmlAttribute> ProcessAttributes()
+		private List<HtmlAttribute> ProcessAttributes()
 		{
 			string content = _innerContext.SourceCode;
 			int currentPosition = _innerContext.Position;
@@ -844,7 +844,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
 		/// <param name="attributes">List of attributes</param>
 		/// <param name="isEmptyTag">Flag that tag is empty</param>
-		private void ParseStartTag(string tagName, string tagNameInLowercase, IList<HtmlAttribute> attributes,
+		private void ParseStartTag(string tagName, string tagNameInLowercase, List<HtmlAttribute> attributes,
 			bool isEmptyTag)
 		{
 			HtmlTagFlags tagFlags = GetTagFlagsByName(tagNameInLowercase);
@@ -875,8 +875,11 @@ namespace WebMarkupMin.Core.Parsers
 				tagFlags |= HtmlTagFlags.Empty;
 			}
 
-			foreach (HtmlAttribute attribute in attributes)
+			int attributeCount = attributes.Count;
+
+			for (int attributeIndex = 0; attributeIndex < attributeCount; attributeIndex++)
 			{
+				HtmlAttribute attribute = attributes[attributeIndex];
 				attribute.Type = _attributeTypeDeterminer.GetAttributeType(tagNameInLowercase, tagFlags,
 					attribute.NameInLowercase, attributes);
 			}
