@@ -152,7 +152,7 @@ namespace WebMarkupMin.Core.Parsers
 						HtmlTag lastStackedTag = _tagStack.LastOrDefault();
 
 						// Make sure we're not in a tag, that contains embedded code
-						if (lastStackedTag == null || !lastStackedTag.Flags.HasFlag(HtmlTagFlags.EmbeddedCode))
+						if (lastStackedTag == null || !lastStackedTag.Flags.IsSet(HtmlTagFlags.EmbeddedCode))
 						{
 							if (_innerContext.PeekCurrentChar() == '<')
 							{
@@ -849,7 +849,7 @@ namespace WebMarkupMin.Core.Parsers
 		{
 			HtmlTagFlags tagFlags = GetTagFlagsByName(tagNameInLowercase);
 
-			if (tagFlags.HasFlag(HtmlTagFlags.Optional))
+			if (tagFlags.IsSet(HtmlTagFlags.Optional))
 			{
 				HtmlTag lastStackedTag = _tagStack.LastOrDefault();
 				if (lastStackedTag != null && lastStackedTag.NameInLowercase == tagNameInLowercase)
@@ -866,7 +866,7 @@ namespace WebMarkupMin.Core.Parsers
 				}
 			}
 
-			if (tagFlags.HasFlag(HtmlTagFlags.Empty))
+			if (tagFlags.IsSet(HtmlTagFlags.Empty))
 			{
 				isEmptyTag = true;
 			}
@@ -893,7 +893,7 @@ namespace WebMarkupMin.Core.Parsers
 					HtmlConditionalComment lastConditionalComment = _conditionalCommentStack.Peek();
 					HtmlConditionalCommentType lastConditionalCommentType = lastConditionalComment.Type;
 
-					if (tagFlags.HasFlag(HtmlTagFlags.EmbeddedCode)
+					if (tagFlags.IsSet(HtmlTagFlags.EmbeddedCode)
 						|| lastConditionalCommentType == HtmlConditionalCommentType.RevealedValidating
 						|| lastConditionalCommentType == HtmlConditionalCommentType.RevealedValidatingSimplified)
 					{
@@ -908,7 +908,7 @@ namespace WebMarkupMin.Core.Parsers
 
 			_handlers.StartTag?.Invoke(_context, tag);
 
-			if (tagFlags.HasFlag(HtmlTagFlags.Xml) && !tagFlags.HasFlag(HtmlTagFlags.NonIndependent))
+			if (tagFlags.IsSet(HtmlTagFlags.Xml) && !tagFlags.IsSet(HtmlTagFlags.NonIndependent))
 			{
 				_xmlTagStack.Push(tagNameInLowercase);
 			}
@@ -966,7 +966,7 @@ namespace WebMarkupMin.Core.Parsers
 							endTagName = startTag.Name;
 						}
 
-						if (_xmlTagStack.Count > 0 && !startTagFlags.HasFlag(HtmlTagFlags.NonIndependent))
+						if (_xmlTagStack.Count > 0 && !startTagFlags.IsSet(HtmlTagFlags.NonIndependent))
 						{
 							_xmlTagStack.Pop();
 						}

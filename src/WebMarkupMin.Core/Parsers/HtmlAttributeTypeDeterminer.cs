@@ -213,7 +213,7 @@ namespace WebMarkupMin.Core.Parsers
 				attributeType = HtmlAttributeType.Event;
 			}
 
-			if (attributeType == HtmlAttributeType.Unknown && !tagFlags.HasFlag(HtmlTagFlags.Xml))
+			if (attributeType == HtmlAttributeType.Unknown && !tagFlags.IsSet(HtmlTagFlags.Xml))
 			{
 				if (IsBooleanAttribute(attributeNameInLowercase))
 				{

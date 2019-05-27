@@ -825,8 +825,8 @@ namespace WebMarkupMin.Core
 				{
 					// Processing of whitespace, that followed before the start tag
 					bool allowTrimEnd = false;
-					if (tagFlags.HasFlag(HtmlTagFlags.Invisible)
-						|| (tagFlags.HasFlag(HtmlTagFlags.NonIndependent)
+					if (tagFlags.IsSet(HtmlTagFlags.Invisible)
+						|| (tagFlags.IsSet(HtmlTagFlags.NonIndependent)
 							&& CanRemoveWhitespaceBetweenNonIndependentTags(previousTag, tag)))
 					{
 						allowTrimEnd = true;
@@ -836,7 +836,7 @@ namespace WebMarkupMin.Core
 						if (whitespaceMinificationMode == WhitespaceMinificationMode.Medium
 							|| whitespaceMinificationMode == WhitespaceMinificationMode.Aggressive)
 						{
-							allowTrimEnd = tagFlags.HasFlag(HtmlTagFlags.Block);
+							allowTrimEnd = tagFlags.IsSet(HtmlTagFlags.Block);
 						}
 					}
 
@@ -855,7 +855,7 @@ namespace WebMarkupMin.Core
 			if (previousNodeType != HtmlNodeType.StartTag)
 			{
 				if (_settings.RemoveOptionalEndTags
-					&& previousTag.Flags.HasFlag(HtmlTagFlags.Optional)
+					&& previousTag.Flags.IsSet(HtmlTagFlags.Optional)
 					&& CanRemoveOptionalEndTagByNextTag(previousTag, tag))
 				{
 					_output.RemoveLastEndTag(previousTag.NameInLowercase);
@@ -898,11 +898,11 @@ namespace WebMarkupMin.Core
 				}
 			}
 
-			if (tagFlags.HasFlag(HtmlTagFlags.Empty))
+			if (tagFlags.IsSet(HtmlTagFlags.Empty))
 			{
 				HtmlEmptyTagRenderMode emptyTagRenderMode = _settings.EmptyTagRenderMode;
 
-				if (emptyTagRenderMode == HtmlEmptyTagRenderMode.NoSlash && tagFlags.HasFlag(HtmlTagFlags.Xml))
+				if (emptyTagRenderMode == HtmlEmptyTagRenderMode.NoSlash && tagFlags.IsSet(HtmlTagFlags.Xml))
 				{
 					emptyTagRenderMode = HtmlEmptyTagRenderMode.SpaceAndSlash;
 				}
@@ -947,12 +947,12 @@ namespace WebMarkupMin.Core
 			WhitespaceMinificationMode whitespaceMinificationMode = _settings.WhitespaceMinificationMode;
 			if (whitespaceMinificationMode != WhitespaceMinificationMode.None)
 			{
-				if (_tagsWithNotRemovableWhitespaceQueue.Count == 0 && !tagFlags.HasFlag(HtmlTagFlags.EmbeddedCode))
+				if (_tagsWithNotRemovableWhitespaceQueue.Count == 0 && !tagFlags.IsSet(HtmlTagFlags.EmbeddedCode))
 				{
 					// Processing of whitespace, that followed before the end tag
 					bool allowTrimEnd = false;
-					if (tagFlags.HasFlag(HtmlTagFlags.Invisible)
-						|| (previousTag.Flags.HasFlag(HtmlTagFlags.NonIndependent)
+					if (tagFlags.IsSet(HtmlTagFlags.Invisible)
+						|| (previousTag.Flags.IsSet(HtmlTagFlags.NonIndependent)
 							&& CanRemoveWhitespaceAfterEndNonIndependentTagByParentTag(previousTag, tag)))
 					{
 						allowTrimEnd = true;
@@ -961,13 +961,13 @@ namespace WebMarkupMin.Core
 					{
 						if (whitespaceMinificationMode == WhitespaceMinificationMode.Medium)
 						{
-							allowTrimEnd = tagFlags.HasFlag(HtmlTagFlags.Block);
+							allowTrimEnd = tagFlags.IsSet(HtmlTagFlags.Block);
 						}
 						else if (whitespaceMinificationMode == WhitespaceMinificationMode.Aggressive)
 						{
-							allowTrimEnd = tagFlags.HasFlag(HtmlTagFlags.Block)
-								|| tagFlags.HasFlag(HtmlTagFlags.Inline)
-								|| tagFlags.HasFlag(HtmlTagFlags.InlineBlock)
+							allowTrimEnd = tagFlags.IsSet(HtmlTagFlags.Block)
+								|| tagFlags.IsSet(HtmlTagFlags.Inline)
+								|| tagFlags.IsSet(HtmlTagFlags.InlineBlock)
 								;
 						}
 					}
@@ -987,7 +987,7 @@ namespace WebMarkupMin.Core
 			}
 
 			if (_settings.RemoveOptionalEndTags
-				&& previousTag.Flags.HasFlag(HtmlTagFlags.Optional)
+				&& previousTag.Flags.IsSet(HtmlTagFlags.Optional)
 				&& (previousNodeType == HtmlNodeType.EndTag
 					|| (previousTagNameInLowercase != tagNameInLowercase && string.IsNullOrWhiteSpace(previousText)))
 				&& CanRemoveOptionalEndTagByParentTag(previousTag, tag))
@@ -1010,7 +1010,7 @@ namespace WebMarkupMin.Core
 			}
 
 			if (_settings.RemoveOptionalEndTags
-				&& tagFlags.HasFlag(HtmlTagFlags.Optional)
+				&& tagFlags.IsSet(HtmlTagFlags.Optional)
 				&& CanRemoveSafeOptionalEndTag(tag))
 			{
 				// Leave only start tag in buffer
@@ -1062,8 +1062,8 @@ namespace WebMarkupMin.Core
 					{
 						// Processing of whitespace, that followed after the start tag
 						bool allowTrimStart = false;
-						if (tagFlags.HasFlag(HtmlTagFlags.Invisible)
-							|| (tagFlags.HasFlag(HtmlTagFlags.NonIndependent) && tagFlags.HasFlag(HtmlTagFlags.Empty)))
+						if (tagFlags.IsSet(HtmlTagFlags.Invisible)
+							|| (tagFlags.IsSet(HtmlTagFlags.NonIndependent) && tagFlags.IsSet(HtmlTagFlags.Empty)))
 						{
 							allowTrimStart = true;
 						}
@@ -1071,13 +1071,13 @@ namespace WebMarkupMin.Core
 						{
 							if (whitespaceMinificationMode == WhitespaceMinificationMode.Medium)
 							{
-								allowTrimStart = tagFlags.HasFlag(HtmlTagFlags.Block);
+								allowTrimStart = tagFlags.IsSet(HtmlTagFlags.Block);
 							}
 							else if (whitespaceMinificationMode == WhitespaceMinificationMode.Aggressive)
 							{
-								allowTrimStart = tagFlags.HasFlag(HtmlTagFlags.Block)
-									|| ((tagFlags.HasFlag(HtmlTagFlags.Inline) || tagFlags.HasFlag(HtmlTagFlags.InlineBlock))
-										&& !tagFlags.HasFlag(HtmlTagFlags.Empty));
+								allowTrimStart = tagFlags.IsSet(HtmlTagFlags.Block)
+									|| ((tagFlags.IsSet(HtmlTagFlags.Inline) || tagFlags.IsSet(HtmlTagFlags.InlineBlock))
+										&& !tagFlags.IsSet(HtmlTagFlags.Empty));
 							}
 						}
 
@@ -1090,8 +1090,8 @@ namespace WebMarkupMin.Core
 					{
 						// Processing of whitespace, that followed after the end tag
 						bool allowTrimStart = false;
-						if (tagFlags.HasFlag(HtmlTagFlags.Invisible)
-							|| (tagFlags.HasFlag(HtmlTagFlags.NonIndependent)
+						if (tagFlags.IsSet(HtmlTagFlags.Invisible)
+							|| (tagFlags.IsSet(HtmlTagFlags.NonIndependent)
 								&& CanRemoveWhitespaceAfterEndNonIndependentTag(tag)))
 						{
 							allowTrimStart = true;
@@ -1101,7 +1101,7 @@ namespace WebMarkupMin.Core
 							if (whitespaceMinificationMode == WhitespaceMinificationMode.Medium
 								|| whitespaceMinificationMode == WhitespaceMinificationMode.Aggressive)
 							{
-								allowTrimStart = tagFlags.HasFlag(HtmlTagFlags.Block);
+								allowTrimStart = tagFlags.IsSet(HtmlTagFlags.Block);
 							}
 						}
 
@@ -1118,7 +1118,7 @@ namespace WebMarkupMin.Core
 					}
 
 					if (text.Length > 0
-						&& !(tagFlags.HasFlag(HtmlTagFlags.Xml) && tagFlags.HasFlag(HtmlTagFlags.NonIndependent)))
+						&& !(tagFlags.IsSet(HtmlTagFlags.Xml) && tagFlags.IsSet(HtmlTagFlags.NonIndependent)))
 					{
 						text = Utils.CollapseWhitespace(text);
 					}
@@ -1339,7 +1339,7 @@ namespace WebMarkupMin.Core
 						processedAttributeValue = Utils.RemoveEndingSemicolons(processedAttributeValue);
 						break;
 					default:
-						if (_settings.MinifyAngularBindingExpressions && tag.Flags.HasFlag(HtmlTagFlags.Custom))
+						if (_settings.MinifyAngularBindingExpressions && tag.Flags.IsSet(HtmlTagFlags.Custom))
 						{
 							string elementDirectiveName = AngularHelpers.NormalizeDirectiveName(tagNameInLowercase);
 							if (elementDirectiveName == "ngPluralize" && attributeNameInLowercase == "when")
@@ -1739,7 +1739,7 @@ namespace WebMarkupMin.Core
 		/// <returns>Result of check (true - can be preserved; false - can not be preserved)</returns>
 		private bool CanPreserveCase()
 		{
-			return _settings.PreserveCase || _currentTag.Flags.HasFlag(HtmlTagFlags.Xml);
+			return _settings.PreserveCase || _currentTag.Flags.IsSet(HtmlTagFlags.Xml);
 		}
 
 		/// <summary>
@@ -2118,8 +2118,8 @@ namespace WebMarkupMin.Core
 			HtmlTagFlags tagFlags = tag.Flags;
 			List<HtmlAttribute> attributes = tag.Attributes;
 
-			return !(tagFlags.HasFlag(HtmlTagFlags.Custom)
-				|| (tagFlags.HasFlag(HtmlTagFlags.Xml) && tagFlags.HasFlag(HtmlTagFlags.NonIndependent))
+			return !(tagFlags.IsSet(HtmlTagFlags.Custom)
+				|| (tagFlags.IsSet(HtmlTagFlags.Xml) && tagFlags.IsSet(HtmlTagFlags.NonIndependent))
 				|| _unremovableEmptyTags.Contains(tagNameInLowercase)
 				|| attributes.Any(a => IsCustomAttribute(a)
 					|| (_unremovableEmptyTagAttributes.Contains(a.NameInLowercase) && !string.IsNullOrWhiteSpace(a.Value))));
@@ -2172,7 +2172,7 @@ namespace WebMarkupMin.Core
 			{
 				bool removeHtmlComments = _settings.RemoveHtmlCommentsFromScriptsAndStyles;
 				bool removeCdataSections = _settings.RemoveCdataSectionsFromScriptsAndStyles
-					&& !_currentTag.Flags.HasFlag(HtmlTagFlags.Xml);
+					&& !_currentTag.Flags.IsSet(HtmlTagFlags.Xml);
 
 				string startPart = string.Empty;
 				string endPart = string.Empty;
@@ -2436,7 +2436,7 @@ namespace WebMarkupMin.Core
 			{
 				bool removeHtmlComments = _settings.RemoveHtmlCommentsFromScriptsAndStyles;
 				bool removeCdataSections = _settings.RemoveCdataSectionsFromScriptsAndStyles
-					&& !_currentTag.Flags.HasFlag(HtmlTagFlags.Xml);
+					&& !_currentTag.Flags.IsSet(HtmlTagFlags.Xml);
 
 				string startPart = string.Empty;
 				string endPart = string.Empty;
@@ -2823,7 +2823,7 @@ namespace WebMarkupMin.Core
 
 			bool canMinify = false;
 
-			if (tag.Flags.HasFlag(HtmlTagFlags.Custom))
+			if (tag.Flags.IsSet(HtmlTagFlags.Custom))
 			{
 				string elementDirectiveName = AngularHelpers.NormalizeDirectiveName(tagNameInLowercase);
 
