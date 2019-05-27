@@ -490,12 +490,12 @@ namespace WebMarkupMin.Core
 				if (context.Position == 0)
 				{
 					// Processing starting whitespace
-					text = text.TrimStart();
+					text = text.TrimStart(null);
 				}
 				else if (context.Position + text.Length == context.Length)
 				{
 					// Processing ending whitespace
-					text = text.TrimEnd();
+					text = text.TrimEnd(null);
 				}
 				else if (_xmlDeclarationBeforeText || _processingInstructionBeforeText || _doctypeBeforeText)
 				{

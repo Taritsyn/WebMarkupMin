@@ -59,7 +59,7 @@ namespace WebMarkupMin.Core.Helpers
 
 				Group expressionGroup = match.Groups["expression"];
 				int expressionPosition = expressionGroup.Index;
-				string expression = expressionGroup.Value.TrimEnd();
+				string expression = expressionGroup.Value.TrimEnd(null);
 
 				innerContext.IncreasePosition(expressionPosition);
 				expressionHandler?.Invoke(context, expression);

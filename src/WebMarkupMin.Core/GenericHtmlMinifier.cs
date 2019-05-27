@@ -1051,12 +1051,12 @@ namespace WebMarkupMin.Core
 					if (context.Position == 0)
 					{
 						// Processing of starting whitespace
-						text = text.TrimStart();
+						text = text.TrimStart(null);
 					}
 					else if (context.Position + text.Length == context.Length)
 					{
 						// Processing of ending whitespace
-						text = text.TrimEnd();
+						text = text.TrimEnd(null);
 					}
 					else if (previousNodeType == HtmlNodeType.StartTag)
 					{
@@ -1083,7 +1083,7 @@ namespace WebMarkupMin.Core
 
 						if (allowTrimStart)
 						{
-							text = text.TrimStart();
+							text = text.TrimStart(null);
 						}
 					}
 					else if (previousNodeType == HtmlNodeType.EndTag)
@@ -1107,14 +1107,14 @@ namespace WebMarkupMin.Core
 
 						if (allowTrimStart)
 						{
-							text = text.TrimStart();
+							text = text.TrimStart(null);
 						}
 					}
 					else if (previousNodeType == HtmlNodeType.Doctype || previousNodeType == HtmlNodeType.XmlDeclaration)
 					{
 						// Processing of whitespace, that followed after the document type declaration
 						// or XML declaration
-						text = text.TrimStart();
+						text = text.TrimStart(null);
 					}
 
 					if (text.Length > 0

@@ -66,7 +66,7 @@ namespace WebMarkupMin.Core
 				}
 				else
 				{
-					_items[itemIndex] = item.TrimEnd();
+					_items[itemIndex] = item.TrimEnd(null);
 					break;
 				}
 			}
