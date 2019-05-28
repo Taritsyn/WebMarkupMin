@@ -37,6 +37,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
+using WebMarkupMin.Core.Constants;
 using WebMarkupMin.Core.Helpers;
 using WebMarkupMin.Core.Loggers;
 using WebMarkupMin.Core.Parsers;
@@ -598,7 +599,13 @@ namespace WebMarkupMin.Core
 				_output.TrimEndLastItem();
 			}
 
-			_output.Write(_settings.UseShortDoctype ? "<!DOCTYPE html>" : Utils.CollapseWhitespace(doctype));
+			string shortDoctype = _settings.CustomShortDoctype;
+			if (string.IsNullOrWhiteSpace(shortDoctype))
+			{
+				shortDoctype = Doctype.CanonicalHtml5Doctype;
+			}
+
+			_output.Write(_settings.UseShortDoctype ? shortDoctype : Utils.CollapseWhitespace(doctype));
 			_output.Flush();
 		}
 

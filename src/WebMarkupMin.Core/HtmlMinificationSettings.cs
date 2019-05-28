@@ -1,4 +1,6 @@
-﻿namespace WebMarkupMin.Core
+﻿using WebMarkupMin.Core.Constants;
+
+namespace WebMarkupMin.Core
 {
 	/// <summary>
 	/// HTML minification settings
@@ -24,6 +26,7 @@
 			{
 				RemoveCdataSectionsFromScriptsAndStyles = true;
 				UseShortDoctype = true;
+				CustomShortDoctype = Doctype.CanonicalHtml5Doctype;
 				PreserveCase = false;
 				UseMetaCharsetTag = true;
 				EmptyTagRenderMode = HtmlEmptyTagRenderMode.NoSlash;
@@ -37,6 +40,7 @@
 			{
 				RemoveCdataSectionsFromScriptsAndStyles = false;
 				UseShortDoctype = false;
+				CustomShortDoctype = string.Empty;
 				PreserveCase = false;
 				UseMetaCharsetTag = false;
 				EmptyTagRenderMode = HtmlEmptyTagRenderMode.NoSlash;

@@ -21,6 +21,7 @@ namespace WebMarkupMin.Core.Parsers
 
 		private static readonly Regex _processingInstructionBeginPartRegex = new Regex(@"^<\?(?<instructionName>" + NAME_PATTERN + ")");
 		private static readonly Regex _processingInstructionEndPartRegex = new Regex(@"^\s*\?>");
+		private static readonly Regex _doctypeRegex = new Regex(@"^<!DOCTYPE\s[^>]+?>");
 		private static readonly Regex _startTagBeginPartRegex = new Regex(@"^<(?<tagName>" + NAME_PATTERN + ")");
 		private static readonly Regex _startTagEndPartRegex = new Regex(@"^\s*(?<emptyTagSlash>/)?>");
 		private static readonly Regex _endTagRegex = new Regex(@"^<\/(?<tagName>" + NAME_PATTERN + @")\s*>");
@@ -120,7 +121,6 @@ namespace WebMarkupMin.Core.Parsers
 											break;
 
 										case 'D':
-										case 'd':
 											// Doctype declaration
 											isProcessed = ProcessDoctype();
 											break;
@@ -257,6 +257,29 @@ namespace WebMarkupMin.Core.Parsers
 			if (processingInstructionEndPartMatch.Success)
 			{
 				_innerContext.IncreasePosition(processingInstructionEndPartMatch.Length);
+				isProcessed = true;
+			}
+
+			return isProcessed;
+		}
+
+		/// <summary>
+		/// Process a doctype declaration
+		/// </summary>
+		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		protected override bool ProcessDoctype()
+		{
+			bool isProcessed = false;
+			string content = _innerContext.SourceCode;
+			int contentRemainderLength = _innerContext.RemainderLength;
+
+			var match = _doctypeRegex.Match(content, _innerContext.Position, contentRemainderLength);
+			if (match.Success)
+			{
+				string doctype = match.Value;
+				CommonHandlers.Doctype?.Invoke(_context, doctype);
+
+				_innerContext.IncreasePosition(match.Length);
 				isProcessed = true;
 			}
 

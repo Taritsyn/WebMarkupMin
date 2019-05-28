@@ -21,6 +21,16 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
+		/// Gets or sets a custom short DOCTYPE (e.g. <code>&lt;!DOCTYPE HTML&gt;</code>,
+		/// <code>&lt;!doctype html&gt;</code>, or <code>&lt;!doctypehtml&gt;</code>)
+		/// </summary>
+		public string CustomShortDoctype
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets a flag for whether to preserve case of tag and attribute names
 		/// (useful for Angular 2 templates)
 		/// </summary>

@@ -35,6 +35,7 @@ namespace WebMarkupMin.Core
 						RemoveHtmlCommentsFromScriptsAndStyles = settings.RemoveHtmlCommentsFromScriptsAndStyles,
 						RemoveCdataSectionsFromScriptsAndStyles = settings.RemoveCdataSectionsFromScriptsAndStyles,
 						UseShortDoctype = settings.UseShortDoctype,
+						CustomShortDoctype = settings.CustomShortDoctype,
 						PreserveCase = settings.PreserveCase,
 						UseMetaCharsetTag = settings.UseMetaCharsetTag,
 						EmptyTagRenderMode = settings.EmptyTagRenderMode,

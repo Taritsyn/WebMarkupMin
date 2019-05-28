@@ -29,6 +29,7 @@ namespace WebMarkupMin.Core.Parsers
 		#region Regular expressions for parsing tags and attributes
 
 		private static readonly Regex _xmlDeclarationRegex = new Regex(@"^<\?xml\s+[^>]+\s*\?>", RegexOptions.IgnoreCase);
+		private static readonly Regex _doctypeRegex = new Regex(@"^<!DOCTYPE\s?[^>]+?>", RegexOptions.IgnoreCase);
 		private static readonly Regex _startTagBeginPartRegex = new Regex(@"^<(?<tagName>" + CommonRegExps.HtmlTagNamePattern + ")");
 		private static readonly Regex _startTagEndPartRegex = new Regex(@"^\s*(?<emptyTagSlash>/)?>");
 		private static readonly Regex _endTagRegex = new Regex(@"^<\/(?<tagName>" + CommonRegExps.HtmlTagNamePattern + @")\s*>");
@@ -315,6 +316,29 @@ namespace WebMarkupMin.Core.Parsers
 			{
 				string xmlDeclaration = match.Value;
 				_handlers.XmlDeclaration?.Invoke(_context, xmlDeclaration);
+
+				_innerContext.IncreasePosition(match.Length);
+				isProcessed = true;
+			}
+
+			return isProcessed;
+		}
+
+		/// <summary>
+		/// Process a doctype declaration
+		/// </summary>
+		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		protected override bool ProcessDoctype()
+		{
+			bool isProcessed = false;
+			string content = _innerContext.SourceCode;
+			int contentRemainderLength = _innerContext.RemainderLength;
+
+			var match = _doctypeRegex.Match(content, _innerContext.Position, contentRemainderLength);
+			if (match.Success)
+			{
+				string doctype = match.Value;
+				CommonHandlers.Doctype?.Invoke(_context, doctype);
 
 				_innerContext.IncreasePosition(match.Length);
 				isProcessed = true;

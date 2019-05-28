@@ -39,6 +39,10 @@
 					<div class="checkbox">
 						@Html.CheckBoxWithLabelFor(m => m.Settings.UseShortDoctype)
 					</div>
+					<div class="form-group">
+						@(Html.TextBoxFor(m => m.Settings.CustomShortDoctype,
+							new { @class = "form-control", placeholder = HtmlMinificationStrings.DisplayName_CustomShortDoctype }))
+					</div>
 					<div class="checkbox">
 						@Html.CheckBoxWithLabelFor(m => m.Settings.PreserveCase)
 					</div>
@@ -47,7 +51,7 @@
 					</div>
 					<div class="form-group">
 						@(Html.DropDownListFor(m => m.Settings.EmptyTagRenderMode, Model.Settings.EmptyTagRenderModeList,
-							new { @class="form-control" }))
+							new { @class = "form-control" }))
 					</div>
 					<div class="checkbox">
 						@Html.CheckBoxWithLabelFor(m => m.Settings.RemoveOptionalEndTags)
@@ -64,7 +68,7 @@
 					</div>
 					<div class="form-group">
 						@(Html.DropDownListFor(m => m.Settings.AttributeQuotesRemovalMode,
-							Model.Settings.AttributeQuotesRemovalModeList, new { @class="form-control" }))
+							Model.Settings.AttributeQuotesRemovalModeList, new { @class = "form-control" }))
 					</div>
 					<div class="checkbox">
 						@Html.CheckBoxWithLabelFor(m => m.Settings.RemoveEmptyAttributes)

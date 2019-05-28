@@ -361,6 +361,35 @@ namespace WebMarkupMin.Core.Test.Xml
 		}
 
 		[Fact]
+		public void ProcessingInvalidDoctypeIsCorrect()
+		{
+			// Arrange
+			var minifier = new XmlMinifier(new XmlMinificationSettings(true));
+
+			const string input1 = "<!DOCTYPErecipe>";
+			const string input2 = "<!doctype recipe>";
+			const string input3 = "<!doctyperecipe>";
+
+			// Act
+			IList<MinificationErrorInfo> errors1 = minifier.Minify(input1).Errors;
+			IList<MinificationErrorInfo> errors2 = minifier.Minify(input2).Errors;
+			IList<MinificationErrorInfo> errors3 = minifier.Minify(input3).Errors;
+
+			// Assert
+			Assert.Equal(1, errors1.Count);
+			Assert.Equal(1, errors1[0].LineNumber);
+			Assert.Equal(1, errors1[0].ColumnNumber);
+
+			Assert.Equal(1, errors2.Count);
+			Assert.Equal(1, errors2[0].LineNumber);
+			Assert.Equal(1, errors2[0].ColumnNumber);
+
+			Assert.Equal(1, errors3.Count);
+			Assert.Equal(1, errors3[0].LineNumber);
+			Assert.Equal(1, errors3[0].ColumnNumber);
+		}
+
+		[Fact]
 		public void ProcessingInvalidTagDeclaration()
 		{
 			// Arrange

@@ -27,11 +27,6 @@ namespace WebMarkupMin.Core.Parsers
 		const string END_IGNORING_COMMENT_TAG = "<!--/" + IGNORING_COMMENT_TAG_NAME + "-->";
 
 		/// <summary>
-		/// Regular expression for working with the doctype declaration
-		/// </summary>
-		private static readonly Regex _doctypeRegex = new Regex(@"^<!DOCTYPE\s[^>]+?>", RegexOptions.IgnoreCase);
-
-		/// <summary>
 		/// Inner markup parsing context
 		/// </summary>
 		protected InnerMarkupParsingContext _innerContext;
@@ -61,24 +56,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// Process a doctype declaration
 		/// </summary>
 		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
-		protected bool ProcessDoctype()
-		{
-			bool isProcessed = false;
-			string content = _innerContext.SourceCode;
-			int contentRemainderLength = _innerContext.RemainderLength;
-
-			var match = _doctypeRegex.Match(content, _innerContext.Position, contentRemainderLength);
-			if (match.Success)
-			{
-				string doctype = match.Value;
-				CommonHandlers.Doctype?.Invoke(_context, doctype);
-
-				_innerContext.IncreasePosition(match.Length);
-				isProcessed = true;
-			}
-
-			return isProcessed;
-		}
+		protected abstract bool ProcessDoctype();
 
 		/// <summary>
 		/// Process a comments

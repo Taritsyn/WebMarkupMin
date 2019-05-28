@@ -526,56 +526,124 @@ namespace WebMarkupMin.Core.Test.Html
 		public void ProcessingDoctypeIsCorrect()
 		{
 			// Arrange
-			var originalDoctypeMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true) { UseShortDoctype = false });
-			var shortDoctypeMinifier = new HtmlMinifier(
-				new HtmlMinificationSettings(true) { UseShortDoctype = true });
+			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
 
-			const string input1 = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n    \"http://www.w3.org/TR/html4/strict.dtd\">";
-			const string targetOutput1A = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">";
-			const string targetOutput1B = "<!DOCTYPE html>";
+			const string input1 = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n" +
+				"   \"http://www.w3.org/TR/html4/strict.dtd\">";
+			const string targetOutput1 = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"" +
+				" \"http://www.w3.org/TR/html4/strict.dtd\">";
 
-			const string input2 = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">";
-			const string targetOutput2A = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">";
-			const string targetOutput2B = "<!DOCTYPE html>";
+			const string input2 = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"" +
+				" \"http://www.w3.org/TR/html4/loose.dtd\">";
+			const string targetOutput2 = input2;
 
 			const string input3 = "<!DOCTYPE\n" +
-				"    html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"\n" +
-				"    \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">"
+				"    HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\"\n" +
+				"    \"http://www.w3.org/TR/html4/frameset.dtd\">"
 				;
-			const string targetOutput3A = "<!DOCTYPE " +
-				"html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" " +
-				"\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">"
+			const string targetOutput3 = "<!DOCTYPE" +
+				" HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\"" +
+				" \"http://www.w3.org/TR/html4/frameset.dtd\">"
 				;
-			const string targetOutput3B = "<!DOCTYPE html>";
 
 			const string input4 = "<!DOCTYPE html>";
+			const string targetOutput4 = input4;
+
+			const string input5 = "<!DOCTYPE\r\nhtml>";
+			const string targetOutput5 = "<!DOCTYPE html>";
+
+			const string input6 = "<!DOCTYPE\thtml>";
+			const string targetOutput6 = "<!DOCTYPE html>";
+
+			const string input7 = "<!DOCTYPE HTML>";
+			const string targetOutput7 = input7;
+
+			const string input8 = "<!doctype html>";
+			const string targetOutput8 = input8;
+
+			const string input9 = "<!doctypehtml>";
+			const string targetOutput9 = input9;
 
 			// Act
-			string output1A = originalDoctypeMinifier.Minify(input1).MinifiedContent;
-			string output1B = shortDoctypeMinifier.Minify(input1).MinifiedContent;
-
-			string output2A = originalDoctypeMinifier.Minify(input2).MinifiedContent;
-			string output2B = shortDoctypeMinifier.Minify(input2).MinifiedContent;
-
-			string output3A = originalDoctypeMinifier.Minify(input3).MinifiedContent;
-			string output3B = shortDoctypeMinifier.Minify(input3).MinifiedContent;
-
-			string output4A = originalDoctypeMinifier.Minify(input4).MinifiedContent;
-			string output4B = shortDoctypeMinifier.Minify(input4).MinifiedContent;
+			string output1 = minifier.Minify(input1).MinifiedContent;
+			string output2 = minifier.Minify(input2).MinifiedContent;
+			string output3 = minifier.Minify(input3).MinifiedContent;
+			string output4 = minifier.Minify(input4).MinifiedContent;
+			string output5 = minifier.Minify(input5).MinifiedContent;
+			string output6 = minifier.Minify(input6).MinifiedContent;
+			string output7 = minifier.Minify(input7).MinifiedContent;
+			string output8 = minifier.Minify(input8).MinifiedContent;
+			string output9 = minifier.Minify(input9).MinifiedContent;
 
 			// Assert
-			Assert.Equal(targetOutput1A, output1A);
-			Assert.Equal(targetOutput1B, output1B);
+			Assert.Equal(targetOutput1, output1);
+			Assert.Equal(targetOutput2, output2);
+			Assert.Equal(targetOutput3, output3);
+			Assert.Equal(targetOutput4, output4);
+			Assert.Equal(targetOutput5, output5);
+			Assert.Equal(targetOutput6, output6);
+			Assert.Equal(targetOutput7, output7);
+			Assert.Equal(targetOutput8, output8);
+			Assert.Equal(targetOutput9, output9);
+		}
 
-			Assert.Equal(targetOutput2A, output2A);
-			Assert.Equal(targetOutput2B, output2B);
+		[Fact]
+		public void ShorteningDoctypeIsCorrect()
+		{
+			// Arrange
+			var defaultDoctypeMinifier = new HtmlMinifier(new HtmlMinificationSettings(true) {
+				UseShortDoctype = true
+			});
+			var emptyDoctypeMinifier = new HtmlMinifier(new HtmlMinificationSettings(true)
+			{
+				CustomShortDoctype = string.Empty,
+				UseShortDoctype = true
+			});
+			var canonicalDoctypeMinifier = new HtmlMinifier(new HtmlMinificationSettings(true)
+			{
+				CustomShortDoctype = "<!DOCTYPE html>",
+				UseShortDoctype = true
+			});
+			var firstNonStandardDoctypeMinifier = new HtmlMinifier(new HtmlMinificationSettings(true)
+			{
+				CustomShortDoctype = "<!DOCTYPE HTML>",
+				UseShortDoctype = true
+			});
+			var secondNonStandardDoctypeMinifier = new HtmlMinifier(new HtmlMinificationSettings(true)
+			{
+				CustomShortDoctype = "<!doctype html>",
+				UseShortDoctype = true
+			});
+			var thirdNonStandardDoctypeMinifier = new HtmlMinifier(new HtmlMinificationSettings(true)
+			{
+				CustomShortDoctype = "<!doctypehtml>",
+				UseShortDoctype = true
+			});
 
-			Assert.Equal(targetOutput3A, output3A);
-			Assert.Equal(targetOutput3B, output3B);
+			const string input = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\r\n" +
+				"   \"http://www.w3.org/TR/html4/loose.dtd\">";
+			const string targetOutput1 = "<!DOCTYPE html>";
+			const string targetOutput2 = "<!DOCTYPE html>";
+			const string targetOutput3 = "<!DOCTYPE html>";
+			const string targetOutput4 = "<!DOCTYPE HTML>";
+			const string targetOutput5 = "<!doctype html>";
+			const string targetOutput6 = "<!doctypehtml>";
 
-			Assert.Equal(input4, output4A);
-			Assert.Equal(input4, output4B);
+			// Act
+			string output1 = defaultDoctypeMinifier.Minify(input).MinifiedContent;
+			string output2 = emptyDoctypeMinifier.Minify(input).MinifiedContent;
+			string output3 = canonicalDoctypeMinifier.Minify(input).MinifiedContent;
+			string output4 = firstNonStandardDoctypeMinifier.Minify(input).MinifiedContent;
+			string output5 = secondNonStandardDoctypeMinifier.Minify(input).MinifiedContent;
+			string output6 = thirdNonStandardDoctypeMinifier.Minify(input).MinifiedContent;
+
+			// Assert
+			Assert.Equal(targetOutput1, output1);
+			Assert.Equal(targetOutput2, output2);
+			Assert.Equal(targetOutput3, output3);
+			Assert.Equal(targetOutput4, output4);
+			Assert.Equal(targetOutput5, output5);
+			Assert.Equal(targetOutput6, output6);
 		}
 
 		#endregion

@@ -28,6 +28,14 @@ namespace WebMarkupMin.Sample.Logic.Models
 			set;
 		}
 
+		[Display(Name = "DisplayName_CustomShortDoctype", ResourceType = typeof(HtmlMinificationStrings))]
+		[StringLength(256)]
+		public string CustomShortDoctype
+		{
+			get;
+			set;
+		}
+
 		[Display(Name = "DisplayName_PreserveCase", ResourceType = typeof(HtmlMinificationStrings))]
 		public bool PreserveCase
 		{

@@ -74,6 +74,14 @@ namespace WebMarkupMin.Sample.Resources
 		}
 
 		/// <summary>
+		/// Looks up a localized string similar to "Custom short DOCTYPE"
+		/// </summary>
+		public static string DisplayName_CustomShortDoctype
+		{
+			get { return GetString("DisplayName_CustomShortDoctype"); }
+		}
+
+		/// <summary>
 		/// Looks up a localized string similar to "Empty tag render mode"
 		/// </summary>
 		public static string DisplayName_EmptyTagRenderMode

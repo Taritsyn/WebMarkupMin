@@ -123,6 +123,9 @@
   <data name="DisplayName_CollapseBooleanAttributes" xml:space="preserve">
     <value>Collapse boolean attributes</value>
   </data>
+  <data name="DisplayName_CustomShortDoctype" xml:space="preserve">
+    <value>Custom short DOCTYPE</value>
+  </data>
   <data name="DisplayName_EmptyTagRenderMode" xml:space="preserve">
     <value>Empty tag render mode</value>
   </data>
