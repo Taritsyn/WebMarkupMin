@@ -1,6 +1,12 @@
 Change log
 ==========
 
+## v2.5.8 - May 29, 2019
+ * Now CDATA sections are not removed from scripts and styles if they are inside XML-based tags
+ * Added the ability to specify a custom short DOCTYPE (e.g. `<!DOCTYPE HTML>`, `<!doctype html>`, or `<!doctypehtml>`)
+ * In HTML minification settings was added one new property - `CustomShortDoctype` (default empty string)
+ * Improved performance of HTML/XHTML minification
+
 ## v2.5.7 - April 15, 2019
  * In markup minifiers, buffer is now flushed more frequently
  * Markup parsers and output writers have been refactored

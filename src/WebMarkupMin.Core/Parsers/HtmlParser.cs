@@ -88,7 +88,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Temporary list of attributes
 		/// </summary>
-		private List<HtmlAttribute> _tempAttributes = new List<HtmlAttribute>();
+		private readonly List<HtmlAttribute> _tempAttributes = new List<HtmlAttribute>();
 
 		/// <summary>
 		/// Stack of conditional comments
