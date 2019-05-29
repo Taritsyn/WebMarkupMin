@@ -1,6 +1,5 @@
 ﻿using System.Text;
 
-using WebMarkupMin.Core.Constants;
 using WebMarkupMin.Core.Loggers;
 
 namespace WebMarkupMin.Core
@@ -36,7 +35,7 @@ namespace WebMarkupMin.Core
 					RemoveHtmlCommentsFromScriptsAndStyles = settings.RemoveHtmlCommentsFromScriptsAndStyles,
 					RemoveCdataSectionsFromScriptsAndStyles = false,
 					UseShortDoctype = settings.UseShortDoctype,
-					CustomShortDoctype = Doctype.CanonicalHtml5Doctype,
+					CustomShortDoctype = string.Empty,
 					PreserveCase = false,
 					UseMetaCharsetTag = settings.UseMetaCharsetTag,
 					EmptyTagRenderMode = settings.RenderEmptyTagsWithSpace ?

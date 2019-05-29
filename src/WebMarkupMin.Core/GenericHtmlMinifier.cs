@@ -37,7 +37,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-using WebMarkupMin.Core.Constants;
 using WebMarkupMin.Core.Helpers;
 using WebMarkupMin.Core.Loggers;
 using WebMarkupMin.Core.Parsers;
@@ -68,6 +67,11 @@ namespace WebMarkupMin.Core
 		const string JS_CONTENT_TYPE = "text/javascript";
 		const string VBS_CONTENT_TYPE = "text/vbscript";
 		const string CSS_CONTENT_TYPE = "text/css";
+
+		/// <summary>
+		/// Canonical document type of HTML5
+		/// </summary>
+		const string CANONICAL_HTML5_DOCTYPE = "<!DOCTYPE html>";
 
 		const string BEGIN_NOINDEX_COMMENT = "noindex";
 		const string END_NOINDEX_COMMENT = "/noindex";
@@ -602,7 +606,7 @@ namespace WebMarkupMin.Core
 			string shortDoctype = _settings.CustomShortDoctype;
 			if (string.IsNullOrWhiteSpace(shortDoctype))
 			{
-				shortDoctype = Doctype.CanonicalHtml5Doctype;
+				shortDoctype = CANONICAL_HTML5_DOCTYPE;
 			}
 
 			_output.Write(_settings.UseShortDoctype ? shortDoctype : Utils.CollapseWhitespace(doctype));

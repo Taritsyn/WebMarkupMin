@@ -591,9 +591,6 @@ namespace WebMarkupMin.Core.Test.Html
 		public void ShorteningDoctypeIsCorrect()
 		{
 			// Arrange
-			var defaultDoctypeMinifier = new HtmlMinifier(new HtmlMinificationSettings(true) {
-				UseShortDoctype = true
-			});
 			var emptyDoctypeMinifier = new HtmlMinifier(new HtmlMinificationSettings(true)
 			{
 				CustomShortDoctype = string.Empty,
@@ -624,18 +621,16 @@ namespace WebMarkupMin.Core.Test.Html
 				"   \"http://www.w3.org/TR/html4/loose.dtd\">";
 			const string targetOutput1 = "<!DOCTYPE html>";
 			const string targetOutput2 = "<!DOCTYPE html>";
-			const string targetOutput3 = "<!DOCTYPE html>";
-			const string targetOutput4 = "<!DOCTYPE HTML>";
-			const string targetOutput5 = "<!doctype html>";
-			const string targetOutput6 = "<!doctypehtml>";
+			const string targetOutput3 = "<!DOCTYPE HTML>";
+			const string targetOutput4 = "<!doctype html>";
+			const string targetOutput5 = "<!doctypehtml>";
 
 			// Act
-			string output1 = defaultDoctypeMinifier.Minify(input).MinifiedContent;
-			string output2 = emptyDoctypeMinifier.Minify(input).MinifiedContent;
-			string output3 = canonicalDoctypeMinifier.Minify(input).MinifiedContent;
-			string output4 = firstNonStandardDoctypeMinifier.Minify(input).MinifiedContent;
-			string output5 = secondNonStandardDoctypeMinifier.Minify(input).MinifiedContent;
-			string output6 = thirdNonStandardDoctypeMinifier.Minify(input).MinifiedContent;
+			string output1 = emptyDoctypeMinifier.Minify(input).MinifiedContent;
+			string output2 = canonicalDoctypeMinifier.Minify(input).MinifiedContent;
+			string output3 = firstNonStandardDoctypeMinifier.Minify(input).MinifiedContent;
+			string output4 = secondNonStandardDoctypeMinifier.Minify(input).MinifiedContent;
+			string output5 = thirdNonStandardDoctypeMinifier.Minify(input).MinifiedContent;
 
 			// Assert
 			Assert.Equal(targetOutput1, output1);
@@ -643,7 +638,6 @@ namespace WebMarkupMin.Core.Test.Html
 			Assert.Equal(targetOutput3, output3);
 			Assert.Equal(targetOutput4, output4);
 			Assert.Equal(targetOutput5, output5);
-			Assert.Equal(targetOutput6, output6);
 		}
 
 		#endregion

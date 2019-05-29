@@ -1,6 +1,4 @@
-﻿using WebMarkupMin.Core.Constants;
-
-namespace WebMarkupMin.Core
+﻿namespace WebMarkupMin.Core
 {
 	/// <summary>
 	/// HTML minification settings
@@ -26,10 +24,7 @@ namespace WebMarkupMin.Core
 			{
 				RemoveCdataSectionsFromScriptsAndStyles = true;
 				UseShortDoctype = true;
-				CustomShortDoctype = Doctype.CanonicalHtml5Doctype;
-				PreserveCase = false;
 				UseMetaCharsetTag = true;
-				EmptyTagRenderMode = HtmlEmptyTagRenderMode.NoSlash;
 				RemoveOptionalEndTags = true;
 				CollapseBooleanAttributes = true;
 				AttributeQuotesRemovalMode = HtmlAttributeQuotesRemovalMode.Html5;
@@ -40,16 +35,16 @@ namespace WebMarkupMin.Core
 			{
 				RemoveCdataSectionsFromScriptsAndStyles = false;
 				UseShortDoctype = false;
-				CustomShortDoctype = string.Empty;
-				PreserveCase = false;
 				UseMetaCharsetTag = false;
-				EmptyTagRenderMode = HtmlEmptyTagRenderMode.NoSlash;
 				RemoveOptionalEndTags = false;
 				CollapseBooleanAttributes = false;
 				AttributeQuotesRemovalMode = HtmlAttributeQuotesRemovalMode.KeepQuotes;
 				RemoveJsTypeAttributes = false;
 				RemoveCssTypeAttributes = false;
 			}
+			CustomShortDoctype = string.Empty;
+			PreserveCase = false;
+			EmptyTagRenderMode = HtmlEmptyTagRenderMode.NoSlash;
 		}
 	}
 }
