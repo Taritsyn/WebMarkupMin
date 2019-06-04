@@ -5,7 +5,7 @@
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2018 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2019 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========
@@ -19,9 +19,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Improved performance of adapters for the NUglify;
-   2. In configuration settings of CSS and JS minifiers was added one new
-      property - `WarningLevel` (default `0`).
+   Added support of the NUglify version 1.5.13.
 
    =============
    DOCUMENTATION
