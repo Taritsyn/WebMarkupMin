@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<Product>Web Markup Minifier: Sample ASP.NET Core 2.0 MVC 2 Site</Product>
-		<VersionPrefix>2.5.8</VersionPrefix>
+		<VersionPrefix>2.5.9</VersionPrefix>
 		<TargetFramework>netcoreapp2.0</TargetFramework>
 		<OutputType>Exe</OutputType>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>

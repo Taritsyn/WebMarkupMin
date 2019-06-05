@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## v2.5.9 - June 5, 2019
+ * In WebMarkupMin.NUglify added support of the NUglify version 1.5.13
+
 ## v2.5.8 - May 29, 2019
  * Now CDATA sections are not removed from scripts and styles if they are inside XML-based tags
  * Added the ability to specify a custom short DOCTYPE (e.g. `<!DOCTYPE HTML>`, `<!doctype html>`, or `<!doctypehtml>`)
