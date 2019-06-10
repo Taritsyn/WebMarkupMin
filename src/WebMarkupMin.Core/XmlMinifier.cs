@@ -184,6 +184,7 @@ namespace WebMarkupMin.Core
 			string cleanedContent = Utils.RemoveByteOrderMark(content);
 			string minifiedContent = string.Empty;
 			StringBuilder sb = null;
+			XmlMinificationOutputWriter output = _output;
 			var errors = new List<MinificationErrorInfo>();
 
 			lock (_minificationSynchronizer)
@@ -198,15 +199,15 @@ namespace WebMarkupMin.Core
 
 					int estimatedCapacity = (int)Math.Floor(cleanedContent.Length * AVERAGE_COMPRESSION_RATIO);
 					sb = StringBuilderPool.GetBuilder(estimatedCapacity);
-					_output.StringBuilder = sb;
+					output.StringBuilder = sb;
 
 					_xmlParser.Parse(cleanedContent);
 
-					_output.Flush();
+					output.Flush();
 
 					if (_errors.Count == 0)
 					{
-						minifiedContent = _output.ToString();
+						minifiedContent = output.ToString();
 
 						if (generateStatistics)
 						{
@@ -221,8 +222,8 @@ namespace WebMarkupMin.Core
 				}
 				finally
 				{
-					_output.Clear();
-					_output.StringBuilder = null;
+					output.Clear();
+					output.StringBuilder = null;
 					StringBuilderPool.ReleaseBuilder(sb);
 					_currentNodeType = XmlNodeType.Unknown;
 					_currentText = string.Empty;
@@ -253,16 +254,18 @@ namespace WebMarkupMin.Core
 		{
 			_currentNodeType = XmlNodeType.XmlDeclaration;
 
+			XmlMinificationOutputWriter output = _output;
+
 			if (_settings.MinifyWhitespace)
 			{
-				_output.RemoveLastWhitespaceItems();
+				output.RemoveLastWhitespaceItems();
 			}
 
-			_output.Write("<?xml");
+			output.Write("<?xml");
 			WriteAttributes(attributes);
-			_output.Write("?>");
+			output.Write("?>");
 
-			_output.Flush();
+			output.Flush();
 		}
 
 		/// <summary>
@@ -276,17 +279,19 @@ namespace WebMarkupMin.Core
 		{
 			_currentNodeType = XmlNodeType.ProcessingInstruction;
 
+			XmlMinificationOutputWriter output = _output;
+
 			if (_settings.MinifyWhitespace)
 			{
-				_output.RemoveLastWhitespaceItems();
+				output.RemoveLastWhitespaceItems();
 			}
 
-			_output.Write("<?");
-			_output.Write(instructionName);
+			output.Write("<?");
+			output.Write(instructionName);
 			WriteAttributes(attributes);
-			_output.Write("?>");
+			output.Write("?>");
 
-			_output.Flush();
+			output.Flush();
 		}
 
 		/// <summary>
@@ -298,13 +303,15 @@ namespace WebMarkupMin.Core
 		{
 			_currentNodeType = XmlNodeType.Doctype;
 
+			XmlMinificationOutputWriter output = _output;
+
 			if (_settings.MinifyWhitespace)
 			{
-				_output.RemoveLastWhitespaceItems();
+				output.RemoveLastWhitespaceItems();
 			}
 
-			_output.Write(Utils.CollapseWhitespace(doctype));
-			_output.Flush();
+			output.Write(Utils.CollapseWhitespace(doctype));
+			output.Flush();
 		}
 
 		/// <summary>
@@ -318,9 +325,10 @@ namespace WebMarkupMin.Core
 			{
 				_currentNodeType = XmlNodeType.Comment;
 
-				_output.Write("<!--");
-				_output.Write(commentText);
-				_output.Write("-->");
+				XmlMinificationOutputWriter output = _output;
+				output.Write("<!--");
+				output.Write(commentText);
+				output.Write("-->");
 			}
 		}
 
@@ -333,9 +341,10 @@ namespace WebMarkupMin.Core
 		{
 			_currentNodeType = XmlNodeType.CdataSection;
 
-			_output.Write("<![CDATA[");
-			_output.Write(cdataText);
-			_output.Write("]]>");
+			XmlMinificationOutputWriter output = _output;
+			output.Write("<![CDATA[");
+			output.Write(cdataText);
+			output.Write("]]>");
 		}
 
 		/// <summary>
@@ -352,20 +361,22 @@ namespace WebMarkupMin.Core
 			_currentNodeType = XmlNodeType.StartTag;
 			_currentText = string.Empty;
 
+			XmlMinificationOutputWriter output = _output;
+
 			if (_settings.MinifyWhitespace && previousNodeType == XmlNodeType.Text
 				&& (_startTagBeforeText || _endTagBeforeText || _emptyTagBeforeText
 					|| _ignoredFragmentBeforeText || _xmlDeclarationBeforeText
 					|| _processingInstructionBeforeText || _doctypeBeforeText))
 			{
-				_output.RemoveLastWhitespaceItems();
+				output.RemoveLastWhitespaceItems();
 			}
 
-			_output.Flush();
+			output.Flush();
 
-			_output.Write("<");
-			_output.Write(tagName);
+			output.Write("<");
+			output.Write(tagName);
 			WriteAttributes(attributes);
-			_output.Write(">");
+			output.Write(">");
 		}
 
 		/// <summary>
@@ -381,12 +392,14 @@ namespace WebMarkupMin.Core
 			_currentNodeType = XmlNodeType.EndTag;
 			_currentText = string.Empty;
 
+			XmlMinificationOutputWriter output = _output;
+
 			if (_settings.CollapseTagsWithoutContent && previousNodeType == XmlNodeType.StartTag
 				&& previousText.Length == 0)
 			{
-				if (_output.TransformLastStartTagToEmptyTag(_settings.RenderEmptyTagsWithSpace))
+				if (output.TransformLastStartTagToEmptyTag(_settings.RenderEmptyTagsWithSpace))
 				{
-					_output.Flush();
+					output.Flush();
 					return;
 				}
 			}
@@ -394,15 +407,15 @@ namespace WebMarkupMin.Core
 			if (_settings.MinifyWhitespace && previousNodeType == XmlNodeType.Text
 				&& (_endTagBeforeText || _emptyTagBeforeText))
 			{
-				_output.RemoveLastWhitespaceItems();
+				output.RemoveLastWhitespaceItems();
 			}
 
 			// Add end tag to buffer
-			_output.Write("</");
-			_output.Write(tagName);
-			_output.Write(">");
+			output.Write("</");
+			output.Write(tagName);
+			output.Write(">");
 
-			_output.Flush();
+			output.Flush();
 		}
 
 		/// <summary>
@@ -419,18 +432,20 @@ namespace WebMarkupMin.Core
 			_currentNodeType = XmlNodeType.EmptyTag;
 			_currentText = string.Empty;
 
+			XmlMinificationOutputWriter output = _output;
+
 			if (_settings.MinifyWhitespace && previousNodeType == XmlNodeType.Text
 				&& (_startTagBeforeText || _endTagBeforeText || _emptyTagBeforeText))
 			{
-				_output.RemoveLastWhitespaceItems();
+				output.RemoveLastWhitespaceItems();
 			}
 
-			_output.Write("<");
-			_output.Write(tagName);
+			output.Write("<");
+			output.Write(tagName);
 			WriteAttributes(attributes);
-			_output.Write(_settings.RenderEmptyTagsWithSpace ? " />" : "/>");
+			output.Write(_settings.RenderEmptyTagsWithSpace ? " />" : "/>");
 
-			_output.Flush();
+			output.Flush();
 		}
 
 		/// <summary>
@@ -444,10 +459,12 @@ namespace WebMarkupMin.Core
 
 			_currentNodeType = XmlNodeType.Text;
 
+			XmlMinificationOutputWriter output = _output;
+
 			if (previousNodeType == XmlNodeType.Text)
 			{
 				_currentText = text;
-				_output.Write(text);
+				output.Write(text);
 
 				return;
 			}
@@ -513,7 +530,7 @@ namespace WebMarkupMin.Core
 
 			if (text.Length > 0)
 			{
-				_output.Write(text);
+				output.Write(text);
 			}
 		}
 
@@ -526,15 +543,17 @@ namespace WebMarkupMin.Core
 		{
 			_currentNodeType = XmlNodeType.IgnoredFragment;
 
+			XmlMinificationOutputWriter output = _output;
+
 			if (_settings.MinifyWhitespace)
 			{
-				_output.RemoveLastWhitespaceItems();
+				output.RemoveLastWhitespaceItems();
 			}
 
 			if (fragment.Length > 0)
 			{
-				_output.Write(fragment);
-				_output.Flush();
+				output.Write(fragment);
+				output.Flush();
 			}
 		}
 
@@ -553,11 +572,12 @@ namespace WebMarkupMin.Core
 				XmlAttribute attribute = attributes[attributeIndex];
 				string encodedAttributeValue = XmlAttributeValueHelpers.Encode(attribute.Value);
 
-				_output.Write(" ");
-				_output.Write(attribute.Name);
-				_output.Write("=\"");
-				_output.Write(encodedAttributeValue);
-				_output.Write("\"");
+				XmlMinificationOutputWriter output = _output;
+				output.Write(" ");
+				output.Write(attribute.Name);
+				output.Write("=\"");
+				output.Write(encodedAttributeValue);
+				output.Write("\"");
 			}
 		}
 
