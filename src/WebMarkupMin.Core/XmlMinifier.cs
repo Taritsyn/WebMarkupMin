@@ -16,11 +16,6 @@ namespace WebMarkupMin.Core
 	public sealed class XmlMinifier : IMarkupMinifier
 	{
 		/// <summary>
-		/// Average compression ratio
-		/// </summary>
-		const double AVERAGE_COMPRESSION_RATIO = 0.85;
-
-		/// <summary>
 		/// XML minification settings
 		/// </summary>
 		private readonly XmlMinificationSettings _settings;
@@ -197,8 +192,7 @@ namespace WebMarkupMin.Core
 						statistics.Init(cleanedContent);
 					}
 
-					int estimatedCapacity = (int)Math.Floor(cleanedContent.Length * AVERAGE_COMPRESSION_RATIO);
-					sb = StringBuilderPool.GetBuilder(estimatedCapacity);
+					sb = StringBuilderPool.GetBuilder(cleanedContent.Length);
 					output.StringBuilder = sb;
 
 					_xmlParser.Parse(cleanedContent);

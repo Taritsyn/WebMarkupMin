@@ -176,7 +176,7 @@ namespace WebMarkupMin.MsAjax
 
 				originalJsParser.CompilerError += _errorReporter.ParseErrorHandler;
 
-				StringBuilder contentBuilder = WmmStringBuilderPool.GetBuilder();
+				StringBuilder contentBuilder = WmmStringBuilderPool.GetBuilder(content.Length);
 				var documentContext = new DocumentContext(content)
 				{
 					FileContext = string.Empty

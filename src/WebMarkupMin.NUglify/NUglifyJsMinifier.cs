@@ -178,7 +178,7 @@ namespace WebMarkupMin.NUglify
 
 				originalJsParser.CompilerError += _errorReporter.ParseErrorHandler;
 
-				StringBuilder contentBuilder = StringBuilderPool.GetBuilder();
+				StringBuilder contentBuilder = StringBuilderPool.GetBuilder(content.Length);
 				var documentContext = new DocumentContext(content)
 				{
 					FileContext = string.Empty

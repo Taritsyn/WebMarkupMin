@@ -51,11 +51,6 @@ namespace WebMarkupMin.Core
 	internal sealed class GenericHtmlMinifier : IMarkupMinifier
 	{
 		/// <summary>
-		/// Average compression ratio
-		/// </summary>
-		const double AVERAGE_COMPRESSION_RATIO = 0.7;
-
-		/// <summary>
 		/// Placeholder for embedded code
 		/// </summary>
 		const string EMBEDDED_CODE_PLACEHOLDER = "(embedded code)";
@@ -475,8 +470,7 @@ namespace WebMarkupMin.Core
 						statistics.Init(cleanedContent);
 					}
 
-					int estimatedCapacity = (int)Math.Floor(cleanedContent.Length * AVERAGE_COMPRESSION_RATIO);
-					sb = StringBuilderPool.GetBuilder(estimatedCapacity);
+					sb = StringBuilderPool.GetBuilder(cleanedContent.Length);
 					output.StringBuilder = sb;
 
 					_htmlParser.Parse(cleanedContent);

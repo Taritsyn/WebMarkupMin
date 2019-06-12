@@ -44,11 +44,6 @@ namespace WebMarkupMin.Core.DouglasCrockford
 	/// </summary>
 	internal sealed class JsMinifier
 	{
-		/// <summary>
-		/// Average compression ratio
-		/// </summary>
-		const double AVERAGE_COMPRESSION_RATIO = 0.6;
-
 		const int EOF = -1;
 
 		private StringReader _reader;
@@ -83,8 +78,7 @@ namespace WebMarkupMin.Core.DouglasCrockford
 				_theX = EOF;
 				_theY = EOF;
 
-				int estimatedCapacity = (int)Math.Floor(content.Length * AVERAGE_COMPRESSION_RATIO);
-				StringBuilder sb = StringBuilderPool.GetBuilder(estimatedCapacity);
+				StringBuilder sb = StringBuilderPool.GetBuilder(content.Length);
 				_reader = new StringReader(content);
 				_writer = new StringWriter(sb);
 
