@@ -1,6 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
+
+using AdvancedStringBuilder;
 
 using WebMarkupMin.Core.Helpers;
 using WebMarkupMin.Core.Loggers;
@@ -178,6 +179,7 @@ namespace WebMarkupMin.Core
 			MinificationStatistics statistics = null;
 			string cleanedContent = Utils.RemoveByteOrderMark(content);
 			string minifiedContent = string.Empty;
+			var stringBuilderPool = StringBuilderPool.Shared;
 			StringBuilder sb = null;
 			XmlMinificationOutputWriter output = _output;
 			var errors = new List<MinificationErrorInfo>();
@@ -192,7 +194,7 @@ namespace WebMarkupMin.Core
 						statistics.Init(cleanedContent);
 					}
 
-					sb = StringBuilderPool.GetBuilder(cleanedContent.Length);
+					sb = stringBuilderPool.Rent(cleanedContent.Length);
 					output.StringBuilder = sb;
 
 					_xmlParser.Parse(cleanedContent);
@@ -218,7 +220,7 @@ namespace WebMarkupMin.Core
 				{
 					output.Clear();
 					output.StringBuilder = null;
-					StringBuilderPool.ReleaseBuilder(sb);
+					stringBuilderPool.Return(sb);
 					_currentNodeType = XmlNodeType.Unknown;
 					_currentText = string.Empty;
 

@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 
+using AdvancedStringBuilderPool = AdvancedStringBuilder.StringBuilderPool;
 using Microsoft.Ajax.Utilities;
 using MsEvalTreatment = Microsoft.Ajax.Utilities.EvalTreatment;
 using MsLocalRenaming = Microsoft.Ajax.Utilities.LocalRenaming;
@@ -12,7 +13,6 @@ using WebMarkupMin.Core.Utilities;
 using WebMarkupMin.MsAjax.Reporters;
 using WmmEvalTreatment = WebMarkupMin.MsAjax.EvalTreatment;
 using WmmLocalRenaming = WebMarkupMin.MsAjax.LocalRenaming;
-using WmmStringBuilderPool = WebMarkupMin.Core.Utilities.StringBuilderPool;
 
 namespace WebMarkupMin.MsAjax
 {
@@ -176,7 +176,8 @@ namespace WebMarkupMin.MsAjax
 
 				originalJsParser.CompilerError += _errorReporter.ParseErrorHandler;
 
-				StringBuilder contentBuilder = WmmStringBuilderPool.GetBuilder(content.Length);
+				var stringBuilderPool = AdvancedStringBuilderPool.Shared;
+				StringBuilder contentBuilder = stringBuilderPool.Rent(content.Length);
 				var documentContext = new DocumentContext(content)
 				{
 					FileContext = string.Empty
@@ -200,7 +201,7 @@ namespace WebMarkupMin.MsAjax
 				finally
 				{
 					originalJsParser.CompilerError -= _errorReporter.ParseErrorHandler;
-					WmmStringBuilderPool.ReleaseBuilder(contentBuilder);
+					stringBuilderPool.Return(contentBuilder);
 
 					errors.AddRange(_errorReporter.Errors);
 					warnings.AddRange(_errorReporter.Warnings);

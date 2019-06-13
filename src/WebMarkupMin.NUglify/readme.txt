@@ -19,7 +19,7 @@
    =============
    RELEASE NOTES
    =============
-   Added support of the NUglify version 1.5.13.
+   Part of the auxiliary code was replaced by the AdvancedStringBuilder library.
 
    =============
    DOCUMENTATION

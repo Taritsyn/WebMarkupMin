@@ -37,6 +37,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
+using AdvancedStringBuilder;
+
 using WebMarkupMin.Core.Helpers;
 using WebMarkupMin.Core.Loggers;
 using WebMarkupMin.Core.Parsers;
@@ -452,6 +454,7 @@ namespace WebMarkupMin.Core
 			MinificationStatistics statistics = null;
 			string cleanedContent = Utils.RemoveByteOrderMark(content);
 			string minifiedContent = string.Empty;
+			var stringBuilderPool = StringBuilderPool.Shared;
 			StringBuilder sb = null;
 			HtmlMinificationOutputWriter output = _output;
 			var errors = new List<MinificationErrorInfo>();
@@ -470,7 +473,7 @@ namespace WebMarkupMin.Core
 						statistics.Init(cleanedContent);
 					}
 
-					sb = StringBuilderPool.GetBuilder(cleanedContent.Length);
+					sb = stringBuilderPool.Rent(cleanedContent.Length);
 					output.StringBuilder = sb;
 
 					_htmlParser.Parse(cleanedContent);
@@ -496,7 +499,7 @@ namespace WebMarkupMin.Core
 				{
 					output.Clear();
 					output.StringBuilder = null;
-					StringBuilderPool.ReleaseBuilder(sb);
+					stringBuilderPool.Return(sb);
 					_tagsWithNotRemovableWhitespaceQueue.Clear();
 					_currentNodeType = HtmlNodeType.Unknown;
 					_currentTag = null;
@@ -1315,7 +1318,8 @@ namespace WebMarkupMin.Core
 				&& TemplateTagHelpers.ContainsTag(attributeValue))
 			{
 				// Processing of template tags
-				StringBuilder attributeValueBuilder = StringBuilderPool.GetBuilder();
+				var stringBuilderPool = StringBuilderPool.Shared;
+				StringBuilder attributeValueBuilder = stringBuilderPool.Rent();
 
 				TemplateTagHelpers.ParseMarkup(attributeValue,
 					(localContext, expression, startDelimiter, endDelimiter) =>
@@ -1344,7 +1348,7 @@ namespace WebMarkupMin.Core
 				);
 
 				string processedAttributeValue = attributeValueBuilder.ToString();
-				StringBuilderPool.ReleaseBuilder(attributeValueBuilder);
+				stringBuilderPool.Return(attributeValueBuilder);
 
 				switch (attributeType)
 				{
@@ -1672,7 +1676,8 @@ namespace WebMarkupMin.Core
 						int directiveCount = ngDirectives.Count;
 						if (directiveCount > 0)
 						{
-							StringBuilder directiveBuilder = StringBuilderPool.GetBuilder();
+							var stringBuilderPool = StringBuilderPool.Shared;
+							StringBuilder directiveBuilder = stringBuilderPool.Rent();
 							int directiveIndex = 0;
 							int lastDirectiveIndex = directiveCount - 1;
 							string previousExpression = null;
@@ -1703,7 +1708,7 @@ namespace WebMarkupMin.Core
 							}
 
 							processedAttributeValue = directiveBuilder.ToString();
-							StringBuilderPool.ReleaseBuilder(directiveBuilder);
+							stringBuilderPool.Return(directiveBuilder);
 						}
 						else
 						{

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
+using AdvancedStringBuilder;
+
 using WebMarkupMin.Core.Resources;
 
 namespace WebMarkupMin.Core.Utilities
@@ -58,6 +60,7 @@ namespace WebMarkupMin.Core.Utilities
 				return value;
 			}
 
+			var stringBuilderPool = StringBuilderPool.Shared;
 			StringBuilder sb = null;
 			bool previousWhitespace = false;
 			int previousCharIndex = 0;
@@ -74,7 +77,7 @@ namespace WebMarkupMin.Core.Utilities
 					{
 						if (sb == null)
 						{
-							sb = StringBuilderPool.GetBuilder();
+							sb = stringBuilderPool.Rent();
 						}
 
 						if (previousCharIndex < charIndex)
@@ -105,7 +108,7 @@ namespace WebMarkupMin.Core.Utilities
 			}
 
 			string result = sb.ToString();
-			StringBuilderPool.ReleaseBuilder(sb);
+			stringBuilderPool.Return(sb);
 
 			return result;
 		}

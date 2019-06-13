@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Text;
 
-using WebMarkupMin.Core.Utilities;
+using AdvancedStringBuilder;
+
 using WebMarkupMin.Core.Resources;
 
 namespace WebMarkupMin.Core.Loggers
@@ -23,7 +24,8 @@ namespace WebMarkupMin.Core.Loggers
 		public override void Error(string category, string message, string filePath = "",
 			int lineNumber = 0, int columnNumber = 0, string sourceFragment = "")
 		{
-			StringBuilder errorBuilder = StringBuilderPool.GetBuilder();
+			var stringBuilderPool = StringBuilderPool.Shared;
+			StringBuilder errorBuilder = stringBuilderPool.Rent();
 			errorBuilder.AppendFormatLine("{0}: {1}", Strings.ErrorDetails_Category, category);
 			errorBuilder.AppendFormatLine("{0}: {1}", Strings.ErrorDetails_Message, message);
 
@@ -34,12 +36,14 @@ namespace WebMarkupMin.Core.Loggers
 
 			if (lineNumber > 0)
 			{
-				errorBuilder.AppendFormatLine("{0}: {1}", Strings.ErrorDetails_LineNumber, lineNumber);
+				errorBuilder.AppendFormatLine("{0}: {1}", Strings.ErrorDetails_LineNumber,
+					lineNumber.ToString());
 			}
 
 			if (columnNumber > 0)
 			{
-				errorBuilder.AppendFormatLine("{0}: {1}", Strings.ErrorDetails_ColumnNumber, columnNumber);
+				errorBuilder.AppendFormatLine("{0}: {1}", Strings.ErrorDetails_ColumnNumber,
+					columnNumber.ToString());
 			}
 
 			if (!string.IsNullOrWhiteSpace(sourceFragment))
@@ -49,7 +53,7 @@ namespace WebMarkupMin.Core.Loggers
 			}
 
 			string errorMessage = errorBuilder.ToString();
-			StringBuilderPool.ReleaseBuilder(errorBuilder);
+			stringBuilderPool.Return(errorBuilder);
 
 			throw new MarkupMinificationException(errorMessage);
 		}

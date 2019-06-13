@@ -2,10 +2,11 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
+using AdvancedStringBuilder;
+
 using WebMarkupMin.Core.Helpers;
 using WebMarkupMin.Core.Parsers;
 using WebMarkupMin.Core.Resources;
-using WebMarkupMin.Core.Utilities;
 
 namespace WebMarkupMin.Core
 {
@@ -346,7 +347,8 @@ namespace WebMarkupMin.Core
 		/// <returns>A string that represents the HTML attribute expression</returns>
 		public override string ToString()
 		{
-			StringBuilder sb = StringBuilderPool.GetBuilder();
+			var stringBuilderPool = StringBuilderPool.Shared;
+			StringBuilder sb = stringBuilderPool.Rent();
 
 			if (!string.IsNullOrEmpty(_tagNameInLowercase))
 			{
@@ -376,7 +378,7 @@ namespace WebMarkupMin.Core
 			sb.Append("]");
 
 			string attributeExpressionString = sb.ToString();
-			StringBuilderPool.ReleaseBuilder(sb);
+			stringBuilderPool.Return(sb);
 
 			return attributeExpressionString;
 		}

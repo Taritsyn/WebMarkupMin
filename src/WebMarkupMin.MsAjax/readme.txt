@@ -19,9 +19,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Improved performance of adapters for the Microsoft Ajax Minifier;
-   2. In configuration settings of CSS and JS minifiers was added one new
-      property - `WarningLevel` (default `0`).
+   Part of the auxiliary code was replaced by the AdvancedStringBuilder library.
 
    =============
    DOCUMENTATION

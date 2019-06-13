@@ -31,11 +31,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.IO;
 using System.Text;
 
-using WebMarkupMin.Core.Utilities;
+using AdvancedStringBuilder;
 
 namespace WebMarkupMin.Core.DouglasCrockford
 {
@@ -78,7 +77,8 @@ namespace WebMarkupMin.Core.DouglasCrockford
 				_theX = EOF;
 				_theY = EOF;
 
-				StringBuilder sb = StringBuilderPool.GetBuilder(content.Length);
+				var stringBuilderPool = StringBuilderPool.Shared;
+				StringBuilder sb = stringBuilderPool.Rent(content.Length);
 				_reader = new StringReader(content);
 				_writer = new StringWriter(sb);
 
@@ -101,7 +101,7 @@ namespace WebMarkupMin.Core.DouglasCrockford
 					_writer.Dispose();
 					_writer = null;
 
-					StringBuilderPool.ReleaseBuilder(sb);
+					stringBuilderPool.Return(sb);
 				}
 			}
 

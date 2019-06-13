@@ -2,6 +2,8 @@
 using System.Net;
 using System.Text;
 
+using AdvancedStringBuilder;
+
 using WebMarkupMin.Core.Parsers;
 using WebMarkupMin.Core.Utilities;
 
@@ -121,7 +123,8 @@ namespace WebMarkupMin.Core.Helpers
 			}
 
 			string result;
-			StringBuilder sb = StringBuilderPool.GetBuilder();
+			var stringBuilderPool = StringBuilderPool.Shared;
+			StringBuilder sb = stringBuilderPool.Rent();
 
 			using (var writer = new StringWriter(sb))
 			{
@@ -162,7 +165,7 @@ namespace WebMarkupMin.Core.Helpers
 				result = writer.ToString();
 			}
 
-			StringBuilderPool.ReleaseBuilder(sb);
+			stringBuilderPool.Return(sb);
 
 			return result;
 		}

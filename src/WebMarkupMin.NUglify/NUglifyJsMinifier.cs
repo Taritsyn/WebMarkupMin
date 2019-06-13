@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 
+using AdvancedStringBuilder;
 using NUglify.JavaScript;
 using NUglify.JavaScript.Syntax;
 using NUglify.JavaScript.Visitors;
@@ -178,7 +179,8 @@ namespace WebMarkupMin.NUglify
 
 				originalJsParser.CompilerError += _errorReporter.ParseErrorHandler;
 
-				StringBuilder contentBuilder = StringBuilderPool.GetBuilder(content.Length);
+				var stringBuilderPool = StringBuilderPool.Shared;
+				StringBuilder contentBuilder = stringBuilderPool.Rent(content.Length);
 				var documentContext = new DocumentContext(content)
 				{
 					FileContext = string.Empty
@@ -202,7 +204,7 @@ namespace WebMarkupMin.NUglify
 				finally
 				{
 					originalJsParser.CompilerError -= _errorReporter.ParseErrorHandler;
-					StringBuilderPool.ReleaseBuilder(contentBuilder);
+					stringBuilderPool.Return(contentBuilder);
 
 					errors.AddRange(_errorReporter.Errors);
 					warnings.AddRange(_errorReporter.Warnings);

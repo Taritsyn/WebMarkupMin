@@ -10,8 +10,7 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<Description>WebMarkupMin.MsAjax contains 2 minifier-adapters: `MsAjaxCssMinifier` (for minification of CSS code) and `MsAjaxJsMinifier` (for minification of JS code). These adapters perform minification using the Microsoft Ajax Minifier (https://ajaxmin.codeplex.com).</Description>
 		<PackageTags>WebMarkupMin;Markup;HTML;XHTML;CSS;JavaScript;JS;Minification;Minifier;Minify;Microsoft;AjaxMin</PackageTags>
-		<PackageReleaseNotes>1. Improved performance of adapters for the Microsoft Ajax Minifier;
-2. In configuration settings of CSS and JS minifiers was added one new property - `WarningLevel` (default `0`).</PackageReleaseNotes>
+		<PackageReleaseNotes>Part of the auxiliary code was replaced by the AdvancedStringBuilder library.</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<Import Project="../../build/common.props" />
@@ -20,6 +19,7 @@
 	<Import Project="../../build/nuget-metadata.props" />
 
 	<ItemGroup>
+		<PackageReference Include="AdvancedStringBuilder" Version="0.1.0" />
 		<PackageReference Include="AjaxMin" Version="5.14.5506.26202" NoWarn="NU1701" />
 
 		<ProjectReference Include="..\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />

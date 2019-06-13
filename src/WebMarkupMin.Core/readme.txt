@@ -46,13 +46,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Now CDATA sections are not removed from scripts and styles if they are inside
-      XML-based tags;
-   2. Added the ability to specify a custom short DOCTYPE (e.g. `<!DOCTYPE HTML>`,
-      `<!doctype html>`, or `<!doctypehtml>`);
-   3. In HTML minification settings was added one new property -
-      `CustomShortDoctype` (default empty string);
-   4. Improved performance of HTML/XHTML minification.
+   Part of the auxiliary code was replaced by the AdvancedStringBuilder library.
 
    =============
    DOCUMENTATION

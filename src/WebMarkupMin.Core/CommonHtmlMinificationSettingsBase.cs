@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-using WebMarkupMin.Core.Utilities;
+using AdvancedStringBuilder;
 
 namespace WebMarkupMin.Core
 {
@@ -170,7 +170,8 @@ namespace WebMarkupMin.Core
 					return string.Empty;
 				}
 
-				StringBuilder sb = StringBuilderPool.GetBuilder();
+				var stringBuilderPool = StringBuilderPool.Shared;
+				StringBuilder sb = stringBuilderPool.Rent();
 
 				foreach (HtmlAttributeExpression attributeExpression in _preservableAttributes)
 				{
@@ -182,7 +183,7 @@ namespace WebMarkupMin.Core
 				}
 
 				string preservableAttributeList = sb.ToString();
-				StringBuilderPool.ReleaseBuilder(sb);
+				stringBuilderPool.Return(sb);
 
 				return preservableAttributeList;
 			}
@@ -348,7 +349,8 @@ namespace WebMarkupMin.Core
 					return string.Empty;
 				}
 
-				StringBuilder sb = StringBuilderPool.GetBuilder();
+				var stringBuilderPool = StringBuilderPool.Shared;
+				StringBuilder sb = stringBuilderPool.Rent();
 
 				foreach (string scriptType in _processableScriptTypes)
 				{
@@ -360,7 +362,7 @@ namespace WebMarkupMin.Core
 				}
 
 				string processableScriptTypeList = sb.ToString();
-				StringBuilderPool.ReleaseBuilder(sb);
+				stringBuilderPool.Return(sb);
 
 				return processableScriptTypeList;
 			}
@@ -470,7 +472,8 @@ namespace WebMarkupMin.Core
 					return string.Empty;
 				}
 
-				StringBuilder sb = StringBuilderPool.GetBuilder();
+				var stringBuilderPool = StringBuilderPool.Shared;
+				StringBuilder sb = stringBuilderPool.Rent();
 
 				foreach (string directiveName in _customAngularDirectives)
 				{
@@ -482,7 +485,7 @@ namespace WebMarkupMin.Core
 				}
 
 				string customAngularDirectiveList = sb.ToString();
-				StringBuilderPool.ReleaseBuilder(sb);
+				stringBuilderPool.Return(sb);
 
 				return customAngularDirectiveList;
 			}

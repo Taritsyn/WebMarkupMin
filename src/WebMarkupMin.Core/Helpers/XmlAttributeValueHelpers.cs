@@ -2,7 +2,7 @@
 using System.Net;
 using System.Text;
 
-using WebMarkupMin.Core.Utilities;
+using AdvancedStringBuilder;
 
 namespace WebMarkupMin.Core.Helpers
 {
@@ -41,7 +41,8 @@ namespace WebMarkupMin.Core.Helpers
 			}
 
 			string result;
-			StringBuilder sb = StringBuilderPool.GetBuilder();
+			var stringBuilderPool = StringBuilderPool.Shared;
+			StringBuilder sb = stringBuilderPool.Rent();
 
 			using (var writer = new StringWriter(sb))
 			{
@@ -76,7 +77,7 @@ namespace WebMarkupMin.Core.Helpers
 				result = writer.ToString();
 			}
 
-			StringBuilderPool.ReleaseBuilder(sb);
+			stringBuilderPool.Return(sb);
 
 			return result;
 		}

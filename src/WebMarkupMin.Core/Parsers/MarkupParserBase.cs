@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 
 using WebMarkupMin.Core.Resources;
 using WebMarkupMin.Core.Utilities;

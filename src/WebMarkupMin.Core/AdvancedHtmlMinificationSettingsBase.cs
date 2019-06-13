@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
+using AdvancedStringBuilder;
+
 using WebMarkupMin.Core.Parsers;
-using WebMarkupMin.Core.Utilities;
 
 namespace WebMarkupMin.Core
 {
@@ -127,7 +128,8 @@ namespace WebMarkupMin.Core
 					return string.Empty;
 				}
 
-				StringBuilder sb = StringBuilderPool.GetBuilder();
+				var stringBuilderPool = StringBuilderPool.Shared;
+				StringBuilder sb = stringBuilderPool.Rent();
 
 				foreach (string optionalTag in _preservableOptionalTags)
 				{
@@ -139,7 +141,7 @@ namespace WebMarkupMin.Core
 				}
 
 				string preservableOptionalTagList = sb.ToString();
-				StringBuilderPool.ReleaseBuilder(sb);
+				stringBuilderPool.Return(sb);
 
 				return preservableOptionalTagList;
 			}

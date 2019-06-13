@@ -2,6 +2,8 @@
 using System.Globalization;
 using System.Text;
 
+using AdvancedStringBuilder;
+
 namespace WebMarkupMin.Core.Utilities
 {
 	public static class SourceCodeNavigator
@@ -338,7 +340,8 @@ namespace WebMarkupMin.Core.Utilities
 				CalculateCutPositions(currentLine, columnNumber, maxFragmentLength,
 					out fragmentStartPosition, out fragmentLength);
 
-				StringBuilder sourceFragmentBuilder = StringBuilderPool.GetBuilder();
+				var stringBuilderPool = StringBuilderPool.Shared;
+				StringBuilder sourceFragmentBuilder = stringBuilderPool.Rent();
 
 				if (currentLine.Length > 0)
 				{
@@ -362,7 +365,7 @@ namespace WebMarkupMin.Core.Utilities
 				}
 
 				sourceFragment = sourceFragmentBuilder.ToString();
-				StringBuilderPool.ReleaseBuilder(sourceFragmentBuilder);
+				stringBuilderPool.Return(sourceFragmentBuilder);
 			}
 
 			return sourceFragment;
