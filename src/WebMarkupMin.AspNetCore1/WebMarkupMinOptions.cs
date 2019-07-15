@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System.Text;
+using Microsoft.AspNetCore.Hosting;
 
 using WebMarkupMin.AspNet.Common;
 
@@ -43,9 +44,12 @@ namespace WebMarkupMin.AspNetCore2
 			get;
 			set;
 		}
+        /// <summary>
+        /// Gets or sets the default encoding
+        /// </summary>
+        public Encoding DeafultEncoding { get; set; }
 
-
-		/// <summary>
+        /// <summary>
 		/// Constructs a instance of WebMarkupMin options
 		/// </summary>
 		public WebMarkupMinOptions()
