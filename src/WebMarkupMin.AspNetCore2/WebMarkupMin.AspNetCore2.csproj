@@ -16,10 +16,6 @@
 2. Now, by default, the GZip algorithm has a higher priority than the Deflate.</PackageReleaseNotes>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <PlatformTarget>x64</PlatformTarget>
-	</PropertyGroup>
-
 	<Import Project="../../build/common.props" />
 	<Import Project="../../build/strong-name-signing.props" />
 	<Import Project="../../build/nuget-metadata.props" />
@@ -71,7 +67,10 @@
 	</ItemGroup>
 
 	<Target Name="СonvertResxToCs" BeforeTargets="BeforeCompile">
-		<ResxToCsTask InputDirectory="./Resources/" Namespace="$(RootNamespace).Resources" InternalAccessModifier="true" />
+		<ResxToCsTask
+			InputDirectory="./Resources/"
+			Namespace="$(RootNamespace).Resources"
+			InternalAccessModifier="true" />
 	</Target>
 
 </Project>

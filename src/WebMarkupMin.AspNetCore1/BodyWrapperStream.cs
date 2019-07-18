@@ -267,7 +267,7 @@ namespace WebMarkupMin.AspNetCore2
 
 				if (cachedByteCount > 0 && _options.IsAllowableResponseSize(cachedByteCount))
 				{
-					Encoding encoding = _encoding ??_options.DeafultEncoding ?? Encoding.GetEncoding(0);
+					Encoding encoding = _encoding ?? _options.DeafultEncoding ?? Encoding.GetEncoding(0);
 					string content = encoding.GetString(cachedBytes);
 
 					IMarkupMinifier minifier = _currentMinificationManager.CreateMinifier();
