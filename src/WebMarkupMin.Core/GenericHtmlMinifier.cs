@@ -404,7 +404,7 @@ namespace WebMarkupMin.Core
 		/// <returns>Minification result</returns>
 		public MarkupMinificationResult Minify(string content)
 		{
-			return Minify(content, string.Empty, Encoding.GetEncoding(0), false);
+			return Minify(content, string.Empty, TextEncodingShortcuts.Default, false);
 		}
 
 		/// <summary>
@@ -415,7 +415,7 @@ namespace WebMarkupMin.Core
 		/// <returns>Minification result</returns>
 		public MarkupMinificationResult Minify(string content, string fileContext)
 		{
-			return Minify(content, fileContext, Encoding.GetEncoding(0), false);
+			return Minify(content, fileContext, TextEncodingShortcuts.Default, false);
 		}
 
 		/// <summary>
@@ -437,7 +437,7 @@ namespace WebMarkupMin.Core
 		/// <returns>Minification result</returns>
 		public MarkupMinificationResult Minify(string content, bool generateStatistics)
 		{
-			return Minify(content, string.Empty, Encoding.GetEncoding(0), generateStatistics);
+			return Minify(content, string.Empty, TextEncodingShortcuts.Default, generateStatistics);
 		}
 
 		/// <summary>

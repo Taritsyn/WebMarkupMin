@@ -90,7 +90,7 @@ namespace WebMarkupMin.Yui
 		/// <returns>Minified JS content</returns>
 		public CodeMinificationResult Minify(string content, bool isInlineCode)
 		{
-			return Minify(content, isInlineCode, Encoding.Default);
+			return Minify(content, isInlineCode, TextEncodingShortcuts.Default);
 		}
 
 		/// <summary>
@@ -141,7 +141,7 @@ namespace WebMarkupMin.Yui
 				finally
 				{
 					_originalJsMinifier.ErrorReporter = null;
-					_originalJsMinifier.Encoding = Encoding.Default;
+					_originalJsMinifier.Encoding = TextEncodingShortcuts.Default;
 
 					errors.AddRange(_errorReporter.Errors);
 					warnings.AddRange(_errorReporter.Warnings);

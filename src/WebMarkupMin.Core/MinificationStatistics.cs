@@ -130,7 +130,7 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Constructs instance of minification statistics
 		/// </summary>
-		public MinificationStatistics() : this(Encoding.GetEncoding(0))
+		public MinificationStatistics() : this(TextEncodingShortcuts.Default)
 		{ }
 
 		/// <summary>

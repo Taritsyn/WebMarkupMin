@@ -23,7 +23,7 @@ namespace WebMarkupMin.Core
 		/// <returns>Minification result</returns>
 		public CodeMinificationResult Minify(string content, bool isInlineCode)
 		{
-			return Minify(content, isInlineCode, Encoding.GetEncoding(0));
+			return Minify(content, isInlineCode, TextEncodingShortcuts.Default);
 		}
 
 		/// <summary>

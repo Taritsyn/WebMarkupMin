@@ -131,7 +131,7 @@ namespace WebMarkupMin.MsAjax
 		/// <returns>Minification result</returns>
 		public CodeMinificationResult Minify(string content, bool isInlineCode)
 		{
-			return Minify(content, isInlineCode, Encoding.Default);
+			return Minify(content, isInlineCode, TextEncodingShortcuts.Default);
 		}
 
 		/// <summary>
