@@ -1,47 +1,47 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<Product>Web Markup Minifier: Core</Product>
-		<VersionPrefix>2.5.8</VersionPrefix>
-		<TargetFrameworks>net40-client;net45;netstandard1.3;netstandard2.0</TargetFrameworks>
-		<NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.3' ">1.6.0</NetStandardImplicitPackageVersion>
-		<OutputType>Library</OutputType>
-		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-		<NoWarn>$(NoWarn);CS1591</NoWarn>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
-		<Description>The Web Markup Minifier (abbreviated WebMarkupMin) is a .NET library that contains a set of markup minifiers. The objective of this project is to improve the performance of web applications by reducing the size of HTML, XHTML and XML code.
+  <PropertyGroup>
+    <Product>Web Markup Minifier: Core</Product>
+    <VersionPrefix>2.5.8</VersionPrefix>
+    <TargetFrameworks>net40-client;net45;netstandard1.3;netstandard2.0</TargetFrameworks>
+    <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.3' ">1.6.0</NetStandardImplicitPackageVersion>
+    <OutputType>Library</OutputType>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
+    <Description>The Web Markup Minifier (abbreviated WebMarkupMin) is a .NET library that contains a set of markup minifiers. The objective of this project is to improve the performance of web applications by reducing the size of HTML, XHTML and XML code.
 
 WebMarkupMin absorbed the best of existing solutions from non-microsoft platforms: Juriy Zaytsev's HTML Minifier (https://github.com/kangax/html-minifier/) (written in JavaScript) and Sergiy Kovalchuk's HtmlCompressor (https://github.com/serg472/htmlcompressor) (written in Java).
 
 Minification of markup produces by removing extra whitespaces, comments and redundant code (only for HTML and XHTML). In addition, HTML and XHTML minifiers supports the minification of CSS code from style tags and attributes, and minification of JavaScript code from script tags, event attributes and hyperlinks with javascript: protocol. WebMarkupMin.Core contains built-in JavaScript minifier based on the Douglas Crockford's JSMin (https://github.com/douglascrockford/JSMin) and built-in CSS minifier based on the Mads Kristensen's Efficient stylesheet minifier (https://madskristensen.net/blog/Efficient-stylesheet-minification-in-C). The above mentioned minifiers produce only the most simple minifications of CSS and JavaScript code, but you can always install additional modules that support the more powerful algorithms of minification: WebMarkupMin.MsAjax (contains minifier-adapters for the Microsoft Ajax Minifier - https://ajaxmin.codeplex.com), WebMarkupMin.Yui (contains minifier-adapters for YUI Compressor for .Net - https://github.com/YUICompressor-NET/YUICompressor.NET) and WebMarkupMin.NUglify (contains minifier-adapters for the NUglify - https://github.com/xoofx/NUglify).
 
 Also supports minification of views of popular JavaScript template engines: KnockoutJS, Kendo UI MVVM and AngularJS 1.X.</Description>
-		<PackageTags>WebMarkupMin;Markup;HTML;XHTML;XML;Minification;Minifier;Minify;Performance;Optimization;Compression</PackageTags>
-		<PackageReleaseNotes>Part of the auxiliary code was replaced by the AdvancedStringBuilder library.</PackageReleaseNotes>
-	</PropertyGroup>
+    <PackageTags>WebMarkupMin;Markup;HTML;XHTML;XML;Minification;Minifier;Minify;Performance;Optimization;Compression</PackageTags>
+    <PackageReleaseNotes>Part of the auxiliary code was replaced by the AdvancedStringBuilder library.</PackageReleaseNotes>
+  </PropertyGroup>
 
-	<Import Project="../../build/common.props" />
-	<Import Project="../../build/net40-client-target.props" />
-	<Import Project="../../build/strong-name-signing.props" />
-	<Import Project="../../build/nuget-metadata.props" />
+  <Import Project="../../build/common.props" />
+  <Import Project="../../build/net40-client-target.props" />
+  <Import Project="../../build/strong-name-signing.props" />
+  <Import Project="../../build/nuget-metadata.props" />
 
-	<ItemGroup>
-		<PackageReference Include="AdvancedStringBuilder" Version="0.1.0" />
-		<PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha6" PrivateAssets="All" />
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AdvancedStringBuilder" Version="0.1.0" />
+    <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha6" PrivateAssets="All" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<Content Include="readme.txt">
-			<PackagePath>readme.txt</PackagePath>
-			<Pack>true</Pack>
-		</Content>
-	</ItemGroup>
+  <ItemGroup>
+    <Content Include="readme.txt">
+      <PackagePath>readme.txt</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+  </ItemGroup>
 
-	<Target Name="СonvertResxToCs" BeforeTargets="BeforeCompile">
-		<ResxToCsTask
-			InputDirectory="./Resources/"
-			Namespace="$(RootNamespace).Resources" />
-	</Target>
+  <Target Name="СonvertResxToCs" BeforeTargets="BeforeCompile">
+    <ResxToCsTask
+      InputDirectory="./Resources/"
+      Namespace="$(RootNamespace).Resources" />
+  </Target>
 
 </Project>

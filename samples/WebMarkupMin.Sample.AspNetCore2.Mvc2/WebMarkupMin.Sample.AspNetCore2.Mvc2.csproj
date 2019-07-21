@@ -1,51 +1,51 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-	<PropertyGroup>
-		<Product>Web Markup Minifier: Sample ASP.NET Core 2.0 MVC 2 Site</Product>
-		<VersionPrefix>2.5.9</VersionPrefix>
-		<TargetFramework>netcoreapp2.0</TargetFramework>
-		<OutputType>Exe</OutputType>
-		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-		<PreserveCompilationContext>true</PreserveCompilationContext>
-		<IsPackable>false</IsPackable>
-	</PropertyGroup>
+  <PropertyGroup>
+    <Product>Web Markup Minifier: Sample ASP.NET Core 2.0 MVC 2 Site</Product>
+    <VersionPrefix>2.5.9</VersionPrefix>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
 
-	<Import Project="../../build/common.props" />
+  <Import Project="../../build/common.props" />
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.0.2" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.2" />
-		<PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.2" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.2" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.2" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.2" />
 
-		<ProjectReference Include="..\..\src\WebMarkupMin.AspNet.Brotli\WebMarkupMin.AspNet.Brotli.csproj" />
-		<ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore2\WebMarkupMin.AspNetCore2.csproj" />
-		<ProjectReference Include="..\WebMarkupMin.Sample.Logic\WebMarkupMin.Sample.Logic.csproj" />
-		<ProjectReference Include="..\WebMarkupMin.Sample.Resources\WebMarkupMin.Sample.Resources.csproj" />
-	</ItemGroup>
+    <ProjectReference Include="..\..\src\WebMarkupMin.AspNet.Brotli\WebMarkupMin.AspNet.Brotli.csproj" />
+    <ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore2\WebMarkupMin.AspNetCore2.csproj" />
+    <ProjectReference Include="..\WebMarkupMin.Sample.Logic\WebMarkupMin.Sample.Logic.csproj" />
+    <ProjectReference Include="..\WebMarkupMin.Sample.Resources\WebMarkupMin.Sample.Resources.csproj" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
-	</ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<None Update="wwwroot\**\*;Views\**\*">
-			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-		</None>
-	</ItemGroup>
+  <ItemGroup>
+    <None Update="wwwroot\**\*;Views\**\*">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
 
-	<Target Name="GulpClean" AfterTargets="Clean">
-		<Exec Command="gulp clean-builded-assets" />
-	</Target>
-	<Target Name="GulpBuild" AfterTargets="AfterBuild">
-		<Exec Command="gulp build-assets" />
-	</Target>
-	<Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
-		<Exec Command="npm install" />
-		<Exec Command="bower install" />
-		<Exec Command="gulp" />
-	</Target>
+  <Target Name="GulpClean" AfterTargets="Clean">
+    <Exec Command="gulp clean-builded-assets" />
+  </Target>
+  <Target Name="GulpBuild" AfterTargets="AfterBuild">
+    <Exec Command="gulp build-assets" />
+  </Target>
+  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
+    <Exec Command="npm install" />
+    <Exec Command="bower install" />
+    <Exec Command="gulp" />
+  </Target>
 
 </Project>

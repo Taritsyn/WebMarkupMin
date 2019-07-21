@@ -1,48 +1,48 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<Product>Web Markup Minifier: Logic for Samples</Product>
-		<VersionPrefix>2.5.9</VersionPrefix>
-		<TargetFrameworks>net40;net452;netstandard1.6;netstandard2.0</TargetFrameworks>
-		<NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.6' ">1.6.1</NetStandardImplicitPackageVersion>
-		<OutputType>Library</OutputType>
-		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-		<IsPackable>false</IsPackable>
-	</PropertyGroup>
+  <PropertyGroup>
+    <Product>Web Markup Minifier: Logic for Samples</Product>
+    <VersionPrefix>2.5.9</VersionPrefix>
+    <TargetFrameworks>net40;net452;netstandard1.6;netstandard2.0</TargetFrameworks>
+    <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.6' ">1.6.1</NetStandardImplicitPackageVersion>
+    <OutputType>Library</OutputType>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
 
-	<Import Project="../../build/common.props" />
+  <Import Project="../../build/common.props" />
 
-	<ItemGroup>
-		<PackageReference Include="AutoMapper" Version="6.2.2" />
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.2.2" />
 
-		<ProjectReference Include="..\..\src\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
-		<ProjectReference Include="..\..\src\WebMarkupMin.NUglify\WebMarkupMin.NUglify.csproj" />
-		<ProjectReference Include="..\WebMarkupMin.Sample.Resources\WebMarkupMin.Sample.Resources.csproj" />
-	</ItemGroup>
+    <ProjectReference Include="..\..\src\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
+    <ProjectReference Include="..\..\src\WebMarkupMin.NUglify\WebMarkupMin.NUglify.csproj" />
+    <ProjectReference Include="..\WebMarkupMin.Sample.Resources\WebMarkupMin.Sample.Resources.csproj" />
+  </ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net40' Or '$(TargetFramework)' == 'net452' Or '$(TargetFramework)' == 'netstandard2.0' ">
-		<ProjectReference Include="..\..\src\WebMarkupMin.MsAjax\WebMarkupMin.MsAjax.csproj" />
-	</ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' Or '$(TargetFramework)' == 'net452' Or '$(TargetFramework)' == 'netstandard2.0' ">
+    <ProjectReference Include="..\..\src\WebMarkupMin.MsAjax\WebMarkupMin.MsAjax.csproj" />
+  </ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net452' Or '$(TargetFramework)' == 'netstandard2.0' ">
-		<ProjectReference Include="..\..\src\WebMarkupMin.Yui\WebMarkupMin.Yui.csproj" />
-	</ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' Or '$(TargetFramework)' == 'netstandard2.0' ">
+    <ProjectReference Include="..\..\src\WebMarkupMin.Yui\WebMarkupMin.Yui.csproj" />
+  </ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
-		<Reference Include="System.ComponentModel.DataAnnotations" />
-		<Reference Include="System.Web" />
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
 
-		<PackageReference Include="Microsoft.AspNet.Mvc" Version="3.0.20105.1" />
-	</ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="3.0.20105.1" />
+  </ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' Or '$(TargetFramework)' == 'net452' ">
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="1.0.6" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="1.0.6" />
-	</ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' Or '$(TargetFramework)' == 'net452' ">
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="1.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="1.0.6" />
+  </ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.0.4" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.0.4" />
-	</ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.0.4" />
+  </ItemGroup>
 
 </Project>

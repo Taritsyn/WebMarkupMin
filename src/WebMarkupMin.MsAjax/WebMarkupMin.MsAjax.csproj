@@ -1,40 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<Product>Web Markup Minifier: MS Ajax</Product>
-		<VersionPrefix>2.5.5</VersionPrefix>
-		<TargetFrameworks>net40-client;net45;netstandard2.0</TargetFrameworks>
-		<OutputType>Library</OutputType>
-		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-		<NoWarn>$(NoWarn);CS1591</NoWarn>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<Description>WebMarkupMin.MsAjax contains 2 minifier-adapters: `MsAjaxCssMinifier` (for minification of CSS code) and `MsAjaxJsMinifier` (for minification of JS code). These adapters perform minification using the Microsoft Ajax Minifier (https://ajaxmin.codeplex.com).</Description>
-		<PackageTags>WebMarkupMin;Markup;HTML;XHTML;CSS;JavaScript;JS;Minification;Minifier;Minify;Microsoft;AjaxMin</PackageTags>
-		<PackageReleaseNotes>Part of the auxiliary code was replaced by the AdvancedStringBuilder library.</PackageReleaseNotes>
-	</PropertyGroup>
+  <PropertyGroup>
+    <Product>Web Markup Minifier: MS Ajax</Product>
+    <VersionPrefix>2.5.5</VersionPrefix>
+    <TargetFrameworks>net40-client;net45;netstandard2.0</TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Description>WebMarkupMin.MsAjax contains 2 minifier-adapters: `MsAjaxCssMinifier` (for minification of CSS code) and `MsAjaxJsMinifier` (for minification of JS code). These adapters perform minification using the Microsoft Ajax Minifier (https://ajaxmin.codeplex.com).</Description>
+    <PackageTags>WebMarkupMin;Markup;HTML;XHTML;CSS;JavaScript;JS;Minification;Minifier;Minify;Microsoft;AjaxMin</PackageTags>
+    <PackageReleaseNotes>Part of the auxiliary code was replaced by the AdvancedStringBuilder library.</PackageReleaseNotes>
+  </PropertyGroup>
 
-	<Import Project="../../build/common.props" />
-	<Import Project="../../build/net40-client-target.props" />
-	<Import Project="../../build/strong-name-signing.props" />
-	<Import Project="../../build/nuget-metadata.props" />
+  <Import Project="../../build/common.props" />
+  <Import Project="../../build/net40-client-target.props" />
+  <Import Project="../../build/strong-name-signing.props" />
+  <Import Project="../../build/nuget-metadata.props" />
 
-	<ItemGroup>
-		<PackageReference Include="AdvancedStringBuilder" Version="0.1.0" />
-		<PackageReference Include="AjaxMin" Version="5.14.5506.26202" NoWarn="NU1701" />
+  <ItemGroup>
+    <PackageReference Include="AdvancedStringBuilder" Version="0.1.0" />
+    <PackageReference Include="AjaxMin" Version="5.14.5506.26202" NoWarn="NU1701" />
 
-		<ProjectReference Include="..\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
-	</ItemGroup>
+    <ProjectReference Include="..\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<Content Include="readme.txt">
-			<PackagePath>readme.txt</PackagePath>
-			<Pack>true</Pack>
-		</Content>
-		<Content Include="../../licenses/microsoft-ajax-minifier-license.txt">
-			<PackagePath>microsoft-ajax-minifier-license.txt</PackagePath>
-			<Pack>true</Pack>
-			<Visible>false</Visible>
-		</Content>
-	</ItemGroup>
+  <ItemGroup>
+    <Content Include="readme.txt">
+      <PackagePath>readme.txt</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+    <Content Include="../../licenses/microsoft-ajax-minifier-license.txt">
+      <PackagePath>microsoft-ajax-minifier-license.txt</PackagePath>
+      <Pack>true</Pack>
+      <Visible>false</Visible>
+    </Content>
+  </ItemGroup>
 
 </Project>

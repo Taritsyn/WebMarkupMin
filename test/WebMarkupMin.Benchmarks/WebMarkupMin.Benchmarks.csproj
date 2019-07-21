@@ -1,29 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<Product>Web Markup Minifier: Core Benchmarks</Product>
-		<VersionPrefix>2.5.9</VersionPrefix>
-		<TargetFrameworks>net461;netcoreapp2.0</TargetFrameworks>
-		<OutputType>Exe</OutputType>
-		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-		<DefineConstants>$(DefineConstants);HTML_MINIFIER_COMPARISON;XML_MINIFIER_COMPARISON</DefineConstants>
-		<IsPackable>false</IsPackable>
-	</PropertyGroup>
+  <PropertyGroup>
+    <Product>Web Markup Minifier: Core Benchmarks</Product>
+    <VersionPrefix>2.5.9</VersionPrefix>
+    <TargetFrameworks>net461;netcoreapp2.0</TargetFrameworks>
+    <OutputType>Exe</OutputType>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DefineConstants>$(DefineConstants);HTML_MINIFIER_COMPARISON;XML_MINIFIER_COMPARISON</DefineConstants>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
 
-	<Import Project="../../build/common.props" />
+  <Import Project="../../build/common.props" />
 
-	<ItemGroup>
-		<PackageReference Include="BenchmarkDotNet" Version="0.11.5" />
-		<PackageReference Include="NUglify" Version="1.5.13" />
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.11.5" />
+    <PackageReference Include="NUglify" Version="1.5.13" />
 
-		<ProjectReference Include="..\..\src\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
-		<ProjectReference Include="..\..\src\WebMarkupMin.MsAjax\WebMarkupMin.MsAjax.csproj" />
-		<ProjectReference Include="..\..\src\WebMarkupMin.NUglify\WebMarkupMin.NUglify.csproj" />
-		<ProjectReference Include="..\..\src\WebMarkupMin.Yui\WebMarkupMin.Yui.csproj" />
-	</ItemGroup>
+    <ProjectReference Include="..\..\src\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
+    <ProjectReference Include="..\..\src\WebMarkupMin.MsAjax\WebMarkupMin.MsAjax.csproj" />
+    <ProjectReference Include="..\..\src\WebMarkupMin.NUglify\WebMarkupMin.NUglify.csproj" />
+    <ProjectReference Include="..\..\src\WebMarkupMin.Yui\WebMarkupMin.Yui.csproj" />
+  </ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-		<PackageReference Include="ZetaProducerHtmlCompressor" Version="1.0.3" />
-	</ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <PackageReference Include="ZetaProducerHtmlCompressor" Version="1.0.3" />
+  </ItemGroup>
 
 </Project>

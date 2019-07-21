@@ -4,37 +4,36 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{472CB832-1B6A-4479-9389-77E0C2E7B355}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		CHANGELOG.md = CHANGELOG.md
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{21B132B0-710A-40D0-A906-069FAF6FC62A}"
+	ProjectSection(SolutionItems) = preProject
+		build\common.props = build\common.props
+		build\Key.snk = build\Key.snk
+		build\net40-client-target.props = build\net40-client-target.props
+		build\nuget-common.props = build\nuget-common.props
+		build\nuget-metadata.props = build\nuget-metadata.props
+		build\strong-name-signing.props = build\strong-name-signing.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "licenses", "licenses", "{1BBCC7B6-B593-4506-AEF1-DB00A92C1DF8}"
+	ProjectSection(SolutionItems) = preProject
+		licenses\brotli-license.txt = licenses\brotli-license.txt
+		licenses\brotli-sharp-lib-license.txt = licenses\brotli-sharp-lib-license.txt
+		licenses\html-minifier.txt = licenses\html-minifier.txt
+		licenses\htmlcompressor.txt = licenses\htmlcompressor.txt
+		licenses\jsmin-license.txt = licenses\jsmin-license.txt
+		licenses\microsoft-ajax-minifier-license.txt = licenses\microsoft-ajax-minifier-license.txt
+		licenses\nuglify-license.txt = licenses\nuglify-license.txt
+		licenses\yui-compressor-for-net-license.txt = licenses\yui-compressor-for-net-license.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1AEA1D1F-45BC-4A6C-BCD8-71C50DC839BA}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedFiles", "SharedFiles", "{3EC64089-240A-44CB-A377-07BB90C1019E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "html", "html", "{E16C8CAD-938B-4712-8B4B-05EB42AEFAC6}"
-	ProjectSection(SolutionItems) = preProject
-		test\SharedFiles\html\html-document-with-bom-at-start.html = test\SharedFiles\html\html-document-with-bom-at-start.html
-		test\SharedFiles\html\html-document-with-bom-in-body-tag.html = test\SharedFiles\html\html-document-with-bom-in-body-tag.html
-		test\SharedFiles\html\html-document-without-bom.html = test\SharedFiles\html\html-document-without-bom.html
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{D6646163-2C7B-4E9B-A69E-2D73037F1EC3}"
-	ProjectSection(SolutionItems) = preProject
-		test\SharedFiles\xml\xml-document-with-bom-at-start.xml = test\SharedFiles\xml\xml-document-with-bom-at-start.xml
-		test\SharedFiles\xml\xml-document-with-bom-in-tag.xml = test\SharedFiles\xml\xml-document-with-bom-in-tag.xml
-		test\SharedFiles\xml\xml-document-without-bom.xml = test\SharedFiles\xml\xml-document-without-bom.xml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{93F36312-DACD-42F9-8652-DC03D5545113}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedData", "SharedData", "{6E9983A1-18F0-4A77-8179-7E0D5362B5A1}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "text-content", "text-content", "{42291974-4944-4E59-AC97-5AA16D98EA21}"
-	ProjectSection(SolutionItems) = preProject
-		samples\SharedData\text-content\change-log.html = samples\SharedData\text-content\change-log.html
-		samples\SharedData\text-content\contact.html = samples\SharedData\text-content\contact.html
-		samples\SharedData\text-content\index.html = samples\SharedData\text-content\index.html
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Core", "src\WebMarkupMin.Core\WebMarkupMin.Core.csproj", "{B13DE315-C4A0-4BBF-86B1-D916483F5C63}"
 EndProject
@@ -60,9 +59,38 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.AspNetCore1", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.AspNetCore2", "src\WebMarkupMin.AspNetCore2\WebMarkupMin.AspNetCore2.csproj", "{FB743652-E1C4-40B3-B499-53780DCBAA8F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1AEA1D1F-45BC-4A6C-BCD8-71C50DC839BA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedFiles", "SharedFiles", "{3EC64089-240A-44CB-A377-07BB90C1019E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "html", "html", "{E16C8CAD-938B-4712-8B4B-05EB42AEFAC6}"
+	ProjectSection(SolutionItems) = preProject
+		test\SharedFiles\html\html-document-with-bom-at-start.html = test\SharedFiles\html\html-document-with-bom-at-start.html
+		test\SharedFiles\html\html-document-with-bom-in-body-tag.html = test\SharedFiles\html\html-document-with-bom-in-body-tag.html
+		test\SharedFiles\html\html-document-without-bom.html = test\SharedFiles\html\html-document-without-bom.html
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{D6646163-2C7B-4E9B-A69E-2D73037F1EC3}"
+	ProjectSection(SolutionItems) = preProject
+		test\SharedFiles\xml\xml-document-with-bom-at-start.xml = test\SharedFiles\xml\xml-document-with-bom-at-start.xml
+		test\SharedFiles\xml\xml-document-with-bom-in-tag.xml = test\SharedFiles\xml\xml-document-with-bom-in-tag.xml
+		test\SharedFiles\xml\xml-document-without-bom.xml = test\SharedFiles\xml\xml-document-without-bom.xml
+	EndProjectSection
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Benchmarks", "test\WebMarkupMin.Benchmarks\WebMarkupMin.Benchmarks.csproj", "{73A9EE62-426A-4E54-9A92-C5B601DAB70F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Core.Test", "test\WebMarkupMin.Core.Test\WebMarkupMin.Core.Test.csproj", "{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{93F36312-DACD-42F9-8652-DC03D5545113}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedData", "SharedData", "{6E9983A1-18F0-4A77-8179-7E0D5362B5A1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "text-content", "text-content", "{42291974-4944-4E59-AC97-5AA16D98EA21}"
+	ProjectSection(SolutionItems) = preProject
+		samples\SharedData\text-content\change-log.html = samples\SharedData\text-content\change-log.html
+		samples\SharedData\text-content\contact.html = samples\SharedData\text-content\contact.html
+		samples\SharedData\text-content\index.html = samples\SharedData\text-content\index.html
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Sample.Resources", "samples\WebMarkupMin.Sample.Resources\WebMarkupMin.Sample.Resources.csproj", "{8EFC1C84-D831-45CE-926A-A9CF99B2164C}"
 EndProject
@@ -154,6 +182,10 @@ Global
 		{FB743652-E1C4-40B3-B499-53780DCBAA8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB743652-E1C4-40B3-B499-53780DCBAA8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB743652-E1C4-40B3-B499-53780DCBAA8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73A9EE62-426A-4E54-9A92-C5B601DAB70F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73A9EE62-426A-4E54-9A92-C5B601DAB70F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73A9EE62-426A-4E54-9A92-C5B601DAB70F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73A9EE62-426A-4E54-9A92-C5B601DAB70F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -190,10 +222,6 @@ Global
 		{70C0F396-9D87-4E02-AF0B-27F94940478D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70C0F396-9D87-4E02-AF0B-27F94940478D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70C0F396-9D87-4E02-AF0B-27F94940478D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{73A9EE62-426A-4E54-9A92-C5B601DAB70F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{73A9EE62-426A-4E54-9A92-C5B601DAB70F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{73A9EE62-426A-4E54-9A92-C5B601DAB70F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{73A9EE62-426A-4E54-9A92-C5B601DAB70F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -216,6 +244,7 @@ Global
 		{27D7454A-F570-4ACC-BB7E-1DD5B264AC22} = {227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}
 		{5F014AC3-7F5D-4EBB-850C-01513CBF1D49} = {227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}
 		{FB743652-E1C4-40B3-B499-53780DCBAA8F} = {227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}
+		{73A9EE62-426A-4E54-9A92-C5B601DAB70F} = {1AEA1D1F-45BC-4A6C-BCD8-71C50DC839BA}
 		{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68} = {1AEA1D1F-45BC-4A6C-BCD8-71C50DC839BA}
 		{8EFC1C84-D831-45CE-926A-A9CF99B2164C} = {93F36312-DACD-42F9-8652-DC03D5545113}
 		{D29E22EF-EAF3-4056-BC7B-E02BB4048281} = {93F36312-DACD-42F9-8652-DC03D5545113}
@@ -225,7 +254,6 @@ Global
 		{CBB7FD4C-8A94-4797-AA55-55DA5A63F070} = {93F36312-DACD-42F9-8652-DC03D5545113}
 		{93545F28-4C2E-4C43-B864-AF369D6E71BB} = {93F36312-DACD-42F9-8652-DC03D5545113}
 		{70C0F396-9D87-4E02-AF0B-27F94940478D} = {93F36312-DACD-42F9-8652-DC03D5545113}
-		{73A9EE62-426A-4E54-9A92-C5B601DAB70F} = {1AEA1D1F-45BC-4A6C-BCD8-71C50DC839BA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E056B7D-640D-49E5-BFD7-D64C25744378}

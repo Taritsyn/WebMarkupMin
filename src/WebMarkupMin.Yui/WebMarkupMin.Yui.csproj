@@ -1,38 +1,38 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<Product>Web Markup Minifier: YUI</Product>
-		<VersionPrefix>2.5.5</VersionPrefix>
-		<TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
-		<OutputType>Library</OutputType>
-		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-		<NoWarn>$(NoWarn);CS1591</NoWarn>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<Description>WebMarkupMin.Yui contains 2 minifier-adapters: `YuiCssMinifier` (for minification of CSS code) and `YuiJsMinifier` (for minification of JS code). These adapters perform minification using the YUI Compressor for .NET (https://github.com/YUICompressor-NET/YUICompressor.NET).</Description>
-		<PackageTags>WebMarkupMin;Markup;HTML;XHTML;CSS;JavaScript;JS;Minification;Minifier;Minify;Obfuscation;YUICompressor</PackageTags>
-		<PackageReleaseNotes>1. Improved performance of adapters for the YUI Compressor;
+  <PropertyGroup>
+    <Product>Web Markup Minifier: YUI</Product>
+    <VersionPrefix>2.5.5</VersionPrefix>
+    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Description>WebMarkupMin.Yui contains 2 minifier-adapters: `YuiCssMinifier` (for minification of CSS code) and `YuiJsMinifier` (for minification of JS code). These adapters perform minification using the YUI Compressor for .NET (https://github.com/YUICompressor-NET/YUICompressor.NET).</Description>
+    <PackageTags>WebMarkupMin;Markup;HTML;XHTML;CSS;JavaScript;JS;Minification;Minifier;Minify;Obfuscation;YUICompressor</PackageTags>
+    <PackageReleaseNotes>1. Improved performance of adapters for the YUI Compressor;
 2. In configuration settings of JS minifier was added one new property - `WarningLevel` (default `0`).</PackageReleaseNotes>
-	</PropertyGroup>
+  </PropertyGroup>
 
-	<Import Project="../../build/common.props" />
-	<Import Project="../../build/nuget-metadata.props" />
+  <Import Project="../../build/common.props" />
+  <Import Project="../../build/nuget-metadata.props" />
 
-	<ItemGroup>
-		<PackageReference Include="YUICompressor.NET" Version="3.0.0" />
+  <ItemGroup>
+    <PackageReference Include="YUICompressor.NET" Version="3.0.0" />
 
-		<ProjectReference Include="..\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
-	</ItemGroup>
+    <ProjectReference Include="..\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<Content Include="readme.txt">
-			<PackagePath>readme.txt</PackagePath>
-			<Pack>true</Pack>
-		</Content>
-		<Content Include="../../licenses/yui-compressor-for-net-license.txt">
-			<PackagePath>yui-compressor-for-net-license.txt</PackagePath>
-			<Pack>true</Pack>
-			<Visible>false</Visible>
-		</Content>
-	</ItemGroup>
+  <ItemGroup>
+    <Content Include="readme.txt">
+      <PackagePath>readme.txt</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+    <Content Include="../../licenses/yui-compressor-for-net-license.txt">
+      <PackagePath>yui-compressor-for-net-license.txt</PackagePath>
+      <Pack>true</Pack>
+      <Visible>false</Visible>
+    </Content>
+  </ItemGroup>
 
 </Project>
