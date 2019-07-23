@@ -46,7 +46,8 @@
    =============
    RELEASE NOTES
    =============
-   Part of the auxiliary code was replaced by the AdvancedStringBuilder library.
+   1. Part of the auxiliary code was replaced by the AdvancedStringBuilder library;
+   2. Improved a performance of statistics generation.
 
    =============
    DOCUMENTATION

@@ -1,7 +1,14 @@
 ﻿using System;
+#if NET45 || NETSTANDARD || NETCOREAPP2_1
+using System.Buffers;
+#endif
 using System.IO;
 using System.IO.Compression;
 using System.Text;
+#if NET40
+
+using PolyfillsForOldDotNet.System.Buffers;
+#endif
 
 using WebMarkupMin.Core.Utilities;
 
@@ -149,10 +156,23 @@ namespace WebMarkupMin.Core
 		/// <param name="originalContent">Original content</param>
 		internal void Init(string originalContent)
 		{
-			byte[] bytes = _encoding.GetBytes(originalContent);
+			var byteArrayPool = ArrayPool<byte>.Shared;
+			int byteCount = _encoding.GetByteCount(originalContent);
+			byte[] bytes = byteArrayPool.Rent(byteCount);
+			long compressedByteCount = 0;
 
-			OriginalSize = bytes.Length;
-			OriginalGzipSize = CalculateGzipSize(bytes);
+			try
+			{
+				_encoding.GetBytes(originalContent, 0, originalContent.Length, bytes, 0);
+				compressedByteCount = CalculateGzipSize(bytes, 0, byteCount);
+			}
+			finally
+			{
+				byteArrayPool.Return(bytes);
+			}
+
+			OriginalSize = byteCount;
+			OriginalGzipSize = compressedByteCount;
 			MinifiedSize = 0;
 			MinifiedGzipSize = 0;
 			CompressionRatio = 0;
@@ -174,10 +194,24 @@ namespace WebMarkupMin.Core
 		internal void End(string minifiedContent)
 		{
 			_endTime = DateTime.Now;
-			byte[] bytes = _encoding.GetBytes(minifiedContent);
 
-			MinifiedSize = bytes.Length;
-			MinifiedGzipSize = CalculateGzipSize(bytes);
+			var byteArrayPool = ArrayPool<byte>.Shared;
+			int byteCount = _encoding.GetByteCount(minifiedContent);
+			byte[] bytes = byteArrayPool.Rent(byteCount);
+			long compressedByteCount = 0;
+
+			try
+			{
+				_encoding.GetBytes(minifiedContent, 0, minifiedContent.Length, bytes, 0);
+				compressedByteCount = CalculateGzipSize(bytes, 0, byteCount);
+			}
+			finally
+			{
+				byteArrayPool.Return(bytes);
+			}
+
+			MinifiedSize = byteCount;
+			MinifiedGzipSize = compressedByteCount;
 			CompressionRatio = CalculateCompressionRatio(OriginalSize, MinifiedSize);
 			CompressionGzipRatio = CalculateCompressionRatio(OriginalGzipSize, MinifiedGzipSize);
 			SavedInBytes = OriginalSize - MinifiedSize;
@@ -188,7 +222,7 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Calculatea a compression ratio
+		/// Calculates a compression ratio
 		/// </summary>
 		/// <param name="originalSize">Original size</param>
 		/// <param name="minifiedSize">Minified size</param>
@@ -205,20 +239,23 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Calculatea a size of gzipped code
+		/// Calculates a size of gzipped code
 		/// </summary>
-		/// <param name="bytes">Array of bytes</param>
+		/// <param name="buffer">The buffer that contains the data to compress</param>
+		/// <param name="offset">The byte offset in <paramref name="buffer"/> from which
+		/// the bytes will be read</param>
+		/// <param name="count">The maximum number of bytes to write</param>
 		/// <returns>Size of gzipped code in bytes</returns>
-		private static long CalculateGzipSize(byte[] bytes)
+		private static long CalculateGzipSize(byte[] buffer, int offset, int count)
 		{
 			using (var memoryStream = new MemoryStream())
 			{
-				// the third parameter tells the GZIP stream to leave the base stream open so it doesn't
+				// The third parameter tells the GZip stream to leave the base stream open so it doesn't
 				// dispose of it when it gets disposed. This is needed because we need to dispose the
-				// GZIP stream before it will write ANY of its data.
+				// GZip stream before it will write ANY of its data.
 				using (var gzipStream = new GZipStream(memoryStream, CompressionMode.Compress, true))
 				{
-					gzipStream.Write(bytes, 0, bytes.Length);
+					gzipStream.Write(buffer, offset, count);
 				}
 
 				long compressedByteCount = memoryStream.Position;

@@ -7,12 +7,10 @@ namespace WebMarkupMin.Benchmarks
 {
 	internal static class Utils
 	{
-		public static void PopulateTestData(string directoryPath, Dictionary<string, Document> documents,
-			string fileExtension)
+		public static string GetAbsoluteDirectoryPath(string directoryPath)
 		{
 			string baseDirectoryPath = AppDomain.CurrentDomain.BaseDirectory;
 			string absoluteDirectoryPath = Path.GetFullPath(Path.Combine(baseDirectoryPath, directoryPath));
-			List<Document> nonExistentDocuments = null;
 #if NETCOREAPP2_0
 
 			if (!Directory.Exists(absoluteDirectoryPath))
@@ -21,6 +19,15 @@ namespace WebMarkupMin.Benchmarks
 					Path.Combine(baseDirectoryPath, "../../../../", directoryPath));
 			}
 #endif
+
+			return absoluteDirectoryPath;
+		}
+
+		public static void PopulateTestData(string directoryPath, Dictionary<string, Document> documents,
+			string fileExtension)
+		{
+			string absoluteDirectoryPath = GetAbsoluteDirectoryPath(directoryPath);
+			List<Document> nonExistentDocuments = null;
 
 			foreach (string documentName in documents.Keys)
 			{
