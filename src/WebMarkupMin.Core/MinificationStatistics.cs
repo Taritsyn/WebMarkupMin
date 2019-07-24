@@ -258,7 +258,7 @@ namespace WebMarkupMin.Core
 					gzipStream.Write(buffer, offset, count);
 				}
 
-				long compressedByteCount = memoryStream.Position;
+				long compressedByteCount = memoryStream.Length;
 				memoryStream.Clear();
 
 				return compressedByteCount;

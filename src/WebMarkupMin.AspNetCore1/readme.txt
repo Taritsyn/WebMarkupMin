@@ -17,8 +17,9 @@
    =============
    RELEASE NOTES
    =============
-   In WebMarkupMin options was added one new property - `DefaultEncoding` (default
-   `Encoding.Default`).
+   1. In WebMarkupMin options was added one new property - `DefaultEncoding`
+      (default `Encoding.Default`);
+   2. Optimized memory usage.
 
    =============
    DOCUMENTATION

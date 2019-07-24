@@ -15,6 +15,7 @@
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.11.5" />
     <PackageReference Include="NUglify" Version="1.5.13" />
+    <PackageReference Include="Moq" Version="4.12.0" />
 
     <ProjectReference Include="..\..\src\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
     <ProjectReference Include="..\..\src\WebMarkupMin.MsAjax\WebMarkupMin.MsAjax.csproj" />
@@ -24,6 +25,12 @@
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <PackageReference Include="ZetaProducerHtmlCompressor" Version="1.0.3" />
+
+    <ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore1\WebMarkupMin.AspNetCore1.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
+    <ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore2\WebMarkupMin.AspNetCore2.csproj" />
   </ItemGroup>
 
 </Project>

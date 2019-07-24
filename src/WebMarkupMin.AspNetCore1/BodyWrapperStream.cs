@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -260,15 +261,24 @@ namespace WebMarkupMin.AspNetCore2
 		{
 			if (_minificationEnabled)
 			{
-				byte[] cachedBytes = _cachedStream.ToArray();
-				int cachedByteCount = cachedBytes.Length;
-
 				bool isMinified = false;
+				int cachedByteCount = (int)_cachedStream.Length;
+				IHeaderDictionary responseHeaders = _context.Response.Headers;
+				Action<string, string> appendHttpHeader = (key, value) =>
+				{
+					responseHeaders.Append(key, new StringValues(value));
+				};
 
 				if (cachedByteCount > 0 && _options.IsAllowableResponseSize(cachedByteCount))
 				{
 					Encoding encoding = _encoding ?? _options.DefaultEncoding;
+#if NETSTANDARD1_3
+					byte[] cachedBytes = _cachedStream.ToArray();
 					string content = encoding.GetString(cachedBytes);
+#else
+					byte[] cachedBytes = _cachedStream.GetBuffer();
+					string content = encoding.GetString(cachedBytes, 0, cachedByteCount);
+#endif
 
 					IMarkupMinifier minifier = _currentMinificationManager.CreateMinifier();
 					MarkupMinificationResult minificationResult = minifier.Minify(content, _currentUrl,
@@ -276,12 +286,6 @@ namespace WebMarkupMin.AspNetCore2
 
 					if (minificationResult.Errors.Count == 0)
 					{
-						IHeaderDictionary responseHeaders = _context.Response.Headers;
-						Action<string, string> appendHttpHeader = (key, value) =>
-						{
-							responseHeaders.Append(key, new StringValues(value));
-						};
-
 						if (_options.IsPoweredByHttpHeadersEnabled())
 						{
 							_currentMinificationManager.AppendPoweredByHttpHeader(appendHttpHeader);
@@ -289,31 +293,51 @@ namespace WebMarkupMin.AspNetCore2
 						responseHeaders.Remove(HeaderNames.ContentMD5);
 
 						string processedContent = minificationResult.MinifiedContent;
-						byte[] processedBytes = encoding.GetBytes(processedContent);
-						int processedByteCount = processedBytes.Length;
+						var byteArrayPool = ArrayPool<byte>.Shared;
+						int processedByteCount = encoding.GetByteCount(processedContent);
+						byte[] processedBytes = byteArrayPool.Rent(processedByteCount);
 
-						if (_compressionEnabled)
+						try
 						{
-							_currentCompressor.AppendHttpHeaders(appendHttpHeader);
-							responseHeaders.Remove(HeaderNames.ContentLength);
-							await _compressionStream.WriteAsync(processedBytes, 0, processedByteCount);
+							encoding.GetBytes(processedContent, 0, processedContent.Length, processedBytes, 0);
+
+							if (_compressionEnabled)
+							{
+								_currentCompressor.AppendHttpHeaders(appendHttpHeader);
+								responseHeaders.Remove(HeaderNames.ContentLength);
+								await _compressionStream.WriteAsync(processedBytes, 0, processedByteCount);
+							}
+							else
+							{
+								responseHeaders[HeaderNames.ContentLength] = processedByteCount.ToString();
+								await _originalStream.WriteAsync(processedBytes, 0, processedByteCount);
+							}
 						}
-						else
+						finally
 						{
-							responseHeaders[HeaderNames.ContentLength] = processedByteCount.ToString();
-							await _originalStream.WriteAsync(processedBytes, 0, processedByteCount);
+							byteArrayPool.Return(processedBytes);
 						}
 
 						isMinified = true;
 					}
+				}
 
-					if (!isMinified)
+				if (!isMinified)
+				{
+					Stream outputStream;
+
+					if (_compressionEnabled)
 					{
-						Stream outputStream = _compressionEnabled ? _compressionStream : _originalStream;
-
-						_cachedStream.Seek(0, SeekOrigin.Begin);
-						await _cachedStream.CopyToAsync(outputStream);
+						outputStream = _compressionStream;
+						_currentCompressor.AppendHttpHeaders(appendHttpHeader);
 					}
+					else
+					{
+						outputStream = _originalStream;
+					}
+
+					_cachedStream.Seek(0, SeekOrigin.Begin);
+					await _cachedStream.CopyToAsync(outputStream);
 				}
 
 				_cachedStream.Clear();

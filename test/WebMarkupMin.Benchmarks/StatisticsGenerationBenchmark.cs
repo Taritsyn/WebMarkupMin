@@ -8,13 +8,13 @@ using WebMarkupMin.Core;
 namespace WebMarkupMin.Benchmarks
 {
 	[MemoryDiagnoser]
-	public class StatisticsGeneration
+	public class StatisticsGenerationBenchmark
 	{
 		private static readonly HtmlMinifier s_minifier = new HtmlMinifier();
 		private static readonly string s_content = null;
 
 
-		static StatisticsGeneration()
+		static StatisticsGenerationBenchmark()
 		{
 			string absoluteDirectoryPath = Utils.GetAbsoluteDirectoryPath("../../../Files/html");
 			string absoluteFilePath = Path.Combine(absoluteDirectoryPath, "josh-ducks-periodic-table.html");
@@ -26,13 +26,18 @@ namespace WebMarkupMin.Benchmarks
 		[Benchmark(Baseline = true)]
 		public void StatisticsDisabled()
 		{
-			string minifiedContent = s_minifier.Minify(s_content, false).MinifiedContent;
+			Process(false);
 		}
 
 		[Benchmark]
 		public void StatisticsEnabled()
 		{
-			string minifiedContent = s_minifier.Minify(s_content, true).MinifiedContent;
+			Process(true);
+		}
+
+		private static void Process(bool generateStatistics)
+		{
+			string minifiedContent = s_minifier.Minify(s_content, generateStatistics).MinifiedContent;
 		}
 	}
 }
