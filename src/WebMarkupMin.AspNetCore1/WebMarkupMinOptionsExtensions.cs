@@ -1,9 +1,17 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿#if ASPNETCORE1 || ASPNETCORE2
+using Microsoft.AspNetCore.Hosting;
+#elif ASPNETCORE3
+using Microsoft.Extensions.Hosting;
+#else
+#error No implementation for this target
+#endif
 
 #if ASPNETCORE1
 namespace WebMarkupMin.AspNetCore1
 #elif ASPNETCORE2
 namespace WebMarkupMin.AspNetCore2
+#elif ASPNETCORE3
+namespace WebMarkupMin.AspNetCore3
 #else
 #error No implementation for this target
 #endif

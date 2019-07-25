@@ -71,8 +71,6 @@
     <Compile Include="..\WebMarkupMin.AspNetCore1\XmlMinificationManager.cs" Link="XmlMinificationManager.cs" />
     <Compile Include="..\WebMarkupMin.AspNetCore1\XmlMinificationOptions.cs" Link="XmlMinificationOptions.cs" />
 
-    <Folder Include="Internal\" />
-
     <Content Include="readme.txt">
       <PackagePath>readme.txt</PackagePath>
       <Pack>true</Pack>

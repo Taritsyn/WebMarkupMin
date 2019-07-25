@@ -4,6 +4,8 @@
 namespace WebMarkupMin.AspNetCore1
 #elif ASPNETCORE2
 namespace WebMarkupMin.AspNetCore2
+#elif ASPNETCORE3
+namespace WebMarkupMin.AspNetCore3
 #else
 #error No implementation for this target
 #endif

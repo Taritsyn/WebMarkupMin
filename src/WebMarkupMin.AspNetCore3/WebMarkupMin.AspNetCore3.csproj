@@ -1,0 +1,71 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Product>Web Markup Minifier: ASP.NET Core 3.X</Product>
+    <VersionPrefix>2.5.9</VersionPrefix>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <DefineConstants>$(DefineConstants);ASPNETCORE3</DefineConstants>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
+    <Description>WebMarkupMin.AspNetCore3 contains one ASP.NET Core 3.X Middleware - `WebMarkupMinMiddleware`.</Description>
+    <PackageTags>WebMarkupMin;ASP.NET;Middleware;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
+  </PropertyGroup>
+
+  <Import Project="../../build/common.props" />
+  <Import Project="../../build/strong-name-signing.props" />
+  <Import Project="../../build/nuget-metadata.props" />
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="3.0.0-preview7.19365.7" />
+
+    <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha6" PrivateAssets="All" />
+
+    <ProjectReference Include="..\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\WebMarkupMin.AspNetCore1\BodyWrapperStream.cs" Link="BodyWrapperStream.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\BuilderExtensions.cs" Link="BuilderExtensions.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\CommonHtmlMinificationOptionsBase.cs" Link="CommonHtmlMinificationOptionsBase.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\ContentProcessingOptionsBase.cs" Link="ContentProcessingOptionsBase.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\HeaderDictionaryExtensions.cs" Link="HeaderDictionaryExtensions.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\HtmlMinificationManager.cs" Link="HtmlMinificationManager.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\HtmlMinificationOptions.cs" Link="HtmlMinificationOptions.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\HtmlMinificationOptionsSetup.cs" Link="HtmlMinificationOptionsSetup.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\HttpCompressionManager.cs" Link="HttpCompressionManager.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\HttpCompressionOptions.cs" Link="HttpCompressionOptions.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\Internal\WebMarkupMinMarkerService.cs" Link="Internal\WebMarkupMinMarkerService.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\Internal\WebMarkupMinServicesHelper.cs" Link="Internal\WebMarkupMinServicesHelper.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\MarkupMinificationOptionsBase.cs" Link="MarkupMinificationOptionsBase.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\WebMarkupMinMiddleware.cs" Link="WebMarkupMinMiddleware.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\WebMarkupMinOptions.cs" Link="WebMarkupMinOptions.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\WebMarkupMinOptionsExtensions.cs" Link="WebMarkupMinOptionsExtensions.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\WebMarkupMinOptionsSetup.cs" Link="WebMarkupMinOptionsSetup.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\WebMarkupMinServiceCollectionExtensions.cs" Link="WebMarkupMinServiceCollectionExtensions.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\WebMarkupMinServicesBuilder.cs" Link="WebMarkupMinServicesBuilder.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\XhtmlMinificationManager.cs" Link="XhtmlMinificationManager.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\XhtmlMinificationOptions.cs" Link="XhtmlMinificationOptions.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\XhtmlMinificationOptionsSetup.cs" Link="XhtmlMinificationOptionsSetup.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\XmlMinificationManager.cs" Link="XmlMinificationManager.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\XmlMinificationOptions.cs" Link="XmlMinificationOptions.cs" />
+
+    <Content Include="readme.txt">
+      <PackagePath>readme.txt</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Strings.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <Target Name="СonvertResxToCs" BeforeTargets="BeforeCompile">
+    <ResxToCsTask InputDirectory="./Resources/" Namespace="$(RootNamespace).Resources" InternalAccessModifier="true" />
+  </Target>
+
+</Project>

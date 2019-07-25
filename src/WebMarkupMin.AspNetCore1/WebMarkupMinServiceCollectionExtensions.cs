@@ -7,6 +7,8 @@ using Microsoft.Extensions.Options;
 using WebMarkupMin.AspNetCore1.Internal;
 #elif ASPNETCORE2
 using WebMarkupMin.AspNetCore2.Internal;
+#elif ASPNETCORE3
+using WebMarkupMin.AspNetCore3.Internal;
 #else
 #error No implementation for this target
 #endif
@@ -17,6 +19,8 @@ using WebMarkupMin.Core.Loggers;
 namespace WebMarkupMin.AspNetCore1
 #elif ASPNETCORE2
 namespace WebMarkupMin.AspNetCore2
+#elif ASPNETCORE3
+namespace WebMarkupMin.AspNetCore3
 #else
 #error No implementation for this target
 #endif

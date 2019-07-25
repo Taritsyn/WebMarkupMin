@@ -1,12 +1,20 @@
 ﻿using System;
 
-using Microsoft.AspNetCore.Hosting;
+#if ASPNETCORE1 || ASPNETCORE2
+using HostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
+#elif ASPNETCORE3
+using HostingEnvironment = Microsoft.AspNetCore.Hosting.IWebHostEnvironment;
+#else
+#error No implementation for this target
+#endif
 using Microsoft.Extensions.Options;
 
 #if ASPNETCORE1
 namespace WebMarkupMin.AspNetCore1
 #elif ASPNETCORE2
 namespace WebMarkupMin.AspNetCore2
+#elif ASPNETCORE3
+namespace WebMarkupMin.AspNetCore3
 #else
 #error No implementation for this target
 #endif
@@ -19,13 +27,13 @@ namespace WebMarkupMin.AspNetCore2
 		/// <summary>
 		/// Hosting environment
 		/// </summary>
-		private readonly IHostingEnvironment _hostingEnvironment;
+		private readonly HostingEnvironment _hostingEnvironment;
 
 
 		/// <summary>
 		/// Constructs a instance of <see cref="WebMarkupMinOptionsSetup"/>
 		/// </summary>
-		public WebMarkupMinOptionsSetup(IHostingEnvironment hostingEnvironment)
+		public WebMarkupMinOptionsSetup(HostingEnvironment hostingEnvironment)
 			: base(ConfigureWebMarkupMinOptions)
 		{
 			_hostingEnvironment = hostingEnvironment;

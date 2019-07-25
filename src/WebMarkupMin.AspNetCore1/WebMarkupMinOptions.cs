@@ -1,7 +1,13 @@
 ﻿using System;
 using System.Text;
 
-using Microsoft.AspNetCore.Hosting;
+#if ASPNETCORE1 || ASPNETCORE2
+using HostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
+#elif ASPNETCORE3
+using HostingEnvironment = Microsoft.AspNetCore.Hosting.IWebHostEnvironment;
+#else
+#error No implementation for this target
+#endif
 
 using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.Core;
@@ -10,6 +16,8 @@ using WebMarkupMin.Core;
 namespace WebMarkupMin.AspNetCore1
 #elif ASPNETCORE2
 namespace WebMarkupMin.AspNetCore2
+#elif ASPNETCORE3
+namespace WebMarkupMin.AspNetCore3
 #else
 #error No implementation for this target
 #endif
@@ -66,7 +74,7 @@ namespace WebMarkupMin.AspNetCore2
 		/// <summary>
 		/// Gets or sets a instance of hosting environment
 		/// </summary>
-		public IHostingEnvironment HostingEnvironment
+		public HostingEnvironment HostingEnvironment
 		{
 			get;
 			set;

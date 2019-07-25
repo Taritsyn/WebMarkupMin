@@ -21,6 +21,8 @@ using AspNetCommonStrings = WebMarkupMin.AspNet.Common.Resources.Strings;
 namespace WebMarkupMin.AspNetCore1
 #elif ASPNETCORE2
 namespace WebMarkupMin.AspNetCore2
+#elif ASPNETCORE3
+namespace WebMarkupMin.AspNetCore3
 #else
 #error No implementation for this target
 #endif
@@ -164,7 +166,7 @@ namespace WebMarkupMin.AspNetCore2
 						if (MediaTypeHeaderValue.TryParse(contentType, out mediaTypeHeader))
 						{
 							mediaType = mediaTypeHeader.MediaType
-#if ASPNETCORE2
+#if ASPNETCORE2 || ASPNETCORE3
 								.Value
 #endif
 								.ToLowerInvariant()
@@ -343,7 +345,7 @@ namespace WebMarkupMin.AspNetCore2
 				_cachedStream.Clear();
 			}
 		}
-#if NET451 || NETSTANDARD2_0
+#if NET451 || NETSTANDARD2_0 || NETCOREAPP3_0
 
 		private async void InternalWriteAsync(byte[] buffer, int offset, int count, AsyncCallback callback,
 			TaskCompletionSource<object> tcs)
@@ -405,7 +407,7 @@ namespace WebMarkupMin.AspNetCore2
 		}
 
 
-#if NET451 || NETSTANDARD2_0
+#if NET451 || NETSTANDARD2_0 || NETCOREAPP3_0
 		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback,
 			object state)
 		{
@@ -546,6 +548,29 @@ namespace WebMarkupMin.AspNetCore2
 
 			base.Dispose(disposing);
 		}
+#if NETCOREAPP3_0
+
+		public override async ValueTask DisposeAsync()
+		{
+			if (_compressionStream != null)
+			{
+				await _compressionStream.DisposeAsync();
+				_compressionStream = null;
+			}
+
+			_currentCompressor = null;
+
+			if (_cachedStream != null)
+			{
+				await _cachedStream.DisposeAsync();
+				_cachedStream = null;
+			}
+
+			_currentMinificationManager = null;
+
+			await base.DisposeAsync();
+		}
+#endif
 
 		#endregion
 
