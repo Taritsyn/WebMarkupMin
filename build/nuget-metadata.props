@@ -8,8 +8,15 @@
     <PackageIconUrl>https://raw.githubusercontent.com/Taritsyn/WebMarkupMin/master/images/WebMarkupMin_Logo_128x128.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/Taritsyn/WebMarkupMin</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
   <Import Project="nuget-common.props" />
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19367-01" PrivateAssets="All" />
+  </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
     <PackageOutputPath>../../nuget</PackageOutputPath>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
   </PropertyGroup>
 </Project>
