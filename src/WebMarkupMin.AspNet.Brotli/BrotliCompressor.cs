@@ -1,7 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.IO.Compression;
+#if !NETSTANDARD2_1
 
 using BrotliSharpLib;
+#endif
 
 using WebMarkupMin.AspNet.Common.Compressors;
 
@@ -63,8 +66,30 @@ namespace WebMarkupMin.AspNet.Brotli
 		/// <returns>The compressed stream</returns>
 		public Stream Compress(Stream stream)
 		{
+#if NETSTANDARD2_1
+			CompressionLevel compressionLevel;
+
+			switch (_settings.Level)
+			{
+				case 0:
+					compressionLevel = CompressionLevel.NoCompression;
+					break;
+				case 1:
+				case 2:
+					compressionLevel = CompressionLevel.Fastest;
+					break;
+				case int level when level >= 3 && level <= 11:
+					compressionLevel = (CompressionLevel)level;
+					break;
+				default:
+					throw new NotSupportedException();
+			}
+
+			var brotliStream = new BrotliStream(stream, compressionLevel);
+#else
 			var brotliStream = new BrotliStream(stream, CompressionMode.Compress);
 			brotliStream.SetQuality(_settings.Level);
+#endif
 
 			return brotliStream;
 		}

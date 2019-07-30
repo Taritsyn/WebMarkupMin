@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using WebMarkupMin.AspNet.Brotli;
 using WebMarkupMin.AspNet.Common.Compressors;
 using WebMarkupMin.AspNetCore3;
 using WebMarkupMin.Core;
@@ -57,6 +58,10 @@ namespace WebMarkupMin.Sample.AspNetCore3.Mvc3
 				{
 					options.CompressorFactories = new List<ICompressorFactory>
 					{
+						new BrotliCompressorFactory(new BrotliCompressionSettings
+						{
+							Level = 1
+						}),
 						new DeflateCompressorFactory(new DeflateCompressionSettings
 						{
 							Level = CompressionLevel.Fastest
