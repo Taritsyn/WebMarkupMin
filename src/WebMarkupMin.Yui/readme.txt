@@ -1,11 +1,11 @@
 
 
    --------------------------------------------------------------------------------
-                    README file for Web Markup Minifier: YUI v2.5.5
+                    README file for Web Markup Minifier: YUI v2.6.0
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2018 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2019 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========
@@ -15,13 +15,6 @@
    of CSS code) and `YuiJsMinifier` (for minification of JS code). These adapters
    perform minification using the YUI Compressor for .NET
    (https://github.com/YUICompressor-NET/YUICompressor.NET).
-
-   =============
-   RELEASE NOTES
-   =============
-   1. Improved performance of adapters for the YUI Compressor;
-   2. In configuration settings of JS minifier was added one new property -
-      `WarningLevel` (default `0`).
 
    =============
    DOCUMENTATION

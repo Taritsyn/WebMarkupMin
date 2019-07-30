@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                   README file for Web Markup Minifier: Core v2.5.8
+                   README file for Web Markup Minifier: Core v2.6.0
 
    --------------------------------------------------------------------------------
 
@@ -47,7 +47,8 @@
    RELEASE NOTES
    =============
    1. Part of the auxiliary code was replaced by the AdvancedStringBuilder library;
-   2. Improved a performance of statistics generation.
+   2. Slightly improved performance of markup minification;
+   3. Optimized a memory usage during generation of statistics.
 
    =============
    DOCUMENTATION

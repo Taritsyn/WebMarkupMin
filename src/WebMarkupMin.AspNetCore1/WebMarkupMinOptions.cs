@@ -29,7 +29,7 @@ namespace WebMarkupMin.AspNetCore3
 	{
 		/// <summary>
 		/// The default encoding that will be used if the content encoding
-		/// could not be determined for the current HTTP request
+		/// could not be determined for the current HTTP response
 		/// </summary>
 		private Encoding _defaultEncoding;
 
@@ -55,7 +55,7 @@ namespace WebMarkupMin.AspNetCore3
 
 		/// <summary>
 		/// Gets or sets a default encoding that will be used if the content encoding
-		/// could not be determined for the current HTTP request
+		/// could not be determined for the current HTTP response
 		/// </summary>
 		public Encoding DefaultEncoding
 		{

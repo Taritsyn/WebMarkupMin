@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: ASP.NET 4.X Web Forms</Product>
-    <VersionPrefix>2.5.0</VersionPrefix>
+    <VersionPrefix>2.6.0</VersionPrefix>
     <TargetFrameworks>net40;net45</TargetFrameworks>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -12,9 +12,6 @@
 
 Сlasses of the Web Forms pages and master pages cannot be used together.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;WebForms;Markup;HTML;XHTML;Minification;Minifier;Minify</PackageTags>
-    <PackageReleaseNotes>1. Added support of .NET Framework 4.5;
-2. Now the `NullLogger` class is used as the default logger;
-3. Now, by default, the GZip algorithm has a higher priority than the Deflate.</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />

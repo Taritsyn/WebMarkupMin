@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: ASP.NET 4.X Common</Product>
-    <VersionPrefix>2.5.0</VersionPrefix>
+    <VersionPrefix>2.6.0</VersionPrefix>
     <TargetFrameworks>net40;net45</TargetFrameworks>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -10,9 +10,6 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Description>WebMarkupMin.AspNet4.Common is auxiliary package, that contains classes for ASP.NET 4.X extensions.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
-    <PackageReleaseNotes>1. Added support of .NET Framework 4.5;
-2. Now the `NullLogger` class is used as the default logger;
-3. Now, by default, the GZip algorithm has a higher priority than the Deflate.</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />

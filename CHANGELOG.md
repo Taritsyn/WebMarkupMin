@@ -1,6 +1,17 @@
 Change log
 ==========
 
+## v2.6.0 - July 30, 2019
+ * Part of the auxiliary code was replaced by the [AdvancedStringBuilder](https://github.com/Taritsyn/AdvancedStringBuilder) library
+ * Slightly improved performance of markup minification
+ * Optimized a memory usage during generation of statistics
+ * Enabled a SourceLink in NuGet packages
+ * In WebMarkupMin.AspNet.Brotli added support of ASP.NET Core 3.0
+ * In WebMarkupMin.AspNetCore1 and WebMarkupMin.AspNetCore2:
+   * In WebMarkupMin options was added one new property - `DefaultEncoding` (default `Encoding.Default`)
+   * Optimized a memory usage
+ * Created the WebMarkupMin.AspNetCore3 module, that contains middleware for ASP.NET Core 3.0
+
 ## v2.5.9 - June 5, 2019
  * In WebMarkupMin.NUglify added support of the NUglify version 1.5.13
 

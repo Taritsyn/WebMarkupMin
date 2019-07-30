@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-            README file for Web Markup Minifier: Brotli for ASP.NET v2.5.6
+            README file for Web Markup Minifier: Brotli for ASP.NET v2.6.0
 
    --------------------------------------------------------------------------------
 

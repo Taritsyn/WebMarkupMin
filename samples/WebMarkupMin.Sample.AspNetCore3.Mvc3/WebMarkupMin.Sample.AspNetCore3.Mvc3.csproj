@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: Sample ASP.NET Core 3.0 MVC 3 Site</Product>
-    <VersionPrefix>2.5.9</VersionPrefix>
+    <VersionPrefix>2.6.0</VersionPrefix>
+    <VersionSuffix>preview1</VersionSuffix>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <OutputType>Exe</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>

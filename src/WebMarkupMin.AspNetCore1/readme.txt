@@ -1,11 +1,11 @@
 
 
    --------------------------------------------------------------------------------
-             README file for Web Markup Minifier: ASP.NET Core 1.X v2.5.0
+             README file for Web Markup Minifier: ASP.NET Core 1.X v2.6.0
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2018 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2019 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========
@@ -19,7 +19,7 @@
    =============
    1. In WebMarkupMin options was added one new property - `DefaultEncoding`
       (default `Encoding.Default`);
-   2. Optimized memory usage.
+   2. Optimized a memory usage.
 
    =============
    DOCUMENTATION

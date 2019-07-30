@@ -1,11 +1,11 @@
 
 
    --------------------------------------------------------------------------------
-                  README file for Web Markup Minifier: MS Ajax v2.5.5
+                  README file for Web Markup Minifier: MS Ajax v2.6.0
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2018 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2019 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========
