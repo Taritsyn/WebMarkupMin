@@ -8,7 +8,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Description>WebMarkupMin.MsAjax contains 2 minifier-adapters: `MsAjaxCssMinifier` (for minification of CSS code) and `MsAjaxJsMinifier` (for minification of JS code). These adapters perform minification using the Microsoft Ajax Minifier (https://ajaxmin.codeplex.com).</Description>
+    <Description>WebMarkupMin.MsAjax contains 2 minifier-adapters: `MsAjaxCssMinifier` (for minification of CSS code) and `MsAjaxJsMinifier` (for minification of JS code). These adapters perform minification using the Microsoft Ajax Minifier (https://github.com/microsoft/ajaxmin).</Description>
     <PackageTags>WebMarkupMin;Markup;HTML;XHTML;CSS;JavaScript;JS;Minification;Minifier;Minify;Microsoft;AjaxMin</PackageTags>
     <PackageReleaseNotes>Part of the auxiliary code was replaced by the AdvancedStringBuilder library.</PackageReleaseNotes>
   </PropertyGroup>

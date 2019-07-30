@@ -35,8 +35,8 @@
    CSS and JavaScript code, but you can always install additional modules that
    support the more powerful algorithms of minification: WebMarkupMin.MsAjax
    (contains minifier-adapters for the Microsoft Ajax Minifier -
-   https://ajaxmin.codeplex.com), WebMarkupMin.Yui (contains minifier-adapters
-   for YUI Compressor for .Net -
+   https://github.com/microsoft/ajaxmin), WebMarkupMin.Yui (contains
+   minifier-adapters for YUI Compressor for .NET -
    https://github.com/YUICompressor-NET/YUICompressor.NET) and WebMarkupMin.NUglify
    (contains minifier-adapters for the NUglify - https://github.com/xoofx/NUglify).
 
