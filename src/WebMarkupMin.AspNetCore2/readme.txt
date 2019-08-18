@@ -15,13 +15,6 @@
    `WebMarkupMinMiddleware`.
 
    =============
-   RELEASE NOTES
-   =============
-   1. In WebMarkupMin options was added one new property - `DefaultEncoding`
-      (default `Encoding.Default`);
-   2. Optimized a memory usage.
-
-   =============
    DOCUMENTATION
    =============
    See documentation on GitHub - https://github.com/Taritsyn/WebMarkupMin/wiki

@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;
 
@@ -28,14 +27,14 @@ namespace WebMarkupMin.AspNetCore3
 #endif
 {
 	/// <summary>
-	/// Stream wrapper that apply a markup minification and compression only if necessary
+	/// Base class of stream wrapper that apply a markup minification and compression only if necessary
 	/// </summary>
-	internal sealed class BodyWrapperStream : Stream, IHttpBufferingFeature
+	internal abstract class BodyWrapperStreamBase : Stream
 	{
 		/// <summary>
 		/// HTTP context
 		/// </summary>
-		private readonly HttpContext _context;
+		protected readonly HttpContext _context;
 
 		/// <summary>
 		/// Original stream
@@ -55,7 +54,7 @@ namespace WebMarkupMin.AspNetCore3
 		/// <summary>
 		/// Flag for whether to do automatically flush the compression stream
 		/// </summary>
-		private bool _autoFlushCompressionStream = false;
+		protected bool _autoFlushCompressionStream = false;
 
 		/// <summary>
 		/// WebMarkupMin configuration
@@ -73,11 +72,6 @@ namespace WebMarkupMin.AspNetCore3
 		private readonly IHttpCompressionManager _compressionManager;
 
 		/// <summary>
-		/// HTTP buffering feature
-		/// </summary>
-		private readonly IHttpBufferingFeature _bufferingFeature;
-
-		/// <summary>
 		/// Flag indicating whether the stream wrapper is initialized
 		/// </summary>
 		private InterlockedStatedFlag _wrapperInitializedFlag = new InterlockedStatedFlag();
@@ -85,12 +79,12 @@ namespace WebMarkupMin.AspNetCore3
 		/// <summary>
 		/// Flag indicating whether a markup minification is enabled
 		/// </summary>
-		private bool _minificationEnabled = false;
+		protected bool _minificationEnabled = false;
 
 		/// <summary>
 		/// Flag indicating whether a HTTP compression is enabled
 		/// </summary>
-		private bool _compressionEnabled = false;
+		protected bool _compressionEnabled = false;
 
 		/// <summary>
 		/// Current URL
@@ -110,7 +104,7 @@ namespace WebMarkupMin.AspNetCore3
 		/// <summary>
 		/// Current HTTP compressor
 		/// </summary>
-		private ICompressor _currentCompressor;
+		protected ICompressor _currentCompressor;
 
 		/// <summary>
 		/// Flag indicating whether the current HTTP compressor is initialized
@@ -122,6 +116,11 @@ namespace WebMarkupMin.AspNetCore3
 		/// </summary>
 		private InterlockedStatedFlag _httpHeadersModifiedForCompressionFlag = new InterlockedStatedFlag();
 
+		/// <summary>
+		/// Flag that the stream wrapper is destroyed
+		/// </summary>
+		private InterlockedStatedFlag _disposedFlag = new InterlockedStatedFlag();
+
 
 		/// <summary>
 		/// Constructs an instance of the stream wrapper
@@ -131,21 +130,19 @@ namespace WebMarkupMin.AspNetCore3
 		/// <param name="options">WebMarkupMin configuration</param>
 		/// <param name="minificationManagers">List of markup minification managers</param>
 		/// <param name="compressionManager">HTTP compression manager</param>
-		/// <param name="bufferingFeature">HTTP buffering feature</param>
-		internal BodyWrapperStream(HttpContext context, Stream originalStream,
+		protected BodyWrapperStreamBase(HttpContext context, Stream originalStream,
 			WebMarkupMinOptions options, IList<IMarkupMinificationManager> minificationManagers,
-			IHttpCompressionManager compressionManager, IHttpBufferingFeature bufferingFeature)
+			IHttpCompressionManager compressionManager)
 		{
 			_context = context;
 			_originalStream = originalStream;
 			_options = options;
 			_minificationManagers = minificationManagers;
 			_compressionManager = compressionManager;
-			_bufferingFeature = bufferingFeature;
 		}
 
 
-		private void Initialize()
+		protected void Initialize()
 		{
 			if (_wrapperInitializedFlag.Set())
 			{
@@ -235,7 +232,7 @@ namespace WebMarkupMin.AspNetCore3
 			}
 		}
 
-		private ICompressor InitializeCurrentCompressor(string acceptEncoding)
+		protected ICompressor InitializeCurrentCompressor(string acceptEncoding)
 		{
 			if (_currentCompressorInitializedFlag.Set())
 			{
@@ -258,8 +255,40 @@ namespace WebMarkupMin.AspNetCore3
 				responseHeaders.Remove(HeaderNames.ContentLength);
 			}
 		}
+#if NET451 || NETSTANDARD2_0 || NETCOREAPP3_0
 
-		public async Task Finish()
+		private async void InternalWriteAsync(byte[] buffer, int offset, int count, AsyncCallback callback,
+			TaskCompletionSource<object> tcs)
+		{
+			try
+			{
+				await WriteAsync(buffer, offset, count);
+				tcs.TrySetResult(null);
+			}
+			catch (Exception ex)
+			{
+				tcs.TrySetException(ex);
+			}
+
+			if (callback != null)
+			{
+				// Offload callbacks to avoid stack dives on sync completions
+				var ignored = Task.Run(() =>
+				{
+					try
+					{
+						callback(tcs.Task);
+					}
+					catch (Exception)
+					{
+						// Suppress exceptions on background threads
+					}
+				});
+			}
+		}
+#endif
+
+		protected async Task InternalFinishAsync()
 		{
 			if (_minificationEnabled)
 			{
@@ -345,38 +374,11 @@ namespace WebMarkupMin.AspNetCore3
 				_cachedStream.Clear();
 			}
 		}
-#if NET451 || NETSTANDARD2_0 || NETCOREAPP3_0
 
-		private async void InternalWriteAsync(byte[] buffer, int offset, int count, AsyncCallback callback,
-			TaskCompletionSource<object> tcs)
+		public virtual async Task FinishAsync()
 		{
-			try
-			{
-				await WriteAsync(buffer, offset, count);
-				tcs.TrySetResult(null);
-			}
-			catch (Exception ex)
-			{
-				tcs.TrySetException(ex);
-			}
-
-			if (callback != null)
-			{
-				// Offload callbacks to avoid stack dives on sync completions
-				var ignored = Task.Run(() =>
-				{
-					try
-					{
-						callback(tcs.Task);
-					}
-					catch (Exception)
-					{
-						// Suppress exceptions on background threads
-					}
-				});
-			}
+			await Task.Run(() => throw new NotImplementedException());
 		}
-#endif
 
 		#region Stream overrides
 
@@ -527,11 +529,39 @@ namespace WebMarkupMin.AspNetCore3
 
 		protected override void Dispose(bool disposing)
 		{
-			if (disposing)
+			if (_disposedFlag.Set())
+			{
+				if (disposing)
+				{
+					if (_compressionStream != null)
+					{
+						_compressionStream.Dispose();
+						_compressionStream = null;
+					}
+
+					_currentCompressor = null;
+
+					if (_cachedStream != null)
+					{
+						_cachedStream.Dispose();
+						_cachedStream = null;
+					}
+
+					_currentMinificationManager = null;
+				}
+
+				base.Dispose(disposing);
+			}
+		}
+#if NETCOREAPP3_0
+
+		public override async ValueTask DisposeAsync()
+		{
+			if (_disposedFlag.Set())
 			{
 				if (_compressionStream != null)
 				{
-					_compressionStream.Dispose();
+					await _compressionStream.DisposeAsync();
 					_compressionStream = null;
 				}
 
@@ -539,67 +569,16 @@ namespace WebMarkupMin.AspNetCore3
 
 				if (_cachedStream != null)
 				{
-					_cachedStream.Dispose();
+					await _cachedStream.DisposeAsync();
 					_cachedStream = null;
 				}
 
 				_currentMinificationManager = null;
+
+				await base.DisposeAsync();
 			}
-
-			base.Dispose(disposing);
-		}
-#if NETCOREAPP3_0
-
-		public override async ValueTask DisposeAsync()
-		{
-			if (_compressionStream != null)
-			{
-				await _compressionStream.DisposeAsync();
-				_compressionStream = null;
-			}
-
-			_currentCompressor = null;
-
-			if (_cachedStream != null)
-			{
-				await _cachedStream.DisposeAsync();
-				_cachedStream = null;
-			}
-
-			_currentMinificationManager = null;
-
-			await base.DisposeAsync();
 		}
 #endif
-
-		#endregion
-
-		#region IHttpBufferingFeature implementation
-
-		public void DisableRequestBuffering()
-		{
-			_bufferingFeature?.DisableRequestBuffering();
-		}
-
-		public void DisableResponseBuffering()
-		{
-			string acceptEncoding = _context.Request.Headers[HeaderNames.AcceptEncoding];
-			ICompressor compressor = InitializeCurrentCompressor(acceptEncoding);
-
-			if (compressor?.SupportsFlush == false)
-			{
-				// Some of the compressors don't support flushing which would block real-time
-				// responses like SignalR.
-				_compressionEnabled = false;
-				_currentCompressor = null;
-			}
-			else
-			{
-				_autoFlushCompressionStream = true;
-			}
-
-			_bufferingFeature?.DisableResponseBuffering();
-		}
 
 		#endregion
 	}

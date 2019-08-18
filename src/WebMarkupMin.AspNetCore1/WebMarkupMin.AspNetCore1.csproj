@@ -13,8 +13,6 @@
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
     <Description>WebMarkupMin.AspNetCore1 contains one ASP.NET Core 1.X Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Middleware;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
-    <PackageReleaseNotes>1. In WebMarkupMin options was added one new property - `DefaultEncoding` (default `Encoding.Default`);
-2. Optimized a memory usage.</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />
