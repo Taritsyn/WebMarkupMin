@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## v2.6.1 - August 18, 2019
+ * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.0 Preview 8
+
 ## v2.6.0 - July 30, 2019
  * Part of the auxiliary code was replaced by the [AdvancedStringBuilder](https://github.com/Taritsyn/AdvancedStringBuilder) library
  * Slightly improved performance of markup minification
