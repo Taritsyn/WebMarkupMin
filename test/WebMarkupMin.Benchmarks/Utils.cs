@@ -11,7 +11,7 @@ namespace WebMarkupMin.Benchmarks
 		{
 			string baseDirectoryPath = AppDomain.CurrentDomain.BaseDirectory;
 			string absoluteDirectoryPath = Path.GetFullPath(Path.Combine(baseDirectoryPath, directoryPath));
-#if NETCOREAPP2_0
+#if NETCOREAPP
 
 			if (!Directory.Exists(absoluteDirectoryPath))
 			{

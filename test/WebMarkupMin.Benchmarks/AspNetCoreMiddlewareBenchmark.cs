@@ -4,18 +4,29 @@ using System.Threading.Tasks;
 
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Diagnosers;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using Moq;
+#if NET461 || NETCOREAPP2_0
+using Environments = Microsoft.AspNetCore.Hosting.EnvironmentName;
+using HostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
+#elif NETCOREAPP3_0
+using Environments = Microsoft.Extensions.Hosting.Environments;
+using HostingEnvironment = Microsoft.AspNetCore.Hosting.IWebHostEnvironment;
+#else
+#error No implementation for this target
+#endif
 
 using WebMarkupMin.AspNet.Common;
 #if NET461
 using WebMarkupMin.AspNetCore1;
-#endif
-#if NETCOREAPP2_0
+#elif NETCOREAPP2_0
 using WebMarkupMin.AspNetCore2;
+#elif NETCOREAPP3_0
+using WebMarkupMin.AspNetCore3;
+#else
+#error No implementation for this target
 #endif
 using WebMarkupMin.Core;
 using WebMarkupMin.Core.Loggers;
@@ -28,7 +39,7 @@ namespace WebMarkupMin.Benchmarks
 		private static readonly string s_content = null;
 
 		private IServiceProvider _services;
-		private IHostingEnvironment _environment;
+		private HostingEnvironment _environment;
 
 
 		static AspNetCoreMiddlewareBenchmark()
@@ -59,10 +70,10 @@ namespace WebMarkupMin.Benchmarks
 				.Returns(new HttpCompressionManager(Options.Create(new HttpCompressionOptions())))
 				;
 
-			var mockEnvironment = new Mock<IHostingEnvironment>();
+			var mockEnvironment = new Mock<HostingEnvironment>();
 			mockEnvironment
 				.Setup(m => m.EnvironmentName)
-				.Returns(EnvironmentName.Production)
+				.Returns(Environments.Production)
 				;
 
 			_services = mockServices.Object;

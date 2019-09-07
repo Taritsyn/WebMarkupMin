@@ -17,7 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   Added support of ASP.NET Core 3.0 Preview 8.
+   Added support of ASP.NET Core 3.0 Preview 9.
 
    =============
    DOCUMENTATION
