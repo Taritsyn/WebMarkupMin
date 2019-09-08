@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## v2.6.2 - September 8, 2019
+ * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.0 Preview 9
+
 ## v2.6.1 - August 18, 2019
  * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.0 Preview 8
 

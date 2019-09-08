@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: ASP.NET Core 3.X</Product>
-    <VersionPrefix>2.6.1</VersionPrefix>
-    <VersionSuffix>preview2</VersionSuffix>
+    <VersionPrefix>2.6.2</VersionPrefix>
+    <VersionSuffix>preview3</VersionSuffix>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <OutputType>Library</OutputType>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
