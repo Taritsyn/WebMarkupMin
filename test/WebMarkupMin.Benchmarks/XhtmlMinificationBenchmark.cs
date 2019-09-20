@@ -48,7 +48,8 @@ namespace WebMarkupMin.Benchmarks
 				MinifyEmbeddedCssCode = false,
 				MinifyInlineCssCode = false,
 				MinifyEmbeddedJsCode = false,
-				MinifyInlineJsCode = false
+				MinifyInlineJsCode = false,
+				RemoveRedundantAttributes = true
 			};
 			var minifier = new WmmMinifier(settings, new WmmNullCssMinifier(), new WmmNullJsMinifier());
 			string minifiedContent = minifier.Minify(s_documents[DocumentName].Content).MinifiedContent;

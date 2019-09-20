@@ -72,7 +72,7 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Gets or sets a flag for whether to remove attributes, that has empty value
 		/// (valid attributes are: <code>class</code>, <code>id</code>, <code>name</code>,
-		/// <code>style</code>, <code>title</code>, <code>lang</code>, <code>dir</code>, event attributes,
+		/// <code>style</code>, <code>title</code>, <code>lang</code>, event attributes,
 		/// <code>action</code> of <code>form</code> tag and <code>value</code> of <code>input</code> tag)
 		/// </summary>
 		public bool RemoveEmptyAttributes

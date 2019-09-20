@@ -126,7 +126,7 @@ namespace WebMarkupMin.Core
 
 		private static readonly HashSet<string> _emptyAttributesForRemoval = new HashSet<string>
 		{
-			"class", "id", "name", "style", "title", "lang", "dir"
+			"class", "id", "name", "style", "title", "lang"
 		};
 
 		private static readonly HashSet<string> _tagsWithNotRemovableWhitespace = new HashSet<string>
@@ -1478,23 +1478,55 @@ namespace WebMarkupMin.Core
 			List<HtmlAttribute> attributes = tag.Attributes;
 			string attributeNameInLowercase = attribute.NameInLowercase;
 			string attributeValue = attribute.Value;
-			string processedAttributeValue = attributeValue.Trim();
+			bool isAttributeRedundant = false;
 
-			return (
-				(tagNameInLowercase == "script"
-					&& ((attributeNameInLowercase == "language" && processedAttributeValue.IgnoreCaseEquals("javascript"))
-					|| (attributeNameInLowercase == "charset" && attributes.All(a => a.NameInLowercase != "src"))))
-				|| (tagNameInLowercase == "link" && attributeNameInLowercase == "charset" && attributes.Any(
-					a => a.NameInLowercase == "rel" && a.Value.Trim().IgnoreCaseEquals("stylesheet")))
-				|| (tagNameInLowercase == "form" && attributeNameInLowercase == "method"
-					&& processedAttributeValue.IgnoreCaseEquals("get"))
-				|| (tagNameInLowercase == "input" && attributeNameInLowercase == "type"
-					&& processedAttributeValue.IgnoreCaseEquals("text"))
-				|| (tagNameInLowercase == "a" && attributeNameInLowercase == "name" && attributes.Any(
-					a => a.NameInLowercase == "id" && a.Value == attributeValue))
-				|| (tagNameInLowercase == "area" && attributeNameInLowercase == "shape"
-					&& processedAttributeValue.IgnoreCaseEquals("rect"))
-			);
+			switch (tagNameInLowercase)
+			{
+				case "a":
+					isAttributeRedundant = attributeNameInLowercase == "name" && attributes.Any(
+						a => a.NameInLowercase == "id" && a.Value == attributeValue);
+					break;
+
+				case "area":
+					isAttributeRedundant = attributeNameInLowercase == "shape"
+						&& attributeValue.IgnoreCaseEquals("rect");
+					break;
+
+				case "button":
+					isAttributeRedundant = attributeNameInLowercase == "type"
+						&& attributeValue.IgnoreCaseEquals("submit");
+					break;
+
+				case "form":
+					isAttributeRedundant = (attributeNameInLowercase == "autocomplete" && attributeValue.IgnoreCaseEquals("on"))
+						|| (attributeNameInLowercase == "enctype" && attributeValue.IgnoreCaseEquals("application/x-www-form-urlencoded"))
+						|| (attributeNameInLowercase == "method" && attributeValue.IgnoreCaseEquals("get"));
+					break;
+
+				case "img":
+					isAttributeRedundant = attributeNameInLowercase == "decoding" && attributeValue.IgnoreCaseEquals("auto");
+					break;
+
+				case "input":
+					isAttributeRedundant = attributeNameInLowercase == "type"
+						&& attributeValue.IgnoreCaseEquals("text");
+					break;
+
+				case "script":
+					isAttributeRedundant = (attributeNameInLowercase == "charset" && attributes.All(a => a.NameInLowercase != "src"))
+						|| (attributeNameInLowercase == "language" && attributeValue.IgnoreCaseEquals("javascript"));
+					break;
+
+				case "textarea":
+					isAttributeRedundant = attributeNameInLowercase == "wrap" && attributeValue.IgnoreCaseEquals("soft");
+					break;
+
+				case "track":
+					isAttributeRedundant = attributeNameInLowercase == "kind" && attributeValue.IgnoreCaseEquals("subtitles");
+					break;
+			}
+
+			return isAttributeRedundant;
 		}
 
 		/// <summary>

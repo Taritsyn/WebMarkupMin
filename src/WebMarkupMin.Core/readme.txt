@@ -46,9 +46,13 @@
    =============
    RELEASE NOTES
    =============
-   1. Part of the auxiliary code was replaced by the AdvancedStringBuilder library;
-   2. Slightly improved performance of markup minification;
-   3. Optimized a memory usage during generation of statistics.
+   1. The empty `dir` attribute is no longer removed;
+   2. The `<link charset="…">` attribute is no longer considered redundant;
+   3. The following attributes are now considered redundant:
+      `<button type="submit">`, `<form autocomplete="on">`,
+      `<form enctype="application/x-www-form-urlencoded">`,
+      `<img decoding="auto">`, `<textarea wrap="soft">` and
+      `<track kind="subtitles">`.
 
    =============
    DOCUMENTATION
