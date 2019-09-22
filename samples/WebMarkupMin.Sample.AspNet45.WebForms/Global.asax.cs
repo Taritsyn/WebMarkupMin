@@ -15,7 +15,7 @@ namespace WebMarkupMin.Sample.AspNet45.WebForms
 		{
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			WebMarkupMinConfig.Configure(WebMarkupMinConfiguration.Instance);
-			JsEngineSwitcherConfig.Configure(JsEngineSwitcher.Instance);
+			JsEngineSwitcherConfig.Configure(JsEngineSwitcher.Current);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 		}
 
