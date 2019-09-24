@@ -128,7 +128,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Sample.AspNetC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Sample.AspNetCore1Full.Mvc1", "samples\WebMarkupMin.Sample.AspNetCore1Full.Mvc1\WebMarkupMin.Sample.AspNetCore1Full.Mvc1.csproj", "{93545F28-4C2E-4C43-B864-AF369D6E71BB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Sample.AspNetCore2.Mvc2", "samples\WebMarkupMin.Sample.AspNetCore2.Mvc2\WebMarkupMin.Sample.AspNetCore2.Mvc2.csproj", "{70C0F396-9D87-4E02-AF0B-27F94940478D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Sample.AspNetCore21.Mvc21", "samples\WebMarkupMin.Sample.AspNetCore21.Mvc21\WebMarkupMin.Sample.AspNetCore21.Mvc21.csproj", "{70C0F396-9D87-4E02-AF0B-27F94940478D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Sample.AspNetCore3.Mvc3", "samples\WebMarkupMin.Sample.AspNetCore3.Mvc3\WebMarkupMin.Sample.AspNetCore3.Mvc3.csproj", "{1A2FAACC-7B3E-42BE-AC23-4D88CFC4D210}"
 EndProject

@@ -3,6 +3,7 @@ using System.IO.Compression;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +20,7 @@ using WebMarkupMin.Sample.Logic.Services;
 using IWmmLogger = WebMarkupMin.Core.Loggers.ILogger;
 using WmmThrowExceptionLogger = WebMarkupMin.Core.Loggers.ThrowExceptionLogger;
 
-namespace WebMarkupMin.Sample.AspNetCore2.Mvc2
+namespace WebMarkupMin.Sample.AspNetCore21.Mvc21
 {
 	public class Startup
 	{
@@ -128,6 +129,13 @@ namespace WebMarkupMin.Sample.AspNetCore2.Mvc2
 			// Override the default logger for WebMarkupMin.
 			services.AddSingleton<IWmmLogger, WmmThrowExceptionLogger>();
 
+			services.Configure<CookiePolicyOptions>(options =>
+			{
+				// This lambda determines whether user consent for non-essential cookies is needed for a given request.
+				options.CheckConsentNeeded = context => true;
+				options.MinimumSameSitePolicy = SameSiteMode.None;
+			});
+
 			// Add framework services.
 			services.AddMvc(options =>
 			{
@@ -140,7 +148,7 @@ namespace WebMarkupMin.Sample.AspNetCore2.Mvc2
 						VaryByHeader = "Accept-Encoding"
 					}
 				);
-			});
+			}).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			// Add WebMarkupMin sample services to the services container.
 			services.AddSingleton<SitemapService>();
@@ -164,14 +172,14 @@ namespace WebMarkupMin.Sample.AspNetCore2.Mvc2
 			else
 			{
 				app.UseExceptionHandler("/error");
+				app.UseHsts();
 			}
 
+			app.UseHttpsRedirection();
 			app.UseStatusCodePages();
-
 			app.UseStaticFiles();
-
+			app.UseCookiePolicy();
 			app.UseResponseCaching();
-
 			app.UseWebMarkupMin();
 
 			app.UseMvc(routes =>

@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "WebMarkupMin.Sample.AspNetCore2.Mvc2": {
+    "WebMarkupMin.Sample.AspNetCore21.Mvc21": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

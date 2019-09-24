@@ -3,15 +3,15 @@
 using WebMarkupMin.Sample.Logic.Models;
 using WebMarkupMin.Sample.Logic.Services;
 
-namespace WebMarkupMin.Sample.AspNetCore2.Mvc2.Controllers
+namespace WebMarkupMin.Sample.AspNetCore21.Mvc21.Controllers
 {
-	[Route("minifiers/html-minifier")]
-	public class HtmlMinifierController : Controller
+	[Route("minifiers/xhtml-minifier")]
+	public class XhtmlMinifierController : Controller
 	{
-		private readonly HtmlMinificationService _minificationService;
+		private readonly XhtmlMinificationService _minificationService;
 
 
-		public HtmlMinifierController(HtmlMinificationService minificationService)
+		public XhtmlMinifierController(XhtmlMinificationService minificationService)
 		{
 			_minificationService = minificationService;
 		}
@@ -27,7 +27,7 @@ namespace WebMarkupMin.Sample.AspNetCore2.Mvc2.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Index(HtmlMinificationViewModel model)
+		public IActionResult Index(XhtmlMinificationViewModel model)
 		{
 			if (ModelState.IsValid)
 			{

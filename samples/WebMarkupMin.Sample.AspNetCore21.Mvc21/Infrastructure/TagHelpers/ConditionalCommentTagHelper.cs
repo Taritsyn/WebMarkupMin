@@ -2,7 +2,7 @@
 
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace WebMarkupMin.Sample.AspNetCore2.Mvc2.Infrastructure.TagHelpers
+namespace WebMarkupMin.Sample.AspNetCore21.Mvc21.Infrastructure.TagHelpers
 {
 	[HtmlTargetElement("conditional-comment")]
 	public class ConditionalCommentTagHelper : TagHelper

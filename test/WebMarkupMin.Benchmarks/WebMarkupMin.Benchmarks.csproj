@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Product>Web Markup Minifier: Core Benchmarks</Product>
     <VersionPrefix>2.6.3</VersionPrefix>
-    <TargetFrameworks>net461;netcoreapp2.0;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>net461;netcoreapp2.1;netcoreapp3.0</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DefineConstants>$(DefineConstants);HTML_MINIFIER_COMPARISON;XML_MINIFIER_COMPARISON</DefineConstants>
@@ -29,7 +29,7 @@
     <ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore1\WebMarkupMin.AspNetCore1.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
     <ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore2\WebMarkupMin.AspNetCore2.csproj" />
   </ItemGroup>
 

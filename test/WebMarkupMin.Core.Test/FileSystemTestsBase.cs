@@ -1,11 +1,11 @@
-﻿#if NET452 || NETCOREAPP
-using Microsoft.Extensions.PlatformAbstractions;
-#elif NET40
+﻿#if !NETCOREAPP1_0
 using System;
-#else
-#error No implementation for this target
 #endif
 using System.IO;
+#if NETCOREAPP1_0
+
+using Microsoft.Extensions.PlatformAbstractions;
+#endif
 
 namespace WebMarkupMin.Core.Test
 {
@@ -16,14 +16,13 @@ namespace WebMarkupMin.Core.Test
 
 		protected FileSystemTestsBase()
 		{
-#if NET452 || NETCOREAPP
+#if NETCOREAPP1_0
 			var appEnv = PlatformServices.Default.Application;
-			_baseDirectoryPath = Path.Combine(appEnv.ApplicationBasePath, "../../../");
-#elif NET40
-			_baseDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../");
+			string appDirectoryPath = appEnv.ApplicationBasePath;
 #else
-#error No implementation for this target
+			string appDirectoryPath = AppDomain.CurrentDomain.BaseDirectory;
 #endif
+			_baseDirectoryPath = Path.Combine(appDirectoryPath, "../../../");
 		}
 	}
 }
