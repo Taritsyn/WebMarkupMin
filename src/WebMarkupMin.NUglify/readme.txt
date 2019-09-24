@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                  README file for Web Markup Minifier: NUglify v2.6.0
+                  README file for Web Markup Minifier: NUglify v2.7.0
 
    --------------------------------------------------------------------------------
 
@@ -15,11 +15,6 @@
    minification of CSS code) and `NUglifyJsMinifier` (for minification of JS code).
    These adapters perform minification using the NUglify
    (https://github.com/xoofx/NUglify).
-
-   =============
-   RELEASE NOTES
-   =============
-   Part of the auxiliary code was replaced by the AdvancedStringBuilder library.
 
    =============
    DOCUMENTATION

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: NUglify</Product>
-    <VersionPrefix>2.6.0</VersionPrefix>
+    <VersionPrefix>2.7.0</VersionPrefix>
     <TargetFrameworks>net40-client;net45;netstandard1.3;netstandard2.0</TargetFrameworks>
     <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.3' ">1.6.0</NetStandardImplicitPackageVersion>
     <OutputType>Library</OutputType>
@@ -11,7 +11,6 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Description>WebMarkupMin.NUglify contains 2 minifier-adapters: `NUglifyCssMinifier` (for minification of CSS code) and `NUglifyJsMinifier` (for minification of JS code). These adapters perform minification using the NUglify (https://github.com/xoofx/NUglify).</Description>
     <PackageTags>WebMarkupMin;Markup;HTML;XHTML;CSS;JavaScript;JS;Minification;Minifier;Minify;NUglify</PackageTags>
-    <PackageReleaseNotes>Part of the auxiliary code was replaced by the AdvancedStringBuilder library.</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />

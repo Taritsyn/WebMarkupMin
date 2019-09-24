@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-            README file for Web Markup Minifier: Brotli for ASP.NET v2.6.0
+            README file for Web Markup Minifier: Brotli for ASP.NET v2.7.0
 
    --------------------------------------------------------------------------------
 
@@ -18,11 +18,6 @@
 
    In version for .NET Standard 2.1 uses the native compressor from the
    `System.IO.Compression` namespace.
-
-   =============
-   RELEASE NOTES
-   =============
-   Added support of ASP.NET Core 3.0.
 
    =============
    DOCUMENTATION

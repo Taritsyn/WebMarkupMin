@@ -1,6 +1,12 @@
 Change log
 ==========
 
+## v2.7.0 - September 24, 2019
+ * The empty `dir` attribute is no longer removed
+ * The `&lt;link charset=&quot;&hellip;&quot;&gt;` attribute is no longer considered redundant
+ * The following attributes are now considered redundant: `&lt;button type=&quot;submit&quot;&gt;`, `&lt;form autocomplete=&quot;on&quot;&gt;`, `&lt;form enctype=&quot;application/x-www-form-urlencoded&quot;&gt;`, `&lt;img decoding=&quot;auto&quot;&gt;`, `&lt;textarea wrap=&quot;soft&quot;&gt;` and `&lt;track kind=&quot;subtitles&quot;&gt;`
+ * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.0
+
 ## v2.6.3 - September 17, 2019
  * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.0 RC 1
 
