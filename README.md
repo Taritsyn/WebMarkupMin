@@ -274,3 +274,4 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
  * [Zemana.com](https://www.zemana.com)
  * [ZkontrolujsiAuto.cz](https://www.zkontrolujsiauto.cz/)
  * [Zolv.com](https://www.zolv.com/)
+ * [HypeProxy.io](http://hypeproxy.io/)
