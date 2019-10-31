@@ -7,7 +7,7 @@ namespace WebMarkupMin.Core
 {
 	/// <summary>
 	/// Minifier, which produces minifiction of JS-code
-	/// by using C# port of Douglas Crockford's JSMin (version of March 29, 2013)
+	/// by using C# port of Douglas Crockford's JSMin (version of October 30, 2019)
 	/// </summary>
 	public sealed class CrockfordJsMinifier : IJsMinifier
 	{

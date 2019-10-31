@@ -46,13 +46,7 @@
    =============
    RELEASE NOTES
    =============
-   1. The empty `dir` attribute is no longer removed;
-   2. The `<link charset="…">` attribute is no longer considered redundant;
-   3. The following attributes are now considered redundant:
-      `<button type="submit">`, `<form autocomplete="on">`,
-      `<form enctype="application/x-www-form-urlencoded">`,
-      `<img decoding="auto">`, `<textarea wrap="soft">` and
-      `<track kind="subtitles">`.
+   Added support of the JSMin version of October 30, 2019.
 
    =============
    DOCUMENTATION

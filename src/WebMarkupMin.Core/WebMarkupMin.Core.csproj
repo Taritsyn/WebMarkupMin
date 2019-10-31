@@ -18,9 +18,7 @@ Minification of markup produces by removing extra whitespaces, comments and redu
 
 Also supports minification of views of popular JavaScript template engines: KnockoutJS, Kendo UI MVVM and AngularJS 1.X.</Description>
     <PackageTags>WebMarkupMin;Markup;HTML;XHTML;XML;Minification;Minifier;Minify;Performance;Optimization;Compression</PackageTags>
-    <PackageReleaseNotes>1. The empty `dir` attribute is no longer removed;
-2. The `&lt;link charset=&quot;&#8230;&quot;&gt;` attribute is no longer considered redundant;
-3. The following attributes are now considered redundant: `&lt;button type=&quot;submit&quot;&gt;`, `&lt;form autocomplete=&quot;on&quot;&gt;`, `&lt;form enctype=&quot;application/x-www-form-urlencoded&quot;&gt;`, `&lt;img decoding=&quot;auto&quot;&gt;`, `&lt;textarea wrap=&quot;soft&quot;&gt;` and `&lt;track kind=&quot;subtitles&quot;&gt;`.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added support of the JSMin version of October 30, 2019.</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />
