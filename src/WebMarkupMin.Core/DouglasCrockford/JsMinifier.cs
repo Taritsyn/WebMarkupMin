@@ -1,6 +1,6 @@
 ﻿/* This is a .NET port of the Douglas Crockford's JSMin 'C' project. *
  * In addition to original functionality was added support of Angular
- * expressions minification.
+ * binding expressions minification.
  *
  * The author's copyright message is reproduced below.
  */
@@ -67,6 +67,17 @@ namespace WebMarkupMin.Core.DouglasCrockford
 		/// <returns>Minified JavaScript content</returns>
 		public string Minify(string content)
 		{
+			return Minify(content, false);
+		}
+
+		/// <summary>
+		/// Removes a comments and unnecessary whitespace from JavaScript code
+		/// </summary>
+		/// <param name="content">JavaScript content</param>
+		/// <param name="isAngularBindingExpression">Flag whether the content is Angular binding expression</param>
+		/// <returns>Minified JavaScript content</returns>
+		public string Minify(string content, bool isAngularBindingExpression)
+		{
 			string minifiedContent;
 
 			lock (_minificationSynchronizer)
@@ -84,7 +95,7 @@ namespace WebMarkupMin.Core.DouglasCrockford
 
 				try
 				{
-					InnerMinify();
+					StartMinification(isAngularBindingExpression /*WMM+*/);
 					_writer.Flush();
 
 					minifiedContent = sb.TrimStart().ToString();
@@ -358,7 +369,8 @@ namespace WebMarkupMin.Core.DouglasCrockford
 		/// Comments will be removed. Tabs will be replaced with spaces.
 		/// Carriage returns will be replaced with linefeeds. Most spaces and linefeeds will be removed.
 		/// </summary>
-		private void InnerMinify()
+		/// <param name="isAngularBindingExpression">Flag whether the content is Angular binding expression</param>
+		private void StartMinification(bool isAngularBindingExpression /*WMM+*/)
 		{
 			if (Peek() == 0xEF)
 			{
@@ -375,7 +387,12 @@ namespace WebMarkupMin.Core.DouglasCrockford
 				switch (_theA)
 				{
 					case ' ':
-						Action(IsAlphanum(_theB) /*for Angular*/|| (_theB == ':' && Peek() == ':') ? 1 : 2);
+						Action(
+							IsAlphanum(_theB)
+							|| (isAngularBindingExpression && IsAngularOneTimeBinding(_theB, Peek())) //WMM+
+							? 1
+							: 2
+						);
 						break;
 					case '\n':
 						switch (_theB)
@@ -393,7 +410,12 @@ namespace WebMarkupMin.Core.DouglasCrockford
 								Action(3);
 								break;
 							default:
-								Action(IsAlphanum(_theB) /*for Angular*/|| (_theB == ':' && Peek() == ':') ? 1 : 2);
+								Action(
+									IsAlphanum(_theB)
+									|| (isAngularBindingExpression && IsAngularOneTimeBinding(_theB, Peek())) //WMM+
+									? 1
+									: 2
+								);
 								break;
 						}
 
@@ -402,7 +424,12 @@ namespace WebMarkupMin.Core.DouglasCrockford
 						switch (_theB)
 						{
 							case ' ':
-								Action(IsAlphanum(_theA) /*for Angular*/|| _theA == ']' ? 1 : 3);
+								Action(
+									IsAlphanum(_theA)
+									|| (isAngularBindingExpression && _theA == ']' && IsAlphanum(Peek())) //WMM+
+									? 1
+									: 3
+								);
 								break;
 							case '\n':
 								switch (_theA)
@@ -418,7 +445,11 @@ namespace WebMarkupMin.Core.DouglasCrockford
 										Action(1);
 										break;
 									default:
-										Action(IsAlphanum(_theA) ? 1 : 3);
+										Action(
+											IsAlphanum(_theA)
+											? 1
+											: 3
+										);
 										break;
 								}
 
@@ -443,6 +474,21 @@ namespace WebMarkupMin.Core.DouglasCrockford
 		{
 			_writer.Write((char)c);
 		}
+
+		#endregion
+
+		#region Methods for working with Angular-specific syntax constructs
+
+		/// <summary>
+		/// Checks whether the sequence of characters is Angular one-time binding
+		/// </summary>
+		/// <param name="firstCodeunit">The first character</param>
+		/// <param name="secondCodeunit">The second character</param>
+		/// <returns>Result of check</returns>
+		private static bool IsAngularOneTimeBinding(int firstCodeunit, int secondCodeunit) //WMM+
+		{ //WMM+
+			return firstCodeunit == ':' && secondCodeunit == ':'; //WMM+
+		} //WMM+
 
 		#endregion
 	}

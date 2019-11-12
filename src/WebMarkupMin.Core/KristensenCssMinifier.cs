@@ -28,6 +28,8 @@ namespace WebMarkupMin.Core
 		private static readonly Regex _redundantSelectorRegex = new Regex(@"[a-zA-Z]+#");
 		private static readonly Regex _zeroValue = new Regex(@"(?<=[ :])0(?:px|em|ex|cm|mm|in|pt|pc|%|ch|rem|vh|vm(?:ax|in)?|vw)");
 
+		#region ICssMinifier implementation
+
 		/// <summary>
 		/// Gets a value indicating the minifier supports inline code minification
 		/// </summary>
@@ -95,5 +97,7 @@ namespace WebMarkupMin.Core
 
 			return new CodeMinificationResult(newContent);
 		}
+
+		#endregion
 	}
 }

@@ -18,7 +18,8 @@ Minification of markup produces by removing extra whitespaces, comments and redu
 
 Also supports minification of views of popular JavaScript template engines: KnockoutJS, Kendo UI MVVM and AngularJS 1.X.</Description>
     <PackageTags>WebMarkupMin;Markup;HTML;XHTML;XML;Minification;Minifier;Minify;Performance;Optimization;Compression</PackageTags>
-    <PackageReleaseNotes>Added support of the JSMin version of October 30, 2019.</PackageReleaseNotes>
+    <PackageReleaseNotes>1. Added support of the Douglas Crockford's JSMin version of October 30, 2019;
+2. Douglas Crockford's JSMin is now processing a Angular binding expressions separately from JS-code.</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />

@@ -46,7 +46,9 @@
    =============
    RELEASE NOTES
    =============
-   Added support of the JSMin version of October 30, 2019.
+   1. Added support of the Douglas Crockford's JSMin version of October 30, 2019;
+   2. Douglas Crockford's JSMin is now processing a Angular binding expressions
+      separately from JS-code.
 
    =============
    DOCUMENTATION

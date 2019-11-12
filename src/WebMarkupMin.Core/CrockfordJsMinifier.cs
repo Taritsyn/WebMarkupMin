@@ -6,7 +6,7 @@ using WebMarkupMin.Core.DouglasCrockford;
 namespace WebMarkupMin.Core
 {
 	/// <summary>
-	/// Minifier, which produces minifiction of JS-code
+	/// Minifier, which produces minifiction of JS-code and Angular binding expressions
 	/// by using C# port of Douglas Crockford's JSMin (version of October 30, 2019)
 	/// </summary>
 	public sealed class CrockfordJsMinifier : IJsMinifier
@@ -15,6 +15,33 @@ namespace WebMarkupMin.Core
 		/// Original JS minifier
 		/// </summary>
 		private readonly JsMinifier _originalJsMinifier = new JsMinifier();
+
+
+		private CodeMinificationResult InnerMinify(string content, bool isAngularBindingExpression)
+		{
+			if (string.IsNullOrWhiteSpace(content))
+			{
+				return new CodeMinificationResult(string.Empty);
+			}
+
+			string newContent = string.Empty;
+			var errors = new List<MinificationErrorInfo>();
+
+			try
+			{
+				newContent = _originalJsMinifier.Minify(content, isAngularBindingExpression);
+			}
+			catch (JsMinificationException e)
+			{
+				errors.Add(new MinificationErrorInfo(e.Message));
+			}
+
+			var minificationResult = new CodeMinificationResult(newContent, errors);
+
+			return minificationResult;
+		}
+
+		#region IJsMinifier implementation
 
 		/// <summary>
 		/// Gets a value indicating the minifier supports inline code minification
@@ -34,7 +61,7 @@ namespace WebMarkupMin.Core
 		/// <returns>Minification result</returns>
 		public CodeMinificationResult Minify(string content, bool isInlineCode)
 		{
-			return Minify(content, isInlineCode, TextEncodingShortcuts.Default);
+			return InnerMinify(content, false);
 		}
 
 		/// <summary>
@@ -47,26 +74,32 @@ namespace WebMarkupMin.Core
 		/// <returns>Minification result</returns>
 		public CodeMinificationResult Minify(string content, bool isInlineCode, Encoding encoding)
 		{
-			if (string.IsNullOrWhiteSpace(content))
-			{
-				return new CodeMinificationResult(string.Empty);
-			}
+			return InnerMinify(content, false);
+		}
 
-			string newContent = string.Empty;
-			var errors = new List<MinificationErrorInfo>();
+		#endregion
 
-			try
-			{
-				newContent = _originalJsMinifier.Minify(content);
-			}
-			catch (JsMinificationException e)
-			{
-				errors.Add(new MinificationErrorInfo(e.Message));
-			}
+		/// <summary>
+		/// Produces code minifiction of Angular binding expression by using C# port of
+		/// Douglas Crockford's JSMin
+		/// </summary>
+		/// <param name="expression">Binding expression</param>
+		/// <returns>Minification result</returns>
+		public CodeMinificationResult MinifyAngularBindingExpression(string expression)
+		{
+			return InnerMinify(expression, true);
+		}
 
-			var minificationResult = new CodeMinificationResult(newContent, errors);
-
-			return minificationResult;
+		/// <summary>
+		/// Produces code minifiction of Angular binding expression by using C# port of
+		/// Douglas Crockford's JSMin
+		/// </summary>
+		/// <param name="expression">Binding expression</param>
+		/// <param name="encoding">Text encoding</param>
+		/// <returns>Minification result</returns>
+		public CodeMinificationResult MinifyAngularBindingExpression(string expression, Encoding encoding)
+		{
+			return InnerMinify(expression, true);
 		}
 	}
 }

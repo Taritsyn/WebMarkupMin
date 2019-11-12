@@ -2962,7 +2962,7 @@ namespace WebMarkupMin.Core
 
 			string result = expression;
 			CrockfordJsMinifier innerCrockfordJsMinifier = GetInnerCrockfordJsMinifierInstance();
-			CodeMinificationResult minificationResult = innerCrockfordJsMinifier.Minify(result, true);
+			CodeMinificationResult minificationResult = innerCrockfordJsMinifier.MinifyAngularBindingExpression(result);
 			IList<MinificationErrorInfo> errors = minificationResult.Errors;
 
 			if (errors.Count == 0)
