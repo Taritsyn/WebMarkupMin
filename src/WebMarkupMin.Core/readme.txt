@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                   README file for Web Markup Minifier: Core v2.7.0
+                   README file for Web Markup Minifier: Core v2.7.1
 
    --------------------------------------------------------------------------------
 
@@ -48,7 +48,7 @@
    =============
    1. Added support of the Douglas Crockford's JSMin version of October 30, 2019;
    2. Douglas Crockford's JSMin is now processing a Angular binding expressions
-      separately from JS-code.
+      separately from JS code.
 
    =============
    DOCUMENTATION

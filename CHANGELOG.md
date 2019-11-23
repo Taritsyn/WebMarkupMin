@@ -1,6 +1,10 @@
 Change log
 ==========
 
+## v2.7.1 - November 23, 2019
+ * Added support of the Douglas Crockford's JSMin version of October 30, 2019
+ * Douglas Crockford's JSMin is now processing a Angular binding expressions separately from JS code
+
 ## v2.7.0 - September 24, 2019
  * The empty `dir` attribute is no longer removed
  * The `<link charset="…">` attribute is no longer considered redundant
