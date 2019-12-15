@@ -220,6 +220,7 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
  * [QuizPop.com.br](http://www.quizpop.com.br/)
  * [RAKS.com.tr](https://www.raks.com.tr/)
  * [Ramsey.com.tr](https://www.ramsey.com.tr/)
+ * [Randommer.io](https://randommer.io/)
  * [raovat49.com](https://raovat49.com/)
  * [RattiAuto.it](http://rattiauto.it/)
  * [RecelInteractive.com](https://www.recelinteractive.com/)
