@@ -32,11 +32,14 @@
     <ProjectReference Include="..\WebMarkupMin.Sample.Resources\WebMarkupMin.Sample.Resources.csproj" />
   </ItemGroup>
 
-  <Target Name="GulpClean" AfterTargets="Clean">
-    <Exec Command="gulp clean-builded-assets" />
+  <Target Name="BowerPackagesInstallation" AfterTargets="AfterBuild">
+    <Exec Command="bower install" />
   </Target>
-  <Target Name="GulpBuild" AfterTargets="AfterBuild">
-    <Exec Command="gulp build-assets" />
+  <Target Name="GulpClean" AfterTargets="Clean">
+    <Exec Command="gulp cleanBuildedAssets" />
+  </Target>
+  <Target Name="GulpBuild" AfterTargets="BowerPackagesInstallation">
+    <Exec Command="gulp buildAssets" />
   </Target>
   <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
     <Exec Command="npm install" />
