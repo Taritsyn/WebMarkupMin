@@ -11,7 +11,7 @@ using WmmMinifier = WebMarkupMin.Core.HtmlMinifier;
 using WmmNullCssMinifier = WebMarkupMin.Core.NullCssMinifier;
 using WmmNullJsMinifier = WebMarkupMin.Core.NullJsMinifier;
 using WmmSettings = WebMarkupMin.Core.HtmlMinificationSettings;
-#if HTML_MINIFIER_COMPARISON && NET461
+#if HTML_MINIFIER_COMPARISON
 using ZphcMinifier = ZetaProducerHtmlCompressor.HtmlContentCompressor;
 #endif
 
@@ -74,7 +74,7 @@ namespace WebMarkupMin.Benchmarks
 			var minifier = new WmmMinifier(settings, new WmmNullCssMinifier(), new WmmNullJsMinifier());
 			string minifiedContent = minifier.Minify(s_documents[DocumentName].Content).MinifiedContent;
 		}
-#if HTML_MINIFIER_COMPARISON && NET461
+#if HTML_MINIFIER_COMPARISON
 
 		[Benchmark]
 		public void ZetaProducerHtmlCompressor()
