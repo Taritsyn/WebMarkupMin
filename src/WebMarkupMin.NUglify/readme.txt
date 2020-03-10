@@ -5,7 +5,7 @@
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2019 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2020 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========
@@ -15,6 +15,11 @@
    minification of CSS code) and `NUglifyJsMinifier` (for minification of JS code).
    These adapters perform minification using the NUglify
    (https://github.com/xoofx/NUglify).
+
+   =============
+   RELEASE NOTES
+   =============
+   Added support of the NUglify version 1.5.14.
 
    =============
    DOCUMENTATION
