@@ -11,7 +11,8 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Description>WebMarkupMin.NUglify contains 2 minifier-adapters: `NUglifyCssMinifier` (for minification of CSS code) and `NUglifyJsMinifier` (for minification of JS code). These adapters perform minification using the NUglify (https://github.com/xoofx/NUglify).</Description>
     <PackageTags>WebMarkupMin;Markup;HTML;XHTML;CSS;JavaScript;JS;Minification;Minifier;Minify;NUglify</PackageTags>
-    <PackageReleaseNotes>Added support of the NUglify version 1.5.14.</PackageReleaseNotes>
+    <PackageReleaseNotes>1. Added support of the NUglify version 1.5.14;
+2. In configuration settings of CSS minifier was added one new property - `DecodeEscapes` (default `true`).</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />

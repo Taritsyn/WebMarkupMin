@@ -6,7 +6,7 @@
 	public sealed class NUglifyCssMinificationSettings : NUglifyCommonMinificationSettingsBase
 	{
 		/// <summary>
-		/// Gets or sets ColorNames setting
+		/// Gets or sets a <see cref="CssColor"/> setting
 		/// </summary>
 		public CssColor ColorNames
 		{
@@ -15,9 +15,19 @@
 		}
 
 		/// <summary>
-		/// Gets or sets CommentMode setting
+		/// Gets or sets a <see cref="CssComment"/> setting
 		/// </summary>
 		public CssComment CommentMode
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets or sets a value indicating whether unicode escape strings (e.g. <code>\ff0e</code>)
+		/// would be replaced by it's actual character or not
+		/// </summary>
+		public bool DecodeEscapes
 		{
 			get;
 			set;
@@ -51,6 +61,7 @@
 		{
 			ColorNames = CssColor.Hex;
 			CommentMode = CssComment.Important;
+			DecodeEscapes = true;
 			MinifyExpressions = true;
 			RemoveEmptyBlocks = true;
 		}

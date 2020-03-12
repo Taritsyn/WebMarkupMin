@@ -78,6 +78,7 @@ namespace WebMarkupMin.NUglify
 				settings.CommentMode);
 			originalSettings.CssType = isInlineCode ?
 				CssType.DeclarationList : CssType.FullStyleSheet;
+			originalSettings.DecodeEscapes = settings.DecodeEscapes;
 			originalSettings.MinifyExpressions = settings.MinifyExpressions;
 			originalSettings.RemoveEmptyBlocks = settings.RemoveEmptyBlocks;
 
