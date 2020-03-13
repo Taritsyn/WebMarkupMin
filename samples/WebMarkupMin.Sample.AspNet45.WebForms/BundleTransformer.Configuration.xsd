@@ -772,6 +772,11 @@
 				<xs:documentation>Flag for whether to run TypeScript to JS transpilation only (skip other passes)</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+		<xs:attribute name="useDefineForClassFields" type="Boolean_SchemaType" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Flag for whether to emit class fields with `Define` instead of `Set`.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 	</xs:complexType>
 
 	<xs:complexType name="LibraryFileRegistrationCollection_SchemaType">

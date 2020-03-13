@@ -19,7 +19,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.1.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" PrivateAssets="All" />
 
     <ProjectReference Include="..\..\src\WebMarkupMin.AspNet.Brotli\WebMarkupMin.AspNet.Brotli.csproj" />
     <ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore2\WebMarkupMin.AspNetCore2.csproj" />
