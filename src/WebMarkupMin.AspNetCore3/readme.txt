@@ -17,7 +17,8 @@
    =============
    RELEASE NOTES
    =============
-   Added support of ASP.NET Core 3.0.
+   1. .NET Core App 3.0 target was updated to version 3.1;
+   2. Added support of ASP.NET Core 3.1.1.
 
    =============
    DOCUMENTATION
