@@ -3,9 +3,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-using WebMarkupMin.Sample.AspNetCore3.Mvc3.Models;
+using WebMarkupMin.Sample.AspNetCore31.Mvc31.Models;
 
-namespace WebMarkupMin.Sample.AspNetCore3.Mvc3.Controllers
+namespace WebMarkupMin.Sample.AspNetCore31.Mvc31.Controllers
 {
 	public class HomeController : Controller
 	{

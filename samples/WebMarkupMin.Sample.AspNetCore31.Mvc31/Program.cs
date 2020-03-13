@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace WebMarkupMin.Sample.AspNetCore3.Mvc3
+namespace WebMarkupMin.Sample.AspNetCore31.Mvc31
 {
 	public class Program
 	{

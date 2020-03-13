@@ -16,7 +16,7 @@ using WebMarkupMin.NUglify;
 using IWmmLogger = WebMarkupMin.Core.Loggers.ILogger;
 using WmmThrowExceptionLogger = WebMarkupMin.Core.Loggers.ThrowExceptionLogger;
 
-namespace WebMarkupMin.Sample.AspNetCore3.Mvc3
+namespace WebMarkupMin.Sample.AspNetCore31.Mvc31
 {
 	public class Startup
 	{

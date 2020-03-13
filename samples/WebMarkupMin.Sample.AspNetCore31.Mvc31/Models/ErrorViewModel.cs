@@ -1,4 +1,4 @@
-namespace WebMarkupMin.Sample.AspNetCore3.Mvc3.Models
+namespace WebMarkupMin.Sample.AspNetCore31.Mvc31.Models
 {
 	public class ErrorViewModel
 	{

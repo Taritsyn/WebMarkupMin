@@ -130,7 +130,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Sample.AspNetC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Sample.AspNetCore21.Mvc21", "samples\WebMarkupMin.Sample.AspNetCore21.Mvc21\WebMarkupMin.Sample.AspNetCore21.Mvc21.csproj", "{70C0F396-9D87-4E02-AF0B-27F94940478D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Sample.AspNetCore3.Mvc3", "samples\WebMarkupMin.Sample.AspNetCore3.Mvc3\WebMarkupMin.Sample.AspNetCore3.Mvc3.csproj", "{1A2FAACC-7B3E-42BE-AC23-4D88CFC4D210}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Sample.AspNetCore31.Mvc31", "samples\WebMarkupMin.Sample.AspNetCore31.Mvc31\WebMarkupMin.Sample.AspNetCore31.Mvc31.csproj", "{1A2FAACC-7B3E-42BE-AC23-4D88CFC4D210}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
