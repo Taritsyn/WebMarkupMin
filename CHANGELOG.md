@@ -1,6 +1,14 @@
 Change log
 ==========
 
+## v2.8.0 - March 13, 2020
+ * In WebMarkupMin.NUglify:
+   * Added support of the NUglify version 1.5.14
+   * In configuration settings of CSS minifier was added one new property - `DecodeEscapes` (default `true`)
+ * In WebMarkupMin.AspNetCore3:
+   * .NET Core App 3.0 target was updated to version 3.1
+   * Added support of ASP.NET Core 3.1.1
+
 ## v2.7.1 - November 23, 2019
  * Added support of the Douglas Crockford's JSMin version of October 30, 2019
  * Douglas Crockford's JSMin is now processing a Angular binding expressions separately from JS code
