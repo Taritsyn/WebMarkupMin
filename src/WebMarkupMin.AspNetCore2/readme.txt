@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-             README file for Web Markup Minifier: ASP.NET Core 2.X v2.8.0
+             README file for Web Markup Minifier: ASP.NET Core 2.X v2.8.1
 
    --------------------------------------------------------------------------------
 
@@ -13,6 +13,11 @@
    ===========
    WebMarkupMin.AspNetCore2 contains one ASP.NET Core 2.X Middleware -
    `WebMarkupMinMiddleware`.
+
+   =============
+   RELEASE NOTES
+   =============
+   Fixed a error #104 “Dependency Issues in release 2.8.0”.
 
    =============
    DOCUMENTATION

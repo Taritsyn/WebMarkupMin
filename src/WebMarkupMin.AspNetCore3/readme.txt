@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-             README file for Web Markup Minifier: ASP.NET Core 3.X v2.8.0
+             README file for Web Markup Minifier: ASP.NET Core 3.X v2.8.1
 
    --------------------------------------------------------------------------------
 
@@ -17,8 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   1. .NET Core App 3.0 target was updated to version 3.1;
-   2. Added support of ASP.NET Core 3.1.1.
+   Fixed a error #104 “Dependency Issues in release 2.8.0”.
 
    =============
    DOCUMENTATION

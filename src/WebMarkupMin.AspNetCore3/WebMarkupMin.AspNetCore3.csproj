@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: ASP.NET Core 3.X</Product>
-    <VersionPrefix>2.8.0</VersionPrefix>
+    <VersionPrefix>2.8.1</VersionPrefix>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>Library</OutputType>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
@@ -12,8 +12,7 @@
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
     <Description>WebMarkupMin.AspNetCore3 contains one ASP.NET Core 3.X Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Middleware;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
-    <PackageReleaseNotes>1. .NET Core App 3.0 target was updated to version 3.1;
-2. Added support of ASP.NET Core 3.1.1.</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixed a error #104 “Dependency Issues in release 2.8.0”.</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />

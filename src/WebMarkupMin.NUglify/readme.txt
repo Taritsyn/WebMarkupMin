@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                  README file for Web Markup Minifier: NUglify v2.8.0
+                  README file for Web Markup Minifier: NUglify v2.8.1
 
    --------------------------------------------------------------------------------
 
@@ -19,9 +19,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Added support of the NUglify version 1.5.14;
-   2. In configuration settings of CSS minifier was added one new property -
-      `DecodeEscapes` (default `true`).
+   Fixed a error #104 “Dependency Issues in release 2.8.0”.
 
    =============
    DOCUMENTATION

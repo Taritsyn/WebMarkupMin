@@ -1,11 +1,11 @@
 
 
    --------------------------------------------------------------------------------
-           README file for Web Markup Minifier: ASP.NET 4.X Web Forms v2.7.0
+           README file for Web Markup Minifier: ASP.NET 4.X Web Forms v2.8.1
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2019 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2020 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========
@@ -24,6 +24,11 @@
    minification and HTTP compression).
 
    Сlasses of the Web Forms pages and master pages cannot be used together.
+
+   =============
+   RELEASE NOTES
+   =============
+   Fixed a error #104 “Dependency Issues in release 2.8.0”.
 
    =============
    DOCUMENTATION

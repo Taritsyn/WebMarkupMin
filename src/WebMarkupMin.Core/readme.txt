@@ -1,11 +1,11 @@
 
 
    --------------------------------------------------------------------------------
-                   README file for Web Markup Minifier: Core v2.7.1
+                   README file for Web Markup Minifier: Core v2.8.1
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2019 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2020 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========
@@ -46,9 +46,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Added support of the Douglas Crockford's JSMin version of October 30, 2019;
-   2. Douglas Crockford's JSMin is now processing a Angular binding expressions
-      separately from JS code.
+   Fixed a error #104 “Dependency Issues in release 2.8.0”.
 
    =============
    DOCUMENTATION
