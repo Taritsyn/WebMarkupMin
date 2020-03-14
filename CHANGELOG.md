@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## v2.8.1 - March 14, 2020
+ * Fixed a [error #104](https://github.com/Taritsyn/WebMarkupMin/issues/104) “Dependency Issues in release 2.8.0”
+
 ## v2.8.0 - March 13, 2020
  * In WebMarkupMin.NUglify:
    * Added support of the NUglify version 1.5.14
