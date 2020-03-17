@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## v2.8.2 - March 17, 2020
+ * In WebMarkupMin.AspNetCore3 fixed a [error #105](https://github.com/Taritsyn/WebMarkupMin/issues/105) “2.8.1 Crashing Out”
+
 ## v2.8.1 - March 14, 2020
  * Fixed a [error #104](https://github.com/Taritsyn/WebMarkupMin/issues/104) “Dependency Issues in release 2.8.0”
 

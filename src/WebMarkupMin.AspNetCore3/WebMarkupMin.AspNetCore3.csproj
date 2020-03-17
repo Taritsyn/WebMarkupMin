@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Product>Web Markup Minifier: ASP.NET Core 3.X</Product>
-    <VersionPrefix>2.8.1</VersionPrefix>
+    <Product>Web Markup Minifier: ASP.NET Core 3.1+</Product>
+    <VersionPrefix>2.8.2</VersionPrefix>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>Library</OutputType>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
@@ -10,7 +10,7 @@
     <DefineConstants>$(DefineConstants);ASPNETCORE3</DefineConstants>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
-    <Description>WebMarkupMin.AspNetCore3 contains one ASP.NET Core 3.X Middleware - `WebMarkupMinMiddleware`.</Description>
+    <Description>WebMarkupMin.AspNetCore3 contains one ASP.NET Core 3.1+ Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Middleware;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
     <PackageReleaseNotes>Fixed a error #105 “2.8.1 Crashing Out”.</PackageReleaseNotes>
   </PropertyGroup>
