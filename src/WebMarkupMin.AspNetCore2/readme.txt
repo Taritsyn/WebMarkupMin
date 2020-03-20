@@ -17,7 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a error #104 “Dependency Issues in release 2.8.0”.
+   Was made refactoring.
 
    =============
    DOCUMENTATION

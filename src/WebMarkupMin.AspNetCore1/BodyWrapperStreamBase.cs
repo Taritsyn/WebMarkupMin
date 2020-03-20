@@ -255,7 +255,7 @@ namespace WebMarkupMin.AspNetCore3
 				responseHeaders.Remove(HeaderNames.ContentLength);
 			}
 		}
-#if NET451 || NETSTANDARD2_0 || NETCOREAPP3_1
+#if NET451 || ASPNETCORE2 || ASPNETCORE3
 
 		private async void InternalWriteAsync(byte[] buffer, int offset, int count, AsyncCallback callback,
 			TaskCompletionSource<object> tcs)
@@ -409,7 +409,7 @@ namespace WebMarkupMin.AspNetCore3
 		}
 
 
-#if NET451 || NETSTANDARD2_0 || NETCOREAPP3_1
+#if NET451 || ASPNETCORE2 || ASPNETCORE3
 		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback,
 			object state)
 		{
@@ -553,7 +553,7 @@ namespace WebMarkupMin.AspNetCore3
 				base.Dispose(disposing);
 			}
 		}
-#if NETCOREAPP3_1
+#if ASPNETCORE3
 
 		public override async ValueTask DisposeAsync()
 		{

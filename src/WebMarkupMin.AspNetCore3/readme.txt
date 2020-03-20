@@ -17,7 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a error #105 “2.8.1 Crashing Out”.
+   Was made refactoring.
 
    =============
    DOCUMENTATION
