@@ -36,8 +36,8 @@ namespace WebMarkupMin.Core.Test.Html.React
 				new HtmlMinificationSettings(true) { RemoveHtmlComments = true });
 
 			const string input1 = "<a href=\"/tournament\" data-reactid=\"19\">" +
-				"<!-- react-text: 20 --> <!-- /react-text -->" + 
-				"<span class=\"title\" data-reactid=\"21\">Кто станет победителем нашего турнира?</span>" + 
+				"<!-- react-text: 20 --> <!-- /react-text -->" +
+				"<span class=\"title\" data-reactid=\"21\">Кто станет победителем нашего турнира?</span>" +
 				"</a>"
 				;
 			const string input2 = "<span data-reactid=\"39\">" +
@@ -47,7 +47,7 @@ namespace WebMarkupMin.Core.Test.Html.React
 				;
 			const string input3 = "<div class=\"more-button\" data-reactid=\"87\">" +
 				"<!-- react-text: 88 -->Ещё <!-- /react-text -->" +
-				"<span class=\"caret-down\" data-reactid=\"89\"></span>" + 
+				"<span class=\"caret-down\" data-reactid=\"89\"></span>" +
 				"</div>"
 				;
 

@@ -692,7 +692,8 @@ namespace WebMarkupMin.Core
 
 				processedCommentText = "directive:" + ngOriginalDirectiveName + " " + ngExpression;
 			}
-			else if (ReactHelpers.IsDomComponentComment(commentText))
+			else if (ReactHelpers.IsDomComponentComment(commentText)
+				|| BlazorHelpers.IsComponentMarker(commentText))
 			{
 				processedCommentText = commentText;
 			}

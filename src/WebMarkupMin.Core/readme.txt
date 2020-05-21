@@ -46,7 +46,7 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a error #104 “Dependency Issues in release 2.8.0”.
+   Blazor component markers (`<!--Blazor:…-->`) are no longer removed.
 
    =============
    DOCUMENTATION
