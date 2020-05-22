@@ -1,6 +1,10 @@
 Change log
 ==========
 
+## v2.8.3 - May 22, 2020
+ * Blazor component markers (`<!--Blazor:…-->`) are no longer removed
+ * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.1.4
+
 ## v2.8.2 - March 17, 2020
  * In WebMarkupMin.AspNetCore3 fixed a [error #105](https://github.com/Taritsyn/WebMarkupMin/issues/105) “2.8.1 Crashing Out”
 
