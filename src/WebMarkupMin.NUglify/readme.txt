@@ -14,12 +14,12 @@
    WebMarkupMin.NUglify contains 2 minifier-adapters: `NUglifyCssMinifier` (for
    minification of CSS code) and `NUglifyJsMinifier` (for minification of JS code).
    These adapters perform minification using the NUglify
-   (https://github.com/xoofx/NUglify).
+   (https://github.com/trullock/NUglify).
 
    =============
    RELEASE NOTES
    =============
-   Fixed a error #104 “Dependency Issues in release 2.8.0”.
+   Added support of the NUglify version 1.6.3.
 
    =============
    DOCUMENTATION

@@ -182,7 +182,7 @@ Change log
  * In ASP.NET 4.X Extensions was changed a mechanism of using default instances of loggers, factories and managers
 
 ## v2.0.2 - July 12, 2016
- * Added module based on the [NUglify](http://github.com/xoofx/NUglify)
+ * Added module based on the [NUglify](https://github.com/trullock/NUglify)
  * In WebMarkupMin.MsAjax and WebMarkupMin.Yui was made refactoring
 
 ## v2.0.1 - July 9, 2016

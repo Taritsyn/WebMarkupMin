@@ -38,7 +38,7 @@
    https://github.com/microsoft/ajaxmin), WebMarkupMin.Yui (contains
    minifier-adapters for YUI Compressor for .NET -
    https://github.com/YUICompressor-NET/YUICompressor.NET) and WebMarkupMin.NUglify
-   (contains minifier-adapters for the NUglify - https://github.com/xoofx/NUglify).
+   (contains minifier-adapters for the NUglify - https://github.com/trullock/NUglify).
 
    Also supports minification of views of popular JavaScript template engines:
    KnockoutJS, Kendo UI MVVM and AngularJS 1.X.
