@@ -1,6 +1,10 @@
 Change log
 ==========
 
+## v2.8.4 - June 17, 2020
+ * In WebMarkupMin.NUglify added support of the NUglify version 1.6.3
+ * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.1.5
+
 ## v2.8.3 - May 22, 2020
  * Blazor component markers (`<!--Blazor:…-->`) are no longer removed
  * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.1.4
