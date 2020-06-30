@@ -11,6 +11,11 @@ namespace WebMarkupMin.Core.Helpers
 	internal static class AngularHelpers
 	{
 		/// <summary>
+		/// Angular directive name pattern
+		/// </summary>
+		const string NG_DIRECTIVE_NAME_PATTERN = @"[\w-]+";
+
+		/// <summary>
 		/// Angular comment directive prefix
 		/// </summary>
 		const string NG_COMMENT_DIRECTIVE_PREFIX = "directive:";
@@ -21,16 +26,22 @@ namespace WebMarkupMin.Core.Helpers
 		private static readonly Regex _prefixRegex = new Regex(@"^(?:x|data)[-_:]", RegexOptions.IgnoreCase);
 
 		/// <summary>
+		/// Regular expression for determining the Angular class directives
+		/// </summary>
+		private static readonly Regex _ngClassDirectivesRegex = new Regex(
+			@"^(\s*" + NG_DIRECTIVE_NAME_PATTERN + @"(?:\:[^;]+)?;?)+\s*$");
+
+		/// <summary>
 		/// Regular expression for working with the Angular class directive
 		/// </summary>
 		private static readonly Regex _ngClassDirectiveRegex = new Regex(
-			@"(?<directiveName>[\w-]+)(?:\:(?<expression>[^;]+))?(?<semicolon>;)?");
+			@"^\s*(?<directiveName>" + NG_DIRECTIVE_NAME_PATTERN + @")(?:\:(?<expression>[^;]+))?(?<semicolon>;)?");
 
 		/// <summary>
 		/// Regular expression for working with the Angular comment directive
 		/// </summary>
 		private static readonly Regex _ngCommentDirectiveRegex = new Regex(
-			@"^\s*directive\:\s*(?<directiveName>[\w-]+)\s+(?<expression>.*)$");
+			@"^\s*directive\:\s*(?<directiveName>" + NG_DIRECTIVE_NAME_PATTERN + @")\s+(?<expression>.*)$");
 
 		/// <summary>
 		/// Regular expression for working with special characters
@@ -80,7 +91,7 @@ namespace WebMarkupMin.Core.Helpers
 				return false;
 			}
 
-			bool isClassDirective = _ngClassDirectiveRegex.IsMatch(className);
+			bool isClassDirective = _ngClassDirectivesRegex.IsMatch(className);
 
 			return isClassDirective;
 		}
@@ -95,53 +106,58 @@ namespace WebMarkupMin.Core.Helpers
 		public static void ParseClassDirective(string className, DirectiveNameDelegate directiveNameHandler,
 			ExpressionDelegate expressionHandler, SemicolonDelegate semicolonHandler)
 		{
-			MatchCollection matches = _ngClassDirectiveRegex.Matches(className);
-			int matchCount = matches.Count;
+			int classNameLength = className.Length;
+			int currentPosition = 0;
+			int remainderLength = classNameLength;
 
-			if (matchCount > 0)
+			Match match = _ngClassDirectiveRegex.Match(className, currentPosition, remainderLength);
+
+			while (match.Success)
 			{
 				var innerContext = new InnerMarkupParsingContext(className);
 				var context = new MarkupParsingContext(innerContext);
-				int currentPosition = 0;
+				int localPosition = 0;
 
-				for (int matchIndex = 0; matchIndex < matchCount; matchIndex++)
+				GroupCollection groups = match.Groups;
+
+				Group directiveNameGroup = groups["directiveName"];
+				int directiveNamePosition = directiveNameGroup.Index;
+				string originalDirectiveName = directiveNameGroup.Value;
+				string normalizedDirectiveName = NormalizeDirectiveName(originalDirectiveName);
+
+				innerContext.IncreasePosition(directiveNamePosition - localPosition);
+				localPosition = directiveNamePosition;
+				currentPosition = directiveNamePosition + directiveNameGroup.Length;
+
+				directiveNameHandler?.Invoke(context, originalDirectiveName, normalizedDirectiveName);
+
+				Group expressionGroup = groups["expression"];
+				if (expressionGroup.Success)
 				{
-					Match match = matches[matchIndex];
-					GroupCollection groups = match.Groups;
+					int expressionPosition = expressionGroup.Index;
+					string expression = expressionGroup.Value.Trim();
 
-					Group directiveNameGroup = groups["directiveName"];
-					int directiveNamePosition = directiveNameGroup.Index;
-					string originalDirectiveName = directiveNameGroup.Value;
-					string normalizedDirectiveName = NormalizeDirectiveName(originalDirectiveName);
+					innerContext.IncreasePosition(expressionPosition - localPosition);
+					localPosition = expressionPosition;
+					currentPosition = expressionPosition + expressionGroup.Length;
 
-					innerContext.IncreasePosition(directiveNamePosition - currentPosition);
-					currentPosition = directiveNamePosition;
-
-					directiveNameHandler?.Invoke(context, originalDirectiveName, normalizedDirectiveName);
-
-					Group expressionGroup = groups["expression"];
-					if (expressionGroup.Success)
-					{
-						int expressionPosition = expressionGroup.Index;
-						string expression = expressionGroup.Value.Trim();
-
-						innerContext.IncreasePosition(expressionPosition - currentPosition);
-						currentPosition = expressionPosition;
-
-						expressionHandler?.Invoke(context, expression);
-					}
-
-					Group semicolonGroup = groups["semicolon"];
-					if (semicolonGroup.Success)
-					{
-						int semicolonPosition = semicolonGroup.Index;
-
-						innerContext.IncreasePosition(semicolonPosition - currentPosition);
-						currentPosition = semicolonPosition;
-
-						semicolonHandler?.Invoke(context);
-					}
+					expressionHandler?.Invoke(context, expression);
 				}
+
+				Group semicolonGroup = groups["semicolon"];
+				if (semicolonGroup.Success)
+				{
+					int semicolonPosition = semicolonGroup.Index;
+
+					innerContext.IncreasePosition(semicolonPosition - localPosition);
+					localPosition = semicolonPosition;
+					currentPosition = semicolonPosition + semicolonGroup.Length;
+
+					semicolonHandler?.Invoke(context);
+				}
+
+				remainderLength = classNameLength - currentPosition;
+				match = _ngClassDirectiveRegex.Match(className, currentPosition, remainderLength);
 			}
 		}
 

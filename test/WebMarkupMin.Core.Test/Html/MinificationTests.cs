@@ -750,12 +750,16 @@ namespace WebMarkupMin.Core.Test.Html
 				"</svg>"
 				;
 
+			const string input6 = "<img class=\"item-image defer-image|http://www.example.com/rpsweb/othumb?id=NL$1452$PDF&s=e\">";
+			const string targetOutput6 = "<img class=\"item-image defer-image|http://www.example.com/rpsweb/othumb?id=NL$1452$PDF&amp;s=e\">";
+
 			// Act
 			string output1 = cleaningAttributesMinifier.Minify(input1).MinifiedContent;
 			string output2 = cleaningAttributesMinifier.Minify(input2).MinifiedContent;
 			string output3 = cleaningAttributesMinifier.Minify(input3).MinifiedContent;
 			string output4 = cleaningAttributesMinifier.Minify(input4).MinifiedContent;
 			string output5 = cleaningAttributesMinifier.Minify(input5).MinifiedContent;
+			string output6 = cleaningAttributesMinifier.Minify(input6).MinifiedContent;
 
 			// Assert
 			Assert.Equal(targetOutput1, output1);
@@ -763,6 +767,7 @@ namespace WebMarkupMin.Core.Test.Html
 			Assert.Equal(targetOutput3, output3);
 			Assert.Equal(targetOutput4, output4);
 			Assert.Equal(targetOutput5, output5);
+			Assert.Equal(targetOutput6, output6);
 		}
 
 		[Fact]

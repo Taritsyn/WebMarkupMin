@@ -46,7 +46,7 @@
    =============
    RELEASE NOTES
    =============
-   Blazor component markers (`<!--Blazor:…-->`) are no longer removed.
+   Fixed a error #113 “Problem with the content of the html attributes”.
 
    =============
    DOCUMENTATION
