@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## v2.8.5 - June 30, 2020
+ * Fixed a [error #113](https://github.com/Taritsyn/WebMarkupMin/issues/113) “Problem with the content of the html attributes”
+
 ## v2.8.4 - June 17, 2020
  * In WebMarkupMin.NUglify added support of the NUglify version 1.6.3
  * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.1.5
