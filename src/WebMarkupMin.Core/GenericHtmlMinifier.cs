@@ -665,24 +665,20 @@ namespace WebMarkupMin.Core
 			else if (AngularHelpers.IsCommentDirective(commentText))
 			{
 				// Processing of Angular comment directive
-				string ngOriginalDirectiveName = string.Empty;
-				string ngNormalizedDirectiveName = string.Empty;
+				string ngDirectiveName = string.Empty;
 				string ngExpression = string.Empty;
 
 				AngularHelpers.ParseCommentDirective(commentText,
-					(localContext, originalDirectiveName, normalizedDirectiveName) =>
+					(localContext, directiveName, expression) =>
 					{
-						ngOriginalDirectiveName = originalDirectiveName;
-						ngNormalizedDirectiveName = normalizedDirectiveName;
-					},
-					(localContext, expression) =>
-					{
+						ngDirectiveName = directiveName;
+
 						SourceCodeNodeCoordinates expressionCoordinates = localContext.NodeCoordinates;
 						expressionCoordinates.ColumnNumber += beginCommentLength;
 
 						ngExpression = expression;
 						if (_settings.MinifyAngularBindingExpressions
-							&& ContainsAngularBindingExpression(ngNormalizedDirectiveName))
+							&& ContainsAngularBindingExpression(AngularHelpers.NormalizeDirectiveName(ngDirectiveName)))
 						{
 							ngExpression = MinifyAngularBindingExpression(context, SourceCodeNodeCoordinates.Empty,
 								expressionCoordinates, expression);
@@ -690,7 +686,7 @@ namespace WebMarkupMin.Core
 					}
 				);
 
-				processedCommentText = "directive:" + ngOriginalDirectiveName + " " + ngExpression;
+				processedCommentText = "directive:" + ngDirectiveName + " " + ngExpression;
 			}
 			else if (ReactHelpers.IsDomComponentComment(commentText)
 				|| BlazorHelpers.IsComponentMarker(commentText))
@@ -1670,82 +1666,71 @@ namespace WebMarkupMin.Core
 					if (AngularHelpers.IsClassDirective(processedAttributeValue))
 					{
 						// Processing of Angular class directives
-						string ngOriginalDirectiveName = string.Empty;
-						string ngNormalizedDirectiveName = string.Empty;
-						string ngExpression;
-						var ngDirectives = new Dictionary<string, string>();
+						var stringBuilderPool = StringBuilderPool.Shared;
+						StringBuilder classNameBuilder = stringBuilderPool.Rent();
 
-						AngularHelpers.ParseClassDirective(processedAttributeValue,
-							(localContext, originalDirectiveName, normalizedDirectiveName) =>
-							{
-								ngOriginalDirectiveName = originalDirectiveName;
-								ngNormalizedDirectiveName = normalizedDirectiveName;
-								ngExpression = null;
-
-								ngDirectives.Add(ngOriginalDirectiveName, ngExpression);
-							},
-							(localContext, expression) =>
-							{
-								ngExpression = expression;
-								if (_settings.MinifyAngularBindingExpressions
-									&& ContainsAngularBindingExpression(ngNormalizedDirectiveName))
-								{
-									ngExpression = MinifyAngularBindingExpression(context,
-										attribute.ValueCoordinates, localContext.NodeCoordinates,
-										expression);
-								}
-
-								ngDirectives[ngOriginalDirectiveName] = ngExpression;
-							},
-							localContext =>
-							{
-								if (ngDirectives[ngOriginalDirectiveName] == null)
-								{
-									ngDirectives[ngOriginalDirectiveName] = string.Empty;
-								}
-							}
-						);
-
-						int directiveCount = ngDirectives.Count;
-						if (directiveCount > 0)
+						try
 						{
-							var stringBuilderPool = StringBuilderPool.Shared;
-							StringBuilder directiveBuilder = stringBuilderPool.Rent();
-							int directiveIndex = 0;
-							int lastDirectiveIndex = directiveCount - 1;
-							string previousExpression = null;
+							AngularHelpers.ParseClassDirective(processedAttributeValue,
+								(localContext, directiveName, expression, endsWithSemicolon) =>
+								{
+									bool isDirective = expression.Length > 0 || endsWithSemicolon;
+									if (isDirective)
+									{
+										int builderLength = classNameBuilder.Length;
+										if (builderLength >= 2
+											&& classNameBuilder[builderLength - 1] == ' '
+											&& classNameBuilder[builderLength - 2] == ';')
+										{
+											classNameBuilder.TrimEnd();
+										}
+									}
 
-							foreach (var directive in ngDirectives)
+									string processedExpression = expression;
+									if (_settings.MinifyAngularBindingExpressions
+										&& ContainsAngularBindingExpression(AngularHelpers.NormalizeDirectiveName(directiveName)))
+									{
+										processedExpression = MinifyAngularBindingExpression(context,
+											attribute.ValueCoordinates, localContext.NodeCoordinates,
+											expression);
+									}
+
+									classNameBuilder.Append(directiveName);
+									if (!string.IsNullOrWhiteSpace(processedExpression))
+									{
+										classNameBuilder.Append(":");
+										classNameBuilder.Append(processedExpression);
+									}
+									if (endsWithSemicolon)
+									{
+										classNameBuilder.Append(";");
+									}
+								},
+								(localContext, сontent) =>
+								{
+									string processedСontent = Utils.CollapseWhitespace(сontent);
+									classNameBuilder.Append(processedСontent);
+								}
+							);
+
+							// Remove a trailing whitespaces
+							classNameBuilder
+								.TrimStart()
+								.TrimEnd()
+								;
+
+							// Remove a ending semicolon
+							int classNameBuilderLength = classNameBuilder.Length;
+							if (classNameBuilder[classNameBuilderLength - 1] == ';')
 							{
-								string directiveName = directive.Key;
-								string expression = directive.Value;
-
-								if (directiveIndex > 0 && (expression == null || previousExpression == null))
-								{
-									directiveBuilder.Append(" ");
-								}
-
-								directiveBuilder.Append(directiveName);
-								if (!string.IsNullOrWhiteSpace(expression))
-								{
-									directiveBuilder.AppendFormat(":{0}", expression);
-								}
-
-								if (directiveIndex < lastDirectiveIndex && expression != null)
-								{
-									directiveBuilder.Append(";");
-								}
-
-								previousExpression = expression;
-								directiveIndex++;
+								classNameBuilder.Length = classNameBuilderLength - 1;
 							}
 
-							processedAttributeValue = directiveBuilder.ToString();
-							stringBuilderPool.Return(directiveBuilder);
+							processedAttributeValue = classNameBuilder.ToString();
 						}
-						else
+						finally
 						{
-							processedAttributeValue = string.Empty;
+							stringBuilderPool.Return(classNameBuilder);
 						}
 					}
 					else
@@ -2859,12 +2844,12 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Determines whether a directive contains the Angular binding expression
 		/// </summary>
-		/// <param name="directiveName">Directive name</param>
+		/// <param name="normalizedDirectiveName">Normalized directive name</param>
 		/// <returns>Result of check (true - contains; false - not contains)</returns>
-		private bool ContainsAngularBindingExpression(string directiveName)
+		private bool ContainsAngularBindingExpression(string normalizedDirectiveName)
 		{
-			bool result = !string.IsNullOrEmpty(directiveName)
-				&& _angularDirectivesWithExpressions.Contains(directiveName);
+			bool result = !string.IsNullOrEmpty(normalizedDirectiveName)
+				&& _angularDirectivesWithExpressions.Contains(normalizedDirectiveName);
 
 			return result;
 		}

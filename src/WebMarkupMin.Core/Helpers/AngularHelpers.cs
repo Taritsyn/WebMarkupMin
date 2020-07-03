@@ -26,22 +26,19 @@ namespace WebMarkupMin.Core.Helpers
 		private static readonly Regex _prefixRegex = new Regex(@"^(?:x|data)[-_:]", RegexOptions.IgnoreCase);
 
 		/// <summary>
-		/// Regular expression for determining the Angular class directives
-		/// </summary>
-		private static readonly Regex _ngClassDirectivesRegex = new Regex(
-			@"^(\s*" + NG_DIRECTIVE_NAME_PATTERN + @"(?:\:[^;]+)?;?)+\s*$");
-
-		/// <summary>
-		/// Regular expression for working with the Angular class directive
+		/// Regular expression for parsing the Angular class directive
 		/// </summary>
 		private static readonly Regex _ngClassDirectiveRegex = new Regex(
-			@"^\s*(?<directiveName>" + NG_DIRECTIVE_NAME_PATTERN + @")(?:\:(?<expression>[^;]+))?(?<semicolon>;)?");
+			@"(?<directiveName>" + NG_DIRECTIVE_NAME_PATTERN + @")(?:\:(?<expression>[^;]+))?(?<semicolon>;)?");
 
 		/// <summary>
-		/// Regular expression for working with the Angular comment directive
+		/// Regular expression for parsing the Angular comment directive
 		/// </summary>
 		private static readonly Regex _ngCommentDirectiveRegex = new Regex(
-			@"^\s*directive\:\s*(?<directiveName>" + NG_DIRECTIVE_NAME_PATTERN + @")\s+(?<expression>.*)$");
+			@"^\s*" + NG_COMMENT_DIRECTIVE_PREFIX + @"\s*" +
+			@"(?<directiveName>" + NG_DIRECTIVE_NAME_PATTERN + @")\s+" +
+			@"(?<expression>.*)$")
+			;
 
 		/// <summary>
 		/// Regular expression for working with special characters
@@ -91,7 +88,7 @@ namespace WebMarkupMin.Core.Helpers
 				return false;
 			}
 
-			bool isClassDirective = _ngClassDirectivesRegex.IsMatch(className);
+			bool isClassDirective = _ngClassDirectiveRegex.IsMatch(className);
 
 			return isClassDirective;
 		}
@@ -100,64 +97,65 @@ namespace WebMarkupMin.Core.Helpers
 		/// Parses a Angular class directive
 		/// </summary>
 		/// <param name="className">Class name</param>
-		/// <param name="directiveNameHandler">Directive name handler</param>
-		/// <param name="expressionHandler">Binding expression handler</param>
-		/// <param name="semicolonHandler">Semicolon handler</param>
-		public static void ParseClassDirective(string className, DirectiveNameDelegate directiveNameHandler,
-			ExpressionDelegate expressionHandler, SemicolonDelegate semicolonHandler)
+		/// <param name="classDirectiveHandler">Angular class directive handler</param>
+		/// <param name="otherContentHandler">Other сontent handler</param>
+		public static void ParseClassDirective(string className, ClassDirectiveDelegate classDirectiveHandler,
+			OtherContentDelegate otherContentHandler)
 		{
 			int classNameLength = className.Length;
 			int currentPosition = 0;
 			int remainderLength = classNameLength;
 
-			Match match = _ngClassDirectiveRegex.Match(className, currentPosition, remainderLength);
+			var innerContext = new InnerMarkupParsingContext(className);
+			var context = new MarkupParsingContext(innerContext);
 
+			Match match = _ngClassDirectiveRegex.Match(className, currentPosition, remainderLength);
 			while (match.Success)
 			{
-				var innerContext = new InnerMarkupParsingContext(className);
-				var context = new MarkupParsingContext(innerContext);
-				int localPosition = 0;
-
 				GroupCollection groups = match.Groups;
 
 				Group directiveNameGroup = groups["directiveName"];
 				int directiveNamePosition = directiveNameGroup.Index;
-				string originalDirectiveName = directiveNameGroup.Value;
-				string normalizedDirectiveName = NormalizeDirectiveName(originalDirectiveName);
+				string directiveName = directiveNameGroup.Value;
 
-				innerContext.IncreasePosition(directiveNamePosition - localPosition);
-				localPosition = directiveNamePosition;
-				currentPosition = directiveNamePosition + directiveNameGroup.Length;
-
-				directiveNameHandler?.Invoke(context, originalDirectiveName, normalizedDirectiveName);
+				if (directiveNamePosition > currentPosition)
+				{
+					string otherContent = className.Substring(currentPosition,
+						directiveNamePosition - currentPosition);
+					otherContentHandler?.Invoke(context, otherContent);
+				}
 
 				Group expressionGroup = groups["expression"];
+				string expression = string.Empty;
+
 				if (expressionGroup.Success)
 				{
 					int expressionPosition = expressionGroup.Index;
-					string expression = expressionGroup.Value.Trim();
+					expression = expressionGroup.Value.Trim();
 
-					innerContext.IncreasePosition(expressionPosition - localPosition);
-					localPosition = expressionPosition;
-					currentPosition = expressionPosition + expressionGroup.Length;
-
-					expressionHandler?.Invoke(context, expression);
+					innerContext.IncreasePosition(expressionPosition - currentPosition);
+					currentPosition = expressionPosition;
+					remainderLength = classNameLength - currentPosition;
 				}
 
 				Group semicolonGroup = groups["semicolon"];
-				if (semicolonGroup.Success)
-				{
-					int semicolonPosition = semicolonGroup.Index;
+				bool endsWithSemicolon = semicolonGroup.Success;
 
-					innerContext.IncreasePosition(semicolonPosition - localPosition);
-					localPosition = semicolonPosition;
-					currentPosition = semicolonPosition + semicolonGroup.Length;
+				classDirectiveHandler?.Invoke(context, directiveName, expression, endsWithSemicolon);
 
-					semicolonHandler?.Invoke(context);
-				}
+				int nextItemPosition = match.Index + match.Length;
 
+				innerContext.IncreasePosition(nextItemPosition - currentPosition);
+				currentPosition = nextItemPosition;
 				remainderLength = classNameLength - currentPosition;
+
 				match = _ngClassDirectiveRegex.Match(className, currentPosition, remainderLength);
+			}
+
+			if (remainderLength > 0)
+			{
+				string otherContent = className.Substring(currentPosition, remainderLength);
+				otherContentHandler?.Invoke(context, otherContent);
 			}
 		}
 
@@ -180,10 +178,8 @@ namespace WebMarkupMin.Core.Helpers
 		/// Parses a Angular comment directive
 		/// </summary>
 		/// <param name="commentText">Comment text</param>
-		/// <param name="directiveNameHandler">Directive name handler</param>
-		/// <param name="expressionHandler">Binding expression handler</param>
-		public static void ParseCommentDirective(string commentText, DirectiveNameDelegate directiveNameHandler,
-			ExpressionDelegate expressionHandler)
+		/// <param name="commentDirectiveHandler">Angular comment directive handler</param>
+		public static void ParseCommentDirective(string commentText, CommentDirectiveDelegate commentDirectiveHandler)
 		{
 			Match match = _ngCommentDirectiveRegex.Match(commentText);
 			if (match.Success)
@@ -194,12 +190,7 @@ namespace WebMarkupMin.Core.Helpers
 				GroupCollection groups = match.Groups;
 
 				Group directiveNameGroup = groups["directiveName"];
-				int directiveNamePosition = directiveNameGroup.Index;
-				string originalDirectiveName = directiveNameGroup.Value;
-				string normalizedDirectiveName = NormalizeDirectiveName(originalDirectiveName);
-
-				innerContext.IncreasePosition(directiveNamePosition);
-				directiveNameHandler?.Invoke(context, originalDirectiveName, normalizedDirectiveName);
+				string directiveName = directiveNameGroup.Value;
 
 				Group expressionGroup = groups["expression"];
 				if (expressionGroup.Success)
@@ -207,32 +198,36 @@ namespace WebMarkupMin.Core.Helpers
 					int expressionPosition = expressionGroup.Index;
 					string expression = expressionGroup.Value.Trim();
 
-					innerContext.IncreasePosition(expressionPosition - directiveNamePosition);
-					expressionHandler?.Invoke(context, expression);
+					innerContext.IncreasePosition(expressionPosition);
+					commentDirectiveHandler?.Invoke(context, directiveName, expression);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Angular directive name delegate
+		/// Angular class directive delegate
 		/// </summary>
 		/// <param name="context">Markup parsing context</param>
-		/// <param name="originalDirectiveName">Original directive name</param>
-		/// <param name="normalizedDirectiveName">Normalized directive name</param>
-		public delegate void DirectiveNameDelegate(MarkupParsingContext context, string originalDirectiveName,
-			string normalizedDirectiveName);
-
-		/// <summary>
-		/// Angular binding expression delegate
-		/// </summary>
-		/// <param name="context">Markup parsing context</param>
+		/// <param name="directiveName">Directive name</param>
 		/// <param name="expression">Binding expression</param>
-		public delegate void ExpressionDelegate(MarkupParsingContext context, string expression);
+		/// <param name="endsWithSemicolon">Flag whether the directive is ends with a semicolon</param>
+		public delegate void ClassDirectiveDelegate(MarkupParsingContext context, string directiveName,
+			string expression, bool endsWithSemicolon);
 
 		/// <summary>
-		/// Semicolon delegate
+		/// Angular comment directive delegate
 		/// </summary>
 		/// <param name="context">Markup parsing context</param>
-		public delegate void SemicolonDelegate(MarkupParsingContext context);
+		/// <param name="directiveName">Directive name</param>
+		/// <param name="expression">Binding expression</param>
+		public delegate void CommentDirectiveDelegate(MarkupParsingContext context, string directiveName,
+			string expression);
+
+		/// <summary>
+		/// Other сontent delegate
+		/// </summary>
+		/// <param name="context">Markup parsing context</param>
+		/// <param name="сontent">Other сontent</param>
+		public delegate void OtherContentDelegate(MarkupParsingContext context, string сontent);
 	}
 }

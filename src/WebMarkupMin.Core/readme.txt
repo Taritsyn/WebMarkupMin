@@ -46,7 +46,7 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a error #113 “Problem with the content of the html attributes”.
+   Improved a performance of the class directive processing.
 
    =============
    DOCUMENTATION
