@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## v2.8.6 - July 3, 2020
+ * Improved a performance of the class directive processing
+
 ## v2.8.5 - June 30, 2020
  * Fixed a [error #113](https://github.com/Taritsyn/WebMarkupMin/issues/113) “Problem with the content of the html attributes”
 
