@@ -1,0 +1,240 @@
+﻿using Xunit;
+
+namespace WebMarkupMin.Core.Test.Xml.Minification
+{
+	public class WhitespaceMinificationTests
+	{
+		[Fact]
+		public void WhitespaceMinificationIsCorrect()
+		{
+			// Arrange
+			var keepingWhitespaceMinifier = new XmlMinifier(new XmlMinificationSettings(true) { MinifyWhitespace = false });
+			var removingWhitespaceMinifier = new XmlMinifier(new XmlMinificationSettings(true) { MinifyWhitespace = true });
+
+			const string input1 = " \n   <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+				"<?xml-stylesheet type=\"text/xsl\" href=\"http://feeds.example.com/feed-rss.xslt\"?>\n" +
+				"<rss version=\"2.0\">\n" +
+				"	<channel>\n" +
+				"		<!-- Channel properties -->\n" +
+				"		<title>    RSS          Title          </title>\n" +
+				"		<description>	This    is  an example   of an   RSS feed	</description>\n" +
+				"		<link>http://www.example.com/rss</link>\n" +
+				"		<lastBuildDate>Mon, 07 Sep 2013 00:01:00 +0000</lastBuildDate>\n" +
+				"		<pubDate>Mon, 07 Sep 2012 16:45:00 +0000</pubDate>\n" +
+				"		<ttl>1800</ttl>\n" +
+				"		<!-- /Channel properties -->\n" +
+				"		<!-- Item list -->\n" +
+				"		<item>\n" +
+				"			<title>		Example    entry  </title>\n" +
+				"			<description>\n" +
+				"			<![CDATA[\n" +
+				"			<p>Here is some text containing an description.</p>\n" +
+				"			]]>\n" +
+				"			</description>\n" +
+				"			<link>http://www.example.com/2012/09/01/my-article</link>\n" +
+				"			<guid>97357194-40ea-4a19-9941-bc208521b8ce</guid>\n" +
+				"			<pubDate>Mon, 07 Sep 2012 16:45:00 +0000</pubDate>\n" +
+				"		</item>\n" +
+				"		<!-- /Item list -->\n" +
+				"	</channel>\n" +
+				"</rss>\t   \n "
+				;
+			const string targetOutput1A = input1;
+			const string targetOutput1B = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+				"<?xml-stylesheet type=\"text/xsl\" href=\"http://feeds.example.com/feed-rss.xslt\"?>" +
+				"<rss version=\"2.0\">" +
+				"<channel>\n" +
+				"		<!-- Channel properties -->\n" +
+				"		<title>    RSS          Title          </title>" +
+				"<description>	This    is  an example   of an   RSS feed	</description>" +
+				"<link>http://www.example.com/rss</link>" +
+				"<lastBuildDate>Mon, 07 Sep 2013 00:01:00 +0000</lastBuildDate>" +
+				"<pubDate>Mon, 07 Sep 2012 16:45:00 +0000</pubDate>" +
+				"<ttl>1800</ttl>\n" +
+				"		<!-- /Channel properties -->\n" +
+				"		<!-- Item list -->\n" +
+				"		<item>" +
+				"<title>		Example    entry  </title>" +
+				"<description>\n" +
+				"			<![CDATA[\n" +
+				"			<p>Here is some text containing an description.</p>\n" +
+				"			]]>\n" +
+				"			</description>" +
+				"<link>http://www.example.com/2012/09/01/my-article</link>" +
+				"<guid>97357194-40ea-4a19-9941-bc208521b8ce</guid>" +
+				"<pubDate>Mon, 07 Sep 2012 16:45:00 +0000</pubDate>" +
+				"</item>\n" +
+				"		<!-- /Item list -->\n" +
+				"	</channel>" +
+				"</rss>"
+				;
+
+
+			const string input2 = "  \n\n  <?xml version=\"1.0\"?>\n" +
+				"<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\">\n" +
+				"	<soap:Header>\n" +
+				"	</soap:Header>\n" +
+				"	<soap:Body>\n" +
+				"		<m:GetStockPrice xmlns:m=\"http://www.example.com/stock\">\n" +
+				"			<m:StockName>MSFT</m:StockName>\n" +
+				"		</m:GetStockPrice>\n" +
+				"	</soap:Body>\n" +
+				"</soap:Envelope>	   \n  "
+				;
+			const string targetOutput2A = input2;
+			const string targetOutput2B = "<?xml version=\"1.0\"?>" +
+				"<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\">" +
+				"<soap:Header>\n" +
+				"	</soap:Header>" +
+				"<soap:Body>" +
+				"<m:GetStockPrice xmlns:m=\"http://www.example.com/stock\">" +
+				"<m:StockName>MSFT</m:StockName>" +
+				"</m:GetStockPrice>" +
+				"</soap:Body>" +
+				"</soap:Envelope>"
+				;
+
+			const string input3 = "<?xml version=\"1.0\" standalone=\"no\"?>\n" +
+				"<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" " +
+				"\"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n" +
+				"<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" +
+				"	<mrow>\n" +
+				"		<mi>a</mi>\n" +
+				"		<mo>&InvisibleTimes;</mo>\n" +
+				"		<msup>\n" +
+				"			<mi>x</mi>\n" +
+				"			<mn>2</mn>\n" +
+				"		</msup>\n" +
+				"		<mo>+</mo>\n" +
+				"		<mi>b</mi>\n" +
+				"		<mo>&InvisibleTimes; </mo>\n" +
+				"		<mi>x</mi>\n" +
+				"		<mo>+</mo>\n" +
+				"		<mi>c</mi>\n" +
+				"	</mrow>\n" +
+				"</math>"
+				;
+			const string targetOutput3A = input3;
+			const string targetOutput3B = "<?xml version=\"1.0\" standalone=\"no\"?>" +
+				"<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" " +
+				"\"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">" +
+				"<math xmlns=\"http://www.w3.org/1998/Math/MathML\">" +
+				"<mrow>" +
+				"<mi>a</mi>" +
+				"<mo>&InvisibleTimes;</mo>" +
+				"<msup>" +
+				"<mi>x</mi>" +
+				"<mn>2</mn>" +
+				"</msup>" +
+				"<mo>+</mo>" +
+				"<mi>b</mi>" +
+				"<mo>&InvisibleTimes; </mo>" +
+				"<mi>x</mi>" +
+				"<mo>+</mo>" +
+				"<mi>c</mi>" +
+				"</mrow>" +
+				"</math>"
+				;
+
+			const string input4 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+				"<!DOCTYPE math PUBLIC \"-//W3C//DTD MathML 2.0//EN\" " +
+				"\"http://www.w3.org/Math/DTD/mathml2/mathml2.dtd\">\n" +
+				"<mrow>\n" +
+				"	a &InvisibleTimes; <msup>x 2</msup>\n" +
+				"	+ b &InvisibleTimes; x\n" +
+				"	+ c\n" +
+				"</mrow>"
+				;
+			const string targetOutput4A = input4;
+			const string targetOutput4B = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+				"<!DOCTYPE math PUBLIC \"-//W3C//DTD MathML 2.0//EN\" " +
+				"\"http://www.w3.org/Math/DTD/mathml2/mathml2.dtd\">" +
+				"<mrow>\n" +
+				"	a &InvisibleTimes; <msup>x 2</msup>\n" +
+				"	+ b &InvisibleTimes; x\n" +
+				"	+ c\n" +
+				"</mrow>"
+				;
+
+			const string input5 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n\n" +
+				"<feed xmlns=\"http://www.w3.org/2005/Atom\">\n\n" +
+				"	<title>Some feed title...</title>\n" +
+				"	<subtitle> 	 </subtitle>\n" +
+				"	<link href=\"http://example.org/feed/\" rel=\"self\"/>\n" +
+				"	<link href=\"http://example.org/\"/>\n" +
+				"	<id>urn:uuid:447d7106-3653-407c-ba8b-776f001b9d30</id>\n" +
+				"	<updated>2013-04-12T19:35:07Z</updated>\n\n" +
+				"	<entry>\n" +
+				"		<title>Some entry title...</title>\n" +
+				"		<link href=\"http://example.org/2003/12/13/atom03\"/>\n" +
+				"		<link rel=\"alternate\" type=\"text/html\" href=\"http://example.org/2003/12/13/atom03.html\"/>\n" +
+				"		<link rel=\"edit\" href=\"http://example.org/2003/12/13/atom03/edit\"/>\n" +
+				"		<id>urn:uuid:af2cb1de-6a68-4af2-aa87-f575898a96e2</id>\n" +
+				"		<updated>2013-04-12T19:35:07Z</updated>\n" +
+				"		<summary>Some text...</summary>\n" +
+				"		<author>\n" +
+				"			<name>Vasya Pupkin</name>\n" +
+				"			<email>vasya.pupkin@example.com</email>\n" +
+				"		</author>\n" +
+				"	</entry>\n" +
+				"</feed>\n"
+				;
+			const string targetOutput5A = input5;
+			const string targetOutput5B = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
+				"<feed xmlns=\"http://www.w3.org/2005/Atom\">" +
+				"<title>Some feed title...</title>" +
+				"<subtitle> 	 </subtitle>" +
+				"<link href=\"http://example.org/feed/\" rel=\"self\"/>" +
+				"<link href=\"http://example.org/\"/>" +
+				"<id>urn:uuid:447d7106-3653-407c-ba8b-776f001b9d30</id>" +
+				"<updated>2013-04-12T19:35:07Z</updated>" +
+				"<entry>" +
+				"<title>Some entry title...</title>" +
+				"<link href=\"http://example.org/2003/12/13/atom03\"/>" +
+				"<link rel=\"alternate\" type=\"text/html\" href=\"http://example.org/2003/12/13/atom03.html\"/>" +
+				"<link rel=\"edit\" href=\"http://example.org/2003/12/13/atom03/edit\"/>" +
+				"<id>urn:uuid:af2cb1de-6a68-4af2-aa87-f575898a96e2</id>" +
+				"<updated>2013-04-12T19:35:07Z</updated>" +
+				"<summary>Some text...</summary>" +
+				"<author>" +
+				"<name>Vasya Pupkin</name>" +
+				"<email>vasya.pupkin@example.com</email>" +
+				"</author>" +
+				"</entry>" +
+				"</feed>"
+				;
+
+			// Act
+			string output1A = keepingWhitespaceMinifier.Minify(input1).MinifiedContent;
+			string output1B = removingWhitespaceMinifier.Minify(input1).MinifiedContent;
+
+			string output2A = keepingWhitespaceMinifier.Minify(input2).MinifiedContent;
+			string output2B = removingWhitespaceMinifier.Minify(input2).MinifiedContent;
+
+			string output3A = keepingWhitespaceMinifier.Minify(input3).MinifiedContent;
+			string output3B = removingWhitespaceMinifier.Minify(input3).MinifiedContent;
+
+			string output4A = keepingWhitespaceMinifier.Minify(input4).MinifiedContent;
+			string output4B = removingWhitespaceMinifier.Minify(input4).MinifiedContent;
+
+			string output5A = keepingWhitespaceMinifier.Minify(input5).MinifiedContent;
+			string output5B = removingWhitespaceMinifier.Minify(input5).MinifiedContent;
+
+			// Assert
+			Assert.Equal(targetOutput1A, output1A);
+			Assert.Equal(targetOutput1B, output1B);
+
+			Assert.Equal(targetOutput2A, output2A);
+			Assert.Equal(targetOutput2B, output2B);
+
+			Assert.Equal(targetOutput3A, output3A);
+			Assert.Equal(targetOutput3B, output3B);
+
+			Assert.Equal(targetOutput4A, output4A);
+			Assert.Equal(targetOutput4B, output4B);
+
+			Assert.Equal(targetOutput5A, output5A);
+			Assert.Equal(targetOutput5B, output5B);
+		}
+	}
+}
