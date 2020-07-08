@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## v2.8.7 - July 8, 2020
+ * In WebMarkupMin.NUglify added support of the NUglify version 1.6.4
+
 ## v2.8.6 - July 3, 2020
  * Improved a performance of the class directive processing
 
