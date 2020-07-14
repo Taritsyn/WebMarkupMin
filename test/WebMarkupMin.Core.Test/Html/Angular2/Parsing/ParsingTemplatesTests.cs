@@ -5,7 +5,7 @@ namespace WebMarkupMin.Core.Test.Html.Angular2.Parsing
 	public class ParsingTemplatesTests
 	{
 		[Fact]
-		public void ParsingTemplatesIsCorrect()
+		public void ParsingOfPropertyBindingsIsCorrect()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true){ PreserveCase = true });
@@ -24,43 +24,6 @@ namespace WebMarkupMin.Core.Test.Html.Angular2.Parsing
 			const string input12 = "<div class=\"special\" bind-class.special=\"\t  !isSpecial  \t\"></div>";
 			const string input13 = "<button [style.fontSize.%]=\"\t  !isSpecial ? 150  :  50  \t\">Small</button>";
 			const string input14 = "<button bind-style.fontSize.%=\"\t  !isSpecial ? 150  :  50  \t\">Small</button>";
-			const string input15 = "<button (click)=\"\t  onSave()  \t\">Save</button>";
-			const string input16 = "<div (^click)=\"\t  onSave()  \t\">\n" +
-				"	<span>Save</span>\n" +
-				"</div>"
-				;
-			const string input17 = "<button on-click=\"\t  onSave()  \t\">Save</button>";
-			const string input18 = "<div (myClick)=\"\t  clickMessage = $event;  \t\">click with myClick</div>";
-			const string input19 = "<div on-myClick=\"\t  clickMessage = $event;  \t\">click with myClick</div>";
-			const string input20 = "<hero-detail (deleteRequest)=\"\t  deleteHero($event);  \t\"></hero-detail>";
-			const string input21 = "<hero-detail on-deleteRequest=\"\t  deleteHero($event);  \t\"></hero-detail>";
-			const string input22 = "<input [value]=\"\t  currentHero.firstName  \t\"" +
-				" (input)=\"\t  currentHero.firstName = $event.target.value;  \t\">"
-				;
-			const string input23 = "<input bind-value=\"\t  currentHero.firstName  \t\"" +
-				" on-input=\"\t  currentHero.firstName = $event.target.value;  \t\">"
-				;
-			const string input24 = "<input [ngModel]=\"\t  currentHero.firstName  \t\"" +
-				" (ngModelChange)=\"\t  currentHero.firstName = $event;  \t\">"
-				;
-			const string input25 = "<input bind-ngModel=\"\t  currentHero.firstName  \t\"" +
-				" on-ngModelChange=\"\t  currentHero.firstName = $event;  \t\">"
-				;
-			const string input26 = "<input [(ngModel)]=\"\t  currentHero.firstName  \t\">";
-			const string input27 = "<input bindon-ngModel=\"\t  currentHero.firstName  \t\">";
-			const string input28 = "<hero-detail *ngIf=\"currentHero\" [hero]=\"currentHero\"></hero-detail>";
-			const string input29 = "<hero-detail template=\"ngIf:currentHero\" [hero]=\"currentHero\"></hero-detail>";
-			const string input30 = "<video #moviePlayer>\n" +
-				"	<button (click)=\"moviePlayer.play()\"></button>\n" +
-				"</video>"
-				;
-			const string input31 = "<video var-moviePlayer>\n" +
-				"	<button (click)=\"moviePlayer.play()\"></button>\n" +
-				"</video>"
-				;
-			const string input32 = "<p>Employer: {{\t  employer?.companyName  \t}}</p>";
-			const string input33 = "<p>My birthday is {{\t  birthday  |  date:\"MM/dd/yy\"  \t}}</p>";
-			const string input34 = "<p>Message: {{\t  delayedMessage  |  async  \t}}</p>";
 
 			// Act
 			string output1 = minifier.Minify(input1).MinifiedContent;
@@ -77,26 +40,6 @@ namespace WebMarkupMin.Core.Test.Html.Angular2.Parsing
 			string output12 = minifier.Minify(input12).MinifiedContent;
 			string output13 = minifier.Minify(input13).MinifiedContent;
 			string output14 = minifier.Minify(input14).MinifiedContent;
-			string output15 = minifier.Minify(input15).MinifiedContent;
-			string output16 = minifier.Minify(input16).MinifiedContent;
-			string output17 = minifier.Minify(input17).MinifiedContent;
-			string output18 = minifier.Minify(input18).MinifiedContent;
-			string output19 = minifier.Minify(input19).MinifiedContent;
-			string output20 = minifier.Minify(input20).MinifiedContent;
-			string output21 = minifier.Minify(input21).MinifiedContent;
-			string output22 = minifier.Minify(input22).MinifiedContent;
-			string output23 = minifier.Minify(input23).MinifiedContent;
-			string output24 = minifier.Minify(input24).MinifiedContent;
-			string output25 = minifier.Minify(input25).MinifiedContent;
-			string output26 = minifier.Minify(input26).MinifiedContent;
-			string output27 = minifier.Minify(input27).MinifiedContent;
-			string output28 = minifier.Minify(input28).MinifiedContent;
-			string output29 = minifier.Minify(input29).MinifiedContent;
-			string output30 = minifier.Minify(input30).MinifiedContent;
-			string output31 = minifier.Minify(input31).MinifiedContent;
-			string output32 = minifier.Minify(input32).MinifiedContent;
-			string output33 = minifier.Minify(input33).MinifiedContent;
-			string output34 = minifier.Minify(input34).MinifiedContent;
 
 			// Assert
 			Assert.Equal(input1, output1);
@@ -113,26 +56,155 @@ namespace WebMarkupMin.Core.Test.Html.Angular2.Parsing
 			Assert.Equal(input12, output12);
 			Assert.Equal(input13, output13);
 			Assert.Equal(input14, output14);
-			Assert.Equal(input15, output15);
-			Assert.Equal(input16, output16);
-			Assert.Equal(input17, output17);
-			Assert.Equal(input18, output18);
-			Assert.Equal(input19, output19);
-			Assert.Equal(input20, output20);
-			Assert.Equal(input21, output21);
-			Assert.Equal(input22, output22);
-			Assert.Equal(input23, output23);
-			Assert.Equal(input24, output24);
-			Assert.Equal(input25, output25);
-			Assert.Equal(input26, output26);
-			Assert.Equal(input27, output27);
-			Assert.Equal(input28, output28);
-			Assert.Equal(input29, output29);
-			Assert.Equal(input30, output30);
-			Assert.Equal(input31, output31);
-			Assert.Equal(input32, output32);
-			Assert.Equal(input33, output33);
-			Assert.Equal(input34, output34);
+		}
+
+		[Fact]
+		public void ParsingOfEventBindingsIsCorrect()
+		{
+			// Arrange
+			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true) { PreserveCase = true });
+
+			const string input1 = "<button (click)=\"\t  onSave()  \t\">Save</button>";
+			const string input2 = "<button on-click=\"\t  onSave()  \t\">Save</button>";
+			const string input3 = "<div (myClick)=\"\t  clickMessage = $event;  \t\">click with myClick</div>";
+			const string input4 = "<div on-myClick=\"\t  clickMessage = $event;  \t\">click with myClick</div>";
+			const string input5 = "<hero-detail (deleteRequest)=\"\t  deleteHero($event);  \t\"></hero-detail>";
+			const string input6 = "<hero-detail on-deleteRequest=\"\t  deleteHero($event);  \t\"></hero-detail>";
+
+			// Act
+			string output1 = minifier.Minify(input1).MinifiedContent;
+			string output2 = minifier.Minify(input2).MinifiedContent;
+			string output3 = minifier.Minify(input3).MinifiedContent;
+			string output4 = minifier.Minify(input4).MinifiedContent;
+			string output5 = minifier.Minify(input5).MinifiedContent;
+			string output6 = minifier.Minify(input6).MinifiedContent;
+
+			// Assert
+			Assert.Equal(input1, output1);
+			Assert.Equal(input2, output2);
+			Assert.Equal(input3, output3);
+			Assert.Equal(input4, output4);
+			Assert.Equal(input5, output5);
+			Assert.Equal(input6, output6);
+		}
+
+		[Fact]
+		public void ParsingOfBubblingEventBindingsIsCorrect()
+		{
+			// Arrange
+			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true) { PreserveCase = true });
+
+			const string input = "<div (^click)=\"\t  onSave()  \t\">\n" +
+				"	<span>Save</span>\n" +
+				"</div>"
+				;
+
+			// Act
+			string output = minifier.Minify(input).MinifiedContent;
+
+			// Assert
+			Assert.Equal(input, output);
+		}
+
+		[Fact]
+		public void ParsingOfTwoWayDataBindingsIsCorrect()
+		{
+			// Arrange
+			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true) { PreserveCase = true });
+
+			const string input1 = "<input [value]=\"\t  currentHero.firstName  \t\"" +
+				" (input)=\"\t  currentHero.firstName = $event.target.value;  \t\">"
+				;
+			const string input2 = "<input bind-value=\"\t  currentHero.firstName  \t\"" +
+				" on-input=\"\t  currentHero.firstName = $event.target.value;  \t\">"
+				;
+			const string input3 = "<input [ngModel]=\"\t  currentHero.firstName  \t\"" +
+				" (ngModelChange)=\"\t  currentHero.firstName = $event;  \t\">"
+				;
+			const string input4 = "<input bind-ngModel=\"\t  currentHero.firstName  \t\"" +
+				" on-ngModelChange=\"\t  currentHero.firstName = $event;  \t\">"
+				;
+			const string input5 = "<input [(ngModel)]=\"\t  currentHero.firstName  \t\">";
+			const string input6 = "<input bindon-ngModel=\"\t  currentHero.firstName  \t\">";
+
+			// Act
+			string output1 = minifier.Minify(input1).MinifiedContent;
+			string output2 = minifier.Minify(input2).MinifiedContent;
+			string output3 = minifier.Minify(input3).MinifiedContent;
+			string output4 = minifier.Minify(input4).MinifiedContent;
+			string output5 = minifier.Minify(input5).MinifiedContent;
+			string output6 = minifier.Minify(input6).MinifiedContent;
+
+			// Assert
+			Assert.Equal(input1, output1);
+			Assert.Equal(input2, output2);
+			Assert.Equal(input3, output3);
+			Assert.Equal(input4, output4);
+			Assert.Equal(input5, output5);
+			Assert.Equal(input6, output6);
+		}
+
+		[Fact]
+		public void ParsingOfTemplateBindingsIsCorrect()
+		{
+			// Arrange
+			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true) { PreserveCase = true });
+
+			const string input1 = "<hero-detail *ngIf=\"currentHero\" [hero]=\"currentHero\"></hero-detail>";
+			const string input2 = "<hero-detail template=\"ngIf:currentHero\" [hero]=\"currentHero\"></hero-detail>";
+
+			// Act
+			string output1 = minifier.Minify(input1).MinifiedContent;
+			string output2 = minifier.Minify(input2).MinifiedContent;
+
+			// Assert
+			Assert.Equal(input1, output1);
+			Assert.Equal(input2, output2);
+		}
+
+		[Fact]
+		public void ParsingOfLocalVariablesIsCorrect()
+		{
+			// Arrange
+			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true) { PreserveCase = true });
+
+			const string input1 = "<video #moviePlayer>\n" +
+				"	<button (click)=\"moviePlayer.play()\"></button>\n" +
+				"</video>"
+				;
+			const string input2 = "<video var-moviePlayer>\n" +
+				"	<button (click)=\"moviePlayer.play()\"></button>\n" +
+				"</video>"
+				;
+
+			// Act
+			string output1 = minifier.Minify(input1).MinifiedContent;
+			string output2 = minifier.Minify(input2).MinifiedContent;
+
+			// Assert
+			Assert.Equal(input1, output1);
+			Assert.Equal(input2, output2);
+		}
+
+		[Fact]
+		public void ParsingOfMustacheStyleTagsIsCorrect()
+		{
+			// Arrange
+			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true) { PreserveCase = true });
+
+			const string input1 = "<p>Employer: {{\t  employer?.companyName  \t}}</p>";
+			const string input2 = "<p>My birthday is {{\t  birthday  |  date:\"MM/dd/yy\"  \t}}</p>";
+			const string input3 = "<p>Message: {{\t  delayedMessage  |  async  \t}}</p>";
+
+			// Act
+			string output1 = minifier.Minify(input1).MinifiedContent;
+			string output2 = minifier.Minify(input2).MinifiedContent;
+			string output3 = minifier.Minify(input3).MinifiedContent;
+
+			// Assert
+			Assert.Equal(input1, output1);
+			Assert.Equal(input2, output2);
+			Assert.Equal(input3, output3);
 		}
 	}
 }
