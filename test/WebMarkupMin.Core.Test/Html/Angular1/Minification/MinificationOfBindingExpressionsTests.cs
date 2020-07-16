@@ -5,10 +5,10 @@ namespace WebMarkupMin.Core.Test.Html.Angular1.Minification
 	public class MinificationOfBindingExpressionsTests
 	{
 		/// <summary>
-		/// Minification of Angular binding expressions in the Mustache-style tags
+		/// Minification of Angular binding expressions in the Mustache-style tags contained in text
 		/// </summary>
 		[Fact]
-		public void MinificationOfBindingExpressionsInMustacheStyleTagsIsCorrect()
+		public void MinificationOfBindingExpressionsInMustacheStyleTagsContainedInTextIsCorrect()
 		{
 			// Arrange
 			var keepingExpressionsMinifier = new HtmlMinifier(
@@ -57,37 +57,88 @@ namespace WebMarkupMin.Core.Test.Html.Angular1.Minification
 			const string targetOutput5A = input5;
 			const string targetOutput5B = "<p id=\"one-time-binding-example\">One time binding: {{::name}}</p>";
 
-			const string input6 = "<img src=\"/Content/images/icons/{{\t  iconName + '.png'  \t}}\">";
+			const string input6 = "<div>${{\t  Price  \t}}</div>";
 			const string targetOutput6A = input6;
-			const string targetOutput6B = "<img src=\"/Content/images/icons/{{iconName+'.png'}}\">";
+			const string targetOutput6B = "<div>${{Price}}</div>";
 
-			const string input7 = "<select size=\"{{\t  listSize  \t}}\"></select>";
+			// Act
+			string output1A = keepingExpressionsMinifier.Minify(input1).MinifiedContent;
+			string output1B = minifyingExpressionsMinifier.Minify(input1).MinifiedContent;
+
+			string output2A = keepingExpressionsMinifier.Minify(input2).MinifiedContent;
+			string output2B = minifyingExpressionsMinifier.Minify(input2).MinifiedContent;
+
+			string output3A = keepingExpressionsMinifier.Minify(input3).MinifiedContent;
+			string output3B = minifyingExpressionsMinifier.Minify(input3).MinifiedContent;
+
+			string output4A = keepingExpressionsMinifier.Minify(input4).MinifiedContent;
+			string output4B = minifyingExpressionsMinifier.Minify(input4).MinifiedContent;
+
+			string output5A = keepingExpressionsMinifier.Minify(input5).MinifiedContent;
+			string output5B = minifyingExpressionsMinifier.Minify(input5).MinifiedContent;
+
+			string output6A = keepingExpressionsMinifier.Minify(input6).MinifiedContent;
+			string output6B = minifyingExpressionsMinifier.Minify(input6).MinifiedContent;
+
+			// Assert
+			Assert.Equal(targetOutput1A, output1A);
+			Assert.Equal(targetOutput1B, output1B);
+
+			Assert.Equal(targetOutput2A, output2A);
+			Assert.Equal(targetOutput2B, output2B);
+
+			Assert.Equal(targetOutput3A, output3A);
+			Assert.Equal(targetOutput3B, output3B);
+
+			Assert.Equal(targetOutput4A, output4A);
+			Assert.Equal(targetOutput4B, output4B);
+
+			Assert.Equal(targetOutput5A, output5A);
+			Assert.Equal(targetOutput5B, output5B);
+
+			Assert.Equal(targetOutput6A, output6A);
+			Assert.Equal(targetOutput6B, output6B);
+		}
+
+		/// <summary>
+		/// Minification of Angular binding expressions in the Mustache-style tags contained in attribute values
+		/// </summary>
+		[Fact]
+		public void MinificationOfBindingExpressionsInMustacheStyleTagsContainedInAttributeValuesIsCorrect()
+		{
+			// Arrange
+			var keepingExpressionsMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true) { MinifyAngularBindingExpressions = false });
+			var minifyingExpressionsMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true) { MinifyAngularBindingExpressions = true });
+
+			const string input1 = "<img src=\"/Content/images/icons/{{\t  iconName + '.png'  \t}}\">";
+			const string targetOutput1A = input1;
+			const string targetOutput1B = "<img src=\"/Content/images/icons/{{iconName+'.png'}}\">";
+
+			const string input2 = "<select size=\"{{\t  listSize  \t}}\"></select>";
+			const string targetOutput2A = input2;
+			const string targetOutput2B = "<select size=\"{{listSize}}\"></select>";
+
+			const string input3 = "<span class=\"label done-{{\t  todo.done  \t}}\">{{todo.text}}</span>";
+			const string targetOutput3A = input3;
+			const string targetOutput3B = "<span class=\"label done-{{todo.done}}\">{{todo.text}}</span>";
+
+			const string input4 = "<div style=\"background-color: {{\t  color  \t}}\"></div>";
+			const string targetOutput4A = input4;
+			const string targetOutput4B = "<div style=\"background-color: {{color}}\"></div>";
+
+			const string input5 = "<button onclick=\"showMessageBox('Error', '{{\t  message  \t}}')\">Show message</button>";
+			const string targetOutput5A = input5;
+			const string targetOutput5B = input5;
+
+			const string input6 = "<input type=\"text\" value=\"{{\t  text  \t}}\">";
+			const string targetOutput6A = input6;
+			const string targetOutput6B = "<input type=\"text\" value=\"{{text}}\">";
+
+			const string input7 = "<pre ng-bind-template=\"{{\t  salutation  \t}} {{\t  name  \t}}!\"></pre>";
 			const string targetOutput7A = input7;
-			const string targetOutput7B = "<select size=\"{{listSize}}\"></select>";
-
-			const string input8 = "<span class=\"label done-{{\t  todo.done  \t}}\">{{todo.text}}</span>";
-			const string targetOutput8A = input8;
-			const string targetOutput8B = "<span class=\"label done-{{todo.done}}\">{{todo.text}}</span>";
-
-			const string input9 = "<div style=\"background-color: {{\t  color  \t}}\"></div>";
-			const string targetOutput9A = input9;
-			const string targetOutput9B = "<div style=\"background-color: {{color}}\"></div>";
-
-			const string input10 = "<button onclick=\"showMessageBox('Error', '{{\t  message  \t}}')\">Show message</button>";
-			const string targetOutput10A = input10;
-			const string targetOutput10B = input10;
-
-			const string input11 = "<input type=\"text\" value=\"{{\t  text  \t}}\">";
-			const string targetOutput11A = input11;
-			const string targetOutput11B = "<input type=\"text\" value=\"{{text}}\">";
-
-			const string input12 = "<pre ng-bind-template=\"{{\t  salutation  \t}} {{\t  name  \t}}!\"></pre>";
-			const string targetOutput12A = input12;
-			const string targetOutput12B = "<pre ng-bind-template=\"{{salutation}} {{name}}!\"></pre>";
-
-			const string input13 = "<div>${{\t  Price  \t}}</div>";
-			const string targetOutput13A = input13;
-			const string targetOutput13B = "<div>${{Price}}</div>";
+			const string targetOutput7B = "<pre ng-bind-template=\"{{salutation}} {{name}}!\"></pre>";
 
 			// Act
 			string output1A = keepingExpressionsMinifier.Minify(input1).MinifiedContent;
@@ -111,24 +162,6 @@ namespace WebMarkupMin.Core.Test.Html.Angular1.Minification
 			string output7A = keepingExpressionsMinifier.Minify(input7).MinifiedContent;
 			string output7B = minifyingExpressionsMinifier.Minify(input7).MinifiedContent;
 
-			string output8A = keepingExpressionsMinifier.Minify(input8).MinifiedContent;
-			string output8B = minifyingExpressionsMinifier.Minify(input8).MinifiedContent;
-
-			string output9A = keepingExpressionsMinifier.Minify(input9).MinifiedContent;
-			string output9B = minifyingExpressionsMinifier.Minify(input9).MinifiedContent;
-
-			string output10A = keepingExpressionsMinifier.Minify(input10).MinifiedContent;
-			string output10B = minifyingExpressionsMinifier.Minify(input10).MinifiedContent;
-
-			string output11A = keepingExpressionsMinifier.Minify(input11).MinifiedContent;
-			string output11B = minifyingExpressionsMinifier.Minify(input11).MinifiedContent;
-
-			string output12A = keepingExpressionsMinifier.Minify(input12).MinifiedContent;
-			string output12B = minifyingExpressionsMinifier.Minify(input12).MinifiedContent;
-
-			string output13A = keepingExpressionsMinifier.Minify(input13).MinifiedContent;
-			string output13B = minifyingExpressionsMinifier.Minify(input13).MinifiedContent;
-
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
@@ -150,24 +183,6 @@ namespace WebMarkupMin.Core.Test.Html.Angular1.Minification
 
 			Assert.Equal(targetOutput7A, output7A);
 			Assert.Equal(targetOutput7B, output7B);
-
-			Assert.Equal(targetOutput8A, output8A);
-			Assert.Equal(targetOutput8B, output8B);
-
-			Assert.Equal(targetOutput9A, output9A);
-			Assert.Equal(targetOutput9B, output9B);
-
-			Assert.Equal(targetOutput10A, output10A);
-			Assert.Equal(targetOutput10B, output10B);
-
-			Assert.Equal(targetOutput11A, output11A);
-			Assert.Equal(targetOutput11B, output11B);
-
-			Assert.Equal(targetOutput12A, output12A);
-			Assert.Equal(targetOutput12B, output12B);
-
-			Assert.Equal(targetOutput13A, output13A);
-			Assert.Equal(targetOutput13B, output13B);
 		}
 
 		/// <summary>
