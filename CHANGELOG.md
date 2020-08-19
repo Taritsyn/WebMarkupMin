@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## v2.8.10 - August 19, 2020
+ * In WebMarkupMin.NUglify added support of the NUglify version 1.6.5
+
 ## v2.8.9 - August 15, 2020
  * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.1.7
 
