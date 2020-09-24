@@ -17,7 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   Added support of ASP.NET Core 3.1.7.
+   Added support of ASP.NET Core 3.1.8.
 
    =============
    DOCUMENTATION
