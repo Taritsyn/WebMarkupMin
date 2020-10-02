@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: Sample ASP.NET Core 1.0 MVC 1 Site</Product>
-    <VersionPrefix>2.8.11</VersionPrefix>
+    <VersionPrefix>2.8.12</VersionPrefix>
     <TargetFramework>netcoreapp1.0</TargetFramework>
     <RuntimeFrameworkVersion>1.0.16</RuntimeFrameworkVersion>
     <OutputType>Exe</OutputType>
