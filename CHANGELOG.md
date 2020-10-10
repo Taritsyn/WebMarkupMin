@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## v2.8.13 - October 10, 2020
+ * In WebMarkupMin.NUglify added support of the NUglify version 1.9.7
+
 ## v2.8.12 - October 2, 2020
  * In WebMarkupMin.NUglify added support of the NUglify version 1.9.6
 

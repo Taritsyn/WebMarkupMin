@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: Core Tests</Product>
-    <VersionPrefix>2.8.12</VersionPrefix>
+    <VersionPrefix>2.8.13</VersionPrefix>
     <TargetFrameworks>net452;netcoreapp1.0;netcoreapp2.1;netcoreapp3.1</TargetFrameworks>
     <RuntimeFrameworkVersion Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">1.0.16</RuntimeFrameworkVersion>
     <OutputType>Library</OutputType>
@@ -14,13 +14,13 @@
 
   <ItemGroup>
     <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
 
     <ProjectReference Include="..\..\src\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net452' Or '$(TargetFramework)' == 'netcoreapp2.1' Or '$(TargetFramework)' == 'netcoreapp3.1' ">
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">
