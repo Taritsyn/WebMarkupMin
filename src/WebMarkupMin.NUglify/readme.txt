@@ -19,7 +19,7 @@
    =============
    RELEASE NOTES
    =============
-   Added support of the NUglify version 1.9.8.
+   Added support of the NUglify version 1.9.9.
 
    =============
    DOCUMENTATION
