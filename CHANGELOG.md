@@ -1,6 +1,12 @@
 Change log
 ==========
 
+## v2.8.15 - November 13, 2020
+ * In WebMarkupMin.NUglify:
+   * Added support of the NUglify version 1.10.0
+   * In configuration settings of minifiers was added one new property - `IndentType` (default `Space`)
+ * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.1.10
+
 ## v2.8.14 - November 3, 2020
  * In WebMarkupMin.NUglify added support of the NUglify version 1.9.9
  * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.1.9
