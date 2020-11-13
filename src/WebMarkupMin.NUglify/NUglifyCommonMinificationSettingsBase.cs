@@ -38,10 +38,19 @@
 		}
 
 		/// <summary>
-		/// Gets or sets a number of spaces per indent level when in
+		/// Gets or sets a number of spaces or tabs per indent level when in
 		/// <code>MultipleLines</code> output mode
 		/// </summary>
 		public int IndentSize
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets or sets a indent type when in <code>MultipleLines</code> output mode
+		/// </summary>
+		public IndentType IndentType
 		{
 			get;
 			set;
@@ -112,6 +121,7 @@
 			IgnoreAllErrors = false;
 			IgnoreErrorList = string.Empty;
 			IndentSize = 4;
+			IndentType = IndentType.Space;
 			LineBreakThreshold = int.MaxValue;
 			OutputMode = OutputMode.SingleLine;
 			PreprocessorDefineList = string.Empty;

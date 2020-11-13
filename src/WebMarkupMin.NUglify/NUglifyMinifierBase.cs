@@ -25,13 +25,21 @@ namespace WebMarkupMin.NUglify
 				settings.BlocksStartOnSameLine);
 			originalSettings.IgnoreAllErrors = settings.IgnoreAllErrors;
 			originalSettings.IgnoreErrorList = settings.IgnoreErrorList;
-			originalSettings.IndentSize = settings.IndentSize;
+			originalSettings.Indent = GenerateIndentString(settings.IndentType, settings.IndentSize);
 			originalSettings.LineBreakThreshold = settings.LineBreakThreshold;
 			originalSettings.OutputMode = Utils.GetEnumFromOtherEnum<WmmOutputMode, NuOutputMode>(
 				settings.OutputMode);
 			originalSettings.PreprocessorDefineList = settings.PreprocessorDefineList;
 			originalSettings.TermSemicolons = settings.TermSemicolons;
 			originalSettings.WarningLevel = settings.WarningLevel;
+		}
+
+		private static string GenerateIndentString(IndentType type, int width)
+		{
+			char character = type == IndentType.Tab ? '\t' : ' ';
+			string indent = new string(character, width);
+
+			return indent;
 		}
 	}
 }
