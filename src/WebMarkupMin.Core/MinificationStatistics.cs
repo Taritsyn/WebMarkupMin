@@ -1,5 +1,5 @@
 ﻿using System;
-#if NET45 || NETSTANDARD || NETCOREAPP2_1
+#if NET45 || NETSTANDARD || NETCOREAPP
 using System.Buffers;
 #endif
 using System.IO;

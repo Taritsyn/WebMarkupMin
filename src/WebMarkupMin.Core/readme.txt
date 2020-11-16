@@ -46,7 +46,7 @@
    =============
    RELEASE NOTES
    =============
-   Improved a performance of the class directive processing.
+   Added support of .NET 5.0.
 
    =============
    DOCUMENTATION

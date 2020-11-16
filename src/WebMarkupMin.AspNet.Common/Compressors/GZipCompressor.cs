@@ -12,7 +12,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		/// Encoding token of compressor
 		/// </summary>
 		public const string CompressorEncodingToken = "gzip";
-#if NET45 || NETSTANDARD
+#if NET45 || NETSTANDARD || NETCOREAPP
 
 		/// <summary>
 		/// GZip compression settings
@@ -37,7 +37,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 			{
 #if NETFULL
 				return false;
-#elif NETSTANDARD
+#elif NETSTANDARD || NETCOREAPP
 				return true;
 #else
 #error No implementation for this target
@@ -45,7 +45,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 			}
 		}
 
-#if NET45 || NETSTANDARD
+#if NET45 || NETSTANDARD || NETCOREAPP
 
 		/// <summary>
 		/// Constructs an instance of the GZip compressor
@@ -72,7 +72,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		/// <returns>The compressed stream</returns>
 		public Stream Compress(Stream stream)
 		{
-#if NET45 || NETSTANDARD
+#if NET45 || NETSTANDARD || NETCOREAPP
 			return new GZipStream(stream, _settings.Level);
 #else
 			return new GZipStream(stream, CompressionMode.Compress);

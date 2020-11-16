@@ -15,6 +15,11 @@
    interfaces for all ASP.NET extensions.
 
    =============
+   RELEASE NOTES
+   =============
+   Added support of .NET 5.0.
+
+   =============
    DOCUMENTATION
    =============
    See documentation on GitHub - https://github.com/Taritsyn/WebMarkupMin/wiki
