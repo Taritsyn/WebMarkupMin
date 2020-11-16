@@ -65,7 +65,7 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <Target Name="СonvertResxToCs" BeforeTargets="BeforeCompile">
+  <Target Name="ConvertResxToCs" BeforeTargets="BeforeCompile">
     <ResxToCsTask InputDirectory="./Resources/" Namespace="$(RootNamespace).Resources" InternalAccessModifier="true" />
   </Target>
 

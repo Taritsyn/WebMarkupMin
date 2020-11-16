@@ -3,7 +3,7 @@ using System.Text;
 
 #if ASPNETCORE1 || ASPNETCORE2
 using HostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
-#elif ASPNETCORE3
+#elif ASPNETCORE3 || ASPNETCORE5
 using HostingEnvironment = Microsoft.AspNetCore.Hosting.IWebHostEnvironment;
 #else
 #error No implementation for this target
@@ -18,6 +18,8 @@ namespace WebMarkupMin.AspNetCore1
 namespace WebMarkupMin.AspNetCore2
 #elif ASPNETCORE3
 namespace WebMarkupMin.AspNetCore3
+#elif ASPNETCORE5
+namespace WebMarkupMin.AspNetCore5
 #else
 #error No implementation for this target
 #endif

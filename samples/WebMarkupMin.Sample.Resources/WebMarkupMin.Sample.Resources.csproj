@@ -17,7 +17,7 @@
     <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha6" PrivateAssets="All" />
   </ItemGroup>
 
-  <Target Name="СonvertResxToCs" BeforeTargets="BeforeCompile">
+  <Target Name="ConvertResxToCs" BeforeTargets="BeforeCompile">
     <ResxToCsTask Namespace="$(RootNamespace)" />
   </Target>
 

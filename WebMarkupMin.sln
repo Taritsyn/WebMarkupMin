@@ -59,7 +59,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.AspNetCore1", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.AspNetCore2", "src\WebMarkupMin.AspNetCore2\WebMarkupMin.AspNetCore2.csproj", "{FB743652-E1C4-40B3-B499-53780DCBAA8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.AspNetCore3", "src\WebMarkupMin.AspNetCore3\WebMarkupMin.AspNetCore3.csproj", "{7BEF6402-2E2A-4C0A-82C4-48E5911BB7B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.AspNetCore3", "src\WebMarkupMin.AspNetCore3\WebMarkupMin.AspNetCore3.csproj", "{39AC8A6C-EFED-484E-8549-348890B483F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.AspNetCore5", "src\WebMarkupMin.AspNetCore5\WebMarkupMin.AspNetCore5.csproj", "{55529452-05CB-4EAA-93D9-1671350A34AC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1AEA1D1F-45BC-4A6C-BCD8-71C50DC839BA}"
 EndProject
@@ -98,7 +100,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Sample.Resourc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Sample.Logic", "samples\WebMarkupMin.Sample.Logic\WebMarkupMin.Sample.Logic.csproj", "{D29E22EF-EAF3-4056-BC7B-E02BB4048281}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Sample.AspNet4.Mvc4", "samples\WebMarkupMin.Sample.AspNet4.Mvc4\WebMarkupMin.Sample.AspNet4.Mvc4.csproj", "{5CF180F1-8A21-4DA6-9550-85F6210389A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Sample.AspNet4.Mvc4", "samples\WebMarkupMin.Sample.AspNet4.Mvc4\WebMarkupMin.Sample.AspNet4.Mvc4.csproj", "{5CF180F1-8A21-4DA6-9550-85F6210389A4}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebMarkupMin.Sample.AspNet4.WebPages2", "samples\WebMarkupMin.Sample.AspNet4.WebPages2\", "{90B64798-5F93-4132-ACE9-A3A4BB05451D}"
 	ProjectSection(WebsiteProperties) = preProject
@@ -122,7 +124,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebMarkupMin.Sample.AspNet4
 		SlnRelativePath = "samples\WebMarkupMin.Sample.AspNet4.WebPages2\"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMarkupMin.Sample.AspNet45.WebForms", "samples\WebMarkupMin.Sample.AspNet45.WebForms\WebMarkupMin.Sample.AspNet45.WebForms.csproj", "{E7808547-E984-4F80-97B8-B19E99BE3A76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Sample.AspNet45.WebForms", "samples\WebMarkupMin.Sample.AspNet45.WebForms\WebMarkupMin.Sample.AspNet45.WebForms.csproj", "{E7808547-E984-4F80-97B8-B19E99BE3A76}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Sample.AspNetCore1.Mvc1", "samples\WebMarkupMin.Sample.AspNetCore1.Mvc1\WebMarkupMin.Sample.AspNetCore1.Mvc1.csproj", "{CBB7FD4C-8A94-4797-AA55-55DA5A63F070}"
 EndProject
@@ -131,6 +133,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Sample.AspNetCore21.Mvc21", "samples\WebMarkupMin.Sample.AspNetCore21.Mvc21\WebMarkupMin.Sample.AspNetCore21.Mvc21.csproj", "{70C0F396-9D87-4E02-AF0B-27F94940478D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Sample.AspNetCore31.Mvc31", "samples\WebMarkupMin.Sample.AspNetCore31.Mvc31\WebMarkupMin.Sample.AspNetCore31.Mvc31.csproj", "{1A2FAACC-7B3E-42BE-AC23-4D88CFC4D210}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Sample.AspNetCore5.Mvc5", "samples\WebMarkupMin.Sample.AspNetCore5.Mvc5\WebMarkupMin.Sample.AspNetCore5.Mvc5.csproj", "{6A1F5A9E-4E04-4137-BB92-AAB87708D990}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -186,6 +190,10 @@ Global
 		{FB743652-E1C4-40B3-B499-53780DCBAA8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB743652-E1C4-40B3-B499-53780DCBAA8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB743652-E1C4-40B3-B499-53780DCBAA8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39AC8A6C-EFED-484E-8549-348890B483F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39AC8A6C-EFED-484E-8549-348890B483F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39AC8A6C-EFED-484E-8549-348890B483F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39AC8A6C-EFED-484E-8549-348890B483F6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{73A9EE62-426A-4E54-9A92-C5B601DAB70F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{73A9EE62-426A-4E54-9A92-C5B601DAB70F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73A9EE62-426A-4E54-9A92-C5B601DAB70F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -230,10 +238,14 @@ Global
 		{1A2FAACC-7B3E-42BE-AC23-4D88CFC4D210}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A2FAACC-7B3E-42BE-AC23-4D88CFC4D210}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A2FAACC-7B3E-42BE-AC23-4D88CFC4D210}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7BEF6402-2E2A-4C0A-82C4-48E5911BB7B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7BEF6402-2E2A-4C0A-82C4-48E5911BB7B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7BEF6402-2E2A-4C0A-82C4-48E5911BB7B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7BEF6402-2E2A-4C0A-82C4-48E5911BB7B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A1F5A9E-4E04-4137-BB92-AAB87708D990}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A1F5A9E-4E04-4137-BB92-AAB87708D990}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A1F5A9E-4E04-4137-BB92-AAB87708D990}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A1F5A9E-4E04-4137-BB92-AAB87708D990}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55529452-05CB-4EAA-93D9-1671350A34AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55529452-05CB-4EAA-93D9-1671350A34AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55529452-05CB-4EAA-93D9-1671350A34AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55529452-05CB-4EAA-93D9-1671350A34AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -251,6 +263,7 @@ Global
 		{27D7454A-F570-4ACC-BB7E-1DD5B264AC22} = {227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}
 		{5F014AC3-7F5D-4EBB-850C-01513CBF1D49} = {227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}
 		{FB743652-E1C4-40B3-B499-53780DCBAA8F} = {227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}
+		{39AC8A6C-EFED-484E-8549-348890B483F6} = {227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}
 		{3EC64089-240A-44CB-A377-07BB90C1019E} = {1AEA1D1F-45BC-4A6C-BCD8-71C50DC839BA}
 		{E16C8CAD-938B-4712-8B4B-05EB42AEFAC6} = {3EC64089-240A-44CB-A377-07BB90C1019E}
 		{D6646163-2C7B-4E9B-A69E-2D73037F1EC3} = {3EC64089-240A-44CB-A377-07BB90C1019E}
@@ -267,7 +280,8 @@ Global
 		{93545F28-4C2E-4C43-B864-AF369D6E71BB} = {93F36312-DACD-42F9-8652-DC03D5545113}
 		{70C0F396-9D87-4E02-AF0B-27F94940478D} = {93F36312-DACD-42F9-8652-DC03D5545113}
 		{1A2FAACC-7B3E-42BE-AC23-4D88CFC4D210} = {93F36312-DACD-42F9-8652-DC03D5545113}
-		{7BEF6402-2E2A-4C0A-82C4-48E5911BB7B2} = {227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}
+		{6A1F5A9E-4E04-4137-BB92-AAB87708D990} = {93F36312-DACD-42F9-8652-DC03D5545113}
+		{55529452-05CB-4EAA-93D9-1671350A34AC} = {227F2DF0-FCC8-4548-A4F9-6DA5BE01918E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E056B7D-640D-49E5-BFD7-D64C25744378}

@@ -50,7 +50,7 @@ Also supports minification of views of popular JavaScript template engines: Knoc
     </Content>
   </ItemGroup>
 
-  <Target Name="СonvertResxToCs" BeforeTargets="BeforeCompile">
+  <Target Name="ConvertResxToCs" BeforeTargets="BeforeCompile">
     <ResxToCsTask
       InputDirectory="./Resources/"
       Namespace="$(RootNamespace).Resources" />

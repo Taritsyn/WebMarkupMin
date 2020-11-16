@@ -11,7 +11,7 @@ using Moq;
 #if NET461 || NETCOREAPP2_1
 using Environments = Microsoft.AspNetCore.Hosting.EnvironmentName;
 using HostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
-#elif NETCOREAPP3_1
+#elif NETCOREAPP3_1 || NET5_0
 using Environments = Microsoft.Extensions.Hosting.Environments;
 using HostingEnvironment = Microsoft.AspNetCore.Hosting.IWebHostEnvironment;
 #else
@@ -25,6 +25,8 @@ using WebMarkupMin.AspNetCore1;
 using WebMarkupMin.AspNetCore2;
 #elif NETCOREAPP3_1
 using WebMarkupMin.AspNetCore3;
+#elif NET5_0
+using WebMarkupMin.AspNetCore5;
 #else
 #error No implementation for this target
 #endif

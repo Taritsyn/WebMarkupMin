@@ -47,7 +47,7 @@ In version for .NET Standard 2.1 uses the native compressor from the `System.IO.
     </Content>
   </ItemGroup>
 
-  <Target Name="СonvertResxToCs" BeforeTargets="BeforeCompile">
+  <Target Name="ConvertResxToCs" BeforeTargets="BeforeCompile">
     <ResxToCsTask
       InputDirectory="./Resources/"
       Namespace="$(RootNamespace).Resources"

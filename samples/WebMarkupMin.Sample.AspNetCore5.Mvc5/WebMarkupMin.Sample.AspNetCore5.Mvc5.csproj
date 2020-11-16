@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <Product>Web Markup Minifier: Sample ASP.NET Core 5 MVC 5 Site</Product>
+    <VersionPrefix>2.8.15</VersionPrefix>
+    <TargetFramework>net5.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <Import Project="../../build/common.props" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\WebMarkupMin.AspNet.Brotli\WebMarkupMin.AspNet.Brotli.csproj" />
+    <ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore5\WebMarkupMin.AspNetCore5.csproj" />
+    <ProjectReference Include="..\WebMarkupMin.Sample.Logic\WebMarkupMin.Sample.Logic.csproj" />
+    <ProjectReference Include="..\WebMarkupMin.Sample.Resources\WebMarkupMin.Sample.Resources.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -14,6 +14,10 @@ namespace WebMarkupMin.AspNetCore2
 using WebMarkupMin.AspNetCore3.Internal;
 
 namespace WebMarkupMin.AspNetCore3
+#elif ASPNETCORE5
+using WebMarkupMin.AspNetCore5.Internal;
+
+namespace WebMarkupMin.AspNetCore5
 #else
 #error No implementation for this target
 #endif

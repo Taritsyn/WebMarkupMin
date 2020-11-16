@@ -23,7 +23,7 @@
    compression) and `MinifiedAndCompressedXhtmlMasterPage` (supports XHTML
    minification and HTTP compression).
 
-   Сlasses of the Web Forms pages and master pages cannot be used together.
+   Classes of the Web Forms pages and master pages cannot be used together.
 
    =============
    RELEASE NOTES

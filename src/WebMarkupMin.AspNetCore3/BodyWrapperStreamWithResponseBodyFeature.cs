@@ -11,7 +11,13 @@ using Microsoft.Net.Http.Headers;
 using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.AspNet.Common.Compressors;
 
+#if ASPNETCORE3
 namespace WebMarkupMin.AspNetCore3
+#elif ASPNETCORE5
+namespace WebMarkupMin.AspNetCore5
+#else
+#error No implementation for this target
+#endif
 {
 	/// <summary>
 	/// Stream wrapper with HTTP response body feature that apply a markup minification and compression only if necessary
