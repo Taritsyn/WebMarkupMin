@@ -19,9 +19,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Added support of the NUglify version 1.10.0;
-   2. In configuration settings of minifiers was added one new property -
-      `IndentType` (default `Space`).
+   Added support of the NUglify version 1.11.3.
 
    =============
    DOCUMENTATION

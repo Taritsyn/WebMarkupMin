@@ -11,8 +11,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Description>WebMarkupMin.NUglify contains 2 minifier-adapters: `NUglifyCssMinifier` (for minification of CSS code) and `NUglifyJsMinifier` (for minification of JS code). These adapters perform minification using the NUglify (https://github.com/trullock/NUglify).</Description>
     <PackageTags>WebMarkupMin;Markup;HTML;XHTML;CSS;JavaScript;JS;Minification;Minifier;Minify;NUglify</PackageTags>
-    <PackageReleaseNotes>1. Added support of the NUglify version 1.10.0;
-2. In configuration settings of minifiers was added one new property - `IndentType` (default `Space`).</PackageReleaseNotes>
+    <PackageReleaseNotes>Added support of the NUglify version 1.11.3.</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />
@@ -22,7 +21,7 @@
 
   <ItemGroup>
     <PackageReference Include="AdvancedStringBuilder" Version="0.1.0" />
-    <PackageReference Include="NUglify" Version="1.10.0" />
+    <PackageReference Include="NUglify" Version="1.11.3" />
 
     <ProjectReference Include="..\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
   </ItemGroup>
