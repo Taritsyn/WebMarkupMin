@@ -1,5 +1,23 @@
 ﻿<p>An overview of new features and fixes:</p>
 
+<h3>2.9.0 - December 1, 2020</h3>
+<ul>
+	<li>In WebMarkupMin.Core:
+		<ul>
+			<li>.NET Core App 2.1 target was replaced by a .NET Standard 2.1 target</li>
+			<li>Version for .NET Standard 2.1 now uses a regular expression compilation for improving performance</li>
+		</ul>
+	</li>
+	<li>In WebMarkupMin.NUglify added support of the NUglify version 1.11.3</li>
+	<li>In WebMarkupMin.AspNet.Common:
+		<ul>
+			<li>Added a .NET Core App 2.1 and .NET Standard 2.1 targets</li>
+			<li>In versions for .NET Core App 2.1 and .NET Standard 2.1 was added a new compressor (<code>BuiltInBrotliCompressor</code>) based on the <code>System.IO.Compression.BrotliStream</code> class</li>
+		</ul>
+	</li>
+	<li>Created the WebMarkupMin.AspNetCore5 module, that contains middleware for ASP.NET Core 5.0</li>
+</ul>
+
 <h3>2.8.15 - November 13, 2020</h3>
 <ul>
 	<li>In WebMarkupMin.NUglify:
