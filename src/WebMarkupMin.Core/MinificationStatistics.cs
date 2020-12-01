@@ -1,5 +1,5 @@
 ﻿using System;
-#if NET45 || NETSTANDARD || NETCOREAPP
+#if NET45 || NETSTANDARD
 using System.Buffers;
 #endif
 using System.IO;
@@ -137,7 +137,7 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Constructs instance of minification statistics
 		/// </summary>
-		public MinificationStatistics() : this(TextEncodingShortcuts.Default)
+		public MinificationStatistics() : this(TargetFrameworkShortcuts.DefaultTextEncoding)
 		{ }
 
 		/// <summary>

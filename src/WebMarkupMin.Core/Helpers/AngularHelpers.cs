@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 
 using WebMarkupMin.Core.Parsers;
+using WebMarkupMin.Core.Utilities;
 
 namespace WebMarkupMin.Core.Helpers
 {
@@ -23,13 +24,15 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// Regular expression for working with the Angular directive prefixes
 		/// </summary>
-		private static readonly Regex _prefixRegex = new Regex(@"^(?:x|data)[-_:]", RegexOptions.IgnoreCase);
+		private static readonly Regex _prefixRegex = new Regex(@"^(?:x|data)[-_:]",
+			RegexOptions.IgnoreCase | TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		/// <summary>
 		/// Regular expression for parsing the Angular class directive
 		/// </summary>
-		private static readonly Regex _ngClassDirectiveRegex = new Regex(
-			@"(?<directiveName>" + NG_DIRECTIVE_NAME_PATTERN + @")(?:\:(?<expression>[^;]+))?(?<semicolon>;)?");
+		private static readonly Regex _ngClassDirectiveRegex = new Regex(@"(?<directiveName>" + NG_DIRECTIVE_NAME_PATTERN + @")" +
+			@"(?:\:(?<expression>[^;]+))?(?<semicolon>;)?",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		/// <summary>
 		/// Regular expression for parsing the Angular comment directive
@@ -37,13 +40,15 @@ namespace WebMarkupMin.Core.Helpers
 		private static readonly Regex _ngCommentDirectiveRegex = new Regex(
 			@"^\s*" + NG_COMMENT_DIRECTIVE_PREFIX + @"\s*" +
 			@"(?<directiveName>" + NG_DIRECTIVE_NAME_PATTERN + @")\s+" +
-			@"(?<expression>.*)$")
+			@"(?<expression>.*)$",
+			TargetFrameworkShortcuts.PerformanceRegexOptions)
 			;
 
 		/// <summary>
 		/// Regular expression for working with special characters
 		/// </summary>
-		private static readonly Regex _specialCharsRegex = new Regex(@"[-_:]+(?<letter>.)");
+		private static readonly Regex _specialCharsRegex = new Regex(@"[-_:]+(?<letter>.)",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 
 		/// <summary>

@@ -87,7 +87,7 @@ namespace WebMarkupMin.AspNet4.Common
 		public MarkupMinificationFilterStream(HttpResponseBase response,
 			WebMarkupMinConfiguration configuration,
 			IMarkupMinificationManager minificationManager)
-			: this(response, configuration, minificationManager, string.Empty, TextEncodingShortcuts.Default)
+			: this(response, configuration, minificationManager, string.Empty, TargetFrameworkShortcuts.DefaultTextEncoding)
 		{ }
 
 		/// <summary>

@@ -23,10 +23,14 @@ namespace WebMarkupMin.Core
 		private static readonly char[] _space = new char[] { ' ' };
 		private static readonly char[] _semicolon = new char[] { ';' };
 
-		private static readonly Regex _commentRegex = new Regex(@"/\*[\s\S]*?\*/");
-		private static readonly Regex _separatingCharacters = new Regex(@" ?([:,;{}]) ?");
-		private static readonly Regex _redundantSelectorRegex = new Regex(@"[a-zA-Z]+#");
-		private static readonly Regex _zeroValue = new Regex(@"(?<=[ :])0(?:px|em|ex|cm|mm|in|pt|pc|%|ch|rem|vh|vm(?:ax|in)?|vw)");
+		private static readonly Regex _commentRegex = new Regex(@"/\*[\s\S]*?\*/",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _separatingCharacters = new Regex(@" ?([:,;{}]) ?",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _redundantSelectorRegex = new Regex(@"[a-zA-Z]+#",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _zeroValue = new Regex(@"(?<=[ :])0(?:px|em|ex|cm|mm|in|pt|pc|%|ch|rem|vh|vm(?:ax|in)?|vw)",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		#region ICssMinifier implementation
 
@@ -48,7 +52,7 @@ namespace WebMarkupMin.Core
 		/// <returns>Minification result</returns>
 		public CodeMinificationResult Minify(string content, bool isInlineCode)
 		{
-			return Minify(content, isInlineCode, TextEncodingShortcuts.Default);
+			return Minify(content, isInlineCode, TargetFrameworkShortcuts.DefaultTextEncoding);
 		}
 
 		/// <summary>

@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 
 using WebMarkupMin.Core.Parsers;
+using WebMarkupMin.Core.Utilities;
 
 namespace WebMarkupMin.Core.Helpers
 {
@@ -19,13 +20,15 @@ namespace WebMarkupMin.Core.Helpers
 		/// Regular expression for working with the Knockout begin containerless comment
 		/// </summary>
 		private static readonly Regex _koBeginContainerlessCommentRegex =
-			new Regex(@"^\s*" + KO_CONTAINERLESS_COMMENT_PREFIX + @"(?:\s+(?<expression>[\s\S]+))?\s*$");
+			new Regex(@"^\s*" + KO_CONTAINERLESS_COMMENT_PREFIX + @"(?:\s+(?<expression>[\s\S]+))?\s*$",
+				TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		/// <summary>
 		/// Regular expression for working with the Knockout end containerless comment
 		/// </summary>
 		private static readonly Regex _koEndContainerlessCommentRegex =
-			new Regex(@"^\s*/" + KO_CONTAINERLESS_COMMENT_PREFIX + @"\s*$");
+			new Regex(@"^\s*/" + KO_CONTAINERLESS_COMMENT_PREFIX + @"\s*$",
+				TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 
 		/// <summary>

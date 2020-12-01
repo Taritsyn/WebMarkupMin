@@ -1,5 +1,7 @@
 ﻿using System.Text;
 
+using WebMarkupMin.Core.Utilities;
+
 namespace WebMarkupMin.Core
 {
 	/// <summary>
@@ -23,7 +25,7 @@ namespace WebMarkupMin.Core
 		/// <returns>Minification result</returns>
 		public CodeMinificationResult Minify(string content, bool isInlineCode)
 		{
-			return Minify(content, isInlineCode, TextEncodingShortcuts.Default);
+			return Minify(content, isInlineCode, TargetFrameworkShortcuts.DefaultTextEncoding);
 		}
 
 		/// <summary>

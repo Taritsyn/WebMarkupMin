@@ -11,6 +11,7 @@ using HostingEnvironment = Microsoft.AspNetCore.Hosting.IWebHostEnvironment;
 
 using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.Core;
+using WebMarkupMin.Core.Utilities;
 
 #if ASPNETCORE1
 namespace WebMarkupMin.AspNetCore1
@@ -90,7 +91,7 @@ namespace WebMarkupMin.AspNetCore5
 		{
 			AllowMinificationInDevelopmentEnvironment = false;
 			AllowCompressionInDevelopmentEnvironment = false;
-			DefaultEncoding = TextEncodingShortcuts.Default;
+			DefaultEncoding = TargetFrameworkShortcuts.DefaultTextEncoding;
 		}
 	}
 }

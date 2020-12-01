@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
+
+using WebMarkupMin.Core.Utilities;
 
 namespace WebMarkupMin.Core
 {
@@ -10,12 +13,7 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Gets a default encoding for current operating system
 		/// </summary>
-		public static readonly Encoding Default =
-#if NETSTANDARD1_3
-			Encoding.GetEncoding(0)
-#else
-			Encoding.Default
-#endif
-			;
+		[Obsolete("Use a `WebMarkupMin.Core.Utilities.TargetFrameworkShortcuts.DefaultTextEncoding` property instead")]
+		public static readonly Encoding Default = TargetFrameworkShortcuts.DefaultTextEncoding;
 	}
 }

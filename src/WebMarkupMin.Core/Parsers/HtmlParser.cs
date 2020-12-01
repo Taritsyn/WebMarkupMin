@@ -28,11 +28,16 @@ namespace WebMarkupMin.Core.Parsers
 	{
 		#region Regular expressions for parsing tags and attributes
 
-		private static readonly Regex _xmlDeclarationRegex = new Regex(@"^<\?xml\s+[^>]+\s*\?>", RegexOptions.IgnoreCase);
-		private static readonly Regex _doctypeRegex = new Regex(@"^<!DOCTYPE\s?[^>]+?>", RegexOptions.IgnoreCase);
-		private static readonly Regex _startTagBeginPartRegex = new Regex(@"^<(?<tagName>" + CommonRegExps.HtmlTagNamePattern + ")");
-		private static readonly Regex _startTagEndPartRegex = new Regex(@"^\s*(?<emptyTagSlash>/)?>");
-		private static readonly Regex _endTagRegex = new Regex(@"^<\/(?<tagName>" + CommonRegExps.HtmlTagNamePattern + @")\s*>");
+		private static readonly Regex _xmlDeclarationRegex = new Regex(@"^<\?xml\s+[^>]+\s*\?>",
+			RegexOptions.IgnoreCase | TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _doctypeRegex = new Regex(@"^<!DOCTYPE\s?[^>]+?>",
+			RegexOptions.IgnoreCase | TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _startTagBeginPartRegex = new Regex(@"^<(?<tagName>" + CommonRegExps.HtmlTagNamePattern + ")",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _startTagEndPartRegex = new Regex(@"^\s*(?<emptyTagSlash>/)?>",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _endTagRegex = new Regex(@"^<\/(?<tagName>" + CommonRegExps.HtmlTagNamePattern + @")\s*>",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _attributeRegex =
 			new Regex(@"^\s*(?<attributeName>" + CommonRegExps.HtmlAttributeNamePattern + @")" +
 				"(?:" +
@@ -42,19 +47,23 @@ namespace WebMarkupMin.Core.Parsers
 						@"|(?:'(?<attributeValue>[^']*)')" +
 						@"|(?<attributeValue>[^\s""'`=<>]+)" +
 					")?" +
-				")?")
+				")?",
+				TargetFrameworkShortcuts.PerformanceRegexOptions)
 				;
 
-		private static readonly Regex _hiddenIfCommentRegex =
-			new Regex(@"^<!--\[if\s+(?<expression>[^\]]+?)\]>", RegexOptions.IgnoreCase);
-		private static readonly Regex _hiddenEndIfCommentRegex = new Regex(@"^<!\[endif\s*\]-->", RegexOptions.IgnoreCase);
-		private static readonly Regex _revealedIfCommentRegex =
-			new Regex(@"^<!\[if\s+(?<expression>[^\]]+?)\]>", RegexOptions.IgnoreCase);
-		private static readonly Regex _revealedEndIfCommentRegex = new Regex(@"^<!\[endif\s*\]>", RegexOptions.IgnoreCase);
-		private static readonly Regex _revealedValidatingIfCommentRegex =
-			new Regex(@"^<!--\[if\s+(?<expression>[^\]]+?)(?:\]>\s*(?<ltAndPling><!)?\s*-->)", RegexOptions.IgnoreCase);
-		private static readonly Regex _revealedValidatingEndIfCommentRegex =
-			new Regex(@"^<!--\s*<!\[endif\s*\]-->", RegexOptions.IgnoreCase);
+		private static readonly Regex _hiddenIfCommentRegex = new Regex(@"^<!--\[if\s+(?<expression>[^\]]+?)\]>",
+			RegexOptions.IgnoreCase | TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _hiddenEndIfCommentRegex = new Regex(@"^<!\[endif\s*\]-->",
+			RegexOptions.IgnoreCase | TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _revealedIfCommentRegex = new Regex(@"^<!\[if\s+(?<expression>[^\]]+?)\]>",
+			RegexOptions.IgnoreCase | TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _revealedEndIfCommentRegex = new Regex(@"^<!\[endif\s*\]>",
+			RegexOptions.IgnoreCase | TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _revealedValidatingIfCommentRegex = new Regex(@"^<!--\[if\s+(?<expression>[^\]]+?)" +
+			@"(?:\]>\s*(?<ltAndPling><!)?\s*-->)",
+			RegexOptions.IgnoreCase | TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _revealedValidatingEndIfCommentRegex = new Regex(@"^<!--\s*<!\[endif\s*\]-->",
+			RegexOptions.IgnoreCase | TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		#endregion
 
@@ -618,7 +627,7 @@ namespace WebMarkupMin.Core.Parsers
 				string stackedTagName = stackedTag.Name;
 				string stackedTagNameInLowercase = stackedTag.NameInLowercase;
 				Regex stackedTagRegex = _endTagWithEmbeddedCodeRegexCache.GetOrAdd(stackedTagNameInLowercase,
-					key => new Regex(@"</" + Regex.Escape(key) + @"\s*>", RegexOptions.IgnoreCase));
+					key => new Regex(@"</" + Regex.Escape(key) + @"\s*>", RegexOptions.IgnoreCase | TargetFrameworkShortcuts.PerformanceRegexOptions));
 
 				Match match = stackedTagRegex.Match(content, currentPosition, contentRemainderLength);
 				if (match.Success)

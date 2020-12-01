@@ -5,6 +5,7 @@ using EcmaScript.NET;
 using Yahoo.Yui.Compressor;
 
 using WebMarkupMin.Core;
+using WebMarkupMin.Core.Utilities;
 using WebMarkupMin.Yui.Reporters;
 
 namespace WebMarkupMin.Yui
@@ -90,7 +91,7 @@ namespace WebMarkupMin.Yui
 		/// <returns>Minified JS content</returns>
 		public CodeMinificationResult Minify(string content, bool isInlineCode)
 		{
-			return Minify(content, isInlineCode, TextEncodingShortcuts.Default);
+			return Minify(content, isInlineCode, TargetFrameworkShortcuts.DefaultTextEncoding);
 		}
 
 		/// <summary>
@@ -141,7 +142,7 @@ namespace WebMarkupMin.Yui
 				finally
 				{
 					_originalJsMinifier.ErrorReporter = null;
-					_originalJsMinifier.Encoding = TextEncodingShortcuts.Default;
+					_originalJsMinifier.Encoding = TargetFrameworkShortcuts.DefaultTextEncoding;
 
 					errors.AddRange(_errorReporter.Errors);
 					warnings.AddRange(_errorReporter.Warnings);

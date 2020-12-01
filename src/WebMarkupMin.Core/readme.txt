@@ -46,7 +46,9 @@
    =============
    RELEASE NOTES
    =============
-   Added support of .NET 5.0.
+   1. .NET Core App 2.1 target was replaced by a .NET Standard 2.1 target;
+   2. Version for .NET Standard 2.1 now uses a regular expression compilation for
+      improving performance.
 
    =============
    DOCUMENTATION

@@ -75,50 +75,64 @@ namespace WebMarkupMin.Core
 
 		#region Regular expressions
 
-		private static readonly Regex _metaContentTypeTagValueRegex =
-			new Regex(@"^(?:[a-zA-Z0-9-+./]+);\s*charset=(?<charset>[a-zA-Z0-9-]+)$", RegexOptions.IgnoreCase);
-		private static readonly Regex _jsProtocolRegex = new Regex(@"^javascript:\s*", RegexOptions.IgnoreCase);
-		private static readonly Regex _separatingCommaWithSpacesRegex = new Regex(@"\s*,\s*");
-		private static readonly Regex _endingCommaWithSpacesRegex = new Regex(@"\s*,\s*$");
+		private static readonly Regex _metaContentTypeTagValueRegex = new Regex(@"^(?:[a-zA-Z0-9-+./]+);" +
+			@"\s*charset=(?<charset>[a-zA-Z0-9-]+)$",
+			RegexOptions.IgnoreCase | TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _jsProtocolRegex = new Regex(@"^javascript:\s*",
+			RegexOptions.IgnoreCase | TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _separatingCommaWithSpacesRegex = new Regex(@"\s*,\s*",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _endingCommaWithSpacesRegex = new Regex(@"\s*,\s*$",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
 
-		private static readonly Regex _beginHtmlCommentRegex = new Regex(@"^\s*<!--(?:[ \t\v]*\r?\n)?");
+		private static readonly Regex _beginHtmlCommentRegex = new Regex(@"^\s*<!--(?:[ \t\v]*\r?\n)?",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _endHtmlCommentRegex = new Regex(@"(?:\r?\n[ \t\v]*)?-->\s*$",
-			RegexOptions.RightToLeft);
+			RegexOptions.RightToLeft | TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		private static readonly Regex _beginCdataSectionRegex = new Regex(
-			@"^\s*<!\[CDATA\[(?:[ \t\v]*\r?\n)?");
+			@"^\s*<!\[CDATA\[(?:[ \t\v]*\r?\n)?",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _endCdataSectionRegex = new Regex(@"(?:\r?\n[ \t\v]*)?\]\]>\s*$",
-			RegexOptions.RightToLeft);
+			RegexOptions.RightToLeft | TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		private static readonly Regex _styleBeginCdataSectionRegex = new Regex(
-			@"^\s*/\*\s*<!\[CDATA\[\s*\*/(?:[ \t\v]*\r?\n)?");
+			@"^\s*/\*\s*<!\[CDATA\[\s*\*/(?:[ \t\v]*\r?\n)?",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _styleEndCdataSectionRegex = new Regex(@"(?:\r?\n[ \t\v]*)?/\*\s*\]\]>\s*\*/\s*$",
-			RegexOptions.RightToLeft);
+			RegexOptions.RightToLeft | TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		private static readonly Regex _styleBeginMaxCompatibleCdataSectionRegex = new Regex(
-			@"^\s*<!--\s*/\*\s*--><!\[CDATA\[\s*/\*\s*><!--\s*\*/(?:[ \t\v]*\r?\n)?");
+			@"^\s*<!--\s*/\*\s*--><!\[CDATA\[\s*/\*\s*><!--\s*\*/(?:[ \t\v]*\r?\n)?",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _styleEndMaxCompatibleCdataSectionRegex = new Regex(
-			@"(?:\r?\n[ \t\v]*)?/\*\s*\]\]>\s*\*/\s*-->\s*$", RegexOptions.RightToLeft);
+			@"(?:\r?\n[ \t\v]*)?/\*\s*\]\]>\s*\*/\s*-->\s*$",
+			RegexOptions.RightToLeft | TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		private static readonly Regex _scriptBeginHtmlCommentRegex = new Regex(
-			@"^\s*(?://[ \t\v]*)?<!--[ \t\v\S]*(?:\r?\n)?");
+			@"^\s*(?://[ \t\v]*)?<!--[ \t\v\S]*(?:\r?\n)?",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _scriptEndHtmlCommentRegex = new Regex(@"(?:\r?\n)?[ \t\v\S]*-->\s*$",
-			RegexOptions.RightToLeft);
+			RegexOptions.RightToLeft | TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		private static readonly Regex _scriptBeginCdataSectionRegex = new Regex(
-			@"^\s*(?://[ \t\v]*<!\[CDATA\[[ \t\v\S]*\r?\n|/\*\s*<!\[CDATA\[\s*\*/(?:[ \t\v]*\r?\n)?)");
+			@"^\s*(?://[ \t\v]*<!\[CDATA\[[ \t\v\S]*\r?\n|/\*\s*<!\[CDATA\[\s*\*/(?:[ \t\v]*\r?\n)?)",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _scriptEndCdataSectionRegex = new Regex(
-			@"(?:\r?\n//[ \t\v\S]*\]\]>|(?:\r?\n[ \t\v]*)?/\*\s*\]\]>\s*\*/)\s*$", RegexOptions.RightToLeft);
+			@"(?:\r?\n//[ \t\v\S]*\]\]>|(?:\r?\n[ \t\v]*)?/\*\s*\]\]>\s*\*/)\s*$",
+			RegexOptions.RightToLeft | TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		private static readonly Regex _scriptBeginMaxCompatibleCdataSectionRegex = new Regex(
 			@"^\s*(?:<!--[ \t\v]*//[ \t\v]*--><!\[CDATA\[[ \t\v]*//[ \t\v]*><!--[ \t\v]*\r?\n" +
-			@"|<!--\s*/\*\s*--><!\[CDATA\[\s*/\*\s*><!--\s*\*/(?:[ \t\v]*\r?\n)?)");
+			@"|<!--\s*/\*\s*--><!\[CDATA\[\s*/\*\s*><!--\s*\*/(?:[ \t\v]*\r?\n)?)",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _scriptEndMaxCompatibleCdataSectionRegex = new Regex(
 			@"(?:\r?\n[ \t\v]*//[ \t\v]*--><!\]\]>" +
-			@"|(?:\r?\n[ \t\v]*)?/\*\s*\]\]>\s*\*/\s*-->)\s*$", RegexOptions.RightToLeft);
+			@"|(?:\r?\n[ \t\v]*)?/\*\s*\]\]>\s*\*/\s*-->)\s*$",
+			RegexOptions.RightToLeft | TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		private static readonly Regex _relExternalAttributeRegex = new Regex(@"^(?:alternate\s+)?external$",
-			RegexOptions.IgnoreCase);
+			RegexOptions.IgnoreCase | TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		#endregion
 
@@ -404,7 +418,7 @@ namespace WebMarkupMin.Core
 		/// <returns>Minification result</returns>
 		public MarkupMinificationResult Minify(string content)
 		{
-			return Minify(content, string.Empty, TextEncodingShortcuts.Default, false);
+			return Minify(content, string.Empty, TargetFrameworkShortcuts.DefaultTextEncoding, false);
 		}
 
 		/// <summary>
@@ -415,7 +429,7 @@ namespace WebMarkupMin.Core
 		/// <returns>Minification result</returns>
 		public MarkupMinificationResult Minify(string content, string fileContext)
 		{
-			return Minify(content, fileContext, TextEncodingShortcuts.Default, false);
+			return Minify(content, fileContext, TargetFrameworkShortcuts.DefaultTextEncoding, false);
 		}
 
 		/// <summary>
@@ -437,7 +451,7 @@ namespace WebMarkupMin.Core
 		/// <returns>Minification result</returns>
 		public MarkupMinificationResult Minify(string content, bool generateStatistics)
 		{
-			return Minify(content, string.Empty, TextEncodingShortcuts.Default, generateStatistics);
+			return Minify(content, string.Empty, TargetFrameworkShortcuts.DefaultTextEncoding, generateStatistics);
 		}
 
 		/// <summary>

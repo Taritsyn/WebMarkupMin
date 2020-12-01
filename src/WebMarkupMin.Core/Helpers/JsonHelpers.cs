@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
+using WebMarkupMin.Core.Utilities;
+
 namespace WebMarkupMin.Core.Helpers
 {
 	/// <summary>
@@ -11,7 +13,8 @@ namespace WebMarkupMin.Core.Helpers
 		/// <summary>
 		/// Regular expression for working with curly braces
 		/// </summary>
-		private static readonly Regex _valueInCurlyBracesRegex = new Regex(@"^\s*\{(?<value>[\s\S]*?)\}\s*$");
+		private static readonly Regex _valueInCurlyBracesRegex = new Regex(@"^\s*\{(?<value>[\s\S]*?)\}\s*$",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 
 		/// <summary>

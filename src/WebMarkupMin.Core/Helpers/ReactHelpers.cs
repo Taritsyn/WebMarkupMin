@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
+using WebMarkupMin.Core.Utilities;
+
 namespace WebMarkupMin.Core.Helpers
 {
 	/// <summary>
@@ -17,13 +19,15 @@ namespace WebMarkupMin.Core.Helpers
 		/// Regular expression for working with the React begin DOM component comment
 		/// </summary>
 		private static readonly Regex _reactBeginDomComponentCommentRegex = new Regex(
-			@"^ " + REACT_DOM_COMPONENT_PREFIX + @"[a-z]+\: \d+ $");
+			@"^ " + REACT_DOM_COMPONENT_PREFIX + @"[a-z]+\: \d+ $",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		/// <summary>
 		/// Regular expression for working with the React end DOM component comment
 		/// </summary>
 		private static readonly Regex _reactEndDomComponentCommentRegex = new Regex(
-			@"^ /" + REACT_DOM_COMPONENT_PREFIX + @"[a-z]+ $");
+			@"^ /" + REACT_DOM_COMPONENT_PREFIX + @"[a-z]+ $",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 
 		/// <summary>

@@ -7,6 +7,7 @@ using AdvancedStringBuilder;
 using WebMarkupMin.Core.Helpers;
 using WebMarkupMin.Core.Parsers;
 using WebMarkupMin.Core.Resources;
+using WebMarkupMin.Core.Utilities;
 
 namespace WebMarkupMin.Core
 {
@@ -28,7 +29,8 @@ namespace WebMarkupMin.Core
 						@"(?<caseInsensitive>\s+i)?" +
 					@")?" +
 				@")?" +
-			@"\]$")
+			@"\]$",
+			TargetFrameworkShortcuts.PerformanceRegexOptions)
 			;
 
 		/// <summary>

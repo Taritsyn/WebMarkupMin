@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 
 using WebMarkupMin.Core.Parsers;
+using WebMarkupMin.Core.Utilities;
 
 namespace WebMarkupMin.Core.Helpers
 {
@@ -37,7 +38,8 @@ namespace WebMarkupMin.Core.Helpers
 		/// </summary>
 		private static readonly Regex _templateTagRegex = new Regex(CURLY_BRACKET_TAG_PATTERN +
 			"|" + ES6_STRING_INTERPOLATION_PATTERN +
-			"|" + SQUARE_BRACKET_TAG_PATTERN);
+			"|" + SQUARE_BRACKET_TAG_PATTERN,
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 
 		/// <summary>

@@ -19,15 +19,22 @@ namespace WebMarkupMin.Core.Parsers
 
 		private const string NAME_PATTERN = @"[\w-:.]+";
 
-		private static readonly Regex _processingInstructionBeginPartRegex = new Regex(@"^<\?(?<instructionName>" + NAME_PATTERN + ")");
-		private static readonly Regex _processingInstructionEndPartRegex = new Regex(@"^\s*\?>");
-		private static readonly Regex _doctypeRegex = new Regex(@"^<!DOCTYPE\s[^>]+?>");
-		private static readonly Regex _startTagBeginPartRegex = new Regex(@"^<(?<tagName>" + NAME_PATTERN + ")");
-		private static readonly Regex _startTagEndPartRegex = new Regex(@"^\s*(?<emptyTagSlash>/)?>");
-		private static readonly Regex _endTagRegex = new Regex(@"^<\/(?<tagName>" + NAME_PATTERN + @")\s*>");
+		private static readonly Regex _processingInstructionBeginPartRegex = new Regex(@"^<\?(?<instructionName>" + NAME_PATTERN + ")",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _processingInstructionEndPartRegex = new Regex(@"^\s*\?>",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _doctypeRegex = new Regex(@"^<!DOCTYPE\s[^>]+?>",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _startTagBeginPartRegex = new Regex(@"^<(?<tagName>" + NAME_PATTERN + ")",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _startTagEndPartRegex = new Regex(@"^\s*(?<emptyTagSlash>/)?>",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _endTagRegex = new Regex(@"^<\/(?<tagName>" + NAME_PATTERN + @")\s*>",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _attributeRegex = new Regex(@"^\s*(?<attributeName>" + NAME_PATTERN + ")" +
 			@"\s*=\s*" +
-			@"(?:""(?<attributeValue>[^""]*)""|'(?<attributeValue>[^']*)')");
+			@"(?:""(?<attributeValue>[^""]*)""|'(?<attributeValue>[^']*)')",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		#endregion
 

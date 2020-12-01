@@ -5,6 +5,7 @@ using System.Text;
 using Yahoo.Yui.Compressor;
 
 using WebMarkupMin.Core;
+using WebMarkupMin.Core.Utilities;
 using CoreStrings = WebMarkupMin.Core.Resources.Strings;
 
 namespace WebMarkupMin.Yui
@@ -81,7 +82,7 @@ namespace WebMarkupMin.Yui
 		/// <returns>Minification result</returns>
 		public CodeMinificationResult Minify(string content, bool isInlineCode)
 		{
-			return Minify(content, isInlineCode, TextEncodingShortcuts.Default);
+			return Minify(content, isInlineCode, TargetFrameworkShortcuts.DefaultTextEncoding);
 		}
 
 		/// <summary>

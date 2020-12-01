@@ -17,7 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   Added support of .NET 5.0.
+   .NET 5.0 target was replaced by a .NET Standard 2.1 target.
 
    =============
    DOCUMENTATION
