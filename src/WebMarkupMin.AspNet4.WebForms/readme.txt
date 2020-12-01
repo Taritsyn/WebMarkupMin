@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-           README file for Web Markup Minifier: ASP.NET 4.X Web Forms v2.8.1
+           README file for Web Markup Minifier: ASP.NET 4.X Web Forms v2.9.0
 
    --------------------------------------------------------------------------------
 
@@ -24,11 +24,6 @@
    minification and HTTP compression).
 
    Classes of the Web Forms pages and master pages cannot be used together.
-
-   =============
-   RELEASE NOTES
-   =============
-   Fixed a error #104 “Dependency Issues in release 2.8.0”.
 
    =============
    DOCUMENTATION

@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-            README file for Web Markup Minifier: Brotli for ASP.NET v2.8.1
+            README file for Web Markup Minifier: Brotli for ASP.NET v2.9.0
 
    --------------------------------------------------------------------------------
 
@@ -16,13 +16,8 @@
    `BrotliCompressor`. `BrotliCompressor` is based on the BrotliSharpLib
    (https://github.com/master131/BrotliSharpLib) version 0.3.3.
 
-   In version for .NET Standard 2.1 uses the native compressor from the
+   In version for .NET Standard 2.1 uses the built-in compressor from the
    `System.IO.Compression` namespace.
-
-   =============
-   RELEASE NOTES
-   =============
-   Fixed a error #104 “Dependency Issues in release 2.8.0”.
 
    =============
    DOCUMENTATION

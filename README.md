@@ -18,7 +18,7 @@ You can try WebMarkupMin in action and experiment with different minification se
 ## NuGet Packages
 
 ### Core
- * [WebMarkupMin: Core](http://nuget.org/packages/WebMarkupMin.Core/) (supports .NET Framework 4.0 Client, .NET Framework 4.5, .NET Standard 1.3, .NET Standard 2.0 and .NET Core App 2.1)
+ * [WebMarkupMin: Core](http://nuget.org/packages/WebMarkupMin.Core/) (supports .NET Framework 4.0 Client, .NET Framework 4.5, .NET Standard 1.3, .NET Standard 2.0 and .NET Standard 2.1)
 
 ### External JS and CSS minifiers
  * [WebMarkupMin: MS Ajax](http://nuget.org/packages/WebMarkupMin.MsAjax/) (supports .NET Framework 4.0 Client, .NET Framework 4.5 and .NET Standard 2.0)
@@ -32,6 +32,7 @@ You can try WebMarkupMin in action and experiment with different minification se
  * [WebMarkupMin: ASP.NET Core 1.X](http://nuget.org/packages/WebMarkupMin.AspNetCore1/) (supports .NET Framework 4.5.1 and .NET Standard 1.3)
  * [WebMarkupMin: ASP.NET Core 2.X](http://nuget.org/packages/WebMarkupMin.AspNetCore2/) (supports .NET Standard 2.0 and .NET Core App 2.1)
  * [WebMarkupMin: ASP.NET Core 3.X](http://nuget.org/packages/WebMarkupMin.AspNetCore3/) (supports .NET Core App 3.1)
+ * [WebMarkupMin: ASP.NET Core 5.X](http://nuget.org/packages/WebMarkupMin.AspNetCore5/) (supports .NET 5.0)
  * [WebMarkupMin: Brotli for ASP.NET](http://nuget.org/packages/WebMarkupMin.AspNet.Brotli/) (supports .NET Framework 4.0, .NET Framework 4.5, .NET Standard 1.3, .NET Standard 2.0 and .NET Standard 2.1)
 
 ### Unofficial modules
