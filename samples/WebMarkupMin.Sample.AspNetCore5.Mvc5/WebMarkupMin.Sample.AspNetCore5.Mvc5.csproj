@@ -13,7 +13,6 @@
   <Import Project="../../build/common.props" />
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\WebMarkupMin.AspNet.Brotli\WebMarkupMin.AspNet.Brotli.csproj" />
     <ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore5\WebMarkupMin.AspNetCore5.csproj" />
     <ProjectReference Include="..\WebMarkupMin.Sample.Logic\WebMarkupMin.Sample.Logic.csproj" />
     <ProjectReference Include="..\WebMarkupMin.Sample.Resources\WebMarkupMin.Sample.Resources.csproj" />

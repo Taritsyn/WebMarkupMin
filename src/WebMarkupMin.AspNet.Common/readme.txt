@@ -17,7 +17,10 @@
    =============
    RELEASE NOTES
    =============
-   .NET 5.0 target was replaced by a .NET Standard 2.1 target.
+   1. Added a .NET Core App 2.1 and .NET Standard 2.1 targets;
+   2. In versions for .NET Core App 2.1 and .NET Standard 2.1 was added a new
+      compressor (`BuiltInBrotliCompressor`) based on the
+      `System.IO.Compression.BrotliStream` class.
 
    =============
    DOCUMENTATION
