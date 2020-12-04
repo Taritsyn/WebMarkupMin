@@ -1,6 +1,11 @@
 Change log
 ==========
 
+## v2.9.1 - December 4, 2020
+ * In WebMarkupMin.Yui added support of the YUI Compressor for .NET version 3.1.0
+ * In WebMarkupMin.NUglify added support of the NUglify version 1.11.4
+ * In ASP.NET Core extensions fixed a error that occurred when excluding the Hangfire dashboard and related pages from processing by corresponding markup minifier or compressor
+
 ## v2.9.0 - December 1, 2020
  * In WebMarkupMin.Core:
    * .NET Core App 2.1 target was replaced by a .NET Standard 2.1 target

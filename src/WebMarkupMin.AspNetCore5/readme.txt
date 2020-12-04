@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-             README file for Web Markup Minifier: ASP.NET Core 5.X v2.9.0
+             README file for Web Markup Minifier: ASP.NET Core 5.X v2.9.1
 
    --------------------------------------------------------------------------------
 
