@@ -17,6 +17,11 @@
    (https://github.com/YUICompressor-NET/YUICompressor.NET).
 
    =============
+   RELEASE NOTES
+   =============
+   Added support of the YUI Compressor for .NET version 3.1.0.
+
+   =============
    DOCUMENTATION
    =============
    See documentation on GitHub - https://github.com/Taritsyn/WebMarkupMin/wiki
