@@ -12,6 +12,7 @@
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
     <Description>WebMarkupMin.AspNetCore2 contains one ASP.NET Core 2.X Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Middleware;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
+    <PackageReleaseNotes>Fixed a error that occurred when excluding the Hangfire dashboard and related pages from processing by corresponding markup minifier or compressor.</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />
@@ -19,6 +20,7 @@
   <Import Project="../../build/nuget-metadata.props" />
 
   <ItemGroup>
+    <PackageReference Include="AdvancedStringBuilder" Version="0.1.0" />
     <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha6" PrivateAssets="All" />
 
     <ProjectReference Include="..\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.csproj" />

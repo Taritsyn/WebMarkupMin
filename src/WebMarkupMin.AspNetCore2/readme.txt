@@ -15,6 +15,12 @@
    `WebMarkupMinMiddleware`.
 
    =============
+   RELEASE NOTES
+   =============
+   Fixed a error that occurred when excluding the Hangfire dashboard and related
+   pages from processing by corresponding markup minifier or compressor.
+
+   =============
    DOCUMENTATION
    =============
    See documentation on GitHub - https://github.com/Taritsyn/WebMarkupMin/wiki

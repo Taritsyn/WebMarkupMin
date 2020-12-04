@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+using AdvancedStringBuilder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;
@@ -174,13 +175,7 @@ namespace WebMarkupMin.AspNetCore5
 						}
 					}
 
-					string currentUrl = request.Path.Value;
-					QueryString queryString = request.QueryString;
-					if (queryString.HasValue)
-					{
-						currentUrl += queryString.Value;
-					}
-
+					string currentUrl = GetCurrentUrl(request);
 					IHeaderDictionary responseHeaders = response.Headers;
 					bool isEncodedContent = responseHeaders.IsEncodedContent();
 
@@ -232,6 +227,49 @@ namespace WebMarkupMin.AspNetCore5
 					_encoding = encoding;
 				}
 			}
+		}
+
+		private static string GetCurrentUrl(HttpRequest request)
+		{
+			PathString pathBase = request.PathBase;
+			PathString path = request.Path;
+			QueryString queryString = request.QueryString;
+
+			if (!queryString.HasValue)
+			{
+				if (pathBase.HasValue && !path.HasValue)
+				{
+					return pathBase.Value;
+				}
+
+				if (!pathBase.HasValue && path.HasValue)
+				{
+					return path.Value;
+				}
+			}
+
+			var stringBuilderPool = StringBuilderPool.Shared;
+			StringBuilder urlBuilder = stringBuilderPool.Rent();
+
+			if (pathBase.HasValue)
+			{
+				urlBuilder.Append(pathBase.Value);
+			}
+
+			if (path.HasValue)
+			{
+				urlBuilder.Append(path.Value);
+			}
+
+			if (urlBuilder.Length > 0 && queryString.HasValue)
+			{
+				urlBuilder.Append(queryString.Value);
+			}
+
+			string currentUrl = urlBuilder.ToString();
+			stringBuilderPool.Return(urlBuilder);
+
+			return currentUrl;
 		}
 
 		protected ICompressor InitializeCurrentCompressor(string acceptEncoding)
