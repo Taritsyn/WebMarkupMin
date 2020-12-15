@@ -83,7 +83,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{D6646163-2C7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Benchmarks", "test\WebMarkupMin.Benchmarks\WebMarkupMin.Benchmarks.csproj", "{73A9EE62-426A-4E54-9A92-C5B601DAB70F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Core.Test", "test\WebMarkupMin.Core.Test\WebMarkupMin.Core.Test.csproj", "{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Core.Tests", "test\WebMarkupMin.Core.Tests\WebMarkupMin.Core.Tests.csproj", "{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
