@@ -5,15 +5,9 @@ using Xunit;
 
 namespace WebMarkupMin.Core.Tests.Html.Parsing
 {
-	public class ProcessingInvalidCodeTests : FileSystemTestsBase
+	public class ProcessingInvalidCodeTests
 	{
-		private readonly string _htmlFilesDirectoryPath;
-
-
-		public ProcessingInvalidCodeTests()
-		{
-			_htmlFilesDirectoryPath = Path.GetFullPath(Path.Combine(_baseDirectoryPath, @"../SharedFiles/html/"));
-		}
+		private const string HTML_FILES_DIRECTORY_PATH = @"Files/html/";
 
 
 		[Fact]
@@ -64,7 +58,7 @@ namespace WebMarkupMin.Core.Tests.Html.Parsing
 				;
 			const string input11 = "<link id=\"favicon\" rel=?\"shortcut icon\" type=?\"image/?png\" href=?\"#\">";
 			string input12 = File.ReadAllText(
-				Path.Combine(_htmlFilesDirectoryPath, "html-document-with-invalid-characters.html"));
+				Path.Combine(HTML_FILES_DIRECTORY_PATH, "html-document-with-invalid-characters.html"));
 
 			// Act
 			IList<MinificationErrorInfo> errors1 = minifier.Minify(input1).Errors;

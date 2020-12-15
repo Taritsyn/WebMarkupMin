@@ -19,4 +19,12 @@
     <ProjectReference Include="..\..\src\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="Files/**/*.*">
+      <Link>Files/%(RecursiveDir)/%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
