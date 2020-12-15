@@ -65,22 +65,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.AspNetCore5", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1AEA1D1F-45BC-4A6C-BCD8-71C50DC839BA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedFiles", "SharedFiles", "{3EC64089-240A-44CB-A377-07BB90C1019E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "html", "html", "{E16C8CAD-938B-4712-8B4B-05EB42AEFAC6}"
-	ProjectSection(SolutionItems) = preProject
-		test\SharedFiles\html\html-document-with-bom-at-start.html = test\SharedFiles\html\html-document-with-bom-at-start.html
-		test\SharedFiles\html\html-document-with-bom-in-body-tag.html = test\SharedFiles\html\html-document-with-bom-in-body-tag.html
-		test\SharedFiles\html\html-document-without-bom.html = test\SharedFiles\html\html-document-without-bom.html
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{D6646163-2C7B-4E9B-A69E-2D73037F1EC3}"
-	ProjectSection(SolutionItems) = preProject
-		test\SharedFiles\xml\xml-document-with-bom-at-start.xml = test\SharedFiles\xml\xml-document-with-bom-at-start.xml
-		test\SharedFiles\xml\xml-document-with-bom-in-tag.xml = test\SharedFiles\xml\xml-document-with-bom-in-tag.xml
-		test\SharedFiles\xml\xml-document-without-bom.xml = test\SharedFiles\xml\xml-document-without-bom.xml
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Benchmarks", "test\WebMarkupMin.Benchmarks\WebMarkupMin.Benchmarks.csproj", "{73A9EE62-426A-4E54-9A92-C5B601DAB70F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMarkupMin.Core.Tests", "test\WebMarkupMin.Core.Tests\WebMarkupMin.Core.Tests.csproj", "{9125BDF2-885B-45DB-98AA-3DD8C2EA4A68}"
