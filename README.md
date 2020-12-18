@@ -88,6 +88,7 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
  * [AsteImmobili.it](https://www.asteimmobili.it/)
  * [Aztual.es](https://www.aztual.es/)
  * [BancoMercedes-Benz.com.br](http://bancomercedes-benz.com.br/)
+ * [BeautifyCode.net](https://beautifycode.net/) by Valentin-Gabriel Anghel
  * [BillerudKorsnas.se](https://www.billerudkorsnas.se/)
  * [Bridge-Direct.com](https://www.bridge-direct.com/)
  * [Brusella.com.ar](http://brusella.com.ar/)
