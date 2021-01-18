@@ -17,8 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a error that occurred when excluding the Hangfire dashboard and related
-   pages from processing by corresponding markup minifier or compressor.
+   Added support of ASP.NET Core 3.1.11.
 
    =============
    DOCUMENTATION
