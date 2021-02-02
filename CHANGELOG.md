@@ -1,6 +1,11 @@
 Change log
 ==========
 
+## v2.9.2 - February 2, 2021
+ * In WebMarkupMin.NUglify added support of the NUglify version 1.13.2
+ * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.1.11
+ * In WebMarkupMin.AspNetCore5 added support of ASP.NET Core 5.0.2
+
 ## v2.9.1 - December 4, 2020
  * In WebMarkupMin.Yui added support of the YUI Compressor for .NET version 3.1.0
  * In WebMarkupMin.NUglify added support of the NUglify version 1.11.4
