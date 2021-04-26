@@ -19,18 +19,15 @@ namespace WebMarkupMin.AspNetCore5
 {
 	public class WebMarkupMinServicesBuilder
 	{
+		private readonly IServiceCollection _services;
+
 		/// <summary>
-		/// Collection of service descriptors
+		/// Gets a <see cref="IServiceCollection"/> where essential WebMarkupMin services are configured
 		/// </summary>
 		public IServiceCollection Services
 		{
-			get
-			{
-				return _services;
-			}
+			get { return _services; }
 		}
-
-		private readonly IServiceCollection _services;
 
 
 		/// <summary>

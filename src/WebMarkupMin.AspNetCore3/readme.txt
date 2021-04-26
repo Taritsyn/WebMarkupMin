@@ -17,7 +17,9 @@
    =============
    RELEASE NOTES
    =============
-   Added support of ASP.NET Core 3.1.13.
+   1. A `Services` property has been added to the `WebMarkupMinServicesBuilder`
+      class. Special thanks to Alex Rønne Petersen;
+   2. Added support of ASP.NET Core 3.1.13.
 
    =============
    DOCUMENTATION

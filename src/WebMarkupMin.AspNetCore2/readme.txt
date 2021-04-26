@@ -17,8 +17,8 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a error that occurred when excluding the Hangfire dashboard and related
-   pages from processing by corresponding markup minifier or compressor.
+   A `Services` property has been added to the `WebMarkupMinServicesBuilder` class.
+   Special thanks to Alex Rønne Petersen.
 
    =============
    DOCUMENTATION
