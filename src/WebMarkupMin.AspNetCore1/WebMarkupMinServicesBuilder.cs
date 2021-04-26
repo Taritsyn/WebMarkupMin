@@ -22,6 +22,14 @@ namespace WebMarkupMin.AspNetCore5
 		/// <summary>
 		/// Collection of service descriptors
 		/// </summary>
+		public IServiceCollection Services
+		{
+			get
+			{
+				return _services;
+			}
+		}
+
 		private readonly IServiceCollection _services;
 
 
