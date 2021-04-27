@@ -1,6 +1,12 @@
 Change log
 ==========
 
+## v2.9.3 - April 27, 2021
+ * In ASP.NET Core extensions, the `Services` property has been added to the `WebMarkupMinServicesBuilder` class. Special thanks to [Alex Rønne Petersen](https://github.com/alexrp).
+ * In WebMarkupMin.NUglify added support of the NUglify version 1.13.8
+ * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.1.14
+ * In WebMarkupMin.AspNetCore5 added support of ASP.NET Core 5.0.5
+
 ## v2.9.2 - February 2, 2021
  * In WebMarkupMin.NUglify added support of the NUglify version 1.13.2
  * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.1.11
