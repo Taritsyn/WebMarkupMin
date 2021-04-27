@@ -19,7 +19,7 @@
    =============
    1. A `Services` property has been added to the `WebMarkupMinServicesBuilder`
       class. Special thanks to Alex Rønne Petersen;
-   2. Added support of ASP.NET Core 5.0.4.
+   2. Added support of ASP.NET Core 5.0.5.
 
    =============
    DOCUMENTATION
