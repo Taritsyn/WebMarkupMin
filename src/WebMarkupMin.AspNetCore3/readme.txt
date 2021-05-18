@@ -17,8 +17,9 @@
    =============
    RELEASE NOTES
    =============
-   In `ContentProcessingOptionsBase` class was added a new property -
-   `SupportedHttpStatusCodes` (default `200`).
+   1. Added support of ASP.NET Core 3.1.15;
+   2. In `ContentProcessingOptionsBase` class was added a new property -
+      `SupportedHttpStatusCodes` (default `200`).
 
    =============
    DOCUMENTATION
