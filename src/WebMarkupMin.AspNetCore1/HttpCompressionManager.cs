@@ -28,6 +28,7 @@ namespace WebMarkupMin.AspNetCore5
 			HttpCompressionOptions compressionOptions = options.Value;
 
 			CompressorFactories = compressionOptions.CompressorFactories;
+			SupportedHttpStatusCodes = compressionOptions.SupportedHttpStatusCodes;
 			SupportedHttpMethods = compressionOptions.SupportedHttpMethods;
 			SupportedMediaTypePredicate = compressionOptions.SupportedMediaTypePredicate;
 			IncludedPages = compressionOptions.IncludedPages;

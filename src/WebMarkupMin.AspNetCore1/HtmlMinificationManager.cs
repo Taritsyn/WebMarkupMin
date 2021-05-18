@@ -31,6 +31,7 @@ namespace WebMarkupMin.AspNetCore5
 
 			HtmlMinificationOptions minificationOptions = options.Value;
 			MinificationSettings = minificationOptions.MinificationSettings;
+			SupportedHttpStatusCodes = minificationOptions.SupportedHttpStatusCodes;
 			SupportedHttpMethods = minificationOptions.SupportedHttpMethods;
 			SupportedMediaTypes = minificationOptions.SupportedMediaTypes;
 			IncludedPages = minificationOptions.IncludedPages;

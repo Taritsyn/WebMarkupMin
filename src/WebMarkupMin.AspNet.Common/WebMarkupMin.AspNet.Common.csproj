@@ -12,8 +12,7 @@
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
     <Description>WebMarkupMin.AspNet.Common is auxiliary package, that contains classes and interfaces for all ASP.NET extensions.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
-    <PackageReleaseNotes>1. Added a .NET Core App 2.1 and .NET Standard 2.1 targets;
-2. In versions for .NET Core App 2.1 and .NET Standard 2.1 was added a new compressor (`BuiltInBrotliCompressor`) based on the `System.IO.Compression.BrotliStream` class.</PackageReleaseNotes>
+    <PackageReleaseNotes>In `IContentProcessingManager` interface and `ContentProcessingManagerBase` class was added a new property - `SupportedHttpStatusCodes` (default `200`).</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />

@@ -10,6 +10,15 @@ namespace WebMarkupMin.AspNet.Common
 	public interface IContentProcessingManager
 	{
 		/// <summary>
+		/// Gets or sets a list of supported HTTP status codes
+		/// </summary>
+		ISet<int> SupportedHttpStatusCodes
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets a list of supported HTTP methods
 		/// </summary>
 		ISet<string> SupportedHttpMethods

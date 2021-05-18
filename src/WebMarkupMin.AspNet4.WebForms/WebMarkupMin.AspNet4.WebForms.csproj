@@ -12,6 +12,7 @@
 
 Classes of the Web Forms pages and master pages cannot be used together.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;WebForms;Markup;HTML;XHTML;Minification;Minifier;Minify</PackageTags>
+    <PackageReleaseNotes>In markup minification and compression managers was added a new configuration property - `SupportedHttpStatusCodes` (default `200`).</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />

@@ -152,80 +152,80 @@ namespace WebMarkupMin.AspNetCore5
 				HttpRequest request = _context.Request;
 				HttpResponse response = _context.Response;
 
-				if (response.StatusCode == 200)
+				int httpStatusCode = response.StatusCode;
+				string httpMethod = request.Method;
+				string contentType = response.ContentType;
+				string mediaType = null;
+				Encoding encoding = null;
+
+				if (contentType != null)
 				{
-					string httpMethod = request.Method;
-					string contentType = response.ContentType;
-					string mediaType = null;
-					Encoding encoding = null;
+					MediaTypeHeaderValue mediaTypeHeader;
 
-					if (contentType != null)
+					if (MediaTypeHeaderValue.TryParse(contentType, out mediaTypeHeader))
 					{
-						MediaTypeHeaderValue mediaTypeHeader;
-
-						if (MediaTypeHeaderValue.TryParse(contentType, out mediaTypeHeader))
-						{
-							mediaType = mediaTypeHeader.MediaType
+						mediaType = mediaTypeHeader.MediaType
 #if ASPNETCORE2 || ASPNETCORE3 || ASPNETCORE5
-								.Value
+							.Value
 #endif
-								.ToLowerInvariant()
-								;
-							encoding = mediaTypeHeader.Encoding;
-						}
+							.ToLowerInvariant()
+							;
+						encoding = mediaTypeHeader.Encoding;
 					}
-
-					string currentUrl = GetCurrentUrl(request);
-					IHeaderDictionary responseHeaders = response.Headers;
-					bool isEncodedContent = responseHeaders.IsEncodedContent();
-
-					int minificationManagerCount = _minificationManagers.Count;
-					if (minificationManagerCount > 0)
-					{
-						for (int managerIndex = 0; managerIndex < minificationManagerCount; managerIndex++)
-						{
-							IMarkupMinificationManager minificationManager = _minificationManagers[managerIndex];
-							if (minificationManager.IsSupportedHttpMethod(httpMethod)
-								&& mediaType != null && minificationManager.IsSupportedMediaType(mediaType)
-								&& minificationManager.IsProcessablePage(currentUrl))
-							{
-								if (isEncodedContent)
-								{
-									throw new InvalidOperationException(
-										string.Format(
-											AspNetCommonStrings.MarkupMinificationIsNotApplicableToEncodedContent,
-											responseHeaders[HeaderNames.ContentEncoding]
-										)
-									);
-								}
-
-								_currentMinificationManager = minificationManager;
-								_cachedStream = new MemoryStream();
-								_minificationEnabled = true;
-
-								break;
-							}
-						}
-					}
-
-					if (_compressionManager != null && !isEncodedContent
-						&& _compressionManager.IsSupportedHttpMethod(httpMethod)
-						&& _compressionManager.IsSupportedMediaType(mediaType)
-						&& _compressionManager.IsProcessablePage(currentUrl))
-					{
-						string acceptEncoding = request.Headers[HeaderNames.AcceptEncoding];
-						ICompressor compressor = InitializeCurrentCompressor(acceptEncoding);
-
-						if (compressor != null)
-						{
-							_compressionStream = compressor.Compress(_originalStream);
-							_compressionEnabled = true;
-						}
-					}
-
-					_currentUrl = currentUrl;
-					_encoding = encoding;
 				}
+
+				string currentUrl = GetCurrentUrl(request);
+				IHeaderDictionary responseHeaders = response.Headers;
+				bool isEncodedContent = responseHeaders.IsEncodedContent();
+
+				int minificationManagerCount = _minificationManagers.Count;
+				if (minificationManagerCount > 0)
+				{
+					for (int managerIndex = 0; managerIndex < minificationManagerCount; managerIndex++)
+					{
+						IMarkupMinificationManager minificationManager = _minificationManagers[managerIndex];
+						if (minificationManager.IsSupportedHttpStatusCode(httpStatusCode)
+							&& minificationManager.IsSupportedHttpMethod(httpMethod)
+							&& mediaType != null && minificationManager.IsSupportedMediaType(mediaType)
+							&& minificationManager.IsProcessablePage(currentUrl))
+						{
+							if (isEncodedContent)
+							{
+								throw new InvalidOperationException(
+									string.Format(
+										AspNetCommonStrings.MarkupMinificationIsNotApplicableToEncodedContent,
+										responseHeaders[HeaderNames.ContentEncoding]
+									)
+								);
+							}
+
+							_currentMinificationManager = minificationManager;
+							_cachedStream = new MemoryStream();
+							_minificationEnabled = true;
+
+							break;
+						}
+					}
+				}
+
+				if (_compressionManager != null && !isEncodedContent
+					&& _compressionManager.IsSupportedHttpStatusCode(httpStatusCode)
+					&& _compressionManager.IsSupportedHttpMethod(httpMethod)
+					&& _compressionManager.IsSupportedMediaType(mediaType)
+					&& _compressionManager.IsProcessablePage(currentUrl))
+				{
+					string acceptEncoding = request.Headers[HeaderNames.AcceptEncoding];
+					ICompressor compressor = InitializeCurrentCompressor(acceptEncoding);
+
+					if (compressor != null)
+					{
+						_compressionStream = compressor.Compress(_originalStream);
+						_compressionEnabled = true;
+					}
+				}
+
+				_currentUrl = currentUrl;
+				_encoding = encoding;
 			}
 		}
 

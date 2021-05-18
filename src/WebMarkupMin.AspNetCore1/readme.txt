@@ -17,8 +17,8 @@
    =============
    RELEASE NOTES
    =============
-   A `Services` property has been added to the `WebMarkupMinServicesBuilder` class.
-   Special thanks to Alex Rønne Petersen.
+   In `ContentProcessingOptionsBase` class was added a new property -
+   `SupportedHttpStatusCodes` (default `200`).
 
    =============
    DOCUMENTATION

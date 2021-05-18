@@ -10,6 +10,15 @@ namespace WebMarkupMin.AspNet.Common
 	public abstract class ContentProcessingManagerBase : IContentProcessingManager
 	{
 		/// <summary>
+		/// Gets or sets a list of supported HTTP status codes
+		/// </summary>
+		public ISet<int> SupportedHttpStatusCodes
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets a list of supported HTTP methods
 		/// </summary>
 		public ISet<string> SupportedHttpMethods
@@ -44,6 +53,7 @@ namespace WebMarkupMin.AspNet.Common
 		/// </summary>
 		protected ContentProcessingManagerBase()
 		{
+			SupportedHttpStatusCodes = new HashSet<int> { 200 };
 			SupportedHttpMethods = new HashSet<string> { "GET" };
 			IncludedPages = new List<IUrlMatcher>();
 			ExcludedPages = new List<IUrlMatcher>();

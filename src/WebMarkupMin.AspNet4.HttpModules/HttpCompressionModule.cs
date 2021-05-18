@@ -76,7 +76,7 @@ namespace WebMarkupMin.AspNet4.HttpModules
 			string httpMethod = request.HttpMethod;
 			string currentUrl = request.RawUrl;
 
-			if (response.StatusCode == 200
+			if (compressionManager.IsSupportedHttpStatusCode(response.StatusCode)
 				&& compressionManager.IsSupportedHttpMethod(httpMethod)
 				&& compressionManager.IsProcessablePage(currentUrl)
 				&& !request.Path.EndsWith("WebResource.axd", StringComparison.OrdinalIgnoreCase))

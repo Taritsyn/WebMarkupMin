@@ -17,10 +17,8 @@
    =============
    RELEASE NOTES
    =============
-   1. Added a .NET Core App 2.1 and .NET Standard 2.1 targets;
-   2. In versions for .NET Core App 2.1 and .NET Standard 2.1 was added a new
-      compressor (`BuiltInBrotliCompressor`) based on the
-      `System.IO.Compression.BrotliStream` class.
+   In `IContentProcessingManager` interface and `ContentProcessingManagerBase`
+   class was added a new property - `SupportedHttpStatusCodes` (default `200`).
 
    =============
    DOCUMENTATION

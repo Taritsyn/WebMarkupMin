@@ -12,7 +12,7 @@
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
     <Description>WebMarkupMin.AspNetCore2 contains one ASP.NET Core 2.X Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Middleware;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
-    <PackageReleaseNotes>A `Services` property has been added to the `WebMarkupMinServicesBuilder` class. Special thanks to Alex Rønne Petersen.</PackageReleaseNotes>
+    <PackageReleaseNotes>In `ContentProcessingOptionsBase` class was added a new property - `SupportedHttpStatusCodes` (default `200`).</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />

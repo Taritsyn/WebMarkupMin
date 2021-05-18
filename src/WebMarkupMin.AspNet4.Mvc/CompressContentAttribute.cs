@@ -54,7 +54,8 @@ namespace WebMarkupMin.AspNet4.Mvc
 			string httpMethod = request.HttpMethod;
 			string currentUrl = request.RawUrl;
 
-			if (response.Filter != null && response.StatusCode == 200
+			if (response.Filter != null
+				&& compressionManager.IsSupportedHttpStatusCode(response.StatusCode)
 				&& compressionManager.IsSupportedHttpMethod(httpMethod)
 				&& compressionManager.IsProcessablePage(currentUrl))
 			{

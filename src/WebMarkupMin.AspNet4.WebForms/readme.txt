@@ -26,6 +26,12 @@
    Classes of the Web Forms pages and master pages cannot be used together.
 
    =============
+   RELEASE NOTES
+   =============
+   In markup minification and compression managers was added a new configuration
+   property - `SupportedHttpStatusCodes` (default `200`).
+
+   =============
    DOCUMENTATION
    =============
    See documentation on GitHub - https://github.com/Taritsyn/WebMarkupMin/wiki

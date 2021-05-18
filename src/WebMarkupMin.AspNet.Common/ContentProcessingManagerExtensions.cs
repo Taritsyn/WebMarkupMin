@@ -10,6 +10,18 @@ namespace WebMarkupMin.AspNet.Common
 	public static class ContentProcessingManagerExtensions
 	{
 		/// <summary>
+		/// Checks whether the HTTP status code is supported
+		/// </summary>
+		/// <param name="contentProcessingManager">Content processing manager</param>
+		/// <param name="statusCode">HTTP status code</param>
+		/// <returns>Result of check (true - supported; false - not supported)</returns>
+		public static bool IsSupportedHttpStatusCode(this IContentProcessingManager contentProcessingManager,
+			int statusCode)
+		{
+			return contentProcessingManager.SupportedHttpStatusCodes.Contains(statusCode);
+		}
+
+		/// <summary>
 		/// Checks whether the HTTP method is supported
 		/// </summary>
 		/// <param name="contentProcessingManager">Content processing manager</param>

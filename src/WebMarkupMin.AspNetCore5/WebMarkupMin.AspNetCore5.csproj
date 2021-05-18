@@ -12,7 +12,8 @@
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
     <Description>WebMarkupMin.AspNetCore5 contains one ASP.NET Core 5.X Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Middleware;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
-    <PackageReleaseNotes>Added support of ASP.NET Core 5.0.6.</PackageReleaseNotes>
+    <PackageReleaseNotes>1. Added support of ASP.NET Core 5.0.6;
+2. In `ContentProcessingOptionsBase` class was added a new property - `SupportedHttpStatusCodes` (default `200`).</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />

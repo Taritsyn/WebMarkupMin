@@ -78,7 +78,7 @@ namespace WebMarkupMin.AspNet4.WebForms.Components
 			string httpMethod = request.HttpMethod;
 			string currentUrl = request.RawUrl;
 
-			if (response.StatusCode == 200
+			if (compressionManager.IsSupportedHttpStatusCode(response.StatusCode)
 				&& compressionManager.IsSupportedHttpMethod(httpMethod)
 				&& compressionManager.IsProcessablePage(currentUrl))
 			{
