@@ -85,6 +85,7 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
  * [AgroCountry.com](https://agrocountry.com/)
  * [AspCore.net](http://aspcore.net/)
  * [ASP-MVC.ir](http://asp-mvc.ir/)
+ * [Assist2Sell.com](https://assist2sell.com/) by Christopher Dengler
  * [AsteImmobili.it](https://www.asteimmobili.it/)
  * [Aztual.es](https://www.aztual.es/)
  * [BancoMercedes-Benz.com.br](http://bancomercedes-benz.com.br/)
@@ -129,6 +130,7 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
  * [HiHoliday.ir](http://hiholiday.ir/)
  * [HotelMedusa.eu](http://www.hotelmedusa.eu/)
  * [HotelVirgilio.it](http://www.hotelvirgilio.it/)
+ * [HousingNow.com](https://housingnow.com/) by Christopher Dengler
  * [HypeProxy.io](http://hypeproxy.io/)
  * [IMD.org](https://www.imd.org/)
  * [ImoRadar24.ro](https://www.imoradar24.ro/)
