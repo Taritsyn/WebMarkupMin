@@ -205,6 +205,7 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
  * [ToolSlick.com](https://toolslick.com/)
  * [Toy.co.uk](https://www.toy.co.uk/)
  * [TrailerRentals.com.au](https://www.trailerrentals.com.au/)
+ * [UK.tonzo.com](https://uk.tonzo.com/) by Yasin Kultur
  * [USdirectory.com](https://usdirectory.com/)
  * [VegaITSourcing.rs](https://www.vegaitsourcing.rs/)
  * [Vidal-Vidal.com](https://www.vidal-vidal.com/)
