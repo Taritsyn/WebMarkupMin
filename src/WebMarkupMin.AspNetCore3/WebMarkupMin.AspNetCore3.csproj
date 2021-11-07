@@ -12,8 +12,7 @@
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
     <Description>WebMarkupMin.AspNetCore3 contains one ASP.NET Core 3.1+ Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Middleware;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
-    <PackageReleaseNotes>1. Added support of ASP.NET Core 3.1.15;
-2. In `ContentProcessingOptionsBase` class was added a new property - `SupportedHttpStatusCodes` (default `200`).</PackageReleaseNotes>
+    <PackageReleaseNotes>Added support of ASP.NET Core 3.1.20.</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />
@@ -21,7 +20,7 @@
   <Import Project="../../build/nuget-metadata.props" />
 
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="3.1.15" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="3.1.20" />
 
     <PackageReference Include="AdvancedStringBuilder" Version="0.1.0" />
     <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha6" PrivateAssets="All" />
