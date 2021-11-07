@@ -17,9 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Added support of ASP.NET Core 5.0.6;
-   2. In `ContentProcessingOptionsBase` class was added a new property -
-      `SupportedHttpStatusCodes` (default `200`).
+   Added support of ASP.NET Core 5.0.11.
 
    =============
    DOCUMENTATION
