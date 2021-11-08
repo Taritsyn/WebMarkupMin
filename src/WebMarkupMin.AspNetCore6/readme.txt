@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-             README file for Web Markup Minifier: ASP.NET Core 6.X v2.10.0
+              README file for Web Markup Minifier: ASP.NET Core 6 v2.10.0
 
    --------------------------------------------------------------------------------
 
@@ -11,7 +11,7 @@
    ===========
    DESCRIPTION
    ===========
-   WebMarkupMin.AspNetCore6 contains one ASP.NET Core 6.X Middleware -
+   WebMarkupMin.AspNetCore6 contains one ASP.NET Core 6 Middleware -
    `WebMarkupMinMiddleware`.
 
    =============

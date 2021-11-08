@@ -17,7 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   Added support of ASP.NET Core 5.0.11.
+   Added support of ASP.NET Core 5.0.12.
 
    =============
    DOCUMENTATION

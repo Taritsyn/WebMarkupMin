@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Product>Web Markup Minifier: ASP.NET Core 6.X</Product>
+    <Product>Web Markup Minifier: ASP.NET Core 6</Product>
     <VersionPrefix>2.10.0</VersionPrefix>
     <TargetFramework>net6.0</TargetFramework>
     <OutputType>Library</OutputType>
@@ -10,7 +10,7 @@
     <DefineConstants>$(DefineConstants);ASPNETCORE6</DefineConstants>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
-    <Description>WebMarkupMin.AspNetCore6 contains one ASP.NET Core 6.X Middleware - `WebMarkupMinMiddleware`.</Description>
+    <Description>WebMarkupMin.AspNetCore6 contains one ASP.NET Core 6 Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Middleware;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
   </PropertyGroup>
 
@@ -19,7 +19,7 @@
   <Import Project="../../build/nuget-metadata.props" />
 
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="6.0.0-rc.2.21480.10" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="6.0.0" />
 
     <PackageReference Include="AdvancedStringBuilder" Version="0.1.0" />
     <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha6" PrivateAssets="All" />
