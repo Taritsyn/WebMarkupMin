@@ -25,6 +25,8 @@ namespace WebMarkupMin.AspNetCore2
 namespace WebMarkupMin.AspNetCore3
 #elif ASPNETCORE5
 namespace WebMarkupMin.AspNetCore5
+#elif ASPNETCORE6
+namespace WebMarkupMin.AspNetCore6
 #else
 #error No implementation for this target
 #endif
@@ -165,7 +167,7 @@ namespace WebMarkupMin.AspNetCore5
 					if (MediaTypeHeaderValue.TryParse(contentType, out mediaTypeHeader))
 					{
 						mediaType = mediaTypeHeader.MediaType
-#if ASPNETCORE2 || ASPNETCORE3 || ASPNETCORE5
+#if NETSTANDARD2_0 || NETCOREAPP2_1_OR_GREATER
 							.Value
 #endif
 							.ToLowerInvariant()
@@ -295,7 +297,7 @@ namespace WebMarkupMin.AspNetCore5
 				responseHeaders.Remove(HeaderNames.ContentLength);
 			}
 		}
-#if NET451 || ASPNETCORE2 || ASPNETCORE3 || ASPNETCORE5
+#if NET451 || NETSTANDARD2_0 || NETCOREAPP2_1_OR_GREATER
 
 		private async void InternalWriteAsync(byte[] buffer, int offset, int count, AsyncCallback callback,
 			TaskCompletionSource<object> tcs)
@@ -449,7 +451,7 @@ namespace WebMarkupMin.AspNetCore5
 		}
 
 
-#if NET451 || ASPNETCORE2 || ASPNETCORE3 || ASPNETCORE5
+#if NET451 || NETSTANDARD2_0 || NETCOREAPP2_1_OR_GREATER
 		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback,
 			object state)
 		{
@@ -593,7 +595,7 @@ namespace WebMarkupMin.AspNetCore5
 				base.Dispose(disposing);
 			}
 		}
-#if ASPNETCORE3 || ASPNETCORE5
+#if NETCOREAPP3_1_OR_GREATER
 
 		public override async ValueTask DisposeAsync()
 		{

@@ -2,7 +2,7 @@
 using System.IO;
 #if NET452 || NETSTANDARD
 using HostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
-#elif NETCOREAPP3_1 || NET5_0
+#elif NETCOREAPP3_1_OR_GREATER
 using HostingEnvironment = Microsoft.AspNetCore.Hosting.IWebHostEnvironment;
 #elif NET40
 using System.Web;

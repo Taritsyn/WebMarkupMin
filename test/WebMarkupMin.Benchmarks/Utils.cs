@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
+using System.Net.Http;
 
 namespace WebMarkupMin.Benchmarks
 {
@@ -57,15 +57,15 @@ namespace WebMarkupMin.Benchmarks
 				return;
 			}
 
-			WebClient webClient = null;
+			HttpClient httpClient = null;
 
 			try
 			{
 				foreach (Document document in nonExistentDocuments)
 				{
-					if (webClient == null)
+					if (httpClient == null)
 					{
-						webClient = new WebClient();
+						httpClient = new HttpClient();
 					}
 
 					string url = document.Url;
@@ -73,7 +73,11 @@ namespace WebMarkupMin.Benchmarks
 					string content;
 
 					Console.WriteLine($"Downloading content from {url}...");
-					content = webClient.DownloadString(url);
+					content = httpClient.GetStringAsync(url)
+						.ConfigureAwait(false)
+						.GetAwaiter()
+						.GetResult()
+						;
 
 					if (!Directory.Exists(absoluteDirectoryPath))
 					{
@@ -86,7 +90,7 @@ namespace WebMarkupMin.Benchmarks
 			}
 			finally
 			{
-				webClient?.Dispose();
+				httpClient?.Dispose();
 			}
 		}
 	}

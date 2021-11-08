@@ -12,6 +12,8 @@ using WebMarkupMin.AspNet.Common;
 namespace WebMarkupMin.AspNetCore3
 #elif ASPNETCORE5
 namespace WebMarkupMin.AspNetCore5
+#elif ASPNETCORE6
+namespace WebMarkupMin.AspNetCore6
 #else
 #error No implementation for this target
 #endif

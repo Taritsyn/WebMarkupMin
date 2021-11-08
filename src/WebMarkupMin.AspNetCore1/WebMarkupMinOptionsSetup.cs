@@ -1,8 +1,8 @@
 ﻿using System;
 
-#if ASPNETCORE1 || ASPNETCORE2
+#if NET451 || NETSTANDARD || NETCOREAPP2_1
 using HostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
-#elif ASPNETCORE3 || ASPNETCORE5
+#elif NETCOREAPP3_1_OR_GREATER
 using HostingEnvironment = Microsoft.AspNetCore.Hosting.IWebHostEnvironment;
 #else
 #error No implementation for this target
@@ -17,6 +17,8 @@ namespace WebMarkupMin.AspNetCore2
 namespace WebMarkupMin.AspNetCore3
 #elif ASPNETCORE5
 namespace WebMarkupMin.AspNetCore5
+#elif ASPNETCORE6
+namespace WebMarkupMin.AspNetCore6
 #else
 #error No implementation for this target
 #endif
