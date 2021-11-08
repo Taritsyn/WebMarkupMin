@@ -1,6 +1,12 @@
 Change log
 ==========
 
+## v2.11.0 - November 8, 2021
+ * In WebMarkupMin.NUglify added support of the NUglify version 1.16.1
+ * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.1.21
+ * In WebMarkupMin.AspNetCore5 added support of ASP.NET Core 5.0.12
+ * Created the WebMarkupMin.AspNetCore6 module, that contains middleware for ASP.NET Core 6
+
 ## v2.10.0 - May 18, 2021
  * In WebMarkupMin.NUglify added support of the NUglify version 1.13.10
  * In `IContentProcessingManager` interface, `ContentProcessingManagerBase` class and `ContentProcessingOptionsBase` class was added a new property - `SupportedHttpStatusCodes` (default `200`)
