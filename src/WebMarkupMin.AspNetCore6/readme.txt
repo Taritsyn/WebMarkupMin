@@ -15,6 +15,11 @@
    `WebMarkupMinMiddleware`.
 
    =============
+   RELEASE NOTES
+   =============
+   Added support of ASP.NET Core 6.0.1.
+
+   =============
    DOCUMENTATION
    =============
    See documentation on GitHub - https://github.com/Taritsyn/WebMarkupMin/wiki
