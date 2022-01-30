@@ -3,6 +3,8 @@ Web Markup Minifier [![NuGet version](http://img.shields.io/nuget/v/WebMarkupMin
 
 <img src="https://raw.githubusercontent.com/Taritsyn/WebMarkupMin/master/images/WebMarkupMin_Logo.png" width="440" height="86" alt="WebMarkupMin logo" />
 
+🏆🗳 [This project participates in the “Open Source Tribune” competition](https://github.com/Taritsyn/WebMarkupMin/issues/137) 🗳🏆
+
 The **Web Markup Minifier** (abbreviated WebMarkupMin) - a .NET library that contains a set of markup minifiers. The objective of this project is to improve the performance of web applications by reducing the size of HTML, XHTML and XML code.
 
 WebMarkupMin absorbed the best of existing solutions from non-microsoft platforms: Juriy Zaytsev's [HTML Minifier](https://github.com/kangax/html-minifier) (written in JavaScript) and Sergiy Kovalchuk's [HtmlCompressor](https://github.com/serg472/htmlcompressor) (written in Java).
