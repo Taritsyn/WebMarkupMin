@@ -17,7 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   Added support of ASP.NET Core 6.0.1.
+   Added support of ASP.NET Core 6.0.2.
 
    =============
    DOCUMENTATION
