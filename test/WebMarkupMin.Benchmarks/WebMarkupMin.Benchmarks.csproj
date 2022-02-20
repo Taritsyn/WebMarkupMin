@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
-    <PackageReference Include="NUglify" Version="1.17.9" />
+    <PackageReference Include="NUglify" Version="1.17.10" />
     <PackageReference Include="Moq" Version="4.16.1" />
 
     <ProjectReference Include="..\..\src\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
