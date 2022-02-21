@@ -167,7 +167,7 @@ namespace WebMarkupMin.AspNetCore6
 					if (MediaTypeHeaderValue.TryParse(contentType, out mediaTypeHeader))
 					{
 						mediaType = mediaTypeHeader.MediaType
-#if NETSTANDARD2_0 || NETCOREAPP2_1_OR_GREATER
+#if NETSTANDARD2_0 || NETCOREAPP3_1_OR_GREATER
 							.Value
 #endif
 							.ToLowerInvariant()
@@ -297,7 +297,7 @@ namespace WebMarkupMin.AspNetCore6
 				responseHeaders.Remove(HeaderNames.ContentLength);
 			}
 		}
-#if NET451 || NETSTANDARD2_0 || NETCOREAPP2_1_OR_GREATER
+#if NET451 || NETSTANDARD2_0 || NETCOREAPP3_1_OR_GREATER
 
 		private async void InternalWriteAsync(byte[] buffer, int offset, int count, AsyncCallback callback,
 			TaskCompletionSource<object> tcs)
@@ -451,7 +451,7 @@ namespace WebMarkupMin.AspNetCore6
 		}
 
 
-#if NET451 || NETSTANDARD2_0 || NETCOREAPP2_1_OR_GREATER
+#if NET451 || NETSTANDARD2_0 || NETCOREAPP3_1_OR_GREATER
 		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback,
 			object state)
 		{

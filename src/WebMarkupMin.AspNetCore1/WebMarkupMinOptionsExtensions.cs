@@ -1,4 +1,4 @@
-﻿#if NET451 || NETSTANDARD || NETCOREAPP2_1
+﻿#if NET451 || NETSTANDARD
 using Microsoft.AspNetCore.Hosting;
 #elif NETCOREAPP3_1_OR_GREATER
 using Microsoft.Extensions.Hosting;

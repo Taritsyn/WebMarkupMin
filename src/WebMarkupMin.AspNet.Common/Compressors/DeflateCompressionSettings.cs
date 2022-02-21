@@ -1,4 +1,4 @@
-﻿#if NET45 || NETSTANDARD || NETCOREAPP
+﻿#if NET45 || NETSTANDARD
 using System.IO.Compression;
 
 namespace WebMarkupMin.AspNet.Common.Compressors

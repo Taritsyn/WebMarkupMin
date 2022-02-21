@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-#if NET451 || NETSTANDARD || NETCOREAPP2_1
+#if NET451 || NETSTANDARD
 using HostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 #elif NETCOREAPP3_1_OR_GREATER
 using HostingEnvironment = Microsoft.AspNetCore.Hosting.IWebHostEnvironment;

@@ -17,8 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   In `IContentProcessingManager` interface and `ContentProcessingManagerBase`
-   class was added a new property - `SupportedHttpStatusCodes` (default `200`).
+   No longer supports a .NET Core App 2.1.
 
    =============
    DOCUMENTATION

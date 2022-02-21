@@ -1,4 +1,4 @@
-﻿#if NETCOREAPP2_1 || NETSTANDARD2_1
+﻿#if NETSTANDARD2_1
 namespace WebMarkupMin.AspNet.Common.Compressors
 {
 	/// <summary>
