@@ -5,13 +5,13 @@ namespace WebMarkupMin.Core.Tests.Xml.Minification
 	public class WhitespaceMinificationTests
 	{
 		[Fact]
-		public void WhitespaceMinificationIsCorrect()
+		public void WhitespaceMinificationInRssDocumentIsCorrect()
 		{
 			// Arrange
 			var keepingWhitespaceMinifier = new XmlMinifier(new XmlMinificationSettings(true) { MinifyWhitespace = false });
 			var removingWhitespaceMinifier = new XmlMinifier(new XmlMinificationSettings(true) { MinifyWhitespace = true });
 
-			const string input1 = " \n   <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+			const string input = " \n   <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
 				"<?xml-stylesheet type=\"text/xsl\" href=\"http://feeds.example.com/feed-rss.xslt\"?>\n" +
 				"<rss version=\"2.0\">\n" +
 				"	<channel>\n" +
@@ -39,8 +39,8 @@ namespace WebMarkupMin.Core.Tests.Xml.Minification
 				"	</channel>\n" +
 				"</rss>\t   \n "
 				;
-			const string targetOutput1A = input1;
-			const string targetOutput1B = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+			const string targetOutputA = input;
+			const string targetOutputB = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
 				"<?xml-stylesheet type=\"text/xsl\" href=\"http://feeds.example.com/feed-rss.xslt\"?>" +
 				"<rss version=\"2.0\">" +
 				"<channel>\n" +
@@ -69,94 +69,23 @@ namespace WebMarkupMin.Core.Tests.Xml.Minification
 				"</rss>"
 				;
 
+			// Act
+			string outputA = keepingWhitespaceMinifier.Minify(input).MinifiedContent;
+			string outputB = removingWhitespaceMinifier.Minify(input).MinifiedContent;
 
-			const string input2 = "  \n\n  <?xml version=\"1.0\"?>\n" +
-				"<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\">\n" +
-				"	<soap:Header>\n" +
-				"	</soap:Header>\n" +
-				"	<soap:Body>\n" +
-				"		<m:GetStockPrice xmlns:m=\"http://www.example.com/stock\">\n" +
-				"			<m:StockName>MSFT</m:StockName>\n" +
-				"		</m:GetStockPrice>\n" +
-				"	</soap:Body>\n" +
-				"</soap:Envelope>	   \n  "
-				;
-			const string targetOutput2A = input2;
-			const string targetOutput2B = "<?xml version=\"1.0\"?>" +
-				"<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\">" +
-				"<soap:Header>\n" +
-				"	</soap:Header>" +
-				"<soap:Body>" +
-				"<m:GetStockPrice xmlns:m=\"http://www.example.com/stock\">" +
-				"<m:StockName>MSFT</m:StockName>" +
-				"</m:GetStockPrice>" +
-				"</soap:Body>" +
-				"</soap:Envelope>"
-				;
+			// Assert
+			Assert.Equal(targetOutputA, outputA);
+			Assert.Equal(targetOutputB, outputB);
+		}
 
-			const string input3 = "<?xml version=\"1.0\" standalone=\"no\"?>\n" +
-				"<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" " +
-				"\"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n" +
-				"<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" +
-				"	<mrow>\n" +
-				"		<mi>a</mi>\n" +
-				"		<mo>&InvisibleTimes;</mo>\n" +
-				"		<msup>\n" +
-				"			<mi>x</mi>\n" +
-				"			<mn>2</mn>\n" +
-				"		</msup>\n" +
-				"		<mo>+</mo>\n" +
-				"		<mi>b</mi>\n" +
-				"		<mo>&InvisibleTimes; </mo>\n" +
-				"		<mi>x</mi>\n" +
-				"		<mo>+</mo>\n" +
-				"		<mi>c</mi>\n" +
-				"	</mrow>\n" +
-				"</math>"
-				;
-			const string targetOutput3A = input3;
-			const string targetOutput3B = "<?xml version=\"1.0\" standalone=\"no\"?>" +
-				"<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" " +
-				"\"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">" +
-				"<math xmlns=\"http://www.w3.org/1998/Math/MathML\">" +
-				"<mrow>" +
-				"<mi>a</mi>" +
-				"<mo>&InvisibleTimes;</mo>" +
-				"<msup>" +
-				"<mi>x</mi>" +
-				"<mn>2</mn>" +
-				"</msup>" +
-				"<mo>+</mo>" +
-				"<mi>b</mi>" +
-				"<mo>&InvisibleTimes; </mo>" +
-				"<mi>x</mi>" +
-				"<mo>+</mo>" +
-				"<mi>c</mi>" +
-				"</mrow>" +
-				"</math>"
-				;
+		[Fact]
+		public void WhitespaceMinificationInAtomDocumentIsCorrect()
+		{
+			// Arrange
+			var keepingWhitespaceMinifier = new XmlMinifier(new XmlMinificationSettings(true) { MinifyWhitespace = false });
+			var removingWhitespaceMinifier = new XmlMinifier(new XmlMinificationSettings(true) { MinifyWhitespace = true });
 
-			const string input4 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-				"<!DOCTYPE math PUBLIC \"-//W3C//DTD MathML 2.0//EN\" " +
-				"\"http://www.w3.org/Math/DTD/mathml2/mathml2.dtd\">\n" +
-				"<mrow>\n" +
-				"	a &InvisibleTimes; <msup>x 2</msup>\n" +
-				"	+ b &InvisibleTimes; x\n" +
-				"	+ c\n" +
-				"</mrow>"
-				;
-			const string targetOutput4A = input4;
-			const string targetOutput4B = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-				"<!DOCTYPE math PUBLIC \"-//W3C//DTD MathML 2.0//EN\" " +
-				"\"http://www.w3.org/Math/DTD/mathml2/mathml2.dtd\">" +
-				"<mrow>\n" +
-				"	a &InvisibleTimes; <msup>x 2</msup>\n" +
-				"	+ b &InvisibleTimes; x\n" +
-				"	+ c\n" +
-				"</mrow>"
-				;
-
-			const string input5 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n\n" +
+			const string input = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n\n" +
 				"<feed xmlns=\"http://www.w3.org/2005/Atom\">\n\n" +
 				"	<title>Some feed title...</title>\n" +
 				"	<subtitle> 	 </subtitle>\n" +
@@ -179,8 +108,8 @@ namespace WebMarkupMin.Core.Tests.Xml.Minification
 				"	</entry>\n" +
 				"</feed>\n"
 				;
-			const string targetOutput5A = input5;
-			const string targetOutput5B = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
+			const string targetOutputA = input;
+			const string targetOutputB = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
 				"<feed xmlns=\"http://www.w3.org/2005/Atom\">" +
 				"<title>Some feed title...</title>" +
 				"<subtitle> 	 </subtitle>" +
@@ -205,20 +134,129 @@ namespace WebMarkupMin.Core.Tests.Xml.Minification
 				;
 
 			// Act
+			string outputA = keepingWhitespaceMinifier.Minify(input).MinifiedContent;
+			string outputB = removingWhitespaceMinifier.Minify(input).MinifiedContent;
+
+			// Assert
+			Assert.Equal(targetOutputA, outputA);
+			Assert.Equal(targetOutputB, outputB);
+		}
+
+		[Fact]
+		public void WhitespaceMinificationInSoapDocumentIsCorrect()
+		{
+			// Arrange
+			var keepingWhitespaceMinifier = new XmlMinifier(new XmlMinificationSettings(true) { MinifyWhitespace = false });
+			var removingWhitespaceMinifier = new XmlMinifier(new XmlMinificationSettings(true) { MinifyWhitespace = true });
+
+			const string input = "  \n\n  <?xml version=\"1.0\"?>\n" +
+				"<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\">\n" +
+				"	<soap:Header>\n" +
+				"	</soap:Header>\n" +
+				"	<soap:Body>\n" +
+				"		<m:GetStockPrice xmlns:m=\"http://www.example.com/stock\">\n" +
+				"			<m:StockName>MSFT</m:StockName>\n" +
+				"		</m:GetStockPrice>\n" +
+				"	</soap:Body>\n" +
+				"</soap:Envelope>	   \n  "
+				;
+			const string targetOutputA = input;
+			const string targetOutputB = "<?xml version=\"1.0\"?>" +
+				"<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\">" +
+				"<soap:Header>\n" +
+				"	</soap:Header>" +
+				"<soap:Body>" +
+				"<m:GetStockPrice xmlns:m=\"http://www.example.com/stock\">" +
+				"<m:StockName>MSFT</m:StockName>" +
+				"</m:GetStockPrice>" +
+				"</soap:Body>" +
+				"</soap:Envelope>"
+				;
+
+			// Act
+			string outputA = keepingWhitespaceMinifier.Minify(input).MinifiedContent;
+			string outputB = removingWhitespaceMinifier.Minify(input).MinifiedContent;
+
+			// Assert
+			Assert.Equal(targetOutputA, outputA);
+			Assert.Equal(targetOutputB, outputB);
+		}
+
+		[Fact]
+		public void WhitespaceMinificationInMathMlDocumentIsCorrect()
+		{
+			// Arrange
+			var keepingWhitespaceMinifier = new XmlMinifier(new XmlMinificationSettings(true) { MinifyWhitespace = false });
+			var removingWhitespaceMinifier = new XmlMinifier(new XmlMinificationSettings(true) { MinifyWhitespace = true });
+
+			const string input1 = "<?xml version=\"1.0\" standalone=\"no\"?>\n" +
+				"<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" " +
+				"\"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n" +
+				"<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" +
+				"	<mrow>\n" +
+				"		<mi>a</mi>\n" +
+				"		<mo>&InvisibleTimes;</mo>\n" +
+				"		<msup>\n" +
+				"			<mi>x</mi>\n" +
+				"			<mn>2</mn>\n" +
+				"		</msup>\n" +
+				"		<mo>+</mo>\n" +
+				"		<mi>b</mi>\n" +
+				"		<mo>&InvisibleTimes; </mo>\n" +
+				"		<mi>x</mi>\n" +
+				"		<mo>+</mo>\n" +
+				"		<mi>c</mi>\n" +
+				"	</mrow>\n" +
+				"</math>"
+				;
+			const string targetOutput1A = input1;
+			const string targetOutput1B = "<?xml version=\"1.0\" standalone=\"no\"?>" +
+				"<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" " +
+				"\"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">" +
+				"<math xmlns=\"http://www.w3.org/1998/Math/MathML\">" +
+				"<mrow>" +
+				"<mi>a</mi>" +
+				"<mo>&InvisibleTimes;</mo>" +
+				"<msup>" +
+				"<mi>x</mi>" +
+				"<mn>2</mn>" +
+				"</msup>" +
+				"<mo>+</mo>" +
+				"<mi>b</mi>" +
+				"<mo>&InvisibleTimes; </mo>" +
+				"<mi>x</mi>" +
+				"<mo>+</mo>" +
+				"<mi>c</mi>" +
+				"</mrow>" +
+				"</math>"
+				;
+
+			const string input2 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+				"<!DOCTYPE math PUBLIC \"-//W3C//DTD MathML 2.0//EN\" " +
+				"\"http://www.w3.org/Math/DTD/mathml2/mathml2.dtd\">\n" +
+				"<mrow>\n" +
+				"	a &InvisibleTimes; <msup>x 2</msup>\n" +
+				"	+ b &InvisibleTimes; x\n" +
+				"	+ c\n" +
+				"</mrow>"
+				;
+			const string targetOutput2A = input2;
+			const string targetOutput2B = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+				"<!DOCTYPE math PUBLIC \"-//W3C//DTD MathML 2.0//EN\" " +
+				"\"http://www.w3.org/Math/DTD/mathml2/mathml2.dtd\">" +
+				"<mrow>\n" +
+				"	a &InvisibleTimes; <msup>x 2</msup>\n" +
+				"	+ b &InvisibleTimes; x\n" +
+				"	+ c\n" +
+				"</mrow>"
+				;
+
+			// Act
 			string output1A = keepingWhitespaceMinifier.Minify(input1).MinifiedContent;
 			string output1B = removingWhitespaceMinifier.Minify(input1).MinifiedContent;
 
 			string output2A = keepingWhitespaceMinifier.Minify(input2).MinifiedContent;
 			string output2B = removingWhitespaceMinifier.Minify(input2).MinifiedContent;
-
-			string output3A = keepingWhitespaceMinifier.Minify(input3).MinifiedContent;
-			string output3B = removingWhitespaceMinifier.Minify(input3).MinifiedContent;
-
-			string output4A = keepingWhitespaceMinifier.Minify(input4).MinifiedContent;
-			string output4B = removingWhitespaceMinifier.Minify(input4).MinifiedContent;
-
-			string output5A = keepingWhitespaceMinifier.Minify(input5).MinifiedContent;
-			string output5B = removingWhitespaceMinifier.Minify(input5).MinifiedContent;
 
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
@@ -226,15 +264,6 @@ namespace WebMarkupMin.Core.Tests.Xml.Minification
 
 			Assert.Equal(targetOutput2A, output2A);
 			Assert.Equal(targetOutput2B, output2B);
-
-			Assert.Equal(targetOutput3A, output3A);
-			Assert.Equal(targetOutput3B, output3B);
-
-			Assert.Equal(targetOutput4A, output4A);
-			Assert.Equal(targetOutput4B, output4B);
-
-			Assert.Equal(targetOutput5A, output5A);
-			Assert.Equal(targetOutput5B, output5B);
 		}
 	}
 }
