@@ -3,7 +3,7 @@
 	/// <summary>
 	/// XML minification settings
 	/// </summary>
-	public sealed class XmlMinificationSettings
+	public sealed class XmlMinificationSettings : MarkupMinificationSettingsBase
 	{
 		/// <summary>
 		/// Gets or sets a flag for whether to minify whitespace
@@ -66,6 +66,7 @@
 				MinifyWhitespace = false;
 				RemoveXmlComments = false;
 			}
+			PreserveNewLines = false;
 			CollapseTagsWithoutContent = false;
 			RenderEmptyTagsWithSpace = false;
 		}

@@ -25,6 +25,9 @@
 							Model.Settings.WhitespaceMinificationModeList, new { @class = "form-control" }))
 					</div>
 					<div class="checkbox">
+						@Html.CheckBoxWithLabelFor(m => m.Settings.PreserveNewLines)
+					</div>
+					<div class="checkbox">
 						@Html.CheckBoxWithLabelFor(m => m.Settings.RemoveHtmlComments)
 					</div>
 					<div class="checkbox">

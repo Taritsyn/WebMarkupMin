@@ -279,6 +279,11 @@ namespace WebMarkupMin.Core
 		private Encoding _encoding;
 
 		/// <summary>
+		/// Default newline string
+		/// </summary>
+		private string _defaultNewLine;
+
+		/// <summary>
 		/// HTML minification output writer
 		/// </summary>
 		private readonly HtmlMinificationOutputWriter _output;
@@ -478,6 +483,7 @@ namespace WebMarkupMin.Core
 			{
 				_fileContext = fileContext;
 				_encoding = encoding;
+				_defaultNewLine = cleanedContent.GetNewLine() ?? Environment.NewLine;
 
 				try
 				{
@@ -526,6 +532,7 @@ namespace WebMarkupMin.Core
 					_warnings.Clear();
 					_fileContext = null;
 					_encoding = null;
+					_defaultNewLine = null;
 				}
 			}
 
@@ -556,7 +563,7 @@ namespace WebMarkupMin.Core
 			if (whitespaceMinificationMode != WhitespaceMinificationMode.None)
 			{
 				// Processing of whitespace, that followed before the document type declaration
-				output.TrimEndLastItem();
+				output.TrimEndLastItem(_settings.PreserveNewLines);
 			}
 
 			if (_settings.UseXhtmlSyntax)
@@ -616,7 +623,7 @@ namespace WebMarkupMin.Core
 			if (whitespaceMinificationMode != WhitespaceMinificationMode.None)
 			{
 				// Processing of whitespace, that followed before the document type declaration
-				output.TrimEndLastItem();
+				output.TrimEndLastItem(_settings.PreserveNewLines);
 			}
 
 			string shortDoctype = _settings.CustomShortDoctype;
@@ -625,7 +632,7 @@ namespace WebMarkupMin.Core
 				shortDoctype = CANONICAL_HTML5_DOCTYPE;
 			}
 
-			output.Write(_settings.UseShortDoctype ? shortDoctype : Utils.CollapseWhitespace(doctype));
+			output.Write(_settings.UseShortDoctype ? shortDoctype : doctype.CollapseWhitespace());
 			output.Flush();
 		}
 
@@ -871,7 +878,7 @@ namespace WebMarkupMin.Core
 
 					if (allowTrimEnd)
 					{
-						output.TrimEndLastItem();
+						output.TrimEndLastItem(_settings.PreserveNewLines);
 					}
 				}
 
@@ -1005,7 +1012,7 @@ namespace WebMarkupMin.Core
 
 					if (allowTrimEnd)
 					{
-						output.TrimEndLastItem();
+						output.TrimEndLastItem(_settings.PreserveNewLines);
 					}
 				}
 
@@ -1075,6 +1082,8 @@ namespace WebMarkupMin.Core
 			_currentNodeType = HtmlNodeType.Text;
 
 			WhitespaceMinificationMode whitespaceMinificationMode = _settings.WhitespaceMinificationMode;
+			bool preserveNewLines = _settings.PreserveNewLines;
+
 			if (whitespaceMinificationMode != WhitespaceMinificationMode.None)
 			{
 				if (_tagsWithNotRemovableWhitespaceQueue.Count == 0)
@@ -1114,7 +1123,7 @@ namespace WebMarkupMin.Core
 
 						if (allowTrimStart)
 						{
-							text = text.TrimStart(null);
+							text = text.TrimStart(preserveNewLines);
 						}
 					}
 					else if (previousNodeType == HtmlNodeType.EndTag)
@@ -1138,26 +1147,26 @@ namespace WebMarkupMin.Core
 
 						if (allowTrimStart)
 						{
-							text = text.TrimStart(null);
+							text = text.TrimStart(preserveNewLines);
 						}
 					}
 					else if (previousNodeType == HtmlNodeType.Doctype || previousNodeType == HtmlNodeType.XmlDeclaration)
 					{
 						// Processing of whitespace, that followed after the document type declaration
 						// or XML declaration
-						text = text.TrimStart(null);
+						text = text.TrimStart(preserveNewLines);
 					}
 
 					if (text.Length > 0
 						&& !(tagFlags.IsSet(HtmlTagFlags.Xml) && tagFlags.IsSet(HtmlTagFlags.NonIndependent)))
 					{
-						text = Utils.CollapseWhitespace(text);
+						text = text.CollapseWhitespace(preserveNewLines);
 					}
 				}
 				else if (previousNodeType == HtmlNodeType.StartTag && tagNameInLowercase == "textarea"
 					&& string.IsNullOrWhiteSpace(text))
 				{
-					text = string.Empty;
+					text = preserveNewLines ? text.TrimStart(true) : string.Empty;
 				}
 			}
 
@@ -1351,7 +1360,7 @@ namespace WebMarkupMin.Core
 						string processedTextValue = textValue;
 						if (attributeType == HtmlAttributeType.ClassName)
 						{
-							processedTextValue = Utils.CollapseWhitespace(textValue);
+							processedTextValue = textValue.CollapseWhitespace();
 						}
 
 						attributeValueBuilder.Append(processedTextValue);
@@ -1722,7 +1731,7 @@ namespace WebMarkupMin.Core
 								},
 								(localContext, сontent) =>
 								{
-									string processedСontent = Utils.CollapseWhitespace(сontent);
+									string processedСontent = сontent.CollapseWhitespace();
 									classNameBuilder.Append(processedСontent);
 								}
 							);
@@ -1750,7 +1759,7 @@ namespace WebMarkupMin.Core
 					else
 					{
 						processedAttributeValue = processedAttributeValue.Trim();
-						processedAttributeValue = Utils.CollapseWhitespace(processedAttributeValue);
+						processedAttributeValue = processedAttributeValue.CollapseWhitespace();
 					}
 
 					break;
@@ -1769,7 +1778,7 @@ namespace WebMarkupMin.Core
 						&& attributes.Any(a => a.NameInLowercase == "name" && a.Value.Trim().IgnoreCaseEquals("keywords")))
 					{
 						processedAttributeValue = processedAttributeValue.Trim();
-						processedAttributeValue = Utils.CollapseWhitespace(processedAttributeValue);
+						processedAttributeValue = processedAttributeValue.CollapseWhitespace();
 						processedAttributeValue = _separatingCommaWithSpacesRegex.Replace(processedAttributeValue, ",");
 						processedAttributeValue = _endingCommaWithSpacesRegex.Replace(processedAttributeValue, string.Empty);
 					}
@@ -2234,7 +2243,7 @@ namespace WebMarkupMin.Core
 
 				string startPart = string.Empty;
 				string endPart = string.Empty;
-				string newLine = Environment.NewLine;
+				string newLine = code.GetNewLine() ?? _defaultNewLine;
 				string beforeCodeContent = string.Empty;
 
 				if (isJavaScript)
@@ -2386,13 +2395,13 @@ namespace WebMarkupMin.Core
 
 				if (minifyWhitespace && code.Length > 0)
 				{
-					code = code.Trim();
+					code = code.Trim(_settings.PreserveNewLines);
 				}
 
 				if (startPart.Length > 0)
 				{
 					output.Write(startPart);
-					if (newLine.Length > 0)
+					if (newLine.Length > 0 && !code.StartsWithNewLine())
 					{
 						output.Write(newLine);
 					}
@@ -2405,7 +2414,7 @@ namespace WebMarkupMin.Core
 				}
 				if (endPart.Length > 0)
 				{
-					if (newLine.Length > 0)
+					if (newLine.Length > 0 && !code.EndsWithNewLine())
 					{
 						output.Write(newLine);
 					}
@@ -2463,7 +2472,7 @@ namespace WebMarkupMin.Core
 
 				if (minifyWhitespace && code.Length > 0)
 				{
-					code = code.Trim();
+					code = code.Trim(_settings.PreserveNewLines);
 				}
 			}
 
@@ -2595,7 +2604,7 @@ namespace WebMarkupMin.Core
 
 				if (minifyWhitespace && code.Length > 0)
 				{
-					code = code.Trim();
+					code = code.Trim(_settings.PreserveNewLines);
 				}
 
 				if (startPart.Length > 0)
@@ -2618,7 +2627,7 @@ namespace WebMarkupMin.Core
 			{
 				if (minifyWhitespace && code.Length > 0)
 				{
-					code = code.Trim();
+					code = code.Trim(_settings.PreserveNewLines);
 				}
 
 				if (code.Length > 0)

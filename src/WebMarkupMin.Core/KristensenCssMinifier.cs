@@ -76,7 +76,7 @@ namespace WebMarkupMin.Core
 			newContent = _commentRegex.Replace(newContent, string.Empty);
 
 			// Minify whitespace
-			newContent = Utils.CollapseWhitespace(newContent);
+			newContent = newContent.CollapseWhitespace();
 			newContent = _separatingCharacters.Replace(newContent, "$1");
 			newContent = newContent.Trim(_space);
 

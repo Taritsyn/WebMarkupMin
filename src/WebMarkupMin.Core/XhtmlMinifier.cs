@@ -31,6 +31,7 @@ namespace WebMarkupMin.Core
 				new GenericHtmlMinificationSettings
 				{
 					WhitespaceMinificationMode = settings.WhitespaceMinificationMode,
+					PreserveNewLines = settings.PreserveNewLines,
 					RemoveHtmlComments = settings.RemoveHtmlComments,
 					RemoveHtmlCommentsFromScriptsAndStyles = settings.RemoveHtmlCommentsFromScriptsAndStyles,
 					RemoveCdataSectionsFromScriptsAndStyles = false,

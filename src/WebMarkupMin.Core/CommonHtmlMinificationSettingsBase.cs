@@ -8,7 +8,7 @@ namespace WebMarkupMin.Core
 	/// <summary>
 	/// Common HTML minification settings
 	/// </summary>
-	public abstract class CommonHtmlMinificationSettingsBase
+	public abstract class CommonHtmlMinificationSettingsBase : MarkupMinificationSettingsBase
 	{
 		/// <summary>
 		/// Gets or sets a whitespace minification mode
@@ -544,6 +544,7 @@ namespace WebMarkupMin.Core
 				MinifyEmbeddedJsonData = false;
 				_processableScriptTypes = new HashSet<string>();
 			}
+			PreserveNewLines = false;
 			RemoveTagsWithoutContent = false;
 			RemoveRedundantAttributes = false;
 			RemoveHttpProtocolFromAttributes = false;

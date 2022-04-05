@@ -248,13 +248,15 @@ namespace WebMarkupMin.Core
 		/// <param name="attributes">List of attributes</param>
 		private void XmlDeclarationHandler(MarkupParsingContext context, List<XmlAttribute> attributes)
 		{
+			XmlNodeType previousNodeType = _currentNodeType;
+
 			_currentNodeType = XmlNodeType.XmlDeclaration;
 
 			XmlMinificationOutputWriter output = _output;
 
-			if (_settings.MinifyWhitespace)
+			if (_settings.MinifyWhitespace && previousNodeType == XmlNodeType.Text)
 			{
-				output.RemoveLastWhitespaceItems();
+				output.RemoveLastWhitespaceItems(_settings.PreserveNewLines);
 			}
 
 			output.Write("<?xml");
@@ -273,13 +275,15 @@ namespace WebMarkupMin.Core
 		private void ProcessingInstructionHandler(MarkupParsingContext context, string instructionName,
 			List<XmlAttribute> attributes)
 		{
+			XmlNodeType previousNodeType = _currentNodeType;
+
 			_currentNodeType = XmlNodeType.ProcessingInstruction;
 
 			XmlMinificationOutputWriter output = _output;
 
-			if (_settings.MinifyWhitespace)
+			if (_settings.MinifyWhitespace && previousNodeType == XmlNodeType.Text)
 			{
-				output.RemoveLastWhitespaceItems();
+				output.RemoveLastWhitespaceItems(_settings.PreserveNewLines);
 			}
 
 			output.Write("<?");
@@ -297,16 +301,18 @@ namespace WebMarkupMin.Core
 		/// <param name="doctype">Document type declaration</param>
 		private void DoctypeDelegateHandler(MarkupParsingContext context, string doctype)
 		{
+			XmlNodeType previousNodeType = _currentNodeType;
+
 			_currentNodeType = XmlNodeType.Doctype;
 
 			XmlMinificationOutputWriter output = _output;
 
-			if (_settings.MinifyWhitespace)
+			if (_settings.MinifyWhitespace && previousNodeType == XmlNodeType.Text)
 			{
-				output.RemoveLastWhitespaceItems();
+				output.RemoveLastWhitespaceItems(_settings.PreserveNewLines);
 			}
 
-			output.Write(Utils.CollapseWhitespace(doctype));
+			output.Write(doctype.CollapseWhitespace());
 			output.Flush();
 		}
 
@@ -364,7 +370,7 @@ namespace WebMarkupMin.Core
 					|| _ignoredFragmentBeforeText || _xmlDeclarationBeforeText
 					|| _processingInstructionBeforeText || _doctypeBeforeText))
 			{
-				output.RemoveLastWhitespaceItems();
+				output.RemoveLastWhitespaceItems(_settings.PreserveNewLines);
 			}
 
 			output.Flush();
@@ -395,7 +401,9 @@ namespace WebMarkupMin.Core
 			{
 				if (output.TransformLastStartTagToEmptyTag(_settings.RenderEmptyTagsWithSpace))
 				{
+					_currentNodeType = XmlNodeType.EmptyTag;
 					output.Flush();
+
 					return;
 				}
 			}
@@ -403,7 +411,7 @@ namespace WebMarkupMin.Core
 			if (_settings.MinifyWhitespace && previousNodeType == XmlNodeType.Text
 				&& (_endTagBeforeText || _emptyTagBeforeText))
 			{
-				output.RemoveLastWhitespaceItems();
+				output.RemoveLastWhitespaceItems(_settings.PreserveNewLines);
 			}
 
 			// Add end tag to buffer
@@ -433,7 +441,7 @@ namespace WebMarkupMin.Core
 			if (_settings.MinifyWhitespace && previousNodeType == XmlNodeType.Text
 				&& (_startTagBeforeText || _endTagBeforeText || _emptyTagBeforeText))
 			{
-				output.RemoveLastWhitespaceItems();
+				output.RemoveLastWhitespaceItems(_settings.PreserveNewLines);
 			}
 
 			output.Write("<");
@@ -500,15 +508,13 @@ namespace WebMarkupMin.Core
 
 			if (_settings.MinifyWhitespace)
 			{
-				if (context.Position == 0)
+				if (context.Position == 0 || context.Position + text.Length == context.Length)
 				{
-					// Processing starting whitespace
-					text = text.TrimStart(null);
-				}
-				else if (context.Position + text.Length == context.Length)
-				{
-					// Processing ending whitespace
-					text = text.TrimEnd(null);
+					// Processing starting and ending whitespace
+					if (string.IsNullOrWhiteSpace(text))
+					{
+						text = string.Empty;
+					}
 				}
 				else if (_xmlDeclarationBeforeText || _processingInstructionBeforeText || _doctypeBeforeText)
 				{
@@ -517,7 +523,7 @@ namespace WebMarkupMin.Core
 					// or document type declaration
 					if (string.IsNullOrWhiteSpace(text))
 					{
-						text = string.Empty;
+						text = _settings.PreserveNewLines ? text.TrimStart(true) : string.Empty;
 					}
 				}
 			}
@@ -537,13 +543,15 @@ namespace WebMarkupMin.Core
 		/// <param name="fragment">Ignored fragment</param>
 		private void IgnoredFragmentHandler(MarkupParsingContext context, string fragment)
 		{
+			XmlNodeType previousNodeType = _currentNodeType;
+
 			_currentNodeType = XmlNodeType.IgnoredFragment;
 
 			XmlMinificationOutputWriter output = _output;
 
-			if (_settings.MinifyWhitespace)
+			if (_settings.MinifyWhitespace && previousNodeType == XmlNodeType.Text)
 			{
-				output.RemoveLastWhitespaceItems();
+				output.RemoveLastWhitespaceItems(_settings.PreserveNewLines);
 			}
 
 			if (fragment.Length > 0)

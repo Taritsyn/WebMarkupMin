@@ -3,20 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-using AdvancedStringBuilder;
-
 using WebMarkupMin.Core.Resources;
 
 namespace WebMarkupMin.Core.Utilities
 {
 	public static class Utils
 	{
-		/// <summary>
-		/// Array of other whitespace characters
-		/// </summary>
-		private static readonly char[] _otherWhitespaceChars = { '\t', '\r', '\n', '\v', '\f' };
-
-
 		/// <summary>
 		/// Converts value of source enumeration type to value of destination enumeration type
 		/// </summary>
@@ -40,77 +32,6 @@ namespace WebMarkupMin.Core.Utilities
 			}
 
 			return destEnum;
-		}
-
-		/// <summary>
-		/// Collapses a whitespace
-		/// </summary>
-		/// <param name="value">String value</param>
-		/// <returns>String value without extra spaces</returns>
-		internal static string CollapseWhitespace(string value)
-		{
-			if (value == null)
-			{
-				throw new ArgumentNullException(nameof(value));
-			}
-
-			if (value.Length == 0
-				|| (value.IndexOfAny(_otherWhitespaceChars) == -1 && value.IndexOf("  ", StringComparison.Ordinal) == -1))
-			{
-				return value;
-			}
-
-			var stringBuilderPool = StringBuilderPool.Shared;
-			StringBuilder sb = null;
-			bool previousWhitespace = false;
-			int previousCharIndex = 0;
-			int charCount = value.Length;
-
-			for (int charIndex = 0; charIndex < charCount; charIndex++)
-			{
-				char charValue = value[charIndex];
-				bool currentWhitespace = char.IsWhiteSpace(charValue);
-
-				if (currentWhitespace)
-				{
-					if (previousWhitespace || charValue != ' ')
-					{
-						if (sb == null)
-						{
-							sb = stringBuilderPool.Rent();
-						}
-
-						if (previousCharIndex < charIndex)
-						{
-							sb.Append(value, previousCharIndex, charIndex - previousCharIndex);
-						}
-
-						if (!previousWhitespace)
-						{
-							sb.Append(' ');
-						}
-
-						previousCharIndex = charIndex + 1;
-					}
-				}
-
-				previousWhitespace = currentWhitespace;
-			}
-
-			if (sb == null)
-			{
-				return value;
-			}
-
-			if (previousCharIndex < charCount)
-			{
-				sb.Append(value, previousCharIndex, charCount - previousCharIndex);
-			}
-
-			string result = sb.ToString();
-			stringBuilderPool.Return(sb);
-
-			return result;
 		}
 
 		/// <summary>

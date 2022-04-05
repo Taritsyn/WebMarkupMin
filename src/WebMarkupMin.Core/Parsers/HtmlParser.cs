@@ -741,13 +741,13 @@ namespace WebMarkupMin.Core.Parsers
 
 				if (attributeNamePosition != -1)
 				{
-					int lineBreakCount;
+					int lineCount;
 					int charRemainderCount;
 
-					SourceCodeNavigator.CalculateLineBreakCount(content, currentPosition,
-						attributeNamePosition - currentPosition, out lineBreakCount, out charRemainderCount);
+					SourceCodeNavigator.CalculateLineCount(content, currentPosition,
+						attributeNamePosition - currentPosition, out lineCount, out charRemainderCount);
 					attributeNameCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
-						currentCoordinates, lineBreakCount, charRemainderCount);
+						currentCoordinates, lineCount, charRemainderCount);
 
 					currentPosition = attributeNamePosition;
 					currentCoordinates = attributeNameCoordinates;
@@ -762,13 +762,13 @@ namespace WebMarkupMin.Core.Parsers
 
 				if (attributeValuePosition != -1)
 				{
-					int lineBreakCount;
+					int lineCount;
 					int charRemainderCount;
 
-					SourceCodeNavigator.CalculateLineBreakCount(content, currentPosition,
-						attributeValuePosition - currentPosition, out lineBreakCount, out charRemainderCount);
+					SourceCodeNavigator.CalculateLineCount(content, currentPosition,
+						attributeValuePosition - currentPosition, out lineCount, out charRemainderCount);
 					attributeValueCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
-						currentCoordinates, lineBreakCount, charRemainderCount);
+						currentCoordinates, lineCount, charRemainderCount);
 
 					currentPosition = attributeValuePosition;
 					currentCoordinates = attributeValueCoordinates;

@@ -16,7 +16,7 @@ namespace WebMarkupMin.Sample.Logic.Models
 	/// <summary>
 	/// Common HTML minification settings view model
 	/// </summary>
-	public abstract class CommonHtmlMinificationSettingsViewModel
+	public abstract class CommonHtmlMinificationSettingsViewModel : MarkupMinificationSettingsViewModel
 	{
 		private static readonly IEnumerable<SelectListItem> _whitespaceMinificationModes;
 		private static readonly IEnumerable<SelectListItem> _availableCssMinifierList;

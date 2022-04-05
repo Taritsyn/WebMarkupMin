@@ -9,7 +9,7 @@
 
 <h2>@ViewBag.Title</h2>
 
-<form asp-controller="minifiers/xml-minifier" asp-action="index" method="post" data-form-type="minification-form">
+<form method="post" data-form-type="minification-form">
 	<div class="minification-form">
 		<div class="minification-input-output">
 			@{await Html.RenderPartialAsync("_MinificationInputOutput", Model); }
@@ -22,6 +22,12 @@
 						<label asp-for="Settings.MinifyWhitespace">
 							<input asp-for="Settings.MinifyWhitespace" />
 							@Html.DisplayNameFor(m => m.Settings.MinifyWhitespace)
+						</label>
+					</div>
+					<div class="checkbox">
+						<label asp-for="Settings.PreserveNewLines">
+							<input asp-for="Settings.PreserveNewLines" />
+							@Html.DisplayNameFor(m => m.Settings.PreserveNewLines)
 						</label>
 					</div>
 					<div class="checkbox">

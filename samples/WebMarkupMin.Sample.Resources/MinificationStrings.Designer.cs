@@ -98,6 +98,14 @@ namespace WebMarkupMin.Sample.Resources
 		}
 
 		/// <summary>
+		/// Looks up a localized string similar to "Preserve newlines"
+		/// </summary>
+		public static string DisplayName_PreserveNewLines
+		{
+			get { return GetString("DisplayName_PreserveNewLines"); }
+		}
+
+		/// <summary>
 		/// Looks up a localized string similar to "Saved"
 		/// </summary>
 		public static string DisplayName_Saved

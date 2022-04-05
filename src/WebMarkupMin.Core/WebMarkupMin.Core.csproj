@@ -18,8 +18,7 @@ Minification of markup produces by removing extra whitespaces, comments and redu
 
 Also supports minification of views of popular JavaScript template engines: KnockoutJS, Kendo UI MVVM and AngularJS 1.X.</Description>
     <PackageTags>WebMarkupMin;Markup;HTML;XHTML;XML;Minification;Minifier;Minify;Performance;Optimization;Compression</PackageTags>
-    <PackageReleaseNotes>1. .NET Core App 2.1 target was replaced by a .NET Standard 2.1 target;
-2. Version for .NET Standard 2.1 now uses a regular expression compilation for improving performance.</PackageReleaseNotes>
+    <PackageReleaseNotes>In HTML, XHTML and XML minification settings was added one new property - `PreserveNewLines` (default `false`).</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />

@@ -92,15 +92,15 @@ namespace WebMarkupMin.Core.Parsers
 			int fragmentStartPosition = oldPosition;
 			int fragmentLength = increment;
 
-			int lineBreakCount;
+			int lineCount;
 			int charRemainderCount;
 
-			SourceCodeNavigator.CalculateLineBreakCount(_sourceCode, fragmentStartPosition, fragmentLength,
-				out lineBreakCount, out charRemainderCount);
+			SourceCodeNavigator.CalculateLineCount(_sourceCode, fragmentStartPosition, fragmentLength,
+				out lineCount, out charRemainderCount);
 			SourceCodeNodeCoordinates currentNodeCoordinates = _nodeCoordinates;
 
 			_nodeCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(currentNodeCoordinates,
-				lineBreakCount, charRemainderCount);
+				lineCount, charRemainderCount);
 			_position = newPosition;
 			_peekedCharOffset = 0;
 		}

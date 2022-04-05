@@ -12,102 +12,91 @@ namespace WebMarkupMin.Core.Utilities
 		private const int DEFAULT_MAX_FRAGMENT_LENGTH = 95;
 
 		/// <summary>
-		/// Array of characters used to find the next line break
+		/// Array of characters used to find the newline
 		/// </summary>
-		private static readonly char[] _nextLineBreakChars = new char[] { '\r', '\n' };
-
-		/// <summary>
-		/// Array of characters used to find the previous line break
-		/// </summary>
-		private static readonly char[] _previousLineBreakChars = new char[] { '\n', '\r' };
+		private static readonly char[] _newLineChars = EnvironmentShortcuts.NewLineChars;
 
 
 		/// <summary>
-		/// Finds a next line break
+		/// Finds a next newline
 		/// </summary>
 		/// <param name="sourceCode">Source code</param>
 		/// <param name="startPosition">Position in the input string that defines the leftmost
 		/// position to be searched</param>
-		/// <param name="lineBreakPosition">Position of line break</param>
-		/// <param name="lineBreakLength">Length of line break</param>
-		private static void FindNextLineBreak(string sourceCode, int startPosition,
-			out int lineBreakPosition, out int lineBreakLength)
+		/// <param name="newLinePosition">Position of the newline string</param>
+		/// <param name="newLineLength">Length of the newline string</param>
+		private static void FindNextNewLine(string sourceCode, int startPosition,
+			out int newLinePosition, out int newLineLength)
 		{
 			int length = sourceCode.Length - startPosition;
 
-			FindNextLineBreak(sourceCode, startPosition, length,
-				out lineBreakPosition, out lineBreakLength);
+			FindNextNewLine(sourceCode, startPosition, length,
+				out newLinePosition, out newLineLength);
 		}
 
 		/// <summary>
-		/// Finds a next line break
+		/// Finds a next newline
 		/// </summary>
 		/// <param name="sourceCode">Source code</param>
 		/// <param name="startPosition">Position in the input string that defines the leftmost
 		/// position to be searched</param>
 		/// <param name="length">Number of characters in the substring to include in the search</param>
-		/// <param name="lineBreakPosition">Position of line break</param>
-		/// <param name="lineBreakLength">Length of line break</param>
-		private static void FindNextLineBreak(string sourceCode, int startPosition, int length,
-			out int lineBreakPosition, out int lineBreakLength)
+		/// <param name="newLinePosition">Position of the newline string</param>
+		/// <param name="newLineLength">Length of the newline string</param>
+		private static void FindNextNewLine(string sourceCode, int startPosition, int length,
+			out int newLinePosition, out int newLineLength)
 		{
-			lineBreakPosition = sourceCode.IndexOfAny(_nextLineBreakChars, startPosition, length);
-			if (lineBreakPosition != -1)
+			newLinePosition = sourceCode.IndexOfAny(_newLineChars, startPosition, length);
+			if (newLinePosition != -1)
 			{
-				lineBreakLength = 1;
-				char currentCharacter = sourceCode[lineBreakPosition];
+				newLineLength = 1;
+				char currentCharacter = sourceCode[newLinePosition];
 
-				if (currentCharacter == '\r')
+				int nextCharacterPosition = newLinePosition + 1;
+				char nextCharacter;
+
+				if (sourceCode.TryGetChar(nextCharacterPosition, out nextCharacter)
+					&& nextCharacter.IsNewLine() && nextCharacter != currentCharacter)
 				{
-					int nextCharacterPosition = lineBreakPosition + 1;
-					char nextCharacter;
-
-					if (sourceCode.TryGetChar(nextCharacterPosition, out nextCharacter)
-						&& nextCharacter == '\n')
-					{
-						lineBreakLength = 2;
-					}
+					newLineLength = 2;
 				}
 			}
 			else
 			{
-				lineBreakLength = 0;
+				newLineLength = 0;
 			}
 		}
 
 		/// <summary>
-		/// Finds a previous line break
+		/// Finds a previous newline
 		/// </summary>
 		/// <param name="sourceCode">Source code</param>
 		/// <param name="startPosition">Position in the input string that defines the leftmost
 		/// position to be searched</param>
-		/// <param name="lineBreakPosition">Position of line break</param>
-		/// <param name="lineBreakLength">Length of line break</param>
-		private static void FindPreviousLineBreak(string sourceCode, int startPosition,
-			out int lineBreakPosition, out int lineBreakLength)
+		/// <param name="newLinePosition">Position of the newline string</param>
+		/// <param name="newLineLength">Length of the newline string</param>
+		private static void FindPreviousNewLine(string sourceCode, int startPosition,
+			out int newLinePosition, out int newLineLength)
 		{
-			lineBreakPosition = sourceCode.LastIndexOfAny(_previousLineBreakChars, startPosition);
-			if (lineBreakPosition != -1)
+			newLinePosition = sourceCode.LastIndexOfAny(_newLineChars, startPosition);
+			if (newLinePosition != -1)
 			{
-				lineBreakLength = 1;
-				char currentCharacter = sourceCode[lineBreakPosition];
+				newLineLength = 1;
+				char currentCharacter = sourceCode[newLinePosition];
 
-				if (currentCharacter == '\n')
+				int previousCharacterPosition = newLinePosition - 1;
+				char previousCharacter;
+
+				if (sourceCode.TryGetChar(previousCharacterPosition, out previousCharacter)
+					&& previousCharacter.IsNewLine() && previousCharacter != currentCharacter)
 				{
-					int previousCharacterPosition = lineBreakPosition - 1;
-					char previousCharacter;
-
-					if (sourceCode.TryGetChar(previousCharacterPosition, out previousCharacter)
-						&& previousCharacter == '\r')
-					{
-						lineBreakPosition = previousCharacterPosition;
-						lineBreakLength = 2;
-					}
+					newLinePosition = previousCharacterPosition;
+					newLineLength = 2;
 				}
 			}
 			else
 			{
-				lineBreakLength = 0;
+				newLineLength = 0;
 			}
 		}
 
@@ -137,45 +126,45 @@ namespace WebMarkupMin.Core.Utilities
 		}
 
 		/// <summary>
-		/// Calculates a line break count
+		/// Calculates a line count
 		/// </summary>
 		/// <param name="sourceCode">Source code</param>
-		/// <param name="lineBreakCount">Number of line breaks</param>
+		/// <param name="lineCount">Number of lines</param>
 		/// <param name="charRemainderCount">Number of characters left</param>
-		public static void CalculateLineBreakCount(string sourceCode, out int lineBreakCount, out int charRemainderCount)
+		public static void CalculateLineCount(string sourceCode, out int lineCount, out int charRemainderCount)
 		{
-			CalculateLineBreakCount(sourceCode, 0, out lineBreakCount, out charRemainderCount);
+			CalculateLineCount(sourceCode, 0, out lineCount, out charRemainderCount);
 		}
 
 		/// <summary>
-		/// Calculates a line break count
+		/// Calculates a line count
 		/// </summary>
 		/// <param name="sourceCode">Source code</param>
 		/// <param name="fragmentStartPosition">Start position of fragment</param>
-		/// <param name="lineBreakCount">Number of line breaks</param>
+		/// <param name="lineCount">Number of lines</param>
 		/// <param name="charRemainderCount">Number of characters left</param>
-		public static void CalculateLineBreakCount(string sourceCode, int fragmentStartPosition,
-			out int lineBreakCount, out int charRemainderCount)
+		public static void CalculateLineCount(string sourceCode, int fragmentStartPosition,
+			out int lineCount, out int charRemainderCount)
 		{
 			int fragmentLength = sourceCode.Length - fragmentStartPosition;
 
-			CalculateLineBreakCount(sourceCode, fragmentStartPosition, fragmentLength,
-				out lineBreakCount, out charRemainderCount);
+			CalculateLineCount(sourceCode, fragmentStartPosition, fragmentLength,
+				out lineCount, out charRemainderCount);
 		}
 
 		/// <summary>
-		/// Calculates a line break count
+		/// Calculates a line count
 		/// </summary>
 		/// <param name="sourceCode">Source code</param>
 		/// <param name="fragmentStartPosition">Start position of fragment</param>
 		/// <param name="fragmentLength">Length of fragment</param>
-		/// <param name="lineBreakCount">Number of line breaks</param>
+		/// <param name="lineCount">Number of lines</param>
 		/// <param name="charRemainderCount">Number of characters left</param>
-		public static void CalculateLineBreakCount(string sourceCode, int fragmentStartPosition, int fragmentLength,
-			out int lineBreakCount, out int charRemainderCount)
+		public static void CalculateLineCount(string sourceCode, int fragmentStartPosition, int fragmentLength,
+			out int lineCount, out int charRemainderCount)
 		{
 			int sourceCodeLength = sourceCode.Length;
-			lineBreakCount = 0;
+			lineCount = 0;
 			charRemainderCount = 0;
 
 			if (string.IsNullOrWhiteSpace(sourceCode))
@@ -194,27 +183,27 @@ namespace WebMarkupMin.Core.Utilities
 			}
 
 			int fragmentEndPosition = fragmentStartPosition + fragmentLength - 1;
-			int lineBreakPosition = int.MinValue;
-			int lineBreakLength = 0;
+			int newLinePosition = int.MinValue;
+			int newLineLength = 0;
 			int startLinePosition;
 
 			do
 			{
-				startLinePosition = lineBreakPosition == int.MinValue ?
-					fragmentStartPosition : lineBreakPosition + lineBreakLength;
+				startLinePosition = newLinePosition == int.MinValue ?
+					fragmentStartPosition : newLinePosition + newLineLength;
 				int lineLength = fragmentEndPosition - startLinePosition + 1;
 
-				FindNextLineBreak(sourceCode, startLinePosition, lineLength,
-					out lineBreakPosition, out lineBreakLength);
+				FindNextNewLine(sourceCode, startLinePosition, lineLength,
+					out newLinePosition, out newLineLength);
 
-				if (lineBreakPosition != -1)
+				if (newLinePosition != -1)
 				{
-					lineBreakCount++;
+					lineCount++;
 				}
 			}
-			while (lineBreakPosition != -1 && lineBreakPosition <= fragmentEndPosition);
+			while (newLinePosition != -1 && newLinePosition <= fragmentEndPosition);
 
-			if (lineBreakCount > 0)
+			if (lineCount > 0)
 			{
 				charRemainderCount = fragmentEndPosition - startLinePosition + 1;
 			}
@@ -238,13 +227,13 @@ namespace WebMarkupMin.Core.Utilities
 			}
 
 			int fragmentLength = nodePosition + 1;
-			int lineBreakCount;
+			int lineCount;
 			int charRemainderCount;
 
-			CalculateLineBreakCount(sourceCode, 0, fragmentLength,
-				out lineBreakCount, out charRemainderCount);
+			CalculateLineCount(sourceCode, 0, fragmentLength,
+				out lineCount, out charRemainderCount);
 
-			var nodeCoordinates = new SourceCodeNodeCoordinates(lineBreakCount + 1, charRemainderCount + 1);
+			var nodeCoordinates = new SourceCodeNodeCoordinates(lineCount + 1, charRemainderCount + 1);
 
 			return nodeCoordinates;
 		}
@@ -292,19 +281,19 @@ namespace WebMarkupMin.Core.Utilities
 				string nextLine = string.Empty;
 
 				int lineCount = 0;
-				int lineBreakPosition = int.MinValue;
-				int lineBreakLength = 0;
+				int newLinePosition = int.MinValue;
+				int newLineLength = 0;
 
 				do
 				{
 					string line;
-					int startLinePosition = lineBreakPosition == int.MinValue ? 0 : lineBreakPosition + lineBreakLength;
+					int startLinePosition = newLinePosition == int.MinValue ? 0 : newLinePosition + newLineLength;
 
-					FindNextLineBreak(sourceCode, startLinePosition, out lineBreakPosition, out lineBreakLength);
+					FindNextNewLine(sourceCode, startLinePosition, out newLinePosition, out newLineLength);
 
-					if (lineBreakPosition != -1)
+					if (newLinePosition != -1)
 					{
-						line = sourceCode.Substring(startLinePosition, lineBreakPosition - startLinePosition);
+						line = sourceCode.Substring(startLinePosition, newLinePosition - startLinePosition);
 					}
 					else
 					{
@@ -326,7 +315,7 @@ namespace WebMarkupMin.Core.Utilities
 						nextLine = line;
 					}
 				}
-				while (lineBreakPosition != -1 && lineCount <= nextLineNumber);
+				while (newLinePosition != -1 && lineCount <= nextLineNumber);
 
 				int lineNumberSize = nextLineNumber.ToString(CultureInfo.InvariantCulture).Length;
 				if (currentLineNumber == lineCount)
@@ -540,12 +529,12 @@ namespace WebMarkupMin.Core.Utilities
 		public static SourceCodeNodeCoordinates CalculateAbsoluteNodeCoordinates(
 			SourceCodeNodeCoordinates baseNodeCoordinates, string additionalContent)
 		{
-			int lineBreakCount = 0;
+			int lineCount = 0;
 			int charRemainderCount = 0;
 
 			if (!string.IsNullOrEmpty(additionalContent))
 			{
-				CalculateLineBreakCount(additionalContent, out lineBreakCount, out charRemainderCount);
+				CalculateLineCount(additionalContent, out lineCount, out charRemainderCount);
 			}
 
 			int absoluteLineNumber;
@@ -556,9 +545,9 @@ namespace WebMarkupMin.Core.Utilities
 				int baseLineNumber = baseNodeCoordinates.LineNumber;
 				int baseColumnNumber = baseNodeCoordinates.ColumnNumber;
 
-				if (lineBreakCount > 0)
+				if (lineCount > 0)
 				{
-					absoluteLineNumber = baseLineNumber + lineBreakCount;
+					absoluteLineNumber = baseLineNumber + lineCount;
 					absoluteColumnNumber = charRemainderCount + 1;
 				}
 				else
@@ -569,7 +558,7 @@ namespace WebMarkupMin.Core.Utilities
 			}
 			else
 			{
-				absoluteLineNumber = lineBreakCount + 1;
+				absoluteLineNumber = lineCount + 1;
 				absoluteColumnNumber = charRemainderCount + 1;
 			}
 
@@ -582,11 +571,11 @@ namespace WebMarkupMin.Core.Utilities
 		/// Calculates a absolute node coordinates
 		/// </summary>
 		/// <param name="baseNodeCoordinates">Base node coordinates</param>
-		/// <param name="lineBreakCount">Number of line breaks</param>
+		/// <param name="lineCount">Number of lines</param>
 		/// <param name="charRemainderCount">Number of characters left</param>
 		/// <returns>Absolute node coordinates</returns>
 		public static SourceCodeNodeCoordinates CalculateAbsoluteNodeCoordinates(
-			SourceCodeNodeCoordinates baseNodeCoordinates, int lineBreakCount, int charRemainderCount)
+			SourceCodeNodeCoordinates baseNodeCoordinates, int lineCount, int charRemainderCount)
 		{
 			int absoluteLineNumber;
 			int absoluteColumnNumber;
@@ -596,9 +585,9 @@ namespace WebMarkupMin.Core.Utilities
 				int baseLineNumber = baseNodeCoordinates.LineNumber;
 				int baseColumnNumber = baseNodeCoordinates.ColumnNumber;
 
-				if (lineBreakCount > 0)
+				if (lineCount > 0)
 				{
-					absoluteLineNumber = baseLineNumber + lineBreakCount;
+					absoluteLineNumber = baseLineNumber + lineCount;
 					absoluteColumnNumber = charRemainderCount + 1;
 				}
 				else
@@ -609,7 +598,7 @@ namespace WebMarkupMin.Core.Utilities
 			}
 			else
 			{
-				absoluteLineNumber = lineBreakCount + 1;
+				absoluteLineNumber = lineCount + 1;
 				absoluteColumnNumber = charRemainderCount + 1;
 			}
 
@@ -644,31 +633,31 @@ namespace WebMarkupMin.Core.Utilities
 			}
 
 			char currentChar = sourceCode[currentPosition];
-			if (currentChar == '\n' || currentChar == '\r')
+			if (currentChar.IsNewLine())
 			{
 				return string.Empty;
 			}
 
-			int startLineBreakPosition;
-			int startLineBreakLength;
+			int startNewLinePosition;
+			int startNewLineLength;
 
-			FindPreviousLineBreak(sourceCode, currentPosition, out startLineBreakPosition, out startLineBreakLength);
-			if (startLineBreakPosition != -1)
+			FindPreviousNewLine(sourceCode, currentPosition, out startNewLinePosition, out startNewLineLength);
+			if (startNewLinePosition != -1)
 			{
-				startLinePosition = startLineBreakPosition + startLineBreakLength;
+				startLinePosition = startNewLinePosition + startNewLineLength;
 			}
 			else
 			{
 				startLinePosition = 0;
 			}
 
-			int endLineBreakPosition;
-			int endLineBreakLength;
+			int endNewLinePosition;
+			int endNewLineLength;
 
-			FindNextLineBreak(sourceCode, currentPosition, out endLineBreakPosition, out endLineBreakLength);
-			if (endLineBreakPosition != -1)
+			FindNextNewLine(sourceCode, currentPosition, out endNewLinePosition, out endNewLineLength);
+			if (endNewLinePosition != -1)
 			{
-				endLinePosition = endLineBreakPosition - 1;
+				endLinePosition = endNewLinePosition - 1;
 			}
 			else
 			{
@@ -680,5 +669,50 @@ namespace WebMarkupMin.Core.Utilities
 
 			return lineContent;
 		}
+
+		#region Obsolete methods
+
+		/// <summary>
+		/// Calculates a line break count
+		/// </summary>
+		/// <param name="sourceCode">Source code</param>
+		/// <param name="lineBreakCount">Number of line breaks</param>
+		/// <param name="charRemainderCount">Number of characters left</param>
+		[Obsolete("Use a `CalculateLineCount` method")]
+		public static void CalculateLineBreakCount(string sourceCode, out int lineBreakCount, out int charRemainderCount)
+		{
+			CalculateLineCount(sourceCode, out lineBreakCount, out charRemainderCount);
+		}
+
+		/// <summary>
+		/// Calculates a line break count
+		/// </summary>
+		/// <param name="sourceCode">Source code</param>
+		/// <param name="fragmentStartPosition">Start position of fragment</param>
+		/// <param name="lineBreakCount">Number of line breaks</param>
+		/// <param name="charRemainderCount">Number of characters left</param>
+		[Obsolete("Use a `CalculateLineCount` method")]
+		public static void CalculateLineBreakCount(string sourceCode, int fragmentStartPosition,
+			out int lineBreakCount, out int charRemainderCount)
+		{
+			CalculateLineCount(sourceCode, fragmentStartPosition, out lineBreakCount, out charRemainderCount);
+		}
+
+		/// <summary>
+		/// Calculates a line break count
+		/// </summary>
+		/// <param name="sourceCode">Source code</param>
+		/// <param name="fragmentStartPosition">Start position of fragment</param>
+		/// <param name="fragmentLength">Length of fragment</param>
+		/// <param name="lineBreakCount">Number of line breaks</param>
+		/// <param name="charRemainderCount">Number of characters left</param>
+		[Obsolete("Use a `CalculateLineCount` method")]
+		public static void CalculateLineBreakCount(string sourceCode, int fragmentStartPosition, int fragmentLength,
+			out int lineBreakCount, out int charRemainderCount)
+		{
+			CalculateLineCount(sourceCode, fragmentStartPosition, fragmentLength, out lineBreakCount, out charRemainderCount);
+		}
+
+		#endregion
 	}
 }

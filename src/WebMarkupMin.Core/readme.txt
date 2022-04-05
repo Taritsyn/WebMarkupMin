@@ -46,9 +46,8 @@
    =============
    RELEASE NOTES
    =============
-   1. .NET Core App 2.1 target was replaced by a .NET Standard 2.1 target;
-   2. Version for .NET Standard 2.1 now uses a regular expression compilation for
-      improving performance.
+   In HTML, XHTML and XML minification settings was added one new property -
+   `PreserveNewLines` (default `false`).
 
    =============
    DOCUMENTATION

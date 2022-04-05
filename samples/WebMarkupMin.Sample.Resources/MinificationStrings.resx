@@ -132,6 +132,9 @@
   <data name="DisplayName_OriginalSize" xml:space="preserve">
     <value>Original size</value>
   </data>
+  <data name="DisplayName_PreserveNewLines" xml:space="preserve">
+    <value>Preserve newlines</value>
+  </data>
   <data name="DisplayName_Saved" xml:space="preserve">
     <value>Saved</value>
   </data>

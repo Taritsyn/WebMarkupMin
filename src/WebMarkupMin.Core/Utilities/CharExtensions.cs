@@ -36,5 +36,11 @@ namespace WebMarkupMin.Core.Utilities
 		{
 			return IsAlpha(source) || IsNumeric(source);
 		}
+
+		[MethodImpl((MethodImplOptions)256 /* AggressiveInlining */)]
+		public static bool IsNewLine(this char source)
+		{
+			return source == '\n' || source == '\r';
+		}
 	}
 }
