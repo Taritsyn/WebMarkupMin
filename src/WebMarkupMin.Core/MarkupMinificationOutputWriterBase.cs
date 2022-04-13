@@ -2,6 +2,8 @@
 using System.Runtime.CompilerServices;
 using System.Text;
 
+using AdvancedStringBuilder;
+
 namespace WebMarkupMin.Core
 {
 	/// <summary>
@@ -17,7 +19,7 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Underlying string builder
 		/// </summary>
-		private StringBuilder _sb;
+		protected StringBuilder _sb;
 
 		/// <summary>
 		/// Buffer for items
@@ -116,6 +118,19 @@ namespace WebMarkupMin.Core
 
 				_size = 0;
 			}
+		}
+
+		/// <summary>
+		/// Removes the all trailing whitespace characters from the underlying string builder
+		/// </summary>
+		public void TrimEnd()
+		{
+			if (_sb == null)
+			{
+				throw new InvalidOperationException();
+			}
+
+			_sb.TrimEnd();
 		}
 
 		/// <summary>

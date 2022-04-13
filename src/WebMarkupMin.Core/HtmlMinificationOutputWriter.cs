@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 using WebMarkupMin.Core.Utilities;
 
@@ -57,7 +58,7 @@ namespace WebMarkupMin.Core
 
 			if (preserveNewLines)
 			{
-				InternalTrimEndLastItemWithNewLinesPreserved(_items, ref _size);
+				InternalTrimEndLastItemWithNewLinesPreserved(_sb, _items, ref _size);
 			}
 			else
 			{
@@ -91,7 +92,7 @@ namespace WebMarkupMin.Core
 			}
 		}
 
-		private static void InternalTrimEndLastItemWithNewLinesPreserved(string[] items, ref int size)
+		private static void InternalTrimEndLastItemWithNewLinesPreserved(StringBuilder sb, string[] items, ref int size)
 		{
 			int itemCount = size;
 			int whitespaceItemCount = 0;
@@ -116,10 +117,13 @@ namespace WebMarkupMin.Core
 			{
 				string nonWhitespaceItem = items[nonWhitespaceItemIndex];
 				string processedNonWhitespaceItem = nonWhitespaceItem.TrimEnd(true);
-				char lastCharValue = processedNonWhitespaceItem[processedNonWhitespaceItem.Length - 1];
 
 				items[nonWhitespaceItemIndex] = processedNonWhitespaceItem;
-				allowTrimmingWhitespaceItems = !lastCharValue.IsNewLine();
+				allowTrimmingWhitespaceItems = !processedNonWhitespaceItem.EndsWithNewLine();
+			}
+			else
+			{
+				allowTrimmingWhitespaceItems = !sb.EndsWithNewLine();
 			}
 
 			if (allowTrimmingWhitespaceItems)

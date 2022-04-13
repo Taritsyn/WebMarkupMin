@@ -2235,6 +2235,369 @@ namespace WebMarkupMin.Core.Tests.Html.Minification
 			Assert.Equal(targetOutputH, outputH);
 		}
 
+		[Fact]
+		public void WhitespaceMinificationWithRemovingOptionalEndTagsInHtmlDocumentIsCorrect()
+		{
+			// Arrange
+			var keepingWhitespaceMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true)
+				{
+					WhitespaceMinificationMode = WhitespaceMinificationMode.None,
+					PreserveNewLines = false,
+					RemoveOptionalEndTags = true
+				});
+			var keepingWhitespaceAndNewLinesMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true)
+				{
+					WhitespaceMinificationMode = WhitespaceMinificationMode.None,
+					PreserveNewLines = true,
+					RemoveOptionalEndTags = true
+				});
+			var safeRemovingWhitespaceMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true)
+				{
+					WhitespaceMinificationMode = WhitespaceMinificationMode.Safe,
+					PreserveNewLines = false,
+					RemoveOptionalEndTags = true
+				});
+			var safeRemovingWhitespaceExceptForNewLinesMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true)
+				{
+					WhitespaceMinificationMode = WhitespaceMinificationMode.Safe,
+					PreserveNewLines = true,
+					RemoveOptionalEndTags = true
+				});
+			var mediumRemovingWhitespaceMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true)
+				{
+					WhitespaceMinificationMode = WhitespaceMinificationMode.Medium,
+					PreserveNewLines = false,
+					RemoveOptionalEndTags = true
+				});
+			var mediumRemovingWhitespaceExceptForNewLinesMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true)
+				{
+					WhitespaceMinificationMode = WhitespaceMinificationMode.Medium,
+					PreserveNewLines = true,
+					RemoveOptionalEndTags = true
+				});
+			var aggressiveRemovingWhitespaceMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true)
+				{
+					WhitespaceMinificationMode = WhitespaceMinificationMode.Aggressive,
+					PreserveNewLines = false,
+					RemoveOptionalEndTags = true
+				});
+			var aggressiveRemovingWhitespaceExceptForNewLinesMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true)
+				{
+					WhitespaceMinificationMode = WhitespaceMinificationMode.Aggressive,
+					PreserveNewLines = true,
+					RemoveOptionalEndTags = true
+				});
+
+			const string input = "<!DOCTYPE html>\r" +
+				"<html lang=\"en\">\r" +
+				"    <head>\r" +
+				"        <title>London | Largest cities in the world</title>\r" +
+				"        <meta charset=\"utf-8\">\r" +
+				"        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r" +
+				"        <link href=\"/css/style.css\" rel=\"stylesheet\">\r" +
+				"    </head>\r" +
+				"    <body>\r\r" +
+				"        <header>\r" +
+				"            <h1 class=\"logo\">\r" +
+				"                <a href=\"/\">Cities</a>\r" +
+				"            </h1>\r" +
+				"            <nav>\r" +
+				"                <ul>\r" +
+				"                    <li><a href=\"/tokyo\">Tokyo</a></li>\r" +
+				"                    <li><a href=\"/moscow\">Moscow</a></li>\r" +
+				"                    <li><a href=\"/london\">London</a></li>\r" +
+				"                </ul>\r" +
+				"            </nav>\r" +
+				"        </header>\r\r" +
+				"        <main>\r" +
+				"            <h2>London</h2>\r\r" +
+				"            <p>London is the capital of  Great Britain, its political, economic and commercial\r" +
+				"            centre. It is one of the largest cities in the world and the largest city in Europe.\r" +
+				"            Its population is about 8 million.</p>\r" +
+				"            <p>London is one of the oldest and most interesting cities in the world.</p>\r" +
+				"            <p>Traditionally, it is divided into several parts: the City, Westminster, \r" +
+				"            the West End and the East End. They are very different from each other and seem to\r" +
+				"            belong to different towns and epochs.</p>\r" +
+				"        </main>\r" +
+				"        <aside>\r" +
+				"            <a href=\"/banner.do?id=160803\" target=\"_blank\">" +
+				"<img src=\"/images/banner-160803.png\" width=\"300\" height=\"600\" alt=\"Rent a coworking in London\">" +
+				"</a>" +
+				"        </aside>\r\r" +
+				"        <footer>\r" +
+				"            <p>&copy; 2022 All rights reserved</p>\r" +
+				"        </footer>\r" +
+				"    </body>\r" +
+				"</html>"
+				;
+			const string targetOutputA = "<!DOCTYPE html>\r" +
+				"<html lang=\"en\">\r" +
+				"    <head>\r" +
+				"        <title>London | Largest cities in the world</title>\r" +
+				"        <meta charset=\"utf-8\">\r" +
+				"        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r" +
+				"        <link href=\"/css/style.css\" rel=\"stylesheet\">\r" +
+				"    \r" +
+				"    <body>\r\r" +
+				"        <header>\r" +
+				"            <h1 class=\"logo\">\r" +
+				"                <a href=\"/\">Cities</a>\r" +
+				"            </h1>\r" +
+				"            <nav>\r" +
+				"                <ul>\r" +
+				"                    <li><a href=\"/tokyo\">Tokyo</a>\r" +
+				"                    <li><a href=\"/moscow\">Moscow</a>\r" +
+				"                    <li><a href=\"/london\">London</a>\r" +
+				"                </ul>\r" +
+				"            </nav>\r" +
+				"        </header>\r\r" +
+				"        <main>\r" +
+				"            <h2>London</h2>\r\r" +
+				"            <p>London is the capital of  Great Britain, its political, economic and commercial\r" +
+				"            centre. It is one of the largest cities in the world and the largest city in Europe.\r" +
+				"            Its population is about 8 million.\r" +
+				"            <p>London is one of the oldest and most interesting cities in the world.\r" +
+				"            <p>Traditionally, it is divided into several parts: the City, Westminster, \r" +
+				"            the West End and the East End. They are very different from each other and seem to\r" +
+				"            belong to different towns and epochs.\r" +
+				"        </main>\r" +
+				"        <aside>\r" +
+				"            <a href=\"/banner.do?id=160803\" target=\"_blank\">" +
+				"<img src=\"/images/banner-160803.png\" width=\"300\" height=\"600\" alt=\"Rent a coworking in London\">" +
+				"</a>" +
+				"        </aside>\r\r" +
+				"        <footer>\r" +
+				"            <p>&copy; 2022 All rights reserved\r" +
+				"        </footer>\r" +
+				"    \r"
+				;
+			const string targetOutputB = targetOutputA;
+			const string targetOutputC = "<!DOCTYPE html>" +
+				"<html lang=\"en\">" +
+				"<head>" +
+				"<title>London | Largest cities in the world</title>" +
+				"<meta charset=\"utf-8\">" +
+				"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">" +
+				"<link href=\"/css/style.css\" rel=\"stylesheet\">" +
+				"<body>" +
+				"<header> " +
+				"<h1 class=\"logo\"> " +
+				"<a href=\"/\">Cities</a> " +
+				"</h1> " +
+				"<nav> " +
+				"<ul>" +
+				"<li><a href=\"/tokyo\">Tokyo</a> " +
+				"<li><a href=\"/moscow\">Moscow</a> " +
+				"<li><a href=\"/london\">London</a>" +
+				"</ul> " +
+				"</nav> " +
+				"</header> " +
+				"<main> " +
+				"<h2>London</h2> " +
+				"<p>London is the capital of Great Britain, its political, economic and commercial " +
+				"centre. It is one of the largest cities in the world and the largest city in Europe. " +
+				"Its population is about 8 million. " +
+				"<p>London is one of the oldest and most interesting cities in the world. " +
+				"<p>Traditionally, it is divided into several parts: the City, Westminster, " +
+				"the West End and the East End. They are very different from each other and seem to " +
+				"belong to different towns and epochs. " +
+				"</main> " +
+				"<aside> " +
+				"<a href=\"/banner.do?id=160803\" target=\"_blank\">" +
+				"<img src=\"/images/banner-160803.png\" width=\"300\" height=\"600\" alt=\"Rent a coworking in London\">" +
+				"</a> " +
+				"</aside> " +
+				"<footer> " +
+				"<p>&copy; 2022 All rights reserved " +
+				"</footer>"
+				;
+			const string targetOutputD = "<!DOCTYPE html>\r" +
+				"<html lang=\"en\">\r" +
+				"<head>\r" +
+				"<title>London | Largest cities in the world</title>\r" +
+				"<meta charset=\"utf-8\">\r" +
+				"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r" +
+				"<link href=\"/css/style.css\" rel=\"stylesheet\">\r" +
+				"<body>\r" +
+				"<header>\r" +
+				"<h1 class=\"logo\">\r" +
+				"<a href=\"/\">Cities</a>\r" +
+				"</h1>\r" +
+				"<nav>\r" +
+				"<ul>\r" +
+				"<li><a href=\"/tokyo\">Tokyo</a>\r" +
+				"<li><a href=\"/moscow\">Moscow</a>\r" +
+				"<li><a href=\"/london\">London</a>\r" +
+				"</ul>\r" +
+				"</nav>\r" +
+				"</header>\r" +
+				"<main>\r" +
+				"<h2>London</h2>\r" +
+				"<p>London is the capital of Great Britain, its political, economic and commercial\r" +
+				"centre. It is one of the largest cities in the world and the largest city in Europe.\r" +
+				"Its population is about 8 million.\r" +
+				"<p>London is one of the oldest and most interesting cities in the world.\r" +
+				"<p>Traditionally, it is divided into several parts: the City, Westminster,\r" +
+				"the West End and the East End. They are very different from each other and seem to\r" +
+				"belong to different towns and epochs.\r" +
+				"</main>\r" +
+				"<aside>\r" +
+				"<a href=\"/banner.do?id=160803\" target=\"_blank\">" +
+				"<img src=\"/images/banner-160803.png\" width=\"300\" height=\"600\" alt=\"Rent a coworking in London\">" +
+				"</a> " +
+				"</aside>\r" +
+				"<footer>\r" +
+				"<p>&copy; 2022 All rights reserved\r" +
+				"</footer>"
+				;
+			const string targetOutputE = "<!DOCTYPE html>" +
+				"<html lang=\"en\">" +
+				"<head>" +
+				"<title>London | Largest cities in the world</title>" +
+				"<meta charset=\"utf-8\">" +
+				"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">" +
+				"<link href=\"/css/style.css\" rel=\"stylesheet\">" +
+				"<body>" +
+				"<header>" +
+				"<h1 class=\"logo\">" +
+				"<a href=\"/\">Cities</a>" +
+				"</h1>" +
+				"<nav>" +
+				"<ul>" +
+				"<li><a href=\"/tokyo\">Tokyo</a>" +
+				"<li><a href=\"/moscow\">Moscow</a>" +
+				"<li><a href=\"/london\">London</a>" +
+				"</ul>" +
+				"</nav>" +
+				"</header>" +
+				"<main>" +
+				"<h2>London</h2>" +
+				"<p>London is the capital of Great Britain, its political, economic and commercial " +
+				"centre. It is one of the largest cities in the world and the largest city in Europe. " +
+				"Its population is about 8 million." +
+				"<p>London is one of the oldest and most interesting cities in the world." +
+				"<p>Traditionally, it is divided into several parts: the City, Westminster, " +
+				"the West End and the East End. They are very different from each other and seem to " +
+				"belong to different towns and epochs." +
+				"</main>" +
+				"<aside>" +
+				"<a href=\"/banner.do?id=160803\" target=\"_blank\">" +
+				"<img src=\"/images/banner-160803.png\" width=\"300\" height=\"600\" alt=\"Rent a coworking in London\">" +
+				"</a>" +
+				"</aside>" +
+				"<footer>" +
+				"<p>&copy; 2022 All rights reserved" +
+				"</footer>"
+				;
+			const string targetOutputF = "<!DOCTYPE html>\r" +
+				"<html lang=\"en\">\r" +
+				"<head>\r" +
+				"<title>London | Largest cities in the world</title>\r" +
+				"<meta charset=\"utf-8\">\r" +
+				"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r" +
+				"<link href=\"/css/style.css\" rel=\"stylesheet\">\r" +
+				"<body>\r" +
+				"<header>\r" +
+				"<h1 class=\"logo\">\r" +
+				"<a href=\"/\">Cities</a>\r" +
+				"</h1>\r" +
+				"<nav>\r" +
+				"<ul>\r" +
+				"<li><a href=\"/tokyo\">Tokyo</a>\r" +
+				"<li><a href=\"/moscow\">Moscow</a>\r" +
+				"<li><a href=\"/london\">London</a>\r" +
+				"</ul>\r" +
+				"</nav>\r" +
+				"</header>\r" +
+				"<main>\r" +
+				"<h2>London</h2>\r" +
+				"<p>London is the capital of Great Britain, its political, economic and commercial\r" +
+				"centre. It is one of the largest cities in the world and the largest city in Europe.\r" +
+				"Its population is about 8 million.\r" +
+				"<p>London is one of the oldest and most interesting cities in the world.\r" +
+				"<p>Traditionally, it is divided into several parts: the City, Westminster,\r" +
+				"the West End and the East End. They are very different from each other and seem to\r" +
+				"belong to different towns and epochs.\r" +
+				"</main>\r" +
+				"<aside>\r" +
+				"<a href=\"/banner.do?id=160803\" target=\"_blank\">" +
+				"<img src=\"/images/banner-160803.png\" width=\"300\" height=\"600\" alt=\"Rent a coworking in London\">" +
+				"</a>" +
+				"</aside>\r" +
+				"<footer>\r" +
+				"<p>&copy; 2022 All rights reserved\r" +
+				"</footer>"
+				;
+			const string targetOutputG = "<!DOCTYPE html>" +
+				"<html lang=\"en\">" +
+				"<head>" +
+				"<title>London | Largest cities in the world</title>" +
+				"<meta charset=\"utf-8\">" +
+				"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">" +
+				"<link href=\"/css/style.css\" rel=\"stylesheet\">" +
+				"<body>" +
+				"<header>" +
+				"<h1 class=\"logo\">" +
+				"<a href=\"/\">Cities</a>" +
+				"</h1>" +
+				"<nav>" +
+				"<ul>" +
+				"<li><a href=\"/tokyo\">Tokyo</a>" +
+				"<li><a href=\"/moscow\">Moscow</a>" +
+				"<li><a href=\"/london\">London</a>" +
+				"</ul>" +
+				"</nav>" +
+				"</header>" +
+				"<main>" +
+				"<h2>London</h2>" +
+				"<p>London is the capital of Great Britain, its political, economic and commercial " +
+				"centre. It is one of the largest cities in the world and the largest city in Europe. " +
+				"Its population is about 8 million." +
+				"<p>London is one of the oldest and most interesting cities in the world." +
+				"<p>Traditionally, it is divided into several parts: the City, Westminster, " +
+				"the West End and the East End. They are very different from each other and seem to " +
+				"belong to different towns and epochs." +
+				"</main>" +
+				"<aside>" +
+				"<a href=\"/banner.do?id=160803\" target=\"_blank\">" +
+				"<img src=\"/images/banner-160803.png\" width=\"300\" height=\"600\" alt=\"Rent a coworking in London\">" +
+				"</a>" +
+				"</aside>" +
+				"<footer>" +
+				"<p>&copy; 2022 All rights reserved" +
+				"</footer>"
+				;
+			const string targetOutputH = targetOutputF;
+
+			// Act
+			string outputA = keepingWhitespaceMinifier.Minify(input).MinifiedContent;
+			string outputB = keepingWhitespaceAndNewLinesMinifier.Minify(input).MinifiedContent;
+			string outputC = safeRemovingWhitespaceMinifier.Minify(input).MinifiedContent;
+			string outputD = safeRemovingWhitespaceExceptForNewLinesMinifier.Minify(input).MinifiedContent;
+			string outputE = mediumRemovingWhitespaceMinifier.Minify(input).MinifiedContent;
+			string outputF = mediumRemovingWhitespaceExceptForNewLinesMinifier.Minify(input).MinifiedContent;
+			string outputG = aggressiveRemovingWhitespaceMinifier.Minify(input).MinifiedContent;
+			string outputH = aggressiveRemovingWhitespaceExceptForNewLinesMinifier.Minify(input).MinifiedContent;
+
+			// Assert
+			Assert.Equal(targetOutputA, outputA);
+			Assert.Equal(targetOutputB, outputB);
+			Assert.Equal(targetOutputC, outputC);
+			Assert.Equal(targetOutputD, outputD);
+			Assert.Equal(targetOutputE, outputE);
+			Assert.Equal(targetOutputF, outputF);
+			Assert.Equal(targetOutputG, outputG);
+			Assert.Equal(targetOutputH, outputH);
+		}
+
 		#region IDisposable implementation
 
 		public void Dispose()

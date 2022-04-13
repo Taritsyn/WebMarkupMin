@@ -499,6 +499,11 @@ namespace WebMarkupMin.Core
 					_htmlParser.Parse(cleanedContent);
 
 					output.Flush();
+					if (_settings.WhitespaceMinificationMode != WhitespaceMinificationMode.None
+						&& _currentNodeType != HtmlNodeType.IgnoredFragment)
+					{
+						output.TrimEnd();
+					}
 
 					if (_errors.Count == 0)
 					{
