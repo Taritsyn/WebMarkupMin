@@ -106,9 +106,9 @@ namespace WebMarkupMin.Core
 				for (int whitespaceItemIndex = firstWhitespaceItemIndex; whitespaceItemIndex < itemCount; whitespaceItemIndex++)
 				{
 					string whitespaceItem = items[whitespaceItemIndex];
-					string processedWhitespaceItem = whitespaceItem.TrimStart(true);
+					string processedWhitespaceItem = whitespaceItem.GetNewLine();
 
-					if (processedWhitespaceItem.Length > 0)
+					if (processedWhitespaceItem != null)
 					{
 						items[firstWhitespaceItemIndex] = processedWhitespaceItem;
 						whitespaceItemCount--;

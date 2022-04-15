@@ -2306,16 +2306,23 @@ namespace WebMarkupMin.Core.Tests.Html.Minification
 				"    </head>\r" +
 				"    <body>\r\r" +
 				"        <header>\r" +
-				"            <h1 class=\"logo\">\r" +
-				"                <a href=\"/\">Cities</a>\r" +
-				"            </h1>\r" +
-				"            <nav>\r" +
-				"                <ul>\r" +
-				"                    <li><a href=\"/tokyo\">Tokyo</a></li>\r" +
-				"                    <li><a href=\"/moscow\">Moscow</a></li>\r" +
-				"                    <li><a href=\"/london\">London</a></li>\r" +
-				"                </ul>\r" +
-				"            </nav>\r" +
+				"            <div class=\"support-old-browsers\">\r" +
+				"                <p>\r" +
+				"                    We stop supporting Internet Explorer. <br>Other browsers are more stable.\r" +
+				"                </p>\r" +
+				"            </div>\r" +
+				"            <div class=\"header\">\r" +
+				"                <h1 class=\"logo\">\r" +
+				"                    <a href=\"/\">Cities</a>\r" +
+				"                </h1>\r" +
+				"                <nav>\r" +
+				"                    <ul>\r" +
+				"                        <li><a href=\"/tokyo\">Tokyo</a></li>\r" +
+				"                        <li><a href=\"/moscow\">Moscow</a></li>\r" +
+				"                        <li><a href=\"/london\">London</a></li>\r" +
+				"                    </ul>\r" +
+				"                </nav>\r" +
+				"            </div>\r" +
 				"        </header>\r\r" +
 				"        <main>\r" +
 				"            <h2>London</h2>\r\r" +
@@ -2348,16 +2355,23 @@ namespace WebMarkupMin.Core.Tests.Html.Minification
 				"    \r" +
 				"    <body>\r\r" +
 				"        <header>\r" +
-				"            <h1 class=\"logo\">\r" +
-				"                <a href=\"/\">Cities</a>\r" +
-				"            </h1>\r" +
-				"            <nav>\r" +
-				"                <ul>\r" +
-				"                    <li><a href=\"/tokyo\">Tokyo</a>\r" +
-				"                    <li><a href=\"/moscow\">Moscow</a>\r" +
-				"                    <li><a href=\"/london\">London</a>\r" +
-				"                </ul>\r" +
-				"            </nav>\r" +
+				"            <div class=\"support-old-browsers\">\r" +
+				"                <p>\r" +
+				"                    We stop supporting Internet Explorer. <br>Other browsers are more stable.\r" +
+				"                \r" +
+				"            </div>\r" +
+				"            <div class=\"header\">\r" +
+				"                <h1 class=\"logo\">\r" +
+				"                    <a href=\"/\">Cities</a>\r" +
+				"                </h1>\r" +
+				"                <nav>\r" +
+				"                    <ul>\r" +
+				"                        <li><a href=\"/tokyo\">Tokyo</a>\r" +
+				"                        <li><a href=\"/moscow\">Moscow</a>\r" +
+				"                        <li><a href=\"/london\">London</a>\r" +
+				"                    </ul>\r" +
+				"                </nav>\r" +
+				"            </div>\r" +
 				"        </header>\r\r" +
 				"        <main>\r" +
 				"            <h2>London</h2>\r\r" +
@@ -2389,6 +2403,11 @@ namespace WebMarkupMin.Core.Tests.Html.Minification
 				"<link href=\"/css/style.css\" rel=\"stylesheet\">" +
 				"<body>" +
 				"<header> " +
+				"<div class=\"support-old-browsers\"> " +
+				"<p> " +
+				"We stop supporting Internet Explorer. <br>Other browsers are more stable. " +
+				"</div> " +
+				"<div class=\"header\"> " +
 				"<h1 class=\"logo\"> " +
 				"<a href=\"/\">Cities</a> " +
 				"</h1> " +
@@ -2399,6 +2418,7 @@ namespace WebMarkupMin.Core.Tests.Html.Minification
 				"<li><a href=\"/london\">London</a>" +
 				"</ul> " +
 				"</nav> " +
+				"</div> " +
 				"</header> " +
 				"<main> " +
 				"<h2>London</h2> " +
@@ -2428,6 +2448,11 @@ namespace WebMarkupMin.Core.Tests.Html.Minification
 				"<link href=\"/css/style.css\" rel=\"stylesheet\">\r" +
 				"<body>\r" +
 				"<header>\r" +
+				"<div class=\"support-old-browsers\">\r" +
+				"<p>\r" +
+				"We stop supporting Internet Explorer. <br>Other browsers are more stable.\r" +
+				"</div>\r" +
+				"<div class=\"header\">\r" +
 				"<h1 class=\"logo\">\r" +
 				"<a href=\"/\">Cities</a>\r" +
 				"</h1>\r" +
@@ -2438,6 +2463,7 @@ namespace WebMarkupMin.Core.Tests.Html.Minification
 				"<li><a href=\"/london\">London</a>\r" +
 				"</ul>\r" +
 				"</nav>\r" +
+				"</div>\r" +
 				"</header>\r" +
 				"<main>\r" +
 				"<h2>London</h2>\r" +
@@ -2467,6 +2493,11 @@ namespace WebMarkupMin.Core.Tests.Html.Minification
 				"<link href=\"/css/style.css\" rel=\"stylesheet\">" +
 				"<body>" +
 				"<header>" +
+				"<div class=\"support-old-browsers\">" +
+				"<p>" +
+				"We stop supporting Internet Explorer. <br>Other browsers are more stable." +
+				"</div>" +
+				"<div class=\"header\">" +
 				"<h1 class=\"logo\">" +
 				"<a href=\"/\">Cities</a>" +
 				"</h1>" +
@@ -2477,6 +2508,7 @@ namespace WebMarkupMin.Core.Tests.Html.Minification
 				"<li><a href=\"/london\">London</a>" +
 				"</ul>" +
 				"</nav>" +
+				"</div>" +
 				"</header>" +
 				"<main>" +
 				"<h2>London</h2>" +
@@ -2506,6 +2538,11 @@ namespace WebMarkupMin.Core.Tests.Html.Minification
 				"<link href=\"/css/style.css\" rel=\"stylesheet\">\r" +
 				"<body>\r" +
 				"<header>\r" +
+				"<div class=\"support-old-browsers\">\r" +
+				"<p>\r" +
+				"We stop supporting Internet Explorer. <br>Other browsers are more stable.\r" +
+				"</div>\r" +
+				"<div class=\"header\">\r" +
 				"<h1 class=\"logo\">\r" +
 				"<a href=\"/\">Cities</a>\r" +
 				"</h1>\r" +
@@ -2516,6 +2553,7 @@ namespace WebMarkupMin.Core.Tests.Html.Minification
 				"<li><a href=\"/london\">London</a>\r" +
 				"</ul>\r" +
 				"</nav>\r" +
+				"</div>\r" +
 				"</header>\r" +
 				"<main>\r" +
 				"<h2>London</h2>\r" +
@@ -2545,6 +2583,11 @@ namespace WebMarkupMin.Core.Tests.Html.Minification
 				"<link href=\"/css/style.css\" rel=\"stylesheet\">" +
 				"<body>" +
 				"<header>" +
+				"<div class=\"support-old-browsers\">" +
+				"<p>" +
+				"We stop supporting Internet Explorer. <br>Other browsers are more stable." +
+				"</div>" +
+				"<div class=\"header\">" +
 				"<h1 class=\"logo\">" +
 				"<a href=\"/\">Cities</a>" +
 				"</h1>" +
@@ -2555,6 +2598,7 @@ namespace WebMarkupMin.Core.Tests.Html.Minification
 				"<li><a href=\"/london\">London</a>" +
 				"</ul>" +
 				"</nav>" +
+				"</div>" +
 				"</header>" +
 				"<main>" +
 				"<h2>London</h2>" +
@@ -2575,6 +2619,396 @@ namespace WebMarkupMin.Core.Tests.Html.Minification
 				"<p>&copy; 2022 All rights reserved" +
 				"</footer>"
 				;
+			const string targetOutputH = targetOutputF;
+
+			// Act
+			string outputA = keepingWhitespaceMinifier.Minify(input).MinifiedContent;
+			string outputB = keepingWhitespaceAndNewLinesMinifier.Minify(input).MinifiedContent;
+			string outputC = safeRemovingWhitespaceMinifier.Minify(input).MinifiedContent;
+			string outputD = safeRemovingWhitespaceExceptForNewLinesMinifier.Minify(input).MinifiedContent;
+			string outputE = mediumRemovingWhitespaceMinifier.Minify(input).MinifiedContent;
+			string outputF = mediumRemovingWhitespaceExceptForNewLinesMinifier.Minify(input).MinifiedContent;
+			string outputG = aggressiveRemovingWhitespaceMinifier.Minify(input).MinifiedContent;
+			string outputH = aggressiveRemovingWhitespaceExceptForNewLinesMinifier.Minify(input).MinifiedContent;
+
+			// Assert
+			Assert.Equal(targetOutputA, outputA);
+			Assert.Equal(targetOutputB, outputB);
+			Assert.Equal(targetOutputC, outputC);
+			Assert.Equal(targetOutputD, outputD);
+			Assert.Equal(targetOutputE, outputE);
+			Assert.Equal(targetOutputF, outputF);
+			Assert.Equal(targetOutputG, outputG);
+			Assert.Equal(targetOutputH, outputH);
+		}
+
+
+
+		[Fact]
+		public void WhitespaceMinificationWithRemovingHtmlCommentsInHtmlDocumentIsCorrect()
+		{
+			// Arrange
+			var keepingWhitespaceMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true)
+				{
+					WhitespaceMinificationMode = WhitespaceMinificationMode.None,
+					PreserveNewLines = false,
+					RemoveHtmlComments = true
+				});
+			var keepingWhitespaceAndNewLinesMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true)
+				{
+					WhitespaceMinificationMode = WhitespaceMinificationMode.None,
+					PreserveNewLines = true,
+					RemoveHtmlComments = true
+				});
+			var safeRemovingWhitespaceMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true)
+				{
+					WhitespaceMinificationMode = WhitespaceMinificationMode.Safe,
+					PreserveNewLines = false,
+					RemoveHtmlComments = true
+				});
+			var safeRemovingWhitespaceExceptForNewLinesMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true)
+				{
+					WhitespaceMinificationMode = WhitespaceMinificationMode.Safe,
+					PreserveNewLines = true,
+					RemoveHtmlComments = true
+				});
+			var mediumRemovingWhitespaceMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true)
+				{
+					WhitespaceMinificationMode = WhitespaceMinificationMode.Medium,
+					PreserveNewLines = false,
+					RemoveHtmlComments = true
+				});
+			var mediumRemovingWhitespaceExceptForNewLinesMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true)
+				{
+					WhitespaceMinificationMode = WhitespaceMinificationMode.Medium,
+					PreserveNewLines = true,
+					RemoveHtmlComments = true
+				});
+			var aggressiveRemovingWhitespaceMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true)
+				{
+					WhitespaceMinificationMode = WhitespaceMinificationMode.Aggressive,
+					PreserveNewLines = false,
+					RemoveHtmlComments = true
+				});
+			var aggressiveRemovingWhitespaceExceptForNewLinesMinifier = new HtmlMinifier(
+				new HtmlMinificationSettings(true)
+				{
+					WhitespaceMinificationMode = WhitespaceMinificationMode.Aggressive,
+					PreserveNewLines = true,
+					RemoveHtmlComments = true
+				});
+
+			const string input = "<!DOCTYPE html>\r\n" +
+				"<html lang=\"en\">\r\n" +
+				"    <head>\r\n" +
+				"        <title>London | Largest cities in the world</title>\r\n" +
+				"        <meta charset=\"utf-8\">\r\n" +
+				"        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n" +
+				"        <link href=\"/css/style.css\" rel=\"stylesheet\">\r\n" +
+				"    </head>\r\n" +
+				"    <body>\r\n\r\n" +
+				"        <!-- header START -->\r\n" +
+				"        <header>\r\n" +
+				"            <h1 class=\"logo\">\r\n" +
+				"                <a href=\"/\">Cities</a>\r\n" +
+				"            </h1>\r\n" +
+				"            <!-- navigation START -->\r\n" +
+				"            <nav>\r\n" +
+				"                <!-- menu START -->\r\n" +
+				"                <ul>\r\n" +
+				"                    <li><a href=\"/tokyo\">Tokyo</a></li>\r\n" +
+				"                    <li><a href=\"/moscow\">Moscow</a></li>\r\n" +
+				"                    <li><a href=\"/london\">London</a></li>\r\n" +
+				"                </ul>\r\n" +
+				"                <!-- menu END -->\r\n" +
+				"            </nav>\r\n" +
+				"            <!-- navigation END -->\r\n" +
+				"        </header>\r\n" +
+				"        <!-- header END -->\r\n\r\n" +
+				"        <!-- content START -->\r\n" +
+				"        <!-- main START -->\r\n" +
+				"        <main>\r\n" +
+				"            <h2>London</h2>\r\n\r\n" +
+				"            <p>London is the capital of  Great Britain, its political, economic and commercial\r\n" +
+				"            centre. It is one of the largest cities in the world and the largest city in Europe.\r\n" +
+				"            Its population is about 8 million.</p>\r\n" +
+				"            <p>London is one of the oldest and most interesting cities in the world.</p>\r\n" +
+				"            <p>Traditionally, it is divided into several parts: the City, Westminster, \r\n" +
+				"            the West End and the East End. They are very different from each other and seem to\r\n" +
+				"            belong to different towns and epochs.</p>\r\n" +
+				"        </main>\r\n" +
+				"        <!-- main END -->\r\n" +
+				"        <!-- sidebar START -->\r\n" +
+				"        <!--noindex-->\r\n" +
+				"        <aside>\r\n" +
+				"            <!-- banner START -->\r\n" +
+				"            <a href=\"/banner.do?id=160803\" target=\"_blank\">" +
+				"<img src=\"/images/banner-160803.png\" width=\"300\" height=\"600\" alt=\"Rent a coworking in London\">" +
+				"</a>\r\n" +
+				"            <!-- banner END -->\r\n" +
+				"        </aside>\r\n" +
+				"        <!--/noindex-->\r\n" +
+				"        <!-- sidebar END -->\r\n" +
+				"        <!-- content END -->\r\n\r\n" +
+				"        <!-- footer START -->\r\n" +
+				"        <footer>\r\n" +
+				"            <p>&copy; 2022 All rights reserved</p>\r\n" +
+				"        </footer>\r\n" +
+				"        <!-- footer END -->\r\n\r\n" +
+				"    </body>\r\n" +
+				"</html>\r\n" +
+				"<!--\r\n" +
+				"    generated 3 seconds ago\r\n" +
+				"    generated in 0.246 seconds\r\n" +
+				"    served from batcache in 0.004 seconds\r\n" +
+				"    expires in 297 seconds\r\n" +
+				"-->"
+				;
+			const string targetOutputA = "<!DOCTYPE html>\r\n" +
+				"<html lang=\"en\">\r\n" +
+				"    <head>\r\n" +
+				"        <title>London | Largest cities in the world</title>\r\n" +
+				"        <meta charset=\"utf-8\">\r\n" +
+				"        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n" +
+				"        <link href=\"/css/style.css\" rel=\"stylesheet\">\r\n" +
+				"    </head>\r\n" +
+				"    <body>\r\n\r\n" +
+				"        \r\n" +
+				"        <header>\r\n" +
+				"            <h1 class=\"logo\">\r\n" +
+				"                <a href=\"/\">Cities</a>\r\n" +
+				"            </h1>\r\n" +
+				"            \r\n" +
+				"            <nav>\r\n" +
+				"                \r\n" +
+				"                <ul>\r\n" +
+				"                    <li><a href=\"/tokyo\">Tokyo</a></li>\r\n" +
+				"                    <li><a href=\"/moscow\">Moscow</a></li>\r\n" +
+				"                    <li><a href=\"/london\">London</a></li>\r\n" +
+				"                </ul>\r\n" +
+				"                \r\n" +
+				"            </nav>\r\n" +
+				"            \r\n" +
+				"        </header>\r\n" +
+				"        \r\n\r\n" +
+				"        \r\n" +
+				"        \r\n" +
+				"        <main>\r\n" +
+				"            <h2>London</h2>\r\n\r\n" +
+				"            <p>London is the capital of  Great Britain, its political, economic and commercial\r\n" +
+				"            centre. It is one of the largest cities in the world and the largest city in Europe.\r\n" +
+				"            Its population is about 8 million.</p>\r\n" +
+				"            <p>London is one of the oldest and most interesting cities in the world.</p>\r\n" +
+				"            <p>Traditionally, it is divided into several parts: the City, Westminster, \r\n" +
+				"            the West End and the East End. They are very different from each other and seem to\r\n" +
+				"            belong to different towns and epochs.</p>\r\n" +
+				"        </main>\r\n" +
+				"        \r\n" +
+				"        \r\n" +
+				"        <!--noindex-->\r\n" +
+				"        <aside>\r\n" +
+				"            \r\n" +
+				"            <a href=\"/banner.do?id=160803\" target=\"_blank\">" +
+				"<img src=\"/images/banner-160803.png\" width=\"300\" height=\"600\" alt=\"Rent a coworking in London\">" +
+				"</a>\r\n" +
+				"            \r\n" +
+				"        </aside>\r\n" +
+				"        <!--/noindex-->\r\n" +
+				"        \r\n" +
+				"        \r\n\r\n" +
+				"        \r\n" +
+				"        <footer>\r\n" +
+				"            <p>&copy; 2022 All rights reserved</p>\r\n" +
+				"        </footer>\r\n" +
+				"        \r\n\r\n" +
+				"    </body>\r\n" +
+				"</html>\r\n"
+				;
+			const string targetOutputB = targetOutputA;
+			const string targetOutputC = "<!DOCTYPE html>" +
+				"<html lang=\"en\">" +
+				"<head>" +
+				"<title>London | Largest cities in the world</title>" +
+				"<meta charset=\"utf-8\">" +
+				"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">" +
+				"<link href=\"/css/style.css\" rel=\"stylesheet\">" +
+				"</head>" +
+				"<body>" +
+				"<header> " +
+				"<h1 class=\"logo\"> " +
+				"<a href=\"/\">Cities</a> " +
+				"</h1> " +
+				"<nav> " +
+				"<ul>" +
+				"<li><a href=\"/tokyo\">Tokyo</a></li> " +
+				"<li><a href=\"/moscow\">Moscow</a></li> " +
+				"<li><a href=\"/london\">London</a></li>" +
+				"</ul> " +
+				"</nav> " +
+				"</header> " +
+				"<main> " +
+				"<h2>London</h2> " +
+				"<p>London is the capital of Great Britain, its political, economic and commercial " +
+				"centre. It is one of the largest cities in the world and the largest city in Europe. " +
+				"Its population is about 8 million.</p> " +
+				"<p>London is one of the oldest and most interesting cities in the world.</p> " +
+				"<p>Traditionally, it is divided into several parts: the City, Westminster, " +
+				"the West End and the East End. They are very different from each other and seem to " +
+				"belong to different towns and epochs.</p> " +
+				"</main> " +
+				"<!--noindex--> " +
+				"<aside> " +
+				"<a href=\"/banner.do?id=160803\" target=\"_blank\">" +
+				"<img src=\"/images/banner-160803.png\" width=\"300\" height=\"600\" alt=\"Rent a coworking in London\">" +
+				"</a> " +
+				"</aside> " +
+				"<!--/noindex--> " +
+				"<footer> " +
+				"<p>&copy; 2022 All rights reserved</p> " +
+				"</footer>" +
+				"</body>" +
+				"</html>"
+				;
+			const string targetOutputD = "<!DOCTYPE html>\r\n" +
+				"<html lang=\"en\">\r\n" +
+				"<head>\r\n" +
+				"<title>London | Largest cities in the world</title>\r\n" +
+				"<meta charset=\"utf-8\">\r\n" +
+				"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n" +
+				"<link href=\"/css/style.css\" rel=\"stylesheet\">\r\n" +
+				"</head>\r\n" +
+				"<body>\r\n" +
+				"<header>\r\n" +
+				"<h1 class=\"logo\">\r\n" +
+				"<a href=\"/\">Cities</a>\r\n" +
+				"</h1>\r\n" +
+				"<nav>\r\n" +
+				"<ul>\r\n" +
+				"<li><a href=\"/tokyo\">Tokyo</a></li>\r\n" +
+				"<li><a href=\"/moscow\">Moscow</a></li>\r\n" +
+				"<li><a href=\"/london\">London</a></li>\r\n" +
+				"</ul>\r\n" +
+				"</nav>\r\n" +
+				"</header>\r\n" +
+				"<main>\r\n" +
+				"<h2>London</h2>\r\n" +
+				"<p>London is the capital of Great Britain, its political, economic and commercial\r\n" +
+				"centre. It is one of the largest cities in the world and the largest city in Europe.\r\n" +
+				"Its population is about 8 million.</p>\r\n" +
+				"<p>London is one of the oldest and most interesting cities in the world.</p>\r\n" +
+				"<p>Traditionally, it is divided into several parts: the City, Westminster,\r\n" +
+				"the West End and the East End. They are very different from each other and seem to\r\n" +
+				"belong to different towns and epochs.</p>\r\n" +
+				"</main>\r\n" +
+				"<!--noindex-->\r\n" +
+				"<aside>\r\n" +
+				"<a href=\"/banner.do?id=160803\" target=\"_blank\">" +
+				"<img src=\"/images/banner-160803.png\" width=\"300\" height=\"600\" alt=\"Rent a coworking in London\">" +
+				"</a>\r\n" +
+				"</aside>\r\n" +
+				"<!--/noindex-->\r\n" +
+				"<footer>\r\n" +
+				"<p>&copy; 2022 All rights reserved</p>\r\n" +
+				"</footer>\r\n" +
+				"</body>\r\n" +
+				"</html>"
+				;
+			const string targetOutputE = "<!DOCTYPE html>" +
+				"<html lang=\"en\">" +
+				"<head>" +
+				"<title>London | Largest cities in the world</title>" +
+				"<meta charset=\"utf-8\">" +
+				"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">" +
+				"<link href=\"/css/style.css\" rel=\"stylesheet\">" +
+				"</head>" +
+				"<body>" +
+				"<header>" +
+				"<h1 class=\"logo\">" +
+				"<a href=\"/\">Cities</a>" +
+				"</h1>" +
+				"<nav>" +
+				"<ul>" +
+				"<li><a href=\"/tokyo\">Tokyo</a></li>" +
+				"<li><a href=\"/moscow\">Moscow</a></li>" +
+				"<li><a href=\"/london\">London</a></li>" +
+				"</ul>" +
+				"</nav>" +
+				"</header>" +
+				"<main>" +
+				"<h2>London</h2>" +
+				"<p>London is the capital of Great Britain, its political, economic and commercial " +
+				"centre. It is one of the largest cities in the world and the largest city in Europe. " +
+				"Its population is about 8 million.</p>" +
+				"<p>London is one of the oldest and most interesting cities in the world.</p>" +
+				"<p>Traditionally, it is divided into several parts: the City, Westminster, " +
+				"the West End and the East End. They are very different from each other and seem to " +
+				"belong to different towns and epochs.</p>" +
+				"</main>" +
+				"<!--noindex-->" +
+				"<aside>" +
+				"<a href=\"/banner.do?id=160803\" target=\"_blank\">" +
+				"<img src=\"/images/banner-160803.png\" width=\"300\" height=\"600\" alt=\"Rent a coworking in London\">" +
+				"</a>" +
+				"</aside>" +
+				"<!--/noindex-->" +
+				"<footer>" +
+				"<p>&copy; 2022 All rights reserved</p>" +
+				"</footer>" +
+				"</body>" +
+				"</html>"
+				;
+			const string targetOutputF = "<!DOCTYPE html>\r\n" +
+				"<html lang=\"en\">\r\n" +
+				"<head>\r\n" +
+				"<title>London | Largest cities in the world</title>\r\n" +
+				"<meta charset=\"utf-8\">\r\n" +
+				"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n" +
+				"<link href=\"/css/style.css\" rel=\"stylesheet\">\r\n" +
+				"</head>\r\n" +
+				"<body>\r\n" +
+				"<header>\r\n" +
+				"<h1 class=\"logo\">\r\n" +
+				"<a href=\"/\">Cities</a>\r\n" +
+				"</h1>\r\n" +
+				"<nav>\r\n" +
+				"<ul>\r\n" +
+				"<li><a href=\"/tokyo\">Tokyo</a></li>\r\n" +
+				"<li><a href=\"/moscow\">Moscow</a></li>\r\n" +
+				"<li><a href=\"/london\">London</a></li>\r\n" +
+				"</ul>\r\n" +
+				"</nav>\r\n" +
+				"</header>\r\n" +
+				"<main>\r\n" +
+				"<h2>London</h2>\r\n" +
+				"<p>London is the capital of Great Britain, its political, economic and commercial\r\n" +
+				"centre. It is one of the largest cities in the world and the largest city in Europe.\r\n" +
+				"Its population is about 8 million.</p>\r\n" +
+				"<p>London is one of the oldest and most interesting cities in the world.</p>\r\n" +
+				"<p>Traditionally, it is divided into several parts: the City, Westminster,\r\n" +
+				"the West End and the East End. They are very different from each other and seem to\r\n" +
+				"belong to different towns and epochs.</p>\r\n" +
+				"</main>\r\n" +
+				"<!--noindex-->\r\n" +
+				"<aside>\r\n" +
+				"<a href=\"/banner.do?id=160803\" target=\"_blank\">" +
+				"<img src=\"/images/banner-160803.png\" width=\"300\" height=\"600\" alt=\"Rent a coworking in London\">" +
+				"</a>\r\n" +
+				"</aside>\r\n" +
+				"<!--/noindex-->\r\n" +
+				"<footer>\r\n" +
+				"<p>&copy; 2022 All rights reserved</p>\r\n" +
+				"</footer>\r\n" +
+				"</body>\r\n" +
+				"</html>"
+				;
+			const string targetOutputG = targetOutputE;
 			const string targetOutputH = targetOutputF;
 
 			// Act

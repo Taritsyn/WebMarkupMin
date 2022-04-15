@@ -133,14 +133,137 @@ namespace WebMarkupMin.Core
 				for (int whitespaceItemIndex = firstWhitespaceItemIndex; whitespaceItemIndex < itemCount; whitespaceItemIndex++)
 				{
 					string whitespaceItem = items[whitespaceItemIndex];
-					string processedWhitespaceItem = whitespaceItem.TrimStart(true);
+					string processedWhitespaceItem = whitespaceItem.GetNewLine();
 
-					if (processedWhitespaceItem.Length > 0)
+					if (processedWhitespaceItem != null)
 					{
 						items[firstWhitespaceItemIndex] = processedWhitespaceItem;
 						whitespaceItemCount--;
 						break;
 					}
+				}
+			}
+
+			if (whitespaceItemCount > 0)
+			{
+				size = itemCount - whitespaceItemCount;
+			}
+		}
+
+		/// <summary>
+		/// Collapses all trailing whitespace characters in the last item of the output buffer
+		/// </summary>
+		/// <param name="preserveNewLines">Flag for whether to collapse trailing whitespace to one newline string
+		/// when whitespace contains a newline</param>
+		public void CollapseLastWhitespaceItem(bool preserveNewLines)
+		{
+			if (_size == 0)
+			{
+				return;
+			}
+
+			if (preserveNewLines)
+			{
+				InternalCollapseLastWhitespaceItemWithNewLinesPreserved(_items, ref _size);
+			}
+			else
+			{
+				InternalCollapseLastWhitespaceItem(_items, ref _size);
+			}
+		}
+
+		private static void InternalCollapseLastWhitespaceItem(string[] items, ref int size)
+		{
+			int itemCount = size;
+			int whitespaceItemCount = 0;
+			int nonWhitespaceItemIndex = -1;
+
+			for (int itemIndex = itemCount - 1; itemIndex >= 0; itemIndex--)
+			{
+				if (string.IsNullOrWhiteSpace(items[itemIndex]))
+				{
+					whitespaceItemCount++;
+				}
+				else
+				{
+					nonWhitespaceItemIndex = itemIndex;
+					break;
+				}
+			}
+
+			bool allowCollapsingWhitespaceItems = whitespaceItemCount > 0;
+
+			if (nonWhitespaceItemIndex != -1)
+			{
+				string nonWhitespaceItem = items[nonWhitespaceItemIndex];
+				char lastCharValue = nonWhitespaceItem[nonWhitespaceItem.Length - 1];
+
+				allowCollapsingWhitespaceItems = !char.IsWhiteSpace(lastCharValue);
+			}
+
+			if (allowCollapsingWhitespaceItems)
+			{
+				int firstWhitespaceItemIndex = nonWhitespaceItemIndex + 1;
+				items[firstWhitespaceItemIndex] = " ";
+				whitespaceItemCount--;
+			}
+
+			if (whitespaceItemCount > 0)
+			{
+				size = itemCount - whitespaceItemCount;
+			}
+		}
+
+		private static void InternalCollapseLastWhitespaceItemWithNewLinesPreserved(string[] items, ref int size)
+		{
+			int itemCount = size;
+			int whitespaceItemCount = 0;
+			int nonWhitespaceItemIndex = -1;
+
+			for (int itemIndex = itemCount - 1; itemIndex >= 0; itemIndex--)
+			{
+				if (string.IsNullOrWhiteSpace(items[itemIndex]))
+				{
+					whitespaceItemCount++;
+				}
+				else
+				{
+					nonWhitespaceItemIndex = itemIndex;
+					break;
+				}
+			}
+
+			bool allowCollapsingWhitespaceItems = whitespaceItemCount > 0;
+
+			if (nonWhitespaceItemIndex != -1)
+			{
+				string nonWhitespaceItem = items[nonWhitespaceItemIndex];
+				allowCollapsingWhitespaceItems = !nonWhitespaceItem.EndsWithNewLine();
+			}
+
+			if (allowCollapsingWhitespaceItems)
+			{
+				int firstWhitespaceItemIndex = nonWhitespaceItemIndex + 1;
+				bool firstWhitespaceItemCollapsed = false;
+
+				for (int whitespaceItemIndex = firstWhitespaceItemIndex; whitespaceItemIndex < itemCount; whitespaceItemIndex++)
+				{
+					string whitespaceItem = items[whitespaceItemIndex];
+					string processedWhitespaceItem = whitespaceItem.GetNewLine();
+
+					if (processedWhitespaceItem != null)
+					{
+						items[firstWhitespaceItemIndex] = processedWhitespaceItem;
+						firstWhitespaceItemCollapsed = true;
+						whitespaceItemCount--;
+						break;
+					}
+				}
+
+				if (!firstWhitespaceItemCollapsed)
+				{
+					items[firstWhitespaceItemIndex] = " ";
+					whitespaceItemCount--;
 				}
 			}
 
