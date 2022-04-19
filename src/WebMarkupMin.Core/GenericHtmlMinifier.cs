@@ -1227,7 +1227,7 @@ namespace WebMarkupMin.Core
 				else if (previousNodeType == HtmlNodeType.StartTag && tagNameInLowercase == "textarea"
 					&& string.IsNullOrWhiteSpace(text))
 				{
-					text = preserveNewLines ? text.TrimStart(true) : string.Empty;
+					text = preserveNewLines ? text.GetNewLine() : string.Empty;
 				}
 			}
 

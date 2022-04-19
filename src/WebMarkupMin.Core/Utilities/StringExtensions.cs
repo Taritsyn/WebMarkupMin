@@ -342,6 +342,11 @@ namespace WebMarkupMin.Core.Utilities
 
 			if (newLine != null)
 			{
+				if (charIndex == newLine.Length)
+				{
+					return value;
+				}
+
 				var stringBuilderPool = StringBuilderPool.Shared;
 				StringBuilder sb = stringBuilderPool.Rent();
 				sb.Append(newLine);
@@ -410,6 +415,11 @@ namespace WebMarkupMin.Core.Utilities
 
 			if (newLine != null)
 			{
+				if (charCount - whitespaceCharIndex == newLine.Length)
+				{
+					return value;
+				}
+
 				var stringBuilderPool = StringBuilderPool.Shared;
 				StringBuilder sb = stringBuilderPool.Rent();
 				sb.Append(value, 0, whitespaceCharIndex);
@@ -493,6 +503,14 @@ namespace WebMarkupMin.Core.Utilities
 
 			if (leftNewLine != null || rightNewLine != null)
 			{
+				int leftNewLineLength = leftNewLine != null ? leftNewLine.Length : 0;
+				int rightNewLineLength = rightNewLine != null ? rightNewLine.Length : 0;
+
+				if (leftCharIndex == leftNewLineLength && lastCharIndex - rightCharIndex == rightNewLineLength)
+				{
+					return value;
+				}
+
 				var stringBuilderPool = StringBuilderPool.Shared;
 				StringBuilder sb = stringBuilderPool.Rent();
 				if (leftNewLine != null)
@@ -629,41 +647,90 @@ namespace WebMarkupMin.Core.Utilities
 		private static string InternalCollapseWhitespaceToNewLine(string value)
 		{
 			var stringBuilderPool = StringBuilderPool.Shared;
-			StringBuilder sb = stringBuilderPool.Rent();
-			bool previousWhitespace = false;
-			string newLine = null;
+			StringBuilder sb = null;
 			int charCount = value.Length;
 			int lastCharIndex = charCount - 1;
+			int whitespaceCharIndex = -1;
+			int whitespaceCharCount = 0;
+			string newLine = null;
 
 			for (int charIndex = 0; charIndex < charCount; charIndex++)
 			{
 				char charValue = value[charIndex];
-				bool currentWhitespace = char.IsWhiteSpace(charValue);
+				bool isWhitespaceChar = char.IsWhiteSpace(charValue);
 
-				if (currentWhitespace)
+				if (isWhitespaceChar)
 				{
+					if (whitespaceCharIndex == -1)
+					{
+						whitespaceCharIndex = charIndex;
+					}
+
 					if (newLine == null)
 					{
 						newLine = InternalGetNewLineByIndex(value, charIndex, true);
+						int newLineLength = newLine != null ? newLine.Length : 0;
+						if (newLineLength > 1)
+						{
+							whitespaceCharCount += newLineLength;
+							charIndex += newLineLength - 1;
+							continue;
+						}
 					}
 
-					if (charIndex == lastCharIndex)
-					{
-						sb.Append(newLine ?? " ");
-					}
+					whitespaceCharCount++;
 				}
-				else
+
+				if (!isWhitespaceChar || charIndex == lastCharIndex)
 				{
-					if (previousWhitespace)
+					if (whitespaceCharCount == charCount)
 					{
-						sb.Append(newLine ?? " ");
-						newLine = null;
+						return newLine ?? " ";
 					}
 
-					sb.Append(charValue);
-				}
+					if (sb == null && whitespaceCharCount > 0)
+					{
+						bool whitespaceAlreadyCollapsed = false;
+						if (newLine != null)
+						{
+							whitespaceAlreadyCollapsed = whitespaceCharCount == newLine.Length;
+						}
+						else
+						{
+							whitespaceAlreadyCollapsed = whitespaceCharCount == 1 && value[charIndex - 1] == ' ';
+						}
 
-				previousWhitespace = currentWhitespace;
+						if (!whitespaceAlreadyCollapsed)
+						{
+							sb = stringBuilderPool.Rent();
+							if (whitespaceCharIndex > 0)
+							{
+								sb.Append(value, 0, whitespaceCharIndex);
+							}
+						}
+					}
+
+					if (sb != null)
+					{
+						if (whitespaceCharCount > 0)
+						{
+							sb.Append(newLine ?? " ");
+						}
+						if (!isWhitespaceChar)
+						{
+							sb.Append(charValue);
+						}
+					}
+
+					newLine = null;
+					whitespaceCharIndex = -1;
+					whitespaceCharCount = 0;
+				}
+			}
+
+			if (sb == null)
+			{
+				return value;
 			}
 
 			string result = sb.ToString();

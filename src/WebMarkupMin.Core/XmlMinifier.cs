@@ -523,7 +523,7 @@ namespace WebMarkupMin.Core
 					// or document type declaration
 					if (string.IsNullOrWhiteSpace(text))
 					{
-						text = _settings.PreserveNewLines ? text.TrimStart(true) : string.Empty;
+						text = _settings.PreserveNewLines ? text.GetNewLine() : string.Empty;
 					}
 				}
 			}
