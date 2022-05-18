@@ -168,6 +168,12 @@
   <data name="ErrorMessage_MarkupParsingFailed" xml:space="preserve">
     <value>During parsing of {0}-code error has occurred.</value>
   </data>
+  <data name="ErrorMessage_NotClosedCdataSection" xml:space="preserve">
+    <value>CDATA section is not closed.</value>
+  </data>
+  <data name="ErrorMessage_NotClosedComment" xml:space="preserve">
+    <value>Comment is not closed.</value>
+  </data>
   <data name="ErrorMessage_NotClosedConditionalComment" xml:space="preserve">
     <value>Remain not closed conditional comment.</value>
   </data>
@@ -175,7 +181,7 @@
     <value>Remain not closed the ignoring comment tag.</value>
   </data>
   <data name="ErrorMessage_NotClosedTag" xml:space="preserve">
-    <value>Tag &lt;{0}&gt; was not closed.</value>
+    <value>Tag &lt;{0}&gt; is not closed.</value>
   </data>
   <data name="ErrorMessage_StartIgnoringCommentTagNotDeclared" xml:space="preserve">
     <value>It is impossible to parse a end ignoring comment tag, because not declared the start ignoring comment tag.</value>

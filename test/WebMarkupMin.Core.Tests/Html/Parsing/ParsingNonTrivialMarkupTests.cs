@@ -156,5 +156,38 @@ namespace WebMarkupMin.Core.Tests.Html.Parsing
 			Assert.Equal(targetOutput20, output20);
 			Assert.Equal(targetOutput21, output21);
 		}
+
+		[Fact]
+		public void ParsingNestedScriptTagsIsCorrect()
+		{
+			// Arrange
+			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
+
+			const string input = "<script type=\"text/html\"> \n" +
+				"	<!--\n" +
+				"	<script>alert(\"Hello!\");</script>\n" +
+				"	-->\n\n" +
+				"	<!--\n" +
+				"		<script type=\"text/javascript\">\n" +
+				"		var years = prompt('How old are you?', 100);\n" +
+				"		alert('You are ' + years + ' years old!');\n" +
+				"		</script>\n" +
+				"	-->\n\n" +
+				"	<!--\n" +
+				"		<script type=\"application/javascript\">\n" +
+				"		var isAdmin = confirm(\"Are you an administrator?\");\n" +
+				"		alert( isAdmin );\n" +
+				"		</script>\n" +
+				"	--> \n" +
+				" \n" +
+				"</script>"
+				;
+
+			// Act
+			string output = minifier.Minify(input).MinifiedContent;
+
+			// Assert
+			Assert.Equal(input, output);
+		}
 	}
 }

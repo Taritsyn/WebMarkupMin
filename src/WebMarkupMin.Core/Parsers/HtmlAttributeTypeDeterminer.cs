@@ -51,6 +51,51 @@ namespace WebMarkupMin.Core.Parsers
 
 		#endregion
 
+		#region Event attributes
+
+		/// <summary>
+		/// List of event attributes
+		/// </summary>
+		private readonly HashSet<string> _eventAttributes = new HashSet<string>
+		{
+			// HTML5
+			"onabort", "onafterprint", "onauxclick",
+			"onbeforematch", "onbeforeprint", "onbeforeunload", "onblur",
+			"oncancel", "oncanplay", "oncanplaythrough", "onchange", "onclick", "onclose",
+			"oncontextlost", "oncontextmenu", "oncontextrestored", "oncopy", "oncuechange", "oncut",
+			"ondblclick", "ondrag", "ondragend", "ondragenter", "ondragleave", "ondragover",
+			"ondragstart", "ondrop", "ondurationchange",
+			"onemptied", "onended", "onerror",
+			"onfocus", "onformdata",
+			"onhashchange",
+			"oninput", "oninvalid",
+			"onkeydown", "onkeypress", "onkeyup",
+			"onlanguagechange", "onload", "onloadeddata", "onloadedmetadata", "onloadstart",
+			"onmessage", "onmessageerror", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup",
+			"onoffline", "ononline",
+			"onpagehide", "onpageshow", "onpaste", "onpause", "onplay", "onplaying", "onpopstate", "onprogress",
+			"onratechange", "onrejectionhandled", "onreset", "onresize",
+			"onscroll", "onsecuritypolicyviolation", "onseeked", "onseeking", "onselect", "onslotchange",
+			"onstalled", "onstorage", "onsubmit", "onsuspend",
+			"ontimeupdate", "ontoggle",
+			"onunhandledrejection", "onunload",
+			"onvolumechange",
+			"onwaiting",
+			"onwebkitanimationend", "onwebkitanimationiteration", "onwebkitanimationstart", "onwebkittransitionend",
+			"onwheel",
+
+			// Obsolete
+			"onmouseenter", "onmouseleave",
+
+			// Deprecated
+			"onmousewheel",
+
+			// Nonstandard
+			"onsearch"
+		};
+
+		#endregion
+
 		#region Tags with URI based attributes
 
 		/// <summary>
@@ -425,6 +470,11 @@ namespace WebMarkupMin.Core.Parsers
 						break;
 					}
 				}
+			}
+
+			if (isEventAttribute)
+			{
+				isEventAttribute = _eventAttributes.Contains(attributeNameInLowercase);
 			}
 
 			return isEventAttribute;

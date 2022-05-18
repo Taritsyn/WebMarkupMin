@@ -194,6 +194,22 @@ namespace WebMarkupMin.Core.Resources
 		}
 
 		/// <summary>
+		/// Looks up a localized string similar to "CDATA section is not closed."
+		/// </summary>
+		public static string ErrorMessage_NotClosedCdataSection
+		{
+			get { return GetString("ErrorMessage_NotClosedCdataSection"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Comment is not closed."
+		/// </summary>
+		public static string ErrorMessage_NotClosedComment
+		{
+			get { return GetString("ErrorMessage_NotClosedComment"); }
+		}
+
+		/// <summary>
 		/// Looks up a localized string similar to "Remain not closed conditional comment."
 		/// </summary>
 		public static string ErrorMessage_NotClosedConditionalComment
@@ -210,7 +226,7 @@ namespace WebMarkupMin.Core.Resources
 		}
 
 		/// <summary>
-		/// Looks up a localized string similar to "Tag &lt;{0}&gt; was not closed."
+		/// Looks up a localized string similar to "Tag &lt;{0}&gt; is not closed."
 		/// </summary>
 		public static string ErrorMessage_NotClosedTag
 		{

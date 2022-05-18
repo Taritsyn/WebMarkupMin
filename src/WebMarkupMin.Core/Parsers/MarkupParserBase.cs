@@ -11,6 +11,26 @@ namespace WebMarkupMin.Core.Parsers
 	internal abstract class MarkupParserBase
 	{
 		/// <summary>
+		/// Begin part of the markup comment
+		/// </summary>
+		protected const string COMMENT_BEGIN_PART = "<!--";
+
+		/// <summary>
+		/// End part of the markup comment
+		/// </summary>
+		protected const string COMMENT_END_PART = "-->";
+
+		/// <summary>
+		/// Begin part of the CDATA section
+		/// </summary>
+		const string CDATA_SECTION_BEGIN_PART = "<![CDATA[";
+
+		/// <summary>
+		/// End part of the CDATA section
+		/// </summary>
+		const string CDATA_SECTION_END_PART = "]]>";
+
+		/// <summary>
 		/// Name of the ignoring comment tag
 		/// </summary>
 		const string IGNORING_COMMENT_TAG_NAME = "wmm:ignore";
@@ -18,12 +38,12 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// String representation of the start ignoring comment tag
 		/// </summary>
-		const string START_IGNORING_COMMENT_TAG = "<!--" + IGNORING_COMMENT_TAG_NAME + "-->";
+		const string START_IGNORING_COMMENT_TAG = COMMENT_BEGIN_PART + IGNORING_COMMENT_TAG_NAME + COMMENT_END_PART;
 
 		/// <summary>
 		/// String representation of the end ignoring comment tag
 		/// </summary>
-		const string END_IGNORING_COMMENT_TAG = "<!--/" + IGNORING_COMMENT_TAG_NAME + "-->";
+		const string END_IGNORING_COMMENT_TAG = COMMENT_BEGIN_PART + "/" + IGNORING_COMMENT_TAG_NAME + COMMENT_END_PART;
 
 		/// <summary>
 		/// Inner markup parsing context
@@ -67,29 +87,34 @@ namespace WebMarkupMin.Core.Parsers
 			string content = _innerContext.SourceCode;
 
 			int commentStartPosition = _innerContext.Position;
-			int commentEndPosition = content.IndexOf("-->", commentStartPosition, StringComparison.Ordinal);
-			int commentPositionDifference = commentEndPosition - commentStartPosition;
+			int commentTextPosition = commentStartPosition + COMMENT_BEGIN_PART.Length;
+			int commentEndPosition = content.IndexOf(COMMENT_END_PART, commentTextPosition, StringComparison.Ordinal);
 
-			if (commentPositionDifference >= 4)
+			if (commentEndPosition == -1)
 			{
-				string commentText = commentPositionDifference > 4 ?
-					content.Substring(commentStartPosition + 4, commentPositionDifference - 4) : string.Empty;
+				throw new MarkupParsingException(
+					Strings.ErrorMessage_NotClosedComment,
+					_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
+			}
 
-				switch (commentText)
-				{
-					case IGNORING_COMMENT_TAG_NAME:
-						isProcessed = ProcessStartIgnoringCommentTag();
-						break;
-					case "/" + IGNORING_COMMENT_TAG_NAME:
-						isProcessed = ProcessEndIgnoringCommentTag();
-						break;
-					default:
-						CommonHandlers.Comment?.Invoke(_context, commentText);
+			int commentTextLength = commentEndPosition - commentTextPosition;
+			string commentText = commentTextLength > 0 ?
+				content.Substring(commentTextPosition, commentTextLength) : string.Empty;
 
-						_innerContext.IncreasePosition(commentEndPosition + 3 - commentStartPosition);
-						isProcessed = true;
-						break;
-				}
+			switch (commentText)
+			{
+				case IGNORING_COMMENT_TAG_NAME:
+					isProcessed = ProcessStartIgnoringCommentTag();
+					break;
+				case "/" + IGNORING_COMMENT_TAG_NAME:
+					isProcessed = ProcessEndIgnoringCommentTag();
+					break;
+				default:
+					CommonHandlers.Comment?.Invoke(_context, commentText);
+
+					_innerContext.IncreasePosition(commentEndPosition + COMMENT_END_PART.Length - commentStartPosition);
+					isProcessed = true;
+					break;
 			}
 
 			return isProcessed;
@@ -143,20 +168,26 @@ namespace WebMarkupMin.Core.Parsers
 			bool isProcessed = false;
 			string content = _innerContext.SourceCode;
 
-			if (content.CustomStartsWith("<![CDATA[", _innerContext.Position, StringComparison.Ordinal))
+			if (content.CustomStartsWith(CDATA_SECTION_BEGIN_PART, _innerContext.Position, StringComparison.Ordinal))
 			{
 				int cdataStartPosition = _innerContext.Position;
-				int cdataEndPosition = content.IndexOf("]]>", cdataStartPosition, StringComparison.Ordinal);
+				int cdataTextPosition = cdataStartPosition + CDATA_SECTION_BEGIN_PART.Length;
+				int cdataEndPosition = content.IndexOf(CDATA_SECTION_END_PART, cdataTextPosition, StringComparison.Ordinal);
 
-				if (cdataEndPosition > cdataStartPosition)
+				if (cdataEndPosition == -1)
 				{
-					string cdataText = content.Substring(cdataStartPosition + 9,
-						cdataEndPosition - cdataStartPosition - 9);
-					CommonHandlers.CdataSection?.Invoke(_context, cdataText);
-
-					_innerContext.IncreasePosition(cdataEndPosition + 3 - cdataStartPosition);
-					isProcessed = true;
+					throw new MarkupParsingException(
+						Strings.ErrorMessage_NotClosedCdataSection,
+						_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 				}
+
+				int cdataTextLength = cdataEndPosition - cdataTextPosition;
+				string cdataText = cdataTextLength > 0 ?
+					content.Substring(cdataTextPosition, cdataTextLength) : string.Empty;
+				CommonHandlers.CdataSection?.Invoke(_context, cdataText);
+
+				_innerContext.IncreasePosition(cdataEndPosition + CDATA_SECTION_END_PART.Length - cdataStartPosition);
+				isProcessed = true;
 			}
 
 			return isProcessed;

@@ -621,6 +621,7 @@ namespace WebMarkupMin.Core.Parsers
 			if (stackedTag != null)
 			{
 				string content = _innerContext.SourceCode;
+				int contentLength = content.Length;
 				int currentPosition = _innerContext.Position;
 				int contentRemainderLength = _innerContext.RemainderLength;
 
@@ -629,22 +630,60 @@ namespace WebMarkupMin.Core.Parsers
 				Regex stackedTagRegex = _endTagWithEmbeddedCodeRegexCache.GetOrAdd(stackedTagNameInLowercase,
 					key => new Regex(@"</" + Regex.Escape(key) + @"\s*>", RegexOptions.IgnoreCase | TargetFrameworkShortcuts.PerformanceRegexOptions));
 
-				Match match = stackedTagRegex.Match(content, currentPosition, contentRemainderLength);
-				if (match.Success)
+				bool isSupportMarkup = IsSupportEmbeddedMarkup(stackedTag);
+				int endTagSearchStartPosition = currentPosition;
+				int endTagSearchContentRemainderLength = contentRemainderLength;
+				bool endTagFound = false;
+
+				do
 				{
-					int endTagPosition = match.Index;
-					int endTagLength = match.Length;
-					int codeLength = endTagPosition - currentPosition;
+					Match match = stackedTagRegex.Match(content, endTagSearchStartPosition, endTagSearchContentRemainderLength);
+					if (match.Success)
+					{
+						int endTagPosition = match.Index;
+						endTagFound = true;
 
-					string code = codeLength > 0 ? content.Substring(currentPosition, codeLength) : string.Empty;
-					int codeAndEndTagLength = codeLength + endTagLength;
+						if (isSupportMarkup)
+						{
+							int commentStartPosition = content.IndexOf(COMMENT_BEGIN_PART, endTagSearchStartPosition);
+							if (commentStartPosition != -1)
+							{
+								int commentTextPosition = commentStartPosition + COMMENT_BEGIN_PART.Length;
+								int commentEndPosition = content.IndexOf(COMMENT_END_PART, commentTextPosition, StringComparison.Ordinal);
+								if (commentEndPosition == -1)
+								{
+									_innerContext.IncreasePosition(commentStartPosition - currentPosition);
 
-					_handlers.EmbeddedCode?.Invoke(_context, code);
+									throw new MarkupParsingException(
+										Strings.ErrorMessage_NotClosedComment,
+										_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
+								}
 
-					ParseEndTag(stackedTagName, stackedTagNameInLowercase);
+								if (endTagPosition >= commentTextPosition && endTagPosition < commentEndPosition)
+								{
+									endTagSearchStartPosition = commentEndPosition + COMMENT_END_PART.Length;
+									endTagSearchContentRemainderLength = contentLength - endTagSearchStartPosition;
+									endTagFound = false;
 
-					_innerContext.IncreasePosition(codeAndEndTagLength);
+									continue;
+								}
+							}
+						}
+
+						int endTagLength = match.Length;
+						int codeLength = endTagPosition - currentPosition;
+
+						string code = codeLength > 0 ? content.Substring(currentPosition, codeLength) : string.Empty;
+						int codeAndEndTagLength = codeLength + endTagLength;
+
+						_handlers.EmbeddedCode?.Invoke(_context, code);
+
+						ParseEndTag(stackedTagName, stackedTagNameInLowercase);
+
+						_innerContext.IncreasePosition(codeAndEndTagLength);
+					}
 				}
+				while (!endTagFound);
 			}
 		}
 
@@ -1057,6 +1096,35 @@ namespace WebMarkupMin.Core.Parsers
 			}
 
 			return tagFlags;
+		}
+
+		/// <summary>
+		/// Checks whether the tag supports embedded markup
+		/// </summary>
+		/// <param name="tag">Tag</param>
+		/// <returns>Result of check</returns>
+		private static bool IsSupportEmbeddedMarkup(HtmlTag tag)
+		{
+			if (tag.NameInLowercase != "script")
+			{
+				return false;
+			}
+
+			string contentType = tag.Attributes
+				.Where(a => a.NameInLowercase == "type")
+				.Select(a => a.Value)
+				.FirstOrDefault()
+				;
+			if (string.IsNullOrWhiteSpace(contentType))
+			{
+				return false;
+			}
+
+			string processedContentType = contentType.Trim().ToLowerInvariant();
+			bool result = processedContentType.StartsWith("text/")
+				&& (processedContentType.EndsWith("html") || processedContentType.EndsWith("-template"));
+
+			return result;
 		}
 
 		#endregion
