@@ -32,6 +32,7 @@ namespace WebMarkupMin.Core
 				{
 					WhitespaceMinificationMode = settings.WhitespaceMinificationMode,
 					PreserveNewLines = settings.PreserveNewLines,
+					NewLineStyle = settings.NewLineStyle,
 					RemoveHtmlComments = settings.RemoveHtmlComments,
 					RemoveHtmlCommentsFromScriptsAndStyles = settings.RemoveHtmlCommentsFromScriptsAndStyles,
 					RemoveCdataSectionsFromScriptsAndStyles = false,

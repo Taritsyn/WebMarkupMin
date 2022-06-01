@@ -115,7 +115,7 @@ namespace WebMarkupMin.Core
 				IgnoredFragment = IgnoredFragmentHandler
 			});
 
-			_output = new XmlMinificationOutputWriter(48);
+			_output = new XmlMinificationOutputWriter(48, _settings.NewLineStyle);
 			_errors = new List<MinificationErrorInfo>();
 			_currentNodeType = XmlNodeType.Unknown;
 			_currentText = string.Empty;

@@ -30,6 +30,12 @@
 							@Html.DisplayNameFor(m => m.Settings.PreserveNewLines)
 						</label>
 					</div>
+					<div class="form-group">
+						<select asp-for="Settings.NewLineStyle"
+							asp-items="Model.Settings.NewLineStyleList"
+							class="form-control">
+						</select>
+					</div>
 					<div class="checkbox">
 						<label asp-for="Settings.RemoveXmlComments">
 							<input asp-for="Settings.RemoveXmlComments" />

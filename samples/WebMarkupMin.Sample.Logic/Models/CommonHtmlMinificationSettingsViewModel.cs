@@ -196,6 +196,11 @@ namespace WebMarkupMin.Sample.Logic.Models
 			set;
 		}
 
+		public IEnumerable<SelectListItem> WhitespaceMinificationModeList
+		{
+			get { return _whitespaceMinificationModes; }
+		}
+
 
 		static CommonHtmlMinificationSettingsViewModel()
 		{
@@ -249,12 +254,6 @@ namespace WebMarkupMin.Sample.Logic.Models
 			}
 			;
 		}
-
-		public IEnumerable<SelectListItem> WhitespaceMinificationModeList
-		{
-			get { return _whitespaceMinificationModes; }
-		}
-
 
 		protected CommonHtmlMinificationSettingsViewModel()
 		{

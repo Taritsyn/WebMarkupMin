@@ -18,7 +18,7 @@ Minification of markup produces by removing extra whitespaces, comments and redu
 
 Also supports minification of views of popular JavaScript template engines: KnockoutJS, Kendo UI MVVM and AngularJS 1.X.</Description>
     <PackageTags>WebMarkupMin;Markup;HTML;XHTML;XML;Minification;Minifier;Minify;Performance;Optimization;Compression</PackageTags>
-    <PackageReleaseNotes>1. In HTML, XHTML and XML minification settings was added one new property - `PreserveNewLines` (default `false`);
+    <PackageReleaseNotes>1. In HTML, XHTML and XML minification settings was added two new properties: `PreserveNewLines` (default `false`) and `NewLineStyle` (default `Auto`);
 2. LazyHTML wrapped fragments are now parsed correctly.</PackageReleaseNotes>
   </PropertyGroup>
 

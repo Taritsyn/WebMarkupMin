@@ -282,7 +282,7 @@ namespace WebMarkupMin.Sample.Resources
 		}
 
 		/// <summary>
-		/// Looks up a localized string similar to "WhitespaceMinificationMode"
+		/// Looks up a localized string similar to "Whitespace minification mode"
 		/// </summary>
 		public static string DisplayName_WhitespaceMinificationMode
 		{

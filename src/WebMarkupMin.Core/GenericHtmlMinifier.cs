@@ -361,7 +361,7 @@ namespace WebMarkupMin.Core
 				IgnoredFragment = IgnoredFragmentHandler
 			});
 
-			_output = new HtmlMinificationOutputWriter(64);
+			_output = new HtmlMinificationOutputWriter(64, _settings.NewLineStyle);
 			_errors = new List<MinificationErrorInfo>();
 			_warnings = new List<MinificationErrorInfo>();
 			_tagsWithNotRemovableWhitespaceQueue = new Queue<string>();
@@ -405,6 +405,7 @@ namespace WebMarkupMin.Core
 				{
 					MinifyWhitespace = _settings.WhitespaceMinificationMode != WhitespaceMinificationMode.None,
 					PreserveNewLines = _settings.PreserveNewLines,
+					NewLineStyle = _settings.NewLineStyle,
 					RemoveXmlComments = _settings.RemoveHtmlComments,
 					RenderEmptyTagsWithSpace = _settings.EmptyTagRenderMode != HtmlEmptyTagRenderMode.Slash
 				});

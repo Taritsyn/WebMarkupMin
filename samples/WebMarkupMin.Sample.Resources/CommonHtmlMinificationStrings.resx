@@ -202,7 +202,7 @@
     <value>Use short DOCTYPE</value>
   </data>
   <data name="DisplayName_WhitespaceMinificationMode" xml:space="preserve">
-    <value>WhitespaceMinificationMode</value>
+    <value>Whitespace minification mode</value>
   </data>
   <data name="ListItem_WhitespaceMinificationMode_Aggressive" xml:space="preserve">
     <value>Aggressive whitespace minification</value>

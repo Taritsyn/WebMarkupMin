@@ -90,6 +90,14 @@ namespace WebMarkupMin.Sample.Resources
 		}
 
 		/// <summary>
+		/// Looks up a localized string similar to "Style of the newline"
+		/// </summary>
+		public static string DisplayName_NewLineStyle
+		{
+			get { return GetString("DisplayName_NewLineStyle"); }
+		}
+
+		/// <summary>
 		/// Looks up a localized string similar to "Original size"
 		/// </summary>
 		public static string DisplayName_OriginalSize
@@ -135,6 +143,46 @@ namespace WebMarkupMin.Sample.Resources
 		public static string ErrorMessage_FormFieldValueTooLong
 		{
 			get { return GetString("ErrorMessage_FormFieldValueTooLong"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Auto-detect style for newline based on the source input"
+		/// </summary>
+		public static string ListItem_NewLineStyle_Auto
+		{
+			get { return GetString("ListItem_NewLineStyle_Auto"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Force the Macintosh style for newline (CR)"
+		/// </summary>
+		public static string ListItem_NewLineStyle_Mac
+		{
+			get { return GetString("ListItem_NewLineStyle_Mac"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "CRLF in Windows, LF on other platforms"
+		/// </summary>
+		public static string ListItem_NewLineStyle_Native
+		{
+			get { return GetString("ListItem_NewLineStyle_Native"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Force the Unix style for newline (LF)"
+		/// </summary>
+		public static string ListItem_NewLineStyle_Unix
+		{
+			get { return GetString("ListItem_NewLineStyle_Unix"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Force the Windows style for newline (CRLF)"
+		/// </summary>
+		public static string ListItem_NewLineStyle_Windows
+		{
+			get { return GetString("ListItem_NewLineStyle_Windows"); }
 		}
 
 		private static string GetString(string name)

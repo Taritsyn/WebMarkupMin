@@ -129,6 +129,9 @@
   <data name="DisplayName_MinifiedSize" xml:space="preserve">
     <value>Minified size</value>
   </data>
+  <data name="DisplayName_NewLineStyle" xml:space="preserve">
+    <value>Style of the newline</value>
+  </data>
   <data name="DisplayName_OriginalSize" xml:space="preserve">
     <value>Original size</value>
   </data>
@@ -146,5 +149,20 @@
   </data>
   <data name="ErrorMessage_FormFieldValueTooLong" xml:space="preserve">
     <value>The field "{0}" must be a string with a maximum length of {1:N0}.</value>
+  </data>
+  <data name="ListItem_NewLineStyle_Auto" xml:space="preserve">
+    <value>Auto-detect style for newline based on the source input</value>
+  </data>
+  <data name="ListItem_NewLineStyle_Mac" xml:space="preserve">
+    <value>Force the Macintosh style for newline (CR)</value>
+  </data>
+  <data name="ListItem_NewLineStyle_Native" xml:space="preserve">
+    <value>CRLF in Windows, LF on other platforms</value>
+  </data>
+  <data name="ListItem_NewLineStyle_Unix" xml:space="preserve">
+    <value>Force the Unix style for newline (LF)</value>
+  </data>
+  <data name="ListItem_NewLineStyle_Windows" xml:space="preserve">
+    <value>Force the Windows style for newline (CRLF)</value>
   </data>
 </root>

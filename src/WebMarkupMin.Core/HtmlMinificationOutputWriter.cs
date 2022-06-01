@@ -21,9 +21,18 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Constructs an instance of the HTML minification output writer
 		/// </summary>
-		/// <param name="initialBufferCapacity">Initial capacity of buffer</param>
+		/// <param name="initialBufferCapacity">Initial capacity of the buffer</param>
 		public HtmlMinificationOutputWriter(int initialBufferCapacity)
 			: base(initialBufferCapacity)
+		{ }
+
+		/// <summary>
+		/// Constructs an instance of the HTML minification output writer
+		/// </summary>
+		/// <param name="initialBufferCapacity">Initial capacity of the buffer</param>
+		/// <param name="newLineStyle">Style of the newline</param>
+		public HtmlMinificationOutputWriter(int initialBufferCapacity, NewLineStyle newLineStyle)
+			: base(initialBufferCapacity, newLineStyle)
 		{ }
 
 

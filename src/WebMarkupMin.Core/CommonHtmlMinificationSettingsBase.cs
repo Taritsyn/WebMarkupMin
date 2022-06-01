@@ -545,6 +545,7 @@ namespace WebMarkupMin.Core
 				_processableScriptTypes = new HashSet<string>();
 			}
 			PreserveNewLines = false;
+			NewLineStyle = NewLineStyle.Auto;
 			RemoveTagsWithoutContent = false;
 			RemoveRedundantAttributes = false;
 			RemoveHttpProtocolFromAttributes = false;

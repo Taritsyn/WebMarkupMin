@@ -4,6 +4,8 @@ using System.Text;
 
 using AdvancedStringBuilder;
 
+using WebMarkupMin.Core.Utilities;
+
 namespace WebMarkupMin.Core
 {
 	/// <summary>
@@ -32,6 +34,16 @@ namespace WebMarkupMin.Core
 		protected int _size;
 
 		/// <summary>
+		/// Newline string
+		/// </summary>
+		private string _newLine;
+
+		/// <summary>
+		/// A delegate that appends an item from the buffer to the underlying string builder
+		/// </summary>
+		private Action<string> _appendItem;
+
+		/// <summary>
 		/// Gets or sets a underlying string builder
 		/// </summary>
 		public StringBuilder StringBuilder
@@ -44,12 +56,53 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Constructs an instance of the markup minification output writer
 		/// </summary>
-		/// <param name="initialBufferCapacity">Initial capacity of buffer</param>
+		/// <param name="initialBufferCapacity">Initial capacity of the buffer</param>
 		protected MarkupMinificationOutputWriterBase(int initialBufferCapacity)
+			: this(initialBufferCapacity, NewLineStyle.Auto)
+		{ }
+
+		/// <summary>
+		/// Constructs an instance of the markup minification output writer
+		/// </summary>
+		/// <param name="initialBufferCapacity">Initial capacity of the buffer</param>
+		/// <param name="newLineStyle">Style of the newline</param>
+		protected MarkupMinificationOutputWriterBase(int initialBufferCapacity, NewLineStyle newLineStyle)
 		{
 			_items = new string[initialBufferCapacity];
+			_newLine = GetNewLineByStyleEnum(newLineStyle);
+			_appendItem = _newLine != null ? (Action<string>)AppendItemWithNewLineNormalization : AppendItem;
 		}
 
+		/// <summary>
+		/// Gets a newline string by the newline style enum
+		/// </summary>
+		/// <param name="newLineStyle">Style of the newline</param>
+		/// <returns>Newline string</returns>
+		private static string GetNewLineByStyleEnum(NewLineStyle newLineStyle)
+		{
+			string newLine;
+
+			switch (newLineStyle)
+			{
+				case NewLineStyle.Native:
+					newLine = Environment.NewLine;
+					break;
+				case NewLineStyle.Windows:
+					newLine = "\r\n";
+					break;
+				case NewLineStyle.Mac:
+					newLine = "\r";
+					break;
+				case NewLineStyle.Unix:
+					newLine = "\n";
+					break;
+				default:
+					newLine = null;
+					break;
+			}
+
+			return newLine;
+		}
 
 		/// <summary>
 		/// Ensures that the capacity of the output buffer is at least the given minimum value
@@ -112,12 +165,74 @@ namespace WebMarkupMin.Core
 
 					if (item.Length > 0)
 					{
-						_sb.Append(item);
+						_appendItem(item);
 					}
 				}
 
 				_size = 0;
 			}
+		}
+
+		/// <summary>
+		/// Appends an item from the buffer to the underlying string builder
+		/// </summary>
+		/// <param name="item">Item from the buffer</param>
+		private void AppendItem(string item)
+		{
+			_sb.Append(item);
+		}
+
+		/// <summary>
+		/// Appends an item from the buffer to the underlying string builder with normalization of the newlines
+		/// </summary>
+		/// <param name="item">Item from the buffer</param>
+		private void AppendItemWithNewLineNormalization(string item)
+		{
+			int contentLength = item.Length;
+			int currentPosition = 0;
+			int contentRemainderLength = contentLength;
+			int newLinePosition;
+			int newLineLength;
+
+			SourceCodeNavigator.FindNextNewLine(item, currentPosition, contentRemainderLength,
+				out newLinePosition, out newLineLength);
+
+			if (newLinePosition == -1)
+			{
+				_sb.Append(item);
+				return;
+			}
+
+			string newLine = _newLine;
+
+			if (newLine.Length == 1
+				&& ((newLine == "\n" && item.IndexOf('\r') == -1) || (newLine == "\r" && item.IndexOf('\n') == -1)))
+			{
+				_sb.Append(item);
+				return;
+			}
+
+			while (newLinePosition != -1)
+			{
+				if (newLinePosition > currentPosition)
+				{
+					_sb.Append(item, currentPosition, newLinePosition - currentPosition);
+				}
+				_sb.Append(newLine);
+
+				currentPosition = newLinePosition + newLineLength;
+				contentRemainderLength = contentLength - currentPosition;
+
+				SourceCodeNavigator.FindNextNewLine(item, currentPosition, contentRemainderLength,
+					out newLinePosition, out newLineLength);
+			}
+
+			if (contentRemainderLength > 0)
+			{
+				_sb.Append(item, currentPosition, contentRemainderLength);
+			}
+
+			return;
 		}
 
 		/// <summary>

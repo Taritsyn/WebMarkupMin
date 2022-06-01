@@ -25,7 +25,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// position to be searched</param>
 		/// <param name="newLinePosition">Position of the newline string</param>
 		/// <param name="newLineLength">Length of the newline string</param>
-		private static void FindNextNewLine(string sourceCode, int startPosition,
+		internal static void FindNextNewLine(string sourceCode, int startPosition,
 			out int newLinePosition, out int newLineLength)
 		{
 			int length = sourceCode.Length - startPosition;
@@ -43,7 +43,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// <param name="length">Number of characters in the substring to include in the search</param>
 		/// <param name="newLinePosition">Position of the newline string</param>
 		/// <param name="newLineLength">Length of the newline string</param>
-		private static void FindNextNewLine(string sourceCode, int startPosition, int length,
+		internal static void FindNextNewLine(string sourceCode, int startPosition, int length,
 			out int newLinePosition, out int newLineLength)
 		{
 			newLinePosition = sourceCode.IndexOfAny(_newLineChars, startPosition, length);
@@ -75,7 +75,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// position to be searched</param>
 		/// <param name="newLinePosition">Position of the newline string</param>
 		/// <param name="newLineLength">Length of the newline string</param>
-		private static void FindPreviousNewLine(string sourceCode, int startPosition,
+		internal static void FindPreviousNewLine(string sourceCode, int startPosition,
 			out int newLinePosition, out int newLineLength)
 		{
 			newLinePosition = sourceCode.LastIndexOfAny(_newLineChars, startPosition);

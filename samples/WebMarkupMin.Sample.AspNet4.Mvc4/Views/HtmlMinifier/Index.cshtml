@@ -27,6 +27,10 @@
 					<div class="checkbox">
 						@Html.CheckBoxWithLabelFor(m => m.Settings.PreserveNewLines)
 					</div>
+					<div class="form-group">
+						@(Html.DropDownListFor(m => m.Settings.NewLineStyle,
+							Model.Settings.NewLineStyleList, new { @class = "form-control" }))
+					</div>
 					<div class="checkbox">
 						@Html.CheckBoxWithLabelFor(m => m.Settings.RemoveHtmlComments)
 					</div>

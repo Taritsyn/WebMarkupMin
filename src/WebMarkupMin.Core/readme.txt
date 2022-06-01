@@ -46,8 +46,9 @@
    =============
    RELEASE NOTES
    =============
-   In HTML, XHTML and XML minification settings was added one new property -
-   `PreserveNewLines` (default `false`).
+   1. In HTML, XHTML and XML minification settings was added two new properties:
+      `PreserveNewLines` (default `false`) and `NewLineStyle` (default `Auto`);
+   2. LazyHTML wrapped fragments are now parsed correctly.
 
    =============
    DOCUMENTATION

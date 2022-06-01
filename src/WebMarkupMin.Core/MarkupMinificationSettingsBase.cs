@@ -14,5 +14,24 @@
 			get;
 			set;
 		}
+
+		/// <summary>
+		/// Gets or sets a style of the newline
+		/// </summary>
+		public NewLineStyle NewLineStyle
+		{
+			get;
+			set;
+		}
+
+
+		/// <summary>
+		/// Constructs instance of markup minification settings
+		/// </summary>
+		protected MarkupMinificationSettingsBase()
+		{
+			PreserveNewLines = false;
+			NewLineStyle = NewLineStyle.Auto;
+		}
 	}
 }
