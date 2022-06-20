@@ -2422,15 +2422,20 @@ namespace WebMarkupMin.Core
 					// Processing of JSON or VBScript code
 					if (_beginCdataSectionRegex.IsMatch(content))
 					{
+						beforeCodeContent = _beginCdataSectionRegex.Match(content).Value;
+
 						if (!removeCdataSections)
 						{
 							startPart = "<![CDATA[";
 							endPart = "]]>";
 						}
+
 						code = Utils.RemovePrefixAndPostfix(content, _beginCdataSectionRegex, _endCdataSectionRegex);
 					}
 					else if (_beginHtmlCommentRegex.IsMatch(content))
 					{
+						beforeCodeContent = _beginHtmlCommentRegex.Match(content).Value;
+
 						if (!removeHtmlComments)
 						{
 							startPart = "<!--";

@@ -48,7 +48,9 @@
    =============
    1. In HTML, XHTML and XML minification settings was added two new properties:
       `PreserveNewLines` (default `false`) and `NewLineStyle` (default `Auto`);
-   2. LazyHTML wrapped fragments are now parsed correctly.
+   2. LazyHTML wrapped fragments are now parsed correctly;
+   3. Location of the error that occurs during minification of JSON data are now
+      calculated correctly.
 
    =============
    DOCUMENTATION
