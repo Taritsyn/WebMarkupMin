@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 using EcmaScript.NET;
 using Yahoo.Yui.Compressor;
@@ -34,6 +35,12 @@ namespace WebMarkupMin.Yui
 		/// Synchronizer of minification
 		/// </summary>
 		private readonly object _minificationSynchronizer = new object();
+
+		/// <summary>
+		/// Regular expression for working with the error message with summary
+		/// </summary>
+		private static readonly Regex _errorMessageWithSummaryRegex =
+			new Regex(@"^Compilation produced \d+ syntax errors.$");
 
 
 		/// <summary>
@@ -133,7 +140,10 @@ namespace WebMarkupMin.Yui
 				}
 				catch (EcmaScriptRuntimeException e)
 				{
-					errors.Add(new MinificationErrorInfo(e.Message, e.LineNumber, e.ColumnNumber, e.LineSource));
+					if (!_errorMessageWithSummaryRegex.IsMatch(e.Message))
+					{
+						errors.Add(new MinificationErrorInfo(e.Message, e.LineNumber, e.ColumnNumber, e.LineSource));
+					}
 				}
 				catch (EcmaScriptException e)
 				{

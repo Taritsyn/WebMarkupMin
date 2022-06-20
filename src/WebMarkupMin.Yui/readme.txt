@@ -19,7 +19,7 @@
    =============
    RELEASE NOTES
    =============
-   Added support of the YUI Compressor for .NET version 3.1.0.
+   JS error summary has been excluded from the list of errors.
 
    =============
    DOCUMENTATION

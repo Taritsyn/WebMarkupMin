@@ -24,7 +24,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 
 
 		[Fact]
-		public void HandlingMinificationErrorsInScriptTag()
+		public void HandlingMinificationErrorsInScriptTagIsCorrect()
 		{
 			// Arrange
 			const string input = "<script type=\"application/json\">\n" +
@@ -50,7 +50,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void HandlingMinificationErrorsInScriptTagWithHtmlComment()
+		public void HandlingMinificationErrorsInScriptTagWithHtmlCommentIsCorrect()
 		{
 			// Arrange
 			const string input = "<script type=\"application/json\">\n" +
@@ -78,7 +78,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void HandlingMinificationErrorsInScriptTagWithCdataSection()
+		public void HandlingMinificationErrorsInScriptTagWithCdataSectionIsCorrect()
 		{
 			// Arrange
 			const string input = "<script type=\"application/json\">\n" +
