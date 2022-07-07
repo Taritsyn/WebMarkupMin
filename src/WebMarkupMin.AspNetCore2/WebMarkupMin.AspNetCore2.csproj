@@ -22,7 +22,7 @@
   <ItemGroup>
     <PackageReference Include="AdvancedStringBuilder" Version="0.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.22" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="2.0.3" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.0.2" />
