@@ -695,12 +695,12 @@
     </xs:attribute>
     <xs:attribute name="noUncheckedIndexedAccess" type="Boolean_SchemaType" use="optional" default="false">
       <xs:annotation>
-        <xs:documentation>Flag for whether to include `undefined` in index signature results</xs:documentation>
+        <xs:documentation>Flag for whether to add `undefined` to a type when accessed using an index</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="noUnusedLocals" type="Boolean_SchemaType" use="optional" default="false">
       <xs:annotation>
-        <xs:documentation>Flag for whether to enable error reporting when a local variables aren't read</xs:documentation>
+        <xs:documentation>Flag for whether to enable error reporting when local variables aren't read</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="noUnusedParameters" type="Boolean_SchemaType" use="optional" default="false">
@@ -784,6 +784,7 @@
           <xs:enumeration value="EcmaScript2019" />
           <xs:enumeration value="EcmaScript2020" />
           <xs:enumeration value="EcmaScript2021" />
+          <xs:enumeration value="EcmaScript2022" />
           <xs:enumeration value="EcmaScriptNext" />
         </xs:restriction>
       </xs:simpleType>
@@ -800,7 +801,7 @@
     </xs:attribute>
     <xs:attribute name="useUnknownInCatchVariables" type="Boolean_SchemaType" use="optional" default="false">
       <xs:annotation>
-        <xs:documentation>Flag for whether to use a type catch clause variables as `unknown` instead of `any`.</xs:documentation>
+        <xs:documentation>Flag for whether to use a default catch clause variables as `unknown` instead of `any`</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>

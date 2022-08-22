@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: ASP.NET 4.X Web Forms</Product>
-    <VersionPrefix>2.10.0</VersionPrefix>
+    <VersionPrefix>2.12.0</VersionPrefix>
     <TargetFrameworks>net40;net45</TargetFrameworks>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -12,7 +12,6 @@
 
 Classes of the Web Forms pages and master pages cannot be used together.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;WebForms;Markup;HTML;XHTML;Minification;Minifier;Minify</PackageTags>
-    <PackageReleaseNotes>In markup minification and compression managers was added a new configuration property - `SupportedHttpStatusCodes` (default `200`).</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />

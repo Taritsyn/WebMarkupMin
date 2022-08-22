@@ -1,11 +1,11 @@
 
 
    --------------------------------------------------------------------------------
-         README file for Web Markup Minifier: ASP.NET 4.X HTTP modules v2.10.0
+         README file for Web Markup Minifier: ASP.NET 4.X HTTP modules v2.12.0
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2021 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2022 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========
@@ -17,12 +17,6 @@
    `XmlMinificationModule` (for minification of XML code) and
    `HttpCompressionModule` (for compression of text content by using GZIP or
    Deflate).
-
-   =============
-   RELEASE NOTES
-   =============
-   In markup minification and compression managers was added a new configuration
-   property - `SupportedHttpStatusCodes` (default `200`).
 
    =============
    DOCUMENTATION

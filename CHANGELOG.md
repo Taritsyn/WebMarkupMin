@@ -1,6 +1,17 @@
 Change log
 ==========
 
+## v2.12.0 - August 22, 2022
+ * In HTML, XHTML and XML minification settings was added two new properties: `PreserveNewLines` (default `false`) and `NewLineStyle` (default `Auto`)
+ * LazyHTML wrapped fragments are now parsed correctly
+ * Location of the error that occurs during minification of JSON data are now calculated correctly
+ * In WebMarkupMin.Yui a JS error summary has been excluded from the list of errors
+ * In WebMarkupMin.NUglify added support of the NUglify version 1.20.2
+ * In WebMarkupMin.AspNet.Common and WebMarkupMin.AspNetCore2 no longer supports a .NET Core App 2.1
+ * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.1.28
+ * In WebMarkupMin.AspNetCore5 added support of ASP.NET Core 5.0.17
+ * In WebMarkupMin.AspNetCore6 added support of ASP.NET Core 6.0.8
+
 ## v2.11.0 - November 8, 2021
  * In WebMarkupMin.NUglify added support of the NUglify version 1.16.1
  * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.1.21

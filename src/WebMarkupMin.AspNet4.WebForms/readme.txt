@@ -1,11 +1,11 @@
 
 
    --------------------------------------------------------------------------------
-          README file for Web Markup Minifier: ASP.NET 4.X Web Forms v2.10.0
+          README file for Web Markup Minifier: ASP.NET 4.X Web Forms v2.12.0
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2021 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2022 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========
@@ -24,12 +24,6 @@
    minification and HTTP compression).
 
    Classes of the Web Forms pages and master pages cannot be used together.
-
-   =============
-   RELEASE NOTES
-   =============
-   In markup minification and compression managers was added a new configuration
-   property - `SupportedHttpStatusCodes` (default `200`).
 
    =============
    DOCUMENTATION

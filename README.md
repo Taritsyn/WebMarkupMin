@@ -11,7 +11,7 @@ Minification of markup produces by removing extra whitespace, comments and redun
 
 Also supports minification of views of popular JavaScript template engines: [KnockoutJS](http://knockoutjs.com/), [Kendo UI MVVM](https://www.telerik.com/kendo-ui) and [AngularJS](https://angularjs.org/) 1.X.
 
-In addition, there are several modules that integrate this library into ASP.NET: WebMarkupMin.AspNet4.HttpModules (for ASP.NET 4.X and ASP.NET Web Pages), WebMarkupMin.AspNet4.Mvc (for ASP.NET MVC 3, 4 or 5), WebMarkupMin.AspNet4.WebForms (for ASP.NET Web Forms 4.X), WebMarkupMin.AspNetCore1 (for ASP.NET Core 1.X) and WebMarkupMin.AspNetCore2 (for ASP.NET Core 2.X).
+In addition, there are several modules that integrate this library into ASP.NET: WebMarkupMin.AspNet4.HttpModules (for ASP.NET 4.X and ASP.NET Web Pages), WebMarkupMin.AspNet4.Mvc (for ASP.NET MVC 3, 4 or 5), WebMarkupMin.AspNet4.WebForms (for ASP.NET Web Forms 4.X), WebMarkupMin.AspNetCore1 (for ASP.NET Core 1.X), WebMarkupMin.AspNetCore2 (for ASP.NET Core 2.X), WebMarkupMin.AspNetCore3 (for ASP.NET Core 3.1+), WebMarkupMin.AspNetCore5 (for ASP.NET Core 5.X) and WebMarkupMin.AspNetCore6 (for ASP.NET Core 6).
 
 You can try WebMarkupMin in action and experiment with different minification settings live on the [WebMarkupMin Online](http://webmarkupmin.apphb.com/) site.
 
@@ -30,7 +30,7 @@ You can try WebMarkupMin in action and experiment with different minification se
  * [WebMarkupMin: ASP.NET 4.X MVC](http://nuget.org/packages/WebMarkupMin.AspNet4.Mvc/) (supports .NET Framework 4.0 and .NET Framework 4.5)
  * [WebMarkupMin: ASP.NET 4.X Web Forms](http://nuget.org/packages/WebMarkupMin.AspNet4.WebForms/) (supports .NET Framework 4.0 and .NET Framework 4.5)
  * [WebMarkupMin: ASP.NET Core 1.X](http://nuget.org/packages/WebMarkupMin.AspNetCore1/) (supports .NET Framework 4.5.1 and .NET Standard 1.3)
- * [WebMarkupMin: ASP.NET Core 2.X](http://nuget.org/packages/WebMarkupMin.AspNetCore2/) (supports .NET Standard 2.0 and .NET Core App 2.1)
+ * [WebMarkupMin: ASP.NET Core 2.X](http://nuget.org/packages/WebMarkupMin.AspNetCore2/) (supports .NET Standard 2.0)
  * [WebMarkupMin: ASP.NET Core 3.X](http://nuget.org/packages/WebMarkupMin.AspNetCore3/) (supports .NET Core App 3.1)
  * [WebMarkupMin: ASP.NET Core 5.X](http://nuget.org/packages/WebMarkupMin.AspNetCore5/) (supports .NET 5.0)
  * [WebMarkupMin: ASP.NET Core 6](http://nuget.org/packages/WebMarkupMin.AspNetCore6/) (supports .NET 6)
