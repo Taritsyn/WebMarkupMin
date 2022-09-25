@@ -49,7 +49,7 @@
 		/// <param name="message">Information message</param>
 		/// <param name="statistics">Minification statistics</param>
 		/// <param name="filePath">File path</param>
-		public void Info(string category, string message, string filePath = "", MinificationStatistics statistics = null)
+		public virtual void Info(string category, string message, string filePath = "", MinificationStatistics statistics = null)
 		{ }
 	}
 }
