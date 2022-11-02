@@ -17,7 +17,8 @@
    =============
    RELEASE NOTES
    =============
-   Was made refactoring.
+   1. Added support of ASP.NET Core 3.1.30;
+   2. Was made refactoring.
 
    =============
    DOCUMENTATION
