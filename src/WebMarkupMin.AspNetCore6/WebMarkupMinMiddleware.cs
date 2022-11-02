@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Http;
@@ -9,10 +9,8 @@ using Microsoft.Extensions.Options;
 
 using WebMarkupMin.AspNet.Common;
 
-#if ASPNETCORE1
-namespace WebMarkupMin.AspNetCore1
-#elif ASPNETCORE2
-namespace WebMarkupMin.AspNetCore2
+#if ASPNETCORE6
+namespace WebMarkupMin.AspNetCore6
 #else
 #error No implementation for this target
 #endif
@@ -35,35 +33,32 @@ namespace WebMarkupMin.AspNetCore2
 		{ }
 
 
-		public async Task Invoke(HttpContext context)
+		public Task Invoke(HttpContext context)
 		{
 			bool useMinification = _options.IsMinificationEnabled() && _minificationManagers.Count > 0;
 			bool useCompression = _options.IsCompressionEnabled() && _compressionManager != null;
 
 			if (!useMinification && !useCompression)
 			{
-				await _next.Invoke(context);
+				return _next(context);
 			}
-			else
-			{
-				await InvokeCore(context, useMinification, useCompression);
-			}
+
+			return InvokeCore(context, useMinification, useCompression);
 		}
 
 		protected override async Task InvokeCore(HttpContext context, bool useMinification, bool useCompression)
 		{
-			HttpResponse response = context.Response;
 			IFeatureCollection features = context.Features;
+			IHttpResponseBodyFeature originalBodyFeature = features.Get<IHttpResponseBodyFeature>();
 
-			Stream originalStream = response.Body;
-			IHttpBufferingFeature originalBufferFeature = features.Get<IHttpBufferingFeature>();
-			var bodyWrapperStream = new BodyWrapperStreamWithBufferingFeature(context, 	originalStream, _options,
+			Debug.Assert(originalBodyFeature != null);
+
+			var bodyWrapperStream = new BodyWrapperStreamWithResponseBodyFeature(context, _options,
 				useMinification ? _minificationManagers : new List<IMarkupMinificationManager>(),
 				useCompression ? _compressionManager : null,
-				originalBufferFeature);
+				originalBodyFeature);
 
-			response.Body = bodyWrapperStream;
-			features.Set<IHttpBufferingFeature>(bodyWrapperStream);
+			features.Set<IHttpResponseBodyFeature>(bodyWrapperStream);
 
 			try
 			{
@@ -72,10 +67,8 @@ namespace WebMarkupMin.AspNetCore2
 			}
 			finally
 			{
-				bodyWrapperStream.Dispose();
-
-				response.Body = originalStream;
-				features.Set(originalBufferFeature);
+				await bodyWrapperStream.DisposeAsync();
+				features.Set(originalBodyFeature);
 			}
 		}
 	}

@@ -12,8 +12,6 @@ using WebMarkupMin.AspNet.Common;
 namespace WebMarkupMin.AspNetCore3
 #elif ASPNETCORE5
 namespace WebMarkupMin.AspNetCore5
-#elif ASPNETCORE6
-namespace WebMarkupMin.AspNetCore6
 #else
 #error No implementation for this target
 #endif
@@ -36,10 +34,24 @@ namespace WebMarkupMin.AspNetCore6
 		{ }
 
 
-		protected override async Task ProcessAsync(HttpContext context, bool useMinification, bool useCompression)
+		public async Task Invoke(HttpContext context)
+		{
+			bool useMinification = _options.IsMinificationEnabled() && _minificationManagers.Count > 0;
+			bool useCompression = _options.IsCompressionEnabled() && _compressionManager != null;
+
+			if (!useMinification && !useCompression)
+			{
+				await _next(context);
+			}
+			else
+			{
+				await InvokeCore(context, useMinification, useCompression);
+			}
+		}
+
+		protected override async Task InvokeCore(HttpContext context, bool useMinification, bool useCompression)
 		{
 			IFeatureCollection features = context.Features;
-
 			IHttpResponseBodyFeature originalBodyFeature = features.Get<IHttpResponseBodyFeature>();
 			var bodyWrapperStream = new BodyWrapperStreamWithResponseBodyFeature(context, _options,
 				useMinification ? _minificationManagers : new List<IMarkupMinificationManager>(),

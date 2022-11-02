@@ -17,7 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   No longer supports a .NET Core App 2.1.
+   Was made refactoring.
 
    =============
    DOCUMENTATION

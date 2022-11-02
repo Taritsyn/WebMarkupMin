@@ -106,22 +106,7 @@ namespace WebMarkupMin.AspNetCore6
 		}
 
 
-		public async Task Invoke(HttpContext context)
-		{
-			bool useMinification = _options.IsMinificationEnabled() && _minificationManagers.Count > 0;
-			bool useCompression = _options.IsCompressionEnabled() && _compressionManager != null;
-
-			if (!useMinification && !useCompression)
-			{
-				await _next.Invoke(context);
-			}
-			else
-			{
-				await ProcessAsync(context, useMinification, useCompression);
-			}
-		}
-
-		protected virtual async Task ProcessAsync(HttpContext context, bool useMinification, bool useCompression)
+		protected virtual async Task InvokeCore(HttpContext context, bool useMinification, bool useCompression)
 		{
 			await Task.Run(() => throw new NotImplementedException());
 		}

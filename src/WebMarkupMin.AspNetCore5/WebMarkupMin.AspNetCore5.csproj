@@ -12,7 +12,7 @@
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
     <Description>WebMarkupMin.AspNetCore5 contains one ASP.NET Core 5.X Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Middleware;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
-    <PackageReleaseNotes>Added support of ASP.NET Core 5.0.17.</PackageReleaseNotes>
+    <PackageReleaseNotes>Was made refactoring.</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />
@@ -29,6 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="..\WebMarkupMin.AspNetCore1\Internal\WebMarkupMinMarkerService.cs" Link="Internal\WebMarkupMinMarkerService.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\Internal\WebMarkupMinServicesHelper.cs" Link="Internal\WebMarkupMinServicesHelper.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\Helpers\TaskAsyncResult.cs" Link="Helpers\TaskAsyncResult.cs" />
+    <Compile Include="..\WebMarkupMin.AspNetCore1\Helpers\TaskToApmHelpers.cs" Link="Helpers\TaskToApmHelpers.cs" />
     <Compile Include="..\WebMarkupMin.AspNetCore1\BodyWrapperStreamBase.cs" Link="BodyWrapperStreamBase.cs" />
     <Compile Include="..\WebMarkupMin.AspNetCore3\BodyWrapperStreamWithResponseBodyFeature.cs" Link="BodyWrapperStreamWithResponseBodyFeature.cs" />
     <Compile Include="..\WebMarkupMin.AspNetCore1\BuilderExtensions.cs" Link="BuilderExtensions.cs" />
@@ -40,8 +44,6 @@
     <Compile Include="..\WebMarkupMin.AspNetCore1\HtmlMinificationOptionsSetup.cs" Link="HtmlMinificationOptionsSetup.cs" />
     <Compile Include="..\WebMarkupMin.AspNetCore1\HttpCompressionManager.cs" Link="HttpCompressionManager.cs" />
     <Compile Include="..\WebMarkupMin.AspNetCore1\HttpCompressionOptions.cs" Link="HttpCompressionOptions.cs" />
-    <Compile Include="..\WebMarkupMin.AspNetCore1\Internal\WebMarkupMinMarkerService.cs" Link="Internal\WebMarkupMinMarkerService.cs" />
-    <Compile Include="..\WebMarkupMin.AspNetCore1\Internal\WebMarkupMinServicesHelper.cs" Link="Internal\WebMarkupMinServicesHelper.cs" />
     <Compile Include="..\WebMarkupMin.AspNetCore1\MarkupMinificationOptionsBase.cs" Link="MarkupMinificationOptionsBase.cs" />
     <Compile Include="..\WebMarkupMin.AspNetCore1\WebMarkupMinMiddlewareBase.cs" Link="WebMarkupMinMiddlewareBase.cs" />
     <Compile Include="..\WebMarkupMin.AspNetCore3\WebMarkupMinMiddleware.cs" Link="WebMarkupMinMiddleware.cs" />

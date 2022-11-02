@@ -15,6 +15,11 @@
    `WebMarkupMinMiddleware`.
 
    =============
+   RELEASE NOTES
+   =============
+   Was made refactoring.
+
+   =============
    DOCUMENTATION
    =============
    See documentation on GitHub - https://github.com/Taritsyn/WebMarkupMin/wiki

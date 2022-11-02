@@ -18,14 +18,26 @@ using WebMarkupMin.Core.Utilities;
 using AspNetCommonStrings = WebMarkupMin.AspNet.Common.Resources.Strings;
 
 #if ASPNETCORE1
+#if NET451
+using WebMarkupMin.AspNetCore1.Helpers;
+
+#endif
 namespace WebMarkupMin.AspNetCore1
 #elif ASPNETCORE2
+using WebMarkupMin.AspNetCore2.Helpers;
+
 namespace WebMarkupMin.AspNetCore2
 #elif ASPNETCORE3
+using WebMarkupMin.AspNetCore3.Helpers;
+
 namespace WebMarkupMin.AspNetCore3
 #elif ASPNETCORE5
+using WebMarkupMin.AspNetCore5.Helpers;
+
 namespace WebMarkupMin.AspNetCore5
 #elif ASPNETCORE6
+using WebMarkupMin.AspNetCore6.Helpers;
+
 namespace WebMarkupMin.AspNetCore6
 #else
 #error No implementation for this target
@@ -79,7 +91,7 @@ namespace WebMarkupMin.AspNetCore6
 		/// <summary>
 		/// Flag indicating whether the stream wrapper is initialized
 		/// </summary>
-		private InterlockedStatedFlag _wrapperInitializedFlag = new InterlockedStatedFlag();
+		private StatedFlag _wrapperInitializedFlag = new StatedFlag();
 
 		/// <summary>
 		/// Flag indicating whether a markup minification is enabled
@@ -114,17 +126,17 @@ namespace WebMarkupMin.AspNetCore6
 		/// <summary>
 		/// Flag indicating whether the current HTTP compressor is initialized
 		/// </summary>
-		private InterlockedStatedFlag _currentCompressorInitializedFlag = new InterlockedStatedFlag();
+		private StatedFlag _currentCompressorInitializedFlag = new StatedFlag();
 
 		/// <summary>
 		/// Flag that indicates if the HTTP headers is modified for compression
 		/// </summary>
-		private InterlockedStatedFlag _httpHeadersModifiedForCompressionFlag = new InterlockedStatedFlag();
+		private StatedFlag _httpHeadersModifiedForCompressionFlag = new StatedFlag();
 
 		/// <summary>
 		/// Flag that the stream wrapper is destroyed
 		/// </summary>
-		private InterlockedStatedFlag _disposedFlag = new InterlockedStatedFlag();
+		private StatedFlag _disposedFlag = new StatedFlag();
 
 
 		/// <summary>
@@ -297,38 +309,6 @@ namespace WebMarkupMin.AspNetCore6
 				responseHeaders.Remove(HeaderNames.ContentLength);
 			}
 		}
-#if NET451 || NETSTANDARD2_0 || NETCOREAPP3_1_OR_GREATER
-
-		private async void InternalWriteAsync(byte[] buffer, int offset, int count, AsyncCallback callback,
-			TaskCompletionSource<object> tcs)
-		{
-			try
-			{
-				await WriteAsync(buffer, offset, count);
-				tcs.TrySetResult(null);
-			}
-			catch (Exception ex)
-			{
-				tcs.TrySetException(ex);
-			}
-
-			if (callback != null)
-			{
-				// Offload callbacks to avoid stack dives on sync completions
-				var ignored = Task.Run(() =>
-				{
-					try
-					{
-						callback(tcs.Task);
-					}
-					catch (Exception)
-					{
-						// Suppress exceptions on background threads
-					}
-				});
-			}
-		}
-#endif
 
 		protected async Task InternalFinishAsync()
 		{
@@ -455,21 +435,12 @@ namespace WebMarkupMin.AspNetCore6
 		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback,
 			object state)
 		{
-			var tcs = new TaskCompletionSource<object>(state);
-			InternalWriteAsync(buffer, offset, count, callback, tcs);
-
-			return tcs.Task;
+			return TaskToApmHelpers.Begin(WriteAsync(buffer, offset, count, CancellationToken.None), callback, state);
 		}
 
 		public override void EndWrite(IAsyncResult asyncResult)
 		{
-			if (asyncResult == null)
-			{
-				throw new ArgumentNullException(nameof(asyncResult));
-			}
-
-			var task = (Task)asyncResult;
-			task.GetAwaiter().GetResult();
+			TaskToApmHelpers.End(asyncResult);
 		}
 
 #endif
@@ -548,6 +519,9 @@ namespace WebMarkupMin.AspNetCore6
 		public override async Task WriteAsync(byte[] buffer, int offset, int count,
 			CancellationToken cancellationToken)
 		{
+#if NET6_0_OR_GREATER
+			await WriteAsync(buffer.AsMemory(offset, count), cancellationToken);
+#else
 			Initialize();
 
 			if (_minificationEnabled)
@@ -567,7 +541,33 @@ namespace WebMarkupMin.AspNetCore6
 			{
 				await _originalStream.WriteAsync(buffer, offset, count, cancellationToken);
 			}
+#endif
 		}
+#if NET6_0_OR_GREATER
+
+		public override async ValueTask WriteAsync(ReadOnlyMemory<byte> buffer, CancellationToken cancellationToken)
+		{
+			Initialize();
+
+			if (_minificationEnabled)
+			{
+				await _cachedStream.WriteAsync(buffer, cancellationToken);
+			}
+			else if (_compressionEnabled)
+			{
+				ModifyHttpHeadersForCompressionOnce();
+				await _compressionStream.WriteAsync(buffer, cancellationToken);
+				if (_autoFlushCompressionStream)
+				{
+					await _compressionStream.FlushAsync(cancellationToken);
+				}
+			}
+			else
+			{
+				await _originalStream.WriteAsync(buffer, cancellationToken);
+			}
+		}
+#endif
 
 		protected override void Dispose(bool disposing)
 		{
