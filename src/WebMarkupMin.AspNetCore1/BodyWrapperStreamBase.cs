@@ -13,32 +13,39 @@ using Microsoft.Net.Http.Headers;
 
 using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.AspNet.Common.Compressors;
+#if ASPNETCORE1
+#if NET451
+using WebMarkupMin.AspNetCore1.Helpers;
+#endif
+#elif ASPNETCORE2
+using WebMarkupMin.AspNetCore2.Helpers;
+#elif ASPNETCORE3
+using WebMarkupMin.AspNetCore3.Helpers;
+#elif ASPNETCORE5
+using WebMarkupMin.AspNetCore5.Helpers;
+#elif ASPNETCORE6
+using WebMarkupMin.AspNetCore6.Helpers;
+#elif ASPNETCORE7
+using WebMarkupMin.AspNetCore7.Helpers;
+#else
+#error No implementation for this target
+#endif
 using WebMarkupMin.Core;
 using WebMarkupMin.Core.Utilities;
 using AspNetCommonStrings = WebMarkupMin.AspNet.Common.Resources.Strings;
 
 #if ASPNETCORE1
-#if NET451
-using WebMarkupMin.AspNetCore1.Helpers;
-
-#endif
 namespace WebMarkupMin.AspNetCore1
 #elif ASPNETCORE2
-using WebMarkupMin.AspNetCore2.Helpers;
-
 namespace WebMarkupMin.AspNetCore2
 #elif ASPNETCORE3
-using WebMarkupMin.AspNetCore3.Helpers;
-
 namespace WebMarkupMin.AspNetCore3
 #elif ASPNETCORE5
-using WebMarkupMin.AspNetCore5.Helpers;
-
 namespace WebMarkupMin.AspNetCore5
 #elif ASPNETCORE6
-using WebMarkupMin.AspNetCore6.Helpers;
-
 namespace WebMarkupMin.AspNetCore6
+#elif ASPNETCORE7
+namespace WebMarkupMin.AspNetCore7
 #else
 #error No implementation for this target
 #endif

@@ -12,6 +12,8 @@ namespace WebMarkupMin.AspNetCore3
 namespace WebMarkupMin.AspNetCore5
 #elif ASPNETCORE6
 namespace WebMarkupMin.AspNetCore6
+#elif ASPNETCORE7
+namespace WebMarkupMin.AspNetCore7
 #else
 #error No implementation for this target
 #endif

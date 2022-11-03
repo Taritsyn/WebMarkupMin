@@ -20,6 +20,10 @@ namespace WebMarkupMin.AspNetCore5.Internal
 using AspNetCoreStrings = WebMarkupMin.AspNetCore6.Resources.Strings;
 
 namespace WebMarkupMin.AspNetCore6.Internal
+#elif ASPNETCORE7
+using AspNetCoreStrings = WebMarkupMin.AspNetCore7.Resources.Strings;
+
+namespace WebMarkupMin.AspNetCore7.Internal
 #else
 #error No implementation for this target
 #endif
