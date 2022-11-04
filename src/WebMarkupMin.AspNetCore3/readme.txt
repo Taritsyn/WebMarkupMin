@@ -19,7 +19,9 @@
    =============
    1. Added support of ASP.NET Core 3.1.30;
    2. Was made refactoring;
-   3. Fixed a error “Headers are read-only, response has already started”.
+   3. Fixed a error “Headers are read-only, response has already started”;
+   4. Fixed a error that caused an blank page response when using the Brotli
+      compression.
 
    =============
    DOCUMENTATION

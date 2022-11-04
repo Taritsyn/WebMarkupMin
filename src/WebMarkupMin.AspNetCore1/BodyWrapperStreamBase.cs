@@ -240,7 +240,12 @@ namespace WebMarkupMin.AspNetCore7
 
 					if (_currentCompressor != null)
 					{
-						_compressionStream = _currentCompressor.Compress(_originalStream);
+						if (!_minificationEnabled)
+						{
+							// If markup minification is disabled, then initialize the compression stream.
+							// Otherwise, initialize the compression stream after minification.
+							_compressionStream = _currentCompressor.Compress(_originalStream);
+						}
 						_compressionEnabled = true;
 					}
 				}
@@ -344,8 +349,21 @@ namespace WebMarkupMin.AspNetCore7
 #endif
 
 					IMarkupMinifier minifier = _currentMinificationManager.CreateMinifier();
-					MarkupMinificationResult minificationResult = minifier.Minify(content, _currentUrl,
-						_encoding, _currentMinificationManager.GenerateStatistics);
+					MarkupMinificationResult minificationResult;
+
+					try
+					{
+						minificationResult = minifier.Minify(content, _currentUrl,
+							_encoding, _currentMinificationManager.GenerateStatistics);
+					}
+					catch
+					{
+						// Disable a HTTP compression when an exception occurs
+						_compressionEnabled = false;
+						_currentCompressor = null;
+
+						throw;
+					}
 
 					if (minificationResult.Errors.Count == 0)
 					{
@@ -353,7 +371,11 @@ namespace WebMarkupMin.AspNetCore7
 						{
 							_currentMinificationManager.AppendPoweredByHttpHeader(appendHttpHeader);
 						}
+#if NET6_0_OR_GREATER
+						responseHeaders.ContentMD5 = default;
+#else
 						responseHeaders.Remove(HeaderNames.ContentMD5);
+#endif
 
 						string processedContent = minificationResult.MinifiedContent;
 						var byteArrayPool = ArrayPool<byte>.Shared;
@@ -366,8 +388,13 @@ namespace WebMarkupMin.AspNetCore7
 
 							if (_compressionEnabled)
 							{
+								_compressionStream = _currentCompressor.Compress(_originalStream);
 								_currentCompressor.AppendHttpHeaders(appendHttpHeader);
+#if NET6_0_OR_GREATER
+								responseHeaders.ContentLength = default;
+#else
 								responseHeaders.Remove(HeaderNames.ContentLength);
+#endif
 								await _compressionStream.WriteAsync(processedBytes, 0, processedByteCount);
 							}
 							else
