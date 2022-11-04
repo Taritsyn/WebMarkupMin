@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-              README file for Web Markup Minifier: ASP.NET Common v2.12.0
+              README file for Web Markup Minifier: ASP.NET Common v2.13.0
 
    --------------------------------------------------------------------------------
 
@@ -13,11 +13,6 @@
    ===========
    WebMarkupMin.AspNet.Common is auxiliary package, that contains classes and
    interfaces for all ASP.NET extensions.
-
-   =============
-   RELEASE NOTES
-   =============
-   No longer supports a .NET Core App 2.1.
 
    =============
    DOCUMENTATION

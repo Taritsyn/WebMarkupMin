@@ -1,5 +1,20 @@
 ﻿<p>An overview of new features and fixes:</p>
 
+<h3>2.13.0 - November 4, 2022</h3>
+<ul>
+	<li><code>Info</code> method of <code>LoggerBase</code> class is marked as virtual</li>
+	<li>In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.1.30</li>
+	<li>In WebMarkupMin.AspNetCore6 added support of ASP.NET Core 6.0.10</li>
+	<li>In ASP.NET Core extensions was made refactoring</li>
+	<li>In extensions for ASP.NET Core 3.1 or higher:
+		<ul>
+			<li>Fixed a error “Headers are read-only, response has already started”</li>
+			<li>Fixed a error that caused an blank page response when using the Brotli compression</li>
+		</ul>
+	</li>
+	<li>Created the WebMarkupMin.AspNetCore7 module, that contains middleware for ASP.NET Core 7 RC2</li>
+</ul>
+
 <h3>2.12.0 - August 22, 2022</h3>
 <ul>
 	<li>In HTML, XHTML and XML minification settings was added two new properties: `PreserveNewLines` (default `false`) and `NewLineStyle` (default `Auto`)</li>

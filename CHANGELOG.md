@@ -1,6 +1,16 @@
 Change log
 ==========
 
+## v2.13.0 - November 4, 2022
+ * `Info` method of `LoggerBase` class is marked as virtual
+ * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.1.30
+ * In WebMarkupMin.AspNetCore6 added support of ASP.NET Core 6.0.10
+ * In ASP.NET Core extensions was made refactoring
+ * In extensions for ASP.NET Core 3.1 or higher:
+   * Fixed a error “Headers are read-only, response has already started”
+   * Fixed a error that caused an blank page response when using the Brotli compression
+ * Created the WebMarkupMin.AspNetCore7 module, that contains middleware for ASP.NET Core 7 RC2
+
 ## v2.12.0 - August 22, 2022
  * In HTML, XHTML and XML minification settings was added two new properties: `PreserveNewLines` (default `false`) and `NewLineStyle` (default `Auto`)
  * LazyHTML wrapped fragments are now parsed correctly
