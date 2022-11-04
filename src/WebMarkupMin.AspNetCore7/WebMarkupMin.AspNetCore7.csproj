@@ -11,7 +11,7 @@
     <DefineConstants>$(DefineConstants);ASPNETCORE7</DefineConstants>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
-    <Description>WebMarkupMin.AspNetCore6 contains one ASP.NET Core 7 Middleware - `WebMarkupMinMiddleware`.</Description>
+    <Description>WebMarkupMin.AspNetCore7 contains one ASP.NET Core 7 Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Middleware;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
   </PropertyGroup>
 
