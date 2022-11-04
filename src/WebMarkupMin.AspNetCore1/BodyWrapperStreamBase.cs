@@ -236,11 +236,11 @@ namespace WebMarkupMin.AspNetCore7
 					&& _compressionManager.IsProcessablePage(currentUrl))
 				{
 					string acceptEncoding = request.Headers[HeaderNames.AcceptEncoding];
-					ICompressor compressor = InitializeCurrentCompressor(acceptEncoding);
+					InitializeCurrentCompressor(acceptEncoding);
 
-					if (compressor != null)
+					if (_currentCompressor != null)
 					{
-						_compressionStream = compressor.Compress(_originalStream);
+						_compressionStream = _currentCompressor.Compress(_originalStream);
 						_compressionEnabled = true;
 					}
 				}
@@ -293,14 +293,12 @@ namespace WebMarkupMin.AspNetCore7
 			return currentUrl;
 		}
 
-		protected ICompressor InitializeCurrentCompressor(string acceptEncoding)
+		protected void InitializeCurrentCompressor(string acceptEncoding)
 		{
 			if (_currentCompressorInitializedFlag.Set())
 			{
 				_compressionManager?.TryCreateCompressor(acceptEncoding, out _currentCompressor);
 			}
-
-			return _currentCompressor;
 		}
 
 		private void ModifyHttpHeadersForCompressionOnce()
@@ -312,8 +310,13 @@ namespace WebMarkupMin.AspNetCore7
 				{
 					responseHeaders.Append(key, new StringValues(value));
 				});
+#if NET6_0_OR_GREATER
+				responseHeaders.ContentMD5 = default;
+				responseHeaders.ContentLength = default;
+#else
 				responseHeaders.Remove(HeaderNames.ContentMD5);
 				responseHeaders.Remove(HeaderNames.ContentLength);
+#endif
 			}
 		}
 

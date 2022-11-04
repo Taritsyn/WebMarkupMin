@@ -17,7 +17,8 @@
    =============
    RELEASE NOTES
    =============
-   Was made refactoring.
+   1. Was made refactoring;
+   2. Fixed a error “Headers are read-only, response has already started”.
 
    =============
    DOCUMENTATION

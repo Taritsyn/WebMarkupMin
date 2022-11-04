@@ -13,7 +13,8 @@
     <Description>WebMarkupMin.AspNetCore3 contains one ASP.NET Core 3.1+ Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Middleware;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
     <PackageReleaseNotes>1. Added support of ASP.NET Core 3.1.30;
-2. Was made refactoring.</PackageReleaseNotes>
+2. Was made refactoring;
+3. Fixed a error “Headers are read-only, response has already started”.</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />

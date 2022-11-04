@@ -10,6 +10,7 @@ using Microsoft.Net.Http.Headers;
 
 using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.AspNet.Common.Compressors;
+using WebMarkupMin.Core.Utilities;
 
 #if ASPNETCORE3
 namespace WebMarkupMin.AspNetCore3
@@ -39,9 +40,14 @@ namespace WebMarkupMin.AspNetCore7
 		private PipeWriter _pipeAdapter = null;
 
 		/// <summary>
+		/// Flag indicating whether the modification of HTTP headers is required
+		/// </summary>
+		private bool _httpHeadersModificationRequired = true;
+
+		/// <summary>
 		/// Flag indicating whether the processing is finished
 		/// </summary>
-		private bool _finished = false;
+		private StatedFlag _finishedFlag = new StatedFlag();
 
 
 		/// <summary>
@@ -63,22 +69,20 @@ namespace WebMarkupMin.AspNetCore7
 
 		public override async Task FinishAsync()
 		{
-			if (_finished)
+			if (_finishedFlag.Set())
 			{
-				return;
-			}
+				await InternalFinishAsync();
+				_httpHeadersModificationRequired = false;
 
-			_finished = true;
-
-			await InternalFinishAsync();
-			if (_pipeAdapter != null)
-			{
-				await _pipeAdapter.CompleteAsync();
+				if (_pipeAdapter != null)
+				{
+					await _pipeAdapter.CompleteAsync();
+				}
+				await DisposeAsync();
 			}
-			await DisposeAsync();
 		}
 
-		#region IHttpBufferingFeature implementation
+		#region IHttpResponseBodyFeature implementation
 
 		public Stream Stream
 		{
@@ -102,9 +106,9 @@ namespace WebMarkupMin.AspNetCore7
 		public void DisableBuffering()
 		{
 			string acceptEncoding = _context.Request.Headers[HeaderNames.AcceptEncoding];
-			ICompressor compressor = InitializeCurrentCompressor(acceptEncoding);
+			InitializeCurrentCompressor(acceptEncoding);
 
-			if (compressor?.SupportsFlush == false)
+			if (_currentCompressor?.SupportsFlush == false)
 			{
 				// Some of the compressors don't support flushing which would block real-time
 				// responses like SignalR.
@@ -123,6 +127,12 @@ namespace WebMarkupMin.AspNetCore7
 		{
 			Initialize();
 
+			if (_httpHeadersModificationRequired && (_minificationEnabled || _compressionEnabled))
+			{
+				// Prevent start of the response so that the headers can be modified
+				return Task.CompletedTask;
+			}
+
 			return _responseBodyFeature.StartAsync(token);
 		}
 
@@ -140,12 +150,12 @@ namespace WebMarkupMin.AspNetCore7
 
 		public async Task CompleteAsync()
 		{
-			if (_finished)
+			if (_finishedFlag.IsSet())
 			{
 				return;
 			}
 
-			await FinishAsync(); // Sets a `_finished` field
+			await FinishAsync(); // Sets a `_finishedFlag` field
 			await _responseBodyFeature.CompleteAsync();
 		}
 
