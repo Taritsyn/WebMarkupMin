@@ -1,6 +1,11 @@
 Change log
 ==========
 
+## v2.13.1 - November 9, 2022
+ * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.1.31
+ * In WebMarkupMin.AspNetCore6 added support of ASP.NET Core 6.0.11
+ * In WebMarkupMin.AspNetCore7 added support of ASP.NET Core 7.0.0
+
 ## v2.13.0 - November 4, 2022
  * `Info` method of `LoggerBase` class is marked as virtual
  * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.1.30
