@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## v2.13.2 - November 10, 2022
+ * In WebMarkupMin.AspNet.Brotli fixed a [error #150](https://github.com/Taritsyn/WebMarkupMin/issues/150) “.NET 7 broke BrotliCompressor due to invalid compression levels”
+
 ## v2.13.1 - November 9, 2022
  * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.1.31
  * In WebMarkupMin.AspNetCore6 added support of ASP.NET Core 6.0.11
