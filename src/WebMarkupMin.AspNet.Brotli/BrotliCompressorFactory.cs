@@ -1,10 +1,15 @@
-﻿using WebMarkupMin.AspNet.Common.Compressors;
+﻿using System;
+
+using WebMarkupMin.AspNet.Common.Compressors;
 
 namespace WebMarkupMin.AspNet.Brotli
 {
 	/// <summary>
 	/// Brotli compressor factory
 	/// </summary>
+#if NETSTANDARD2_1 || NET6_0_OR_GREATER
+	[Obsolete("Use a `BuiltInBrotliCompressorFactory` class from `WebMarkupMin.AspNet.Common.Compressors` namespace")]
+#endif
 	public sealed class BrotliCompressorFactory : ICompressorFactory
 	{
 		/// <summary>
