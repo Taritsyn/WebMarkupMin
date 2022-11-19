@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## v2.13.3 - November 19, 2022
+ * In ASP.NET Core extensions prevented cases of using an uninitialized compression stream
+
 ## v2.13.2 - November 10, 2022
  * In WebMarkupMin.AspNet.Brotli fixed a [error #150](https://github.com/Taritsyn/WebMarkupMin/issues/150) “.NET 7 broke BrotliCompressor due to invalid compression levels”
 
