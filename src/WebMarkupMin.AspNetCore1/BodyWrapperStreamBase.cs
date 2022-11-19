@@ -418,7 +418,7 @@ namespace WebMarkupMin.AspNetCore7
 
 					if (_compressionEnabled)
 					{
-						outputStream = _compressionStream;
+						outputStream = _compressionStream ?? _currentCompressor.Compress(_originalStream);
 						_currentCompressor.AppendHttpHeaders(appendHttpHeader);
 					}
 					else

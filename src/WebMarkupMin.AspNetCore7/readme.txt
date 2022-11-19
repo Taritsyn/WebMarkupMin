@@ -17,7 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   Added support of ASP.NET Core 7.0.0.
+   Prevented cases of using an uninitialized compression stream.
 
    =============
    DOCUMENTATION

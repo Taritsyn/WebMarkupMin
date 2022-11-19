@@ -17,7 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   Was made refactoring.
+   Prevented cases of using an uninitialized compression stream.
 
    =============
    DOCUMENTATION

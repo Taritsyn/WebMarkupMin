@@ -17,10 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Was made refactoring;
-   2. Fixed a error “Headers are read-only, response has already started”;
-   3. Fixed a error that caused an blank page response when using the Brotli
-      compression.
+   Prevented cases of using an uninitialized compression stream.
 
    =============
    DOCUMENTATION
