@@ -17,7 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   Prevented cases of using an uninitialized compression stream.
+   Changed a life cycle of the compression stream.
 
    =============
    DOCUMENTATION
