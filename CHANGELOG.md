@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## v2.13.4 - November 20, 2022
+ * In ASP.NET Core extensions was changed a life cycle of the compression stream
+
 ## v2.13.3 - November 19, 2022
  * In ASP.NET Core extensions prevented cases of using an uninitialized compression stream
 
