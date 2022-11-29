@@ -9,7 +9,7 @@
 
 <h2>@ViewBag.Title</h2>
 
-<form method="post" data-form-type="minification-form">
+<form asp-controller="HtmlMinifier" asp-action="Index" method="post" data-form-type="minification-form">
 	<div class="minification-form">
 		<div class="minification-input-output">
 			@{ await Html.RenderPartialAsync("_MinificationInputOutput", Model); }
@@ -222,7 +222,7 @@
 							<input asp-for="Settings.MinifyKnockoutBindingExpressions" />
 							@Html.DisplayNameFor(m => m.Settings.MinifyKnockoutBindingExpressions)
 						</label>
-						</div>
+					</div>
 					<div class="checkbox">
 						<label asp-for="Settings.MinifyAngularBindingExpressions">
 							<input asp-for="Settings.MinifyAngularBindingExpressions" />

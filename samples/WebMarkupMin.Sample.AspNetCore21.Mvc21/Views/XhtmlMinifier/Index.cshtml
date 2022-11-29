@@ -9,7 +9,7 @@
 
 <h2>@ViewBag.Title</h2>
 
-<form method="post" data-form-type="minification-form">
+<form asp-controller="XhtmlMinifier" asp-action="Index" method="post" data-form-type="minification-form">
 	<div class="minification-form">
 		<div class="minification-input-output">
 			@{ await Html.RenderPartialAsync("_MinificationInputOutput", Model); }
