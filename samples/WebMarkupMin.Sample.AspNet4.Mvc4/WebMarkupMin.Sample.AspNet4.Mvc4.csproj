@@ -86,6 +86,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\ActionResults\XmlResult.cs" />
     <Compile Include="Infrastructure\Helpers\CommonExtensions.cs" />
     <Compile Include="Infrastructure\Helpers\HelperConstants.cs" />
     <Compile Include="Infrastructure\Helpers\InputExtensions.cs" />

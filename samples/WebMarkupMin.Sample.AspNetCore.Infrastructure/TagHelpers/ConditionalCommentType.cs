@@ -1,4 +1,4 @@
-﻿namespace WebMarkupMin.Sample.AspNetCore1.Mvc1.Infrastructure.TagHelpers
+﻿namespace WebMarkupMin.Sample.AspNetCore.Infrastructure.TagHelpers
 {
 	public enum ConditionalCommentType
 	{

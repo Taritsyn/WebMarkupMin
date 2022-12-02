@@ -3,7 +3,7 @@
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace WebMarkupMin.Sample.AspNetCore1.Mvc1.Infrastructure.Helpers
+namespace WebMarkupMin.Sample.AspNetCore.Infrastructure.Helpers
 {
 	public static class CommonExtensions
 	{

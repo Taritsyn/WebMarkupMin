@@ -1,13 +1,15 @@
-﻿using System.Xml.Linq;
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Net.Http.Headers;
 
+using WebMarkupMin.Sample.AspNetCore.Infrastructure.ActionResults;
+using WebMarkupMin.Sample.AspNetCore.Infrastructure.Extensions;
 using WebMarkupMin.Sample.Logic.Models;
 using WebMarkupMin.Sample.Logic.Services;
 
@@ -17,13 +19,10 @@ namespace WebMarkupMin.Sample.AspNetCore1Full.Mvc1.Controllers
 	{
 		private readonly FileContentService _fileContentService;
 
-		private readonly SitemapService _sitemapService;
-
 
 		public HomeController(
 			IConfigurationRoot configuration,
-			IHostingEnvironment hostingEnvironment,
-			SitemapService sitemapService)
+			IHostingEnvironment hostingEnvironment)
 		{
 			string textContentDirectoryPath = configuration
 				.GetSection("webmarkupmin")
@@ -31,7 +30,6 @@ namespace WebMarkupMin.Sample.AspNetCore1Full.Mvc1.Controllers
 				;
 
 			_fileContentService = new FileContentService(textContentDirectoryPath, hostingEnvironment);
-			_sitemapService = sitemapService;
 		}
 
 
@@ -72,23 +70,22 @@ namespace WebMarkupMin.Sample.AspNetCore1Full.Mvc1.Controllers
 		[ResponseCache(CacheProfileName = "CacheCompressedContent5Minutes")]
 		public IActionResult Sitemap()
 		{
+			Uri siteUrl = this.GetSiteUrl();
 			var sitemapItems = new List<SitemapItem>
 			{
-				new SitemapItem(GetAbsoluteUrl("Home", "Index"), null, SitemapChangeFrequency.Hourly, 0.9),
-				new SitemapItem(GetAbsoluteUrl("Home", "Minifiers"), null, SitemapChangeFrequency.Daily, 0.7),
-				new SitemapItem(GetAbsoluteUrl("HtmlMinifier", "Index"), null, SitemapChangeFrequency.Daily, 0.5),
-				new SitemapItem(GetAbsoluteUrl("XhtmlMinifier", "Index"), null, SitemapChangeFrequency.Daily, 0.5),
-				new SitemapItem(GetAbsoluteUrl("XmlMinifier", "Index"), null, SitemapChangeFrequency.Daily, 0.5),
-				new SitemapItem(GetAbsoluteUrl("Home", "Changelog"), null, SitemapChangeFrequency.Daily, 0.8),
-				new SitemapItem(GetAbsoluteUrl("Home", "Contact"), null, SitemapChangeFrequency.Weekly, 0.4)
+				new SitemapItem(this.GetAbsoluteActionUrl(siteUrl, "Home", "Index"), null, SitemapChangeFrequency.Hourly, 0.9),
+				new SitemapItem(this.GetAbsoluteActionUrl(siteUrl, "Home", "Minifiers"), null, SitemapChangeFrequency.Daily, 0.7),
+				new SitemapItem(this.GetAbsoluteActionUrl(siteUrl, "HtmlMinifier", "Index"), null, SitemapChangeFrequency.Daily, 0.5),
+				new SitemapItem(this.GetAbsoluteActionUrl(siteUrl, "XhtmlMinifier", "Index"), null, SitemapChangeFrequency.Daily, 0.5),
+				new SitemapItem(this.GetAbsoluteActionUrl(siteUrl, "XmlMinifier", "Index"), null, SitemapChangeFrequency.Daily, 0.5),
+				new SitemapItem(this.GetAbsoluteActionUrl(siteUrl, "Home", "Changelog"), null, SitemapChangeFrequency.Daily, 0.8),
+				new SitemapItem(this.GetAbsoluteActionUrl(siteUrl, "Home", "Contact"), null, SitemapChangeFrequency.Weekly, 0.4)
 			};
+			var sitemap = new Sitemap(sitemapItems);
 
-			XDocument xmlSitemap = _sitemapService.GenerateXmlSiteMap(sitemapItems);
-
-			return new ContentResult
+			return new XmlResult(sitemap.GetXmlSitemapFormatter())
 			{
-				Content = xmlSitemap.ToString(),
-				ContentType = "text/xml"
+				ContentType = new MediaTypeHeaderValue("text/xml") { Encoding = Encoding.UTF8 }.ToString()
 			};
 		}
 
@@ -96,24 +93,6 @@ namespace WebMarkupMin.Sample.AspNetCore1Full.Mvc1.Controllers
 		public IActionResult Error()
 		{
 			return View();
-		}
-
-		[NonAction]
-		private string GetAbsoluteUrl(string controllerName, string actionName)
-		{
-			ActionContext actionContext = Url.ActionContext;
-			IUrlHelper urlHelper = new UrlHelper(actionContext);
-
-			string url = urlHelper.Action(actionName, controllerName);
-			string absoluteUrl = string.Empty;
-
-			if (url != null)
-			{
-				HttpRequest request = actionContext.HttpContext.Request;
-				absoluteUrl = request.Scheme + "://" + request.Host + url;
-			}
-
-			return absoluteUrl;
 		}
 	}
 }

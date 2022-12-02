@@ -1,32 +1,36 @@
 ﻿@using System.Text
 @using System.Xml
-@using System.Xml.Linq
 
 @using WebMarkupMin.Sample.AspNet4.WebPages2
 @using WebMarkupMin.Sample.Logic.Models
-@using WebMarkupMin.Sample.Logic.Services
 
 @{
 	Layout = null;
 
-	var sitemapService = new SitemapService();
+	const string contentType = "text/xml";
+	Encoding contentEncoding = Encoding.UTF8;
 
-	Response.ContentType = "text/xml";
-	Response.ContentEncoding = Encoding.UTF8;
-
-	using (var writer = new XmlTextWriter(Response.Output))
+	Uri siteUrl = UrlHelper.GetSiteUrl();
+	var sitemapItems = new List<SitemapItem>
 	{
+		new SitemapItem(UrlHelper.GetAbsolutePageUrl(siteUrl, "/"), null, SitemapChangeFrequency.Hourly, 0.9),
+		new SitemapItem(UrlHelper.GetAbsolutePageUrl(siteUrl, "/ChangeLog"), null, SitemapChangeFrequency.Daily, 0.8),
+		new SitemapItem(UrlHelper.GetAbsolutePageUrl(siteUrl, "/Contact"), null, SitemapChangeFrequency.Weekly, 0.4)
+	};
+	var sitemap = new WebMarkupMin.Sample.Logic.Models.Sitemap(sitemapItems);
+
+	Response.ContentType = contentType;
+	Response.ContentEncoding = contentEncoding;
+
+	var settings = new XmlWriterSettings()
+	{
+		Encoding = contentEncoding,
 		// Add indents in order to test the XML minification
-		writer.Formatting = Formatting.Indented;
+		Indent = true
+	};
 
-		var sitemapItems = new List<SitemapItem>
-		{
-			new SitemapItem(UrlHelper.GetAbsoluteUrl("/"), null, SitemapChangeFrequency.Hourly, 0.9),
-			new SitemapItem(UrlHelper.GetAbsoluteUrl("/ChangeLog"), null, SitemapChangeFrequency.Daily, 0.8),
-			new SitemapItem(UrlHelper.GetAbsoluteUrl("/Contact"), null, SitemapChangeFrequency.Weekly, 0.4)
-		};
-
-		XDocument sitemap = sitemapService.GenerateXmlSiteMap(sitemapItems);
-		sitemap.WriteTo(writer);
+	using (XmlWriter writer = XmlWriter.Create(Response.Output, settings))
+	{
+		sitemap.GetXmlSitemapFormatter().WriteXml(writer);
 	}
 }

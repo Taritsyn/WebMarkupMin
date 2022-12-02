@@ -1,10 +1,10 @@
 ﻿using System;
 
 using WebMarkupMin.Core;
-using WebMarkupMin.NUglify;
 #if !NETSTANDARD1_6
 using WebMarkupMin.MsAjax;
 #endif
+using WebMarkupMin.NUglify;
 #if !NET40 && !NETSTANDARD1_6
 using WebMarkupMin.Yui;
 #endif

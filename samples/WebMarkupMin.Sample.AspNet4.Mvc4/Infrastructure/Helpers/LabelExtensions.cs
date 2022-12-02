@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web.Mvc;
 using System.Linq.Expressions;
+using System.Web.Mvc;
 
 namespace WebMarkupMin.Sample.AspNet4.Mvc4.Infrastructure.Helpers
 {

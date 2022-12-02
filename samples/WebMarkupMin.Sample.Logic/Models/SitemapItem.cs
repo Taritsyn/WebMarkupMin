@@ -3,14 +3,14 @@
 namespace WebMarkupMin.Sample.Logic.Models
 {
 	/// <summary>
-	/// Sitemap item
+	/// Represents a sitemap item
 	/// </summary>
 	public sealed class SitemapItem
 	{
 		/// <summary>
-		/// Gets a URL of the page
+		/// Gets a URI of the page
 		/// </summary>
-		public string Url
+		public Uri Url
 		{
 			get;
 			private set;
@@ -46,13 +46,13 @@ namespace WebMarkupMin.Sample.Logic.Models
 
 
 		/// <summary>
-		/// Constructs instance of <see cref="SitemapItem"/>
+		/// Constructs an instance of the <see cref="SitemapItem"/>
 		/// </summary>
-		/// <param name="url">URL of the page</param>
+		/// <param name="url">URI of the page</param>
 		/// <param name="lastModified">The date of last modification of the file</param>
 		/// <param name="changeFrequency">How frequently the page is likely to change</param>
 		/// <param name="priority">The priority of this URL relative to other URLs on your site</param>
-		public SitemapItem(string url, DateTime? lastModified = null, SitemapChangeFrequency? changeFrequency = null,
+		public SitemapItem(Uri url, DateTime? lastModified = null, SitemapChangeFrequency? changeFrequency = null,
 			double? priority = null)
 		{
 			Url = url;

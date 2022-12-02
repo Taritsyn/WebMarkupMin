@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-#if NET452 || NETSTANDARD
+#if NET452 || NETSTANDARD || NETCOREAPP2_1
 using HostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 #elif NETCOREAPP3_1_OR_GREATER
 using HostingEnvironment = Microsoft.AspNetCore.Hosting.IWebHostEnvironment;

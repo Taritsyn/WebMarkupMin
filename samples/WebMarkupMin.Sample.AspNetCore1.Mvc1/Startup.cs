@@ -140,7 +140,6 @@ namespace WebMarkupMin.Sample.AspNetCore1.Mvc1
 			});
 
 			// Add WebMarkupMin sample services to the services container.
-			services.AddSingleton<SitemapService>();
 			services.AddSingleton<CssMinifierFactory>();
 			services.AddSingleton<JsMinifierFactory>();
 			services.AddSingleton<HtmlMinificationService>();

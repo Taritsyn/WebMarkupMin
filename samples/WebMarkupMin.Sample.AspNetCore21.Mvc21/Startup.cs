@@ -151,7 +151,6 @@ namespace WebMarkupMin.Sample.AspNetCore21.Mvc21
 			}).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			// Add WebMarkupMin sample services to the services container.
-			services.AddSingleton<SitemapService>();
 			services.AddSingleton<CssMinifierFactory>();
 			services.AddSingleton<JsMinifierFactory>();
 			services.AddSingleton<HtmlMinificationService>();
