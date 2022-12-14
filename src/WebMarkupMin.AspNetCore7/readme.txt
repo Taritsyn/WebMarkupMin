@@ -17,7 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   Changed a life cycle of the compression stream.
+   Added support of ASP.NET Core 7.0.1.
 
    =============
    DOCUMENTATION
