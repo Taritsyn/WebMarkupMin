@@ -12,7 +12,7 @@
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
     <Description>WebMarkupMin.AspNetCore6 contains one ASP.NET Core 6 Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Middleware;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
-    <PackageReleaseNotes>Changed a life cycle of the compression stream.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added support of ASP.NET Core 6.0.12.</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />
@@ -20,7 +20,7 @@
   <Import Project="../../build/nuget-metadata.props" />
 
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="6.0.11" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="6.0.12" />
 
     <PackageReference Include="AdvancedStringBuilder" Version="0.1.0" />
     <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha6" PrivateAssets="All" />
