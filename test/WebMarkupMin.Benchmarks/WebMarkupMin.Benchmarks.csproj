@@ -14,7 +14,7 @@
   <Import Project="../../build/common.props" />
 
   <ItemGroup>
-    <PackageReference Include="NUglify" Version="1.20.3" />
+    <PackageReference Include="NUglify" Version="1.20.4" />
     <PackageReference Include="Moq" Version="4.18.2" />
 
     <ProjectReference Include="..\..\src\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
