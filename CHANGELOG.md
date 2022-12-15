@@ -1,6 +1,12 @@
 Change log
 ==========
 
+## v2.13.5 - December 15, 2022
+ * In WebMarkupMin.NUglify added support of the NUglify version 1.20.4
+ * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.1.32
+ * In WebMarkupMin.AspNetCore6 added support of ASP.NET Core 6.0.12
+ * In WebMarkupMin.AspNetCore7 added support of ASP.NET Core 7.0.1
+
 ## v2.13.4 - November 20, 2022
  * In ASP.NET Core extensions was changed a life cycle of the compression stream
 
