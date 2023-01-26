@@ -1,6 +1,12 @@
 Change log
 ==========
 
+## v2.13.6 - January 26, 2023
+ * Fixed a [error #102](https://github.com/Taritsyn/WebMarkupMin/issues/102) “Minification mangling html with conditional comments”
+ * In WebMarkupMin.NUglify added support of the NUglify version 1.20.5
+ * In WebMarkupMin.AspNetCore6 added support of ASP.NET Core 6.0.13
+ * In WebMarkupMin.AspNetCore7 added support of ASP.NET Core 7.0.2
+
 ## v2.13.5 - December 15, 2022
  * In WebMarkupMin.NUglify added support of the NUglify version 1.20.4
  * In WebMarkupMin.AspNetCore3 added support of ASP.NET Core 3.1.32

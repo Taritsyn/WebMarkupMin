@@ -1,11 +1,11 @@
 
 
    --------------------------------------------------------------------------------
-              README file for Web Markup Minifier: ASP.NET Core 6 v2.13.5
+              README file for Web Markup Minifier: ASP.NET Core 6 v2.13.6
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2022 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2023 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========
