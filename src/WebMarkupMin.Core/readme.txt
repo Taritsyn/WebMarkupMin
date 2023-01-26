@@ -46,7 +46,7 @@
    =============
    RELEASE NOTES
    =============
-   `Info` method of `LoggerBase` class is marked as virtual.
+   Fixed a error #102 “Minification mangling html with conditional comments”.
 
    =============
    DOCUMENTATION

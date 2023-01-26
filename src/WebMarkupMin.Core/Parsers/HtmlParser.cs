@@ -86,7 +86,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Stack of tags
 		/// </summary>
-		private readonly List<HtmlTag> _tagStack = new List<HtmlTag>();
+		private readonly Stack<HtmlTag> _tagStack = new Stack<HtmlTag>();
 
 		/// <summary>
 		/// HTML attribute type determiner
@@ -100,15 +100,15 @@ namespace WebMarkupMin.Core.Parsers
 		private readonly List<HtmlAttribute> _tempAttributes = new List<HtmlAttribute>();
 
 		/// <summary>
-		/// Stack of conditional comments
+		/// Stack of conditional comment types
 		/// </summary>
-		private readonly Stack<HtmlConditionalComment> _conditionalCommentStack =
-			new Stack<HtmlConditionalComment>();
+		private readonly Stack<HtmlConditionalCommentType> _conditionalCommentTypeStack =
+			new Stack<HtmlConditionalCommentType>();
 
 		/// <summary>
-		/// Flag for whether the conditional comment is open
+		/// Flag for whether the non-validating conditional comment is open
 		/// </summary>
-		private bool _conditionalCommentOpened = false;
+		private bool _nonValidatingConditionalCommentOpened = false;
 
 		/// <summary>
 		/// Stack of XML-based tags
@@ -159,10 +159,10 @@ namespace WebMarkupMin.Core.Parsers
 					while (_innerContext.Position <= endPosition)
 					{
 						bool isProcessed = false;
-						HtmlTag lastStackedTag = _tagStack.LastOrDefault();
+						HtmlTag lastStackedTag;
 
 						// Make sure we're not in a tag, that contains embedded code
-						if (lastStackedTag == null || !lastStackedTag.Flags.IsSet(HtmlTagFlags.EmbeddedCode))
+						if (!_tagStack.TryPeek(out lastStackedTag) || !lastStackedTag.Flags.IsSet(HtmlTagFlags.EmbeddedCode))
 						{
 							if (_innerContext.PeekCurrentChar() == '<')
 							{
@@ -281,10 +281,10 @@ namespace WebMarkupMin.Core.Parsers
 					}
 
 					// Clean up any remaining tags
-					ParseEndTag();
+					ParseRemainingEndTags();
 
 					// Check whether there were not closed conditional comment
-					if (_conditionalCommentStack.Count > 0)
+					if (_conditionalCommentTypeStack.Count > 0)
 					{
 						throw new MarkupParsingException(
 							Strings.ErrorMessage_NotClosedConditionalComment,
@@ -299,8 +299,8 @@ namespace WebMarkupMin.Core.Parsers
 				{
 					_tagStack.Clear();
 					_tempAttributes.Clear();
-					_conditionalCommentStack.Clear();
-					_conditionalCommentOpened = false;
+					_conditionalCommentTypeStack.Clear();
+					_nonValidatingConditionalCommentOpened = false;
 					_xmlTagStack.Clear();
 					_context = null;
 					_innerContext = null;
@@ -617,8 +617,9 @@ namespace WebMarkupMin.Core.Parsers
 		/// </summary>
 		private void ProcessEmbeddedCode()
 		{
-			HtmlTag stackedTag = _tagStack.LastOrDefault();
-			if (stackedTag != null)
+			HtmlTag stackedTag;
+
+			if (_tagStack.TryPeek(out stackedTag))
 			{
 				string content = _innerContext.SourceCode;
 				int contentLength = content.Length;
@@ -845,7 +846,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <param name="type">Conditional comment type</param>
 		private void ParseIfConditionalComment(string expression, HtmlConditionalCommentType type)
 		{
-			if (_conditionalCommentStack.Count > 0)
+			if (_conditionalCommentTypeStack.Count > 0)
 			{
 				throw new MarkupParsingException(
 					Strings.ErrorMessage_NotClosedConditionalComment,
@@ -854,13 +855,13 @@ namespace WebMarkupMin.Core.Parsers
 
 			string processedExpression = expression.Trim();
 
-			_conditionalCommentStack.Push(new HtmlConditionalComment(expression, type));
+			_conditionalCommentTypeStack.Push(type);
 			if (type == HtmlConditionalCommentType.Hidden || type == HtmlConditionalCommentType.Revealed)
 			{
-				_conditionalCommentOpened = true;
+				_nonValidatingConditionalCommentOpened = true;
 			}
 
-			_handlers.IfConditionalComment?.Invoke(_context, new HtmlConditionalComment(processedExpression, type));
+			_handlers.IfConditionalComment?.Invoke(_context, processedExpression, type);
 		}
 
 		/// <summary>
@@ -869,16 +870,15 @@ namespace WebMarkupMin.Core.Parsers
 		/// <param name="type">Conditional comment type</param>
 		private void ParseEndIfConditionalComment(HtmlConditionalCommentType type)
 		{
-			if (_conditionalCommentStack.Count > 0)
+			if (_conditionalCommentTypeStack.Count > 0)
 			{
-				var stackedConditionalComment = _conditionalCommentStack.Pop();
-				var stackedType = stackedConditionalComment.Type;
+				HtmlConditionalCommentType stackedType = _conditionalCommentTypeStack.Pop();
 
 				if (type == HtmlConditionalCommentType.Hidden || type == HtmlConditionalCommentType.Revealed)
 				{
 					if (stackedType == type)
 					{
-						_conditionalCommentOpened = false;
+						_nonValidatingConditionalCommentOpened = false;
 					}
 					else
 					{
@@ -921,10 +921,11 @@ namespace WebMarkupMin.Core.Parsers
 		{
 			HtmlTagFlags tagFlags = GetTagFlagsByName(tagNameInLowercase);
 
-			if (tagFlags.IsSet(HtmlTagFlags.Optional))
+			if (!_nonValidatingConditionalCommentOpened && tagFlags.IsSet(HtmlTagFlags.Optional))
 			{
-				HtmlTag lastStackedTag = _tagStack.LastOrDefault();
-				if (lastStackedTag != null && lastStackedTag.NameInLowercase == tagNameInLowercase)
+				HtmlTag lastStackedTag;
+
+				if (_tagStack.TryPeek(out lastStackedTag) && lastStackedTag.NameInLowercase == tagNameInLowercase)
 				{
 					ParseEndTag(lastStackedTag.Name, lastStackedTag.NameInLowercase);
 				}
@@ -958,40 +959,17 @@ namespace WebMarkupMin.Core.Parsers
 
 			var tag = new HtmlTag(tagName, tagNameInLowercase, attributes, tagFlags);
 
-			if (!isEmptyTag)
+			if (!isEmptyTag && (!_nonValidatingConditionalCommentOpened || tagFlags.IsSet(HtmlTagFlags.EmbeddedCode)))
 			{
-				if (_conditionalCommentOpened)
-				{
-					HtmlConditionalComment lastConditionalComment = _conditionalCommentStack.Peek();
-					HtmlConditionalCommentType lastConditionalCommentType = lastConditionalComment.Type;
-
-					if (tagFlags.IsSet(HtmlTagFlags.EmbeddedCode)
-						|| lastConditionalCommentType == HtmlConditionalCommentType.RevealedValidating
-						|| lastConditionalCommentType == HtmlConditionalCommentType.RevealedValidatingSimplified)
-					{
-						_tagStack.Add(tag);
-					}
-				}
-				else
-				{
-					_tagStack.Add(tag);
-				}
+				_tagStack.Push(tag);
 			}
 
 			_handlers.StartTag?.Invoke(_context, tag);
 
-			if (tagFlags.IsSet(HtmlTagFlags.Xml) && !tagFlags.IsSet(HtmlTagFlags.NonIndependent))
+			if (tagFlags.IsSet(HtmlTagFlags.Xml))
 			{
 				_xmlTagStack.Push(tagNameInLowercase);
 			}
-		}
-
-		/// <summary>
-		/// Parses a end tag
-		/// </summary>
-		private void ParseEndTag()
-		{
-			ParseEndTag(null, null);
 		}
 
 		/// <summary>
@@ -1001,72 +979,60 @@ namespace WebMarkupMin.Core.Parsers
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
 		private void ParseEndTag(string tagName, string tagNameInLowercase)
 		{
-			int endTagIndex = 0;
-			int lastTagIndex = _tagStack.Count - 1;
-			bool tagNameNotEmpty = !string.IsNullOrEmpty(tagName);
-			HtmlParsingHandlers.EndTagDelegate endTagHandler = _handlers.EndTag;
+			HtmlTag tag = null;
 
-			if (tagNameNotEmpty)
+			if (_tagStack.Count > 0
+				&& (!_nonValidatingConditionalCommentOpened || _tagTypeDeterminer.IsTagWithEmbeddedCode(tagNameInLowercase)))
 			{
-				for (endTagIndex = lastTagIndex; endTagIndex >= 0; endTagIndex--)
+				// Close all the open elements, up the stack
+				while (_tagStack.Count > 0)
 				{
-					if (_tagStack[endTagIndex].NameInLowercase == tagNameInLowercase)
+					HtmlTag stackedTag = _tagStack.Pop();
+					string stackedTagNameInLowercase = stackedTag.NameInLowercase;
+					HtmlTagFlags stackedTagFlags = stackedTag.Flags;
+					bool isCurrentTag = tagNameInLowercase == stackedTagNameInLowercase;
+					string endTagName = isCurrentTag ? tagName : stackedTag.Name;
+
+					tag = new HtmlTag(endTagName, stackedTagNameInLowercase, stackedTagFlags);
+					InternalParseEndTag(tag);
+
+					if (isCurrentTag)
 					{
 						break;
 					}
 				}
 			}
 
-			if (endTagIndex >= 0)
+			if (tag == null)
 			{
-				// Close all the open elements, up the stack
-				if (endTagHandler != null)
-				{
-					for (int tagIndex = lastTagIndex; tagIndex >= endTagIndex; tagIndex--)
-					{
-						HtmlTag startTag = _tagStack[tagIndex];
-						string startTagNameInLowercase = startTag.NameInLowercase;
-						HtmlTagFlags startTagFlags = startTag.Flags;
-
-						string endTagName;
-						if (tagNameNotEmpty && tagNameInLowercase == startTagNameInLowercase)
-						{
-							endTagName = tagName;
-						}
-						else
-						{
-							endTagName = startTag.Name;
-						}
-
-						if (_xmlTagStack.Count > 0 && !startTagFlags.IsSet(HtmlTagFlags.NonIndependent))
-						{
-							_xmlTagStack.Pop();
-						}
-
-						var endTag = new HtmlTag(endTagName, startTagNameInLowercase, startTagFlags);
-						endTagHandler(_context, endTag);
-					}
-				}
-
-				// Remove the open elements from the stack
-				if (endTagIndex <= lastTagIndex)
-				{
-					int tagToRemoveStartIndex = endTagIndex;
-					int tagsToRemoveCount = lastTagIndex - endTagIndex + 1;
-
-					_tagStack.RemoveRange(tagToRemoveStartIndex, tagsToRemoveCount);
-				}
+				tag = new HtmlTag(tagName, tagNameInLowercase, GetTagFlagsByName(tagNameInLowercase));
+				InternalParseEndTag(tag);
 			}
-			else if (tagNameNotEmpty && _conditionalCommentOpened)
+		}
+
+		/// <summary>
+		/// Parses a remaining end tags
+		/// </summary>
+		private void ParseRemainingEndTags()
+		{
+			// Close all the open elements, up the stack
+			while (_tagStack.Count > 0)
 			{
-				if (_xmlTagStack.Count > 0 && _tagTypeDeterminer.IsXmlBasedTag(tagNameInLowercase))
-				{
-					_xmlTagStack.Pop();
-				}
+				HtmlTag stackedTag = _tagStack.Pop();
+				var tag = new HtmlTag(stackedTag.Name, stackedTag.NameInLowercase, stackedTag.Flags);
 
-				var endTag = new HtmlTag(tagName, tagNameInLowercase, GetTagFlagsByName(tagNameInLowercase));
-				endTagHandler?.Invoke(_context, endTag);
+				InternalParseEndTag(tag);
 			}
+		}
+
+		private void InternalParseEndTag(HtmlTag tag)
+		{
+			if (_xmlTagStack.Count > 0 && !tag.Flags.IsSet(HtmlTagFlags.Xml))
+			{
+				_xmlTagStack.Pop();
+			}
+
+			_handlers.EndTag?.Invoke(_context, tag);
 		}
 
 		#endregion

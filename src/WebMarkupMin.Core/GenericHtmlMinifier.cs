@@ -780,17 +780,17 @@ namespace WebMarkupMin.Core
 		/// If conditional comments handler
 		/// </summary>
 		/// <param name="context">Markup parsing context</param>
-		/// <param name="htmlConditionalComment">Conditional comment</param>
+		/// <param name="expression">Conditional expression</param>
+		/// <param name="type">Conditional comment type</param>
 		private void IfConditionalCommentHandler(MarkupParsingContext context,
-			HtmlConditionalComment htmlConditionalComment)
+			string expression, HtmlConditionalCommentType type)
 		{
 			_currentNodeType = HtmlNodeType.IfConditionalComment;
-			HtmlConditionalCommentType htmlConditionalCommentType = htmlConditionalComment.Type;
 
 			string startPart;
 			string endPart;
 
-			switch (htmlConditionalCommentType)
+			switch (type)
 			{
 				case HtmlConditionalCommentType.Hidden:
 					startPart = "<!--[if ";
@@ -818,7 +818,7 @@ namespace WebMarkupMin.Core
 
 			HtmlMinificationOutputWriter output = _output;
 			output.Write(startPart);
-			output.Write(htmlConditionalComment.Expression);
+			output.Write(expression);
 			output.Write(endPart);
 
 			_previousNodeRemoved = false;

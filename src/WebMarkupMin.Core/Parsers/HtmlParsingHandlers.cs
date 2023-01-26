@@ -80,9 +80,10 @@
 		/// If conditional comments delegate
 		/// </summary>
 		/// <param name="context">Markup parsing context</param>
-		/// <param name="htmlConditionalComment">Conditional comment</param>
+		/// <param name="expression">Conditional expression</param>
+		/// <param name="type">Conditional comment type</param>
 		public delegate void IfConditionalCommentDelegate(MarkupParsingContext context,
-			HtmlConditionalComment htmlConditionalComment);
+			string expression, HtmlConditionalCommentType type);
 
 		/// <summary>
 		/// End If conditional comments delegate
