@@ -15,11 +15,6 @@
    `WebMarkupMinMiddleware`.
 
    =============
-   RELEASE NOTES
-   =============
-   Changed a life cycle of the compression stream.
-
-   =============
    DOCUMENTATION
    =============
    See documentation on GitHub - https://github.com/Taritsyn/WebMarkupMin/wiki

@@ -12,7 +12,6 @@
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
     <Description>WebMarkupMin.AspNetCore3 contains one ASP.NET Core 3.1+ Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Middleware;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
-    <PackageReleaseNotes>Added support of ASP.NET Core 3.1.32.</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />
