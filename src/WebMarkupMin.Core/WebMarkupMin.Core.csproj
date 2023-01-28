@@ -18,7 +18,7 @@ Minification of markup produces by removing extra whitespaces, comments and redu
 
 Also supports minification of views of popular JavaScript template engines: KnockoutJS, Kendo UI MVVM and AngularJS 1.X.</Description>
     <PackageTags>WebMarkupMin;Markup;HTML;XHTML;XML;Minification;Minifier;Minify;Performance;Optimization;Compression</PackageTags>
-    <PackageReleaseNotes>Fixed a error #102 “Minification mangling html with conditional comments”.</PackageReleaseNotes>
+    <PackageReleaseNotes>Implemented a more correct parsing of the missing HTML end tags.</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />

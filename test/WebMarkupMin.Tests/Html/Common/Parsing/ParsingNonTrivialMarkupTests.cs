@@ -109,8 +109,8 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 				;
 
 			const string input21 = "<head><td>m<head>l><html><body><h1>h1</h1><p>p</p></body></html>";
-			const string targetOutput21 = "<head><td>m<head>l><html></html></head><body><h1>h1</h1>" +
-				"<p>p</p></body></td></head>";
+			const string targetOutput21 = "<head><td>m<head>l><html><body><h1>h1</h1>" +
+				"<p>p</p></body></html></head></td></head>";
 
 			// Act
 			string output1 = minifier.Minify(input1).MinifiedContent;

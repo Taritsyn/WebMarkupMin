@@ -46,7 +46,7 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a error #102 “Minification mangling html with conditional comments”.
+   Implemented a more correct parsing of the missing HTML end tags.
 
    =============
    DOCUMENTATION

@@ -921,21 +921,32 @@ namespace WebMarkupMin.Core.Parsers
 		{
 			HtmlTagFlags tagFlags = GetTagFlagsByName(tagNameInLowercase);
 
-			if (!_nonValidatingConditionalCommentOpened && tagFlags.IsSet(HtmlTagFlags.Optional))
+			if (_tagStack.Count > 0 && tagFlags.IsSet(HtmlTagFlags.Optional))
 			{
-				HtmlTag lastStackedTag;
+				HtmlTag lastStackedTag = _tagStack.Peek();
+				HtmlTag optionalEndTag = null;
 
-				if (_tagStack.TryPeek(out lastStackedTag) && lastStackedTag.NameInLowercase == tagNameInLowercase)
+				if (lastStackedTag.NameInLowercase == tagNameInLowercase)
 				{
-					ParseEndTag(lastStackedTag.Name, lastStackedTag.NameInLowercase);
+					// Insert the optional end tag before the similar current tag
+					optionalEndTag = lastStackedTag;
 				}
-				else
+				else if (tagNameInLowercase == "body")
 				{
-					if (tagNameInLowercase == "body" && _tagStack.Any(t => t.NameInLowercase == "head"))
+					// Insert the missing `head` end tag before the `body` tag
+					if (lastStackedTag.NameInLowercase == "head")
 					{
-						HtmlTag headTag = _tagStack.First(t => t.NameInLowercase == "head");
-						ParseEndTag(headTag.Name, headTag.NameInLowercase);
+						optionalEndTag = lastStackedTag;
 					}
+					else if (!lastStackedTag.Flags.IsSet(HtmlTagFlags.Optional))
+					{
+						optionalEndTag = _tagStack.GetFirstTagByNameInLowercase("head");
+					}
+				}
+
+				if (optionalEndTag != null)
+				{
+					ParseEndTag(optionalEndTag.Name, optionalEndTag.NameInLowercase);
 				}
 			}
 
@@ -984,21 +995,23 @@ namespace WebMarkupMin.Core.Parsers
 			if (_tagStack.Count > 0
 				&& (!_nonValidatingConditionalCommentOpened || _tagTypeDeterminer.IsTagWithEmbeddedCode(tagNameInLowercase)))
 			{
-				// Close all the open elements, up the stack
-				while (_tagStack.Count > 0)
+				HtmlTag currentStackedTag = _tagStack.GetFirstTagByNameInLowercase(tagNameInLowercase);
+
+				if (currentStackedTag != null)
 				{
-					HtmlTag stackedTag = _tagStack.Pop();
-					string stackedTagNameInLowercase = stackedTag.NameInLowercase;
-					HtmlTagFlags stackedTagFlags = stackedTag.Flags;
-					bool isCurrentTag = tagNameInLowercase == stackedTagNameInLowercase;
-					string endTagName = isCurrentTag ? tagName : stackedTag.Name;
-
-					tag = new HtmlTag(endTagName, stackedTagNameInLowercase, stackedTagFlags);
-					InternalParseEndTag(tag);
-
-					if (isCurrentTag)
+					while (_tagStack.Count > 0)
 					{
-						break;
+						HtmlTag stackedTag = _tagStack.Pop();
+						bool isCurrentTag = stackedTag == currentStackedTag;
+						string endTagName = isCurrentTag ? tagName : stackedTag.Name;
+
+						tag = new HtmlTag(endTagName, stackedTag.NameInLowercase, stackedTag.Flags);
+						InternalParseEndTag(tag);
+
+						if (isCurrentTag)
+						{
+							break;
+						}
 					}
 				}
 			}
