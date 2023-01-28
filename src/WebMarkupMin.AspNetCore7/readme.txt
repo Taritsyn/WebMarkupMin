@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-              README file for Web Markup Minifier: ASP.NET Core 7 v2.13.6
+              README file for Web Markup Minifier: ASP.NET Core 7 v2.13.7
 
    --------------------------------------------------------------------------------
 
@@ -13,11 +13,6 @@
    ===========
    WebMarkupMin.AspNetCore7 contains one ASP.NET Core 7 Middleware -
    `WebMarkupMinMiddleware`.
-
-   =============
-   RELEASE NOTES
-   =============
-   Added support of ASP.NET Core 7.0.2.
 
    =============
    DOCUMENTATION

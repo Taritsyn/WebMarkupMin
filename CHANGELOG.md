@@ -1,6 +1,10 @@
 Change log
 ==========
 
+## v2.13.7 - January 28, 2023
+ * Implemented a more correct parsing of the missing HTML end tags
+ * Fixed a [error #154](https://github.com/Taritsyn/WebMarkupMin/issues/154) “Whitespace trimming on anchor tags (when using svg tag)”
+
 ## v2.13.6 - January 26, 2023
  * Fixed a [error #102](https://github.com/Taritsyn/WebMarkupMin/issues/102) “Minification mangling html with conditional comments”
  * In WebMarkupMin.NUglify added support of the NUglify version 1.20.5
