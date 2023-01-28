@@ -1040,7 +1040,7 @@ namespace WebMarkupMin.Core.Parsers
 
 		private void InternalParseEndTag(HtmlTag tag)
 		{
-			if (_xmlTagStack.Count > 0 && !tag.Flags.IsSet(HtmlTagFlags.Xml))
+			if (_xmlTagStack.Count > 0 && tag.Flags.IsSet(HtmlTagFlags.Xml))
 			{
 				_xmlTagStack.Pop();
 			}

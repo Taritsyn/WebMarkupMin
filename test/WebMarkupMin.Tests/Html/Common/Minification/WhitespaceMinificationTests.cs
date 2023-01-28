@@ -2030,6 +2030,40 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 			const string targetOutput5H = "<p>An <del>old\n</del> <ins>new\n</ins> embedded flash animation:\n" +
 				"<embed src=\"helloworld.swf\"> !</p>";
 
+			const string input6 = "<div>\r\n" +
+				"	<svg class=\"icon-svg\" aria-label=\"Globe icon\"><use href=\"/images/icons.svg#globe\">" +
+				"</use></svg>\r\n" +
+				"	<a href=\"#da\">Danish</a> |\r\n" +
+				"	<a href=\"#en\">English</a>\r\n" +
+				"</div>"
+				;
+			const string targetOutput6A = input6;
+			const string targetOutput6B = input6;
+			const string targetOutput6C = "<div> " +
+				"<svg class=\"icon-svg\" aria-label=\"Globe icon\"><use href=\"/images/icons.svg#globe\">" +
+				"</use></svg> " +
+				"<a href=\"#da\">Danish</a> | " +
+				"<a href=\"#en\">English</a> " +
+				"</div>"
+				;
+			const string targetOutput6D = "<div>\r\n" +
+				"<svg class=\"icon-svg\" aria-label=\"Globe icon\"><use href=\"/images/icons.svg#globe\">" +
+				"</use></svg>\r\n" +
+				"<a href=\"#da\">Danish</a> |\r\n" +
+				"<a href=\"#en\">English</a>\r\n" +
+				"</div>"
+				;
+			const string targetOutput6E = "<div>" +
+				"<svg class=\"icon-svg\" aria-label=\"Globe icon\"><use href=\"/images/icons.svg#globe\">" +
+				"</use></svg> " +
+				"<a href=\"#da\">Danish</a> | " +
+				"<a href=\"#en\">English</a>" +
+				"</div>"
+				;
+			const string targetOutput6F = targetOutput6D;
+			const string targetOutput6G = targetOutput6E;
+			const string targetOutput6H = targetOutput6D;
+
 			// Act
 			string output1A = _keepingWhitespaceMinifier.Minify(input1).MinifiedContent;
 			string output1B = _keepingWhitespaceAndNewLinesMinifier.Minify(input1).MinifiedContent;
@@ -2076,6 +2110,15 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 			string output5G = _aggressiveRemovingWhitespaceMinifier.Minify(input5).MinifiedContent;
 			string output5H = _aggressiveRemovingWhitespaceExceptForNewLinesMinifier.Minify(input5).MinifiedContent;
 
+			string output6A = _keepingWhitespaceMinifier.Minify(input6).MinifiedContent;
+			string output6B = _keepingWhitespaceAndNewLinesMinifier.Minify(input6).MinifiedContent;
+			string output6C = _safeRemovingWhitespaceMinifier.Minify(input6).MinifiedContent;
+			string output6D = _safeRemovingWhitespaceExceptForNewLinesMinifier.Minify(input6).MinifiedContent;
+			string output6E = _mediumRemovingWhitespaceMinifier.Minify(input6).MinifiedContent;
+			string output6F = _mediumRemovingWhitespaceExceptForNewLinesMinifier.Minify(input6).MinifiedContent;
+			string output6G = _aggressiveRemovingWhitespaceMinifier.Minify(input6).MinifiedContent;
+			string output6H = _aggressiveRemovingWhitespaceExceptForNewLinesMinifier.Minify(input6).MinifiedContent;
+
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
@@ -2121,6 +2164,15 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 			Assert.Equal(targetOutput5F, output5F);
 			Assert.Equal(targetOutput5G, output5G);
 			Assert.Equal(targetOutput5H, output5H);
+
+			Assert.Equal(targetOutput6A, output6A);
+			Assert.Equal(targetOutput6B, output6B);
+			Assert.Equal(targetOutput6C, output6C);
+			Assert.Equal(targetOutput6D, output6D);
+			Assert.Equal(targetOutput6E, output6E);
+			Assert.Equal(targetOutput6F, output6F);
+			Assert.Equal(targetOutput6G, output6G);
+			Assert.Equal(targetOutput6H, output6H);
 		}
 
 		[Fact]
