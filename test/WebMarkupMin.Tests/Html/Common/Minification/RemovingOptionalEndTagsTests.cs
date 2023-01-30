@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 	public class RemovingOptionalEndTagsTests
 	{
 		[Fact]
-		public void RemovingStructuralOptionalEndTagsIsCorrect()
+		public void RemovingStructuralOptionalEndTags()
 		{
 			// Arrange
 			var keepingOptionalEndTagsMinifier = new HtmlMinifier(
@@ -453,7 +453,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void RemovingOptionalEndTagsInTablesIsCorrect()
+		public void RemovingOptionalEndTagsInTables()
 		{
 			// Arrange
 			var keepingOptionalEndTagsMinifier = new HtmlMinifier(
@@ -803,7 +803,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void RemovingOptionalEndTagsInSelectsIsCorrect()
+		public void RemovingOptionalEndTagsInSelects()
 		{
 			// Arrange
 			var keepingOptionalEndTagsMinifier = new HtmlMinifier(

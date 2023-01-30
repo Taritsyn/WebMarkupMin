@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Xml.Parsing
 	public class ParsingNonTrivialMarkupTests
 	{
 		[Fact]
-		public void ParsingNonTrivialMarkupIsCorrect()
+		public void ParsingNonTrivialMarkup()
 		{
 			// Arrange
 			var minifier = new XmlMinifier(new XmlMinificationSettings(true));

@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Aurelia.Minification
 	public class ProcessingBooleanAttributesTests
 	{
 		[Fact]
-		public void ProcessingCustomBooleanAttributesIsCorrect()
+		public void ProcessingCustomBooleanAttributes()
 		{
 			// Arrange
 			var keepingBooleanAttributesMinifier = new HtmlMinifier(

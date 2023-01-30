@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 	public class ProcessingCdataSectionsInScriptsAndStylesTests
 	{
 		[Fact]
-		public void ProcessingCdataSectionsInStylesIsCorrect()
+		public void ProcessingCdataSectionsInStyles()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
@@ -253,7 +253,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void ProcessingCdataSectionsInScriptsIsCorrect()
+		public void ProcessingCdataSectionsInScripts()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));

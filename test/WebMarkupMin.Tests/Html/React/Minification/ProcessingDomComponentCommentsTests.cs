@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.React.Minification
 	public class ProcessingDomComponentCommentsTests
 	{
 		[Fact]
-		public void ProcessingDomEmptyComponentCommentsIsCorrect()
+		public void ProcessingDomEmptyComponentComments()
 		{
 			// Arrange
 			var removingHtmlCommentsMinifier = new HtmlMinifier(
@@ -29,7 +29,7 @@ namespace WebMarkupMin.Tests.Html.React.Minification
 		}
 
 		[Fact]
-		public void ProcessingDomTextComponentCommentsIsCorrect()
+		public void ProcessingDomTextComponentComments()
 		{
 			// Arrange
 			var removingHtmlCommentsMinifier = new HtmlMinifier(

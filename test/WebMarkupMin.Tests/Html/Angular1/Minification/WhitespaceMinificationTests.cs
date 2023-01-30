@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 	public class WhitespaceMinificationTests
 	{
 		[Fact]
-		public void WhitespaceMinificationIsCorrect()
+		public void WhitespaceMinification()
 		{
 			// Arrange
 			var keepingWhitespaceMinifier = new XhtmlMinifier(

@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 	public class RemovingAttributeQuotesTests
 	{
 		[Fact]
-		public void RemovingAttributeQuotesIsCorrect()
+		public void RemovingAttributeQuotes()
 		{
 			// Arrange
 			var keepingAttributeQuotesMinifier = new HtmlMinifier(

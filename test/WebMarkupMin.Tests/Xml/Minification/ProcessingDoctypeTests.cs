@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Xml.Minification
 	public class ProcessingDoctypeTests
 	{
 		[Fact]
-		public void ProcessingDoctypeIsCorrect()
+		public void ProcessingDoctype()
 		{
 			// Arrange
 			var minifier = new XmlMinifier(new XmlMinificationSettings(true));

@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Knockout.Minification
 	public class ProcessingContainerlessCommentsTests
 	{
 		[Fact]
-		public void ProcessingContainerlessCommentsIsCorrect()
+		public void ProcessingContainerlessComments()
 		{
 			// Arrange
 			var removingHtmlCommentsMinifier = new HtmlMinifier(

@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 	public class RemovingTagsWithoutContentTests
 	{
 		[Fact]
-		public void RemovingTagsWithoutContentIsCorrect()
+		public void RemovingTagsWithoutContent()
 		{
 			// Arrange
 			var removingTagsWithoutContentMinifier = new HtmlMinifier(

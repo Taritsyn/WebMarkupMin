@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 	public class ParsingNonTrivialMarkupTests
 	{
 		[Fact]
-		public void ParsingNonTrivialMarkupIsCorrect()
+		public void ParsingNonTrivialMarkup()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
@@ -160,7 +160,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 		}
 
 		[Fact]
-		public void ParsingNestedScriptTagsIsCorrect()
+		public void ParsingNestedScriptTags()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));

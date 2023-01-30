@@ -9,7 +9,7 @@ namespace WebMarkupMin.Tests.Xml.Parsing
 	public class ProcessingInvalidCodeTests
 	{
 		[Fact]
-		public void ProcessingInvalidCharactersInXmlDeclarationIsCorrect()
+		public void ProcessingInvalidCharactersInXmlDeclaration()
 		{
 			// Arrange
 			var minifier = new XmlMinifier(new XmlMinificationSettings(true));
@@ -32,7 +32,7 @@ namespace WebMarkupMin.Tests.Xml.Parsing
 		}
 
 		[Fact]
-		public void ProcessingInvalidCharactersInProcessingInstructionIsCorrect()
+		public void ProcessingInvalidCharactersInProcessingInstruction()
 		{
 			// Arrange
 			var minifier = new XmlMinifier(new XmlMinificationSettings(true));
@@ -55,7 +55,7 @@ namespace WebMarkupMin.Tests.Xml.Parsing
 		}
 
 		[Fact]
-		public void ProcessingInvalidDoctypeIsCorrect()
+		public void ProcessingInvalidDoctype()
 		{
 			// Arrange
 			var minifier = new XmlMinifier(new XmlMinificationSettings(true));
@@ -145,7 +145,7 @@ namespace WebMarkupMin.Tests.Xml.Parsing
 		}
 
 		[Fact]
-		public void ProcessingInvalidCharactersInStartTagIsCorrect()
+		public void ProcessingInvalidCharactersInStartTag()
 		{
 			// Arrange
 			var minifier = new XmlMinifier(new XmlMinificationSettings(true));
@@ -183,7 +183,7 @@ namespace WebMarkupMin.Tests.Xml.Parsing
 		}
 
 		[Fact]
-		public void ProcessingInvalidXmlCommentsIsCorrect()
+		public void ProcessingInvalidXmlComments()
 		{
 			// Arrange
 			var minifier = new XmlMinifier(new XmlMinificationSettings(true));

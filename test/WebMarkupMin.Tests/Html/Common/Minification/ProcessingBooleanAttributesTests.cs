@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 	public class ProcessingBooleanAttributesTests
 	{
 		[Fact]
-		public void CollapsingBooleanAttributesIsCorrect()
+		public void CollapsingBooleanAttributes()
 		{
 			// Arrange
 			var collapsingBooleanAttributesMinifier = new HtmlMinifier(
@@ -34,7 +34,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void ProcessingCustomBooleanAttributesIsCorrect()
+		public void ProcessingCustomBooleanAttributes()
 		{
 			// Arrange
 			var keepingBooleanAttributesMinifier = new HtmlMinifier(

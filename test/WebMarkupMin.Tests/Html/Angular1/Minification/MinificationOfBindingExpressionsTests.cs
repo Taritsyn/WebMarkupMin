@@ -10,7 +10,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 		/// Minification of Angular binding expressions in the Mustache-style tags contained in text
 		/// </summary>
 		[Fact]
-		public void MinificationOfBindingExpressionsInMustacheStyleTagsContainedInTextIsCorrect()
+		public void MinificationOfBindingExpressionsInMustacheStyleTagsContainedInText()
 		{
 			// Arrange
 			var keepingExpressionsMinifier = new HtmlMinifier(
@@ -106,7 +106,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 		/// Minification of Angular binding expressions in the Mustache-style tags contained in attribute values
 		/// </summary>
 		[Fact]
-		public void MinificationOfBindingExpressionsInMustacheStyleTagsContainedInAttributeValuesIsCorrect()
+		public void MinificationOfBindingExpressionsInMustacheStyleTagsContainedInAttributeValues()
 		{
 			// Arrange
 			var keepingExpressionsMinifier = new HtmlMinifier(
@@ -191,7 +191,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 		/// Minification of Angular binding expressions in element directives
 		/// </summary>
 		[Fact]
-		public void MinificationOfBindingExpressionsInElementDirectivesIsCorrect()
+		public void MinificationOfBindingExpressionsInElementDirectives()
 		{
 			// Arrange
 			var keepingExpressionsMinifier = new HtmlMinifier(
@@ -274,7 +274,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 		/// Minification of Angular binding expressions in built-in attribute directives
 		/// </summary>
 		[Fact]
-		public void MinificationOfBindingExpressionsInBuiltinAttributeDirectivesIsCorrect()
+		public void MinificationOfBindingExpressionsInBuiltinAttributeDirectives()
 		{
 			// Arrange
 			var keepingExpressionsMinifier = new HtmlMinifier(
@@ -709,7 +709,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 		/// Minification of Angular binding expressions in custom attribute directives
 		/// </summary>
 		[Fact]
-		public void MinificationOfBindingExpressionsInCustomAttributeDirectivesIsCorrect()
+		public void MinificationOfBindingExpressionsInCustomAttributeDirectives()
 		{
 			// Arrange
 			const string customAngularDirectiveList = "myDirective,myShowModalData";
@@ -754,7 +754,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 		/// Minification of Angular binding expressions in class directives
 		/// </summary>
 		[Fact]
-		public void MinificationOfBindingExpressionsInClassDirectivesIsCorrect()
+		public void MinificationOfBindingExpressionsInClassDirectives()
 		{
 			// Arrange
 			var keepingExpressionsMinifier = new HtmlMinifier(
@@ -861,7 +861,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 		/// Minification of Angular binding expressions in comment directives
 		/// </summary>
 		[Fact]
-		public void MinificationOfBindingExpressionsInCommentDirectivesIsCorrect()
+		public void MinificationOfBindingExpressionsInCommentDirectives()
 		{
 			// Arrange
 			const string customAngularDirectiveList = "myDirective";

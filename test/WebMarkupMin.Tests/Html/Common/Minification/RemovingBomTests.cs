@@ -13,7 +13,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 
 
 		[Fact]
-		public void RemovingBomAtStartIsCorrect()
+		public void RemovingBomAtStart()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
@@ -34,7 +34,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void RemovingBomFromBodyTagIsCorrect()
+		public void RemovingBomFromBodyTag()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));

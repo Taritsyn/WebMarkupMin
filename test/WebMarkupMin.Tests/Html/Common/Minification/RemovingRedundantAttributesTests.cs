@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 	public class RemovingRedundantAttributesTests
 	{
 		[Fact]
-		public void RemovingRedundantAnchorTagAttributesIsCorrect()
+		public void RemovingRedundantAnchorTagAttributes()
 		{
 			// Arrange
 			var keepingAllRedundantAttributesMinifier = new HtmlMinifier(
@@ -91,7 +91,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void RemovingRedundantAreaTagAttributesIsCorrect()
+		public void RemovingRedundantAreaTagAttributes()
 		{
 			// Arrange
 			var keepingAllRedundantAttributesMinifier = new HtmlMinifier(
@@ -169,7 +169,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void RemovingRedundantButtonTagAttributesIsCorrect()
+		public void RemovingRedundantButtonTagAttributes()
 		{
 			// Arrange
 			var keepingAllRedundantAttributesMinifier = new HtmlMinifier(
@@ -240,7 +240,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void RemovingRedundantFormTagAttributesIsCorrect()
+		public void RemovingRedundantFormTagAttributes()
 		{
 			// Arrange
 			var keepingAllRedundantAttributesMinifier = new HtmlMinifier(
@@ -415,7 +415,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void RemovingRedundantImageTagAttributesIsCorrect()
+		public void RemovingRedundantImageTagAttributes()
 		{
 			// Arrange
 			var keepingAllRedundantAttributesMinifier = new HtmlMinifier(
@@ -486,7 +486,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void RemovingRedundantInputTagAttributesIsCorrect()
+		public void RemovingRedundantInputTagAttributes()
 		{
 			// Arrange
 			var keepingAllRedundantAttributesMinifier = new HtmlMinifier(
@@ -557,7 +557,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void RemovingRedundantScriptTagAttributesIsCorrect()
+		public void RemovingRedundantScriptTagAttributes()
 		{
 			// Arrange
 			var keepingAllRedundantAttributesMinifier = new HtmlMinifier(
@@ -657,7 +657,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void RemovingRedundantTextareaTagAttributesIsCorrect()
+		public void RemovingRedundantTextareaTagAttributes()
 		{
 			// Arrange
 			var keepingAllRedundantAttributesMinifier = new HtmlMinifier(
@@ -728,7 +728,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void RemovingRedundantTrackTagAttributesIsCorrect()
+		public void RemovingRedundantTrackTagAttributes()
 		{
 			// Arrange
 			var keepingAllRedundantAttributesMinifier = new HtmlMinifier(

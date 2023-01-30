@@ -10,7 +10,7 @@ namespace WebMarkupMin.Tests.Html.Knockout.Minification
 		/// Minification of Knockout binding expressions in <code>data-bind</code> attributes
 		/// </summary>
 		[Fact]
-		public void MinificationOfBindingExpressionsInDataBindAttributesIsCorrect()
+		public void MinificationOfBindingExpressionsInDataBindAttributes()
 		{
 			// Arrange
 			var keepingDataBindAttributesMinifier = new HtmlMinifier(
@@ -115,7 +115,7 @@ namespace WebMarkupMin.Tests.Html.Knockout.Minification
 		/// Minification of Knockout binding expressions in containerless comments
 		/// </summary>
 		[Fact]
-		public void MinificationOfBindingExpressionsInContainerlessCommentsIsCorrect()
+		public void MinificationOfBindingExpressionsInContainerlessComments()
 		{
 			// Arrange
 			var keepingExpressionsMinifier = new HtmlMinifier(

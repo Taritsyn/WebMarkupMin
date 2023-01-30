@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 	public class RemovingTypeAttributesTests
 	{
 		[Fact]
-		public void RemovingJavaScriptTypeAttributesIsCorrect()
+		public void RemovingJavaScriptTypeAttributes()
 		{
 			// Arrange
 			var keepingAllJavaScriptTypeAttributesMinifier = new HtmlMinifier(
@@ -72,7 +72,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void RemovingCssTypeAttributesIsCorrect()
+		public void RemovingCssTypeAttributes()
 		{
 			// Arrange
 			var keepingAllCssTypeAttributesMinifier = new HtmlMinifier(

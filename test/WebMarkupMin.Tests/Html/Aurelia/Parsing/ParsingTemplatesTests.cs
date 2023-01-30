@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Aurelia.Parsing
 	public class ParsingTemplatesTests
 	{
 		[Fact]
-		public void ParsingTemplatesIsCorrect()
+		public void ParsingTemplates()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));

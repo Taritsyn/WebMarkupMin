@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Xml.Minification
 	public class CollapsingTagsWithoutContentTests
 	{
 		[Fact]
-		public void CollapsingTagsWithoutContentIsCorrect()
+		public void CollapsingTagsWithoutContent()
 		{
 			// Arrange
 			var notCollapsingMinifier = new XmlMinifier(

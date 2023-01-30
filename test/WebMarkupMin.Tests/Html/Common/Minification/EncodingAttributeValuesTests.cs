@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 	public class EncodingAttributeValuesTests
 	{
 		[Fact]
-		public void EncodingAttributeValuesIsCorrect()
+		public void EncodingAttributeValues()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));

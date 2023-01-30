@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 	public class ProcessingBooleanAttributesTests
 	{
 		[Fact]
-		public void ProcessingCustomBooleanAttributesIsCorrect()
+		public void ProcessingCustomBooleanAttributes()
 		{
 			// Arrange
 			var keepingBooleanAttributesMinifier = new HtmlMinifier(

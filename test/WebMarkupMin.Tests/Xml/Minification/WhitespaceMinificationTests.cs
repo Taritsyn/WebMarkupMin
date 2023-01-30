@@ -44,7 +44,7 @@ namespace WebMarkupMin.Tests.Xml.Minification
 
 
 		[Fact]
-		public void WhitespaceMinificationInRssDocumentIsCorrect()
+		public void WhitespaceMinificationInRssDocument()
 		{
 			// Arrange
 			const string input = " \n   <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
@@ -148,7 +148,7 @@ namespace WebMarkupMin.Tests.Xml.Minification
 		}
 
 		[Fact]
-		public void WhitespaceMinificationInAtomDocumentIsCorrect()
+		public void WhitespaceMinificationInAtomDocument()
 		{
 			// Arrange
 			const string input = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n\n" +
@@ -237,7 +237,7 @@ namespace WebMarkupMin.Tests.Xml.Minification
 		}
 
 		[Fact]
-		public void WhitespaceMinificationInSoapDocumentIsCorrect()
+		public void WhitespaceMinificationInSoapDocument()
 		{
 			// Arrange
 			const string input = "  \n\n  <?xml version=\"1.0\"?>\n" +
@@ -290,7 +290,7 @@ namespace WebMarkupMin.Tests.Xml.Minification
 		}
 
 		[Fact]
-		public void WhitespaceMinificationInMathMlDocumentIsCorrect()
+		public void WhitespaceMinificationInMathMlDocument()
 		{
 			// Arrange
 			const string input1 = "<?xml version=\"1.0\" standalone=\"no\"?>\n" +

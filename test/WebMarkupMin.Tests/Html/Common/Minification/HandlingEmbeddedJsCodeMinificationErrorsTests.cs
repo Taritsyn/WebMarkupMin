@@ -32,7 +32,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 
 
 		[Fact]
-		public void HandlingMinificationErrorsInScriptTagIsCorrect()
+		public void HandlingMinificationErrorsInScriptTag()
 		{
 			// Arrange
 			const string input = "<script type=\"text/javascript\">\n" +
@@ -98,7 +98,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void HandlingMinificationErrorsInScriptTagWithHtmlCommentIsCorrect()
+		public void HandlingMinificationErrorsInScriptTagWithHtmlComment()
 		{
 			// Arrange
 			const string input = "<script type=\"text/javascript\">\n" +
@@ -166,7 +166,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void HandlingMinificationErrorsInScriptTagWithCdataSectionIsCorrect()
+		public void HandlingMinificationErrorsInScriptTagWithCdataSection()
 		{
 			// Arrange
 			const string input = "<script type=\"text/javascript\">\n" +

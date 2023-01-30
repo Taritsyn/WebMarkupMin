@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Xml.Minification
 	public class ProcessingXmlCommentsTests
 	{
 		[Fact]
-		public void RemovingXmlCommentsIsCorrect()
+		public void RemovingXmlComments()
 		{
 			// Arrange
 			var keepingXmlCommentsMinifier = new XmlMinifier(

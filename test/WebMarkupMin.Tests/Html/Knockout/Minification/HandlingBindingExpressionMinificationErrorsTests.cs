@@ -9,7 +9,7 @@ namespace WebMarkupMin.Tests.Html.Knockout.Minification
 	public class HandlingBindingExpressionMinificationErrorsTests
 	{
 		[Fact]
-		public void HandlingMinificationErrorsInDataBindAttributesIsCorrect()
+		public void HandlingMinificationErrorsInDataBindAttributes()
 		{
 			// Arrange
 			var minifyingExpressionsMinifier = new HtmlMinifier(
@@ -33,7 +33,7 @@ namespace WebMarkupMin.Tests.Html.Knockout.Minification
 		}
 
 		[Fact]
-		public void HandlingMinificationErrorsInContainerlessCommentsIsCorrect()
+		public void HandlingMinificationErrorsInContainerlessComments()
 		{
 			// Arrange
 			var minifyingExpressionsMinifier = new HtmlMinifier(

@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Xhtml.Common.Minification
 	public class ProcessingDoctypeTests
 	{
 		[Fact]
-		public void ProcessingDoctypeIsCorrect()
+		public void ProcessingDoctype()
 		{
 			// Arrange
 			var minifier = new XhtmlMinifier(new XhtmlMinificationSettings(true));
@@ -71,7 +71,7 @@ namespace WebMarkupMin.Tests.Xhtml.Common.Minification
 		}
 
 		[Fact]
-		public void ShorteningDoctypeIsCorrect()
+		public void ShorteningDoctype()
 		{
 			// Arrange
 			var minifier = new XhtmlMinifier(new XhtmlMinificationSettings(true)

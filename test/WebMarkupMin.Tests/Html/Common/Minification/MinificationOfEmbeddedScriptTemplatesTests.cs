@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 	public class MinificationOfEmbeddedScriptTemplatesTests
 	{
 		[Fact]
-		public void MinificationOfEmbeddedScriptTemplatesIsCorrect()
+		public void MinificationOfEmbeddedScriptTemplates()
 		{
 			// Arrange
 			var keepingEmbeddedJsTemplatesMinifier = new HtmlMinifier(

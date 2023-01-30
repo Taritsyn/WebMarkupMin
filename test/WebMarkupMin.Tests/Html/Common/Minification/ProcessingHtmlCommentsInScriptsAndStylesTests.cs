@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 	public class ProcessingHtmlCommentsInScriptsAndStylesTests
 	{
 		[Fact]
-		public void ProcessingHtmlCommentsInStylesIsCorrect()
+		public void ProcessingHtmlCommentsInStyles()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
@@ -79,7 +79,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void ProcessingHtmlCommentsInScriptsIsCorrect()
+		public void ProcessingHtmlCommentsInScripts()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));

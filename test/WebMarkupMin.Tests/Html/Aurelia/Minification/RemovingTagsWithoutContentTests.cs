@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Aurelia.Minification
 	public class RemovingTagsWithoutContentTests
 	{
 		[Fact]
-		public void RemovingTagsWithoutContentIsCorrect()
+		public void RemovingTagsWithoutContent()
 		{
 			// Arrange
 			var removingTagsWithoutContentMinifier = new HtmlMinifier(

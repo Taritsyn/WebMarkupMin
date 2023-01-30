@@ -7,7 +7,7 @@ namespace WebMarkupMin.Core.Tests.Xml.Minification
 	public class EncodingAttributeValuesTests
 	{
 		[Fact]
-		public void EncodingAttributeValuesIsCorrect()
+		public void EncodingAttributeValues()
 		{
 			// Arrange
 			var minifier = new XmlMinifier(new XmlMinificationSettings(true));

@@ -9,7 +9,7 @@ namespace WebMarkupMin.Tests.Xml.Minification
 	public class NewLineStyleNormalizationTests
 	{
 		[Fact]
-		public void NewLineStyleNormalizationInXmlDocumentIsCorrect()
+		public void NewLineStyleNormalizationInXmlDocument()
 		{
 			// Arrange
 			string nativeNewLine = Environment.NewLine;

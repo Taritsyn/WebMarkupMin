@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 	public class CleaningAttributesTests
 	{
 		[Fact]
-		public void CleaningClassAttributesIsCorrect()
+		public void CleaningClassAttributes()
 		{
 			// Arrange
 			var cleaningAttributesMinifier = new HtmlMinifier(new HtmlMinificationSettings(true));
@@ -64,7 +64,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 		}
 
 		[Fact]
-		public void CleaningStyleAttributesIsCorrect()
+		public void CleaningStyleAttributes()
 		{
 			// Arrange
 			var cleaningAttributesMinifier = new HtmlMinifier(new HtmlMinificationSettings(true));
@@ -80,7 +80,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 		}
 
 		[Fact]
-		public void CleaningUriBasedAttributesIsCorrect()
+		public void CleaningUriBasedAttributes()
 		{
 			// Arrange
 			var cleaningAttributesMinifier = new HtmlMinifier(new HtmlMinificationSettings(true));
@@ -96,7 +96,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 		}
 
 		[Fact]
-		public void CleaningNumericAttributesIsCorrect()
+		public void CleaningNumericAttributes()
 		{
 			// Arrange
 			var cleaningAttributesMinifier = new HtmlMinifier(new HtmlMinificationSettings(true));
@@ -112,7 +112,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 		}
 
 		[Fact]
-		public void CleaningEventAttributesIsCorrect()
+		public void CleaningEventAttributes()
 		{
 			// Arrange
 			var cleaningAttributesMinifier = new HtmlMinifier(new HtmlMinificationSettings(true));
@@ -130,7 +130,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 		}
 
 		[Fact]
-		public void CleaningOtherAttributesIsCorrect()
+		public void CleaningOtherAttributes()
 		{
 			// Arrange
 			var cleaningAttributesMinifier = new HtmlMinifier(new HtmlMinificationSettings(true));

@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 	public class RemovingProtocolsFromAttributesTests
 	{
 		[Fact]
-		public void RemovingHttpProtocolFromAttributesIsCorrect()
+		public void RemovingHttpProtocolFromAttributes()
 		{
 			// Arrange
 			var removingHttpProtocolMinifier = new HtmlMinifier(
@@ -42,7 +42,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void RemovingHttpsProtocolFromAttributesIsCorrect()
+		public void RemovingHttpsProtocolFromAttributes()
 		{
 			// Arrange
 			var removingHttpsProtocolMinifier = new HtmlMinifier(
@@ -77,7 +77,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void RemovingJsProtocolFromAttributesIsCorrect()
+		public void RemovingJsProtocolFromAttributes()
 		{
 			// Arrange
 			var keepingJsProtocolMinifier = new HtmlMinifier(

@@ -9,7 +9,7 @@ namespace WebMarkupMin.Tests.Xhtml.Common.Parsing
 	public class ProcessingInvalidCodeTests
 	{
 		[Fact]
-		public void ProcessingInvalidCharactersInXmlDeclarationIsCorrect()
+		public void ProcessingInvalidCharactersInXmlDeclaration()
 		{
 			// Arrange
 			var minifier = new XhtmlMinifier(new XhtmlMinificationSettings(true));

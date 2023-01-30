@@ -32,7 +32,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 
 
 		[Fact]
-		public void HandlingMinificationErrorsInStyleTagIsCorrect()
+		public void HandlingMinificationErrorsInStyleTag()
 		{
 			// Arrange
 			const string input = "<style type=\"text/css\">\n" +
@@ -85,7 +85,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void HandlingMinificationErrorsInStyleTagWithHtmlCommentIsCorrect()
+		public void HandlingMinificationErrorsInStyleTagWithHtmlComment()
 		{
 			// Arrange
 			const string input = "<style type=\"text/css\">\n" +
@@ -140,7 +140,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void HandlingMinificationErrorsInStyleTagWithCdataSectionIsCorrect()
+		public void HandlingMinificationErrorsInStyleTagWithCdataSection()
 		{
 			// Arrange
 			const string input = "<style type=\"text/css\">\n" +

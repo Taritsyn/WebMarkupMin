@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 	public class ProcessingDoctypeTests
 	{
 		[Fact]
-		public void ProcessingDoctypeIsCorrect()
+		public void ProcessingDoctype()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
@@ -72,7 +72,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void ShorteningDoctypeIsCorrect()
+		public void ShorteningDoctype()
 		{
 			// Arrange
 			var emptyDoctypeMinifier = new HtmlMinifier(new HtmlMinificationSettings(true)

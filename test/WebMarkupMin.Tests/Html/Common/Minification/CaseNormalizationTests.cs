@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 	public class CaseNormalizationTests
 	{
 		[Fact]
-		public void CaseNormalizationIsCorrect()
+		public void CaseNormalization()
 		{
 			// Arrange
 			var preservingCaseMinifier = new HtmlMinifier(

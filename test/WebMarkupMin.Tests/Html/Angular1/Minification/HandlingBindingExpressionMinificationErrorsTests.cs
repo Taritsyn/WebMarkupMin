@@ -9,7 +9,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 	public class HandlingBindingExpressionMinificationErrorsTests
 	{
 		[Fact]
-		public void HandlingMinificationErrorsInMustacheStyleTagsContainedInTextIsCorrect()
+		public void HandlingMinificationErrorsInMustacheStyleTagsContainedInText()
 		{
 			// Arrange
 			var minifyingExpressionsMinifier = new HtmlMinifier(
@@ -32,7 +32,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 		}
 
 		[Fact]
-		public void HandlingMinificationErrorsInMustacheStyleTagsContainedInAttributeValuesIsCorrect()
+		public void HandlingMinificationErrorsInMustacheStyleTagsContainedInAttributeValues()
 		{
 			// Arrange
 			var minifyingExpressionsMinifier = new HtmlMinifier(
@@ -69,7 +69,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 		}
 
 		[Fact]
-		public void HandlingMinificationErrorsInElementDirectivesIsCorrect()
+		public void HandlingMinificationErrorsInElementDirectives()
 		{
 			// Arrange
 			var minifyingExpressionsMinifier = new HtmlMinifier(
@@ -94,7 +94,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 		}
 
 		[Fact]
-		public void HandlingMinificationErrorsInAttributeDirectivesIsCorrect()
+		public void HandlingMinificationErrorsInAttributeDirectives()
 		{
 			// Arrange
 			var minifyingExpressionsMinifier = new HtmlMinifier(
@@ -115,7 +115,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 		}
 
 		[Fact]
-		public void HandlingMinificationErrorsInClassDirectivesIsCorrect()
+		public void HandlingMinificationErrorsInClassDirectives()
 		{
 			// Arrange
 			var minifyingExpressionsMinifier = new HtmlMinifier(
@@ -136,7 +136,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 		}
 
 		[Fact]
-		public void HandlingMinificationErrorsInCommentDirectivesIsCorrect()
+		public void HandlingMinificationErrorsInCommentDirectives()
 		{
 			// Arrange
 			var minifyingExpressionsMinifier = new HtmlMinifier(

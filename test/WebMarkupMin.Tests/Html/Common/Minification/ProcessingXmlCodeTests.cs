@@ -9,7 +9,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 	public class ProcessingXmlCodeTests
 	{
 		[Fact]
-		public void ProcessingXmlNodesIsCorrect()
+		public void ProcessingXmlNodes()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
@@ -140,7 +140,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void RemovingXmlNamespaceAttributesIsCorrect()
+		public void RemovingXmlNamespaceAttributes()
 		{
 			// Arrange
 			var keepingXmlNamespaceAttributesMinifier = new HtmlMinifier(

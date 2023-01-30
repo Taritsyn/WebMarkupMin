@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 	public class ProcessingHtmlCommentsTests
 	{
 		[Fact]
-		public void RemovingHtmlCommentsIsCorrect()
+		public void RemovingHtmlComments()
 		{
 			// Arrange
 			var keepingHtmlCommentsMinifier = new HtmlMinifier(
@@ -165,7 +165,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void ProcessingNoindexCommentsIsCorrect()
+		public void ProcessingNoindexComments()
 		{
 			// Arrange
 			var removingHtmlCommentsMinifier = new HtmlMinifier(

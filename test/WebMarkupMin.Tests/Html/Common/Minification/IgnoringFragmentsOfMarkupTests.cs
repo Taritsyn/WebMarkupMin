@@ -9,7 +9,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 	public class IgnoringFragmentsOfMarkupTests
 	{
 		[Fact]
-		public void IgnoringFragmentsOfMarkupIsCorrect()
+		public void IgnoringFragmentsOfMarkup()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true)

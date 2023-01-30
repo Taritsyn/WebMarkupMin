@@ -72,7 +72,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 
 
 		[Fact]
-		public void WhitespaceMinificationInStyleTagIsCorrect()
+		public void WhitespaceMinificationInStyleTag()
 		{
 			// Arrange
 			const string input1 = "<style>cite { quotes: \" «\" \"» \"; }    </style>";
@@ -153,7 +153,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void WhitespaceMinificationInScriptTagIsCorrect()
+		public void WhitespaceMinificationInScriptTag()
 		{
 			// Arrange
 			const string input1 = "<script>alert(\"Hello,     world!\");    </script>";
@@ -228,7 +228,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void WhitespaceMinificationInParagraphTagIsCorrect()
+		public void WhitespaceMinificationInParagraphTag()
 		{
 			// Arrange
 			const string input = "<p>  New  \n  Release	\n</p>";
@@ -263,7 +263,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void WhitespaceMinificationInUnorderedListTagIsCorrect()
+		public void WhitespaceMinificationInUnorderedListTag()
 		{
 			// Arrange
 			const string input = "<ul>\n" +
@@ -348,7 +348,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void WhitespaceMinificationInDescriptionListTagIsCorrect()
+		public void WhitespaceMinificationInDescriptionListTag()
 		{
 			// Arrange
 			const string input = "<dl>\n" +
@@ -432,7 +432,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void WhitespaceMinificationInRubyTagIsCorrect()
+		public void WhitespaceMinificationInRubyTag()
 		{
 			// Arrange
 			const string input1 = "<ruby>\n" +
@@ -803,7 +803,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void WhitespaceMinificationInFigureTagIsCorrect()
+		public void WhitespaceMinificationInFigureTag()
 		{
 			// Arrange
 			const string input = "<figure>\n" +
@@ -861,7 +861,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void WhitespaceMinificationInTableTagIsCorrect()
+		public void WhitespaceMinificationInTableTag()
 		{
 			// Arrange
 			const string input = "<table class=\"table\">\n" +
@@ -1041,7 +1041,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void WhitespaceMinificationInFormAndFieldSetTagsIsCorrect()
+		public void WhitespaceMinificationInFormAndFieldSetTags()
 		{
 			// Arrange
 			const string input = "<form>\n" +
@@ -1119,7 +1119,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void WhitespaceMinificationInLabelAndTextareaTagsIsCorrect()
+		public void WhitespaceMinificationInLabelAndTextareaTags()
 		{
 			// Arrange
 			const string input = "<label>		Text:  \n </label> \n\t  " +
@@ -1159,7 +1159,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void WhitespaceMinificationInSelectTagIsCorrect()
+		public void WhitespaceMinificationInSelectTag()
 		{
 			// Arrange
 			const string input = "<select name=\"preprocessors\">\n" +
@@ -1259,7 +1259,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void WhitespaceMinificationInMenuTagIsCorrect()
+		public void WhitespaceMinificationInMenuTag()
 		{
 			// Arrange
 			const string input1 = "<menu>\n" +
@@ -1374,7 +1374,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void WhitespaceMinificationInVideoTagIsCorrect()
+		public void WhitespaceMinificationInVideoTag()
 		{
 			// Arrange
 			const string input = "<video width=\"320\" height=\"240\" poster=\"video/poster.png\" controls=\"controls\">\n" +
@@ -1473,7 +1473,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void WhitespaceMinificationInSvgTagIsCorrect()
+		public void WhitespaceMinificationInSvgTag()
 		{
 			// Arrange
 			const string input1 = "<div>\n" +
@@ -1804,7 +1804,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void WhitespaceMinificationInMathTagIsCorrect()
+		public void WhitespaceMinificationInMathTag()
 		{
 			// Arrange
 			const string input = "<div>\n" +
@@ -1927,7 +1927,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void WhitespaceMinificationInHtmlFragmentsWithTypographicalTagsIsCorrect()
+		public void WhitespaceMinificationInHtmlFragmentsWithTypographicalTags()
 		{
 			// Arrange
 			const string input1 = "<p>	 one  </p>    \n" +
@@ -2033,7 +2033,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 			const string input6 = "<div>\r\n" +
 				"	<svg class=\"icon-svg\" aria-label=\"Globe icon\"><use href=\"/images/icons.svg#globe\">" +
 				"</use></svg>\r\n" +
-				"	<a href=\"#da\">Danish</a> |\r\n" +
+				"	<a href=\"#da\">Dansk</a> |\r\n" +
 				"	<a href=\"#en\">English</a>\r\n" +
 				"</div>"
 				;
@@ -2042,21 +2042,21 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 			const string targetOutput6C = "<div> " +
 				"<svg class=\"icon-svg\" aria-label=\"Globe icon\"><use href=\"/images/icons.svg#globe\">" +
 				"</use></svg> " +
-				"<a href=\"#da\">Danish</a> | " +
+				"<a href=\"#da\">Dansk</a> | " +
 				"<a href=\"#en\">English</a> " +
 				"</div>"
 				;
 			const string targetOutput6D = "<div>\r\n" +
 				"<svg class=\"icon-svg\" aria-label=\"Globe icon\"><use href=\"/images/icons.svg#globe\">" +
 				"</use></svg>\r\n" +
-				"<a href=\"#da\">Danish</a> |\r\n" +
+				"<a href=\"#da\">Dansk</a> |\r\n" +
 				"<a href=\"#en\">English</a>\r\n" +
 				"</div>"
 				;
 			const string targetOutput6E = "<div>" +
 				"<svg class=\"icon-svg\" aria-label=\"Globe icon\"><use href=\"/images/icons.svg#globe\">" +
 				"</use></svg> " +
-				"<a href=\"#da\">Danish</a> | " +
+				"<a href=\"#da\">Dansk</a> | " +
 				"<a href=\"#en\">English</a>" +
 				"</div>"
 				;
@@ -2176,7 +2176,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void WhitespaceMinificationInHtmlDocumentIsCorrect()
+		public void WhitespaceMinificationInHtmlDocument()
 		{
 			// Arrange
 			const string input = " \n \n\t <!-- meta name=\"GENERATOR\" content=\"Microsoft FrontPage 1.0\" --> \n  \n\t\n" +
@@ -2290,7 +2290,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void WhitespaceMinificationWithRemovingOptionalEndTagsInHtmlDocumentIsCorrect()
+		public void WhitespaceMinificationWithRemovingOptionalEndTagsInHtmlDocument()
 		{
 			// Arrange
 			var keepingWhitespaceMinifier = new HtmlMinifier(
@@ -2699,7 +2699,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 
 
 		[Fact]
-		public void WhitespaceMinificationWithRemovingHtmlCommentsInHtmlDocumentIsCorrect()
+		public void WhitespaceMinificationWithRemovingHtmlCommentsInHtmlDocument()
 		{
 			// Arrange
 			var keepingWhitespaceMinifier = new HtmlMinifier(

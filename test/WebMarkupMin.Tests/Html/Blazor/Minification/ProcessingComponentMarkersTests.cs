@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Blazor.Minification
 	public class ProcessingComponentMarkersTests
 	{
 		[Fact]
-		public void ProcessingPrerenderedServerComponentMarkersIsCorrect()
+		public void ProcessingPrerenderedServerComponentMarkers()
 		{
 			// Arrange
 			var removingHtmlCommentsMinifier = new HtmlMinifier(
@@ -39,7 +39,7 @@ namespace WebMarkupMin.Tests.Html.Blazor.Minification
 		}
 
 		[Fact]
-		public void ProcessingServerComponentMarkersIsCorrect()
+		public void ProcessingServerComponentMarkers()
 		{
 			// Arrange
 			var removingHtmlCommentsMinifier = new HtmlMinifier(

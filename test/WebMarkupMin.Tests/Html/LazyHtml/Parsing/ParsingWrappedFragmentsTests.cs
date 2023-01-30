@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.LazyHtml.Parsing
 	public class ParsingWrappedFragmentsTests
 	{
 		[Fact]
-		public void ParsingOfWrappedAdSenseCodeIsCorrect()
+		public void ParsingOfWrappedAdSenseCode()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));

@@ -9,7 +9,7 @@ namespace WebMarkupMin.Tests.Xhtml.Common.Minification
 	public class ProcessingXmlCodeTests
 	{
 		[Fact]
-		public void ProcessingXmlNodesIsCorrect()
+		public void ProcessingXmlNodes()
 		{
 			// Arrange
 			var minifier = new XhtmlMinifier(new XhtmlMinificationSettings(true));

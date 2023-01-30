@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 	public class ProcessingHtmlCommentsInScriptsTests
 	{
 		[Fact]
-		public void ProcessingHtmlCommentsInScriptsIsCorrect()
+		public void ProcessingHtmlCommentsInScripts()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));

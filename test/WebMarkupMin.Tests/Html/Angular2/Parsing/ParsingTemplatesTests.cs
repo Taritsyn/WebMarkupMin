@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Angular2.Parsing
 	public class ParsingTemplatesTests
 	{
 		[Fact]
-		public void ParsingOfPropertyBindingsIsCorrect()
+		public void ParsingOfPropertyBindings()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true){ PreserveCase = true });
@@ -61,7 +61,7 @@ namespace WebMarkupMin.Tests.Html.Angular2.Parsing
 		}
 
 		[Fact]
-		public void ParsingOfEventBindingsIsCorrect()
+		public void ParsingOfEventBindings()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true) { PreserveCase = true });
@@ -91,7 +91,7 @@ namespace WebMarkupMin.Tests.Html.Angular2.Parsing
 		}
 
 		[Fact]
-		public void ParsingOfBubblingEventBindingsIsCorrect()
+		public void ParsingOfBubblingEventBindings()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true) { PreserveCase = true });
@@ -109,7 +109,7 @@ namespace WebMarkupMin.Tests.Html.Angular2.Parsing
 		}
 
 		[Fact]
-		public void ParsingOfTwoWayDataBindingsIsCorrect()
+		public void ParsingOfTwoWayDataBindings()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true) { PreserveCase = true });
@@ -147,7 +147,7 @@ namespace WebMarkupMin.Tests.Html.Angular2.Parsing
 		}
 
 		[Fact]
-		public void ParsingOfTemplateBindingsIsCorrect()
+		public void ParsingOfTemplateBindings()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true) { PreserveCase = true });
@@ -165,7 +165,7 @@ namespace WebMarkupMin.Tests.Html.Angular2.Parsing
 		}
 
 		[Fact]
-		public void ParsingOfLocalVariablesIsCorrect()
+		public void ParsingOfLocalVariables()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true) { PreserveCase = true });
@@ -189,7 +189,7 @@ namespace WebMarkupMin.Tests.Html.Angular2.Parsing
 		}
 
 		[Fact]
-		public void ParsingOfMustacheStyleTagsIsCorrect()
+		public void ParsingOfMustacheStyleTags()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true) { PreserveCase = true });

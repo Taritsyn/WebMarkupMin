@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Xml.Minification
 	public class ApplyingOfAllOptimizationsTests
 	{
 		[Fact]
-		public void ApplyingOfAllOptimizationsIsCorrect()
+		public void ApplyingOfAllOptimizations()
 		{
 			// Arrange
 			var emptyTagWithSlashMinifier = new XmlMinifier(

@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 	public class RemovingEmptyAttributesTests
 	{
 		[Fact]
-		public void RemovingEmptyAttributesIsCorrect()
+		public void RemovingEmptyAttributes()
 		{
 			// Arrange
 			var keepingAllEmptyAttributesMinifier = new HtmlMinifier(

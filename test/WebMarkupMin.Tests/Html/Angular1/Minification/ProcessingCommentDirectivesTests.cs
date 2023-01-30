@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Angular1.Minification
 	public class ProcessingCommentDirectivesTests
 	{
 		[Fact]
-		public void ProcessingCommentDirectivesIsCorrect()
+		public void ProcessingCommentDirectives()
 		{
 			// Arrange
 			var removingHtmlCommentsMinifier = new HtmlMinifier(

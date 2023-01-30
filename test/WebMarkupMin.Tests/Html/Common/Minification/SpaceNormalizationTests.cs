@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 	public class SpaceNormalizationTests
 	{
 		[Fact]
-		public void SpaceNormalizationBetweenAttributesIsCorrect()
+		public void SpaceNormalizationBetweenAttributes()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));

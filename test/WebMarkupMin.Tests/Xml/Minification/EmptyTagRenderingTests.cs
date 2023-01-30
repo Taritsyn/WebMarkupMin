@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Xml.Minification
 	public class EmptyTagRenderingTests
 	{
 		[Fact]
-		public void EmptyTagRenderingIsCorrect()
+		public void EmptyTagRendering()
 		{
 			// Arrange
 			var emptyTagWithSlashMinifier = new XmlMinifier(

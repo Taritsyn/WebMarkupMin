@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 	public class InlineCodeMinificationTests
 	{
 		[Fact]
-		public void RemovingCommentsIsCorrect()
+		public void RemovingComments()
 		{
 			// Arrange
 			var minifier = new KristensenCssMinifier();
@@ -39,7 +39,7 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 		}
 
 		[Fact]
-		public void WhitespaceMinificationIsCorrect()
+		public void WhitespaceMinification()
 		{
 			// Arrange
 			var minifier = new KristensenCssMinifier();
@@ -65,7 +65,7 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 		}
 
 		[Fact]
-		public void RemovingLastSemicolonsIsCorrect()
+		public void RemovingLastSemicolons()
 		{
 			// Arrange
 			var minifier = new KristensenCssMinifier();
@@ -86,7 +86,7 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 		}
 
 		[Fact]
-		public void RemovingUnitsFromZeroValuesIsCorrect()
+		public void RemovingUnitsFromZeroValues()
 		{
 			// Arrange
 			var minifier = new KristensenCssMinifier();
@@ -177,7 +177,7 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 		}
 
 		[Fact]
-		public void ApplyingOfAllOptimizationsIsCorrect()
+		public void ApplyingOfAllOptimizations()
 		{
 			// Arrange
 			var minifier = new KristensenCssMinifier();

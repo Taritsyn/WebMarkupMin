@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 	public class MinificationOfEmbeddedJsonDataTests
 	{
 		[Fact]
-		public void MinificationOfEmbeddedJsonDataIsCorrect()
+		public void MinificationOfEmbeddedJsonData()
 		{
 			// Arrange
 			var keepingEmbeddedJsonDataMinifier = new HtmlMinifier(

@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Xhtml.Common.Minification
 	public class WhitespaceMinificationTests
 	{
 		[Fact]
-		public void WhitespaceMinificationInXhtmlDocumentIsCorrect()
+		public void WhitespaceMinificationInXhtmlDocument()
 		{
 			// Arrange
 			var keepingWhitespaceMinifier = new XhtmlMinifier(

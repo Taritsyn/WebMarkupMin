@@ -19,7 +19,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 
 
 		[Fact]
-		public void ProcessingHiddenConditionalCommentsIsCorrect()
+		public void ProcessingHiddenConditionalComments()
 		{
 			// Arrange
 			const string input1 = "<!--[if lt IE 9]>" +
@@ -224,7 +224,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void ProcessingRevealedConditionalCommentsIsCorrect()
+		public void ProcessingRevealedConditionalComments()
 		{
 			// Arrange
 			const string input1 = "<![if IE 5.0000]>\n" +
@@ -279,7 +279,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void ProcessingRevealedValidatingConditionalCommentsIsCorrect()
+		public void ProcessingRevealedValidatingConditionalComments()
 		{
 			// Arrange
 			const string input1 = "<!--[if IEMobile 7]> <html class=\"no-js iem7\"> <![endif \t  ]-->\n" +
@@ -417,7 +417,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void ProcessingRevealedValidatingSimplifiedConditionalCommentsIsCorrect()
+		public void ProcessingRevealedValidatingSimplifiedConditionalComments()
 		{
 			// Arrange
 			const string input1 = "<!--[if lt IE 7 ]> <html class=\"no-js ie6 ielt8\"> <![endif]-->\n" +

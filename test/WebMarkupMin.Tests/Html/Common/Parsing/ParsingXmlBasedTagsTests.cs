@@ -7,7 +7,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 	public class ParsingXmlBasedTagsTests
 	{
 		[Fact]
-		public void ParsingXmlBasedTagsIsCorrect()
+		public void ParsingXmlBasedTags()
 		{
 			// Arrange
 			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));

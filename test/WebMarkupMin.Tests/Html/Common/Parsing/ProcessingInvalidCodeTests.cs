@@ -22,7 +22,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 
 		[Fact]
-		public void ProcessingInvalidCharactersInMetaStartTagIsCorrect()
+		public void ProcessingInvalidCharactersInMetaStartTag()
 		{
 			// Arrange
 			const string input = "<meta name=\"Description\" content=\"Информационно-аналитический портал про " +
@@ -46,7 +46,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 		}
 
 		[Fact]
-		public void ProcessingInvalidCharactersInLinkStartTagIsCorrect()
+		public void ProcessingInvalidCharactersInLinkStartTag()
 		{
 			// Arrange
 			const string input = "<link id=\"favicon\" rel=?\"shortcut icon\" type=?\"image/?png\" href=?\"#\">";
@@ -67,7 +67,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 		}
 
 		[Fact]
-		public void ProcessingInvalidCharactersInHeaderStartTagIsCorrect()
+		public void ProcessingInvalidCharactersInHeaderStartTag()
 		{
 			// Arrange
 			const string input = "<header\"></header>";
@@ -88,7 +88,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 		}
 
 		[Fact]
-		public void ProcessingInvalidCharactersInDivStartTagIsCorrect()
+		public void ProcessingInvalidCharactersInDivStartTag()
 		{
 			// Arrange
 			const string input = "<div class=\"row\">\n" +
@@ -121,7 +121,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 		}
 
 		[Fact]
-		public void ProcessingInvalidCharactersInSpanStartTagIsCorrect()
+		public void ProcessingInvalidCharactersInSpanStartTag()
 		{
 			// Arrange
 			const string input = "<span class=\"b-form-input_size_l i-bem\"\">Some text...</span>";
@@ -142,7 +142,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 		}
 
 		[Fact]
-		public void ProcessingInvalidCharactersInAnchorStartTagIsCorrect()
+		public void ProcessingInvalidCharactersInAnchorStartTag()
 		{
 			// Arrange
 			const string input1 = "<A HREF='/cgi-bin/user.cgi?user=O'Connor'>O'Connor</A>";
@@ -180,7 +180,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 		}
 
 		[Fact]
-		public void ProcessingInvalidCharactersInImageStartTagIsCorrect()
+		public void ProcessingInvalidCharactersInImageStartTag()
 		{
 			// Arrange
 			const string input1 = "<img src=\"/images/39.gif\" width=80\" height=\"60\">";
@@ -260,7 +260,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 		}
 
 		[Fact]
-		public void ProcessingInvalidCharactersInTableEndTagIsCorrect()
+		public void ProcessingInvalidCharactersInTableEndTag()
 		{
 			// Arrange
 			const string input = "<table>\n" +
@@ -287,7 +287,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 		}
 
 		[Fact]
-		public void ProcessingInvalidHtmlCommentIsCorrect()
+		public void ProcessingInvalidHtmlComment()
 		{
 			// Arrange
 			const string input = "<!-->";
@@ -308,7 +308,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 		}
 
 		[Fact]
-		public void ProcessingInvalidCodeGeneratedByFuzzerIsCorrect()
+		public void ProcessingInvalidCodeGeneratedByFuzzer()
 		{
 			// Arrange
 			string input = File.ReadAllText(
