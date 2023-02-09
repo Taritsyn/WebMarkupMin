@@ -970,17 +970,20 @@ namespace WebMarkupMin.Core.Parsers
 
 			var tag = new HtmlTag(tagName, tagNameInLowercase, attributes, tagFlags);
 
-			if (!isEmptyTag && (!_nonValidatingConditionalCommentOpened || tagFlags.IsSet(HtmlTagFlags.EmbeddedCode)))
+			if (!isEmptyTag)
 			{
-				_tagStack.Push(tag);
+				if (!_nonValidatingConditionalCommentOpened || tagFlags.IsSet(HtmlTagFlags.EmbeddedCode))
+				{
+					_tagStack.Push(tag);
+				}
+
+				if (tagFlags.IsSet(HtmlTagFlags.Xml) && !tagFlags.IsSet(HtmlTagFlags.NonIndependent))
+				{
+					_xmlTagStack.Push(tagNameInLowercase);
+				}
 			}
 
 			_handlers.StartTag?.Invoke(_context, tag);
-
-			if (tagFlags.IsSet(HtmlTagFlags.Xml))
-			{
-				_xmlTagStack.Push(tagNameInLowercase);
-			}
 		}
 
 		/// <summary>
@@ -1040,7 +1043,10 @@ namespace WebMarkupMin.Core.Parsers
 
 		private void InternalParseEndTag(HtmlTag tag)
 		{
-			if (_xmlTagStack.Count > 0 && tag.Flags.IsSet(HtmlTagFlags.Xml))
+			HtmlTagFlags tagFlags = tag.Flags;
+
+			if (_xmlTagStack.Count > 0
+				&& tagFlags.IsSet(HtmlTagFlags.Xml) && !tagFlags.IsSet(HtmlTagFlags.NonIndependent))
 			{
 				_xmlTagStack.Pop();
 			}

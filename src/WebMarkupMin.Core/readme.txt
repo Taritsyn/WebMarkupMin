@@ -46,8 +46,8 @@
    =============
    RELEASE NOTES
    =============
-   1. Implemented a more correct parsing of the missing HTML end tags;
-   2. Fixed a error #154 “Whitespace trimming on anchor tags (when using svg tag)”.
+   Fixed a incorrect whitespace minification which occurs when there are empty XML
+   tags in the HTML/XHTML markup.
 
    =============
    DOCUMENTATION

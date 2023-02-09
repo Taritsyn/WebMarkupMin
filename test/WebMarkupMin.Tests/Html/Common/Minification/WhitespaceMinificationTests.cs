@@ -2064,6 +2064,63 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 			const string targetOutput6G = targetOutput6E;
 			const string targetOutput6H = targetOutput6D;
 
+			const string input7 = "<p class=\"alert mt-4\">\n" +
+				"    <svg class=\"svg-inline--fa fa-fw\" role=\"presentation\">\n" +
+				"        <use href=\"#far-fa-clock\" />\n" +
+				"    </svg>\n" +
+				"    Trading takes place from <strong>10:00 AM</strong> to <strong>4:00 PM</strong>, " +
+				"<strong>AEDT</strong>\n" +
+				"</p>"
+				;
+			const string targetOutput7A = input7;
+			const string targetOutput7B = input7;
+			const string targetOutput7C = "<p class=\"alert mt-4\"> " +
+				"<svg class=\"svg-inline--fa fa-fw\" role=\"presentation\">" +
+				"<use href=\"#far-fa-clock\" />" +
+				"</svg> " +
+				"Trading takes place from <strong>10:00 AM</strong> to <strong>4:00 PM</strong>, " +
+				"<strong>AEDT</strong> " +
+				"</p>"
+				;
+			const string targetOutput7D = "<p class=\"alert mt-4\">\n" +
+				"<svg class=\"svg-inline--fa fa-fw\" role=\"presentation\">\n" +
+				"<use href=\"#far-fa-clock\" />\n" +
+				"</svg>\n" +
+				"Trading takes place from <strong>10:00 AM</strong> to <strong>4:00 PM</strong>, " +
+				"<strong>AEDT</strong>\n" +
+				"</p>"
+				;
+			const string targetOutput7E = "<p class=\"alert mt-4\">" +
+				"<svg class=\"svg-inline--fa fa-fw\" role=\"presentation\">" +
+				"<use href=\"#far-fa-clock\" />" +
+				"</svg> " +
+				"Trading takes place from <strong>10:00 AM</strong> to <strong>4:00 PM</strong>, " +
+				"<strong>AEDT</strong>" +
+				"</p>"
+				;
+			const string targetOutput7F = targetOutput7D;
+			const string targetOutput7G = targetOutput7E;
+			const string targetOutput7H = targetOutput7D;
+
+			const string input8 = "<i id=\"header-toggle\"><svg width=\"24\" height=\"20\" viewBox=\"0 0 24 20\" " +
+				"fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" /></i>\r\r" +
+				"<a href=\"/login\">Log in</a>   <a href=\"/register\">Sign up</a>"
+				;
+			const string targetOutput8A = input8;
+			const string targetOutput8B = input8;
+			const string targetOutput8C = "<i id=\"header-toggle\"><svg width=\"24\" height=\"20\" viewBox=\"0 0 24 20\" " +
+				"fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" /></i> " +
+				"<a href=\"/login\">Log in</a> <a href=\"/register\">Sign up</a>"
+				;
+			const string targetOutput8D = "<i id=\"header-toggle\"><svg width=\"24\" height=\"20\" viewBox=\"0 0 24 20\" " +
+				"fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" /></i>\r" +
+				"<a href=\"/login\">Log in</a> <a href=\"/register\">Sign up</a>"
+				;
+			const string targetOutput8E = targetOutput8C;
+			const string targetOutput8F = targetOutput8D;
+			const string targetOutput8G = targetOutput8C;
+			const string targetOutput8H = targetOutput8D;
+
 			// Act
 			string output1A = _keepingWhitespaceMinifier.Minify(input1).MinifiedContent;
 			string output1B = _keepingWhitespaceAndNewLinesMinifier.Minify(input1).MinifiedContent;
@@ -2119,6 +2176,24 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 			string output6G = _aggressiveRemovingWhitespaceMinifier.Minify(input6).MinifiedContent;
 			string output6H = _aggressiveRemovingWhitespaceExceptForNewLinesMinifier.Minify(input6).MinifiedContent;
 
+			string output7A = _keepingWhitespaceMinifier.Minify(input7).MinifiedContent;
+			string output7B = _keepingWhitespaceAndNewLinesMinifier.Minify(input7).MinifiedContent;
+			string output7C = _safeRemovingWhitespaceMinifier.Minify(input7).MinifiedContent;
+			string output7D = _safeRemovingWhitespaceExceptForNewLinesMinifier.Minify(input7).MinifiedContent;
+			string output7E = _mediumRemovingWhitespaceMinifier.Minify(input7).MinifiedContent;
+			string output7F = _mediumRemovingWhitespaceExceptForNewLinesMinifier.Minify(input7).MinifiedContent;
+			string output7G = _aggressiveRemovingWhitespaceMinifier.Minify(input7).MinifiedContent;
+			string output7H = _aggressiveRemovingWhitespaceExceptForNewLinesMinifier.Minify(input7).MinifiedContent;
+
+			string output8A = _keepingWhitespaceMinifier.Minify(input8).MinifiedContent;
+			string output8B = _keepingWhitespaceAndNewLinesMinifier.Minify(input8).MinifiedContent;
+			string output8C = _safeRemovingWhitespaceMinifier.Minify(input8).MinifiedContent;
+			string output8D = _safeRemovingWhitespaceExceptForNewLinesMinifier.Minify(input8).MinifiedContent;
+			string output8E = _mediumRemovingWhitespaceMinifier.Minify(input8).MinifiedContent;
+			string output8F = _mediumRemovingWhitespaceExceptForNewLinesMinifier.Minify(input8).MinifiedContent;
+			string output8G = _aggressiveRemovingWhitespaceMinifier.Minify(input8).MinifiedContent;
+			string output8H = _aggressiveRemovingWhitespaceExceptForNewLinesMinifier.Minify(input8).MinifiedContent;
+
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
@@ -2173,6 +2248,24 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 			Assert.Equal(targetOutput6F, output6F);
 			Assert.Equal(targetOutput6G, output6G);
 			Assert.Equal(targetOutput6H, output6H);
+
+			Assert.Equal(targetOutput7A, output7A);
+			Assert.Equal(targetOutput7B, output7B);
+			Assert.Equal(targetOutput7C, output7C);
+			Assert.Equal(targetOutput7D, output7D);
+			Assert.Equal(targetOutput7E, output7E);
+			Assert.Equal(targetOutput7F, output7F);
+			Assert.Equal(targetOutput7G, output7G);
+			Assert.Equal(targetOutput7H, output7H);
+
+			Assert.Equal(targetOutput8A, output8A);
+			Assert.Equal(targetOutput8B, output8B);
+			Assert.Equal(targetOutput8C, output8C);
+			Assert.Equal(targetOutput8D, output8D);
+			Assert.Equal(targetOutput8E, output8E);
+			Assert.Equal(targetOutput8F, output8F);
+			Assert.Equal(targetOutput8G, output8G);
+			Assert.Equal(targetOutput8H, output8H);
 		}
 
 		[Fact]
