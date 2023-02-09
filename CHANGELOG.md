@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## v2.13.8 - February 9, 2023
+ * Fixed a incorrect whitespace minification which occurs when there are empty XML tags in the HTML/XHTML markup
+
 ## v2.13.7 - January 28, 2023
  * Implemented a more correct parsing of the missing HTML end tags
  * Fixed a [error #154](https://github.com/Taritsyn/WebMarkupMin/issues/154) “Whitespace trimming on anchor tags (when using svg tag)”

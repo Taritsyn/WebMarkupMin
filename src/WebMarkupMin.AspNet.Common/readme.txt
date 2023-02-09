@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-              README file for Web Markup Minifier: ASP.NET Common v2.13.7
+              README file for Web Markup Minifier: ASP.NET Common v2.13.8
 
    --------------------------------------------------------------------------------
 
