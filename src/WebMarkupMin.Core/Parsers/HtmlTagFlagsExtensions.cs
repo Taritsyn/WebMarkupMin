@@ -17,7 +17,11 @@ namespace WebMarkupMin.Core.Parsers
 		[MethodImpl((MethodImplOptions)256 /* AggressiveInlining */)]
 		internal static bool IsSet(this HtmlTagFlags source, HtmlTagFlags flag)
 		{
+#if NETSTANDARD2_1_OR_GREATER
+			return source.HasFlag(flag);
+#else
 			return (source & flag) == flag;
+#endif
 		}
 	}
 }

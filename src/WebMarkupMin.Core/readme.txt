@@ -46,8 +46,7 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a incorrect whitespace minification which occurs when there are empty XML
-   tags in the HTML/XHTML markup.
+   Small refactoring of the HTML/XHTML parser was performed.
 
    =============
    DOCUMENTATION

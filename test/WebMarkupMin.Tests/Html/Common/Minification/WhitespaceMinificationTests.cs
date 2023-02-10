@@ -2102,17 +2102,17 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 			const string targetOutput7G = targetOutput7E;
 			const string targetOutput7H = targetOutput7D;
 
-			const string input8 = "<i id=\"header-toggle\"><svg width=\"24\" height=\"20\" viewBox=\"0 0 24 20\" " +
+			const string input8 = "<i id=\"header-toggle\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" " +
 				"fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" /></i>\r\r" +
 				"<a href=\"/login\">Log in</a>   <a href=\"/register\">Sign up</a>"
 				;
 			const string targetOutput8A = input8;
 			const string targetOutput8B = input8;
-			const string targetOutput8C = "<i id=\"header-toggle\"><svg width=\"24\" height=\"20\" viewBox=\"0 0 24 20\" " +
+			const string targetOutput8C = "<i id=\"header-toggle\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" " +
 				"fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" /></i> " +
 				"<a href=\"/login\">Log in</a> <a href=\"/register\">Sign up</a>"
 				;
-			const string targetOutput8D = "<i id=\"header-toggle\"><svg width=\"24\" height=\"20\" viewBox=\"0 0 24 20\" " +
+			const string targetOutput8D = "<i id=\"header-toggle\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" " +
 				"fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" /></i>\r" +
 				"<a href=\"/login\">Log in</a> <a href=\"/register\">Sign up</a>"
 				;

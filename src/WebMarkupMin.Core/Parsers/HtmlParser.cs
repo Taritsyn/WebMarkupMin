@@ -111,9 +111,9 @@ namespace WebMarkupMin.Core.Parsers
 		private bool _nonValidatingConditionalCommentOpened = false;
 
 		/// <summary>
-		/// Stack of XML-based tags
+		/// Flag for whether the XML-based tag is open
 		/// </summary>
-		private readonly Stack<string> _xmlTagStack = new Stack<string>();
+		private bool _xmlTagOpened;
 
 		/// <summary>
 		/// Gets a common markup parsing handlers
@@ -301,7 +301,7 @@ namespace WebMarkupMin.Core.Parsers
 					_tempAttributes.Clear();
 					_conditionalCommentTypeStack.Clear();
 					_nonValidatingConditionalCommentOpened = false;
-					_xmlTagStack.Clear();
+					_xmlTagOpened = false;
 					_context = null;
 					_innerContext = null;
 				}
@@ -977,9 +977,9 @@ namespace WebMarkupMin.Core.Parsers
 					_tagStack.Push(tag);
 				}
 
-				if (tagFlags.IsSet(HtmlTagFlags.Xml) && !tagFlags.IsSet(HtmlTagFlags.NonIndependent))
+				if (!_xmlTagOpened && tagFlags.IsSet(HtmlTagFlags.Xml))
 				{
-					_xmlTagStack.Push(tagNameInLowercase);
+					_xmlTagOpened = true;
 				}
 			}
 
@@ -1045,10 +1045,9 @@ namespace WebMarkupMin.Core.Parsers
 		{
 			HtmlTagFlags tagFlags = tag.Flags;
 
-			if (_xmlTagStack.Count > 0
-				&& tagFlags.IsSet(HtmlTagFlags.Xml) && !tagFlags.IsSet(HtmlTagFlags.NonIndependent))
+			if (_xmlTagOpened && !tagFlags.IsSet(HtmlTagFlags.NonIndependent))
 			{
-				_xmlTagStack.Pop();
+				_xmlTagOpened = false;
 			}
 
 			_handlers.EndTag?.Invoke(_context, tag);
@@ -1067,7 +1066,7 @@ namespace WebMarkupMin.Core.Parsers
 		{
 			HtmlTagFlags tagFlags;
 
-			if (_xmlTagStack.Count == 0)
+			if (!_xmlTagOpened)
 			{
 				tagFlags = _tagTypeDeterminer.GetTagFlagsByName(tagNameInLowercase);
 			}

@@ -1,24 +1,68 @@
-﻿using Xunit;
+﻿using System;
+
+using Xunit;
 
 using WebMarkupMin.Core;
 
 namespace WebMarkupMin.Tests.Html.Common.Parsing
 {
-	public class ParsingXmlBasedTagsTests
+	public class ParsingXmlBasedTagsTests : IDisposable
 	{
+		private HtmlMinifier _minifier;
+
+
+		public ParsingXmlBasedTagsTests()
+		{
+			_minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
+		}
+
+
 		[Fact]
-		public void ParsingXmlBasedTags()
+		public void ParsingSvgTag()
 		{
 			// Arrange
-			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
-
-			const string input1 = "<svg width=\"150\" height=\"100\" viewBox=\"0 0 3 2\">" +
+			const string input = "<svg width=\"150\" height=\"100\" viewBox=\"0 0 3 2\">" +
 				"<rect width=\"1\" height=\"2\" x=\"0\" fill=\"#008d46\" />" +
 				"<rect width=\"1\" height=\"2\" x=\"1\" fill=\"#ffffff\" />" +
 				"<rect width=\"1\" height=\"2\" x=\"2\" fill=\"#d2232c\" />" +
 				"</svg>"
 				;
-			const string input2 = "<math>" +
+
+			// Act
+			string output = _minifier.Minify(input).MinifiedContent;
+
+			// Assert
+			Assert.Equal(input, output);
+		}
+
+		[Fact]
+		public void ParsingNestedSvgTags()
+		{
+			// Arrange
+			const string input = "<svg xmlns=\"http://www.w3.org/2000/svg\">\n" +
+				"    <!-- some SVG content -->\n" +
+				"    <svg>\n" +
+				"        <!-- some inner SVG content -->\n" +
+				"    </svg>\n\n" +
+				"    <svg />\n\n" +
+				"    <svg>\n" +
+				"        <!-- other inner SVG content -->\n" +
+				"    </svg>\n" +
+				"</svg>"
+				;
+
+			// Act
+			string output = _minifier.Minify(input).MinifiedContent;
+
+			// Assert
+			Assert.Equal(input, output);
+		}
+
+		[Fact]
+		public void ParsingMathTag()
+		{
+			// Arrange
+			const string input1 = "<math>" +
 				"<apply>" +
 				"<plus />" +
 				"<apply>" +
@@ -39,7 +83,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 				"</apply>" +
 				"</math>"
 				;
-			const string input3 = "<math>" +
+			const string input2 = "<math>" +
 				"<ms><![CDATA[x<y]]></ms>" +
 				"<mo>+</mo>" +
 				"<mn>3</mn>" +
@@ -49,14 +93,21 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 				;
 
 			// Act
-			string output1 = minifier.Minify(input1).MinifiedContent;
-			string output2 = minifier.Minify(input2).MinifiedContent;
-			string output3 = minifier.Minify(input3).MinifiedContent;
+			string output1 = _minifier.Minify(input1).MinifiedContent;
+			string output2 = _minifier.Minify(input2).MinifiedContent;
 
 			// Assert
 			Assert.Equal(input1, output1);
 			Assert.Equal(input2, output2);
-			Assert.Equal(input3, output3);
 		}
+
+		#region IDisposable implementation
+
+		public void Dispose()
+		{
+			_minifier = null;
+		}
+
+		#endregion
 	}
 }
