@@ -15,6 +15,11 @@
    `WebMarkupMinMiddleware`.
 
    =============
+   RELEASE NOTES
+   =============
+   Middleware has been made more thread-safe.
+
+   =============
    DOCUMENTATION
    =============
    See documentation on GitHub - https://github.com/Taritsyn/WebMarkupMin/wiki

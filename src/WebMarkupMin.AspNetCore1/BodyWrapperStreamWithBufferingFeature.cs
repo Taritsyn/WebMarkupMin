@@ -62,9 +62,9 @@ namespace WebMarkupMin.AspNetCore2
 		public void DisableResponseBuffering()
 		{
 			string acceptEncoding = _context.Request.Headers[HeaderNames.AcceptEncoding];
-			InitializeCurrentCompressor(acceptEncoding);
+			ICompressor currentCompressor = ResolveCurrentCompressor(acceptEncoding);
 
-			if (_currentCompressor?.SupportsFlush == false)
+			if (currentCompressor?.SupportsFlush == false)
 			{
 				// Some of the compressors don't support flushing which would block real-time
 				// responses like SignalR.

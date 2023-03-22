@@ -17,7 +17,8 @@
    =============
    RELEASE NOTES
    =============
-   Added support of ASP.NET Core 7.0.4.
+   1. Middleware has been made more thread-safe;
+   2. Added support of ASP.NET Core 7.0.4.
 
    =============
    DOCUMENTATION
