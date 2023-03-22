@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: Sample ASP.NET Core 7 MVC 7 Site</Product>
-    <VersionPrefix>2.13.8</VersionPrefix>
+    <VersionPrefix>2.13.9</VersionPrefix>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>

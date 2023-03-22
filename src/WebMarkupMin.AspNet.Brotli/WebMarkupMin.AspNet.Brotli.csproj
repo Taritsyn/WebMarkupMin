@@ -6,7 +6,7 @@
     <TargetFrameworks>net40;net45;netstandard1.3;netstandard2.0;netstandard2.1;net6.0;net7.0</TargetFrameworks>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <NoWarn>$(NoWarn);CS1591;NU5104</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
     <Description>WebMarkupMin.AspNet.Brotli contains one compressor-adapter for compression of text content by using the Brotli algorithm (https://github.com/google/brotli) - `BrotliCompressor`. `BrotliCompressor` is based on the BrotliSharpLib (https://github.com/master131/BrotliSharpLib) version 0.3.3.

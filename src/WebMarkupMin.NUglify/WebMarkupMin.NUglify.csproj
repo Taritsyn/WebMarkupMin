@@ -7,7 +7,7 @@
     <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.3' ">1.6.0</NetStandardImplicitPackageVersion>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <NoWarn>$(NoWarn);CS1591;NU5104</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Description>WebMarkupMin.NUglify contains 2 minifier-adapters: `NUglifyCssMinifier` (for minification of CSS code) and `NUglifyJsMinifier` (for minification of JS code). These adapters perform minification using the NUglify (https://github.com/trullock/NUglify).</Description>
     <PackageTags>WebMarkupMin;Markup;HTML;XHTML;CSS;JavaScript;JS;Minification;Minifier;Minify;NUglify</PackageTags>

@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-            README file for Web Markup Minifier: ASP.NET Core 3.1+ v2.13.8
+       README file for Web Markup Minifier: ASP.NET Core 3.1+ v2.13.9 Preview 1
 
    --------------------------------------------------------------------------------
 

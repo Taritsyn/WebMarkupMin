@@ -6,7 +6,7 @@
     <TargetFrameworks>net40-client;net45;netstandard2.0</TargetFrameworks>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <NoWarn>$(NoWarn);CS1591;NU5104</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Description>WebMarkupMin.MsAjax contains 2 minifier-adapters: `MsAjaxCssMinifier` (for minification of CSS code) and `MsAjaxJsMinifier` (for minification of JS code). These adapters perform minification using the Microsoft Ajax Minifier (https://github.com/microsoft/ajaxmin).</Description>
     <PackageTags>WebMarkupMin;Markup;HTML;XHTML;CSS;JavaScript;JS;Minification;Minifier;Minify;Microsoft;AjaxMin</PackageTags>
