@@ -13,7 +13,8 @@
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
     <Description>WebMarkupMin.AspNetCore5 contains one ASP.NET Core 5.X Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Middleware;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
-    <PackageReleaseNotes>Rollback to previous thread safety implementation.</PackageReleaseNotes>
+    <PackageReleaseNotes>1. Rollback to previous thread safety implementation;
+2. Added protection of minified content from untimely garbage collection.</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />
