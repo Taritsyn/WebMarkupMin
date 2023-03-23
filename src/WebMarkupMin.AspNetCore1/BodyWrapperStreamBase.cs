@@ -96,14 +96,9 @@ namespace WebMarkupMin.AspNetCore7
 		private readonly IHttpCompressionManager _compressionManager;
 
 		/// <summary>
-		/// Synchronizer of the stream wrapper initialization
-		/// </summary>
-		private readonly object _wrapperInitializationSynchronizer = new object();
-
-		/// <summary>
 		/// Flag indicating whether the stream wrapper is initialized
 		/// </summary>
-		private bool _wrapperInitialized = false;
+		private StatedFlag _wrapperInitializedFlag = new StatedFlag();
 
 		/// <summary>
 		/// Flag indicating whether a markup minification is enabled
@@ -143,7 +138,7 @@ namespace WebMarkupMin.AspNetCore7
 		/// <summary>
 		/// Flag that indicates if the HTTP headers is modified for compression
 		/// </summary>
-		private InterlockedStatedFlag _httpHeadersModifiedForCompressionFlag = new InterlockedStatedFlag();
+		private StatedFlag _httpHeadersModifiedForCompressionFlag = new StatedFlag();
 
 		/// <summary>
 		/// Flag that the stream wrapper is destroyed
@@ -173,18 +168,8 @@ namespace WebMarkupMin.AspNetCore7
 
 		protected void Initialize()
 		{
-			if (_wrapperInitialized)
+			if (_wrapperInitializedFlag.Set())
 			{
-				return;
-			}
-
-			lock (_wrapperInitializationSynchronizer)
-			{
-				if (_wrapperInitialized)
-				{
-					return;
-				}
-
 				HttpRequest request = _context.Request;
 				HttpResponse response = _context.Response;
 
@@ -253,22 +238,16 @@ namespace WebMarkupMin.AspNetCore7
 					string acceptEncoding = request.Headers[HeaderNames.AcceptEncoding];
 					ICompressor currentCompressor = ResolveCurrentCompressor(acceptEncoding);
 
-					if (currentCompressor != null)
+					if (_compressionEnabled && !_minificationEnabled)
 					{
-						if (!_minificationEnabled)
-						{
-							// If markup minification is disabled, then initialize the compression stream.
-							// Otherwise, initialize the compression stream after minification.
-							_compressionStream = currentCompressor.Compress(_originalStream);
-						}
-						_compressionEnabled = true;
+						// If markup minification is disabled, then initialize the compression stream.
+						// Otherwise, initialize the compression stream after minification.
+						_compressionStream = currentCompressor.Compress(_originalStream);
 					}
 				}
 
 				_currentUrl = currentUrl;
 				_encoding = encoding;
-
-				_wrapperInitialized = true;
 			}
 		}
 
@@ -320,9 +299,16 @@ namespace WebMarkupMin.AspNetCore7
 			if (_currentCompressorInitializedFlag.Set())
 			{
 				_compressionManager?.TryCreateCompressor(acceptEncoding, out _currentCompressor);
+				_compressionEnabled = _currentCompressor != null;
 			}
 
 			return _currentCompressor;
+		}
+
+		protected void ResetCurrentCompressor()
+		{
+			_compressionEnabled = false;
+			_currentCompressor = null;
 		}
 
 		private void ModifyHttpHeadersForCompressionOnce()

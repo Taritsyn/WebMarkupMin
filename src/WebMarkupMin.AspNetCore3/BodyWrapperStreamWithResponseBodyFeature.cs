@@ -112,8 +112,7 @@ namespace WebMarkupMin.AspNetCore7
 			{
 				// Some of the compressors don't support flushing which would block real-time
 				// responses like SignalR.
-				_compressionEnabled = false;
-				_currentCompressor = null;
+				ResetCurrentCompressor();
 			}
 			else
 			{

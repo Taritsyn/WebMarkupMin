@@ -17,8 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Middleware has been made more thread-safe;
-   2. Added support of ASP.NET Core 6.0.15.
+   Rollback to previous thread safety implementation.
 
    =============
    DOCUMENTATION

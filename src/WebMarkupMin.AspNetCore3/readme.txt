@@ -17,7 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   Middleware has been made more thread-safe.
+   Rollback to previous thread safety implementation.
 
    =============
    DOCUMENTATION

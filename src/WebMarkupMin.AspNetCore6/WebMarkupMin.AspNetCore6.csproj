@@ -13,8 +13,7 @@
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
     <Description>WebMarkupMin.AspNetCore6 contains one ASP.NET Core 6 Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Middleware;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
-    <PackageReleaseNotes>1. Middleware has been made more thread-safe;
-2. Added support of ASP.NET Core 6.0.15.</PackageReleaseNotes>
+    <PackageReleaseNotes>Rollback to previous thread safety implementation.</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />
