@@ -1,6 +1,10 @@
 Change log
 ==========
 
+## v2.13.9 Preview 2 - March 23, 2023
+ * ASP.NET Core Middlewares rolled back to previous thread safety implementation
+ * In ASP.NET Core extensions was added protection of minified content from untimely garbage collection
+
 ## v2.13.9 Preview 1 - March 22, 2023
  * Small refactoring of the HTML/XHTML parser was performed
  * ASP.NET Core Middlewares have been made more thread-safe
