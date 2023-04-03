@@ -17,8 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Rollback to previous thread safety implementation;
-   2. Added protection of minified content from untimely garbage collection.
+   Was made refactoring.
 
    =============
    DOCUMENTATION

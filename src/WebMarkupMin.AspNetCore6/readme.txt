@@ -17,8 +17,8 @@
    =============
    RELEASE NOTES
    =============
-   1. Rollback to previous thread safety implementation;
-   2. Added protection of minified content from untimely garbage collection.
+   1. Was made refactoring;
+   2. Added support of ASP.NET Core 6.0.15.
 
    =============
    DOCUMENTATION

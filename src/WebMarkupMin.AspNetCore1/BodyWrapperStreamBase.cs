@@ -400,9 +400,6 @@ namespace WebMarkupMin.AspNetCore7
 							byteArrayPool.Return(processedBytes);
 						}
 
-						// Protects a minified content from untimely garbage collection
-						GC.KeepAlive(processedContent);
-
 						isMinified = true;
 					}
 				}
