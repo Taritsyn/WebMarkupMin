@@ -1,6 +1,12 @@
 Change log
 ==========
 
+## v2.13.9 - April 3, 2023
+ * Small refactoring of the HTML/XHTML parser was performed
+ * In ASP.NET Core extensions was made refactoring
+ * In WebMarkupMin.AspNetCore6 added support of ASP.NET Core 6.0.15
+ * In WebMarkupMin.AspNetCore7 added support of ASP.NET Core 7.0.4
+
 ## v2.13.9 Preview 2 - March 23, 2023
  * ASP.NET Core Middlewares rolled back to previous thread safety implementation
  * In ASP.NET Core extensions was added protection of minified content from untimely garbage collection
