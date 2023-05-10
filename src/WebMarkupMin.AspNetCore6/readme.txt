@@ -17,8 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Was made refactoring;
-   2. Added support of ASP.NET Core 6.0.15.
+   Added support of ASP.NET Core 6.0.16.
 
    =============
    DOCUMENTATION
