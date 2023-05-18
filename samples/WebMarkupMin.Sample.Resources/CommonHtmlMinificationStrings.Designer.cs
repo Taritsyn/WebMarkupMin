@@ -106,6 +106,14 @@ namespace WebMarkupMin.Sample.Resources
 		}
 
 		/// <summary>
+		/// Looks up a localized string similar to "Style of the HTML attribute quotes"
+		/// </summary>
+		public static string DisplayName_AttributeQuotesStyle
+		{
+			get { return GetString("DisplayName_AttributeQuotesStyle"); }
+		}
+
+		/// <summary>
 		/// Looks up a localized string similar to "CSS minifier"
 		/// </summary>
 		public static string DisplayName_CssMinifierName
@@ -287,6 +295,38 @@ namespace WebMarkupMin.Sample.Resources
 		public static string DisplayName_WhitespaceMinificationMode
 		{
 			get { return GetString("DisplayName_WhitespaceMinificationMode"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Auto-detect style for attribute quotes based on the source input"
+		/// </summary>
+		public static string ListItem_AttributeQuotesStyle_Auto
+		{
+			get { return GetString("ListItem_AttributeQuotesStyle_Auto"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Double quotes"
+		/// </summary>
+		public static string ListItem_AttributeQuotesStyle_Double
+		{
+			get { return GetString("ListItem_AttributeQuotesStyle_Double"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Optimal style for attribute quotes based on the attribute value"
+		/// </summary>
+		public static string ListItem_AttributeQuotesStyle_Optimal
+		{
+			get { return GetString("ListItem_AttributeQuotesStyle_Optimal"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Single quotes"
+		/// </summary>
+		public static string ListItem_AttributeQuotesStyle_Single
+		{
+			get { return GetString("ListItem_AttributeQuotesStyle_Single"); }
 		}
 
 		/// <summary>

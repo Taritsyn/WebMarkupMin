@@ -71,6 +71,15 @@ namespace WebMarkupMin.Core.Parsers
 		}
 
 		/// <summary>
+		/// Gets a quote character used for attribute values
+		/// </summary>
+		public char QuoteCharacter
+		{
+			get;
+			private set;
+		}
+
+		/// <summary>
 		/// Gets a type
 		/// </summary>
 		public HtmlAttributeType Type
@@ -104,9 +113,12 @@ namespace WebMarkupMin.Core.Parsers
 		/// <param name="name">Name</param>
 		/// <param name="nameInLowercase">Name in lowercase</param>
 		/// <param name="value">Value</param>
+		/// <param name="quoteCharacter">Quote character</param>
 		/// <param name="type">Type</param>
-		public HtmlAttribute(string name, string nameInLowercase, string value, HtmlAttributeType type)
-			: this(name, nameInLowercase, value, type, SourceCodeNodeCoordinates.Empty, SourceCodeNodeCoordinates.Empty)
+		public HtmlAttribute(string name, string nameInLowercase, string value, char quoteCharacter,
+			HtmlAttributeType type)
+			: this(name, nameInLowercase, value, quoteCharacter, type, SourceCodeNodeCoordinates.Empty,
+				  SourceCodeNodeCoordinates.Empty)
 		{ }
 
 		/// <summary>
@@ -115,15 +127,17 @@ namespace WebMarkupMin.Core.Parsers
 		/// <param name="name">Name</param>
 		/// <param name="nameInLowercase">Name in lowercase</param>
 		/// <param name="value">Value</param>
+		/// <param name="quoteCharacter">Quote character</param>
 		/// <param name="type">Type</param>
 		/// <param name="nameCoordinates">Coordinates of name</param>
 		/// <param name="valueCoordinates">Coordinates of value</param>
-		public HtmlAttribute(string name, string nameInLowercase, string value, HtmlAttributeType type,
-			SourceCodeNodeCoordinates nameCoordinates, SourceCodeNodeCoordinates valueCoordinates)
+		public HtmlAttribute(string name, string nameInLowercase, string value, char quoteCharacter,
+			HtmlAttributeType type, SourceCodeNodeCoordinates nameCoordinates, SourceCodeNodeCoordinates valueCoordinates)
 		{
 			Name = name;
 			NameInLowercase = nameInLowercase;
 			Value = value;
+			QuoteCharacter = quoteCharacter;
 			Type = type;
 			NameCoordinates = nameCoordinates;
 			ValueCoordinates = valueCoordinates;

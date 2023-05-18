@@ -44,6 +44,7 @@ namespace WebMarkupMin.Core
 						HtmlEmptyTagRenderMode.SpaceAndSlash : HtmlEmptyTagRenderMode.Slash,
 					RemoveOptionalEndTags = false,
 					RemoveTagsWithoutContent = settings.RemoveTagsWithoutContent,
+					AttributeQuotesStyle = settings.AttributeQuotesStyle,
 					CollapseBooleanAttributes = false,
 					AttributeQuotesRemovalMode = HtmlAttributeQuotesRemovalMode.KeepQuotes,
 					RemoveEmptyAttributes = settings.RemoveEmptyAttributes,

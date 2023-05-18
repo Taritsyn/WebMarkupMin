@@ -284,6 +284,11 @@ namespace WebMarkupMin.Core
 		private string _defaultNewLine;
 
 		/// <summary>
+		/// Default quote character used for attribute values
+		/// </summary>
+		private char _defaultQuoteCharacter;
+
+		/// <summary>
 		/// HTML minification output writer
 		/// </summary>
 		private readonly HtmlMinificationOutputWriter _output;
@@ -545,6 +550,7 @@ namespace WebMarkupMin.Core
 					_fileContext = null;
 					_encoding = null;
 					_defaultNewLine = null;
+					_defaultQuoteCharacter = '\0';
 				}
 			}
 
@@ -947,7 +953,13 @@ namespace WebMarkupMin.Core
 			{
 				for (int attributeIndex = 0; attributeIndex < attributeCount; attributeIndex++)
 				{
-					HtmlAttributeViewModel attributeViewModel = BuildAttributeViewModel(context, tag, attributes[attributeIndex]);
+					HtmlAttribute attribute = attributes[attributeIndex];
+					if (_defaultQuoteCharacter == '\0' && attribute.QuoteCharacter != '\0')
+					{
+						_defaultQuoteCharacter = attribute.QuoteCharacter;
+					}
+
+					HtmlAttributeViewModel attributeViewModel = BuildAttributeViewModel(context, tag, attribute);
 					if (!attributeViewModel.IsEmpty)
 					{
 						output.Write(" ");
@@ -957,12 +969,12 @@ namespace WebMarkupMin.Core
 							output.Write("=");
 							if (attributeViewModel.HasQuotes)
 							{
-								output.Write("\"");
+								output.Write(attributeViewModel.QuoteCharacter);
 							}
 							output.Write(attributeViewModel.Value);
 							if (attributeViewModel.HasQuotes)
 							{
-								output.Write("\"");
+								output.Write(attributeViewModel.QuoteCharacter);
 							}
 						}
 
@@ -1512,10 +1524,15 @@ namespace WebMarkupMin.Core
 		private HtmlAttributeViewModel InnerBuildAttributeViewModel(HtmlAttribute attribute, bool omitValue,
 			bool addQuotes)
 		{
+			char recommendedQuoteCharacter = HtmlAttributeValueHelpers.GetAttributeQuoteCharacterByStyleEnum(
+				_settings.AttributeQuotesStyle, attribute.Value, attribute.QuoteCharacter, _defaultQuoteCharacter);
+			char quoteCharacter = addQuotes ? recommendedQuoteCharacter : '\0';
 			string displayAttributeName = CanPreserveCase() ? attribute.Name : attribute.NameInLowercase;
 			string encodedAttributeValue = !omitValue ?
-				HtmlAttributeValueHelpers.Encode(attribute.Value, HtmlAttributeQuotesType.Double) : null;
-			var attributeViewModel = new HtmlAttributeViewModel(displayAttributeName, encodedAttributeValue, addQuotes);
+				HtmlAttributeValueHelpers.Encode(attribute.Value, quoteCharacter) : null;
+
+			var attributeViewModel = new HtmlAttributeViewModel(displayAttributeName, encodedAttributeValue,
+				quoteCharacter);
 
 			return attributeViewModel;
 		}
@@ -1999,7 +2016,8 @@ namespace WebMarkupMin.Core
 						upgradedTag = new HtmlTag(tag.Name, tag.NameInLowercase,
 							new List<HtmlAttribute>
 							{
-								new HtmlAttribute("charset", "charset", charset, HtmlAttributeType.Text)
+								new HtmlAttribute("charset", "charset", charset, contentAttribute.QuoteCharacter,
+									HtmlAttributeType.Text)
 							},
 							tag.Flags
 						);
@@ -3157,6 +3175,11 @@ namespace WebMarkupMin.Core
 			public readonly bool HasValue;
 
 			/// <summary>
+			/// Quote character
+			/// </summary>
+			public readonly char QuoteCharacter;
+
+			/// <summary>
 			/// Flag indicating whether the attribute value enclosed in quotes
 			/// </summary>
 			public readonly bool HasQuotes;
@@ -3169,7 +3192,7 @@ namespace WebMarkupMin.Core
 			/// <summary>
 			/// Represents a empty HTML attribute view model
 			/// </summary>
-			public static readonly HtmlAttributeViewModel Empty = new HtmlAttributeViewModel(null, null, false);
+			public static readonly HtmlAttributeViewModel Empty = new HtmlAttributeViewModel(null, null, '\0');
 
 
 			/// <summary>
@@ -3177,9 +3200,9 @@ namespace WebMarkupMin.Core
 			/// </summary>
 			/// <param name="name">Name</param>
 			/// <param name="value">Value</param>
-			/// <param name="hasQuotes">Flag indicating whether the attribute value enclosed in quotes</param>
+			/// <param name="quoteCharacter">Quote character</param>
 
-			public HtmlAttributeViewModel(string name, string value, bool hasQuotes)
+			public HtmlAttributeViewModel(string name, string value, char quoteCharacter)
 			{
 				if (name != null)
 				{
@@ -3194,7 +3217,8 @@ namespace WebMarkupMin.Core
 						Value = string.Empty;
 						HasValue = false;
 					}
-					HasQuotes = hasQuotes;
+					QuoteCharacter = quoteCharacter;
+					HasQuotes = quoteCharacter != '\0';
 					IsEmpty = false;
 				}
 				else
@@ -3202,6 +3226,7 @@ namespace WebMarkupMin.Core
 					Name = string.Empty;
 					Value = string.Empty;
 					HasValue = false;
+					QuoteCharacter = '\0';
 					HasQuotes = false;
 					IsEmpty = true;
 				}

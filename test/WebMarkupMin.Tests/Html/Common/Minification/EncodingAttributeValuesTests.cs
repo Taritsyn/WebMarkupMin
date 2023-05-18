@@ -14,8 +14,8 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 
 			const string input1 = "<input value='<a href=\"/product.asp?id=12&category=5&returnUrl=%2Fdefault.asp\">" +
 				"Show product</a>'>";
-			const string targetOutput1 = "<input value=\"&lt;a href=&#34;/product.asp?id=12&amp;category=5" +
-				"&amp;returnUrl=%2Fdefault.asp&#34;>Show product&lt;/a>\">";
+			const string targetOutput1 = "<input value='&lt;a href=\"/product.asp?id=12&amp;category=5" +
+				"&amp;returnUrl=%2Fdefault.asp\">Show product&lt;/a>'>";
 
 			const string input2 = "<input value=\"<a href='/product.asp?id=12&category=5&returnUrl=%2Fdefault.asp'>" +
 				"Show product</a>\">";
@@ -28,12 +28,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 				"	<option value='YUI JS Minifier'>YUI JS Minifier</option>\n" +
 				"</select>"
 				;
-			const string targetOutput3 = "<select>\n" +
-				"	<option value=\"Douglas Crockford's JS Minifier\">Douglas Crockford's JS Minifier</option>\n" +
-				"	<option value=\"Microsoft Ajax JS Minifier\">Microsoft Ajax JS Minifier</option>\n" +
-				"	<option value=\"YUI JS Minifier\">YUI JS Minifier</option>\n" +
-				"</select>"
-				;
+			const string targetOutput3 = input3;
 
 			const string input4 = "<input type=\"button\" value=\"Remove article &quot;Паранойя оптимизатора&quot;\">";
 			const string targetOutput4 = "<input type=\"button\" value=\"Remove article &#34;Паранойя оптимизатора&#34;\">";

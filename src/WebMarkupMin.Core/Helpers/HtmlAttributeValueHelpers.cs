@@ -85,6 +85,74 @@ namespace WebMarkupMin.Core.Helpers
 		}
 
 		/// <summary>
+		/// Gets a HTML attribute quote character by the quote style enum
+		/// </summary>
+		/// <param name="quoteStyle">Style of the attribute quotes</param>
+		/// <param name="attributeValue">Attribute value</param>
+		/// <param name="originalQuoteCharacter">Original attribute quote character</param>
+		/// <param name="defaultQuoteCharacter">Default attribute quote character</param>
+		/// <returns>Attribute quote character</returns>
+		public static char GetAttributeQuoteCharacterByStyleEnum(HtmlAttributeQuotesStyle quoteStyle, string attributeValue,
+			char originalQuoteCharacter, char defaultQuoteCharacter)
+		{
+			char quoteCharacter;
+
+			switch (quoteStyle)
+			{
+				case HtmlAttributeQuotesStyle.Auto:
+					quoteCharacter = GetDefaultAttributeQuoteCharacter(originalQuoteCharacter, defaultQuoteCharacter);
+					break;
+				case HtmlAttributeQuotesStyle.Optimal:
+					bool containsDoubleQuote = attributeValue.IndexOf('"') != -1;
+					bool containsSingleQuote = attributeValue.IndexOf('\'') != -1;
+
+					if (containsDoubleQuote || containsSingleQuote)
+					{
+						if (containsDoubleQuote && containsSingleQuote)
+						{
+							quoteCharacter = GetDefaultAttributeQuoteCharacter(originalQuoteCharacter, defaultQuoteCharacter);
+						}
+						else if (containsDoubleQuote)
+						{
+							quoteCharacter = '\'';
+						}
+						else
+						{
+							quoteCharacter = '"';
+						}
+					}
+					else
+					{
+						quoteCharacter = GetDefaultAttributeQuoteCharacter(originalQuoteCharacter, defaultQuoteCharacter);
+					}
+
+					break;
+				case HtmlAttributeQuotesStyle.Single:
+					quoteCharacter = '\'';
+					break;
+				case HtmlAttributeQuotesStyle.Double:
+					quoteCharacter = '"';
+					break;
+				default:
+					quoteCharacter = '\0';
+					break;
+			}
+
+			return quoteCharacter;
+		}
+
+		private static char GetDefaultAttributeQuoteCharacter(char originalQuoteCharacter, char defaultQuoteCharacter)
+		{
+			char quoteCharacter = originalQuoteCharacter;
+			if (originalQuoteCharacter == '\0')
+			{
+				quoteCharacter = defaultQuoteCharacter != '\0' ? defaultQuoteCharacter : '"';
+			}
+
+			return quoteCharacter;
+		}
+
+		/// <summary>
 		/// Converts a string that has been HTML-encoded into a decoded string
 		/// </summary>
 		/// <param name="value">The string to decode</param>
@@ -103,21 +171,11 @@ namespace WebMarkupMin.Core.Helpers
 		/// Converts a string to an HTML-encoded string
 		/// </summary>
 		/// <param name="value">The string to encode</param>
-		/// <param name="attributeQuotesType">HTML attribute quotes type</param>
+		/// <param name="quoteCharacter">Quote character</param>
 		/// <returns>The encoded string</returns>
-		public static string Encode(string value,
-			HtmlAttributeQuotesType attributeQuotesType = HtmlAttributeQuotesType.Double)
+		public static string Encode(string value, char quoteCharacter)
 		{
-			char quoteCharValue = '"';
-			string quoteCharReference = "&#34;"; // use `&#34;` instead of `&quot;`, because it is shorter
-
-			if (attributeQuotesType == HtmlAttributeQuotesType.Single)
-			{
-				quoteCharValue = '\'';
-				quoteCharReference = "&#39;";
-			}
-
-			if (string.IsNullOrWhiteSpace(value) || !ContainsEncodingChars(value, quoteCharValue))
+			if (string.IsNullOrWhiteSpace(value) || !ContainsEncodingChars(value, quoteCharacter))
 			{
 				return value;
 			}
@@ -137,10 +195,20 @@ namespace WebMarkupMin.Core.Helpers
 					switch (charValue)
 					{
 						case '"':
-						case '\'':
-							if (charValue == quoteCharValue)
+							if (quoteCharacter == '"' || quoteCharacter == '\0')
 							{
-								writer.Write(quoteCharReference);
+								writer.Write("&#34;"); // use `&#34;` instead of `&quot;`, because it is shorter
+							}
+							else
+							{
+								writer.Write(charValue);
+							}
+
+							break;
+						case '\'':
+							if (quoteCharacter == '\'' || quoteCharacter == '\0')
+							{
+								writer.Write("&#39;");
 							}
 							else
 							{
@@ -170,9 +238,14 @@ namespace WebMarkupMin.Core.Helpers
 			return result;
 		}
 
-		private static bool ContainsEncodingChars(string value, char quoteCharValue)
+		private static bool ContainsEncodingChars(string value, char quoteCharacter)
 		{
-			char[] encodingChars = quoteCharValue == '"' ?
+			if (quoteCharacter == '\0')
+			{
+				return value.IndexOf('"') != -1 || value.IndexOfAny(_encodingCharsWithSingleQuote) != -1;
+			}
+
+			char[] encodingChars = quoteCharacter == '"' ?
 				_encodingCharsWithDoubleQuote : _encodingCharsWithSingleQuote;
 			bool result = value.IndexOfAny(encodingChars) != -1;
 

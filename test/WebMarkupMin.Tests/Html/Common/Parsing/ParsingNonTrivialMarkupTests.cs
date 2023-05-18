@@ -87,8 +87,8 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 				"<title>Вакансии — ФИГАЧИМ</title>"
 				;
 			const string targetOutput18 = "<meta http-equiv=\"X-UA-Compatible\" content=\"chrome=1\">\n" +
-				"<link href=\"http://example.com/rss\" rel=\"alternate\" type=\"application/rss+xml\" " +
-				"вакансии — фигачим=\"Все вакансии\">\n" +
+				"<link href='http://example.com/rss' rel='alternate' type='application/rss+xml' " +
+				"вакансии — фигачим='Все вакансии'>\n" +
 				"<title>Вакансии — ФИГАЧИМ</title>"
 				;
 
@@ -104,8 +104,8 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 			const string input20 = "<form action='/s/ref=nb_sb_noss' method='get' role='search'" +
 				" accept-charset='utf-8', class='nav-searchbar-inner'></form>"
 				;
-			const string targetOutput20 = "<form action=\"/s/ref=nb_sb_noss\" method=\"get\" role=\"search\"" +
-				" accept-charset=\"utf-8\" , class=\"nav-searchbar-inner\"></form>"
+			const string targetOutput20 = "<form action='/s/ref=nb_sb_noss' method='get' role='search'" +
+				" accept-charset='utf-8' , class='nav-searchbar-inner'></form>"
 				;
 
 			const string input21 = "<head><td>m<head>l><html><body><h1>h1</h1><p>p</p></body></html>";

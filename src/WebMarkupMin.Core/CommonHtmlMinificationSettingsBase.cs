@@ -71,6 +71,15 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
+		/// Gets or sets a style of the HTML attribute quotes
+		/// </summary>
+		public HtmlAttributeQuotesStyle AttributeQuotesStyle
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets a flag for whether to remove attributes, that has empty value
 		/// (valid attributes are: <code>class</code>, <code>id</code>, <code>name</code>,
 		/// <code>style</code>, <code>title</code>, <code>lang</code>, event attributes,
@@ -547,6 +556,7 @@ namespace WebMarkupMin.Core
 			PreserveNewLines = false;
 			NewLineStyle = NewLineStyle.Auto;
 			RemoveTagsWithoutContent = false;
+			AttributeQuotesStyle = HtmlAttributeQuotesStyle.Auto;
 			RemoveRedundantAttributes = false;
 			RemoveHttpProtocolFromAttributes = false;
 			RemoveHttpsProtocolFromAttributes = false;

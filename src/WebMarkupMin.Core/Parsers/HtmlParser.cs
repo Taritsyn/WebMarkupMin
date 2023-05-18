@@ -39,13 +39,13 @@ namespace WebMarkupMin.Core.Parsers
 		private static readonly Regex _endTagRegex = new Regex(@"^<\/(?<tagName>" + CommonRegExps.HtmlTagNamePattern + @")\s*>",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _attributeRegex =
-			new Regex(@"^\s*(?<attributeName>" + CommonRegExps.HtmlAttributeNamePattern + @")" +
+			new Regex(@"^\s*(?<name>" + CommonRegExps.HtmlAttributeNamePattern + @")" +
 				"(?:" +
-					@"\s*(?<attributeEqualSign>=)\s*" +
+					@"\s*(?<equalSign>=)\s*" +
 					"(?:" +
-						@"(?:""(?<attributeValue>[^""]*)"")" +
-						@"|(?:'(?<attributeValue>[^']*)')" +
-						@"|(?<attributeValue>[^\s""'`=<>]+)" +
+						@"(?:(?<quote>"")(?<value>[^""]*)"")" +
+						@"|(?:(?<quote>')(?<value>[^']*)')" +
+						@"|(?<value>[^\s""'`=<>]+)" +
 					")?" +
 				")?",
 				TargetFrameworkShortcuts.PerformanceRegexOptions)
@@ -744,78 +744,85 @@ namespace WebMarkupMin.Core.Parsers
 			while (match.Success)
 			{
 				GroupCollection groups = match.Groups;
-				Group attributeNameGroup = groups["attributeName"];
-				Group attributeEqualSignGroup = groups["attributeEqualSign"];
-				Group attributeValueGroup = groups["attributeValue"];
+				Group nameGroup = groups["name"];
+				Group equalSignGroup = groups["equalSign"];
+				Group valueGroup = groups["value"];
 
-				string attributeName = attributeNameGroup.Value;
-				string attributeNameInLowercase = attributeName;
-				if (Utils.ContainsUppercaseCharacters(attributeName))
+				string name = nameGroup.Value;
+				string nameInLowercase = name;
+				if (Utils.ContainsUppercaseCharacters(name))
 				{
-					attributeNameInLowercase = attributeName.ToLowerInvariant();
+					nameInLowercase = name.ToLowerInvariant();
 				}
-				string attributeValue = null;
+				string value = null;
+				char quoteCharacter = '\0';
 
-				if (attributeEqualSignGroup.Success)
+				if (equalSignGroup.Success)
 				{
-					if (attributeValueGroup.Success)
+					if (valueGroup.Success)
 					{
-						attributeValue = attributeValueGroup.Value;
-						if (!string.IsNullOrWhiteSpace(attributeValue))
+						value = valueGroup.Value;
+						if (!string.IsNullOrWhiteSpace(value))
 						{
-							attributeValue = HtmlAttributeValueHelpers.Decode(attributeValue);
+							value = HtmlAttributeValueHelpers.Decode(value);
 						}
 					}
 					else
 					{
-						attributeValue = string.Empty;
+						value = string.Empty;
+					}
+
+					Group quoteGroup = groups["quote"];
+					if (quoteGroup.Success)
+					{
+						quoteCharacter = quoteGroup.Value[0];
 					}
 				}
 
-				var attributeNameCoordinates = SourceCodeNodeCoordinates.Empty;
-				int attributeNamePosition = -1;
-				if (attributeNameGroup.Success)
+				var nameCoordinates = SourceCodeNodeCoordinates.Empty;
+				int namePosition = -1;
+				if (nameGroup.Success)
 				{
-					attributeNamePosition = attributeNameGroup.Index;
+					namePosition = nameGroup.Index;
 				}
 
-				if (attributeNamePosition != -1)
-				{
-					int lineCount;
-					int charRemainderCount;
-
-					SourceCodeNavigator.CalculateLineCount(content, currentPosition,
-						attributeNamePosition - currentPosition, out lineCount, out charRemainderCount);
-					attributeNameCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
-						currentCoordinates, lineCount, charRemainderCount);
-
-					currentPosition = attributeNamePosition;
-					currentCoordinates = attributeNameCoordinates;
-				}
-
-				var attributeValueCoordinates = SourceCodeNodeCoordinates.Empty;
-				int attributeValuePosition = -1;
-				if (attributeValueGroup.Success)
-				{
-					attributeValuePosition = attributeValueGroup.Index;
-				}
-
-				if (attributeValuePosition != -1)
+				if (namePosition != -1)
 				{
 					int lineCount;
 					int charRemainderCount;
 
 					SourceCodeNavigator.CalculateLineCount(content, currentPosition,
-						attributeValuePosition - currentPosition, out lineCount, out charRemainderCount);
-					attributeValueCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
+						namePosition - currentPosition, out lineCount, out charRemainderCount);
+					nameCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
 						currentCoordinates, lineCount, charRemainderCount);
 
-					currentPosition = attributeValuePosition;
-					currentCoordinates = attributeValueCoordinates;
+					currentPosition = namePosition;
+					currentCoordinates = nameCoordinates;
 				}
 
-				var attribute = new HtmlAttribute(attributeName, attributeNameInLowercase, attributeValue,
-					HtmlAttributeType.Unknown, attributeNameCoordinates, attributeValueCoordinates);
+				var valueCoordinates = SourceCodeNodeCoordinates.Empty;
+				int valuePosition = -1;
+				if (valueGroup.Success)
+				{
+					valuePosition = valueGroup.Index;
+				}
+
+				if (valuePosition != -1)
+				{
+					int lineCount;
+					int charRemainderCount;
+
+					SourceCodeNavigator.CalculateLineCount(content, currentPosition,
+						valuePosition - currentPosition, out lineCount, out charRemainderCount);
+					valueCoordinates = SourceCodeNavigator.CalculateAbsoluteNodeCoordinates(
+						currentCoordinates, lineCount, charRemainderCount);
+
+					currentPosition = valuePosition;
+					currentCoordinates = valueCoordinates;
+				}
+
+				var attribute = new HtmlAttribute(name, nameInLowercase, value, quoteCharacter,
+					HtmlAttributeType.Unknown, nameCoordinates, valueCoordinates);
 				_tempAttributes.Add(attribute);
 
 				_innerContext.IncreasePosition(match.Length);

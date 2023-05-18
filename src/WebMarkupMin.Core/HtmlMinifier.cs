@@ -44,6 +44,7 @@ namespace WebMarkupMin.Core
 						RemoveOptionalEndTags = settings.RemoveOptionalEndTags,
 						PreservableOptionalTagList = settings.PreservableOptionalTagList,
 						RemoveTagsWithoutContent = settings.RemoveTagsWithoutContent,
+						AttributeQuotesStyle = settings.AttributeQuotesStyle,
 						CollapseBooleanAttributes = settings.CollapseBooleanAttributes,
 						AttributeQuotesRemovalMode = settings.AttributeQuotesRemovalMode,
 						RemoveEmptyAttributes = settings.RemoveEmptyAttributes,

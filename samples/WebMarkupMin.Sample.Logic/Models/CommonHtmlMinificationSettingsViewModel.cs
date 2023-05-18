@@ -19,6 +19,7 @@ namespace WebMarkupMin.Sample.Logic.Models
 	public abstract class CommonHtmlMinificationSettingsViewModel : MarkupMinificationSettingsViewModel
 	{
 		private static readonly IEnumerable<SelectListItem> _whitespaceMinificationModes;
+		private static readonly IEnumerable<SelectListItem> _attributeQuotesStyles;
 		private static readonly IEnumerable<SelectListItem> _availableCssMinifierList;
 		private static readonly IEnumerable<SelectListItem> _availableJsMinifierList;
 
@@ -60,6 +61,13 @@ namespace WebMarkupMin.Sample.Logic.Models
 
 		[Display(Name = "DisplayName_RemoveTagsWithoutContent", ResourceType = typeof(CommonHtmlMinificationStrings))]
 		public bool RemoveTagsWithoutContent
+		{
+			get;
+			set;
+		}
+
+		[Display(Name = "DisplayName_AttributeQuotesStyle", ResourceType = typeof(CommonHtmlMinificationStrings))]
+		public HtmlAttributeQuotesStyle AttributeQuotesStyle
 		{
 			get;
 			set;
@@ -201,6 +209,11 @@ namespace WebMarkupMin.Sample.Logic.Models
 			get { return _whitespaceMinificationModes; }
 		}
 
+		public IEnumerable<SelectListItem> AttributeQuotesStyleList
+		{
+			get { return _attributeQuotesStyles; }
+		}
+
 
 		static CommonHtmlMinificationSettingsViewModel()
 		{
@@ -225,6 +238,30 @@ namespace WebMarkupMin.Sample.Logic.Models
 				{
 					Value = WhitespaceMinificationMode.Aggressive.ToString(),
 					Text = CommonHtmlMinificationStrings.ListItem_WhitespaceMinificationMode_Aggressive
+				}
+			};
+
+			_attributeQuotesStyles = new List<SelectListItem>
+			{
+				new SelectListItem
+				{
+					Value = HtmlAttributeQuotesStyle.Auto.ToString(),
+					Text = CommonHtmlMinificationStrings.ListItem_AttributeQuotesStyle_Auto
+				},
+				new SelectListItem
+				{
+					Value = HtmlAttributeQuotesStyle.Optimal.ToString(),
+					Text = CommonHtmlMinificationStrings.ListItem_AttributeQuotesStyle_Optimal
+				},
+				new SelectListItem
+				{
+					Value = HtmlAttributeQuotesStyle.Single.ToString(),
+					Text = CommonHtmlMinificationStrings.ListItem_AttributeQuotesStyle_Single
+				},
+				new SelectListItem
+				{
+					Value = HtmlAttributeQuotesStyle.Double.ToString(),
+					Text = CommonHtmlMinificationStrings.ListItem_AttributeQuotesStyle_Double
 				}
 			};
 

@@ -46,7 +46,8 @@
    =============
    RELEASE NOTES
    =============
-   Small refactoring of the HTML/XHTML parser was performed.
+   In HTML and XHTML minification settings was added one new property -
+   `AttributeQuotesStyle` (default `Auto`).
 
    =============
    DOCUMENTATION

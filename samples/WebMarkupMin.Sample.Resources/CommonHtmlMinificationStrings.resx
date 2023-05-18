@@ -135,6 +135,9 @@
   <data name="ControlGroup_SpacesCommentsAndCdataSections" xml:space="preserve">
     <value>Spaces, comments and CDATA sections</value>
   </data>
+  <data name="DisplayName_AttributeQuotesStyle" xml:space="preserve">
+    <value>Style of the HTML attribute quotes</value>
+  </data>
   <data name="DisplayName_CssMinifierName" xml:space="preserve">
     <value>CSS minifier</value>
   </data>
@@ -203,6 +206,18 @@
   </data>
   <data name="DisplayName_WhitespaceMinificationMode" xml:space="preserve">
     <value>Whitespace minification mode</value>
+  </data>
+  <data name="ListItem_AttributeQuotesStyle_Auto" xml:space="preserve">
+    <value>Auto-detect style for attribute quotes based on the source input</value>
+  </data>
+  <data name="ListItem_AttributeQuotesStyle_Double" xml:space="preserve">
+    <value>Double quotes</value>
+  </data>
+  <data name="ListItem_AttributeQuotesStyle_Optimal" xml:space="preserve">
+    <value>Optimal style for attribute quotes based on the attribute value</value>
+  </data>
+  <data name="ListItem_AttributeQuotesStyle_Single" xml:space="preserve">
+    <value>Single quotes</value>
   </data>
   <data name="ListItem_WhitespaceMinificationMode_Aggressive" xml:space="preserve">
     <value>Aggressive whitespace minification</value>
