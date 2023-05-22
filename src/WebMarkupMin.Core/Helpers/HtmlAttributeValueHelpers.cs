@@ -152,6 +152,26 @@ namespace WebMarkupMin.Core.Helpers
 			return quoteCharacter;
 		}
 
+		public static string ConvertAttributeQuoteCharacterToString(char quoteCharacter)
+		{
+			string quoteString;
+
+			switch (quoteCharacter)
+			{
+				case '"':
+					quoteString = "\"";
+					break;
+				case '\'':
+					quoteString = "'";
+					break;
+				default:
+					quoteString = string.Empty;
+					break;
+			}
+
+			return quoteString;
+		}
+
 		/// <summary>
 		/// Converts a string that has been HTML-encoded into a decoded string
 		/// </summary>

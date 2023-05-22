@@ -43,8 +43,8 @@ namespace WebMarkupMin.Core.Parsers
 				"(?:" +
 					@"\s*(?<equalSign>=)\s*" +
 					"(?:" +
-						@"(?:(?<quote>"")(?<value>[^""]*)"")" +
-						@"|(?:(?<quote>')(?<value>[^']*)')" +
+						@"(?:""(?<value>[^""]*)"")" +
+						@"|(?:'(?<value>[^']*)')" +
 						@"|(?<value>[^\s""'`=<>]+)" +
 					")?" +
 				")?",
@@ -766,16 +766,17 @@ namespace WebMarkupMin.Core.Parsers
 						{
 							value = HtmlAttributeValueHelpers.Decode(value);
 						}
+
+						char characterBeforeValue;
+						if (content.TryGetChar(valueGroup.Index - 1, out characterBeforeValue))
+						{
+							quoteCharacter = characterBeforeValue == '"' || characterBeforeValue == '\'' ?
+								characterBeforeValue : '\0';
+						}
 					}
 					else
 					{
 						value = string.Empty;
-					}
-
-					Group quoteGroup = groups["quote"];
-					if (quoteGroup.Success)
-					{
-						quoteCharacter = quoteGroup.Value[0];
 					}
 				}
 

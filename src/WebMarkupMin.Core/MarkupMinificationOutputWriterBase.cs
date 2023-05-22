@@ -132,15 +132,6 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Writes a character to the output buffer
-		/// </summary>
-		/// <param name="value">The character to write</param>
-		public void Write(char value)
-		{
-			Write(value.ToString());
-		}
-
-		/// <summary>
 		/// Writes a string to the output buffer
 		/// </summary>
 		/// <param name="value">The string to write</param>

@@ -969,12 +969,12 @@ namespace WebMarkupMin.Core
 							output.Write("=");
 							if (attributeViewModel.HasQuotes)
 							{
-								output.Write(attributeViewModel.QuoteCharacter);
+								output.Write(attributeViewModel.Quote);
 							}
 							output.Write(attributeViewModel.Value);
 							if (attributeViewModel.HasQuotes)
 							{
-								output.Write(attributeViewModel.QuoteCharacter);
+								output.Write(attributeViewModel.Quote);
 							}
 						}
 
@@ -1825,10 +1825,10 @@ namespace WebMarkupMin.Core
 										classNameBuilder.Append(";");
 									}
 								},
-								(localContext, сontent) =>
+								(localContext, content) =>
 								{
-									string processedСontent = сontent.CollapseWhitespace();
-									classNameBuilder.Append(processedСontent);
+									string processedContent = content.CollapseWhitespace();
+									classNameBuilder.Append(processedContent);
 								}
 							);
 
@@ -3159,14 +3159,16 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// HTML attribute view model
 		/// </summary>
-		private struct HtmlAttributeViewModel
+		private readonly struct HtmlAttributeViewModel
 		{
 			/// <summary>
 			/// Name
 			/// </summary>
 			public readonly string Name;
 
-			// Value
+			/// <summary>
+			/// Value
+			/// </summary>
 			public readonly string Value;
 
 			/// <summary>
@@ -3175,9 +3177,9 @@ namespace WebMarkupMin.Core
 			public readonly bool HasValue;
 
 			/// <summary>
-			/// Quote character
+			/// Quote
 			/// </summary>
-			public readonly char QuoteCharacter;
+			public readonly string Quote;
 
 			/// <summary>
 			/// Flag indicating whether the attribute value enclosed in quotes
@@ -3217,7 +3219,7 @@ namespace WebMarkupMin.Core
 						Value = string.Empty;
 						HasValue = false;
 					}
-					QuoteCharacter = quoteCharacter;
+					Quote = HtmlAttributeValueHelpers.ConvertAttributeQuoteCharacterToString(quoteCharacter);
 					HasQuotes = quoteCharacter != '\0';
 					IsEmpty = false;
 				}
@@ -3226,7 +3228,7 @@ namespace WebMarkupMin.Core
 					Name = string.Empty;
 					Value = string.Empty;
 					HasValue = false;
-					QuoteCharacter = '\0';
+					Quote = string.Empty;
 					HasQuotes = false;
 					IsEmpty = true;
 				}
