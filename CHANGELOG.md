@@ -1,6 +1,12 @@
 Change log
 ==========
 
+## v2.14.0 - May 24, 2023
+ * In HTML and XHTML minification settings was added one new property - `AttributeQuotesStyle` (default `Auto`)
+ * In WebMarkupMin.NUglify added support of the NUglify version 1.20.7
+ * In WebMarkupMin.AspNetCore6 added support of ASP.NET Core 6.0.16
+ * In WebMarkupMin.AspNetCore7 added support of ASP.NET Core 7.0.5
+
 ## v2.13.9 - April 3, 2023
  * Small refactoring of the HTML/XHTML parser was performed
  * In ASP.NET Core extensions was made refactoring

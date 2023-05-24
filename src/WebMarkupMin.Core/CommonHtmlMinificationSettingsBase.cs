@@ -553,8 +553,6 @@ namespace WebMarkupMin.Core
 				MinifyEmbeddedJsonData = false;
 				_processableScriptTypes = new HashSet<string>();
 			}
-			PreserveNewLines = false;
-			NewLineStyle = NewLineStyle.Auto;
 			RemoveTagsWithoutContent = false;
 			AttributeQuotesStyle = HtmlAttributeQuotesStyle.Auto;
 			RemoveRedundantAttributes = false;
