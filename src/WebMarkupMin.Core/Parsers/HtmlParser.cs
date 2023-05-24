@@ -518,7 +518,7 @@ namespace WebMarkupMin.Core.Parsers
 			{
 				string startTagName = startTagBeginPartMatch.Groups["tagName"].Value;
 				string startTagNameInLowercase = startTagName;
-				if (Utils.ContainsUppercaseCharacters(startTagName))
+				if (Utils.ContainsUppercaseChars(startTagName))
 				{
 					startTagNameInLowercase = startTagName.ToLowerInvariant();
 				}
@@ -598,7 +598,7 @@ namespace WebMarkupMin.Core.Parsers
 			{
 				string endTagName = match.Groups["tagName"].Value;
 				string endTagNameInLowercase = endTagName;
-				if (Utils.ContainsUppercaseCharacters(endTagName))
+				if (Utils.ContainsUppercaseChars(endTagName))
 				{
 					endTagNameInLowercase = endTagName.ToLowerInvariant();
 				}
@@ -750,12 +750,12 @@ namespace WebMarkupMin.Core.Parsers
 
 				string name = nameGroup.Value;
 				string nameInLowercase = name;
-				if (Utils.ContainsUppercaseCharacters(name))
+				if (Utils.ContainsUppercaseChars(name))
 				{
 					nameInLowercase = name.ToLowerInvariant();
 				}
 				string value = null;
-				char quoteCharacter = '\0';
+				char quoteChar = '\0';
 
 				if (equalSignGroup.Success)
 				{
@@ -767,11 +767,11 @@ namespace WebMarkupMin.Core.Parsers
 							value = HtmlAttributeValueHelpers.Decode(value);
 						}
 
-						char characterBeforeValue;
-						if (content.TryGetChar(valueGroup.Index - 1, out characterBeforeValue))
+						char charBeforeValue;
+						if (content.TryGetChar(valueGroup.Index - 1, out charBeforeValue))
 						{
-							quoteCharacter = characterBeforeValue == '"' || characterBeforeValue == '\'' ?
-								characterBeforeValue : '\0';
+							quoteChar = charBeforeValue == '"' || charBeforeValue == '\'' ?
+								charBeforeValue : '\0';
 						}
 					}
 					else
@@ -822,7 +822,7 @@ namespace WebMarkupMin.Core.Parsers
 					currentCoordinates = valueCoordinates;
 				}
 
-				var attribute = new HtmlAttribute(name, nameInLowercase, value, quoteCharacter,
+				var attribute = new HtmlAttribute(name, nameInLowercase, value, quoteChar,
 					HtmlAttributeType.Unknown, nameCoordinates, valueCoordinates);
 				_tempAttributes.Add(attribute);
 

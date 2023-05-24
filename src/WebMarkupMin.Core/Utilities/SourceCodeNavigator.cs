@@ -50,13 +50,13 @@ namespace WebMarkupMin.Core.Utilities
 			if (newLinePosition != -1)
 			{
 				newLineLength = 1;
-				char currentCharacter = sourceCode[newLinePosition];
+				char currentChar = sourceCode[newLinePosition];
 
-				int nextCharacterPosition = newLinePosition + 1;
-				char nextCharacter;
+				int nextCharPosition = newLinePosition + 1;
+				char nextChar;
 
-				if (sourceCode.TryGetChar(nextCharacterPosition, out nextCharacter)
-					&& nextCharacter.IsNewLine() && nextCharacter != currentCharacter)
+				if (sourceCode.TryGetChar(nextCharPosition, out nextChar)
+					&& nextChar.IsNewLine() && nextChar != currentChar)
 				{
 					newLineLength = 2;
 				}
@@ -82,15 +82,15 @@ namespace WebMarkupMin.Core.Utilities
 			if (newLinePosition != -1)
 			{
 				newLineLength = 1;
-				char currentCharacter = sourceCode[newLinePosition];
+				char currentChar = sourceCode[newLinePosition];
 
-				int previousCharacterPosition = newLinePosition - 1;
-				char previousCharacter;
+				int previousCharPosition = newLinePosition - 1;
+				char previousChar;
 
-				if (sourceCode.TryGetChar(previousCharacterPosition, out previousCharacter)
-					&& previousCharacter.IsNewLine() && previousCharacter != currentCharacter)
+				if (sourceCode.TryGetChar(previousCharPosition, out previousChar)
+					&& previousChar.IsNewLine() && previousChar != currentChar)
 				{
-					newLinePosition = previousCharacterPosition;
+					newLinePosition = previousCharPosition;
 					newLineLength = 2;
 				}
 			}

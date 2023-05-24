@@ -46,11 +46,12 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 				"<input type=\"text\" id=\"publishingHouse\" name=\"publishingHouse\" value=\"O'Hare Media\"><br>"
 				;
 
-			const string input2 = "<a href=clock.html><img src=clock.png width=400 height=398 alt=Clock></a>";
-			const string targetOutput2A = "<a href=\"clock.html\"><img src=\"clock.png\" width=\"400\" height=\"398\" " +
-				"alt=\"Clock\"></a>";
+			const string input2 = "<a href=clock.html><img src=clock.png width=400 height=398 alt=></a>";
+			const string targetOutput2A = "<a href=\"clock.html\"><img src=\"clock.png\" width=\"400\" " +
+				"height=\"398\" alt=\"\"></a>";
 			const string targetOutput2B = targetOutput2A;
-			const string targetOutput2C = "<a href='clock.html'><img src='clock.png' width='400' height='398' alt='Clock'></a>";
+			const string targetOutput2C = "<a href='clock.html'><img src='clock.png' width='400' height='398' " +
+				"alt=''></a>";
 			const string targetOutput2D = targetOutput2A;
 
 			var autoAttributeQuoteStyleMinifier = new HtmlMinifier(

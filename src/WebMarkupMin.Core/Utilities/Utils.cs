@@ -165,7 +165,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// </summary>
 		/// <param name="value">String value</param>
 		/// <returns>true if the value contains an upper case letters; otherwise, false</returns>
-		internal static bool ContainsUppercaseCharacters(string value)
+		internal static bool ContainsUppercaseChars(string value)
 		{
 			if (value == null)
 			{

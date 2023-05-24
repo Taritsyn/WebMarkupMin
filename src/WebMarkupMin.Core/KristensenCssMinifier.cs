@@ -25,7 +25,7 @@ namespace WebMarkupMin.Core
 
 		private static readonly Regex _commentRegex = new Regex(@"/\*[\s\S]*?\*/",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
-		private static readonly Regex _separatingCharacters = new Regex(@" ?([:,;{}]) ?",
+		private static readonly Regex _separatingChars = new Regex(@" ?([:,;{}]) ?",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _redundantSelectorRegex = new Regex(@"[a-zA-Z]+#",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
@@ -77,7 +77,7 @@ namespace WebMarkupMin.Core
 
 			// Minify whitespace
 			newContent = newContent.CollapseWhitespace();
-			newContent = _separatingCharacters.Replace(newContent, "$1");
+			newContent = _separatingChars.Replace(newContent, "$1");
 			newContent = newContent.Trim(_space);
 
 			// Removing last semicolons

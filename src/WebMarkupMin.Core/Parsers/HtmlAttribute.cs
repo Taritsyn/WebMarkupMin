@@ -73,7 +73,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Gets a quote character used for attribute values
 		/// </summary>
-		public char QuoteCharacter
+		public char QuoteChar
 		{
 			get;
 			private set;
@@ -113,11 +113,11 @@ namespace WebMarkupMin.Core.Parsers
 		/// <param name="name">Name</param>
 		/// <param name="nameInLowercase">Name in lowercase</param>
 		/// <param name="value">Value</param>
-		/// <param name="quoteCharacter">Quote character</param>
+		/// <param name="quoteChar">Quote character</param>
 		/// <param name="type">Type</param>
-		public HtmlAttribute(string name, string nameInLowercase, string value, char quoteCharacter,
+		public HtmlAttribute(string name, string nameInLowercase, string value, char quoteChar,
 			HtmlAttributeType type)
-			: this(name, nameInLowercase, value, quoteCharacter, type, SourceCodeNodeCoordinates.Empty,
+			: this(name, nameInLowercase, value, quoteChar, type, SourceCodeNodeCoordinates.Empty,
 				  SourceCodeNodeCoordinates.Empty)
 		{ }
 
@@ -127,17 +127,17 @@ namespace WebMarkupMin.Core.Parsers
 		/// <param name="name">Name</param>
 		/// <param name="nameInLowercase">Name in lowercase</param>
 		/// <param name="value">Value</param>
-		/// <param name="quoteCharacter">Quote character</param>
+		/// <param name="quoteChar">Quote character</param>
 		/// <param name="type">Type</param>
 		/// <param name="nameCoordinates">Coordinates of name</param>
 		/// <param name="valueCoordinates">Coordinates of value</param>
-		public HtmlAttribute(string name, string nameInLowercase, string value, char quoteCharacter,
+		public HtmlAttribute(string name, string nameInLowercase, string value, char quoteChar,
 			HtmlAttributeType type, SourceCodeNodeCoordinates nameCoordinates, SourceCodeNodeCoordinates valueCoordinates)
 		{
 			Name = name;
 			NameInLowercase = nameInLowercase;
 			Value = value;
-			QuoteCharacter = quoteCharacter;
+			QuoteChar = quoteChar;
 			Type = type;
 			NameCoordinates = nameCoordinates;
 			ValueCoordinates = valueCoordinates;

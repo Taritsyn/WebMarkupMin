@@ -286,7 +286,7 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Default quote character used for attribute values
 		/// </summary>
-		private char _defaultQuoteCharacter;
+		private char _defaultQuoteChar;
 
 		/// <summary>
 		/// HTML minification output writer
@@ -550,7 +550,7 @@ namespace WebMarkupMin.Core
 					_fileContext = null;
 					_encoding = null;
 					_defaultNewLine = null;
-					_defaultQuoteCharacter = '\0';
+					_defaultQuoteChar = '\0';
 				}
 			}
 
@@ -954,9 +954,9 @@ namespace WebMarkupMin.Core
 				for (int attributeIndex = 0; attributeIndex < attributeCount; attributeIndex++)
 				{
 					HtmlAttribute attribute = attributes[attributeIndex];
-					if (_defaultQuoteCharacter == '\0' && attribute.QuoteCharacter != '\0')
+					if (_defaultQuoteChar == '\0' && attribute.QuoteChar != '\0')
 					{
-						_defaultQuoteCharacter = attribute.QuoteCharacter;
+						_defaultQuoteChar = attribute.QuoteChar;
 					}
 
 					HtmlAttributeViewModel attributeViewModel = BuildAttributeViewModel(context, tag, attribute);
@@ -1524,15 +1524,15 @@ namespace WebMarkupMin.Core
 		private HtmlAttributeViewModel InnerBuildAttributeViewModel(HtmlAttribute attribute, bool omitValue,
 			bool addQuotes)
 		{
-			char recommendedQuoteCharacter = HtmlAttributeValueHelpers.GetAttributeQuoteCharacterByStyleEnum(
-				_settings.AttributeQuotesStyle, attribute.Value, attribute.QuoteCharacter, _defaultQuoteCharacter);
-			char quoteCharacter = addQuotes ? recommendedQuoteCharacter : '\0';
+			char recommendedQuoteChar = HtmlAttributeValueHelpers.GetAttributeQuoteCharByStyleEnum(
+				_settings.AttributeQuotesStyle, attribute.Value, attribute.QuoteChar, _defaultQuoteChar);
+			char quoteChar = addQuotes ? recommendedQuoteChar : '\0';
 			string displayAttributeName = CanPreserveCase() ? attribute.Name : attribute.NameInLowercase;
 			string encodedAttributeValue = !omitValue ?
-				HtmlAttributeValueHelpers.Encode(attribute.Value, quoteCharacter) : null;
+				HtmlAttributeValueHelpers.Encode(attribute.Value, quoteChar) : null;
 
 			var attributeViewModel = new HtmlAttributeViewModel(displayAttributeName, encodedAttributeValue,
-				quoteCharacter);
+				quoteChar);
 
 			return attributeViewModel;
 		}
@@ -2016,7 +2016,7 @@ namespace WebMarkupMin.Core
 						upgradedTag = new HtmlTag(tag.Name, tag.NameInLowercase,
 							new List<HtmlAttribute>
 							{
-								new HtmlAttribute("charset", "charset", charset, contentAttribute.QuoteCharacter,
+								new HtmlAttribute("charset", "charset", charset, contentAttribute.QuoteChar,
 									HtmlAttributeType.Text)
 							},
 							tag.Flags
@@ -3202,9 +3202,9 @@ namespace WebMarkupMin.Core
 			/// </summary>
 			/// <param name="name">Name</param>
 			/// <param name="value">Value</param>
-			/// <param name="quoteCharacter">Quote character</param>
+			/// <param name="quoteChar">Quote character</param>
 
-			public HtmlAttributeViewModel(string name, string value, char quoteCharacter)
+			public HtmlAttributeViewModel(string name, string value, char quoteChar)
 			{
 				if (name != null)
 				{
@@ -3219,8 +3219,8 @@ namespace WebMarkupMin.Core
 						Value = string.Empty;
 						HasValue = false;
 					}
-					Quote = HtmlAttributeValueHelpers.ConvertAttributeQuoteCharacterToString(quoteCharacter);
-					HasQuotes = quoteCharacter != '\0';
+					Quote = HtmlAttributeValueHelpers.ConvertAttributeQuoteCharToString(quoteChar);
+					HasQuotes = quoteChar != '\0';
 					IsEmpty = false;
 				}
 				else
