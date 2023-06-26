@@ -55,7 +55,7 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
-    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="6.0.16" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="6.0.18" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
