@@ -1,6 +1,11 @@
 Change log
 ==========
 
+## v2.14.1 - June 27, 2023
+ * Fixed a [error #147](https://github.com/Taritsyn/WebMarkupMin/issues/147) “[WebMarkupMin.AspNetCore5] Sometimes a blank page is returned as the request has no response data available”
+ * In WebMarkupMin.AspNetCore6 added support of ASP.NET Core 6.0.18
+ * In WebMarkupMin.AspNetCore7 added support of ASP.NET Core 7.0.7
+
 ## v2.14.0 - May 24, 2023
  * In HTML and XHTML minification settings was added one new property - `AttributeQuotesStyle` (default `Auto`)
  * In WebMarkupMin.NUglify added support of the NUglify version 1.20.7
