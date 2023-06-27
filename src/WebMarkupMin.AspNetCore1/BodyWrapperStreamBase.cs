@@ -371,6 +371,7 @@ namespace WebMarkupMin.AspNetCore7
 
 						string processedContent = minificationResult.MinifiedContent;
 						var byteArrayPool = ArrayPool<byte>.Shared;
+						bool clearByteArray = false;
 						int processedByteCount = encoding.GetByteCount(processedContent);
 						byte[] processedBytes = byteArrayPool.Rent(processedByteCount);
 
@@ -380,6 +381,8 @@ namespace WebMarkupMin.AspNetCore7
 
 							if (_compressionEnabled)
 							{
+								clearByteArray = true;
+
 								_compressionStream = _currentCompressor.Compress(_originalStream);
 								_currentCompressor.AppendHttpHeaders(appendHttpHeader);
 #if NET6_0_OR_GREATER
@@ -397,7 +400,7 @@ namespace WebMarkupMin.AspNetCore7
 						}
 						finally
 						{
-							byteArrayPool.Return(processedBytes);
+							byteArrayPool.Return(processedBytes, clearByteArray);
 						}
 
 						isMinified = true;

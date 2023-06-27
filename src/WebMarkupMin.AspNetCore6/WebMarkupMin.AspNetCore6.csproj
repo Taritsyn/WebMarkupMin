@@ -12,7 +12,8 @@
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
     <Description>WebMarkupMin.AspNetCore6 contains one ASP.NET Core 6 Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Middleware;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
-    <PackageReleaseNotes>Added support of ASP.NET Core 6.0.18.</PackageReleaseNotes>
+    <PackageReleaseNotes>1. Fixed a error #147 “[WebMarkupMin.AspNetCore5] Sometimes a blank page is returned as the request has no response data available”;
+2. Added support of ASP.NET Core 6.0.18.</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />

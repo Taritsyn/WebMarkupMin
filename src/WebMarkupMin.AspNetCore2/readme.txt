@@ -15,6 +15,12 @@
    `WebMarkupMinMiddleware`.
 
    =============
+   RELEASE NOTES
+   =============
+   Fixed a error #147 “[WebMarkupMin.AspNetCore5] Sometimes a blank page is
+   returned as the request has no response data available”.
+
+   =============
    DOCUMENTATION
    =============
    See documentation on GitHub - https://github.com/Taritsyn/WebMarkupMin/wiki
