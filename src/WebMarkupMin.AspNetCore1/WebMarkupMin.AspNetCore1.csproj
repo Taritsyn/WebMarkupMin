@@ -28,7 +28,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="1.0.4" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="1.0.2" />
     <PackageReference Include="Microsoft.Net.Http.Headers" Version="1.0.4" />
-    <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha6" PrivateAssets="All" />
+    <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha7" PrivateAssets="All" />
     <PackageReference Include="System.Buffers" Version="4.0.0" />
 
     <ProjectReference Include="..\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.csproj" />

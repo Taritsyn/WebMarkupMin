@@ -23,7 +23,7 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" Version="5.0.17" />
 
     <PackageReference Include="AdvancedStringBuilder" Version="0.1.0" />
-    <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha6" PrivateAssets="All" />
+    <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha7" PrivateAssets="All" />
 
     <ProjectReference Include="..\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.csproj" />
   </ItemGroup>
@@ -58,6 +58,8 @@
     <Compile Include="..\WebMarkupMin.AspNetCore1\XmlMinificationManager.cs" Link="XmlMinificationManager.cs" />
     <Compile Include="..\WebMarkupMin.AspNetCore1\XmlMinificationOptions.cs" Link="XmlMinificationOptions.cs" />
 
+    <EmbeddedResource Include="..\WebMarkupMin.AspNetCore1\Resources\Strings.resx" Link="Resources\Strings.resx" />
+
     <Content Include="readme.txt">
       <PackagePath>readme.txt</PackagePath>
       <Pack>true</Pack>
@@ -65,7 +67,11 @@
   </ItemGroup>
 
   <Target Name="ConvertResxToCs" BeforeTargets="BeforeCompile">
-    <ResxToCsTask InputDirectory="./Resources/" Namespace="$(RootNamespace).Resources" InternalAccessModifier="true" />
+    <ResxToCsTask
+      InputDirectory="../WebMarkupMin.AspNetCore1/Resources/"
+      OutputDirectory="./Resources/"
+      Namespace="$(RootNamespace).Resources"
+      InternalAccessModifier="true" />
   </Target>
 
 </Project>

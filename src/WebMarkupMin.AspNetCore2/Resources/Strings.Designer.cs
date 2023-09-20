@@ -21,7 +21,7 @@ namespace WebMarkupMin.AspNetCore2.Resources
 		private static Lazy<ResourceManager> _resourceManager =
 			new Lazy<ResourceManager>(() => new ResourceManager(
 				"WebMarkupMin.AspNetCore2.Resources.Strings",
-#if NET40
+#if NET20 || NET30 || NET35 || NET40
 				typeof(Strings).Assembly
 #else
 				typeof(Strings).GetTypeInfo().Assembly

@@ -23,7 +23,7 @@ If you are using extensions for ASP.NET Core 3.1 or higher, then you should use 
   <Import Project="../../build/nuget-metadata.props" />
 
   <ItemGroup>
-    <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha6" PrivateAssets="All" />
+    <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha7" PrivateAssets="All" />
 
     <ProjectReference Include="..\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.csproj" />
   </ItemGroup>
