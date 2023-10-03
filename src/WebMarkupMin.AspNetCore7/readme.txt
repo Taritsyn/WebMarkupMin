@@ -17,7 +17,8 @@
    =============
    RELEASE NOTES
    =============
-   Added support for the ASP.NET Core 7.0.11.
+   1. Added support for the ASP.NET Core 7.0.11;
+   2. Improved a message text of the “Unable to find the required services” error.
 
    =============
    DOCUMENTATION

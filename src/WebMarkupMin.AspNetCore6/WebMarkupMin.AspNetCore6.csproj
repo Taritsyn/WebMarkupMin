@@ -12,7 +12,8 @@
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
     <Description>WebMarkupMin.AspNetCore6 contains one ASP.NET Core 6 Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Middleware;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
-    <PackageReleaseNotes>Added support for the ASP.NET Core 6.0.22.</PackageReleaseNotes>
+    <PackageReleaseNotes>1. Added support for the ASP.NET Core 6.0.22;
+2. Improved a message text of the “Unable to find the required services” error.</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />
@@ -57,8 +58,6 @@
     <Compile Include="..\WebMarkupMin.AspNetCore1\XmlMinificationManager.cs" Link="XmlMinificationManager.cs" />
     <Compile Include="..\WebMarkupMin.AspNetCore1\XmlMinificationOptions.cs" Link="XmlMinificationOptions.cs" />
 
-    <EmbeddedResource Include="..\WebMarkupMin.AspNetCore1\Resources\Strings.resx" Link="Resources\Strings.resx" />
-
     <Content Include="readme.txt">
       <PackagePath>readme.txt</PackagePath>
       <Pack>true</Pack>
@@ -67,8 +66,7 @@
 
   <Target Name="ConvertResxToCs" BeforeTargets="BeforeCompile">
     <ResxToCsTask
-      InputDirectory="../WebMarkupMin.AspNetCore1/Resources/"
-      OutputDirectory="./Resources/"
+      InputDirectory="./Resources/"
       Namespace="$(RootNamespace).Resources"
       InternalAccessModifier="true" />
   </Target>

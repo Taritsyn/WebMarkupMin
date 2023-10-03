@@ -44,9 +44,7 @@ namespace WebMarkupMin.AspNetCore7.Internal
 			{
 				throw new InvalidOperationException(string.Format(
 					AspNetCoreStrings.UnableToFindServices,
-					"IServiceCollection.AddWebMarkupMin()",
-					"IApplicationBuilder.ConfigureServices(...)",
-					"IApplicationBuilder.UseWebMarkupMin(...)"
+					"IServiceCollection.AddWebMarkupMin()"
 				));
 			}
 		}

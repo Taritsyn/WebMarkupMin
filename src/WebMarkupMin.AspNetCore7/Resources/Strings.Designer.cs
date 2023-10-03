@@ -58,7 +58,7 @@ namespace WebMarkupMin.AspNetCore7.Resources
 		}
 
 		/// <summary>
-		/// Looks up a localized string similar to "Unable to find the required services. Please add all the required services by calling '{0}' inside..."
+		/// Looks up a localized string similar to "Unable to find the required services. Please add all the required services by calling '{0}' in the..."
 		/// </summary>
 		internal static string UnableToFindServices
 		{

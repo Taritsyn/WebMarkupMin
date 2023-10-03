@@ -17,8 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a error #147 “[WebMarkupMin.AspNetCore5] Sometimes a blank page is
-   returned as the request has no response data available”.
+   Improved a message text of the “Unable to find the required services” error.
 
    =============
    DOCUMENTATION
