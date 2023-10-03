@@ -17,9 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Fixed a error #147 “[WebMarkupMin.AspNetCore5] Sometimes a blank page is
-      returned as the request has no response data available”;
-   2. Added support of ASP.NET Core 6.0.18.
+   Added support for the ASP.NET Core 6.0.22.
 
    =============
    DOCUMENTATION
