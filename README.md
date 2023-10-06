@@ -35,6 +35,7 @@ You can try WebMarkupMin in action and experiment with different minification se
  * [WebMarkupMin: ASP.NET Core 5.X](http://nuget.org/packages/WebMarkupMin.AspNetCore5/) (supports .NET 5.0)
  * [WebMarkupMin: ASP.NET Core 6](http://nuget.org/packages/WebMarkupMin.AspNetCore6/) (supports .NET 6)
  * [WebMarkupMin: ASP.NET Core 7](http://nuget.org/packages/WebMarkupMin.AspNetCore7/) (supports .NET 7)
+ * [WebMarkupMin: ASP.NET Core 8](http://nuget.org/packages/WebMarkupMin.AspNetCore8/) (supports .NET 8)
  * [WebMarkupMin: Brotli for ASP.NET](http://nuget.org/packages/WebMarkupMin.AspNet.Brotli/) (supports .NET Framework 4.0, .NET Framework 4.5, .NET Standard 1.3, .NET Standard 2.0, .NET Standard 2.1, .NET 6 and .NET 7)
 
 ### Unofficial modules

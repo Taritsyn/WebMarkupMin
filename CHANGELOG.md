@@ -1,6 +1,12 @@
 Change log
 ==========
 
+## v2.15.0 - October 6, 2023
+ * In ASP.NET Core extensions was improved a message text of the “Unable to find the required services” error
+ * In WebMarkupMin.AspNetCore6 added support for the ASP.NET Core 6.0.22
+ * In WebMarkupMin.AspNetCore7 added support for the ASP.NET Core 7.0.11
+ * Created the WebMarkupMin.AspNetCore8 module, that contains middleware for the ASP.NET Core 8 RC1
+
 ## v2.14.1 - June 27, 2023
  * Fixed a [error #147](https://github.com/Taritsyn/WebMarkupMin/issues/147) “[WebMarkupMin.AspNetCore5] Sometimes a blank page is returned as the request has no response data available”
  * In WebMarkupMin.AspNetCore6 added support of ASP.NET Core 6.0.18
