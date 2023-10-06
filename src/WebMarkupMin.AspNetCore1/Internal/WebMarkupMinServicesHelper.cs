@@ -24,6 +24,10 @@ namespace WebMarkupMin.AspNetCore6.Internal
 using AspNetCoreStrings = WebMarkupMin.AspNetCore7.Resources.Strings;
 
 namespace WebMarkupMin.AspNetCore7.Internal
+#elif ASPNETCORE8
+using AspNetCoreStrings = WebMarkupMin.AspNetCore8.Resources.Strings;
+
+namespace WebMarkupMin.AspNetCore8.Internal
 #else
 #error No implementation for this target
 #endif

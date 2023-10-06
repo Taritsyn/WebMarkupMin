@@ -13,6 +13,8 @@ using WebMarkupMin.AspNet.Common;
 namespace WebMarkupMin.AspNetCore6
 #elif ASPNETCORE7
 namespace WebMarkupMin.AspNetCore7
+#elif ASPNETCORE8
+namespace WebMarkupMin.AspNetCore8
 #else
 #error No implementation for this target
 #endif

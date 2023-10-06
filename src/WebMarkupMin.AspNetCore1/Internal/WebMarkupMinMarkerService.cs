@@ -10,6 +10,8 @@ namespace WebMarkupMin.AspNetCore5.Internal
 namespace WebMarkupMin.AspNetCore6.Internal
 #elif ASPNETCORE7
 namespace WebMarkupMin.AspNetCore7.Internal
+#elif ASPNETCORE8
+namespace WebMarkupMin.AspNetCore8.Internal
 #else
 #error No implementation for this target
 #endif

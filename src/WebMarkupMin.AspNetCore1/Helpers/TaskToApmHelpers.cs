@@ -17,6 +17,8 @@ namespace WebMarkupMin.AspNetCore5.Helpers
 namespace WebMarkupMin.AspNetCore6.Helpers
 #elif ASPNETCORE7
 namespace WebMarkupMin.AspNetCore7.Helpers
+#elif ASPNETCORE8
+namespace WebMarkupMin.AspNetCore8.Helpers
 #else
 #error No implementation for this target
 #endif

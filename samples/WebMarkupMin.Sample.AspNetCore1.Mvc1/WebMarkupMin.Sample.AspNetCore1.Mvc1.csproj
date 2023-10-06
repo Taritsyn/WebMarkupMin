@@ -7,8 +7,10 @@
     <RuntimeFrameworkVersion>1.0.16</RuntimeFrameworkVersion>
     <OutputType>Exe</OutputType>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);NU1903</NoWarn>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <IsPackable>false</IsPackable>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />

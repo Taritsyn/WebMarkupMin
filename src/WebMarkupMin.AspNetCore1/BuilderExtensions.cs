@@ -26,6 +26,10 @@ namespace WebMarkupMin.AspNetCore6
 using WebMarkupMin.AspNetCore7.Internal;
 
 namespace WebMarkupMin.AspNetCore7
+#elif ASPNETCORE8
+using WebMarkupMin.AspNetCore8.Internal;
+
+namespace WebMarkupMin.AspNetCore8
 #else
 #error No implementation for this target
 #endif

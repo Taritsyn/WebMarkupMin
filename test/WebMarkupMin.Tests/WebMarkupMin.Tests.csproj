@@ -3,11 +3,12 @@
   <PropertyGroup>
     <Product>Web Markup Minifier: Core Tests</Product>
     <VersionPrefix>2.14.1</VersionPrefix>
-    <TargetFrameworks>net452;net462;netcoreapp2.1;netcoreapp3.1;net5.0;net6.0;net7.0</TargetFrameworks>
+    <TargetFrameworks>net452;net462;netcoreapp2.1;netcoreapp3.1;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>$(NoWarn);CS9057</NoWarn>
+    <NoWarn>$(NoWarn);CS9057;NU1902;NU1903</NoWarn>
     <IsPackable>false</IsPackable>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />
@@ -27,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' != 'net452' And '$(TargetFramework)' != 'netcoreapp2.1' ">
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" />
   </ItemGroup>
 

@@ -3,12 +3,13 @@
   <PropertyGroup>
     <Product>Web Markup Minifier: Core Benchmarks</Product>
     <VersionPrefix>2.14.1</VersionPrefix>
-    <TargetFrameworks>net461;netcoreapp2.1;netcoreapp3.1;net5.0;net6.0;net7.0</TargetFrameworks>
+    <TargetFrameworks>net461;netcoreapp2.1;netcoreapp3.1;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>$(NoWarn);CS9057</NoWarn>
+    <NoWarn>$(NoWarn);CS9057;NU1902;NU1903</NoWarn>
     <DefineConstants>$(DefineConstants);HTML_MINIFIER_COMPARISON;XML_MINIFIER_COMPARISON</DefineConstants>
     <IsPackable>false</IsPackable>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />
@@ -28,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' != 'net461' And '$(TargetFramework)' != 'netcoreapp2.1' ">
-    <PackageReference Include="BenchmarkDotNet" Version="0.13.5" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.9" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
@@ -59,6 +60,10 @@
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
     <ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore7\WebMarkupMin.AspNetCore7.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
+    <ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore8\WebMarkupMin.AspNetCore8.csproj" />
   </ItemGroup>
 
 </Project>
