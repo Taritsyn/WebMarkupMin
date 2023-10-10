@@ -72,6 +72,7 @@ namespace WebMarkupMin.NUglify
 		{
 			var originalSettings = new CssSettings();
 			MapCommonSettings(originalSettings, settings);
+			originalSettings.AbbreviateHexColor = settings.AbbreviateHexColor;
 			originalSettings.ColorNames = Utils.GetEnumFromOtherEnum<WmmCssColor, NuCssColor>(
 				settings.ColorNames);
 			originalSettings.CommentMode = Utils.GetEnumFromOtherEnum<WmmCssComment, NuCssComment>(

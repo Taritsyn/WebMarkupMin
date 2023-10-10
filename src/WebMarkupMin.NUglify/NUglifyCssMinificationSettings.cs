@@ -6,6 +6,15 @@
 	public sealed class NUglifyCssMinificationSettings : NUglifyCommonMinificationSettingsBase
 	{
 		/// <summary>
+		/// Gets or sets a value indicating whether to abbreviate hex colors to #rgb(a) format
+		/// </summary>
+		public bool AbbreviateHexColor
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets a <see cref="CssColor"/> setting
 		/// </summary>
 		public CssColor ColorNames
@@ -59,6 +68,7 @@
 		/// </summary>
 		public NUglifyCssMinificationSettings()
 		{
+			AbbreviateHexColor = true;
 			ColorNames = CssColor.Hex;
 			CommentMode = CssComment.Important;
 			DecodeEscapes = true;
