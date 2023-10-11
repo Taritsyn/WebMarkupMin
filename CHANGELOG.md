@@ -1,6 +1,14 @@
 Change log
 ==========
 
+## v2.15.1 - October 11, 2023
+ * In WebMarkupMin.NUglify:
+   * Added support of the NUglify version 1.21.0
+   * In configuration settings of CSS minifier was added one new property - `AbbreviateHexColor` (default `true`)
+ * In WebMarkupMin.AspNetCore6 added support for the ASP.NET Core 6.0.23
+ * In WebMarkupMin.AspNetCore7 added support for the ASP.NET Core 7.0.12
+ * In WebMarkupMin.AspNetCore8 added support for the ASP.NET Core 8 RC2
+
 ## v2.15.0 - October 6, 2023
  * In ASP.NET Core extensions was improved a message text of the “Unable to find the required services” error
  * In WebMarkupMin.AspNetCore6 added support for the ASP.NET Core 6.0.22
