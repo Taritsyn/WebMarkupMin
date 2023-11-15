@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: Infrastructure for ASP.NET Core Samples</Product>
-    <VersionPrefix>2.15.1</VersionPrefix>
+    <VersionPrefix>2.15.2</VersionPrefix>
     <TargetFrameworks>net452;netstandard1.6;netcoreapp2.1;netcoreapp3.1;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
     <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.6' ">1.6.1</NetStandardImplicitPackageVersion>
     <OutputType>Library</OutputType>
@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.16" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.38" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.1.3" />
   </ItemGroup>
 

@@ -1,6 +1,11 @@
 Change log
 ==========
 
+## v2.15.2 - November 15, 2023
+ * In WebMarkupMin.AspNetCore6 added support for the ASP.NET Core 6.0.25
+ * In WebMarkupMin.AspNetCore7 added support for the ASP.NET Core 7.0.14
+ * In WebMarkupMin.AspNetCore8 added support for the ASP.NET Core 8.0.0
+
 ## v2.15.1 - October 11, 2023
  * In WebMarkupMin.NUglify:
    * Added support of the NUglify version 1.21.0
