@@ -3,7 +3,6 @@
   <PropertyGroup>
     <Product>Web Markup Minifier: ASP.NET Core 8</Product>
     <VersionPrefix>2.15.1</VersionPrefix>
-    <VersionSuffix>rc2</VersionSuffix>
     <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
@@ -13,7 +12,7 @@
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
     <Description>WebMarkupMin.AspNetCore8 contains one ASP.NET Core 8 Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Middleware;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
-    <PackageReleaseNotes>Added support for the ASP.NET Core 8 RC2.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added support for the ASP.NET Core 8.0.0.</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />
@@ -21,7 +20,7 @@
   <Import Project="../../build/nuget-metadata.props" />
 
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="8.0.0-rc.2.23479.6" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="8.0.0" />
 
     <PackageReference Include="AdvancedStringBuilder" Version="0.1.0" />
     <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha7" PrivateAssets="All" />
