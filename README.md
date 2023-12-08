@@ -56,6 +56,7 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
 
 ### Software
  * [AngularTemplates.Compile](https://github.com/vadimi/AngularTemplates.Compile) by Vadim Ivanou
+ * [AspNetStatic](https://github.com/ZarehD/AspNetStatic)
  * [Blog-Umbraco](https://github.com/radyz/Blog-Umbraco) by Ernesto Chavez Sanchez
  * [Colorful.Cache.Web](https://www.nuget.org/packages/Colorful.Cache.Web)
  * [Colorful.CMS.Core](https://www.nuget.org/packages/Colorful.CMS.Core/)
