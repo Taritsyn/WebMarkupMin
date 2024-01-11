@@ -3,10 +3,11 @@
   <PropertyGroup>
     <Product>Web Markup Minifier: Core Benchmarks</Product>
     <VersionPrefix>2.15.2</VersionPrefix>
-    <TargetFrameworks>net461;netcoreapp2.1;netcoreapp3.1;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>net462;netcoreapp3.1;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
     <OutputType>Exe</OutputType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>$(NoWarn);CS9057;NU1902;NU1903</NoWarn>
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
     <DefineConstants>$(DefineConstants);HTML_MINIFIER_COMPARISON;XML_MINIFIER_COMPARISON</DefineConstants>
     <IsPackable>false</IsPackable>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
@@ -15,8 +16,9 @@
   <Import Project="../../build/common.props" />
 
   <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.12" />
+    <PackageReference Include="Moq" Version="4.20.70" />
     <PackageReference Include="NUglify" Version="1.21.0" />
-    <PackageReference Include="Moq" Version="4.18.4" />
 
     <ProjectReference Include="..\..\src\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
     <ProjectReference Include="..\..\src\WebMarkupMin.MsAjax\WebMarkupMin.MsAjax.csproj" />
@@ -24,26 +26,14 @@
     <ProjectReference Include="..\..\src\WebMarkupMin.Yui\WebMarkupMin.Yui.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' Or '$(TargetFramework)' == 'netcoreapp2.1'">
-    <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' != 'net461' And '$(TargetFramework)' != 'netcoreapp2.1' ">
-    <PackageReference Include="BenchmarkDotNet" Version="0.13.10" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
     <PackageReference Include="ZetaProducerHtmlCompressor" Version="1.0.3" />
 
     <ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore1\WebMarkupMin.AspNetCore1.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net462' ">
     <PackageReference Include="ZetaProducerHtmlCompressorStandard" Version="1.0.3" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
-    <ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore2\WebMarkupMin.AspNetCore2.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">

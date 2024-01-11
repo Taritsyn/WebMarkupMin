@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using Moq;
-#if NET461 || NETCOREAPP2_1
+#if NET462
 using Environments = Microsoft.AspNetCore.Hosting.EnvironmentName;
 using HostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 #elif NETCOREAPP3_1_OR_GREATER
@@ -19,10 +19,8 @@ using HostingEnvironment = Microsoft.AspNetCore.Hosting.IWebHostEnvironment;
 #endif
 
 using WebMarkupMin.AspNet.Common;
-#if NET461
+#if NET462
 using WebMarkupMin.AspNetCore1;
-#elif NETCOREAPP2_1
-using WebMarkupMin.AspNetCore2;
 #elif NETCOREAPP3_1
 using WebMarkupMin.AspNetCore3;
 #elif NET5_0

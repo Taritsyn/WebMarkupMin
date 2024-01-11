@@ -4,11 +4,10 @@
     <Product>Web Markup Minifier: Sample ASP.NET Core 8 MVC 8 Site</Product>
     <VersionPrefix>2.15.2</VersionPrefix>
     <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Exe</OutputType>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <OutputType>Exe</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>$(NoWarn);CS9057</NoWarn>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
