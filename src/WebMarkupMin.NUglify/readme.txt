@@ -19,9 +19,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Added support of the NUglify version 1.21.0;
-   2. In configuration settings of CSS minifier was added one new property -
-      `AbbreviateHexColor` (default `true`).
+   Added support for the NUglify version 1.21.2.
 
    =============
    DOCUMENTATION
