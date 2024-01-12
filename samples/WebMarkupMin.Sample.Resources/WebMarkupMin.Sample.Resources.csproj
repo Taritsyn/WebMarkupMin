@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: Resources for Samples</Product>
-    <VersionPrefix>2.15.2</VersionPrefix>
+    <VersionPrefix>2.15.3</VersionPrefix>
     <TargetFrameworks>net40;net452;netstandard1.6;netstandard2.0</TargetFrameworks>
     <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.6' ">1.6.0</NetStandardImplicitPackageVersion>
     <OutputType>Library</OutputType>

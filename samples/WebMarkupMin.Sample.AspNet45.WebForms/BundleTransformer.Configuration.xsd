@@ -497,6 +497,7 @@
     </xs:annotation>
     <xs:all>
       <xs:element name="includePaths" type="IncludedPathRegistrationCollection_SchemaType" minOccurs="0" maxOccurs="1" />
+      <xs:element name="jsEngine" type="JsEngineSettings_SchemaType" minOccurs="0" maxOccurs="1" />
     </xs:all>
     <xs:attribute name="useNativeMinification" type="Boolean_SchemaType" use="optional" default="false">
       <xs:annotation>
@@ -538,21 +539,21 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="precision" use="optional" default="5">
+    <xs:attribute name="severity" use="optional" default="0">
       <xs:annotation>
-        <xs:documentation>Precision for fractional numbers</xs:documentation>
+        <xs:documentation>
+          Severity level of errors:
+          0 - only error messages;
+          1 - only error messages and warnings except deprecations;
+          2 - only error messages and all warnings.
+        </xs:documentation>
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:int">
-          <xs:minInclusive value="-1" />
-          <xs:maxInclusive value="2147483647" />
+          <xs:minInclusive value="0" />
+          <xs:maxInclusive value="2" />
         </xs:restriction>
       </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="sourceComments" type="Boolean_SchemaType" use="optional" default="false">
-      <xs:annotation>
-        <xs:documentation>Flag for whether to emit comments in the generated CSS indicating the corresponding source line</xs:documentation>
-      </xs:annotation>
     </xs:attribute>
   </xs:complexType>
   <!-- /Sass and SCSS settings -->
@@ -607,9 +608,14 @@
         <xs:documentation>Flag for whether to interpret optional property types as written, rather than adding `undefined`</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="forceConsistentCasingInFileNames" type="Boolean_SchemaType" use="optional" default="false">
+    <xs:attribute name="forceConsistentCasingInFileNames" type="Boolean_SchemaType" use="optional" default="true">
       <xs:annotation>
         <xs:documentation>Flag for whether to ensure that casing is correct in imports</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ignoreDeprecations" type="xs:string" use="optional" default="">
+      <xs:annotation>
+        <xs:documentation>Version number of TypeScript for which deprecation warnings should be ignored</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="keyofStringsOnly" type="Boolean_SchemaType" use="optional" default="false">
@@ -768,7 +774,7 @@
         <xs:documentation>Flag for whether to suppress type checking errors. Non-standard option.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="target" use="optional" default="EcmaScript3">
+    <xs:attribute name="target" use="optional" default="EcmaScript5">
       <xs:annotation>
         <xs:documentation>JavaScript language version for emitted JavaScript and include compatible library declarations</xs:documentation>
       </xs:annotation>
@@ -1582,6 +1588,11 @@ Specify 0 to get a line break after each semi-colon in JS, and after each rule i
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="NUglifyMinifierSettingsBase_SchemaType">
+        <xs:attribute name="abbreviateHexColor" type="Boolean_SchemaType" use="optional" default="true">
+          <xs:annotation>
+            <xs:documentation>Value indicating whether to abbreviate hex colors to #rgb(a) format</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="colorNames" use="optional" default="Hex">
           <xs:annotation>
             <xs:documentation>ColorNames setting</xs:documentation>
