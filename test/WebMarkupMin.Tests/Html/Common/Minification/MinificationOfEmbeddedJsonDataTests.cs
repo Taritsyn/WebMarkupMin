@@ -105,6 +105,58 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 				"</script>"
 				;
 
+			const string input3 = "<script type=\"importmap\">\n" +
+				"  {\n" +
+				"    \"imports\": {\n" +
+				"      \"circle\": \"./modules/shapes/circle.js\"\n" +
+				"    },\n" +
+				"    \"scopes\": {\n" +
+				"      \"/modules/custom-shapes/\": {\n" +
+				"        \"circle\": \"https://example.com/modules/shapes/circle.js\"\n" +
+				"      }\n" +
+				"    }\n" +
+				"  }\n" +
+				"</script>"
+				;
+			const string targetOutput3A = input3;
+			const string targetOutput3B = "<script type=\"importmap\">" +
+				"{" +
+				"\"imports\":{" +
+				"\"circle\":\"./modules/shapes/circle.js\"" +
+				"}," +
+				"\"scopes\":{" +
+				"\"/modules/custom-shapes/\":{" +
+				"\"circle\":\"https://example.com/modules/shapes/circle.js\"" +
+				"}" +
+				"}" +
+				"}" +
+				"</script>"
+				;
+
+			const string input4 = "<script type=\"speculationrules\">\n" +
+				"{\n" +
+				"  \"prerender\": [\n" +
+				"    {\n" +
+				"      \"source\": \"list\",\n" +
+				"      \"urls\": [\"one.html\", \"two.html\"]\n" +
+				"    }\n" +
+				"  ]\n" +
+				"}\n" +
+				"</script>"
+				;
+			const string targetOutput4A = input4;
+			const string targetOutput4B = "<script type=\"speculationrules\">" +
+				"{" +
+				"\"prerender\":[" +
+				"{" +
+				"\"source\":\"list\"," +
+				"\"urls\":[\"one.html\",\"two.html\"]" +
+				"}" +
+				"]" +
+				"}" +
+				"</script>"
+				;
+
 			// Act
 			string output1A = keepingEmbeddedJsonDataMinifier.Minify(input1).MinifiedContent;
 			string output1B = minifyingEmbeddedJsonDataMinifier.Minify(input1).MinifiedContent;
@@ -112,12 +164,24 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 			string output2A = keepingEmbeddedJsonDataMinifier.Minify(input2).MinifiedContent;
 			string output2B = minifyingEmbeddedJsonDataMinifier.Minify(input2).MinifiedContent;
 
+			string output3A = keepingEmbeddedJsonDataMinifier.Minify(input3).MinifiedContent;
+			string output3B = minifyingEmbeddedJsonDataMinifier.Minify(input3).MinifiedContent;
+
+			string output4A = keepingEmbeddedJsonDataMinifier.Minify(input4).MinifiedContent;
+			string output4B = minifyingEmbeddedJsonDataMinifier.Minify(input4).MinifiedContent;
+
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
 
 			Assert.Equal(targetOutput2A, output2A);
 			Assert.Equal(targetOutput2B, output2B);
+
+			Assert.Equal(targetOutput3A, output3A);
+			Assert.Equal(targetOutput3B, output3B);
+
+			Assert.Equal(targetOutput4A, output4A);
+			Assert.Equal(targetOutput4B, output4B);
 		}
 	}
 }
