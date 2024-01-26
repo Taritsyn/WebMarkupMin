@@ -46,8 +46,9 @@
    =============
    RELEASE NOTES
    =============
-   In HTML and XHTML minification settings was added one new property -
-   `AttributeQuotesStyle` (default `Auto`).
+   Added support of JavaScript code minification in the `script` tags with
+   `module`, `text/x-javascript`, `text/x-ecmascript`, `application/x-javascript`
+   and `application/x-ecmascript` types.
 
    =============
    DOCUMENTATION

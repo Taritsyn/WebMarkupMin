@@ -34,6 +34,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -186,7 +187,12 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		private static readonly HashSet<string> _jsContentTypes = new HashSet<string>
 		{
-			"text/javascript", "text/ecmascript", "application/javascript", "application/ecmascript"
+			// HTML5
+			"text/javascript", "module",
+
+			// Deprecated
+			"text/x-javascript", "text/ecmascript", "text/x-ecmascript",
+			"application/javascript", "application/x-javascript", "application/ecmascript", "application/x-ecmascript"
 		};
 
 		/// <summary>
@@ -1402,7 +1408,7 @@ namespace WebMarkupMin.Core
 			}
 
 			if ((_settings.RemoveRedundantAttributes && IsAttributeRedundant(tag, attribute))
-				|| (_settings.RemoveJsTypeAttributes && IsJavaScriptTypeAttribute(tag, attribute))
+				|| (_settings.RemoveJsTypeAttributes && IsJsTypeAttribute(tag, attribute))
 				|| (_settings.RemoveCssTypeAttributes && IsCssTypeAttribute(tag, attribute))
 				|| (useHtmlSyntax && CanRemoveXmlNamespaceAttribute(tag, attribute)))
 			{
@@ -1647,12 +1653,12 @@ namespace WebMarkupMin.Core
 
 		/// <summary>
 		/// Checks whether attribute is the attribute <code>type</code> of
-		/// tag <code>script</code>, that containing JavaScript code
+		/// tag <code>script</code> containing the default content type
 		/// </summary>
 		/// <param name="tag">Tag</param>
 		/// <param name="attribute">Attribute</param>
 		/// <returns>Result of check</returns>
-		private static bool IsJavaScriptTypeAttribute(HtmlTag tag, HtmlAttribute attribute)
+		private static bool IsJsTypeAttribute(HtmlTag tag, HtmlAttribute attribute)
 		{
 			return tag.NameInLowercase == "script" && attribute.NameInLowercase == "type"
 				&& attribute.Value.Trim().IgnoreCaseEquals(JS_CONTENT_TYPE);
@@ -1660,7 +1666,7 @@ namespace WebMarkupMin.Core
 
 		/// <summary>
 		/// Checks whether attribute is the attribute <code>type</code> of tag <code>link</code>
-		/// or <code>style</code>, that containing CSS code
+		/// or <code>style</code> containing the default content type
 		/// </summary>
 		/// <param name="tag">Tag</param>
 		/// <param name="attribute">Attribute</param>
@@ -2317,7 +2323,7 @@ namespace WebMarkupMin.Core
 
 			switch (processedContentType)
 			{
-				case string s when _jsContentTypes.Contains(s):
+				case string s when IsJsContentType(s):
 					isJavaScript = true;
 					break;
 
@@ -2585,6 +2591,20 @@ namespace WebMarkupMin.Core
 			}
 
 			_currentText = isNotEmpty ? EMBEDDED_CODE_PLACEHOLDER : string.Empty;
+		}
+
+		[MethodImpl((MethodImplOptions)256 /* AggressiveInlining */)]
+		private static bool IsJsContentType(string contentType)
+		{
+			string processedContentType = contentType;
+			int semicolonPosition = contentType.IndexOf(';');
+
+			if (semicolonPosition != -1)
+			{
+				processedContentType = contentType.Substring(0, semicolonPosition);
+			}
+
+			return _jsContentTypes.Contains(processedContentType);
 		}
 
 		/// <summary>
