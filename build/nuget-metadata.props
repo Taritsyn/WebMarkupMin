@@ -2,8 +2,7 @@
   <PropertyGroup>
     <Title>$(Product)</Title>
     <Authors>Andrey Taritsyn</Authors>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Taritsyn/WebMarkupMin</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
     <RepositoryUrl>https://github.com/Taritsyn/WebMarkupMin</RepositoryUrl>
@@ -27,7 +26,7 @@
       <Visible>false</Visible>
     </None>
     <None Include="../../LICENSE.txt">
-      <PackagePath>$(PackageLicenseFile)</PackagePath>
+      <PackagePath>/</PackagePath>
       <Pack>true</Pack>
       <Visible>false</Visible>
     </None>
