@@ -20,16 +20,16 @@
     <PackageReference Include="Moq" Version="4.20.70" />
     <PackageReference Include="NUglify" Version="1.21.4" />
 
-    <ProjectReference Include="..\..\src\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
-    <ProjectReference Include="..\..\src\WebMarkupMin.MsAjax\WebMarkupMin.MsAjax.csproj" />
-    <ProjectReference Include="..\..\src\WebMarkupMin.NUglify\WebMarkupMin.NUglify.csproj" />
-    <ProjectReference Include="..\..\src\WebMarkupMin.Yui\WebMarkupMin.Yui.csproj" />
+    <ProjectReference Include="../../src/WebMarkupMin.Core/WebMarkupMin.Core.csproj" />
+    <ProjectReference Include="../../src/WebMarkupMin.MsAjax/WebMarkupMin.MsAjax.csproj" />
+    <ProjectReference Include="../../src/WebMarkupMin.NUglify/WebMarkupMin.NUglify.csproj" />
+    <ProjectReference Include="../../src/WebMarkupMin.Yui/WebMarkupMin.Yui.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
     <PackageReference Include="ZetaProducerHtmlCompressor" Version="1.0.3" />
 
-    <ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore1\WebMarkupMin.AspNetCore1.csproj" />
+    <ProjectReference Include="../../src/WebMarkupMin.AspNetCore1/WebMarkupMin.AspNetCore1.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' != 'net462' ">
@@ -37,23 +37,23 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
-    <ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore3\WebMarkupMin.AspNetCore3.csproj" />
+    <ProjectReference Include="../../src/WebMarkupMin.AspNetCore3/WebMarkupMin.AspNetCore3.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
-    <ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore5\WebMarkupMin.AspNetCore5.csproj" />
+    <ProjectReference Include="../../src/WebMarkupMin.AspNetCore5/WebMarkupMin.AspNetCore5.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
-    <ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore6\WebMarkupMin.AspNetCore6.csproj" />
+    <ProjectReference Include="../../src/WebMarkupMin.AspNetCore6/WebMarkupMin.AspNetCore6.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
-    <ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore7\WebMarkupMin.AspNetCore7.csproj" />
+    <ProjectReference Include="../../src/WebMarkupMin.AspNetCore7/WebMarkupMin.AspNetCore7.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
-    <ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore8\WebMarkupMin.AspNetCore8.csproj" />
+    <ProjectReference Include="../../src/WebMarkupMin.AspNetCore8/WebMarkupMin.AspNetCore8.csproj" />
   </ItemGroup>
 
 </Project>

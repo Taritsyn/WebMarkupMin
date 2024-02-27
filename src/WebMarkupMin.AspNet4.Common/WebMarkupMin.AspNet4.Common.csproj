@@ -6,27 +6,23 @@
     <TargetFrameworks>net40;net45</TargetFrameworks>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>$(NoWarn);CS1591;NU5104</NoWarn>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Description>WebMarkupMin.AspNet4.Common is auxiliary package, that contains classes for ASP.NET 4.X extensions.</Description>
-    <PackageTags>WebMarkupMin;ASP.NET;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />
   <Import Project="../../build/strong-name-signing.props" />
-  <Import Project="../../build/nuget-metadata.props" />
+  <Import Project="../../build/nuget-common.props" />
+
+  <PropertyGroup>
+    <Description>WebMarkupMin.AspNet4.Common is auxiliary package, that contains classes for ASP.NET 4.X extensions.</Description>
+    <PackageTags>$(PackageCommonTags);ASP.NET;XML</PackageTags>
+  </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="System.Web" Pack="false" />
 
-    <ProjectReference Include="..\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="readme.txt">
-      <PackagePath>readme.txt</PackagePath>
-      <Pack>true</Pack>
-    </Content>
+    <ProjectReference Include="../WebMarkupMin.AspNet.Common/WebMarkupMin.AspNet.Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -15,17 +15,17 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.2.2" />
 
-    <ProjectReference Include="..\..\src\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
-    <ProjectReference Include="..\..\src\WebMarkupMin.NUglify\WebMarkupMin.NUglify.csproj" />
-    <ProjectReference Include="..\WebMarkupMin.Sample.Resources\WebMarkupMin.Sample.Resources.csproj" />
+    <ProjectReference Include="../../src/WebMarkupMin.Core/WebMarkupMin.Core.csproj" />
+    <ProjectReference Include="../../src/WebMarkupMin.NUglify/WebMarkupMin.NUglify.csproj" />
+    <ProjectReference Include="../WebMarkupMin.Sample.Resources/WebMarkupMin.Sample.Resources.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' != 'netstandard1.6' ">
-    <ProjectReference Include="..\..\src\WebMarkupMin.MsAjax\WebMarkupMin.MsAjax.csproj" />
+    <ProjectReference Include="../../src/WebMarkupMin.MsAjax/WebMarkupMin.MsAjax.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' != 'net40' And '$(TargetFramework)' != 'netstandard1.6' ">
-    <ProjectReference Include="..\..\src\WebMarkupMin.Yui\WebMarkupMin.Yui.csproj" />
+    <ProjectReference Include="../../src/WebMarkupMin.Yui/WebMarkupMin.Yui.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">

@@ -6,27 +6,23 @@
     <TargetFrameworks>net40;net45</TargetFrameworks>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>$(NoWarn);CS1591;NU5104</NoWarn>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Description>WebMarkupMin.AspNet4.HttpModules contains 4 HTTP-modules: `HtmlMinificationModule` (for minification of HTML code), `XhtmlMinificationModule` (for minification of XHTML code), `XmlMinificationModule` (for minification of XML code) and `HttpCompressionModule` (for compression of text content by using GZIP or Deflate).</Description>
-    <PackageTags>WebMarkupMin;ASP.NET;HTTP-modules;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />
   <Import Project="../../build/strong-name-signing.props" />
-  <Import Project="../../build/nuget-metadata.props" />
+  <Import Project="../../build/nuget-common.props" />
+
+  <PropertyGroup>
+    <Description>WebMarkupMin.AspNet4.HttpModules contains 4 HTTP-modules: `HtmlMinificationModule` (for minification of HTML code), `XhtmlMinificationModule` (for minification of XHTML code), `XmlMinificationModule` (for minification of XML code) and `HttpCompressionModule` (for compression of text content by using GZIP or Deflate).</Description>
+    <PackageTags>$(PackageCommonTags);ASP.NET;HTTP-modules;XML</PackageTags>
+  </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="System.Web" Pack="false" />
 
-    <ProjectReference Include="..\WebMarkupMin.AspNet4.Common\WebMarkupMin.AspNet4.Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="readme.txt">
-      <PackagePath>readme.txt</PackagePath>
-      <Pack>true</Pack>
-    </Content>
+    <ProjectReference Include="../WebMarkupMin.AspNet4.Common/WebMarkupMin.AspNet4.Common.csproj" />
   </ItemGroup>
 
 </Project>

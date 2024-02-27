@@ -10,25 +10,21 @@
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
-    <Description>WebMarkupMin.AspNet.Common is auxiliary package, that contains classes and interfaces for all ASP.NET extensions.</Description>
-    <PackageTags>WebMarkupMin;ASP.NET;Markup;HTML;XHTML;XML;Minification;Minifier;Minify</PackageTags>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />
   <Import Project="../../build/strong-name-signing.props" />
-  <Import Project="../../build/nuget-metadata.props" />
+  <Import Project="../../build/nuget-common.props" />
+
+  <PropertyGroup>
+    <Description>WebMarkupMin.AspNet.Common is auxiliary package, that contains classes and interfaces for all ASP.NET extensions.</Description>
+    <PackageTags>$(PackageCommonTags);ASP.NET;XML</PackageTags>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha7" PrivateAssets="All" />
 
-    <ProjectReference Include="..\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="readme.txt">
-      <PackagePath>readme.txt</PackagePath>
-      <Pack>true</Pack>
-    </Content>
+    <ProjectReference Include="../WebMarkupMin.Core/WebMarkupMin.Core.csproj" />
   </ItemGroup>
 
   <Target Name="ConvertResxToCs" BeforeTargets="BeforeCompile">

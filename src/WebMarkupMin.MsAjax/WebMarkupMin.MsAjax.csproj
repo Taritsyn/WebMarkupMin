@@ -6,34 +6,33 @@
     <TargetFrameworks>net40-client;net45;netstandard2.0</TargetFrameworks>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>$(NoWarn);CS1591;NU5104</NoWarn>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Description>WebMarkupMin.MsAjax contains 2 minifier-adapters: `MsAjaxCssMinifier` (for minification of CSS code) and `MsAjaxJsMinifier` (for minification of JS code). These adapters perform minification using the Microsoft Ajax Minifier (https://github.com/microsoft/ajaxmin).</Description>
-    <PackageTags>WebMarkupMin;Markup;HTML;XHTML;CSS;JavaScript;JS;Minification;Minifier;Minify;Microsoft;AjaxMin</PackageTags>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />
   <Import Project="../../build/net40-client-target.props" />
   <Import Project="../../build/strong-name-signing.props" />
-  <Import Project="../../build/nuget-metadata.props" />
+  <Import Project="../../build/nuget-common.props" />
+
+  <PropertyGroup>
+    <Description>WebMarkupMin.MsAjax contains 2 minifier-adapters: `MsAjaxCssMinifier` (for minification of CSS code) and `MsAjaxJsMinifier` (for minification of JS code). These adapters perform minification using the Microsoft Ajax Minifier (https://github.com/microsoft/ajaxmin).</Description>
+    <PackageTags>$(PackageCommonTags);CSS;JavaScript;JS;Microsoft;AjaxMin</PackageTags>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AdvancedStringBuilder" Version="0.1.0" />
     <PackageReference Include="AjaxMin" Version="5.14.5506.26202" NoWarn="NU1701" />
 
-    <ProjectReference Include="..\WebMarkupMin.Core\WebMarkupMin.Core.csproj" />
+    <ProjectReference Include="../WebMarkupMin.Core/WebMarkupMin.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="readme.txt">
-      <PackagePath>readme.txt</PackagePath>
-      <Pack>true</Pack>
-    </Content>
-    <Content Include="../../licenses/microsoft-ajax-minifier-license.txt">
-      <PackagePath>microsoft-ajax-minifier-license.txt</PackagePath>
+    <None Include="../../licenses/microsoft-ajax-minifier-license.txt">
+      <PackagePath>/</PackagePath>
       <Pack>true</Pack>
       <Visible>false</Visible>
-    </Content>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -14,9 +14,9 @@
   <Import Project="../../build/common.props" />
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore5\WebMarkupMin.AspNetCore5.csproj" />
-    <ProjectReference Include="..\WebMarkupMin.Sample.Logic\WebMarkupMin.Sample.Logic.csproj" />
-    <ProjectReference Include="..\WebMarkupMin.Sample.Resources\WebMarkupMin.Sample.Resources.csproj" />
+    <ProjectReference Include="../../src/WebMarkupMin.AspNetCore5/WebMarkupMin.AspNetCore5.csproj" />
+    <ProjectReference Include="../WebMarkupMin.Sample.Logic/WebMarkupMin.Sample.Logic.csproj" />
+    <ProjectReference Include="../WebMarkupMin.Sample.Resources/WebMarkupMin.Sample.Resources.csproj" />
   </ItemGroup>
 
 </Project>

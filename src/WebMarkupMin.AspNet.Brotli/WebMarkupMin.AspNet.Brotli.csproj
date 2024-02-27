@@ -6,9 +6,16 @@
     <TargetFrameworks>net40;net45;netstandard1.3;netstandard2.0;netstandard2.1;net6.0;net7.0</TargetFrameworks>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>$(NoWarn);CS1591;NU5104</NoWarn>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
+  </PropertyGroup>
+
+  <Import Project="../../build/common.props" />
+  <Import Project="../../build/strong-name-signing.props" />
+  <Import Project="../../build/nuget-common.props" />
+
+  <PropertyGroup>
     <Description>WebMarkupMin.AspNet.Brotli contains one compressor-adapter for compression of text content by using the Brotli algorithm (https://github.com/google/brotli) - `BrotliCompressor`. `BrotliCompressor` is based on the BrotliSharpLib (https://github.com/master131/BrotliSharpLib) version 0.3.3.
 
 In version for .NET Standard 2.1, .NET 6 and .NET 7 uses the built-in compressor from the `System.IO.Compression` namespace.
@@ -18,14 +25,10 @@ If you are using extensions for ASP.NET Core 3.1 or higher, then you should use 
     <PackageReleaseNotes>Fixed a error #150 “.NET 7 broke BrotliCompressor due to invalid compression levels”.</PackageReleaseNotes>
   </PropertyGroup>
 
-  <Import Project="../../build/common.props" />
-  <Import Project="../../build/strong-name-signing.props" />
-  <Import Project="../../build/nuget-metadata.props" />
-
   <ItemGroup>
     <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha7" PrivateAssets="All" />
 
-    <ProjectReference Include="..\WebMarkupMin.AspNet.Common\WebMarkupMin.AspNet.Common.csproj" />
+    <ProjectReference Include="../WebMarkupMin.AspNet.Common/WebMarkupMin.AspNet.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net40' Or '$(TargetFramework)' == 'net45' Or '$(TargetFramework)' == 'netstandard1.3' Or '$(TargetFramework)' == 'netstandard2.0' ">
@@ -33,20 +36,16 @@ If you are using extensions for ASP.NET Core 3.1 or higher, then you should use 
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="readme.txt">
-      <PackagePath>readme.txt</PackagePath>
-      <Pack>true</Pack>
-    </Content>
-    <Content Include="../../licenses/brotli-sharp-lib-license.txt">
-      <PackagePath>brotli-sharp-lib-license.txt</PackagePath>
+    <None Include="../../licenses/brotli-sharp-lib-license.txt">
+      <PackagePath>/</PackagePath>
       <Pack>true</Pack>
       <Visible>false</Visible>
-    </Content>
-    <Content Include="../../licenses/brotli-license.txt">
-      <PackagePath>brotli-license.txt</PackagePath>
+    </None>
+    <None Include="../../licenses/brotli-license.txt">
+      <PackagePath>/</PackagePath>
       <Pack>true</Pack>
       <Visible>false</Visible>
-    </Content>
+    </None>
   </ItemGroup>
 
   <Target Name="ConvertResxToCs" BeforeTargets="BeforeCompile">

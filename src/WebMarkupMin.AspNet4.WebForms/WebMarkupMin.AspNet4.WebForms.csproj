@@ -6,29 +6,25 @@
     <TargetFrameworks>net40;net45</TargetFrameworks>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>$(NoWarn);CS1591;NU5104</NoWarn>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Description>WebMarkupMin.AspNet4.WebForms contains 5 Web Forms page classes: `MinifiedHtmlPage` (supports HTML minification only), `MinifiedXhtmlPage` (supports XHTML minification only), `CompressedPage` (supports HTTP compression only), `MinifiedAndCompressedHtmlPage` (supports HTML minification and HTTP compression) and `MinifiedAndCompressedXhtmlPage` (supports XHTML minification and HTTP compression); and 5 master page classes: `MinifiedHtmlMasterPage` (supports HTML minification only), `MinifiedXhtmlMasterPage` (supports XHTML minification only), `CompressedMasterPage` (supports HTTP compression only), `MinifiedAndCompressedHtmlMasterPage` (supports HTML minification and HTTP compression) and `MinifiedAndCompressedXhtmlMasterPage` (supports XHTML minification and HTTP compression).
-
-Classes of the Web Forms pages and master pages cannot be used together.</Description>
-    <PackageTags>WebMarkupMin;ASP.NET;WebForms;Markup;HTML;XHTML;Minification;Minifier;Minify</PackageTags>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />
   <Import Project="../../build/strong-name-signing.props" />
-  <Import Project="../../build/nuget-metadata.props" />
+  <Import Project="../../build/nuget-common.props" />
+
+  <PropertyGroup>
+    <Description>WebMarkupMin.AspNet4.WebForms contains 5 Web Forms page classes: `MinifiedHtmlPage` (supports HTML minification only), `MinifiedXhtmlPage` (supports XHTML minification only), `CompressedPage` (supports HTTP compression only), `MinifiedAndCompressedHtmlPage` (supports HTML minification and HTTP compression) and `MinifiedAndCompressedXhtmlPage` (supports XHTML minification and HTTP compression); and 5 master page classes: `MinifiedHtmlMasterPage` (supports HTML minification only), `MinifiedXhtmlMasterPage` (supports XHTML minification only), `CompressedMasterPage` (supports HTTP compression only), `MinifiedAndCompressedHtmlMasterPage` (supports HTML minification and HTTP compression) and `MinifiedAndCompressedXhtmlMasterPage` (supports XHTML minification and HTTP compression).
+
+Classes of the Web Forms pages and master pages cannot be used together.</Description>
+    <PackageTags>$(PackageCommonTags);ASP.NET;WebForms</PackageTags>
+  </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="System.Web" Pack="false" />
 
-    <ProjectReference Include="..\WebMarkupMin.AspNet4.Common\WebMarkupMin.AspNet4.Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="readme.txt">
-      <PackagePath>readme.txt</PackagePath>
-      <Pack>true</Pack>
-    </Content>
+    <ProjectReference Include="../WebMarkupMin.AspNet4.Common/WebMarkupMin.AspNet4.Common.csproj" />
   </ItemGroup>
 
 </Project>

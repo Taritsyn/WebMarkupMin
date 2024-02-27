@@ -23,15 +23,15 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" PrivateAssets="All" />
 
-    <ProjectReference Include="..\..\src\WebMarkupMin.AspNet.Brotli\WebMarkupMin.AspNet.Brotli.csproj" />
-    <ProjectReference Include="..\..\src\WebMarkupMin.AspNetCore2\WebMarkupMin.AspNetCore2.csproj" />
-    <ProjectReference Include="..\WebMarkupMin.Sample.AspNetCore.Infrastructure\WebMarkupMin.Sample.AspNetCore.Infrastructure.csproj" />
-    <ProjectReference Include="..\WebMarkupMin.Sample.Logic\WebMarkupMin.Sample.Logic.csproj" />
-    <ProjectReference Include="..\WebMarkupMin.Sample.Resources\WebMarkupMin.Sample.Resources.csproj" />
+    <ProjectReference Include="../../src/WebMarkupMin.AspNet.Brotli/WebMarkupMin.AspNet.Brotli.csproj" />
+    <ProjectReference Include="../../src/WebMarkupMin.AspNetCore2/WebMarkupMin.AspNetCore2.csproj" />
+    <ProjectReference Include="../WebMarkupMin.Sample.AspNetCore.Infrastructure/WebMarkupMin.Sample.AspNetCore.Infrastructure.csproj" />
+    <ProjectReference Include="../WebMarkupMin.Sample.Logic/WebMarkupMin.Sample.Logic.csproj" />
+    <ProjectReference Include="../WebMarkupMin.Sample.Resources/WebMarkupMin.Sample.Resources.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="wwwroot\**\*;Views\**\*">
+    <None Update="wwwroot/**/*;Views/**/*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
   </ItemGroup>
