@@ -25,7 +25,6 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" Version="5.0.17" />
 
-    <PackageReference Include="AdvancedStringBuilder" Version="0.1.0" />
     <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha7" PrivateAssets="All" />
 
     <ProjectReference Include="../WebMarkupMin.AspNet.Common/WebMarkupMin.AspNet.Common.csproj" />

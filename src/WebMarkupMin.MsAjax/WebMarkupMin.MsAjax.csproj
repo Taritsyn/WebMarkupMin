@@ -21,7 +21,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AdvancedStringBuilder" Version="0.1.0" />
     <PackageReference Include="AjaxMin" Version="5.14.5506.26202" NoWarn="NU1701" />
 
     <ProjectReference Include="../WebMarkupMin.Core/WebMarkupMin.Core.csproj" />

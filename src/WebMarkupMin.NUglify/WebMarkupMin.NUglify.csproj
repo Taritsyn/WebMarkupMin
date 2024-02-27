@@ -23,7 +23,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AdvancedStringBuilder" Version="0.1.0" />
     <PackageReference Include="NUglify" Version="1.21.4" />
 
     <ProjectReference Include="../WebMarkupMin.Core/WebMarkupMin.Core.csproj" />
