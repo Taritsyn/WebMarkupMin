@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: ASP.NET Core 7</Product>
-    <VersionPrefix>2.15.3</VersionPrefix>
+    <VersionPrefix>2.16.0</VersionPrefix>
     <TargetFramework>net7.0</TargetFramework>
     <OutputType>Library</OutputType>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: Brotli for ASP.NET</Product>
-    <VersionPrefix>2.13.2</VersionPrefix>
+    <VersionPrefix>2.16.0</VersionPrefix>
     <TargetFrameworks>net40;net45;netstandard1.3;netstandard2.0;netstandard2.1;net6.0;net7.0</TargetFrameworks>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -22,7 +22,6 @@ In version for .NET Standard 2.1, .NET 6 and .NET 7 uses the built-in compressor
 
 If you are using extensions for ASP.NET Core 3.1 or higher, then you should use a `BuiltInBrotliCompressor` class from `WebMarkupMin.AspNet.Common.Compressors` namespace instead of a `BrotliCompressor` class. In this case, the WebMarkupMin.Brotli package will no longer be needed and you can uninstall it.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Compression;Brotli</PackageTags>
-    <PackageReleaseNotes>Fixed a error #150 “.NET 7 broke BrotliCompressor due to invalid compression levels”.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

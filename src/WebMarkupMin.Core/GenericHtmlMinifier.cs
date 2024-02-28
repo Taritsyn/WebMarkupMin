@@ -200,7 +200,10 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		private static readonly HashSet<string> _jsonContentTypes = new HashSet<string>
 		{
-			"application/json", "application/ld+json", "importmap", "speculationrules"
+			"application/json", "application/ld+json", "importmap",
+
+			// Experimental
+			"speculationrules"
 		};
 
 		/// <summary>

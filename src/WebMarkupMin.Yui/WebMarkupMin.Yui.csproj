@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: YUI</Product>
-    <VersionPrefix>2.12.0</VersionPrefix>
+    <VersionPrefix>2.16.0</VersionPrefix>
     <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -16,7 +16,6 @@
   <PropertyGroup>
     <Description>WebMarkupMin.Yui contains 2 minifier-adapters: `YuiCssMinifier` (for minification of CSS code) and `YuiJsMinifier` (for minification of JS code). These adapters perform minification using the YUI Compressor for .NET (https://github.com/YUICompressor-NET/YUICompressor.NET).</Description>
     <PackageTags>$(PackageCommonTags);CSS;JavaScript;JS;Obfuscation;YUICompressor</PackageTags>
-    <PackageReleaseNotes>JS error summary has been excluded from the list of errors.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

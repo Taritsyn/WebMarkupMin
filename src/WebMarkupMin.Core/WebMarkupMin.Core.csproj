@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: Core</Product>
-    <VersionPrefix>2.14.0</VersionPrefix>
+    <VersionPrefix>2.16.0</VersionPrefix>
     <TargetFrameworks>net40-client;net45;netstandard1.3;netstandard2.0;netstandard2.1</TargetFrameworks>
     <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.3' ">1.6.0</NetStandardImplicitPackageVersion>
     <OutputType>Library</OutputType>
@@ -32,12 +32,12 @@ Also supports minification of views of popular JavaScript template engines: Knoc
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AdvancedStringBuilder" Version="0.1.0" />
+    <PackageReference Include="AdvancedStringBuilder" Version="0.1.1" />
     <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha7" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net40-client' ">
-    <PackageReference Include="PolyfillsForOldDotNet.System.Buffers" Version="0.1.1" />
+    <PackageReference Include="PolyfillsForOldDotNet.System.Buffers" Version="0.1.2" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' Or '$(TargetFramework)' == 'netstandard1.3' ">

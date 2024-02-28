@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-            README file for Web Markup Minifier: ASP.NET Core 3.1+ v2.15.0
+            README file for Web Markup Minifier: ASP.NET Core 3.1+ v2.16.0
 
    --------------------------------------------------------------------------------
 
@@ -13,11 +13,6 @@
    ===========
    WebMarkupMin.AspNetCore3 contains one ASP.NET Core 3.1+ Middleware -
    `WebMarkupMinMiddleware`.
-
-   =============
-   RELEASE NOTES
-   =============
-   Improved a message text of the “Unable to find the required services” error.
 
    =============
    DOCUMENTATION

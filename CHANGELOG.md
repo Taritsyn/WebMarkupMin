@@ -1,6 +1,15 @@
 Change log
 ==========
 
+## v2.16.0 - February 28, 2024
+ * Added support of JavaScript code minification in the `script` tags with `module`, `text/x-javascript`, `text/x-ecmascript`, `application/x-javascript` and `application/x-ecmascript` types
+ * Added support of JSON data minification in the `script` tags with `importmap` and `speculationrules` types
+ * The `nomodule` attribute is now processed as a Boolean attribute
+ * In WebMarkupMin.NUglify added support for the NUglify version 1.21.4
+ * In WebMarkupMin.AspNetCore6 added support for the ASP.NET Core 6.0.27
+ * In WebMarkupMin.AspNetCore7 added support for the ASP.NET Core 7.0.16
+ * In WebMarkupMin.AspNetCore8 added support for the ASP.NET Core 8.0.2
+
 ## v2.15.3 - January 12, 2024
  * In WebMarkupMin.NUglify added support for the NUglify version 1.21.2
  * In WebMarkupMin.AspNetCore6 added support for the ASP.NET Core 6.0.26

@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-            README file for Web Markup Minifier: Brotli for ASP.NET v2.13.2
+            README file for Web Markup Minifier: Brotli for ASP.NET v2.16.0
 
    --------------------------------------------------------------------------------
 
@@ -23,12 +23,6 @@
    a `BuiltInBrotliCompressor` class from `WebMarkupMin.AspNet.Common.Compressors`
    namespace instead of a `BrotliCompressor` class. In this case, the
    WebMarkupMin.Brotli package will no longer be needed and you can uninstall it.
-
-   =============
-   RELEASE NOTES
-   =============
-   Fixed a error #150 “.NET 7 broke BrotliCompressor due to invalid compression
-   levels”.
 
    =============
    DOCUMENTATION
