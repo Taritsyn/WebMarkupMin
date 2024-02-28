@@ -50,7 +50,8 @@
       `module`, `text/x-javascript`, `text/x-ecmascript`,
       `application/x-javascript` and `application/x-ecmascript` types;
    2. Added support of JSON data minification in the `script` tags with `importmap`
-      and `speculationrules` types.
+      and `speculationrules` types;
+   3. The `nomodule` attribute is now processed as a Boolean attribute.
 
    =============
    DOCUMENTATION

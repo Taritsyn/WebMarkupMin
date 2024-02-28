@@ -22,15 +22,20 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 			const string input3 = "<option name=\"fixed\" selected=\"selected\">Fixed</option>";
 			const string targetOutput3 = "<option name=\"fixed\" selected>Fixed</option>";
 
+			const string input4 = "<script nomodule=\"nomodule\" src=\"/legacy.js\"></script>";
+			const string targetOutput4 = "<script nomodule src=\"/legacy.js\"></script>";
+
 			// Act
 			string output1 = collapsingBooleanAttributesMinifier.Minify(input1).MinifiedContent;
 			string output2 = collapsingBooleanAttributesMinifier.Minify(input2).MinifiedContent;
 			string output3 = collapsingBooleanAttributesMinifier.Minify(input3).MinifiedContent;
+			string output4 = collapsingBooleanAttributesMinifier.Minify(input4).MinifiedContent;
 
 			// Assert
 			Assert.Equal(targetOutput1, output1);
 			Assert.Equal(targetOutput2, output2);
 			Assert.Equal(targetOutput3, output3);
+			Assert.Equal(targetOutput4, output4);
 		}
 
 		[Fact]

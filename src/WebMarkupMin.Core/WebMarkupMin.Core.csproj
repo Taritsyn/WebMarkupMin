@@ -27,7 +27,8 @@ Minification of markup produces by removing extra whitespaces, comments and redu
 Also supports minification of views of popular JavaScript template engines: KnockoutJS, Kendo UI MVVM and AngularJS 1.X.</Description>
     <PackageTags>$(PackageCommonTags);XML;Performance;Optimization;Compression</PackageTags>
     <PackageReleaseNotes>1. Added support of JavaScript code minification in the `script` tags with `module`, `text/x-javascript`, `text/x-ecmascript`, `application/x-javascript` and `application/x-ecmascript` types;
-2. Added support of JSON data minification in the `script` tags with `importmap` and `speculationrules` types.</PackageReleaseNotes>
+2. Added support of JSON data minification in the `script` tags with `importmap` and `speculationrules` types;
+3. The `nomodule` attribute is now processed as a Boolean attribute.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

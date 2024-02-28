@@ -33,7 +33,7 @@ namespace WebMarkupMin.Core.Parsers
 			"ismap", "itemscope",
 			"loop",
 			"multiple", "muted",
-			"novalidate",
+			"nomodule", "novalidate",
 			"open",
 			"readonly", "required", "reversed",
 			"scoped", "selected",
