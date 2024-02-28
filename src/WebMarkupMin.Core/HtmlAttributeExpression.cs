@@ -182,7 +182,7 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		/// <param name="attributeExpressionString">String representation of the HTML attribute expression</param>
 		/// <param name="result">HTML attribute expression</param>
-		/// <returns>true if <paramref name="attributeExpressionString"/> was parsed successfully; otherwise, false</returns>
+		/// <returns><c>true</c> if <paramref name="attributeExpressionString"/> was parsed successfully; otherwise, <c>false</c></returns>
 		public static bool TryParse(string attributeExpressionString, out HtmlAttributeExpression result)
 		{
 			if (attributeExpressionString == null)
@@ -229,7 +229,7 @@ namespace WebMarkupMin.Core
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
 		/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
 		/// <param name="attributeValue">Attribute value</param>
-		/// <returns>true if the attribute expression is match; otherwise, false</returns>
+		/// <returns><c>true</c> if the attribute expression is match; otherwise, <c>false</c></returns>
 		public bool IsMatch(string tagNameInLowercase, string attributeNameInLowercase,
 			string attributeValue)
 		{
@@ -292,7 +292,7 @@ namespace WebMarkupMin.Core
 		/// Indicates whether the current object is equal to another object of the same type
 		/// </summary>
 		/// <param name="expression">An object to compare with this object</param>
-		/// <returns>true if the current object is equal to the other parameter; otherwise, false</returns>
+		/// <returns><c>true</c> if the current object is equal to the other parameter; otherwise, <c>false</c></returns>
 		public bool Equals(HtmlAttributeExpression expression)
 		{
 			if (ReferenceEquals(expression, null))
@@ -312,8 +312,8 @@ namespace WebMarkupMin.Core
 		/// the current <see cref="HtmlAttributeExpression"/>
 		/// </summary>
 		/// <param name="obj">The object to compare with the current object</param>
-		/// <returns>true if the specified <see cref="HtmlAttributeExpression"/> is equal to
-		/// the current <see cref="HtmlAttributeExpression"/>; otherwise, false</returns>
+		/// <returns><c>true</c> if the specified <see cref="HtmlAttributeExpression"/> is equal to
+		/// the current <see cref="HtmlAttributeExpression"/>; otherwise, <c>false</c></returns>
 		public override bool Equals(object obj)
 		{
 			var attributeExpression = obj as HtmlAttributeExpression;

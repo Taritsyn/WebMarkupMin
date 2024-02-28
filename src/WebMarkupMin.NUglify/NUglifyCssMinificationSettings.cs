@@ -33,7 +33,7 @@
 		}
 
 		/// <summary>
-		/// Gets or sets a value indicating whether unicode escape strings (e.g. <code>\ff0e</code>)
+		/// Gets or sets a value indicating whether unicode escape strings (e.g. <c>\ff0e</c>)
 		/// would be replaced by it's actual character or not
 		/// </summary>
 		public bool DecodeEscapes

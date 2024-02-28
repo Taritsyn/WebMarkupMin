@@ -12,7 +12,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// Determines whether the beginning of this <see cref="StringBuilder"/> instance matches the newline character
 		/// </summary>
 		/// <param name="source">Instance of <see cref="StringBuilder"/></param>
-		/// <returns>true if the newline character matches the beginning of this instance; otherwise, false</returns>
+		/// <returns><c>true</c> if the newline character matches the beginning of this instance; otherwise, <c>false</c></returns>
 		public static bool StartsWithNewLine(this StringBuilder source)
 		{
 			if (source == null)
@@ -34,7 +34,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// Determines whether the end of this <see cref="StringBuilder"/> instance matches the newline character
 		/// </summary>
 		/// <param name="source">Instance of <see cref="StringBuilder"/></param>
-		/// <returns>true if the newline character matches the end of this instance; otherwise, false</returns>
+		/// <returns><c>true</c> if the newline character matches the end of this instance; otherwise, <c>false</c></returns>
 		public static bool EndsWithNewLine(this StringBuilder source)
 		{
 			if (source == null)

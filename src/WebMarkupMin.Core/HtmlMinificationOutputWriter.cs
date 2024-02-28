@@ -286,7 +286,7 @@ namespace WebMarkupMin.Core
 		/// Removes a last start tag from the output buffer
 		/// </summary>
 		/// <param name="tagName">Tag name</param>
-		/// <returns>Result of removing (true - has removed; false - has not removed)</returns>
+		/// <returns>Result of removing (<c>true</c> - has removed; <c>false</c> - has not removed)</returns>
 		public bool RemoveLastStartTag(string tagName)
 		{
 			int itemCount = _size;

@@ -288,7 +288,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// Checks whether the attribute is boolean
 		/// </summary>
 		/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
-		/// <returns>Result of check (true - boolean; false - not boolean)</returns>
+		/// <returns>Result of check (<c>true</c> - boolean; <c>false</c> - not boolean)</returns>
 		private bool IsBooleanAttribute(string attributeNameInLowercase)
 		{
 			return _booleanAttributes.Contains(attributeNameInLowercase);
@@ -299,7 +299,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
 		/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
-		/// <returns>Result of check (true - numeric; false - not numeric)</returns>
+		/// <returns>Result of check (<c>true</c> - numeric; <c>false</c> - not numeric)</returns>
 		private bool IsNumericAttribute(string tagNameInLowercase, string attributeNameInLowercase)
 		{
 			bool isNumeric;
@@ -386,7 +386,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
 		/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
 		/// <param name="attributes">List of attributes</param>
-		/// <returns>Result of check (true - URI-based; false - not URI-based)</returns>
+		/// <returns>Result of check (<c>true</c> - URI-based; <c>false</c> - not URI-based)</returns>
 		private bool IsUriBasedAttribute(string tagNameInLowercase, string attributeNameInLowercase,
 			List<HtmlAttribute> attributes)
 		{
@@ -450,7 +450,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// Checks whether the attribute is event
 		/// </summary>
 		/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
-		/// <returns>Result of check (true - event; false - not event)</returns>
+		/// <returns>Result of check (<c>true</c> - event; <c>false</c> - not event)</returns>
 		private bool IsEventAttribute(string attributeNameInLowercase)
 		{
 			bool isEventAttribute = false;
@@ -484,7 +484,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// Checks whether the attribute is XML-based
 		/// </summary>
 		/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
-		/// <returns>Result of check (true - XML-based; false - not XML-based)</returns>
+		/// <returns>Result of check (<c>true</c> - XML-based; <c>false</c> - not XML-based)</returns>
 		private bool IsXmlBasedAttribute(string attributeNameInLowercase)
 		{
 			bool isXmlAttribute = false;

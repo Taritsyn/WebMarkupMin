@@ -31,7 +31,7 @@ namespace WebMarkupMin.AspNet.Common.Helpers
 		/// Checks whether the media-type is text-based
 		/// </summary>
 		/// <param name="mediaType">Media-type</param>
-		/// <returns>Result of check (true - is text-based; false - is not text-based)</returns>
+		/// <returns>Result of check (<c>true</c> - is text-based; <c>false</c> - is not text-based)</returns>
 		public static bool IsTextBasedMediaType(string mediaType)
 		{
 			if (string.IsNullOrWhiteSpace(mediaType))

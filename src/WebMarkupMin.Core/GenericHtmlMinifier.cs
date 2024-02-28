@@ -1544,11 +1544,11 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Determines whether a list of attributes contains the <code>rel</code> attribute with
+		/// Determines whether a list of attributes contains the <c>rel</c> attribute with
 		/// value, that equals to "external" or "alternate external"
 		/// </summary>
 		/// <param name="attributes">List of attributes</param>
-		/// <returns>Result of check (true - contains; false - does not contain)</returns>
+		/// <returns>Result of check (<c>true</c> - contains; <c>false</c> - does not contain)</returns>
 		private static bool ContainsRelExternalAttribute(List<HtmlAttribute> attributes)
 		{
 			bool containsRelExternalAttribute = attributes.Any(a => a.NameInLowercase == "rel"
@@ -1562,7 +1562,7 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		/// <param name="attribute">Attribute</param>
 		/// <param name="attributeQuotesRemovalMode">Removal mode of HTML attribute quotes</param>
-		/// <returns>Result of check (true - can remove; false - cannot remove)</returns>
+		/// <returns>Result of check (<c>true</c> - can remove; <c>false</c> - cannot remove)</returns>
 		private static bool CanRemoveAttributeQuotes(HtmlAttribute attribute,
 			HtmlAttributeQuotesRemovalMode attributeQuotesRemovalMode)
 		{
@@ -1593,7 +1593,7 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		/// <param name="tag">Tag</param>
 		/// <param name="attribute">Attribute</param>
-		/// <returns>Result of check (true - is redundant; false - is not redundant)</returns>
+		/// <returns>Result of check (<c>true</c> - is redundant; <c>false</c> - is not redundant)</returns>
 		private static bool IsAttributeRedundant(HtmlTag tag, HtmlAttribute attribute)
 		{
 			string tagNameInLowercase = tag.NameInLowercase;
@@ -1652,8 +1652,8 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Checks whether attribute is the attribute <code>type</code> of
-		/// tag <code>script</code> containing the default content type
+		/// Checks whether attribute is the attribute <c>type</c> of
+		/// tag <c>script</c> containing the default content type
 		/// </summary>
 		/// <param name="tag">Tag</param>
 		/// <param name="attribute">Attribute</param>
@@ -1665,8 +1665,8 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Checks whether attribute is the attribute <code>type</code> of tag <code>link</code>
-		/// or <code>style</code> containing the default content type
+		/// Checks whether attribute is the attribute <c>type</c> of tag <c>link</c>
+		/// or <c>style</c> containing the default content type
 		/// </summary>
 		/// <param name="tag">Tag</param>
 		/// <param name="attribute">Attribute</param>
@@ -1903,7 +1903,7 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Checks whether preserve case of tag and attribute names
 		/// </summary>
-		/// <returns>Result of check (true - can be preserved; false - can not be preserved)</returns>
+		/// <returns>Result of check (<c>true</c> - can be preserved; <c>false</c> - can not be preserved)</returns>
 		private bool CanPreserveCase()
 		{
 			return _settings.PreserveCase || _currentTag.Flags.IsSet(HtmlTagFlags.Xml);
@@ -1914,7 +1914,7 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		/// <param name="tag">Tag</param>
 		/// <param name="attribute">Attribute</param>
-		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
+		/// <returns>Result of check (<c>true</c> - can be removed; <c>false</c> - can not be removed)</returns>
 		private bool CanRemoveAttribute(HtmlTag tag, HtmlAttribute attribute)
 		{
 			IList<HtmlAttributeExpression> expressions = _settings.PreservableAttributeCollection;
@@ -1950,7 +1950,7 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		/// <param name="tag">Tag</param>
 		/// <param name="attribute">Attribute</param>
-		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
+		/// <returns>Result of check (<c>true</c> - can be removed; <c>false</c> - can not be removed)</returns>
 		private static bool CanRemoveEmptyAttribute(HtmlTag tag, HtmlAttribute attribute)
 		{
 			string tagNameInLowercase = tag.NameInLowercase;
@@ -1979,11 +1979,11 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Checks whether remove an the <code>xmlns</code> attribute
+		/// Checks whether remove an the <c>xmlns</c> attribute
 		/// </summary>
 		/// <param name="tag">Tag</param>
 		/// <param name="attribute">Attribute</param>
-		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
+		/// <returns>Result of check (<c>true</c> - can be removed; <c>false</c> - can not be removed)</returns>
 		private static bool CanRemoveXmlNamespaceAttribute(HtmlTag tag, HtmlAttribute attribute)
 		{
 			return tag.NameInLowercase == "html" && attribute.NameInLowercase == "xmlns";
@@ -1993,7 +1993,7 @@ namespace WebMarkupMin.Core
 		/// Checks whether the tag is a META content-type tag
 		/// </summary>
 		/// <param name="tag">Tag</param>
-		/// <returns>Result of check (true - is META content-type tag; false - is not META content-type tag)</returns>
+		/// <returns>Result of check (<c>true</c> - is META content-type tag; <c>false</c> - is not META content-type tag)</returns>
 		private static bool IsMetaContentTypeTag(HtmlTag tag)
 		{
 			return tag.NameInLowercase == "meta" && tag.Attributes.Any(
@@ -2039,7 +2039,7 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		/// <param name="firstTag">First tag</param>
 		/// <param name="secondTag">Second tag</param>
-		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
+		/// <returns>Result of check (<c>true</c> - can be removed; <c>false</c> - can not be removed)</returns>
 		private static bool CanRemoveWhitespaceBetweenNonIndependentTags(HtmlTag firstTag, HtmlTag secondTag)
 		{
 			string firstTagNameInLowercase = firstTag.NameInLowercase;
@@ -2071,7 +2071,7 @@ namespace WebMarkupMin.Core
 		/// Checks whether remove whitespace after end non-independent tag
 		/// </summary>
 		/// <param name="endTag">End tag</param>
-		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
+		/// <returns>Result of check (<c>true</c> - can be removed; <c>false</c> - can not be removed)</returns>
 		private static bool CanRemoveWhitespaceAfterEndNonIndependentTag(HtmlTag endTag)
 		{
 			string endTagNameInLowercase = endTag.NameInLowercase;
@@ -2101,7 +2101,7 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		/// <param name="endTag">End tag</param>
 		/// <param name="parentTag">Parent tag</param>
-		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
+		/// <returns>Result of check (<c>true</c> - can be removed; <c>false</c> - can not be removed)</returns>
 		private static bool CanRemoveWhitespaceAfterEndNonIndependentTagByParentTag(HtmlTag endTag, HtmlTag parentTag)
 		{
 			string endTagNameInLowercase = endTag.NameInLowercase;
@@ -2130,7 +2130,7 @@ namespace WebMarkupMin.Core
 		/// Checks whether remove an the safe optional end tag
 		/// </summary>
 		/// <param name="optionalEndTag">Optional end tag</param>
-		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
+		/// <returns>Result of check (<c>true</c> - can be removed; <c>false</c> - can not be removed)</returns>
 		private bool CanRemoveSafeOptionalEndTag(HtmlTag optionalEndTag)
 		{
 			string optionalEndTagNameInLowercase = optionalEndTag.NameInLowercase;
@@ -2147,7 +2147,7 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		/// <param name="optionalEndTag">Optional end tag</param>
 		/// <param name="nextTag">Next tag</param>
-		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
+		/// <returns>Result of check (<c>true</c> - can be removed; <c>false</c> - can not be removed)</returns>
 		private bool CanRemoveOptionalEndTagByNextTag(HtmlTag optionalEndTag, HtmlTag nextTag)
 		{
 			string optionalEndTagNameInLowercase = optionalEndTag.NameInLowercase;
@@ -2216,7 +2216,7 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		/// <param name="optionalEndTag">Optional end tag</param>
 		/// <param name="parentTag">Parent tag</param>
-		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
+		/// <returns>Result of check (<c>true</c> - can be removed; <c>false</c> - can not be removed)</returns>
 		private bool CanRemoveOptionalEndTagByParentTag(HtmlTag optionalEndTag, HtmlTag parentTag)
 		{
 			string optionalEndTagNameInLowercase = optionalEndTag.NameInLowercase;
@@ -2279,7 +2279,7 @@ namespace WebMarkupMin.Core
 		/// Checks whether remove an the tag, that has empty content
 		/// </summary>
 		/// <param name="tag">Tag</param>
-		/// <returns>Result of check (true - can be removed; false - can not be removed)</returns>
+		/// <returns>Result of check (<c>true</c> - can be removed; <c>false</c> - can not be removed)</returns>
 		private static bool CanRemoveTagWithoutContent(HtmlTag tag)
 		{
 			string tagNameInLowercase = tag.NameInLowercase;
@@ -2297,7 +2297,7 @@ namespace WebMarkupMin.Core
 		/// Checks whether to minify whitespaces in text content of tag
 		/// </summary>
 		/// <param name="tag">Tag</param>
-		/// <returns>Result of check (true - can minify whitespaces; false - can not minify whitespaces)</returns>
+		/// <returns>Result of check (<c>true</c> - can minify whitespaces; <c>false</c> - can not minify whitespaces)</returns>
 		private static bool CanMinifyWhitespace(HtmlTag tag)
 		{
 			return !_tagsWithNotRemovableWhitespace.Contains(tag.NameInLowercase);
@@ -2990,7 +2990,7 @@ namespace WebMarkupMin.Core
 		/// Determines whether a directive contains the Angular binding expression
 		/// </summary>
 		/// <param name="normalizedDirectiveName">Normalized directive name</param>
-		/// <returns>Result of check (true - contains; false - not contains)</returns>
+		/// <returns>Result of check (<c>true</c> - contains; <c>false</c> - not contains)</returns>
 		private bool ContainsAngularBindingExpression(string normalizedDirectiveName)
 		{
 			bool result = !string.IsNullOrEmpty(normalizedDirectiveName)
@@ -3004,7 +3004,7 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		/// <param name="tag">Tag</param>
 		/// <param name="attribute">Attribute</param>
-		/// <returns>Result of check (true - can minify expression; false - can not minify expression)</returns>
+		/// <returns>Result of check (<c>true</c> - can minify expression; <c>false</c> - can not minify expression)</returns>
 		private bool CanMinifyAngularBindingExpressionInAttribute(HtmlTag tag, HtmlAttribute attribute)
 		{
 			string tagNameInLowercase = tag.NameInLowercase;

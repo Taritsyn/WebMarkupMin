@@ -85,7 +85,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// Checks whether the class is the Angular class directive
 		/// </summary>
 		/// <param name="className">Class name</param>
-		/// <returns>Result of check (true - is class directive; false - is not class directive)</returns>
+		/// <returns>Result of check (<c>true</c> - is class directive; <c>false</c> - is not class directive)</returns>
 		public static bool IsClassDirective(string className)
 		{
 			if (className.IndexOf(':') == -1 && className.IndexOf(';') == -1)
@@ -103,7 +103,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// </summary>
 		/// <param name="className">Class name</param>
 		/// <param name="classDirectiveHandler">Angular class directive handler</param>
-		/// <param name="otherContentHandler">Other сontent handler</param>
+		/// <param name="otherContentHandler">Other content handler</param>
 		public static void ParseClassDirective(string className, ClassDirectiveDelegate classDirectiveHandler,
 			OtherContentDelegate otherContentHandler)
 		{
@@ -168,7 +168,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// Checks whether the comment is the Angular comment directive
 		/// </summary>
 		/// <param name="commentText">Comment text</param>
-		/// <returns>Result of check (true - is comment directive; false - is not comment directive)</returns>
+		/// <returns>Result of check (<c>true</c> - is comment directive; <c>false</c> - is not comment directive)</returns>
 		public static bool IsCommentDirective(string commentText)
 		{
 			if (commentText.IndexOf(NG_COMMENT_DIRECTIVE_PREFIX, StringComparison.Ordinal) == -1)
@@ -229,10 +229,10 @@ namespace WebMarkupMin.Core.Helpers
 			string expression);
 
 		/// <summary>
-		/// Other сontent delegate
+		/// Other content delegate
 		/// </summary>
 		/// <param name="context">Markup parsing context</param>
-		/// <param name="сontent">Other сontent</param>
-		public delegate void OtherContentDelegate(MarkupParsingContext context, string сontent);
+		/// <param name="content">Other content</param>
+		public delegate void OtherContentDelegate(MarkupParsingContext context, string content);
 	}
 }

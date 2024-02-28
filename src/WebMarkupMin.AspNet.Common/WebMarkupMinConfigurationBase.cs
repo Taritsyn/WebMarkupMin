@@ -34,8 +34,8 @@
 		}
 
 		/// <summary>
-		/// Gets or sets a flag for whether to disable the <code>*-Minification-Powered-By</code> HTTP headers
-		/// (e.g. <code>"X-HTML-Minification-Powered-By: WebMarkupMin"</code>)
+		/// Gets or sets a flag for whether to disable the <c>*-Minification-Powered-By</c> HTTP headers
+		/// (e.g. <c>"X-HTML-Minification-Powered-By: WebMarkupMin"</c>)
 		/// </summary>
 		public bool DisablePoweredByHttpHeaders
 		{

@@ -6,8 +6,8 @@
 	public sealed class NUglifyJsMinificationSettings : NUglifyCommonMinificationSettingsBase
 	{
 		/// <summary>
-		/// Gets or sets a flag indicating whether to always escape non-ASCII characters as <code>\uXXXX</code>
-		/// or to let the output encoding object handle that via the <code>JsEncoderFallback</code> object for the
+		/// Gets or sets a flag indicating whether to always escape non-ASCII characters as <c>\uXXXX</c>
+		/// or to let the output encoding object handle that via the <c>JsEncoderFallback</c> object for the
 		/// specified output encoding format
 		/// </summary>
 		public bool AlwaysEscapeNonAscii
@@ -26,9 +26,9 @@
 		}
 
 		/// <summary>
-		/// Gets or sets a flag for whether to collapse <code>new Array()</code>
-		/// to <code>[]</code> and <code>new Object()</code> to <code>{}</code>
-		/// (true) or leave as-is (false)
+		/// Gets or sets a flag for whether to collapse <c>new Array()</c>
+		/// to <c>[]</c> and <c>new Object()</c> to <c>{}</c>
+		/// (<c>true</c>) or leave as-is (<c>false</c>)
 		/// </summary>
 		public bool CollapseToLiteral
 		{
@@ -70,8 +70,8 @@
 
 		/// <summary>
 		/// Gets or sets a flag for whether to evaluate expressions containing
-		/// only literal bool, string, numeric, or null values (true).
-		/// Leave literal expressions alone and do not evaluate them (false).
+		/// only literal bool, string, numeric, or null values (<c>true</c>).
+		/// Leave literal expressions alone and do not evaluate them (<c>false</c>).
 		/// </summary>
 		public bool EvalLiteralExpressions
 		{
@@ -90,7 +90,7 @@
 
 		/// <summary>
 		/// Gets or sets a flag for whether or not to ignore conditional-compilation
-		/// comment syntax (true) or to try to retain the comments in the output (false)
+		/// comment syntax (<c>true</c>) or to try to retain the comments in the output (<c>false</c>)
 		/// </summary>
 		public bool IgnoreConditionalCompilation
 		{
@@ -100,7 +100,7 @@
 
 		/// <summary>
 		/// Gets or sets a boolean value indicating whether or not to ignore preprocessor
-		/// defines comment syntax (true) or to evaluate them (false)
+		/// defines comment syntax (<c>true</c>) or to evaluate them (<c>false</c>)
 		/// </summary>
 		public bool IgnorePreprocessorDefines
 		{
@@ -110,8 +110,8 @@
 
 		/// <summary>
 		/// Gets or sets a flag for whether to break up string literals containing
-		/// <code>&lt;/script&gt;</code> so inline code won't break (true).
-		/// Leave string literals as-is (false).
+		/// <c>&lt;/script&gt;</c> so inline code won't break (<c>true</c>).
+		/// Leave string literals as-is (<c>false</c>).
 		/// </summary>
 		public bool InlineSafeStrings
 		{
@@ -130,9 +130,9 @@
 
 		/// <summary>
 		/// Gets or sets a value indicating whether to how to rename local variables and functions:
-		/// <code>KeepAll</code> - do not rename local variables and functions;
-		/// <code>CrunchAll</code> - rename all local variables and functions to shorter names;
-		/// <code>KeepLocalizationVars</code> - rename all local variables and functions that do NOT start with L_
+		/// <c>KeepAll</c> - do not rename local variables and functions;
+		/// <c>CrunchAll</c> - rename all local variables and functions to shorter names;
+		/// <c>KeepLocalizationVars</c> - rename all local variables and functions that do NOT start with L_
 		/// </summary>
 		public LocalRenaming LocalRenaming
 		{
@@ -142,8 +142,8 @@
 
 		/// <summary>
 		/// Gets or sets a value indicating whether to add characters to the output
-		/// to make sure Mac Safari bugs are not generated (true).
-		/// Disregard potential Mac Safari bugs (false).
+		/// to make sure Mac Safari bugs are not generated (<c>true</c>).
+		/// Disregard potential Mac Safari bugs (<c>false</c>).
 		/// </summary>
 		public bool MacSafariQuirks
 		{
@@ -154,8 +154,8 @@
 		/// <summary>
 		/// Gets or sets a boolean value indicating whether object property
 		/// names with the specified "from" names will get renamed to
-		/// the corresponding "to" names (true) when using
-		/// the manual-rename feature, or left alone (false)
+		/// the corresponding "to" names (<c>true</c>) when using
+		/// the manual-rename feature, or left alone (<c>false</c>)
 		/// </summary>
 		public bool ManualRenamesProperties
 		{
@@ -213,8 +213,8 @@
 		}
 
 		/// <summary>
-		/// Remove unneeded code, like uncalled local functions (true).
-		/// Keep all code (false).
+		/// Remove unneeded code, like uncalled local functions (<c>true</c>).
+		/// Keep all code (<c>false</c>).
 		/// </summary>
 		public bool RemoveUnneededCode
 		{
@@ -234,7 +234,7 @@
 
 		/// <summary>
 		/// Gets or sets a value indicating whether or not to reorder function and variable
-		/// declarations within scopes (true), or to leave the order as specified in
+		/// declarations within scopes (<c>true</c>), or to leave the order as specified in
 		/// the original source
 		/// </summary>
 		public bool ReorderScopeDeclarations
@@ -246,7 +246,7 @@
 		/// <summary>
 		/// Gets or sets a boolean value indicating whether or not to force
 		/// the input code into strict mode (can still specify strict-mode in
-		/// the sources if this value is false)
+		/// the sources if this value is <c>false</c>)
 		/// </summary>
 		public bool StrictMode
 		{
@@ -255,8 +255,8 @@
 		}
 
 		/// <summary>
-		/// Strip debug statements (true).
-		/// Leave debug statements (false).
+		/// Strip debug statements (<c>true</c>).
+		/// Leave debug statements (<c>false</c>).
 		/// </summary>
 		public bool StripDebugStatements
 		{

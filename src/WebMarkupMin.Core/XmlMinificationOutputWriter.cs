@@ -135,7 +135,7 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Transform a last start tag to empty tag in the output buffer
 		/// </summary>
-		/// <returns>Result of transforming (true - has transformed; false - has not transformed)</returns>
+		/// <returns>Result of transforming (<c>true</c> - has transformed; <c>false</c> - has not transformed)</returns>
 		public bool TransformLastStartTagToEmptyTag(bool renderEmptyTagsWithSpace)
 		{
 			int itemCount = _size;

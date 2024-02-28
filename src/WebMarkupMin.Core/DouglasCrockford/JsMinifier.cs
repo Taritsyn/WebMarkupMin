@@ -120,7 +120,7 @@ namespace WebMarkupMin.Core.DouglasCrockford
 		}
 
 		/// <summary>
-		/// Returns a true if the character is a letter, digit, underscore, dollar sign, or non-ASCII character
+		/// Returns a <c>true</c> if the character is a letter, digit, underscore, dollar sign, or non-ASCII character
 		/// </summary>
 		/// <param name="codeunit">The character</param>
 		/// <returns>Result of check</returns>
@@ -178,7 +178,7 @@ namespace WebMarkupMin.Core.DouglasCrockford
 
 		/// <summary>
 		/// Gets a next character, excluding comments.
-		/// <code>Peek()</code> is used to see if a '/' is followed by a '/' or '*'.
+		/// <c>Peek()</c> is used to see if a '/' is followed by a '/' or '*'.
 		/// </summary>
 		/// <returns>The character</returns>
 		private int Next()
@@ -236,9 +236,9 @@ namespace WebMarkupMin.Core.DouglasCrockford
 		///		1 - Output A. Copy B to A. Get the next B.
 		///		2 - Copy B to A. Get the next B. (Delete A).
 		///		3 - Get the next B. (Delete B).
-		/// <code>Action</code> treats a string as a single character.
-		/// <code>Action</code> recognizes a regular expression if it is preceded by the likes of
-		/// <code>(</code> or <code>,</code> or <code>=</code>.
+		/// <c>Action</c> treats a string as a single character.
+		/// <c>Action</c> recognizes a regular expression if it is preceded by the likes of
+		/// <c>(</c> or <c>,</c> or <c>=</c>.
 		/// </summary>
 		/// <param name="determined">Action type</param>
 		private void Action(int determined)

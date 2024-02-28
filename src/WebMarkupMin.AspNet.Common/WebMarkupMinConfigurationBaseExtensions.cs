@@ -10,7 +10,7 @@
 		/// </summary>
 		/// <param name="configuration">WebMarkupMin configuration</param>
 		/// <param name="responseSize">Response size in bytes</param>
-		/// <returns>Result of check (true - size is allowable; false - size is not allowable)</returns>
+		/// <returns>Result of check (<c>true</c> - size is allowable; <c>false</c> - size is not allowable)</returns>
 		public static bool IsAllowableResponseSize(this WebMarkupMinConfigurationBase configuration, long responseSize)
 		{
 			bool isAllowableResponseSize = (configuration.MaxResponseSize == -1
@@ -20,10 +20,10 @@
 		}
 
 		/// <summary>
-		/// Checks whether the adding of <code>*-Minification-Powered-By</code> HTTP headers in the response is enabled
+		/// Checks whether the adding of <c>*-Minification-Powered-By</c> HTTP headers in the response is enabled
 		/// </summary>
 		/// <param name="configuration">WebMarkupMin configuration</param>
-		/// <returns>Result of check (true - is enabled; false - is disabled)</returns>
+		/// <returns>Result of check (<c>true</c> - is enabled; <c>false</c> - is disabled)</returns>
 		public static bool IsPoweredByHttpHeadersEnabled(this WebMarkupMinConfigurationBase configuration)
 		{
 			bool isPoweredByHttpHeadersEnabled = !configuration.DisablePoweredByHttpHeaders;

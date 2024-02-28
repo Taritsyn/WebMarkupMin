@@ -48,7 +48,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// <param name="startIndex">The search starting position</param>
 		/// <param name="comparisonType">One of the enumeration values that determines how
 		/// this string and value are compared</param>
-		/// <returns>true if the value parameter matches the beginning of this string; otherwise, false</returns>
+		/// <returns><c>true</c> if the value parameter matches the beginning of this string; otherwise, <c>false</c></returns>
 		public static bool CustomStartsWith(this string source, string value, int startIndex,
 			StringComparison comparisonType)
 		{
@@ -73,7 +73,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// </summary>
 		/// <param name="source">The source string</param>
 		/// <param name="value">The string to compare</param>
-		/// <returns>true if the value of the value parameter is the same as this string; otherwise, false</returns>
+		/// <returns><c>true</c> if the value of the value parameter is the same as this string; otherwise, <c>false</c></returns>
 		public static bool IgnoreCaseEquals(this string source, string value)
 		{
 			if (source == null)
@@ -93,7 +93,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// <param name="result">When this method returns, contains the character from the string,
 		/// if the receiving succeeded, or null character if the receiving failed.
 		/// The receiving fails if the index out of bounds.</param>
-		/// <returns>true if the character was received successfully; otherwise, false</returns>
+		/// <returns><c>true</c> if the character was received successfully; otherwise, <c>false</c></returns>
 		public static bool TryGetChar(this string source, int index, out char result)
 		{
 			if (source == null)
@@ -249,7 +249,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// Determines whether the beginning of this string instance matches the newline character
 		/// </summary>
 		/// <param name="source">String value</param>
-		/// <returns>true if the newline character matches the beginning of this string; otherwise, false</returns>
+		/// <returns><c>true</c> if the newline character matches the beginning of this string; otherwise, <c>false</c></returns>
 		public static bool StartsWithNewLine(this string source)
 		{
 			if (source == null)
@@ -271,7 +271,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// Determines whether the end of this string instance matches the newline character
 		/// </summary>
 		/// <param name="source">String value</param>
-		/// <returns>true if the newline character matches the end of this instance; otherwise, false</returns>
+		/// <returns><c>true</c> if the newline character matches the end of this instance; otherwise, <c>false</c></returns>
 		public static bool EndsWithNewLine(this string source)
 		{
 			if (source == null)

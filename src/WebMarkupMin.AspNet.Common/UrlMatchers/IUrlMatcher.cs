@@ -9,7 +9,7 @@
 		/// Indicates whether the matching rule finds a match in the specified URL
 		/// </summary>
 		/// <param name="url">URL</param>
-		/// <returns>true if the matching rule finds a match; otherwise, false.</returns>
+		/// <returns><c>true</c> if the matching rule finds a match; otherwise, <c>false</c>.</returns>
 		bool IsMatch(string url);
 	}
 }

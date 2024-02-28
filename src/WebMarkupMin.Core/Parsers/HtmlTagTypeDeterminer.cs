@@ -428,7 +428,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// Checks whether the tag is HTML
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
-		/// <returns>Result of check (true - HTML; false - not HTML)</returns>
+		/// <returns>Result of check (<c>true</c> - HTML; <c>false</c> - not HTML)</returns>
 		private bool IsHtmlTag(string tagNameInLowercase)
 		{
 			bool isHtmlTag = false;
@@ -462,7 +462,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// Checks whether the tag is invisible
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
-		/// <returns>Result of check (true - invisible; false - not invisible)</returns>
+		/// <returns>Result of check (<c>true</c> - invisible; <c>false</c> - not invisible)</returns>
 		private bool IsInvisibleTag(string tagNameInLowercase)
 		{
 			return _invisibleTags.Contains(tagNameInLowercase);
@@ -472,7 +472,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// Checks whether the tag is empty
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
-		/// <returns>Result of check (true - empty; false - not empty)</returns>
+		/// <returns>Result of check (<c>true</c> - empty; <c>false</c> - not empty)</returns>
 		private bool IsEmptyTag(string tagNameInLowercase)
 		{
 			return _emptyTags.Contains(tagNameInLowercase);
@@ -482,7 +482,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// Checks whether the tag is block
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
-		/// <returns>Result of check (true - block; false - not block)</returns>
+		/// <returns>Result of check (<c>true</c> - block; <c>false</c> - not block)</returns>
 		private bool IsBlockTag(string tagNameInLowercase)
 		{
 			return _blockTags.Contains(tagNameInLowercase);
@@ -492,7 +492,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// Checks whether the tag is inline
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
-		/// <returns>Result of check (true - inline; false - not inline)</returns>
+		/// <returns>Result of check (<c>true</c> - inline; <c>false</c> - not inline)</returns>
 		private bool IsInlineTag(string tagNameInLowercase)
 		{
 			return _inlineTags.Contains(tagNameInLowercase);
@@ -502,7 +502,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// Checks whether the tag is inline-block
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
-		/// <returns>Result of check (true - inline-block; false - not inline-block)</returns>
+		/// <returns>Result of check (<c>true</c> - inline-block; <c>false</c> - not inline-block)</returns>
 		private bool IsInlineBlockTag(string tagNameInLowercase)
 		{
 			return _inlineBlockTags.Contains(tagNameInLowercase);
@@ -512,7 +512,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// Checks whether the tag is non-independent
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
-		/// <returns>Result of check (true - non-independent; false - independent)</returns>
+		/// <returns>Result of check (<c>true</c> - non-independent; <c>false</c> - independent)</returns>
 		private bool IsNonIndependentTag(string tagNameInLowercase)
 		{
 			return _nonIndependentTags.Contains(tagNameInLowercase);
@@ -522,7 +522,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// Checks whether the tag, that can be omitted
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
-		/// <returns>Result of check (true - tag is optional; false - tag is required)</returns>
+		/// <returns>Result of check (<c>true</c> - tag is optional; <c>false</c> - tag is required)</returns>
 		public bool IsOptionalTag(string tagNameInLowercase)
 		{
 			return _optionalTags.Contains(tagNameInLowercase);
@@ -532,7 +532,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// Checks whether the tag can contain embedded code
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
-		/// <returns>Result of check (true - can contain embedded code; false - cannot contain embedded code)</returns>
+		/// <returns>Result of check (<c>true</c> - can contain embedded code; <c>false</c> - cannot contain embedded code)</returns>
 		public bool IsTagWithEmbeddedCode(string tagNameInLowercase)
 		{
 			return _tagsWithEmbeddedCode.Contains(tagNameInLowercase);
@@ -542,7 +542,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// Checks whether the tag is XML-based
 		/// </summary>
 		/// <param name="tagNameInLowercase">Tag name in lowercase</param>
-		/// <returns>Result of check (true - is XML-based; false - is not XML-based)</returns>
+		/// <returns>Result of check (<c>true</c> - is XML-based; <c>false</c> - is not XML-based)</returns>
 		public bool IsXmlBasedTag(string tagNameInLowercase)
 		{
 			return _xmlBasedTags.Contains(tagNameInLowercase);

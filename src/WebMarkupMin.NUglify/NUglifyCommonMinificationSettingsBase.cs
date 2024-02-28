@@ -7,10 +7,10 @@
 	{
 		/// <summary>
 		/// Gets or sets a value indicating whether the opening curly brace for blocks is
-		/// on its own line (<code>NewLine</code>) or on the same line as
-		/// the preceding code (<code>SameLine</code>)
-		/// or taking a hint from the source code position (<code>UseSource</code>).
-		/// Only relevant when OutputMode is set to <code>MultipleLines</code>.
+		/// on its own line (<c>NewLine</c>) or on the same line as
+		/// the preceding code (<c>SameLine</c>)
+		/// or taking a hint from the source code position (<c>UseSource</c>).
+		/// Only relevant when OutputMode is set to <c>MultipleLines</c>.
 		/// </summary>
 		public BlockStart BlocksStartOnSameLine
 		{
@@ -39,7 +39,7 @@
 
 		/// <summary>
 		/// Gets or sets a number of spaces or tabs per indent level when in
-		/// <code>MultipleLines</code> output mode
+		/// <c>MultipleLines</c> output mode
 		/// </summary>
 		public int IndentSize
 		{
@@ -48,7 +48,7 @@
 		}
 
 		/// <summary>
-		/// Gets or sets a indent type when in <code>MultipleLines</code> output mode
+		/// Gets or sets a indent type when in <c>MultipleLines</c> output mode
 		/// </summary>
 		public IndentType IndentType
 		{
@@ -68,8 +68,8 @@
 
 		/// <summary>
 		/// Gets or sets a output mode:
-		/// <code>SingleLine</code> - output all code on a single line;
-		/// <code>MultipleLines</code> - break the output into multiple lines to be more human-readable
+		/// <c>SingleLine</c> - output all code on a single line;
+		/// <c>MultipleLines</c> - break the output into multiple lines to be more human-readable
 		/// </summary>
 		public OutputMode OutputMode
 		{

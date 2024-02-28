@@ -313,7 +313,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Process a XML declaration
 		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		private bool ProcessXmlDeclaration()
 		{
 			bool isProcessed = false;
@@ -336,7 +336,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Process a doctype declaration
 		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		protected override bool ProcessDoctype()
 		{
 			bool isProcessed = false;
@@ -359,7 +359,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Process a hidden If conditional comments
 		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		private bool ProcessHiddenIfComment()
 		{
 			bool isProcessed = false;
@@ -384,7 +384,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Process a hidden End If conditional comment
 		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		private bool ProcessHiddenEndIfComment()
 		{
 			bool isProcessed = false;
@@ -406,7 +406,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Process a revealed If conditional comment
 		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		private bool ProcessRevealedIfComment()
 		{
 			bool isProcessed = false;
@@ -431,7 +431,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Process a revealed End If conditional comment
 		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		private bool ProcessRevealedEndIfComment()
 		{
 			bool isProcessed = false;
@@ -453,7 +453,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Process a revealed validating If conditional comments
 		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		private bool ProcessRevealedValidatingIfComment()
 		{
 			bool isProcessed = false;
@@ -483,7 +483,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Process a revealed validating End If conditional comments
 		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		private bool ProcessRevealedValidatingEndIfComment()
 		{
 			bool isProcessed = false;
@@ -506,7 +506,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Process a start tag
 		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		private bool ProcessStartTag()
 		{
 			bool isProcessed = false;
@@ -564,7 +564,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// Process a end part of start tag
 		/// </summary>
 		/// <param name="isEmptyTag">Flag that tag is empty</param>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		private bool ProcessStartTagEndPart(out bool isEmptyTag)
 		{
 			bool isProcessed = false;
@@ -587,7 +587,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Process a end tag
 		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		private bool ProcessEndTag()
 		{
 			bool isProcessed = false;

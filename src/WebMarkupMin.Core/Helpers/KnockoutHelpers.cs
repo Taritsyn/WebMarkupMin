@@ -35,7 +35,8 @@ namespace WebMarkupMin.Core.Helpers
 		/// Checks whether the comment is the Knockout begin containerless comment
 		/// </summary>
 		/// <param name="commentText">Comment text</param>
-		/// <returns>Result of check (true - is begin containerless comment; false - is not begin containerless comment)</returns>
+		/// <returns>Result of check (<c>true</c> - is begin containerless comment;
+		/// <c>false</c> - is not begin containerless comment)</returns>
 		public static bool IsBeginContainerlessComment(string commentText)
 		{
 			if (commentText.IndexOf(KO_CONTAINERLESS_COMMENT_PREFIX, StringComparison.Ordinal) == -1)
@@ -73,7 +74,8 @@ namespace WebMarkupMin.Core.Helpers
 		/// Checks whether the comment is the Knockout end containerless comment
 		/// </summary>
 		/// <param name="commentText">Comment text</param>
-		/// <returns>Result of check (true - is end containerless comment; false - is not end containerless comment)</returns>
+		/// <returns>Result of check (<c>true</c> - is end containerless comment;
+		/// <c>false</c> - is not end containerless comment)</returns>
 		public static bool IsEndContainerlessComment(string commentText)
 		{
 			if (commentText.IndexOf(KO_CONTAINERLESS_COMMENT_PREFIX, StringComparison.Ordinal) == -1)

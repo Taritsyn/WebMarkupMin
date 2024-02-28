@@ -11,7 +11,7 @@ namespace WebMarkupMin.AspNet4.Common
 		/// Checks whether the markup minification is enabled
 		/// </summary>
 		/// <param name="configuration">WebMarkupMin configuration</param>
-		/// <returns>Result of check (true - minification is enabled; false - minification is disabled)</returns>
+		/// <returns>Result of check (<c>true</c> - minification is enabled; <c>false</c> - minification is disabled)</returns>
 		public static bool IsMinificationEnabled(this WebMarkupMinConfiguration configuration)
 		{
 			bool isMinificationEnabled = false;
@@ -29,7 +29,7 @@ namespace WebMarkupMin.AspNet4.Common
 		/// Checks whether the HTTP compression is enabled
 		/// </summary>
 		/// <param name="configuration">WebMarkupMin configuration</param>
-		/// <returns>Result of check (true - compression is enabled; false - compression is disabled)</returns>
+		/// <returns>Result of check (<c>true</c> - compression is enabled; <c>false</c> - compression is disabled)</returns>
 		public static bool IsCompressionEnabled(this WebMarkupMinConfiguration configuration)
 		{
 			bool isCompressionEnabled = false;

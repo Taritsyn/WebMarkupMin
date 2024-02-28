@@ -12,7 +12,7 @@ namespace WebMarkupMin.AspNet4.Common.Helpers
 		/// Checks whether the content is encoded
 		/// </summary>
 		/// <param name="headers">The HTTP headers</param>
-		/// <returns>Result of check (true - content is encoded; false - content is not encoded)</returns>
+		/// <returns>Result of check (<c>true</c> - content is encoded; <c>false</c> - content is not encoded)</returns>
 		public static bool IsEncodedContent(NameValueCollection headers)
 		{
 			return headers["Content-Encoding"] != null

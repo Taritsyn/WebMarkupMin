@@ -22,8 +22,8 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Gets or sets a custom short DOCTYPE (e.g. <code>&lt;!DOCTYPE HTML&gt;</code>,
-		/// <code>&lt;!doctype html&gt;</code>, or <code>&lt;!doctypehtml&gt;</code>)
+		/// Gets or sets a custom short DOCTYPE (e.g. <c>&lt;!DOCTYPE HTML&gt;</c>,
+		/// <c>&lt;!doctype html&gt;</c>, or <c>&lt;!doctypehtml&gt;</c>)
 		/// </summary>
 		public string CustomShortDoctype
 		{
@@ -100,7 +100,7 @@ namespace WebMarkupMin.Core
 		/// Adds a preservable optional tag to the list
 		/// </summary>
 		/// <param name="optionalTag">Preservable optional tag</param>
-		/// <returns>true - valid optional tag; false - invalid optional tag</returns>
+		/// <returns><c>true</c> - valid optional tag; <c>false</c> - invalid optional tag</returns>
 		public bool AddPreservableOptionalTag(string optionalTag)
 		{
 			if (!string.IsNullOrWhiteSpace(optionalTag))
@@ -182,7 +182,7 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Gets or sets a flag for whether to remove <code>type="text/javascript"</code> from <code>script</code> tags
+		/// Gets or sets a flag for whether to remove <c>type="text/javascript"</c> from <c>script</c> tags
 		/// </summary>
 		public bool RemoveJsTypeAttributes
 		{
@@ -191,8 +191,8 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Gets or sets a flag for whether to remove <code>type="text/css"</code> from
-		/// <code>style</code> and <code>link</code> tags
+		/// Gets or sets a flag for whether to remove <c>type="text/css"</c> from
+		/// <c>style</c> and <c>link</c> tags
 		/// </summary>
 		public bool RemoveCssTypeAttributes
 		{

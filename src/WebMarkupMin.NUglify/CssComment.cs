@@ -3,7 +3,7 @@
 	public enum CssComment
 	{
 		/// <summary>
-		/// Remove all comments except those marked as important (<code>//!</code> or <code>/*!</code>)
+		/// Remove all comments except those marked as important (<c>//!</c> or <c>/*!</c>)
 		/// </summary>
 		Important = 0,
 

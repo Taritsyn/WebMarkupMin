@@ -60,9 +60,9 @@ namespace WebMarkupMin.Core
 
 		/// <summary>
 		/// Gets or sets a flag for whether to remove tags without content
-		/// (except for <code>textarea</code>, <code>tr</code>, <code>th</code> and <code>td</code> tags,
-		/// and tags with <code>class</code>, <code>id</code>, <code>name</code>, <code>role</code>,
-		/// <code>src</code> and custom attributes)
+		/// (except for <c>textarea</c>, <c>tr</c>, <c>th</c> and <c>td</c> tags,
+		/// and tags with <c>class</c>, <c>id</c>, <c>name</c>, <c>role</c>,
+		/// <c>src</c> and custom attributes)
 		/// </summary>
 		public bool RemoveTagsWithoutContent
 		{
@@ -81,9 +81,9 @@ namespace WebMarkupMin.Core
 
 		/// <summary>
 		/// Gets or sets a flag for whether to remove attributes, that has empty value
-		/// (valid attributes are: <code>class</code>, <code>id</code>, <code>name</code>,
-		/// <code>style</code>, <code>title</code>, <code>lang</code>, event attributes,
-		/// <code>action</code> of <code>form</code> tag and <code>value</code> of <code>input</code> tag)
+		/// (valid attributes are: <c>class</c>, <c>id</c>, <c>name</c>,
+		/// <c>style</c>, <c>title</c>, <c>lang</c>, event attributes,
+		/// <c>action</c> of <c>form</c> tag and <c>value</c> of <c>input</c> tag)
 		/// </summary>
 		public bool RemoveEmptyAttributes
 		{
@@ -141,7 +141,7 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		/// <param name="attributeExpressionString">String representation of attribute expression, that
 		/// define what attributes can not be removed</param>
-		/// <returns>true - valid expression; false - invalid expression</returns>
+		/// <returns><c>true</c> - valid expression; <c>false</c> - invalid expression</returns>
 		public bool AddPreservableAttribute(string attributeExpressionString)
 		{
 			HtmlAttributeExpression attributeExpression;
@@ -217,7 +217,7 @@ namespace WebMarkupMin.Core
 
 		/// <summary>
 		/// Gets or sets a flag for whether to remove the HTTP protocol portion
-		/// (<code>http:</code>) from URI-based attributes
+		/// (<c>http:</c>) from URI-based attributes
 		/// </summary>
 		public bool RemoveHttpProtocolFromAttributes
 		{
@@ -227,7 +227,7 @@ namespace WebMarkupMin.Core
 
 		/// <summary>
 		/// Gets or sets a flag for whether to remove the HTTPS protocol portion
-		/// (<code>https:</code>) from URI-based attributes
+		/// (<c>https:</c>) from URI-based attributes
 		/// </summary>
 		public bool RemoveHttpsProtocolFromAttributes
 		{
@@ -236,7 +236,7 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Gets or sets a flag for whether to remove the <code>javascript:</code>
+		/// Gets or sets a flag for whether to remove the <c>javascript:</c>
 		/// pseudo-protocol portion from event attributes
 		/// </summary>
 		public bool RemoveJsProtocolFromAttributes
@@ -246,7 +246,7 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Gets or sets a flag for whether to minify CSS code in <code>style</code> tags
+		/// Gets or sets a flag for whether to minify CSS code in <c>style</c> tags
 		/// </summary>
 		public bool MinifyEmbeddedCssCode
 		{
@@ -255,7 +255,7 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Gets or sets a flag for whether to minify CSS code in <code>style</code> attributes
+		/// Gets or sets a flag for whether to minify CSS code in <c>style</c> attributes
 		/// </summary>
 		public bool MinifyInlineCssCode
 		{
@@ -264,7 +264,7 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Gets or sets a flag for whether to minify JavaScript code in <code>script</code> tags
+		/// Gets or sets a flag for whether to minify JavaScript code in <c>script</c> tags
 		/// </summary>
 		public bool MinifyEmbeddedJsCode
 		{
@@ -274,7 +274,7 @@ namespace WebMarkupMin.Core
 
 		/// <summary>
 		/// Gets or sets a flag for whether to minify JS code in event attributes
-		/// and hyperlinks with <code>javascript:</code> pseudo-protocol
+		/// and hyperlinks with <c>javascript:</c> pseudo-protocol
 		/// </summary>
 		public bool MinifyInlineJsCode
 		{
@@ -283,7 +283,7 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Gets or sets a flag for whether to minify JSON data in <code>script</code> tags
+		/// Gets or sets a flag for whether to minify JSON data in <c>script</c> tags
 		/// </summary>
 		public bool MinifyEmbeddedJsonData
 		{
@@ -294,12 +294,12 @@ namespace WebMarkupMin.Core
 		#region Processable script types
 
 		/// <summary>
-		/// Collection of types of <code>script</code> tags, that are processed by minifier
+		/// Collection of types of <c>script</c> tags, that are processed by minifier
 		/// </summary>
 		private readonly HashSet<string> _processableScriptTypes;
 
 		/// <summary>
-		/// Gets a collection of types of <code>script</code> tags, that are processed by minifier
+		/// Gets a collection of types of <c>script</c> tags, that are processed by minifier
 		/// </summary>
 		public ISet<string> ProcessableScriptTypeCollection
 		{
@@ -332,7 +332,7 @@ namespace WebMarkupMin.Core
 		/// Adds a processable script type to the list
 		/// </summary>
 		/// <param name="scriptType">Processable script type</param>
-		/// <returns>true - valid script type; false - invalid script type</returns>
+		/// <returns><c>true</c> - valid script type; <c>false</c> - invalid script type</returns>
 		public bool AddProcessableScriptType(string scriptType)
 		{
 			if (!string.IsNullOrWhiteSpace(scriptType))
@@ -347,8 +347,8 @@ namespace WebMarkupMin.Core
 		}
 
 		/// <summary>
-		/// Gets or sets a comma-separated list of types of <code>script</code> tags, that are processed by minifier
-		/// (e.g. <code>"text/html, text/ng-template"</code>)
+		/// Gets or sets a comma-separated list of types of <c>script</c> tags, that are processed by minifier
+		/// (e.g. <c>"text/html, text/ng-template"</c>)
 		/// </summary>
 		public string ProcessableScriptTypeList
 		{
@@ -396,7 +396,7 @@ namespace WebMarkupMin.Core
 
 		/// <summary>
 		/// Gets or sets a flag for whether to minify the KnockoutJS binding expressions
-		/// in <code>data-bind</code> attributes and containerless comments
+		/// in <c>data-bind</c> attributes and containerless comments
 		/// </summary>
 		public bool MinifyKnockoutBindingExpressions
 		{
@@ -406,7 +406,7 @@ namespace WebMarkupMin.Core
 
 		/// <summary>
 		/// Gets or sets a flag for whether to minify the AngularJS 1.X binding expressions
-		/// in Mustache-style tags (<code>{{}}</code>) and directives
+		/// in Mustache-style tags (<c>{{}}</c>) and directives
 		/// </summary>
 		public bool MinifyAngularBindingExpressions
 		{
@@ -455,7 +455,7 @@ namespace WebMarkupMin.Core
 		/// Adds a name of custom AngularJS 1.X directive to the list
 		/// </summary>
 		/// <param name="directiveName">Name of custom AngularJS 1.X directive</param>
-		/// <returns>true - valid directive name; false - invalid directive name</returns>
+		/// <returns><c>true</c> - valid directive name; <c>false</c> - invalid directive name</returns>
 		public bool AddCustomAngularDirective(string directiveName)
 		{
 			if (!string.IsNullOrWhiteSpace(directiveName))
@@ -471,7 +471,7 @@ namespace WebMarkupMin.Core
 
 		/// <summary>
 		/// Gets or sets a comma-separated list of names of custom AngularJS 1.X
-		/// directives (e.g. <code>"myDir, btfCarousel"</code>), that contain expressions
+		/// directives (e.g. <c>"myDir, btfCarousel"</c>), that contain expressions
 		/// </summary>
 		public string CustomAngularDirectiveList
 		{

@@ -40,7 +40,7 @@ namespace WebMarkupMin.AspNet.Common
 		}
 
 		/// <summary>
-		/// Gets a <code>*-Minification-Powered-By</code> HTTP-header
+		/// Gets a <c>*-Minification-Powered-By</c> HTTP-header
 		/// </summary>
 		public KeyValuePair<string, string> PoweredByHttpHeader
 		{

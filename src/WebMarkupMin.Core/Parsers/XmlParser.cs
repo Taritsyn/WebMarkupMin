@@ -187,7 +187,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Process a XML declaration and processing instructions
 		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		private bool ProcessProcessingInstruction()
 		{
 			bool isProcessed = false;
@@ -253,7 +253,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Process a end part of XML declaration and processing instructions
 		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		private bool ProcessProcessingInstructionEndPart()
 		{
 			bool isProcessed = false;
@@ -273,7 +273,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Process a doctype declaration
 		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		protected override bool ProcessDoctype()
 		{
 			bool isProcessed = false;
@@ -296,7 +296,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Process a start tag
 		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		private bool ProcessStartTag()
 		{
 			bool isProcessed = false;
@@ -358,7 +358,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// Process a end part of start tag
 		/// </summary>
 		/// <param name="isEmptyTag">Flag that tag is empty</param>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		private bool ProcessStartTagEndPart(out bool isEmptyTag)
 		{
 			bool isProcessed = false;
@@ -381,7 +381,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Process a end tag
 		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		private bool ProcessEndTag()
 		{
 			bool isProcessed = false;
@@ -487,7 +487,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// Checks whether the character is valid first character of XML tag name
 		/// </summary>
 		/// <param name="value">Character value</param>
-		/// <returns>Result of check (true - valid; false - not valid)</returns>
+		/// <returns>Result of check (<c>true</c> - valid; <c>false</c> - not valid)</returns>
 		[MethodImpl((MethodImplOptions)256 /* AggressiveInlining */)]
 		private static bool IsTagFirstChar(char value)
 		{

@@ -43,7 +43,7 @@ namespace WebMarkupMin.AspNet.Common
 		/// </summary>
 		/// <param name="acceptEncoding">Value of the Accept-Encoding HTTP header</param>
 		/// <param name="compressor">Instance of compressor</param>
-		/// <returns>true if the compressor was created; otherwise, false</returns>
+		/// <returns><c>true</c> if the compressor was created; otherwise, <c>false</c></returns>
 		bool TryCreateCompressor(string acceptEncoding, out ICompressor compressor);
 	}
 }

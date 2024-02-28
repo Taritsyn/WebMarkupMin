@@ -46,7 +46,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// Determines whether a markup contains the template tags
 		/// </summary>
 		/// <param name="content">Content</param>
-		/// <returns>Result of check (true - contains; false - not contains)</returns>
+		/// <returns>Result of check (<c>true</c> - contains; <c>false</c> - not contains)</returns>
 		public static bool ContainsTag(string content)
 		{
 			if (content.IndexOfAny(_templateTagFirstChars) == -1)

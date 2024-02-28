@@ -33,7 +33,7 @@ namespace WebMarkupMin.AspNetCore8
 		/// Checks whether the markup minification is enabled
 		/// </summary>
 		/// <param name="options">WebMarkupMin options</param>
-		/// <returns>Result of check (true - minification is enabled; false - minification is disabled)</returns>
+		/// <returns>Result of check (<c>true</c> - minification is enabled; <c>false</c> - minification is disabled)</returns>
 		public static bool IsMinificationEnabled(this WebMarkupMinOptions options)
 		{
 			bool isMinificationEnabled = false;
@@ -51,7 +51,7 @@ namespace WebMarkupMin.AspNetCore8
 		/// Checks whether the HTTP compression is enabled
 		/// </summary>
 		/// <param name="options">WebMarkupMin options</param>
-		/// <returns>Result of check (true - compression is enabled; false - compression is disabled)</returns>
+		/// <returns>Result of check (<c>true</c> - compression is enabled; <c>false</c> - compression is disabled)</returns>
 		public static bool IsCompressionEnabled(this WebMarkupMinOptions options)
 		{
 			bool isCompressionEnabled = false;

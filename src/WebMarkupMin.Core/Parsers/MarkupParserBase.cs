@@ -74,13 +74,13 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Process a doctype declaration
 		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		protected abstract bool ProcessDoctype();
 
 		/// <summary>
 		/// Process a comments
 		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		protected bool ProcessComment()
 		{
 			bool isProcessed = false;
@@ -123,7 +123,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Process a start ignoring comment tags
 		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		protected bool ProcessStartIgnoringCommentTag()
 		{
 			string content = _innerContext.SourceCode;
@@ -151,7 +151,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Process a end ignoring comment tags
 		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		protected bool ProcessEndIgnoringCommentTag()
 		{
 			throw new MarkupParsingException(
@@ -162,7 +162,7 @@ namespace WebMarkupMin.Core.Parsers
 		/// <summary>
 		/// Process a CDATA sections
 		/// </summary>
-		/// <returns>Result of processing (true - is processed; false - is not processed)</returns>
+		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		protected bool ProcessCdataSection()
 		{
 			bool isProcessed = false;

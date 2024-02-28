@@ -13,7 +13,7 @@ namespace WebMarkupMin.AspNet.Common
 		/// </summary>
 		/// <param name="minificationManager">Markup minification manager</param>
 		/// <param name="mediaType">Media-type</param>
-		/// <returns>Result of check (true - supported; false - not supported)</returns>
+		/// <returns>Result of check (<c>true</c> - supported; <c>false</c> - not supported)</returns>
 		public static bool IsSupportedMediaType(this IMarkupMinificationManager minificationManager,
 			string mediaType)
 		{
@@ -21,7 +21,7 @@ namespace WebMarkupMin.AspNet.Common
 		}
 
 		/// <summary>
-		/// Appends a <code>*-Minification-Powered-By</code> HTTP-header
+		/// Appends a <c>*-Minification-Powered-By</c> HTTP-header
 		/// </summary>
 		/// <param name="minificationManager">Markup minification manager</param>
 		/// <param name="append">HTTP header appending delegate</param>

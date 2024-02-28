@@ -14,7 +14,7 @@ namespace WebMarkupMin.AspNet.Common
 		/// </summary>
 		/// <param name="compressionManager">HTTP compression manager</param>
 		/// <param name="mediaType">Media-type</param>
-		/// <returns>Result of check (true - supported; false - not supported)</returns>
+		/// <returns>Result of check (<c>true</c> - supported; <c>false</c> - not supported)</returns>
 		public static bool IsSupportedMediaType(this IHttpCompressionManager compressionManager, string mediaType)
 		{
 			if (string.IsNullOrWhiteSpace(mediaType))

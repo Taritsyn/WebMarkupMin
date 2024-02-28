@@ -14,7 +14,7 @@ namespace WebMarkupMin.AspNet.Common
 		/// </summary>
 		/// <param name="contentProcessingManager">Content processing manager</param>
 		/// <param name="statusCode">HTTP status code</param>
-		/// <returns>Result of check (true - supported; false - not supported)</returns>
+		/// <returns>Result of check (<c>true</c> - supported; <c>false</c> - not supported)</returns>
 		public static bool IsSupportedHttpStatusCode(this IContentProcessingManager contentProcessingManager,
 			int statusCode)
 		{
@@ -26,7 +26,7 @@ namespace WebMarkupMin.AspNet.Common
 		/// </summary>
 		/// <param name="contentProcessingManager">Content processing manager</param>
 		/// <param name="method">HTTP method</param>
-		/// <returns>Result of check (true - supported; false - not supported)</returns>
+		/// <returns>Result of check (<c>true</c> - supported; <c>false</c> - not supported)</returns>
 		public static bool IsSupportedHttpMethod(this IContentProcessingManager contentProcessingManager,
 			string method)
 		{
@@ -34,11 +34,11 @@ namespace WebMarkupMin.AspNet.Common
 		}
 
 		/// <summary>
-		/// Сheck whether to allow processing of page
+		/// Check whether to allow processing of page
 		/// </summary>
 		/// <param name="contentProcessingManager">Content processing manager</param>
 		/// <param name="pageUrl">URL of page</param>
-		/// <returns>Result of check (true - allowed; false - disallowed)</returns>
+		/// <returns>Result of check (<c>true</c> - allowed; <c>false</c> - disallowed)</returns>
 		public static bool IsProcessablePage(this IContentProcessingManager contentProcessingManager,
 			string pageUrl)
 		{

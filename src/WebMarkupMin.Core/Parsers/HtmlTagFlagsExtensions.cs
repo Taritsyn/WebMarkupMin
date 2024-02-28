@@ -12,8 +12,8 @@ namespace WebMarkupMin.Core.Parsers
 		/// </summary>
 		/// <param name="source">Current instance</param>
 		/// <param name="flag">An enumeration value</param>
-		/// <returns><code>true</code> if the bit field or bit fields that are set in flag
-		/// are also set in the current instance; otherwise, <code>false</code></returns>
+		/// <returns><c>true</c> if the bit field or bit fields that are set in flag
+		/// are also set in the current instance; otherwise, <c>false</c></returns>
 		[MethodImpl((MethodImplOptions)256 /* AggressiveInlining */)]
 		internal static bool IsSet(this HtmlTagFlags source, HtmlTagFlags flag)
 		{
