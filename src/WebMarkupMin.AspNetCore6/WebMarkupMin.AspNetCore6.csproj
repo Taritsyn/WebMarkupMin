@@ -19,11 +19,11 @@
   <PropertyGroup>
     <Description>WebMarkupMin.AspNetCore6 contains one ASP.NET Core 6 Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
-    <PackageReleaseNotes>Added support for the ASP.NET Core 6.0.27.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added support for the ASP.NET Core 6.0.31.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="6.0.27" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="6.0.31" />
 
     <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha7" PrivateAssets="All" />
 
