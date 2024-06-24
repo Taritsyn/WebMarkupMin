@@ -46,12 +46,9 @@
    =============
    RELEASE NOTES
    =============
-   1. Added support of JavaScript code minification in the `script` tags with
-      `module`, `text/x-javascript`, `text/x-ecmascript`,
-      `application/x-javascript` and `application/x-ecmascript` types;
-   2. Added support of JSON data minification in the `script` tags with `importmap`
-      and `speculationrules` types;
-   3. The `nomodule` attribute is now processed as a Boolean attribute.
+   New Blazor markers (`<!--Blazor-Server-Component-State:…-->`,
+   `<!--Blazor-WebAssembly-Component-State:…-->` and
+   `<!--Blazor-Web-Initializers:…-->`) are no longer removed.
 
    =============
    DOCUMENTATION

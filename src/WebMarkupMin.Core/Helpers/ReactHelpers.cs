@@ -65,8 +65,8 @@ namespace WebMarkupMin.Core.Helpers
 				return false;
 			}
 
-			return _reactBeginDomComponentCommentRegex.IsMatch(commentText)
-				|| _reactEndDomComponentCommentRegex.IsMatch(commentText)
+			return IsBeginDomComponentComment(commentText)
+				|| IsEndDomComponentComment(commentText)
 				;
 		}
 	}
