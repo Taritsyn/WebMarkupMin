@@ -11,41 +11,51 @@ namespace WebMarkupMin.Core.Helpers
 	internal static class BlazorHelpers
 	{
 		/// <summary>
-		/// Blazor prefix
+		/// Blazor marker prefix common part
 		/// </summary>
-		const string BLAZOR_PREFIX = "Blazor";
+		const string MARKER_PREFIX_COMMON_PART = "Blazor";
 
 		/// <summary>
-		/// Base64 encoded data regular expression pattern
+		/// Blazor component marker prefix
 		/// </summary>
-		const string BASE64_ENCODED_DATA_REGEX_PATTERN = "[a-zA-Z0-9+/=]+";
+		const string COMPONENT_MARKER_PREFIX = "Blazor:";
 
 		/// <summary>
-		/// Regular expression for working with the Blazor component marker
+		/// Blazor server persisted state marker prefix
 		/// </summary>
-		private static readonly Regex _blazorComponentMarkerRegex = new Regex(
-			@"^\s*" + BLAZOR_PREFIX + ":[^{]*.*$",
+		const string SERVER_STATE_MARKER_PREFIX = "Blazor-Server-Component-State:";
+
+		/// <summary>
+		/// Blazor WebAssembly persisted state marker prefix
+		/// </summary>
+		const string WEBASSEMBLY_STATE_MARKER_PREFIX = "Blazor-WebAssembly-Component-State:";
+
+		/// <summary>
+		/// Blazor web initializer marker prefix
+		/// </summary>
+		const string WEB_INITIALIZER_MARKER_PREFIX = "Blazor-Web-Initializers:";
+
+		/// <summary>
+		/// List of Blazor marker prefixes
+		/// </summary>
+		private static readonly string[] _markerPrefixes = new string[]
+		{
+			COMPONENT_MARKER_PREFIX,
+			SERVER_STATE_MARKER_PREFIX,
+			WEBASSEMBLY_STATE_MARKER_PREFIX,
+			WEB_INITIALIZER_MARKER_PREFIX
+		};
+
+		/// <summary>
+		/// Regular expression for working with the Blazor component data
+		/// </summary>
+		private static readonly Regex _componentDataRegex = new Regex(@"[^{]*.*$",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		/// <summary>
-		/// Regular expression for working with the Blazor server persisted state marker
+		/// Regular expression for working with the Base64 encoded data
 		/// </summary>
-		private static readonly Regex _blazorServerStateMarkerRegex = new Regex(
-			@"^\s*" + BLAZOR_PREFIX + "-Server-Component-State:" + BASE64_ENCODED_DATA_REGEX_PATTERN + "$",
-			TargetFrameworkShortcuts.PerformanceRegexOptions);
-
-		/// <summary>
-		/// Regular expression for working with the Blazor WebAssembly persisted state marker
-		/// </summary>
-		private static readonly Regex _blazorWebAssemblyStateMarkerRegex = new Regex(
-			@"^\s*" + BLAZOR_PREFIX + "-WebAssembly-Component-State:" + BASE64_ENCODED_DATA_REGEX_PATTERN + "$",
-			TargetFrameworkShortcuts.PerformanceRegexOptions);
-
-		/// <summary>
-		/// Regular expression for working with the Blazor web initializer marker
-		/// </summary>
-		private static readonly Regex _blazorWebInitializerMarkerRegex = new Regex(
-			@"^\s*" + BLAZOR_PREFIX + "-Web-Initializers:" + BASE64_ENCODED_DATA_REGEX_PATTERN + "$",
+		private static readonly Regex _base64EncodedDataRegex = new Regex(@"[a-zA-Z0-9+/=]+$",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 
@@ -57,17 +67,57 @@ namespace WebMarkupMin.Core.Helpers
 		/// <c>false</c> - is not marker)</returns>
 		public static bool IsMarker(string commentText)
 		{
-			if (commentText.IndexOf(BLAZOR_PREFIX, StringComparison.Ordinal) == -1
-				|| commentText.IndexOf(":", StringComparison.Ordinal) == -1)
+			int commentTextLength = commentText.Length;
+			if (commentTextLength == 0)
 			{
 				return false;
 			}
 
-			return _blazorComponentMarkerRegex.IsMatch(commentText)
-				|| _blazorServerStateMarkerRegex.IsMatch(commentText)
-				|| _blazorWebAssemblyStateMarkerRegex.IsMatch(commentText)
-				|| _blazorWebInitializerMarkerRegex.IsMatch(commentText)
-				;
+			int firstNonWhitespaceCharPosition = SourceCodeNavigator.FindNextNonWhitespaceChar(commentText,
+				0, commentTextLength);
+			if (firstNonWhitespaceCharPosition == -1)
+			{
+				return false;
+			}
+
+			int markerPrefixCommonPartPosition = commentText.IndexOf(MARKER_PREFIX_COMMON_PART,
+				firstNonWhitespaceCharPosition, StringComparison.Ordinal);
+			int colonPosition = commentText.IndexOf(':', firstNonWhitespaceCharPosition);
+
+			if (markerPrefixCommonPartPosition == -1 || colonPosition == -1)
+			{
+				return false;
+			}
+
+			foreach (string prefix in _markerPrefixes)
+			{
+				if (commentText.CustomStartsWith(prefix, firstNonWhitespaceCharPosition, StringComparison.Ordinal))
+				{
+					int dataPosition = firstNonWhitespaceCharPosition + prefix.Length;
+
+					if (dataPosition < commentTextLength)
+					{
+						bool isCorrectData;
+
+						if (prefix == COMPONENT_MARKER_PREFIX)
+						{
+							isCorrectData = _componentDataRegex.IsMatch(commentText, dataPosition);
+						}
+						else
+						{
+							isCorrectData = _base64EncodedDataRegex.IsMatch(commentText, dataPosition);
+						}
+
+						return isCorrectData;
+					}
+					else
+					{
+						break;
+					}
+				}
+			}
+
+			return false;
 		}
 	}
 }
