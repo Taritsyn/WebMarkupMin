@@ -1,6 +1,13 @@
 Change log
 ==========
 
+## v2.16.1 - June 24, 2024
+ * New Blazor markers (`<!--Blazor-Server-Component-State:…-->`, `<!--Blazor-WebAssembly-Component-State:…-->` and `<!--Blazor-Web-Initializers:…-->`) are no longer removed
+ * In WebMarkupMin.NUglify added support for the NUglify version 1.21.8
+ * In WebMarkupMin.AspNetCore6 added support for the ASP.NET Core 6.0.31
+ * In WebMarkupMin.AspNetCore7 added support for the ASP.NET Core 7.0.20
+ * In WebMarkupMin.AspNetCore8 added support for the ASP.NET Core 8.0.6
+
 ## v2.16.0 - February 28, 2024
  * Added support of JavaScript code minification in the `script` tags with `module`, `text/x-javascript`, `text/x-ecmascript`, `application/x-javascript` and `application/x-ecmascript` types
  * Added support of JSON data minification in the `script` tags with `importmap` and `speculationrules` types

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: Core</Product>
-    <VersionPrefix>2.16.0</VersionPrefix>
+    <VersionPrefix>2.16.1</VersionPrefix>
     <TargetFrameworks>net40-client;net45;netstandard1.3;netstandard2.0;netstandard2.1</TargetFrameworks>
     <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.3' ">1.6.0</NetStandardImplicitPackageVersion>
     <OutputType>Library</OutputType>
@@ -26,7 +26,7 @@ Minification of markup produces by removing extra whitespaces, comments and redu
 
 Also supports minification of views of popular JavaScript template engines: KnockoutJS, Kendo UI MVVM and AngularJS 1.X.</Description>
     <PackageTags>$(PackageCommonTags);XML;Performance;Optimization;Compression</PackageTags>
-    <PackageReleaseNotes>New Blazor markers (`<!--Blazor-Server-Component-State:…-->`, `<!--Blazor-WebAssembly-Component-State:…-->` and `<!--Blazor-Web-Initializers:…-->`) are no longer removed.</PackageReleaseNotes>
+    <PackageReleaseNotes>New Blazor markers (`&lt;!--Blazor-Server-Component-State:…--&gt;`, `&lt;!--Blazor-WebAssembly-Component-State:…--&gt;` and `&lt;!--Blazor-Web-Initializers:…--&gt;`) are no longer removed.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
