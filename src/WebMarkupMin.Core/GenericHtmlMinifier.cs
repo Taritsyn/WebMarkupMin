@@ -700,12 +700,12 @@ namespace WebMarkupMin.Core
 				// Processing of end Knockout containerless comment
 				processedCommentText = "/ko";
 			}
-			else if (KnockoutHelpers.IsBeginContainerlessComment(commentText))
+			else if (KnockoutHelpers.IsStartContainerlessComment(commentText))
 			{
 				// Processing of begin Knockout containerless comment
 				string koExpression = string.Empty;
 
-				KnockoutHelpers.ParseBeginContainerlessComment(commentText,
+				KnockoutHelpers.ParseStartContainerlessComment(commentText,
 					(localContext, expression) =>
 					{
 						SourceCodeNodeCoordinates expressionCoordinates = localContext.NodeCoordinates;

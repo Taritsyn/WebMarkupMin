@@ -154,6 +154,93 @@ namespace WebMarkupMin.Tests.Html.Blazor.Minification
 			Assert.Equal(input, output);
 		}
 
+		[Fact]
+		public void ProcessingStreamingBoundaryMarkers()
+		{
+			// Arrange
+			const string input = "<main b-j65y7q72mt>\r\n" +
+				"	<article class=\"content px-4\" b-j65y7q72mt>" +
+				"<!--bl:13--><!--bl:17--><!--bl:18--><!--/bl:18--><!--/bl:17-->\r\n\r\n" +
+				"		<h1>Weather</h1>\r\n\r\n" +
+				"		<p>This component demonstrates showing data.</p>\r\n" +
+				"		<p><em>Loading...</em></p><!--/bl:13-->\r\n" +
+				"	</article>\r\n" +
+				"</main>"
+				;
+
+			// Act
+			string output = _removingHtmlCommentsMinifier.Minify(input).MinifiedContent;
+
+			// Assert
+			Assert.Equal(input, output);
+		}
+
+		[Fact]
+		public void ProcessingStreamingFramingMarkers()
+		{
+			// Arrange
+			const string input = "<!--bab39c12-73f9-4e04-b6b9-76cb2b324662--><blazor-ssr>\n" +
+				"	<template blazor-component-id=\"19\" enhanced-nav=\"true\">\n" +
+				"		<title>Weather</title>\n" +
+				"	</template>\n" +
+				"	<template blazor-component-id=\"13\" enhanced-nav=\"true\">" +
+				"<!--bl:17--><!--bl:18--><!--/bl:18--><!--/bl:17-->\n\n" +
+				"		<h1>Weather</h1>\n\n" +
+				"		<p>This component demonstrates showing data.</p>\n" +
+				"		<table class=\"table\">\n" +
+				"			<thead>\n" +
+				"				<tr>\n" +
+				"					<th>Date</th>\n" +
+				"					<th>Temp. (C)</th>\n" +
+				"					<th>Temp. (F)</th>\n" +
+				"					<th>Summary</th>\n" +
+				"				</tr>\n" +
+				"			</thead>\n" +
+				"			<tbody>\n" +
+				"				<tr>\n" +
+				"					<td>25.06.2024</td>\n" +
+				"					<td>2</td>\n" +
+				"					<td>35</td>\n" +
+				"					<td>Warm</td>\n" +
+				"				</tr>\n" +
+				"				<tr>\n" +
+				"					<td>26.06.2024</td>\n" +
+				"					<td>26</td>\n" +
+				"					<td>78</td>\n" +
+				"					<td>Cool</td>\n" +
+				"				</tr>\n" +
+				"				<tr>\n" +
+				"					<td>27.06.2024</td>\n" +
+				"					<td>8</td>\n" +
+				"					<td>46</td>\n" +
+				"					<td>Hot</td>\n" +
+				"				</tr>\n" +
+				"				<tr>\n" +
+				"					<td>28.06.2024</td>\n" +
+				"					<td>39</td>\n" +
+				"					<td>102</td>\n" +
+				"					<td>Scorching</td>\n" +
+				"				</tr>\n" +
+				"				<tr>\n" +
+				"					<td>29.06.2024</td>\n" +
+				"					<td>46</td>\n" +
+				"					<td>114</td>\n" +
+				"					<td>Bracing</td>\n" +
+				"				</tr>\n" +
+				"			</tbody>\n" +
+				"		</table>\n" +
+				"	</template>\n" +
+				"	<blazor-ssr-end></blazor-ssr-end>\n" +
+				"</blazor-ssr><!--bab39c12-73f9-4e04-b6b9-76cb2b324662-->"
+				;
+
+			// Act
+			string output = _removingHtmlCommentsMinifier.Minify(input).MinifiedContent;
+
+			// Assert
+			Assert.Equal(input, output);
+		}
+
 		#region IDisposable implementation
 
 		public void Dispose()

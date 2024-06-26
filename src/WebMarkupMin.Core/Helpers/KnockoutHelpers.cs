@@ -17,9 +17,9 @@ namespace WebMarkupMin.Core.Helpers
 		const string KO_CONTAINERLESS_COMMENT_PREFIX = "ko";
 
 		/// <summary>
-		/// Regular expression for working with the Knockout begin containerless comment
+		/// Regular expression for working with the Knockout start containerless comment
 		/// </summary>
-		private static readonly Regex _koBeginContainerlessCommentRegex =
+		private static readonly Regex _koStartContainerlessCommentRegex =
 			new Regex(@"^\s*" + KO_CONTAINERLESS_COMMENT_PREFIX + @"(?:\s+(?<expression>[\s\S]+))?\s*$",
 				TargetFrameworkShortcuts.PerformanceRegexOptions);
 
@@ -32,30 +32,30 @@ namespace WebMarkupMin.Core.Helpers
 
 
 		/// <summary>
-		/// Checks whether the comment is the Knockout begin containerless comment
+		/// Checks whether the comment is the Knockout start containerless comment
 		/// </summary>
 		/// <param name="commentText">Comment text</param>
-		/// <returns>Result of check (<c>true</c> - is begin containerless comment;
-		/// <c>false</c> - is not begin containerless comment)</returns>
-		public static bool IsBeginContainerlessComment(string commentText)
+		/// <returns>Result of check (<c>true</c> - is start containerless comment;
+		/// <c>false</c> - is not start containerless comment)</returns>
+		public static bool IsStartContainerlessComment(string commentText)
 		{
 			if (commentText.IndexOf(KO_CONTAINERLESS_COMMENT_PREFIX, StringComparison.Ordinal) == -1)
 			{
 				return false;
 			}
 
-			return _koBeginContainerlessCommentRegex.IsMatch(commentText);
+			return _koStartContainerlessCommentRegex.IsMatch(commentText);
 		}
 
 		/// <summary>
-		/// Parses a Knockout begin containerless comment
+		/// Parses a Knockout start containerless comment
 		/// </summary>
 		/// <param name="commentText">Comment text</param>
 		/// <param name="expressionHandler">Binding expression handler</param>
-		public static void ParseBeginContainerlessComment(string commentText,
+		public static void ParseStartContainerlessComment(string commentText,
 			ExpressionDelegate expressionHandler)
 		{
-			Match match = _koBeginContainerlessCommentRegex.Match(commentText);
+			Match match = _koStartContainerlessCommentRegex.Match(commentText);
 			if (match.Success)
 			{
 				var innerContext = new InnerMarkupParsingContext(commentText);

@@ -16,9 +16,9 @@ namespace WebMarkupMin.Core.Helpers
 		const string REACT_DOM_COMPONENT_PREFIX = "react-";
 
 		/// <summary>
-		/// Regular expression for working with the React begin DOM component comment
+		/// Regular expression for working with the React start DOM component comment
 		/// </summary>
-		private static readonly Regex _reactBeginDomComponentCommentRegex = new Regex(
+		private static readonly Regex _reactStartDomComponentCommentRegex = new Regex(
 			@"^ " + REACT_DOM_COMPONENT_PREFIX + @"[a-z]+\: \d+ $",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
 
@@ -31,14 +31,14 @@ namespace WebMarkupMin.Core.Helpers
 
 
 		/// <summary>
-		/// Checks whether the comment is the React begin DOM component comment
+		/// Checks whether the comment is the React start DOM component comment
 		/// </summary>
 		/// <param name="commentText">Comment text</param>
-		/// <returns>Result of check (<c>true</c> - is begin DOM component comment;
-		/// <c>false</c> - is not begin DOM component comment)</returns>
-		public static bool IsBeginDomComponentComment(string commentText)
+		/// <returns>Result of check (<c>true</c> - is start DOM component comment;
+		/// <c>false</c> - is not start DOM component comment)</returns>
+		private static bool IsStartDomComponentComment(string commentText)
 		{
-			return _reactBeginDomComponentCommentRegex.IsMatch(commentText);
+			return _reactStartDomComponentCommentRegex.IsMatch(commentText);
 		}
 
 		/// <summary>
@@ -47,7 +47,7 @@ namespace WebMarkupMin.Core.Helpers
 		/// <param name="commentText">Comment text</param>
 		/// <returns>Result of check (<c>true</c> - is end DOM component comment;
 		/// <c>false</c> - is not end DOM component comment)</returns>
-		public static bool IsEndDomComponentComment(string commentText)
+		private static bool IsEndDomComponentComment(string commentText)
 		{
 			return _reactEndDomComponentCommentRegex.IsMatch(commentText);
 		}
@@ -65,7 +65,7 @@ namespace WebMarkupMin.Core.Helpers
 				return false;
 			}
 
-			return IsBeginDomComponentComment(commentText)
+			return IsStartDomComponentComment(commentText)
 				|| IsEndDomComponentComment(commentText)
 				;
 		}

@@ -46,9 +46,8 @@
    =============
    RELEASE NOTES
    =============
-   New Blazor markers (`<!--Blazor-Server-Component-State:…-->`,
-   `<!--Blazor-WebAssembly-Component-State:…-->` and
-   `<!--Blazor-Web-Initializers:…-->`) are no longer removed.
+   Blazor streaming markers (`<!--bl:…-->`, `<!--/bl:…-->` and
+   `<!--bab39c12-73f9-4e04-b6b9-76cb2b324662-->`) are no longer removed.
 
    =============
    DOCUMENTATION
