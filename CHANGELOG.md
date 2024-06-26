@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## v2.16.2 - June 26, 2024
+ * Blazor streaming markers (`<!--bl:…-->`, `<!--/bl:…-->` and `<!--bab39c12-73f9-4e04-b6b9-76cb2b324662-->`) are no longer removed
+
 ## v2.16.1 - June 24, 2024
  * New Blazor markers (`<!--Blazor-Server-Component-State:…-->`, `<!--Blazor-WebAssembly-Component-State:…-->` and `<!--Blazor-Web-Initializers:…-->`) are no longer removed
  * In WebMarkupMin.NUglify added support for the NUglify version 1.21.8
