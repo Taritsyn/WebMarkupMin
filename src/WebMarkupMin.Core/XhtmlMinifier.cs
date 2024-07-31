@@ -26,50 +26,47 @@ namespace WebMarkupMin.Core
 			IJsMinifier jsMinifier = null, ILogger logger = null)
 		{
 			settings = settings ?? new XhtmlMinificationSettings();
+			var internalSettings = new GenericHtmlMinificationSettings
+			{
+				WhitespaceMinificationMode = settings.WhitespaceMinificationMode,
+				PreserveNewLines = settings.PreserveNewLines,
+				NewLineStyle = settings.NewLineStyle,
+				RemoveHtmlComments = settings.RemoveHtmlComments,
+				RemoveHtmlCommentsFromScriptsAndStyles = settings.RemoveHtmlCommentsFromScriptsAndStyles,
+				RemoveCdataSectionsFromScriptsAndStyles = false,
+				UseShortDoctype = settings.UseShortDoctype,
+				CustomShortDoctype = string.Empty,
+				PreserveCase = false,
+				UseMetaCharsetTag = settings.UseMetaCharsetTag,
+				EmptyTagRenderMode = settings.RenderEmptyTagsWithSpace ?
+					HtmlEmptyTagRenderMode.SpaceAndSlash : HtmlEmptyTagRenderMode.Slash,
+				RemoveOptionalEndTags = false,
+				RemoveTagsWithoutContent = settings.RemoveTagsWithoutContent,
+				AttributeQuotesStyle = settings.AttributeQuotesStyle,
+				CollapseBooleanAttributes = false,
+				AttributeQuotesRemovalMode = HtmlAttributeQuotesRemovalMode.KeepQuotes,
+				RemoveEmptyAttributes = settings.RemoveEmptyAttributes,
+				RemoveRedundantAttributes = settings.RemoveRedundantAttributes,
+				RemoveJsTypeAttributes = false,
+				RemoveCssTypeAttributes = false,
+				RemoveHttpProtocolFromAttributes = settings.RemoveHttpProtocolFromAttributes,
+				RemoveHttpsProtocolFromAttributes = settings.RemoveHttpsProtocolFromAttributes,
+				RemoveJsProtocolFromAttributes = settings.RemoveJsProtocolFromAttributes,
+				MinifyEmbeddedCssCode = settings.MinifyEmbeddedCssCode,
+				MinifyInlineCssCode = settings.MinifyInlineCssCode,
+				MinifyEmbeddedJsCode = settings.MinifyEmbeddedJsCode,
+				MinifyInlineJsCode = settings.MinifyInlineJsCode,
+				MinifyEmbeddedJsonData = settings.MinifyEmbeddedJsonData,
+				MinifyKnockoutBindingExpressions = settings.MinifyKnockoutBindingExpressions,
+				MinifyAngularBindingExpressions = settings.MinifyAngularBindingExpressions,
+				UseXhtmlSyntax = true
+			};
+			internalSettings.SetPreservableHtmlComments(settings.PreservableHtmlCommentCollection);
+			internalSettings.SetPreservableAttributes(settings.PreservableAttributeCollection);
+			internalSettings.SetProcessableScriptTypes(settings.ProcessableScriptTypeCollection);
+			internalSettings.SetCustomAngularDirectives(settings.CustomAngularDirectiveCollection);
 
-			_genericHtmlMinifier = new GenericHtmlMinifier(
-				new GenericHtmlMinificationSettings
-				{
-					WhitespaceMinificationMode = settings.WhitespaceMinificationMode,
-					PreserveNewLines = settings.PreserveNewLines,
-					NewLineStyle = settings.NewLineStyle,
-					RemoveHtmlComments = settings.RemoveHtmlComments,
-					RemoveHtmlCommentsFromScriptsAndStyles = settings.RemoveHtmlCommentsFromScriptsAndStyles,
-					RemoveCdataSectionsFromScriptsAndStyles = false,
-					UseShortDoctype = settings.UseShortDoctype,
-					CustomShortDoctype = string.Empty,
-					PreserveCase = false,
-					UseMetaCharsetTag = settings.UseMetaCharsetTag,
-					EmptyTagRenderMode = settings.RenderEmptyTagsWithSpace ?
-						HtmlEmptyTagRenderMode.SpaceAndSlash : HtmlEmptyTagRenderMode.Slash,
-					RemoveOptionalEndTags = false,
-					RemoveTagsWithoutContent = settings.RemoveTagsWithoutContent,
-					AttributeQuotesStyle = settings.AttributeQuotesStyle,
-					CollapseBooleanAttributes = false,
-					AttributeQuotesRemovalMode = HtmlAttributeQuotesRemovalMode.KeepQuotes,
-					RemoveEmptyAttributes = settings.RemoveEmptyAttributes,
-					RemoveRedundantAttributes = settings.RemoveRedundantAttributes,
-					RemoveJsTypeAttributes = false,
-					RemoveCssTypeAttributes = false,
-					PreservableAttributeList = settings.PreservableAttributeList,
-					RemoveHttpProtocolFromAttributes = settings.RemoveHttpProtocolFromAttributes,
-					RemoveHttpsProtocolFromAttributes = settings.RemoveHttpsProtocolFromAttributes,
-					RemoveJsProtocolFromAttributes = settings.RemoveJsProtocolFromAttributes,
-					MinifyEmbeddedCssCode = settings.MinifyEmbeddedCssCode,
-					MinifyInlineCssCode = settings.MinifyInlineCssCode,
-					MinifyEmbeddedJsCode = settings.MinifyEmbeddedJsCode,
-					MinifyInlineJsCode = settings.MinifyInlineJsCode,
-					MinifyEmbeddedJsonData = settings.MinifyEmbeddedJsonData,
-					ProcessableScriptTypeList = settings.ProcessableScriptTypeList,
-					MinifyKnockoutBindingExpressions = settings.MinifyKnockoutBindingExpressions,
-					MinifyAngularBindingExpressions = settings.MinifyAngularBindingExpressions,
-					CustomAngularDirectiveList = settings.CustomAngularDirectiveList,
-					UseXhtmlSyntax = true
-				},
-				cssMinifier,
-				jsMinifier,
-				logger
-			);
+			_genericHtmlMinifier = new GenericHtmlMinifier(internalSettings, cssMinifier, jsMinifier, logger);
 		}
 
 

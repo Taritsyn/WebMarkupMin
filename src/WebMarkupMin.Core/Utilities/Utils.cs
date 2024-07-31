@@ -138,6 +138,42 @@ namespace WebMarkupMin.Core.Utilities
 		}
 
 		/// <summary>
+		/// Gets a non-whitespace string segment from the string.
+		/// A return value indicates whether the search succeeded.
+		/// </summary>
+		/// <param name="value">String value</param>
+		/// <param name="startIndex">The zero-based index position of first non-whitespace character</param>
+		/// <param name="count">The number of characters in the non-whitespace string segment</param>
+		/// <returns><c>true</c> if the non-whitespace string segment is found; otherwise, <c>false</c></returns>
+		internal static bool TryGetNonWhitespaceStringSegment(string value, out int startIndex, out int count)
+		{
+			startIndex = -1;
+			count = 0;
+
+			if (string.IsNullOrEmpty(value))
+			{
+				return false;
+			}
+
+			int firstNonWhitespaceCharPosition = value.IndexOfNonWhitespace();
+			if (firstNonWhitespaceCharPosition == -1)
+			{
+				return false;
+			}
+
+			int lastNonWhitespaceCharPosition = value.LastIndexOfNonWhitespace();
+			if (lastNonWhitespaceCharPosition == -1)
+			{
+				return false;
+			}
+
+			startIndex = firstNonWhitespaceCharPosition;
+			count = lastNonWhitespaceCharPosition - firstNonWhitespaceCharPosition + 1;
+
+			return true;
+		}
+
+		/// <summary>
 		/// Removes a BOM from value content
 		/// </summary>
 		/// <param name="value">String value</param>

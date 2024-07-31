@@ -168,7 +168,7 @@ namespace WebMarkupMin.Core
 				throw new ArgumentNullException(nameof(attributeExpressionString));
 			}
 
-			HtmlAttributeExpression expression = InnerParse(attributeExpressionString);
+			HtmlAttributeExpression expression = InternalParse(attributeExpressionString);
 			if (expression == null)
 			{
 				throw new FormatException(Strings.ErrorMessage_InvalidHtmlAttributeExpression);
@@ -191,12 +191,12 @@ namespace WebMarkupMin.Core
 				return false;
 			}
 
-			result = InnerParse(attributeExpressionString);
+			result = InternalParse(attributeExpressionString);
 
 			return result != null;
 		}
 
-		private static HtmlAttributeExpression InnerParse(string attributeExpressionString)
+		private static HtmlAttributeExpression InternalParse(string attributeExpressionString)
 		{
 			if (string.IsNullOrWhiteSpace(attributeExpressionString))
 			{
@@ -267,7 +267,7 @@ namespace WebMarkupMin.Core
 			return "\"";
 		}
 
-		private static bool InnerEquals(HtmlAttributeExpression expression1, HtmlAttributeExpression expression2)
+		private static bool InternalEquals(HtmlAttributeExpression expression1, HtmlAttributeExpression expression2)
 		{
 			if (ReferenceEquals(expression1, expression2))
 			{
@@ -300,7 +300,7 @@ namespace WebMarkupMin.Core
 				return false;
 			}
 
-			return InnerEquals(this, expression);
+			return InternalEquals(this, expression);
 		}
 
 		#endregion
@@ -322,7 +322,7 @@ namespace WebMarkupMin.Core
 				return false;
 			}
 
-			return InnerEquals(this, attributeExpression);
+			return InternalEquals(this, attributeExpression);
 		}
 
 		/// <summary>
@@ -387,12 +387,12 @@ namespace WebMarkupMin.Core
 
 		public static bool operator ==(HtmlAttributeExpression expression1, HtmlAttributeExpression expression2)
 		{
-			return InnerEquals(expression1, expression2);
+			return InternalEquals(expression1, expression2);
 		}
 
 		public static bool operator !=(HtmlAttributeExpression expression1, HtmlAttributeExpression expression2)
 		{
-			return !InnerEquals(expression1, expression2);
+			return !InternalEquals(expression1, expression2);
 		}
 
 		#endregion

@@ -26,50 +26,47 @@ namespace WebMarkupMin.Core
 			IJsMinifier jsMinifier = null, ILogger logger = null)
 		{
 			settings = settings ?? new HtmlMinificationSettings();
+			var internalSettings = new GenericHtmlMinificationSettings
+			{
+				WhitespaceMinificationMode = settings.WhitespaceMinificationMode,
+				PreserveNewLines = settings.PreserveNewLines,
+				NewLineStyle = settings.NewLineStyle,
+				RemoveHtmlComments = settings.RemoveHtmlComments,
+				RemoveHtmlCommentsFromScriptsAndStyles = settings.RemoveHtmlCommentsFromScriptsAndStyles,
+				RemoveCdataSectionsFromScriptsAndStyles = settings.RemoveCdataSectionsFromScriptsAndStyles,
+				UseShortDoctype = settings.UseShortDoctype,
+				CustomShortDoctype = settings.CustomShortDoctype,
+				PreserveCase = settings.PreserveCase,
+				UseMetaCharsetTag = settings.UseMetaCharsetTag,
+				EmptyTagRenderMode = settings.EmptyTagRenderMode,
+				RemoveOptionalEndTags = settings.RemoveOptionalEndTags,
+				RemoveTagsWithoutContent = settings.RemoveTagsWithoutContent,
+				AttributeQuotesStyle = settings.AttributeQuotesStyle,
+				CollapseBooleanAttributes = settings.CollapseBooleanAttributes,
+				AttributeQuotesRemovalMode = settings.AttributeQuotesRemovalMode,
+				RemoveEmptyAttributes = settings.RemoveEmptyAttributes,
+				RemoveRedundantAttributes = settings.RemoveRedundantAttributes,
+				RemoveJsTypeAttributes = settings.RemoveJsTypeAttributes,
+				RemoveCssTypeAttributes = settings.RemoveCssTypeAttributes,
+				RemoveHttpProtocolFromAttributes = settings.RemoveHttpProtocolFromAttributes,
+				RemoveHttpsProtocolFromAttributes = settings.RemoveHttpsProtocolFromAttributes,
+				RemoveJsProtocolFromAttributes = settings.RemoveJsProtocolFromAttributes,
+				MinifyEmbeddedCssCode = settings.MinifyEmbeddedCssCode,
+				MinifyInlineCssCode = settings.MinifyInlineCssCode,
+				MinifyEmbeddedJsCode = settings.MinifyEmbeddedJsCode,
+				MinifyInlineJsCode = settings.MinifyInlineJsCode,
+				MinifyEmbeddedJsonData = settings.MinifyEmbeddedJsonData,
+				MinifyKnockoutBindingExpressions = settings.MinifyKnockoutBindingExpressions,
+				MinifyAngularBindingExpressions = settings.MinifyAngularBindingExpressions,
+				UseXhtmlSyntax = false
+			};
+			internalSettings.SetPreservableHtmlComments(settings.PreservableHtmlCommentCollection);
+			internalSettings.SetPreservableOptionalTags(settings.PreservableOptionalTagCollection);
+			internalSettings.SetPreservableAttributes(settings.PreservableAttributeCollection);
+			internalSettings.SetProcessableScriptTypes(settings.ProcessableScriptTypeCollection);
+			internalSettings.SetCustomAngularDirectives(settings.CustomAngularDirectiveCollection);
 
-			_genericHtmlMinifier = new GenericHtmlMinifier(
-				new GenericHtmlMinificationSettings
-					{
-						WhitespaceMinificationMode = settings.WhitespaceMinificationMode,
-						PreserveNewLines = settings.PreserveNewLines,
-						NewLineStyle = settings.NewLineStyle,
-						RemoveHtmlComments = settings.RemoveHtmlComments,
-						RemoveHtmlCommentsFromScriptsAndStyles = settings.RemoveHtmlCommentsFromScriptsAndStyles,
-						RemoveCdataSectionsFromScriptsAndStyles = settings.RemoveCdataSectionsFromScriptsAndStyles,
-						UseShortDoctype = settings.UseShortDoctype,
-						CustomShortDoctype = settings.CustomShortDoctype,
-						PreserveCase = settings.PreserveCase,
-						UseMetaCharsetTag = settings.UseMetaCharsetTag,
-						EmptyTagRenderMode = settings.EmptyTagRenderMode,
-						RemoveOptionalEndTags = settings.RemoveOptionalEndTags,
-						PreservableOptionalTagList = settings.PreservableOptionalTagList,
-						RemoveTagsWithoutContent = settings.RemoveTagsWithoutContent,
-						AttributeQuotesStyle = settings.AttributeQuotesStyle,
-						CollapseBooleanAttributes = settings.CollapseBooleanAttributes,
-						AttributeQuotesRemovalMode = settings.AttributeQuotesRemovalMode,
-						RemoveEmptyAttributes = settings.RemoveEmptyAttributes,
-						RemoveRedundantAttributes = settings.RemoveRedundantAttributes,
-						RemoveJsTypeAttributes = settings.RemoveJsTypeAttributes,
-						RemoveCssTypeAttributes = settings.RemoveCssTypeAttributes,
-						PreservableAttributeList = settings.PreservableAttributeList,
-						RemoveHttpProtocolFromAttributes = settings.RemoveHttpProtocolFromAttributes,
-						RemoveHttpsProtocolFromAttributes = settings.RemoveHttpsProtocolFromAttributes,
-						RemoveJsProtocolFromAttributes = settings.RemoveJsProtocolFromAttributes,
-						MinifyEmbeddedCssCode = settings.MinifyEmbeddedCssCode,
-						MinifyInlineCssCode = settings.MinifyInlineCssCode,
-						MinifyEmbeddedJsCode = settings.MinifyEmbeddedJsCode,
-						MinifyInlineJsCode = settings.MinifyInlineJsCode,
-						MinifyEmbeddedJsonData = settings.MinifyEmbeddedJsonData,
-						ProcessableScriptTypeList = settings.ProcessableScriptTypeList,
-						MinifyKnockoutBindingExpressions = settings.MinifyKnockoutBindingExpressions,
-						MinifyAngularBindingExpressions = settings.MinifyAngularBindingExpressions,
-						CustomAngularDirectiveList = settings.CustomAngularDirectiveList,
-						UseXhtmlSyntax = false
-					},
-				cssMinifier,
-				jsMinifier,
-				logger
-			);
+			_genericHtmlMinifier = new GenericHtmlMinifier(internalSettings, cssMinifier, jsMinifier, logger);
 		}
 
 

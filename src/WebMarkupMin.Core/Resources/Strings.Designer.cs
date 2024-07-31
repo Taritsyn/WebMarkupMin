@@ -186,6 +186,22 @@ namespace WebMarkupMin.Core.Resources
 		}
 
 		/// <summary>
+		/// Looks up a localized string similar to "String representation of the simple regular expression have an incorrect format."
+		/// </summary>
+		public static string ErrorMessage_InvalidSimpleRegularExpression
+		{
+			get { return GetString("ErrorMessage_InvalidSimpleRegularExpression"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Comma-separated list of the simple regular expressions have an incorrect format."
+		/// </summary>
+		public static string ErrorMessage_InvalidSimpleRegularExpressionList
+		{
+			get { return GetString("ErrorMessage_InvalidSimpleRegularExpressionList"); }
+		}
+
+		/// <summary>
 		/// Looks up a localized string similar to "During parsing of {0}-code error has occurred."
 		/// </summary>
 		public static string ErrorMessage_MarkupParsingFailed

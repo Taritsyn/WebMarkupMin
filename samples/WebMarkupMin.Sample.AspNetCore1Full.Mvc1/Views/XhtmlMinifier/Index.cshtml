@@ -42,6 +42,10 @@
 							@Html.DisplayNameFor(m => m.Settings.RemoveHtmlComments)
 						</label>
 					</div>
+					<div class="form-group">
+						<input asp-for="Settings.PreservableHtmlCommentList" class="form-control"
+							placeholder="@CommonHtmlMinificationStrings.DisplayName_PreservableHtmlCommentList" />
+					</div>
 					<div class="checkbox">
 						<label asp-for="Settings.RemoveHtmlCommentsFromScriptsAndStyles">
 							<input asp-for="Settings.RemoveHtmlCommentsFromScriptsAndStyles" />

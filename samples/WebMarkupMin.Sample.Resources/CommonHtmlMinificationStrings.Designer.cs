@@ -202,6 +202,14 @@ namespace WebMarkupMin.Sample.Resources
 		}
 
 		/// <summary>
+		/// Looks up a localized string similar to "List of preservable HTML comment regular expressions"
+		/// </summary>
+		public static string DisplayName_PreservableHtmlCommentList
+		{
+			get { return GetString("DisplayName_PreservableHtmlCommentList"); }
+		}
+
+		/// <summary>
 		/// Looks up a localized string similar to "List of processable script types"
 		/// </summary>
 		public static string DisplayName_ProcessableScriptTypeList

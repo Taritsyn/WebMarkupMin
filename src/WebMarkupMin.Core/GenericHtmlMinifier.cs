@@ -753,6 +753,21 @@ namespace WebMarkupMin.Core
 			{
 				processedCommentText = commentText;
 				removeComment = _settings.RemoveHtmlComments;
+
+				if (removeComment)
+				{
+					IList<SimpleRegex> regexs = _settings.PreservableHtmlCommentCollection;
+
+					for (int regexIndex = 0; regexIndex < regexs.Count; regexIndex++)
+					{
+						bool cannotRemove = regexs[regexIndex].IsMatch(commentText);
+						if (cannotRemove)
+						{
+							removeComment = false;
+							break;
+						}
+					}
+				}
 			}
 
 			if (!removeComment)

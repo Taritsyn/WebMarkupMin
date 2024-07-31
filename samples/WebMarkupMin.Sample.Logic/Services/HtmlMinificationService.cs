@@ -57,6 +57,13 @@ namespace WebMarkupMin.Sample.Logic.Services
 			var htmlMinifier = new HtmlMinifier(settings, cssMinifier, jsMinifier);
 			var result = htmlMinifier.Minify(model.SourceCode, true);
 
+			var modelSettings = model.Settings;
+			modelSettings.PreservableHtmlCommentList = settings.PreservableHtmlCommentList;
+			modelSettings.PreservableOptionalTagList = settings.PreservableOptionalTagList;
+			modelSettings.PreservableAttributeList = settings.PreservableAttributeList;
+			modelSettings.ProcessableScriptTypeList = settings.ProcessableScriptTypeList;
+			modelSettings.CustomAngularDirectiveList = settings.CustomAngularDirectiveList;
+
 			model.Result = Mapper.Map<MarkupMinificationResultViewModel>(result);
 
 			return model;

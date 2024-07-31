@@ -291,6 +291,247 @@ namespace WebMarkupMin.Core.Utilities
 		}
 
 		/// <summary>
+		/// Reports the zero-based index position of the first occurrence of non-whitespace character in this string
+		/// instance
+		/// </summary>
+		/// <param name="source">String value</param>
+		/// <returns>The zero-based index position of non-whitespace character if that character is found,
+		/// or <c>-1</c> if it is not</returns>
+		public static int IndexOfNonWhitespace(this string source)
+		{
+			if (source == null)
+			{
+				throw new ArgumentNullException(nameof(source));
+			}
+
+			int sourceLength = source.Length;
+			if (sourceLength == 0)
+			{
+				return -1;
+			}
+
+			return source.IndexOfNonWhitespace(0, sourceLength);
+		}
+
+		/// <summary>
+		/// Reports the zero-based index position of the first occurrence of non-whitespace character in this string
+		/// instance
+		/// </summary>
+		/// <remarks>
+		/// The search starts at a specified character position.
+		/// </remarks>
+		/// <param name="source">String value</param>
+		/// <param name="startIndex">The search starting position</param>
+		/// <returns>The zero-based index position of non-whitespace character if that character is found,
+		/// or <c>-1</c> if it is not</returns>
+		/// <exception cref="ArgumentOutOfRangeException">
+		/// <paramref name="startIndex"/> is less than <c>0</c> or greater than the length of this string instance
+		/// </exception>
+		public static int IndexOfNonWhitespace(this string source, int startIndex)
+		{
+			if (source == null)
+			{
+				throw new ArgumentNullException(nameof(source));
+			}
+
+			int sourceLength = source.Length;
+			if (sourceLength == 0)
+			{
+				return -1;
+			}
+
+			if (startIndex < 0 || startIndex > sourceLength)
+			{
+				throw new ArgumentOutOfRangeException(nameof(startIndex));
+			}
+
+			return source.IndexOfNonWhitespace(startIndex, sourceLength - startIndex);
+		}
+
+		/// <summary>
+		/// Reports the zero-based index position of the first occurrence of non-whitespace character in this string
+		/// instance
+		/// </summary>
+		/// <remarks>
+		/// The search starts at a specified character position and examines a specified number of character positions.
+		/// </remarks>
+		/// <param name="source">String value</param>
+		/// <param name="startIndex">The search starting position</param>
+		/// <param name="count">The number of character positions to examine</param>
+		/// <returns>The zero-based index position of non-whitespace character if that non-whitespace character is found,
+		/// or <c>-1</c> if it is not</returns>
+		/// <exception cref="ArgumentOutOfRangeException">
+		/// <paramref name="startIndex"/> or <paramref name="count"/> is negative
+		/// -or-
+		/// <paramref name="startIndex"/> is greater than the length of this string instance
+		/// -or-
+		/// <paramref name="count"/> is greater than the length of this string instance minus <paramref name="startIndex"/>
+		/// </exception>
+		public static int IndexOfNonWhitespace(this string source, int startIndex, int count)
+		{
+			if (source == null)
+			{
+				throw new ArgumentNullException(nameof(source));
+			}
+
+			int sourceLength = source.Length;
+			if (sourceLength == 0)
+			{
+				return -1;
+			}
+
+			if (startIndex < 0 || startIndex > sourceLength)
+			{
+				throw new ArgumentOutOfRangeException(nameof(startIndex));
+			}
+
+			if (count < 0 || count > (sourceLength - startIndex))
+			{
+				throw new ArgumentOutOfRangeException(nameof(count));
+			}
+
+			return InternalIndexOfNonWhitespace(source, startIndex, count);
+		}
+
+		private static int InternalIndexOfNonWhitespace(string value, int startIndex, int count)
+		{
+			int charIndex;
+			int endIndex = startIndex + count - 1;
+
+			for (charIndex = startIndex; charIndex <= endIndex; charIndex++)
+			{
+				char charValue = value[charIndex];
+				if (!char.IsWhiteSpace(charValue))
+				{
+					break;
+				}
+			}
+
+			return charIndex;
+		}
+
+		/// <summary>
+		/// Reports the zero-based index position of the last occurrence of non-whitespace character in this string
+		/// instance
+		/// </summary>
+		/// <param name="source">String value</param>
+		/// <returns>The zero-based index position of non-whitespace character if that character is found,
+		/// or <c>-1</c> if it is not</returns>
+		public static int LastIndexOfNonWhitespace(this string source)
+		{
+			if (source == null)
+			{
+				throw new ArgumentNullException(nameof(source));
+			}
+
+			int sourceLength = source.Length;
+			if (sourceLength == 0)
+			{
+				return -1;
+			}
+
+			return InternalLastIndexOfNonWhitespace(source, sourceLength - 1, sourceLength);
+		}
+
+		/// <summary>
+		/// Reports the zero-based index position of the last occurrence of non-whitespace character in this string
+		/// instance
+		/// </summary>
+		/// <remarks>
+		/// The search starts at a specified character position and proceeds backward toward the beginning of the
+		/// string.
+		/// </remarks>
+		/// <param name="source">String value</param>
+		/// <param name="startIndex">The search starting position</param>
+		/// <returns>The zero-based index position of non-whitespace character if that character is found,
+		/// or <c>-1</c> if it is not found.</returns>
+		/// <exception cref="ArgumentOutOfRangeException">
+		/// <paramref name="startIndex"/> is less than <c>0</c> or greater than or equal to the length of this string
+		/// instance
+		/// </exception>
+		public static int LastIndexOfNonWhitespace(this string source, int startIndex)
+		{
+			if (source == null)
+			{
+				throw new ArgumentNullException(nameof(source));
+			}
+
+			int sourceLength = source.Length;
+			if (sourceLength == 0)
+			{
+				return -1;
+			}
+
+			if (startIndex < 0 || startIndex >= sourceLength)
+			{
+				throw new ArgumentOutOfRangeException(nameof(startIndex));
+			}
+
+			return InternalLastIndexOfNonWhitespace(source, startIndex, startIndex + 1);
+		}
+
+		/// <summary>
+		/// Reports the zero-based index position of the last occurrence of non-whitespace character in this string
+		/// instance
+		/// </summary>
+		/// <remarks>
+		/// The search starts at a specified character position and proceeds backward toward the beginning of the
+		/// string for a specified number of character positions.
+		/// </remarks>
+		/// <param name="source">String value</param>
+		/// <param name="startIndex">The search starting position</param>
+		/// <param name="count">The number of character positions to examine</param>
+		/// <returns>The zero-based index position of non-whitespace character if that character is found,
+		/// or <c>-1</c> if it is not found</returns>
+		/// <exception cref="ArgumentOutOfRangeException">
+		/// <paramref name="startIndex"/> or <paramref name="count"/> is negative
+		/// -or-
+		/// <paramref name="startIndex"/> is greater than or equal to the length of this string instance
+		/// -or-
+		/// <paramref name="startIndex" /> minus <paramref name="count" /> plus <c>1</c> is less than <c>0</c>
+		/// </exception>
+		public static int LastIndexOfNonWhitespace(this string source, int startIndex, int count)
+		{
+			if (source == null)
+			{
+				throw new ArgumentNullException(nameof(source));
+			}
+
+			int sourceLength = source.Length;
+			if (sourceLength == 0)
+			{
+				return -1;
+			}
+
+			if (startIndex < 0 || startIndex >= sourceLength)
+			{
+				throw new ArgumentOutOfRangeException(nameof(startIndex));
+			}
+
+			if (count < 0 || (startIndex - count + 1) < 0)
+			{
+				throw new ArgumentOutOfRangeException(nameof(count));
+			}
+
+			return InternalLastIndexOfNonWhitespace(source, startIndex, count);
+		}
+
+		private static int InternalLastIndexOfNonWhitespace(string value, int startIndex, int count)
+		{
+			int charIndex = startIndex;
+			int endIndex = startIndex - count + 1;
+			char charValue = value[charIndex];
+
+			while (charIndex >= endIndex && char.IsWhiteSpace(charValue))
+			{
+				charIndex--;
+				charValue = value[charIndex];
+			}
+
+			return charIndex;
+		}
+
+		/// <summary>
 		/// Removes all leading whitespace characters from the current <see cref="T:System.String" /> object
 		/// </summary>
 		/// <param name="source">String value</param>

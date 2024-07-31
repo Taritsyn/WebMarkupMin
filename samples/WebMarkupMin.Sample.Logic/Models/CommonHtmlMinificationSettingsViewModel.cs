@@ -38,6 +38,13 @@ namespace WebMarkupMin.Sample.Logic.Models
 			set;
 		}
 
+		[Display(Name = "DisplayName_PreservableHtmlCommentList", ResourceType = typeof(CommonHtmlMinificationStrings))]
+		public string PreservableHtmlCommentList
+		{
+			get;
+			set;
+		}
+
 		[Display(Name = "DisplayName_RemoveHtmlCommentsFromScriptsAndStyles", ResourceType = typeof(CommonHtmlMinificationStrings))]
 		public bool RemoveHtmlCommentsFromScriptsAndStyles
 		{

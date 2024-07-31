@@ -46,8 +46,8 @@
    =============
    RELEASE NOTES
    =============
-   Blazor streaming markers (`<!--bl:…-->`, `<!--/bl:…-->` and
-   `<!--bab39c12-73f9-4e04-b6b9-76cb2b324662-->`) are no longer removed.
+   In HTML and XHTML minification settings was added one new property -
+   `PreservableHtmlCommentList` (default is empty).
 
    =============
    DOCUMENTATION

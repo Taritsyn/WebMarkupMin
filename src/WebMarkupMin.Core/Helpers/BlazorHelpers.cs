@@ -110,8 +110,7 @@ namespace WebMarkupMin.Core.Helpers
 				return false;
 			}
 
-			int firstNonWhitespaceCharPosition = SourceCodeNavigator.FindNextNonWhitespaceChar(commentText,
-				0, commentTextLength);
+			int firstNonWhitespaceCharPosition = commentText.IndexOfNonWhitespace();
 			if (firstNonWhitespaceCharPosition == -1)
 			{
 				return false;

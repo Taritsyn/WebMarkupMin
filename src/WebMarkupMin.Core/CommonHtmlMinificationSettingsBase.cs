@@ -31,6 +31,139 @@ namespace WebMarkupMin.Core
 			set;
 		}
 
+		#region Preservable HTML comments
+
+		/// <summary>
+		/// Collection of the simple regular expressions, that define what HTML comments can not be removed
+		/// </summary>
+		private readonly List<SimpleRegex> _preservableHtmlComments;
+
+		/// <summary>
+		/// Gets a collection of the simple regular expressions, that define what HTML comments can not be removed
+		/// </summary>
+		public IList<SimpleRegex> PreservableHtmlCommentCollection
+		{
+			get { return _preservableHtmlComments; }
+		}
+
+		/// <summary>
+		/// Sets a simple regular expressions, that define what HTML comments can not be removed
+		/// </summary>
+		/// <param name="regularExpressions">Collection of the simple regular expressions, that define what
+		/// HTML comments can not be removed</param>
+		public int SetPreservableHtmlComments(IEnumerable<SimpleRegex> regularExpressions)
+		{
+			_preservableHtmlComments.Clear();
+
+			if (regularExpressions != null)
+			{
+				foreach (SimpleRegex regularExpression in regularExpressions)
+				{
+					AddPreservableHtmlComment(regularExpression);
+				}
+			}
+
+			return _preservableHtmlComments.Count;
+		}
+
+		/// <summary>
+		/// Adds a string representation of the simple regular expression, that define what HTML comments can not be
+		/// removed, to the list
+		/// </summary>
+		/// <param name="regularExpressionString">String representation of the simple regular expression, that
+		/// define what HTML comments can not be removed</param>
+		/// <returns><c>true</c> - valid expression; <c>false</c> - invalid expression</returns>
+		public bool AddPreservableHtmlComment(string regularExpressionString)
+		{
+			SimpleRegex regularExpression;
+
+			if (SimpleRegex.TryParse(regularExpressionString, out regularExpression))
+			{
+				AddPreservableHtmlComment(regularExpression);
+				return true;
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// Adds a simple regular expression, that define what HTML comments can not be removed, to the list
+		/// </summary>
+		/// <param name="regularExpression">Simple regular expression, that define what HTML comments can not be removed</param>
+		public void AddPreservableHtmlComment(SimpleRegex regularExpression)
+		{
+			if (regularExpression != null && !_preservableHtmlComments.Contains(regularExpression))
+			{
+				_preservableHtmlComments.Add(regularExpression);
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets a comma-separated list of string representations of the simple regular expressions, that
+		/// define what HTML comments can not be removed (e.g. <c>"/^\s*saved from url=\(\d+\)/i, /^\/?\$$/, /^[\[\]]$/"</c>)
+		/// </summary>
+		/// <remarks>
+		/// Simple regular expressions somewhat similar to the ECMAScript regular expression literals.
+		/// There are two varieties of the simple regular expressions: <c>/pattern/</c> and <c>/pattern/i</c>.
+		/// </remarks>
+		public string PreservableHtmlCommentList
+		{
+			get
+			{
+				if (_preservableHtmlComments.Count == 0)
+				{
+					return string.Empty;
+				}
+
+				var stringBuilderPool = StringBuilderPool.Shared;
+				StringBuilder sb = stringBuilderPool.Rent();
+
+				foreach (SimpleRegex regularExpression in _preservableHtmlComments)
+				{
+					if (sb.Length > 0)
+					{
+						sb.Append(",");
+					}
+					sb.Append(regularExpression.ToString());
+				}
+
+				string preservableHtmlCommentList = sb.ToString();
+				stringBuilderPool.Return(sb);
+
+				return preservableHtmlCommentList;
+			}
+			set
+			{
+				_preservableHtmlComments.Clear();
+
+				if (string.IsNullOrWhiteSpace(value))
+				{
+					return;
+				}
+
+				if (value.IndexOf(',') != -1)
+				{
+					List<SimpleRegex> regularExpressions;
+
+					if (SimpleRegex.TryParseList(value, out regularExpressions))
+					{
+						SetPreservableHtmlComments(regularExpressions);
+					}
+				}
+				else
+				{
+					SimpleRegex regularExpression;
+
+					if (SimpleRegex.TryParse(value, out regularExpression))
+					{
+						AddPreservableHtmlComment(regularExpression);
+					}
+				}
+			}
+		}
+
+		#endregion
+
 		/// <summary>
 		/// Gets or sets a flag for whether to remove HTML comments from scripts and styles
 		/// </summary>
@@ -169,8 +302,14 @@ namespace WebMarkupMin.Core
 
 		/// <summary>
 		/// Gets or sets a comma-separated list of string representations of attribute expressions, that
-		/// define what attributes can not be removed
+		/// define what attributes can not be removed (e.g. <c>"form[method=get i], input[type], [xmlns]"</c>)
 		/// </summary>
+		/// <remarks>
+		/// Attribute expressions somewhat similar to the CSS Attribute Selectors.
+		/// There are six varieties of the attribute expressions: <c>[attrName]</c>, <c>tagName[attrName]</c>,
+		/// <c>[attrName=attrValue]</c>, <c>tagName[attrName=attrValue]</c>, <c>[attrName=attrValue i]</c> and
+		/// <c>tagName[attrName=attrValue i]</c>.
+		/// </remarks>
 		public string PreservableAttributeList
 		{
 			get
@@ -553,6 +692,10 @@ namespace WebMarkupMin.Core
 				MinifyEmbeddedJsonData = false;
 				_processableScriptTypes = new HashSet<string>();
 			}
+
+			// No default preservable HTML comments
+			_preservableHtmlComments = new List<SimpleRegex>();
+
 			RemoveTagsWithoutContent = false;
 			AttributeQuotesStyle = HtmlAttributeQuotesStyle.Auto;
 			RemoveRedundantAttributes = false;

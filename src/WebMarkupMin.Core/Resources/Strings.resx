@@ -165,6 +165,12 @@
   <data name="ErrorMessage_InvalidHtmlAttributeExpression" xml:space="preserve">
     <value>String representation of the HTML attribute expression have an incorrect format.</value>
   </data>
+  <data name="ErrorMessage_InvalidSimpleRegularExpression" xml:space="preserve">
+    <value>String representation of the simple regular expression have an incorrect format.</value>
+  </data>
+  <data name="ErrorMessage_InvalidSimpleRegularExpressionList" xml:space="preserve">
+    <value>Comma-separated list of the simple regular expressions have an incorrect format.</value>
+  </data>
   <data name="ErrorMessage_MarkupParsingFailed" xml:space="preserve">
     <value>During parsing of {0}-code error has occurred.</value>
   </data>

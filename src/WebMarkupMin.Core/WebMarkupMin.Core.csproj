@@ -26,7 +26,7 @@ Minification of markup produces by removing extra whitespaces, comments and redu
 
 Also supports minification of views of popular JavaScript template engines: KnockoutJS, Kendo UI MVVM and AngularJS 1.X.</Description>
     <PackageTags>$(PackageCommonTags);XML;Performance;Optimization;Compression</PackageTags>
-    <PackageReleaseNotes>Blazor streaming markers (`&lt;!--bl:…--&gt;`, `&lt;!--/bl:…--&gt;` and `&lt;!--bab39c12-73f9-4e04-b6b9-76cb2b324662--&gt;`) are no longer removed.</PackageReleaseNotes>
+    <PackageReleaseNotes>In HTML and XHTML minification settings was added one new property - `PreservableHtmlCommentList` (default is empty).</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
