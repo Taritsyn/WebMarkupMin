@@ -19,11 +19,11 @@
   <PropertyGroup>
     <Description>WebMarkupMin.AspNetCore8 contains one ASP.NET Core 8 Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
-    <PackageReleaseNotes>Added support for the ASP.NET Core 8.0.6.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added support for the ASP.NET Core 8.0.7.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="8.0.6" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="8.0.7" />
 
     <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha7" PrivateAssets="All" />
 
