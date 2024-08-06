@@ -2,6 +2,7 @@
   <PropertyGroup>
     <Title>$(Product)</Title>
     <Authors>Andrey Taritsyn</Authors>
+    <PackageReadmeFile>PACKAGE-DESCRIPTION.md</PackageReadmeFile>
     <PackageCommonTags>WebMarkupMin;Markup;HTML;XHTML;Minification;Minifier;Minify</PackageCommonTags>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Taritsyn/WebMarkupMin</PackageProjectUrl>
@@ -18,20 +19,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="../../images/WebMarkupMin_Logo_128x128.png">
-      <PackagePath>$(PackageIcon)</PackagePath>
-      <Pack>true</Pack>
-      <Visible>false</Visible>
-    </None>
-    <None Include="../../LICENSE.txt">
-      <PackagePath>/</PackagePath>
-      <Pack>true</Pack>
-      <Visible>false</Visible>
-    </None>
+    <None Include="../../images/WebMarkupMin_Logo_128x128.png" PackagePath="$(PackageIcon)" Pack="true" Visible="false" />
+    <None Include="../../LICENSE.txt" PackagePath="/" Pack="true" Visible="false" />
 
-    <Content Include="readme.txt">
-      <PackagePath>/</PackagePath>
-      <Pack>true</Pack>
-    </Content>
+    <Content Include="$(PackageReadmeFile)" PackagePath="$(PackageReadmeFile)" Pack="true" />
+    <Content Include="readme.txt" PackagePath="/" Pack="true" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,1 @@
+WebMarkupMin.AspNetCore7 contains one ASP.NET Core 7 Middleware - `WebMarkupMinMiddleware`.

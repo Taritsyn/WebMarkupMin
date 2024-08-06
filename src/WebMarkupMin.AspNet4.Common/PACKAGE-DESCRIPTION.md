@@ -1,0 +1,1 @@
+WebMarkupMin.AspNet4.Common is auxiliary package, that contains classes for ASP.NET 4.X extensions.

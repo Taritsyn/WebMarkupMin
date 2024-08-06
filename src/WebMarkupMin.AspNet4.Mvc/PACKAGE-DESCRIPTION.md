@@ -1,0 +1,1 @@
+WebMarkupMin.AspNet4.Mvc contains 4 action filters: `MinifyHtmlAttribute` (for minification of HTML code), `MinifyXhtmlAttribute` (for minification of XHTML code), `MinifyXmlAttribute` (for minification of XML code) and `CompressContentAttribute` (for compression of text content by using GZIP or Deflate).

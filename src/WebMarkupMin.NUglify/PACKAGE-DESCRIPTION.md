@@ -1,0 +1,2 @@
+WebMarkupMin.NUglify contains 2 minifier-adapters: `NUglifyCssMinifier` (for minification of CSS code) and `NUglifyJsMinifier` (for minification of JS code).
+These adapters perform minification using the [NUglify](https://github.com/trullock/NUglify).

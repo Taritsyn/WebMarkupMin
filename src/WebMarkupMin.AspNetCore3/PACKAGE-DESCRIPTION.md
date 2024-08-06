@@ -1,0 +1,1 @@
+WebMarkupMin.AspNetCore3 contains one ASP.NET Core 3.1+ Middleware - `WebMarkupMinMiddleware`.

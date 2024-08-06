@@ -1,0 +1,1 @@
+WebMarkupMin.AspNetCore5 contains one ASP.NET Core 5.X Middleware - `WebMarkupMinMiddleware`.

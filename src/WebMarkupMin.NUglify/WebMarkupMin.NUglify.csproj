@@ -17,7 +17,7 @@
   <Import Project="../../build/nuget-common.props" />
 
   <PropertyGroup>
-    <Description>WebMarkupMin.NUglify contains 2 minifier-adapters: `NUglifyCssMinifier` (for minification of CSS code) and `NUglifyJsMinifier` (for minification of JS code). These adapters perform minification using the NUglify (https://github.com/trullock/NUglify).</Description>
+    <Description>WebMarkupMin.NUglify contains 2 minifier-adapters: `NUglifyCssMinifier` (for minification of CSS code) and `NUglifyJsMinifier` (for minification of JS code). These adapters perform minification using the NUglify.</Description>
     <PackageTags>$(PackageCommonTags);CSS;JavaScript;JS;NUglify</PackageTags>
     <PackageReleaseNotes>Added support for the NUglify version 1.21.8.</PackageReleaseNotes>
   </PropertyGroup>
@@ -29,11 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="../../licenses/nuglify-license.txt">
-      <PackagePath>/</PackagePath>
-      <Pack>true</Pack>
-      <Visible>false</Visible>
-    </None>
+    <None Include="../../licenses/nuglify-license.txt" PackagePath="/" Pack="true" Visible="false" />
   </ItemGroup>
 
 </Project>

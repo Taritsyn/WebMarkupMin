@@ -1,0 +1,1 @@
+WebMarkupMin.AspNetCore8 contains one ASP.NET Core 8 Middleware - `WebMarkupMinMiddleware`.

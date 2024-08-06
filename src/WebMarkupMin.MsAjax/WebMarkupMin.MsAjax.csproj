@@ -16,7 +16,7 @@
   <Import Project="../../build/nuget-common.props" />
 
   <PropertyGroup>
-    <Description>WebMarkupMin.MsAjax contains 2 minifier-adapters: `MsAjaxCssMinifier` (for minification of CSS code) and `MsAjaxJsMinifier` (for minification of JS code). These adapters perform minification using the Microsoft Ajax Minifier (https://github.com/microsoft/ajaxmin).</Description>
+    <Description>WebMarkupMin.MsAjax contains 2 minifier-adapters: `MsAjaxCssMinifier` (for minification of CSS code) and `MsAjaxJsMinifier` (for minification of JS code). These adapters perform minification using the Microsoft Ajax Minifier.</Description>
     <PackageTags>$(PackageCommonTags);CSS;JavaScript;JS;Microsoft;AjaxMin</PackageTags>
   </PropertyGroup>
 
@@ -27,11 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="../../licenses/microsoft-ajax-minifier-license.txt">
-      <PackagePath>/</PackagePath>
-      <Pack>true</Pack>
-      <Visible>false</Visible>
-    </None>
+    <None Include="../../licenses/microsoft-ajax-minifier-license.txt" PackagePath="/" Pack="true" Visible="false" />
   </ItemGroup>
 
 </Project>
