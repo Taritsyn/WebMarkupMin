@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: ASP.NET Core 7</Product>
-    <VersionPrefix>2.16.1</VersionPrefix>
+    <VersionPrefix>2.17.0</VersionPrefix>
     <TargetFramework>net7.0</TargetFramework>
     <OutputType>Library</OutputType>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
@@ -19,7 +19,6 @@
   <PropertyGroup>
     <Description>WebMarkupMin.AspNetCore7 contains one ASP.NET Core 7 Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
-    <PackageReleaseNotes>Added support for the ASP.NET Core 7.0.20.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,6 +1,12 @@
 Change log
 ==========
 
+## v2.17.0 - August 6, 2024
+ * In HTML and XHTML minification settings was added one new property - `PreservableHtmlCommentList` (default is empty)
+ * In WebMarkupMin.NUglify added support for the NUglify version 1.21.9
+ * In WebMarkupMin.AspNetCore6 added support for the ASP.NET Core 6.0.32
+ * In WebMarkupMin.AspNetCore8 added support for the ASP.NET Core 8.0.7
+
 ## v2.16.2 - June 26, 2024
  * Blazor streaming markers (`<!--bl:…-->`, `<!--/bl:…-->` and `<!--bab39c12-73f9-4e04-b6b9-76cb2b324662-->`) are no longer removed
 

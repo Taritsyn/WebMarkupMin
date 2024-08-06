@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-            README file for Web Markup Minifier: ASP.NET 4.X Common v2.16.0
+            README file for Web Markup Minifier: ASP.NET 4.X Common v2.17.0
 
    --------------------------------------------------------------------------------
 

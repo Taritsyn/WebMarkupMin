@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                   README file for Web Markup Minifier: Core v2.16.2
+                   README file for Web Markup Minifier: Core v2.17.0
 
    --------------------------------------------------------------------------------
 
@@ -36,7 +36,7 @@
    support the more powerful algorithms of minification: WebMarkupMin.MsAjax
    (contains minifier-adapters for the Microsoft Ajax Minifier -
    https://github.com/microsoft/ajaxmin), WebMarkupMin.Yui (contains
-   minifier-adapters for YUI Compressor for .NET -
+   minifier-adapters for the YUI Compressor for .NET -
    https://github.com/YUICompressor-NET/YUICompressor.NET) and WebMarkupMin.NUglify
    (contains minifier-adapters for the NUglify - https://github.com/trullock/NUglify).
 
