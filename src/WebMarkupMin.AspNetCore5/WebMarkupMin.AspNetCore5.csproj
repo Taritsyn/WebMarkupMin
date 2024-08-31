@@ -19,6 +19,7 @@
   <PropertyGroup>
     <Description>WebMarkupMin.AspNetCore5 contains one ASP.NET Core 5.X Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
+    <PackageReleaseNotes>Services required by WebMarkupMin are now conditionally registered using the `TryAdd` methods.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

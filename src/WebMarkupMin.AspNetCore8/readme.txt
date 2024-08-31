@@ -17,7 +17,8 @@
    =============
    RELEASE NOTES
    =============
-   Added support for the ASP.NET Core 8.0.7.
+   Services required by WebMarkupMin are now conditionally registered using the
+   `TryAdd` methods.
 
    =============
    DOCUMENTATION

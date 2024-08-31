@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 #if ASPNETCORE1
@@ -100,12 +101,12 @@ namespace WebMarkupMin.AspNetCore8
 				services.Configure(configure);
 			}
 
-			services.AddSingleton<ILogger, NullLogger>();
-			services.AddSingleton<ICssMinifierFactory, KristensenCssMinifierFactory>();
-			services.AddSingleton<IJsMinifierFactory, CrockfordJsMinifierFactory>();
+			services.TryAddSingleton<ILogger, NullLogger>();
+			services.TryAddSingleton<ICssMinifierFactory, KristensenCssMinifierFactory>();
+			services.TryAddSingleton<IJsMinifierFactory, CrockfordJsMinifierFactory>();
 
 			// We use the `WebMarkupMinMarkerService` to make sure if all the services were added
-			services.AddTransient<WebMarkupMinMarkerService, WebMarkupMinMarkerService>();
+			services.TryAddSingleton<WebMarkupMinMarkerService, WebMarkupMinMarkerService>();
 
 			return new WebMarkupMinServicesBuilder(services);
 		}

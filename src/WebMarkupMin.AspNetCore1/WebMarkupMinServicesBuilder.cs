@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 using WebMarkupMin.AspNet.Common;
@@ -95,7 +96,7 @@ namespace WebMarkupMin.AspNetCore8
 				_services.Configure(configure);
 			}
 
-			_services.AddSingleton<IHtmlMinificationManager, HtmlMinificationManager>();
+			_services.TryAddSingleton<IHtmlMinificationManager, HtmlMinificationManager>();
 
 			return this;
 		}
@@ -114,7 +115,7 @@ namespace WebMarkupMin.AspNetCore8
 				_services.Configure(configure);
 			}
 
-			_services.AddSingleton<IXhtmlMinificationManager, XhtmlMinificationManager>();
+			_services.TryAddSingleton<IXhtmlMinificationManager, XhtmlMinificationManager>();
 
 			return this;
 		}
@@ -131,7 +132,7 @@ namespace WebMarkupMin.AspNetCore8
 				_services.Configure(configure);
 			}
 
-			_services.AddSingleton<IXmlMinificationManager, XmlMinificationManager>();
+			_services.TryAddSingleton<IXmlMinificationManager, XmlMinificationManager>();
 
 			return this;
 		}
@@ -148,7 +149,7 @@ namespace WebMarkupMin.AspNetCore8
 				_services.Configure(configure);
 			}
 
-			_services.AddSingleton<IHttpCompressionManager, HttpCompressionManager>();
+			_services.TryAddSingleton<IHttpCompressionManager, HttpCompressionManager>();
 
 			return this;
 		}
