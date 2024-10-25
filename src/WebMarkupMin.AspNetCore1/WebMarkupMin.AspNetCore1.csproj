@@ -20,7 +20,8 @@
   <PropertyGroup>
     <Description>WebMarkupMin.AspNetCore1 contains one ASP.NET Core 1.X Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
-    <PackageReleaseNotes>Services required by WebMarkupMin are now conditionally registered using the `TryAdd` methods.</PackageReleaseNotes>
+    <PackageReleaseNotes>1. Services required by WebMarkupMin are now conditionally registered using the `TryAdd` methods;
+2. Added a `AspNetCoreLogger` class, which is a wrapper around the standard ASP.NET Core logger.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

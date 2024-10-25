@@ -13,7 +13,7 @@ using WebMarkupMin.Core;
 using WebMarkupMin.NUglify;
 
 using IWmmLogger = WebMarkupMin.Core.Loggers.ILogger;
-using WmmThrowExceptionLogger = WebMarkupMin.Core.Loggers.ThrowExceptionLogger;
+using WmmAspNetCoreLogger = WebMarkupMin.AspNetCore5.AspNetCoreLogger;
 
 namespace WebMarkupMin.Sample.AspNetCore5.Mvc5
 {
@@ -74,7 +74,7 @@ namespace WebMarkupMin.Sample.AspNetCore5.Mvc5
 				;
 
 			// Override the default logger for WebMarkupMin.
-			services.AddSingleton<IWmmLogger, WmmThrowExceptionLogger>();
+			services.AddSingleton<IWmmLogger, WmmAspNetCoreLogger>();
 
 			services.AddControllersWithViews();
 		}

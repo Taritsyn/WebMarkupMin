@@ -19,7 +19,7 @@ using WebMarkupMin.Sample.Logic.Services;
 using WebMarkupMin.Yui;
 
 using IWmmLogger = WebMarkupMin.Core.Loggers.ILogger;
-using WmmThrowExceptionLogger = WebMarkupMin.Core.Loggers.ThrowExceptionLogger;
+using WmmAspNetCoreLogger = WebMarkupMin.AspNetCore1.AspNetCoreLogger;
 
 namespace WebMarkupMin.Sample.AspNetCore1Full.Mvc1
 {
@@ -125,7 +125,7 @@ namespace WebMarkupMin.Sample.AspNetCore1Full.Mvc1
 				;
 
 			// Override the default logger for WebMarkupMin.
-			services.AddSingleton<IWmmLogger, WmmThrowExceptionLogger>();
+			services.AddSingleton<IWmmLogger, WmmAspNetCoreLogger>();
 
 			// Add framework services.
 			var manager = new ApplicationPartManager();

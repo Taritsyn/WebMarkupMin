@@ -19,7 +19,8 @@
   <PropertyGroup>
     <Description>WebMarkupMin.AspNetCore5 contains one ASP.NET Core 5.X Middleware - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
-    <PackageReleaseNotes>Services required by WebMarkupMin are now conditionally registered using the `TryAdd` methods.</PackageReleaseNotes>
+    <PackageReleaseNotes>1. Services required by WebMarkupMin are now conditionally registered using the `TryAdd` methods;
+2. Added a `AspNetCoreLogger` class, which is a wrapper around the standard ASP.NET Core logger.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,6 +36,7 @@
     <Compile Include="../WebMarkupMin.AspNetCore1/Internal/WebMarkupMinServicesHelper.cs" Link="Internal/WebMarkupMinServicesHelper.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/Helpers/TaskAsyncResult.cs" Link="Helpers/TaskAsyncResult.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/Helpers/TaskToApmHelpers.cs" Link="Helpers/TaskToApmHelpers.cs" />
+    <Compile Include="../WebMarkupMin.AspNetCore1/AspNetCoreLogger.cs" Link="AspNetCoreLogger.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/BodyWrapperStreamBase.cs" Link="BodyWrapperStreamBase.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore3/BodyWrapperStreamWithResponseBodyFeature.cs" Link="BodyWrapperStreamWithResponseBodyFeature.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/BuilderExtensions.cs" Link="BuilderExtensions.cs" />

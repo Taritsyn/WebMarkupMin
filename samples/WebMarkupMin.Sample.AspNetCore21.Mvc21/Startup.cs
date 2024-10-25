@@ -18,7 +18,7 @@ using WebMarkupMin.NUglify;
 using WebMarkupMin.Sample.Logic.Services;
 
 using IWmmLogger = WebMarkupMin.Core.Loggers.ILogger;
-using WmmThrowExceptionLogger = WebMarkupMin.Core.Loggers.ThrowExceptionLogger;
+using WmmAspNetCoreLogger = WebMarkupMin.AspNetCore2.AspNetCoreLogger;
 
 namespace WebMarkupMin.Sample.AspNetCore21.Mvc21
 {
@@ -127,7 +127,7 @@ namespace WebMarkupMin.Sample.AspNetCore21.Mvc21
 				;
 
 			// Override the default logger for WebMarkupMin.
-			services.AddSingleton<IWmmLogger, WmmThrowExceptionLogger>();
+			services.AddSingleton<IWmmLogger, WmmAspNetCoreLogger>();
 
 			services.Configure<CookiePolicyOptions>(options =>
 			{
