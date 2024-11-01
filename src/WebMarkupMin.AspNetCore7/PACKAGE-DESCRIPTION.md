@@ -1,1 +1,2 @@
-WebMarkupMin.AspNetCore7 contains one ASP.NET Core 7 Middleware - `WebMarkupMinMiddleware`.
+This package is deprecated.
+Instead, it is recommended to use a [WebMarkupMin.AspNetCore6](https://www.nuget.org/packages/WebMarkupMin.AspNetCore6/) package.

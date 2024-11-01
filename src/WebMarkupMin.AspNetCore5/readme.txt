@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-             README file for Web Markup Minifier: ASP.NET Core 5.X v2.17.0
+              README file for Web Markup Minifier: ASP.NET Core 5 v2.17.0
 
    --------------------------------------------------------------------------------
 
@@ -11,16 +11,13 @@
    ===========
    DESCRIPTION
    ===========
-   WebMarkupMin.AspNetCore5 contains one ASP.NET Core 5.X Middleware -
-   `WebMarkupMinMiddleware`.
+   This package is deprecated. Instead, it is recommended to use a
+   WebMarkupMin.AspNetCore3 package.
 
    =============
    RELEASE NOTES
    =============
-   1. Services required by WebMarkupMin are now conditionally registered using the
-      `TryAdd` methods;
-   2. Added a `AspNetCoreLogger` class, which is a wrapper around the standard
-      ASP.NET Core logger.
+   This package has been replaced by the WebMarkupMin.AspNetCore3 package.
 
    =============
    DOCUMENTATION

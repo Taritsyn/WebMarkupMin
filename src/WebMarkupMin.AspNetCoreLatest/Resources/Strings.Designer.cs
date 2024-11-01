@@ -6,7 +6,7 @@
 //	 the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-namespace WebMarkupMin.AspNetCore7.Resources
+namespace WebMarkupMin.AspNetCoreLatest.Resources
 {
 	using System;
 	using System.Globalization;
@@ -20,7 +20,7 @@ namespace WebMarkupMin.AspNetCore7.Resources
 	{
 		private static Lazy<ResourceManager> _resourceManager =
 			new Lazy<ResourceManager>(() => new ResourceManager(
-				"WebMarkupMin.AspNetCore7.Resources.Strings",
+				"WebMarkupMin.AspNetCoreLatest.Resources.Strings",
 #if NET20 || NET30 || NET35 || NET40
 				typeof(Strings).Assembly
 #else

@@ -11,10 +11,8 @@ using WebMarkupMin.AspNet.Common;
 
 #if ASPNETCORE6
 namespace WebMarkupMin.AspNetCore6
-#elif ASPNETCORE7
-namespace WebMarkupMin.AspNetCore7
-#elif ASPNETCORE8
-namespace WebMarkupMin.AspNetCore8
+#elif ASPNETCORE_LATEST
+namespace WebMarkupMin.AspNetCoreLatest
 #else
 #error No implementation for this target
 #endif

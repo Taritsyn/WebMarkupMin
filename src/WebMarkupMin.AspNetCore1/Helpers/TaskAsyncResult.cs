@@ -13,14 +13,10 @@ namespace WebMarkupMin.AspNetCore1.Helpers
 namespace WebMarkupMin.AspNetCore2.Helpers
 #elif ASPNETCORE3
 namespace WebMarkupMin.AspNetCore3.Helpers
-#elif ASPNETCORE5
-namespace WebMarkupMin.AspNetCore5.Helpers
 #elif ASPNETCORE6
 namespace WebMarkupMin.AspNetCore6.Helpers
-#elif ASPNETCORE7
-namespace WebMarkupMin.AspNetCore7.Helpers
-#elif ASPNETCORE8
-namespace WebMarkupMin.AspNetCore8.Helpers
+#elif ASPNETCORE_LATEST
+namespace WebMarkupMin.AspNetCoreLatest.Helpers
 #else
 #error No implementation for this target
 #endif

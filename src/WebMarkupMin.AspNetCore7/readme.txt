@@ -11,16 +11,13 @@
    ===========
    DESCRIPTION
    ===========
-   WebMarkupMin.AspNetCore7 contains one ASP.NET Core 7 Middleware -
-   `WebMarkupMinMiddleware`.
+   This package is deprecated. Instead, it is recommended to use a
+   WebMarkupMin.AspNetCore6 package.
 
    =============
    RELEASE NOTES
    =============
-   1. Services required by WebMarkupMin are now conditionally registered using the
-      `TryAdd` methods;
-   2. Added a `AspNetCoreLogger` class, which is a wrapper around the standard
-      ASP.NET Core logger.
+   This package has been replaced by the WebMarkupMin.AspNetCore6 package.
 
    =============
    DOCUMENTATION

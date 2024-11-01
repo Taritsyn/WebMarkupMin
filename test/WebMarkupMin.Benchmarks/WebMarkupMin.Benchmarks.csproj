@@ -36,24 +36,16 @@
     <PackageReference Include="ZetaProducerHtmlCompressorStandard" Version="1.0.3" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' Or '$(TargetFramework)' == 'net5.0' ">
     <ProjectReference Include="../../src/WebMarkupMin.AspNetCore3/WebMarkupMin.AspNetCore3.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
-    <ProjectReference Include="../../src/WebMarkupMin.AspNetCore5/WebMarkupMin.AspNetCore5.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' Or '$(TargetFramework)' == 'net7.0' ">
     <ProjectReference Include="../../src/WebMarkupMin.AspNetCore6/WebMarkupMin.AspNetCore6.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
-    <ProjectReference Include="../../src/WebMarkupMin.AspNetCore7/WebMarkupMin.AspNetCore7.csproj" />
-  </ItemGroup>
-
   <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
-    <ProjectReference Include="../../src/WebMarkupMin.AspNetCore8/WebMarkupMin.AspNetCore8.csproj" />
+    <ProjectReference Include="../../src/WebMarkupMin.AspNetCoreLatest/WebMarkupMin.AspNetCoreLatest.csproj" />
   </ItemGroup>
 
 </Project>

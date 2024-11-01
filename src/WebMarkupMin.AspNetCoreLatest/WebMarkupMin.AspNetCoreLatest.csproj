@@ -1,13 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Product>Web Markup Minifier: ASP.NET Core 3.1+</Product>
+    <Product>Web Markup Minifier: ASP.NET Core Latest</Product>
     <VersionPrefix>2.17.0</VersionPrefix>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
-    <DefineConstants>$(DefineConstants);ASPNETCORE3</DefineConstants>
+    <DefineConstants>$(DefineConstants);ASPNETCORE_LATEST</DefineConstants>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DisableDefaultResxToCsConversionTarget>true</DisableDefaultResxToCsConversionTarget>
   </PropertyGroup>
@@ -17,14 +17,12 @@
   <Import Project="../../build/nuget-common.props" />
 
   <PropertyGroup>
-    <Description>WebMarkupMin.AspNetCore3 contains one Middleware for ASP.NET Core 3.1 and 5 - `WebMarkupMinMiddleware`.</Description>
+    <Description>WebMarkupMin.AspNetCoreLatest contains one Middleware for ASP.NET Core 8 - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
-    <PackageReleaseNotes>1. Services required by WebMarkupMin are now conditionally registered using the `TryAdd` methods;
-2. Added a `AspNetCoreLogger` class, which is a wrapper around the standard ASP.NET Core logger.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="3.1.32" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="8.0.7" />
 
     <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha7" PrivateAssets="All" />
 
@@ -38,6 +36,7 @@
     <Compile Include="../WebMarkupMin.AspNetCore1/Helpers/TaskToApmHelpers.cs" Link="Helpers/TaskToApmHelpers.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/AspNetCoreLogger.cs" Link="AspNetCoreLogger.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/BodyWrapperStreamBase.cs" Link="BodyWrapperStreamBase.cs" />
+    <Compile Include="../WebMarkupMin.AspNetCore3/BodyWrapperStreamWithResponseBodyFeature.cs" Link="BodyWrapperStreamWithResponseBodyFeature.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/CommonHtmlMinificationOptionsBase.cs" Link="CommonHtmlMinificationOptionsBase.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/ContentProcessingOptionsBase.cs" Link="ContentProcessingOptionsBase.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/HeaderDictionaryExtensions.cs" Link="HeaderDictionaryExtensions.cs" />
@@ -48,6 +47,7 @@
     <Compile Include="../WebMarkupMin.AspNetCore1/HttpCompressionOptions.cs" Link="HttpCompressionOptions.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/MarkupMinificationOptionsBase.cs" Link="MarkupMinificationOptionsBase.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/WebMarkupMinBuilderExtensions.cs" Link="WebMarkupMinBuilderExtensions.cs" />
+    <Compile Include="../WebMarkupMin.AspNetCore6/WebMarkupMinMiddleware.cs" Link="WebMarkupMinMiddleware.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/WebMarkupMinMiddlewareBase.cs" Link="WebMarkupMinMiddlewareBase.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/WebMarkupMinOptions.cs" Link="WebMarkupMinOptions.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/WebMarkupMinOptionsExtensions.cs" Link="WebMarkupMinOptionsExtensions.cs" />
@@ -60,12 +60,12 @@
     <Compile Include="../WebMarkupMin.AspNetCore1/XmlMinificationManager.cs" Link="XmlMinificationManager.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/XmlMinificationOptions.cs" Link="XmlMinificationOptions.cs" />
 
-    <EmbeddedResource Include="../WebMarkupMin.AspNetCore1/Resources/Strings.resx" Link="Resources/Strings.resx" />
+    <EmbeddedResource Include="../WebMarkupMin.AspNetCore6/Resources/Strings.resx" Link="Resources/Strings.resx" />
   </ItemGroup>
 
   <Target Name="ConvertResxToCs" BeforeTargets="BeforeCompile">
     <ResxToCsTask
-      InputDirectory="../WebMarkupMin.AspNetCore1/Resources/"
+      InputDirectory="../WebMarkupMin.AspNetCore6/Resources/"
       OutputDirectory="./Resources/"
       Namespace="$(RootNamespace).Resources"
       InternalAccessModifier="true" />

@@ -1,1 +1,2 @@
-WebMarkupMin.AspNetCore8 contains one ASP.NET Core 8 Middleware - `WebMarkupMinMiddleware`.
+This package is deprecated.
+Instead, it is recommended to use a [WebMarkupMin.AspNetCoreLatest](https://www.nuget.org/packages/WebMarkupMin.AspNetCoreLatest/) package.

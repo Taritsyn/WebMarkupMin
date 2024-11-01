@@ -11,7 +11,7 @@
    ===========
    DESCRIPTION
    ===========
-   WebMarkupMin.AspNetCore1 contains one ASP.NET Core 1.X Middleware -
+   WebMarkupMin.AspNetCore1 contains one Middleware for ASP.NET Core 1.X -
    `WebMarkupMinMiddleware`.
 
    =============

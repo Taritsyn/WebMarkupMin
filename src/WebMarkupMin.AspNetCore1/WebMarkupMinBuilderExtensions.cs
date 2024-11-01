@@ -14,22 +14,14 @@ namespace WebMarkupMin.AspNetCore2
 using WebMarkupMin.AspNetCore3.Internal;
 
 namespace WebMarkupMin.AspNetCore3
-#elif ASPNETCORE5
-using WebMarkupMin.AspNetCore5.Internal;
-
-namespace WebMarkupMin.AspNetCore5
 #elif ASPNETCORE6
 using WebMarkupMin.AspNetCore6.Internal;
 
 namespace WebMarkupMin.AspNetCore6
-#elif ASPNETCORE7
-using WebMarkupMin.AspNetCore7.Internal;
+#elif ASPNETCORE_LATEST
+using WebMarkupMin.AspNetCoreLatest.Internal;
 
-namespace WebMarkupMin.AspNetCore7
-#elif ASPNETCORE8
-using WebMarkupMin.AspNetCore8.Internal;
-
-namespace WebMarkupMin.AspNetCore8
+namespace WebMarkupMin.AspNetCoreLatest
 #else
 #error No implementation for this target
 #endif
@@ -38,7 +30,7 @@ namespace WebMarkupMin.AspNetCore8
 	/// Extension methods for <see cref="IApplicationBuilder"/> to add
 	/// WebMarkupMin optimization features to the request execution pipeline
 	/// </summary>
-	public static class BuilderExtensions
+	public static class WebMarkupMinBuilderExtensions
 	{
 		/// <summary>
 		/// Adds a WebMarkupMin optimization features to the <see cref="IApplicationBuilder"/> request execution pipeline

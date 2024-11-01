@@ -1,12 +1,12 @@
 using System.IO.Compression;
 
 using WebMarkupMin.AspNet.Common.Compressors;
-using WebMarkupMin.AspNetCore8;
+using WebMarkupMin.AspNetCoreLatest;
 using WebMarkupMin.Core;
 using WebMarkupMin.NUglify;
 
 using IWmmLogger = WebMarkupMin.Core.Loggers.ILogger;
-using WmmAspNetCoreLogger = WebMarkupMin.AspNetCore8.AspNetCoreLogger;
+using WmmAspNetCoreLogger = WebMarkupMin.AspNetCoreLatest.AspNetCoreLogger;
 
 var builder = WebApplication.CreateBuilder(args);
 

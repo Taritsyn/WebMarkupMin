@@ -21,16 +21,12 @@ using HostingEnvironment = Microsoft.AspNetCore.Hosting.IWebHostEnvironment;
 using WebMarkupMin.AspNet.Common;
 #if NET462
 using WebMarkupMin.AspNetCore1;
-#elif NETCOREAPP3_1
+#elif NETCOREAPP3_1 || NET5_0
 using WebMarkupMin.AspNetCore3;
-#elif NET5_0
-using WebMarkupMin.AspNetCore5;
-#elif NET6_0
+#elif NET6_0 || NET7_0
 using WebMarkupMin.AspNetCore6;
-#elif NET7_0
-using WebMarkupMin.AspNetCore7;
 #elif NET8_0
-using WebMarkupMin.AspNetCore8;
+using WebMarkupMin.AspNetCoreLatest;
 #else
 #error No implementation for this target
 #endif

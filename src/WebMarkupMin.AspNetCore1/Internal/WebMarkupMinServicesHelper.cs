@@ -12,22 +12,14 @@ namespace WebMarkupMin.AspNetCore2.Internal
 using AspNetCoreStrings = WebMarkupMin.AspNetCore3.Resources.Strings;
 
 namespace WebMarkupMin.AspNetCore3.Internal
-#elif ASPNETCORE5
-using AspNetCoreStrings = WebMarkupMin.AspNetCore5.Resources.Strings;
-
-namespace WebMarkupMin.AspNetCore5.Internal
 #elif ASPNETCORE6
 using AspNetCoreStrings = WebMarkupMin.AspNetCore6.Resources.Strings;
 
 namespace WebMarkupMin.AspNetCore6.Internal
-#elif ASPNETCORE7
-using AspNetCoreStrings = WebMarkupMin.AspNetCore7.Resources.Strings;
+#elif ASPNETCORE_LATEST
+using AspNetCoreStrings = WebMarkupMin.AspNetCoreLatest.Resources.Strings;
 
-namespace WebMarkupMin.AspNetCore7.Internal
-#elif ASPNETCORE8
-using AspNetCoreStrings = WebMarkupMin.AspNetCore8.Resources.Strings;
-
-namespace WebMarkupMin.AspNetCore8.Internal
+namespace WebMarkupMin.AspNetCoreLatest.Internal
 #else
 #error No implementation for this target
 #endif

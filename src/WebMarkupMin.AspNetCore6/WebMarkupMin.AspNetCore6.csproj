@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Product>Web Markup Minifier: ASP.NET Core 6</Product>
+    <Product>Web Markup Minifier: ASP.NET Core 6+</Product>
     <VersionPrefix>2.17.0</VersionPrefix>
     <TargetFramework>net6.0</TargetFramework>
     <OutputType>Library</OutputType>
@@ -17,7 +17,7 @@
   <Import Project="../../build/nuget-common.props" />
 
   <PropertyGroup>
-    <Description>WebMarkupMin.AspNetCore6 contains one ASP.NET Core 6 Middleware - `WebMarkupMinMiddleware`.</Description>
+    <Description>WebMarkupMin.AspNetCore6 contains one Middleware for ASP.NET Core 6 and 7 - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
     <PackageReleaseNotes>1. Services required by WebMarkupMin are now conditionally registered using the `TryAdd` methods;
 2. Added a `AspNetCoreLogger` class, which is a wrapper around the standard ASP.NET Core logger.</PackageReleaseNotes>
@@ -39,7 +39,6 @@
     <Compile Include="../WebMarkupMin.AspNetCore1/AspNetCoreLogger.cs" Link="AspNetCoreLogger.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/BodyWrapperStreamBase.cs" Link="BodyWrapperStreamBase.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore3/BodyWrapperStreamWithResponseBodyFeature.cs" Link="BodyWrapperStreamWithResponseBodyFeature.cs" />
-    <Compile Include="../WebMarkupMin.AspNetCore1/BuilderExtensions.cs" Link="BuilderExtensions.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/CommonHtmlMinificationOptionsBase.cs" Link="CommonHtmlMinificationOptionsBase.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/ContentProcessingOptionsBase.cs" Link="ContentProcessingOptionsBase.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/HeaderDictionaryExtensions.cs" Link="HeaderDictionaryExtensions.cs" />
@@ -49,6 +48,7 @@
     <Compile Include="../WebMarkupMin.AspNetCore1/HttpCompressionManager.cs" Link="HttpCompressionManager.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/HttpCompressionOptions.cs" Link="HttpCompressionOptions.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/MarkupMinificationOptionsBase.cs" Link="MarkupMinificationOptionsBase.cs" />
+    <Compile Include="../WebMarkupMin.AspNetCore1/WebMarkupMinBuilderExtensions.cs" Link="WebMarkupMinBuilderExtensions.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/WebMarkupMinMiddlewareBase.cs" Link="WebMarkupMinMiddlewareBase.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/WebMarkupMinOptions.cs" Link="WebMarkupMinOptions.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/WebMarkupMinOptionsExtensions.cs" Link="WebMarkupMinOptionsExtensions.cs" />

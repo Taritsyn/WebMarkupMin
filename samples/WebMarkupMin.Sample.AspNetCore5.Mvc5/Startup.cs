@@ -8,12 +8,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using WebMarkupMin.AspNet.Common.Compressors;
-using WebMarkupMin.AspNetCore5;
+using WebMarkupMin.AspNetCore3;
 using WebMarkupMin.Core;
 using WebMarkupMin.NUglify;
 
 using IWmmLogger = WebMarkupMin.Core.Loggers.ILogger;
-using WmmAspNetCoreLogger = WebMarkupMin.AspNetCore5.AspNetCoreLogger;
+using WmmAspNetCoreLogger = WebMarkupMin.AspNetCore3.AspNetCoreLogger;
 
 namespace WebMarkupMin.Sample.AspNetCore5.Mvc5
 {

@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-              README file for Web Markup Minifier: ASP.NET Core 8 v2.17.0
+           README file for Web Markup Minifier: ASP.NET Core Latest v2.17.0
 
    --------------------------------------------------------------------------------
 
@@ -11,13 +11,8 @@
    ===========
    DESCRIPTION
    ===========
-   This package is deprecated. Instead, it is recommended to use a
-   WebMarkupMin.AspNetCoreLatest package.
-
-   =============
-   RELEASE NOTES
-   =============
-   This package has been replaced by the WebMarkupMin.AspNetCoreLatest package.
+   WebMarkupMin.AspNetCoreLatest contains one Middleware for ASP.NET Core 8 -
+   `WebMarkupMinMiddleware`.
 
    =============
    DOCUMENTATION

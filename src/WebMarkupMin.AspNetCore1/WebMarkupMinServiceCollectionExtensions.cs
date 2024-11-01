@@ -10,14 +10,10 @@ using WebMarkupMin.AspNetCore1.Internal;
 using WebMarkupMin.AspNetCore2.Internal;
 #elif ASPNETCORE3
 using WebMarkupMin.AspNetCore3.Internal;
-#elif ASPNETCORE5
-using WebMarkupMin.AspNetCore5.Internal;
 #elif ASPNETCORE6
 using WebMarkupMin.AspNetCore6.Internal;
-#elif ASPNETCORE7
-using WebMarkupMin.AspNetCore7.Internal;
-#elif ASPNETCORE8
-using WebMarkupMin.AspNetCore8.Internal;
+#elif ASPNETCORE_LATEST
+using WebMarkupMin.AspNetCoreLatest.Internal;
 #else
 #error No implementation for this target
 #endif
@@ -30,14 +26,10 @@ namespace WebMarkupMin.AspNetCore1
 namespace WebMarkupMin.AspNetCore2
 #elif ASPNETCORE3
 namespace WebMarkupMin.AspNetCore3
-#elif ASPNETCORE5
-namespace WebMarkupMin.AspNetCore5
 #elif ASPNETCORE6
 namespace WebMarkupMin.AspNetCore6
-#elif ASPNETCORE7
-namespace WebMarkupMin.AspNetCore7
-#elif ASPNETCORE8
-namespace WebMarkupMin.AspNetCore8
+#elif ASPNETCORE_LATEST
+namespace WebMarkupMin.AspNetCoreLatest
 #else
 #error No implementation for this target
 #endif

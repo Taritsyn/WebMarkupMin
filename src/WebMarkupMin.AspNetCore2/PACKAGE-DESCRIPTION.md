@@ -1,1 +1,1 @@
-WebMarkupMin.AspNetCore2 contains one ASP.NET Core 2.X Middleware - `WebMarkupMinMiddleware`.
+WebMarkupMin.AspNetCore2 contains one Middleware for ASP.NET Core 2.X - `WebMarkupMinMiddleware`.
