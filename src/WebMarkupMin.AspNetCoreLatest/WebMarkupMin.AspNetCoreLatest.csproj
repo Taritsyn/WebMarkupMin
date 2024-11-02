@@ -22,7 +22,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="8.0.7" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="8.0.10" />
 
     <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha7" PrivateAssets="All" />
 
