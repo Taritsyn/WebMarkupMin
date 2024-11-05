@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Product>Web Markup Minifier: Core Tests</Product>
     <VersionPrefix>2.17.0</VersionPrefix>
-    <TargetFrameworks>net462;netcoreapp3.1;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>net462;netcoreapp3.1;net5.0;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>$(NoWarn);xUnit2013</NoWarn>
@@ -15,8 +15,8 @@
   <Import Project="../../build/common.props" />
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-    <PackageReference Include="xunit" Version="2.9.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="xunit" Version="2.9.2" />
 
     <ProjectReference Include="../../src/WebMarkupMin.Core/WebMarkupMin.Core.csproj" />
     <ProjectReference Include="../../src/WebMarkupMin.MsAjax/WebMarkupMin.MsAjax.csproj" />

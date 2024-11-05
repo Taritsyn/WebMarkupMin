@@ -25,7 +25,7 @@ using WebMarkupMin.AspNetCore1;
 using WebMarkupMin.AspNetCore3;
 #elif NET6_0 || NET7_0
 using WebMarkupMin.AspNetCore6;
-#elif NET8_0
+#elif NET8_0 || NET9_0
 using WebMarkupMin.AspNetCoreLatest;
 #else
 #error No implementation for this target

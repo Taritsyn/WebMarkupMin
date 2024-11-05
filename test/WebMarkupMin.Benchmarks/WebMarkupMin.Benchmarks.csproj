@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Product>Web Markup Minifier: Core Benchmarks</Product>
     <VersionPrefix>2.17.0</VersionPrefix>
-    <TargetFrameworks>net462;netcoreapp3.1;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>net462;netcoreapp3.1;net5.0;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -16,8 +16,8 @@
   <Import Project="../../build/common.props" />
 
   <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.13.12" />
-    <PackageReference Include="Moq" Version="4.20.70" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.14.0" />
+    <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="NUglify" Version="1.21.9" />
 
     <ProjectReference Include="../../src/WebMarkupMin.Core/WebMarkupMin.Core.csproj" />
@@ -44,7 +44,7 @@
     <ProjectReference Include="../../src/WebMarkupMin.AspNetCore6/WebMarkupMin.AspNetCore6.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' Or '$(TargetFramework)' == 'net9.0' ">
     <ProjectReference Include="../../src/WebMarkupMin.AspNetCoreLatest/WebMarkupMin.AspNetCoreLatest.csproj" />
   </ItemGroup>
 
