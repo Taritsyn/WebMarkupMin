@@ -1,7 +1,10 @@
-﻿using System;
+﻿#if NETSTANDARD2_1 || NET9_0_OR_GREATER
+using System;
+#endif
 using System.IO;
 using System.IO.Compression;
-#if !NETSTANDARD2_1 && !NET6_0_OR_GREATER
+
+#if !NETSTANDARD2_1 && !NET9_0_OR_GREATER
 
 using BrotliSharpLib;
 #endif
@@ -13,7 +16,7 @@ namespace WebMarkupMin.AspNet.Brotli
 	/// <summary>
 	/// Brotli compressor
 	/// </summary>
-#if NETSTANDARD2_1 || NET6_0_OR_GREATER
+#if NETSTANDARD2_1 || NET9_0_OR_GREATER
 	[Obsolete("Use a `BuiltInBrotliCompressor` class from `WebMarkupMin.AspNet.Common.Compressors` namespace")]
 #endif
 	public sealed class BrotliCompressor : ICompressor
@@ -69,7 +72,10 @@ namespace WebMarkupMin.AspNet.Brotli
 		/// <returns>The compressed stream</returns>
 		public Stream Compress(Stream stream)
 		{
-#if NETSTANDARD2_1 || NET6_0_OR_GREATER
+#if NET9_0_OR_GREATER
+			var compressionOptions = new BrotliCompressionOptions { Quality = _settings.Level };
+			var brotliStream = new BrotliStream(stream, compressionOptions);
+#elif NETSTANDARD2_1
 			CompressionLevel compressionLevel = ConvertCompressionLevelNumberToEnum(_settings.Level);
 			var brotliStream = new BrotliStream(stream, compressionLevel);
 #else
@@ -79,7 +85,7 @@ namespace WebMarkupMin.AspNet.Brotli
 
 			return brotliStream;
 		}
-#if NETSTANDARD2_1 || NET6_0_OR_GREATER
+#if NETSTANDARD2_1 && !NET9_0_OR_GREATER
 
 		/// <summary>
 		/// Converts a numeric representation of the compression level to an enum
@@ -89,40 +95,52 @@ namespace WebMarkupMin.AspNet.Brotli
 		/// <exception cref="NotSupportedException"/>
 		private static CompressionLevel ConvertCompressionLevelNumberToEnum(int level)
 		{
-			CompressionLevel levelEnum;
-
-			switch (level)
+			if (level < BrotliCompressionLevelConstants.Min || level > BrotliCompressionLevelConstants.Max)
 			{
-				case 0:
-					levelEnum = CompressionLevel.NoCompression;
-					break;
-				case 1:
-				case 2:
-					levelEnum = CompressionLevel.Fastest;
-					break;
-#if NET7_0_OR_GREATER
-				case int n when n >= 3 && n <= 9:
-					levelEnum = CompressionLevel.Optimal;
-					break;
-				case 10:
-				case 11:
-					levelEnum = CompressionLevel.SmallestSize;
-					break;
-#elif NET6_0
-				case 3:
-					levelEnum = (CompressionLevel)4;
-					break;
-				case int n when n >= 4 && n <= 11:
-					levelEnum = (CompressionLevel)level;
-					break;
-#else
+				throw new NotSupportedException();
+			}
 
-				case int n when n >= 3 && n <= 11:
-					levelEnum = (CompressionLevel)level;
-					break;
-#endif
-				default:
-					throw new NotSupportedException();
+			if (level == BrotliCompressionLevelConstants.Min)
+			{
+				return CompressionLevel.NoCompression;
+			}
+
+			if (level == 1 || level == 2)
+			{
+				return CompressionLevel.Fastest;
+			}
+
+			CompressionLevel levelEnum = CompressionLevel.NoCompression;
+			int majorVersion = Environment.Version.Major;
+
+			if (majorVersion >= 7)
+			{
+				switch (level)
+				{
+					case int n when n >= 3 && n <= 9:
+						levelEnum = CompressionLevel.Optimal;
+						break;
+					case 10:
+					case BrotliCompressionLevelConstants.Max:
+						levelEnum = (CompressionLevel)3 /* SmallestSize */;
+						break;
+				}
+			}
+			else if (majorVersion == 6)
+			{
+				switch (level)
+				{
+					case 3:
+						levelEnum = (CompressionLevel)4;
+						break;
+					case int n when n >= 4 && n <= BrotliCompressionLevelConstants.Max:
+						levelEnum = (CompressionLevel)level;
+						break;
+				}
+			}
+			else
+			{
+				levelEnum = (CompressionLevel)level;
 			}
 
 			return levelEnum;

@@ -10,16 +10,6 @@ namespace WebMarkupMin.AspNet.Brotli
 	public sealed class BrotliCompressionSettings
 	{
 		/// <summary>
-		/// The minimum compression level
-		/// </summary>
-		private const int MIN_COMPRESSION_LEVEL = 0;
-
-		/// <summary>
-		/// The maximum compression level
-		/// </summary>
-		private const int MAX_COMPRESSION_LEVEL = 11;
-
-		/// <summary>
 		/// Compression level
 		/// </summary>
 		private int _level;
@@ -27,17 +17,21 @@ namespace WebMarkupMin.AspNet.Brotli
 		/// <summary>
 		/// Gets or sets a compression level
 		/// </summary>
+		/// <remarks>
+		/// The higher the level, the slower the compression. Range is from 0 to 11. The default value is 4.
+		/// </remarks>
+		/// <exception cref="ArgumentOutOfRangeException">The value is less than 0 or greater than 9.</exception>
 		public int Level
 		{
 			get { return _level; }
 			set
 			{
-				if (value < MIN_COMPRESSION_LEVEL || value > MAX_COMPRESSION_LEVEL)
+				if (value < BrotliCompressionLevelConstants.Min || value > BrotliCompressionLevelConstants.Max)
 				{
 					throw new ArgumentOutOfRangeException(
 						nameof(value),
 						string.Format(Strings.CompressionLevelOutOfRange,
-							MIN_COMPRESSION_LEVEL, MAX_COMPRESSION_LEVEL)
+							BrotliCompressionLevelConstants.Min, BrotliCompressionLevelConstants.Max)
 					);
 				}
 
@@ -51,7 +45,7 @@ namespace WebMarkupMin.AspNet.Brotli
 		/// </summary>
 		public BrotliCompressionSettings()
 		{
-			Level = 5;
+			Level = BrotliCompressionLevelConstants.Default;
 		}
 	}
 }

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Product>Web Markup Minifier: Brotli for ASP.NET</Product>
     <VersionPrefix>2.17.0</VersionPrefix>
-    <TargetFrameworks>net40;net45;netstandard1.3;netstandard2.0;netstandard2.1;net6.0;net7.0</TargetFrameworks>
+    <TargetFrameworks>net40;net45;netstandard1.3;netstandard2.0;netstandard2.1;net9.0</TargetFrameworks>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>$(NoWarn);CS1591;NETSDK1215;NU1903</NoWarn>
@@ -18,6 +18,9 @@
   <PropertyGroup>
     <Description>WebMarkupMin.AspNet.Brotli contains one compressor-adapter for compression of text content by using the Brotli algorithm - `BrotliCompressor`. `BrotliCompressor` is based on the BrotliSharpLib.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Compression;Brotli</PackageTags>
+    <PackageReleaseNotes>1. Added support for .NET 9.0 RC 2;
+2. Removed a .NET 6 and .NET 7 targets;
+3. In compression settings was changed a default value of the `Level` property from `5` to `4`.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,5 +1,7 @@
-﻿using System;
+﻿#if NETSTANDARD2_1 || NET9_0_OR_GREATER
+using System;
 
+#endif
 using WebMarkupMin.AspNet.Common.Compressors;
 
 namespace WebMarkupMin.AspNet.Brotli
@@ -7,7 +9,7 @@ namespace WebMarkupMin.AspNet.Brotli
 	/// <summary>
 	/// Brotli compressor factory
 	/// </summary>
-#if NETSTANDARD2_1 || NET6_0_OR_GREATER
+#if NETSTANDARD2_1 || NET9_0_OR_GREATER
 	[Obsolete("Use a `BuiltInBrotliCompressorFactory` class from `WebMarkupMin.AspNet.Common.Compressors` namespace")]
 #endif
 	public sealed class BrotliCompressorFactory : ICompressorFactory
