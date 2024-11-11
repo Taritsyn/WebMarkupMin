@@ -1,4 +1,4 @@
-﻿#if NETSTANDARD2_1
+﻿#if NETSTANDARD2_1 || NET9_0_OR_GREATER
 using System.IO;
 using System.IO.Compression;
 
@@ -60,7 +60,14 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		/// <returns>The compressed stream</returns>
 		public Stream Compress(Stream stream)
 		{
-			return new BrotliStream(stream, _settings.Level);
+#if NET9_0_OR_GREATER
+			BrotliCompressionOptions compressionOptions = _settings.GetOptions();
+			var brotliStream = new BrotliStream(stream, compressionOptions);
+#else
+			var brotliStream = new BrotliStream(stream, _settings.Level);
+#endif
+
+			return brotliStream;
 		}
 	}
 }

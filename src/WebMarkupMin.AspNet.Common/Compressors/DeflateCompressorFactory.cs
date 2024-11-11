@@ -5,7 +5,7 @@
 	/// </summary>
 	public sealed class DeflateCompressorFactory : ICompressorFactory
 	{
-#if NET45 || NETSTANDARD
+#if NET45 || NETSTANDARD || NET9_0_OR_GREATER
 		/// <summary>
 		/// Gets or sets a compression settings used to configure the deflate compressor
 		/// </summary>
@@ -24,7 +24,7 @@
 			get { return DeflateCompressor.CompressorEncodingToken; }
 		}
 
-#if NET45 || NETSTANDARD
+#if NET45 || NETSTANDARD || NET9_0_OR_GREATER
 
 		/// <summary>
 		/// Constructs an instance of the deflate compressor factory
@@ -50,7 +50,7 @@
 		/// <returns>Instance of deflate compressor</returns>
 		public ICompressor CreateCompressor()
 		{
-#if NET45 || NETSTANDARD
+#if NET45 || NETSTANDARD || NET9_0_OR_GREATER
 			return new DeflateCompressor(CompressionSettings);
 #else
 			return new DeflateCompressor();

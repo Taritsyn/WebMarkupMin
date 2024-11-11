@@ -1,4 +1,4 @@
-﻿#if NETSTANDARD2_1 || NET9_0_OR_GREATER
+﻿#if NET45 || NETSTANDARD || NET9_0_OR_GREATER
 #if NET9_0_OR_GREATER
 using System;
 #endif
@@ -11,9 +11,9 @@ using WebMarkupMin.AspNet.Common.Resources;
 namespace WebMarkupMin.AspNet.Common.Compressors
 {
 	/// <summary>
-	/// Brotli compression settings
+	/// Base class of the ZLib compression settings
 	/// </summary>
-	public sealed class BuiltInBrotliCompressionSettings
+	public abstract class ZLibCompressionSettingsBase
 	{
 #if NET9_0_OR_GREATER
 		/// <summary>
@@ -24,12 +24,12 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		/// <summary>
 		/// The maximum compression level
 		/// </summary>
-		private const int MAX_ALT_COMPRESSION_LEVEL = 11;
+		private const int MAX_ALT_COMPRESSION_LEVEL = 9;
 
 		/// <summary>
 		/// Compression options
 		/// </summary>
-		private BrotliCompressionOptions _options = new();
+		private ZLibCompressionOptions _options = new();
 
 #endif
 		/// <summary>
@@ -40,11 +40,11 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 #if NET9_0_OR_GREATER
 			get
 			{
-				return ConvertCompressionLevelNumberToEnum(_options.Quality);
+				return ConvertCompressionLevelNumberToEnum(_options.CompressionLevel);
 			}
 			set
 			{
-				_options.Quality = ConvertCompressionLevelEnumToNumber(value);
+				_options.CompressionLevel = ConvertCompressionLevelEnumToNumber(value);
 			}
 #else
 			get;
@@ -57,14 +57,14 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		/// Gets or sets a alternative compression level
 		/// </summary>
 		/// <remarks>
-		/// The higher the level, the slower the compression. Range is from 0 to 11. The default value is 4.
+		/// The higher the level, the slower the compression. Range is from 0 to 9. The default value is 6.
 		/// </remarks>
-		/// <exception cref="ArgumentOutOfRangeException">The value is less than 0 or greater than 11.</exception>
+		/// <exception cref="ArgumentOutOfRangeException">The value is less than 0 or greater than 9.</exception>
 		public int AlternativeLevel
 		{
 			get
 			{
-				return _options.Quality;
+				return _options.CompressionLevel;
 			}
 			set
 			{
@@ -77,16 +77,16 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 					);
 				}
 
-				_options.Quality = value;
+				_options.CompressionLevel = value;
 			}
 		}
 #endif
 
 
 		/// <summary>
-		/// Constructs an instance of the brotli compression settings
+		/// Constructs an instance of the ZLib compression settings
 		/// </summary>
-		public BuiltInBrotliCompressionSettings()
+		protected ZLibCompressionSettingsBase()
 		{
 			Level = CompressionLevel.Optimal;
 		}
@@ -112,7 +112,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 					levelNumber = 1;
 					break;
 				case CompressionLevel.Optimal:
-					levelNumber = 4;
+					levelNumber = 6;
 					break;
 				case CompressionLevel.SmallestSize:
 					levelNumber = MAX_ALT_COMPRESSION_LEVEL;
@@ -143,10 +143,10 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 				case 2:
 					levelEnum = CompressionLevel.Fastest;
 					break;
-				case int n when n >= 3 && n <= 9:
+				case int n when n >= 3 && n <= 7:
 					levelEnum = CompressionLevel.Optimal;
 					break;
-				case 10:
+				case 8:
 				case MAX_ALT_COMPRESSION_LEVEL:
 					levelEnum = CompressionLevel.SmallestSize;
 					break;
@@ -162,7 +162,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		/// Gets a compression options
 		/// </summary>
 		/// <returns>Compression options</returns>
-		internal BrotliCompressionOptions GetOptions()
+		internal ZLibCompressionOptions GetOptions()
 		{
 			return _options;
 		}

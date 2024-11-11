@@ -1,30 +1,16 @@
-﻿#if NET45 || NETSTANDARD
-using System.IO.Compression;
-
+﻿#if NET45 || NETSTANDARD || NET9_0_OR_GREATER
 namespace WebMarkupMin.AspNet.Common.Compressors
 {
 	/// <summary>
 	/// GZip compression settings
 	/// </summary>
-	public sealed class GZipCompressionSettings
+	public sealed class GZipCompressionSettings : ZLibCompressionSettingsBase
 	{
-		/// <summary>
-		/// Gets or sets a compression level
-		/// </summary>
-		public CompressionLevel Level
-		{
-			get;
-			set;
-		}
-
-
 		/// <summary>
 		/// Constructs an instance of the GZip compression settings
 		/// </summary>
-		public GZipCompressionSettings()
-		{
-			Level = CompressionLevel.Optimal;
-		}
+		public GZipCompressionSettings() : base()
+		{ }
 	}
 }
 #endif

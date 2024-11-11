@@ -15,6 +15,12 @@
    interfaces for all ASP.NET extensions.
 
    =============
+   RELEASE NOTES
+   =============
+   In GZip, Deflate and Brotli compression settings for .NET 9.0 was added one new
+   property - `AlternativeLevel`.
+
+   =============
    DOCUMENTATION
    =============
    See documentation on GitHub - https://github.com/Taritsyn/WebMarkupMin/wiki

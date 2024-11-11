@@ -12,7 +12,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		/// Encoding token of compressor
 		/// </summary>
 		public const string CompressorEncodingToken = "deflate";
-#if NET45 || NETSTANDARD
+#if NET45 || NETSTANDARD || NET9_0_OR_GREATER
 
 		/// <summary>
 		/// Deflate compression settings
@@ -37,7 +37,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 			{
 #if NETFRAMEWORK
 				return false;
-#elif NETSTANDARD
+#elif NETSTANDARD || NET9_0_OR_GREATER
 				return true;
 #else
 #error No implementation for this target
@@ -45,7 +45,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 			}
 		}
 
-#if NET45 || NETSTANDARD
+#if NET45 || NETSTANDARD || NET9_0_OR_GREATER
 
 		/// <summary>
 		/// Constructs an instance of the deflate compressor
@@ -72,11 +72,16 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		/// <returns>The compressed stream</returns>
 		public Stream Compress(Stream stream)
 		{
-#if NET45 || NETSTANDARD
-			return new DeflateStream(stream, _settings.Level);
+#if NET9_0_OR_GREATER
+			ZLibCompressionOptions compressionOptions = _settings.GetOptions();
+			var deflateStream = new DeflateStream(stream, compressionOptions);
+#elif NET45 || NETSTANDARD
+			var deflateStream = new DeflateStream(stream, _settings.Level);
 #else
-			return new DeflateStream(stream, CompressionMode.Compress);
+			var deflateStream = new DeflateStream(stream, CompressionMode.Compress);
 #endif
+
+			return deflateStream;
 		}
 	}
 }

@@ -73,7 +73,7 @@ namespace WebMarkupMin.AspNet.Brotli
 		public Stream Compress(Stream stream)
 		{
 #if NET9_0_OR_GREATER
-			var compressionOptions = new BrotliCompressionOptions { Quality = _settings.Level };
+			BrotliCompressionOptions compressionOptions = _settings.GetOptions();
 			var brotliStream = new BrotliStream(stream, compressionOptions);
 #elif NETSTANDARD2_1
 			CompressionLevel compressionLevel = ConvertCompressionLevelNumberToEnum(_settings.Level);

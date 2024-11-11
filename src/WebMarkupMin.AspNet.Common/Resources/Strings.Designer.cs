@@ -58,6 +58,14 @@ namespace WebMarkupMin.AspNet.Common.Resources
 		}
 
 		/// <summary>
+		/// Looks up a localized string similar to "Alternative compression level should be a value between {0}-{1}."
+		/// </summary>
+		public static string AlternativeCompressionLevelOutOfRange
+		{
+			get { return GetString("AlternativeCompressionLevelOutOfRange"); }
+		}
+
+		/// <summary>
 		/// Looks up a localized string similar to "Can not apply markup minification to text content, that was encoded in the '{0}' format."
 		/// </summary>
 		public static string MarkupMinificationIsNotApplicableToEncodedContent

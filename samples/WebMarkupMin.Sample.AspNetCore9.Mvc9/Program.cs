@@ -39,15 +39,15 @@ services.AddWebMarkupMin(options =>
 		{
 			new BuiltInBrotliCompressorFactory(new BuiltInBrotliCompressionSettings
 			{
-				Level = CompressionLevel.Fastest
+				AlternativeLevel = 2
 			}),
 			new DeflateCompressorFactory(new DeflateCompressionSettings
 			{
-				Level = CompressionLevel.Fastest
+				AlternativeLevel = 2
 			}),
 			new GZipCompressorFactory(new GZipCompressionSettings
 			{
-				Level = CompressionLevel.Fastest
+				AlternativeLevel = 2
 			})
 		};
 	})
