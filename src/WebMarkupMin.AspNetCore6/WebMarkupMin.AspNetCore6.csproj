@@ -22,11 +22,11 @@
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
     <PackageReleaseNotes>1. Services required by WebMarkupMin are now conditionally registered using the `TryAdd` methods;
 2. Added a `AspNetCoreLogger` class, which is a wrapper around the standard ASP.NET Core logger;
-3. Added support for the ASP.NET Core 6.0.35.</PackageReleaseNotes>
+3. Added support for the ASP.NET Core 6.0.36.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="6.0.35" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="6.0.36" />
 
     <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha7" PrivateAssets="All" />
 

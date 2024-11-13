@@ -21,7 +21,7 @@
       `TryAdd` methods;
    2. Added a `AspNetCoreLogger` class, which is a wrapper around the standard
       ASP.NET Core logger;
-   3. Added support for the ASP.NET Core 6.0.35.
+   3. Added support for the ASP.NET Core 6.0.36.
 
    =============
    DOCUMENTATION
