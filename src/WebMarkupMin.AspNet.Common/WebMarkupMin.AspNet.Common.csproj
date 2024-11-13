@@ -20,7 +20,7 @@
   <PropertyGroup>
     <Description>WebMarkupMin.AspNet.Common is auxiliary package, that contains classes and interfaces for all ASP.NET extensions.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;XML</PackageTags>
-    <PackageReleaseNotes>In GZip, Deflate and Brotli compression settings for .NET 9.0 was added one new property - `AlternativeLevel`.</PackageReleaseNotes>
+    <PackageReleaseNotes>In GZip, Deflate and Brotli compression settings for .NET 9 was added one new property - `AlternativeLevel`.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

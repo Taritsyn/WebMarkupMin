@@ -20,6 +20,7 @@
   <PropertyGroup>
     <Description>WebMarkupMin.AspNetCoreLatest contains one Middleware for ASP.NET Core 8 and 9 - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
+    <PackageReleaseNotes>Added support for the ASP.NET Core 9.0.0.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
-    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="9.0.0-rc.2.24473.5" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>

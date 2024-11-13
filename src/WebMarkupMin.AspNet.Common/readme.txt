@@ -17,7 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   In GZip, Deflate and Brotli compression settings for .NET 9.0 was added one new
+   In GZip, Deflate and Brotli compression settings for .NET 9 was added one new
    property - `AlternativeLevel`.
 
    =============

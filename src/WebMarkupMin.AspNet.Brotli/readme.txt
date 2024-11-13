@@ -27,7 +27,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Added support for .NET 9.0 RC 2;
+   1. Added support for .NET 9;
    2. Removed a .NET 6 and .NET 7 targets;
    3. In compression settings was changed a default value of the `Level` property
       from `5` to `4`.
