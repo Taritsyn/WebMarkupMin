@@ -37,6 +37,9 @@ namespace WebMarkupMin.Sample.AspNetCore5.Mvc5
 			// Add response caching service.
 			services.AddResponseCaching();
 
+			// Override the default logger for WebMarkupMin.
+			services.AddSingleton<IWmmLogger, WmmAspNetCoreLogger>();
+
 			// Add WebMarkupMin services to the services container.
 			services.AddWebMarkupMin(options =>
 			{
@@ -72,9 +75,6 @@ namespace WebMarkupMin.Sample.AspNetCore5.Mvc5
 					};
 				})
 				;
-
-			// Override the default logger for WebMarkupMin.
-			services.AddSingleton<IWmmLogger, WmmAspNetCoreLogger>();
 
 			services.AddControllersWithViews();
 		}

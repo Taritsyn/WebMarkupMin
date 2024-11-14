@@ -37,6 +37,9 @@ namespace WebMarkupMin.Sample.AspNetCore31.Mvc31
 			// Add response caching service.
 			services.AddResponseCaching();
 
+			// Override the default logger for WebMarkupMin.
+			services.AddSingleton<IWmmLogger, WmmAspNetCoreLogger>();
+
 			// Add WebMarkupMin services to the services container.
 			services.AddWebMarkupMin(options =>
 			{
@@ -72,9 +75,6 @@ namespace WebMarkupMin.Sample.AspNetCore31.Mvc31
 					};
 				})
 				;
-
-			// Override the default logger for WebMarkupMin.
-			services.AddSingleton<IWmmLogger, WmmAspNetCoreLogger>();
 
 			services.AddControllersWithViews();
 		}

@@ -1,6 +1,23 @@
 Change log
 ==========
 
+## v2.18.0 - November 14, 2024
+ * In WebMarkupMin.NUglify added support for the NUglify version 1.21.10
+ * In ASP.NET Core extensions:
+   * Services required by WebMarkupMin are now conditionally registered using the `TryAdd` methods
+   * Added a `AspNetCoreLogger` class, which is a wrapper around the standard ASP.NET Core logger
+   * Created the WebMarkupMin.AspNetCoreLatest module, that contains middleware for the ASP.NET Core 8 and 9
+   * 3 packages have been deprecated:
+     * WebMarkupMin.AspNetCore5 package replaced by the WebMarkupMin.AspNetCore3 package
+     * WebMarkupMin.AspNetCore7 package replaced by the WebMarkupMin.AspNetCore6 package
+     * WebMarkupMin.AspNetCore8 package replaced by the WebMarkupMin.AspNetCoreLatest package
+   * In GZip, Deflate and Brotli compression settings for .NET 9 was added one new property - `AlternativeLevel`
+ * In WebMarkupMin.AspNetCore6 added support for the ASP.NET Core 6.0.36
+ * In WebMarkupMin.AspNet.Brotli:
+   * Added support for .NET 9
+   * Removed a .NET 6 and .NET 7 targets
+   * In compression settings was changed a default value of the `Level` property from `5` to `4`
+
 ## v2.18.0 RC 1 - November 11, 2024
  * In ASP.NET Core extensions:
    * Services required by WebMarkupMin are now conditionally registered using the `TryAdd` methods

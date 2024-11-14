@@ -3,7 +3,6 @@
   <PropertyGroup>
     <Product>Web Markup Minifier: ASP.NET Core Latest</Product>
     <VersionPrefix>2.18.0</VersionPrefix>
-    <VersionSuffix>rc1</VersionSuffix>
     <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
     <OutputType>Library</OutputType>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>

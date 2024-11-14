@@ -60,6 +60,9 @@ namespace WebMarkupMin.Sample.AspNetCore21.Mvc21
 		{
 			services.AddSingleton(Configuration);
 
+			// Override the default logger for WebMarkupMin.
+			services.AddSingleton<IWmmLogger, WmmAspNetCoreLogger>();
+
 			// Add response caching service.
 			services.AddResponseCaching();
 
@@ -125,9 +128,6 @@ namespace WebMarkupMin.Sample.AspNetCore21.Mvc21
 					};
 				})
 				;
-
-			// Override the default logger for WebMarkupMin.
-			services.AddSingleton<IWmmLogger, WmmAspNetCoreLogger>();
 
 			services.Configure<CookiePolicyOptions>(options =>
 			{

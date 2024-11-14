@@ -17,6 +17,9 @@ IServiceCollection services = builder.Services;
 // Add response caching service.
 services.AddResponseCaching();
 
+// Override the default logger for WebMarkupMin.
+services.AddSingleton<IWmmLogger, WmmAspNetCoreLogger>();
+
 // Add WebMarkupMin services to the services container.
 services.AddWebMarkupMin(options =>
 {
@@ -52,9 +55,6 @@ services.AddWebMarkupMin(options =>
 		};
 	})
 	;
-
-// Override the default logger for WebMarkupMin.
-services.AddSingleton<IWmmLogger, WmmAspNetCoreLogger>();
 
 services.AddControllersWithViews();
 

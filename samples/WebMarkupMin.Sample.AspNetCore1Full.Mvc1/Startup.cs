@@ -61,6 +61,9 @@ namespace WebMarkupMin.Sample.AspNetCore1Full.Mvc1
 		{
 			services.AddSingleton(Configuration);
 
+			// Override the default logger for WebMarkupMin.
+			services.AddSingleton<IWmmLogger, WmmAspNetCoreLogger>();
+
 			// Add WebMarkupMin services to the services container.
 			services.AddWebMarkupMin(options =>
 			{
@@ -123,9 +126,6 @@ namespace WebMarkupMin.Sample.AspNetCore1Full.Mvc1
 					};
 				})
 				;
-
-			// Override the default logger for WebMarkupMin.
-			services.AddSingleton<IWmmLogger, WmmAspNetCoreLogger>();
 
 			// Add framework services.
 			var manager = new ApplicationPartManager();
