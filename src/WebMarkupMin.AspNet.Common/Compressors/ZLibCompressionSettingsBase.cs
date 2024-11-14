@@ -14,6 +14,11 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 	/// Base class of the ZLib compression settings
 	/// </summary>
 	public abstract class ZLibCompressionSettingsBase
+#if NET9_0_OR_GREATER
+		: CommonCompressionSettingsBase<ZLibCompressionOptions>
+#else
+		: CommonCompressionSettingsBase
+#endif
 	{
 #if NET9_0_OR_GREATER
 		/// <summary>
@@ -26,16 +31,9 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		/// </summary>
 		private const int MAX_ALT_COMPRESSION_LEVEL = 9;
 
-		/// <summary>
-		/// Compression options
-		/// </summary>
-		private ZLibCompressionOptions _options = new();
-
 #endif
-		/// <summary>
-		/// Gets or sets a compression level
-		/// </summary>
-		public CompressionLevel Level
+		/// <inheritdoc/>
+		public override CompressionLevel Level
 		{
 #if NET9_0_OR_GREATER
 			get
@@ -53,14 +51,12 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		}
 #if NET9_0_OR_GREATER
 
-		/// <summary>
-		/// Gets or sets a alternative compression level
-		/// </summary>
+		/// <inheritdoc/>
 		/// <remarks>
 		/// The higher the level, the slower the compression. Range is from 0 to 9. The default value is 6.
 		/// </remarks>
 		/// <exception cref="ArgumentOutOfRangeException">The value is less than 0 or greater than 9.</exception>
-		public int AlternativeLevel
+		public override int AlternativeLevel
 		{
 			get
 			{
@@ -80,17 +76,6 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 				_options.CompressionLevel = value;
 			}
 		}
-#endif
-
-
-		/// <summary>
-		/// Constructs an instance of the ZLib compression settings
-		/// </summary>
-		protected ZLibCompressionSettingsBase()
-		{
-			Level = CompressionLevel.Optimal;
-		}
-#if NET9_0_OR_GREATER
 
 
 		/// <summary>
@@ -101,25 +86,14 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		/// <exception cref="NotSupportedException"/>
 		private static int ConvertCompressionLevelEnumToNumber(CompressionLevel level)
 		{
-			int levelNumber;
-
-			switch (level)
+			int levelNumber = level switch
 			{
-				case CompressionLevel.NoCompression:
-					levelNumber = MIN_ALT_COMPRESSION_LEVEL;
-					break;
-				case CompressionLevel.Fastest:
-					levelNumber = 1;
-					break;
-				case CompressionLevel.Optimal:
-					levelNumber = 6;
-					break;
-				case CompressionLevel.SmallestSize:
-					levelNumber = MAX_ALT_COMPRESSION_LEVEL;
-					break;
-				default:
-					throw new NotSupportedException();
-			}
+				CompressionLevel.NoCompression => MIN_ALT_COMPRESSION_LEVEL,
+				CompressionLevel.Fastest => 1,
+				CompressionLevel.Optimal => 6,
+				CompressionLevel.SmallestSize => MAX_ALT_COMPRESSION_LEVEL,
+				_ => throw new NotSupportedException()
+			};
 
 			return levelNumber;
 		}
@@ -132,39 +106,16 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		/// <exception cref="NotSupportedException"/>
 		private static CompressionLevel ConvertCompressionLevelNumberToEnum(int level)
 		{
-			CompressionLevel levelEnum;
-
-			switch (level)
+			CompressionLevel levelEnum = level switch
 			{
-				case MIN_ALT_COMPRESSION_LEVEL:
-					levelEnum = CompressionLevel.NoCompression;
-					break;
-				case 1:
-				case 2:
-					levelEnum = CompressionLevel.Fastest;
-					break;
-				case int n when n >= 3 && n <= 7:
-					levelEnum = CompressionLevel.Optimal;
-					break;
-				case 8:
-				case MAX_ALT_COMPRESSION_LEVEL:
-					levelEnum = CompressionLevel.SmallestSize;
-					break;
-				default:
-					throw new NotSupportedException();
-			}
+				MIN_ALT_COMPRESSION_LEVEL => CompressionLevel.NoCompression,
+				int n when n == 1 || n == 2 => CompressionLevel.Fastest,
+				int n when n >= 3 && n <= 7 => CompressionLevel.Optimal,
+				int n when n == 8 || n == MAX_ALT_COMPRESSION_LEVEL => CompressionLevel.SmallestSize,
+				_ => throw new NotSupportedException()
+			};
 
 			return levelEnum;
-		}
-
-
-		/// <summary>
-		/// Gets a compression options
-		/// </summary>
-		/// <returns>Compression options</returns>
-		internal ZLibCompressionOptions GetOptions()
-		{
-			return _options;
 		}
 #endif
 	}
