@@ -59,8 +59,8 @@
     <Reference Include="BundleTransformer.Less, Version=1.14.0.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
       <HintPath>..\..\packages\BundleTransformer.Less.1.14.0\lib\net40\BundleTransformer.Less.dll</HintPath>
     </Reference>
-    <Reference Include="BundleTransformer.NUglify, Version=1.14.0.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\BundleTransformer.NUglify.1.14.0\lib\net40\BundleTransformer.NUglify.dll</HintPath>
+    <Reference Include="BundleTransformer.NUglify, Version=1.15.2.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\BundleTransformer.NUglify.1.15.2\lib\net40\BundleTransformer.NUglify.dll</HintPath>
     </Reference>
     <Reference Include="JavaScriptEngineSwitcher.Core, Version=3.24.1.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
       <HintPath>..\..\packages\JavaScriptEngineSwitcher.Core.3.24.1\lib\net45\JavaScriptEngineSwitcher.Core.dll</HintPath>
@@ -83,8 +83,8 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NUglify, Version=1.21.10.0, Culture=neutral, PublicKeyToken=15bc7810aec21b5e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUglify.1.21.10\lib\net40\NUglify.dll</HintPath>
+    <Reference Include="NUglify, Version=1.21.11.0, Culture=neutral, PublicKeyToken=15bc7810aec21b5e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUglify.1.21.11\lib\net40\NUglify.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

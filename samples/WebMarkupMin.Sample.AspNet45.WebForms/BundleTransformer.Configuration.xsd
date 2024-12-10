@@ -618,11 +618,6 @@
         <xs:documentation>Version number of TypeScript for which deprecation warnings should be ignored</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="keyofStringsOnly" type="Boolean_SchemaType" use="optional" default="false">
-      <xs:annotation>
-        <xs:documentation>Flag for whether to make keyof only return strings instead of string, numbers or symbols. Legacy option.</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
     <xs:attribute name="newLine" use="optional" default="CrLf">
       <xs:annotation>
         <xs:documentation>Newline character for emitting files</xs:documentation>
@@ -633,6 +628,11 @@
           <xs:enumeration value="Lf" />
         </xs:restriction>
       </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="noCheck" type="Boolean_SchemaType" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>Flag for whether to disable full type checking (only critical parse and emit errors will be reported)</xs:documentation>
+      </xs:annotation>
     </xs:attribute>
     <xs:attribute name="noEmit" type="Boolean_SchemaType" use="optional" default="false">
       <xs:annotation>
@@ -694,11 +694,6 @@
         <xs:documentation>Flag for whether to disallow `import`s, `require`s or `&lt;reference&gt;`s from expanding the number of files TypeScript should add to a project</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="noStrictGenericChecks" type="Boolean_SchemaType" use="optional" default="false">
-      <xs:annotation>
-        <xs:documentation>Flag for whether to disable strict checking of generic signatures in function types</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
     <xs:attribute name="noUncheckedIndexedAccess" type="Boolean_SchemaType" use="optional" default="false">
       <xs:annotation>
         <xs:documentation>Flag for whether to add `undefined` to a type when accessed using an index</xs:documentation>
@@ -739,14 +734,19 @@
         <xs:documentation>Flag for whether to check that the arguments for `bind`, `call`, and `apply` methods match the original function</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="strictNullChecks" type="Boolean_SchemaType" use="optional" default="false">
+    <xs:attribute name="strictBuiltinIteratorReturn" type="Boolean_SchemaType" use="optional" default="false">
       <xs:annotation>
-        <xs:documentation>Flag for whether to take into account `null` and `undefined` when type checking</xs:documentation>
+        <xs:documentation>Flag for whether to instantiate built-in iterators with a `TReturn` type of `undefined` instead of `any`</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="strictFunctionTypes" type="Boolean_SchemaType" use="optional" default="false">
       <xs:annotation>
         <xs:documentation>Flag for whether to check to ensure parameters and the return values are subtype-compatible when assigning functions</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="strictNullChecks" type="Boolean_SchemaType" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>Flag for whether to take into account `null` and `undefined` when type checking</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="strictPropertyInitialization" type="Boolean_SchemaType" use="optional" default="false">
@@ -757,16 +757,6 @@
     <xs:attribute name="stripInternal" type="Boolean_SchemaType" use="optional" default="false">
       <xs:annotation>
         <xs:documentation>Flag for whether to disable emitting declarations that have `@internal` in their JSDoc comments</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-    <xs:attribute name="suppressExcessPropertyErrors" type="Boolean_SchemaType" use="optional" default="false">
-      <xs:annotation>
-        <xs:documentation>Flag for whether to disable reporting of excess property errors during the creation of object literals</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-    <xs:attribute name="suppressImplicitAnyIndexErrors" type="Boolean_SchemaType" use="optional" default="false">
-      <xs:annotation>
-        <xs:documentation>Flag for whether to suppress `noImplicitAny` errors when indexing objects that lack index signatures</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="suppressTypeCheckingErrors" type="Boolean_SchemaType" use="optional" default="false">
@@ -780,7 +770,6 @@
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:NMTOKEN">
-          <xs:enumeration value="EcmaScript3" />
           <xs:enumeration value="EcmaScript5" />
           <xs:enumeration value="EcmaScript6" />
           <xs:enumeration value="EcmaScript2015" />
@@ -791,6 +780,8 @@
           <xs:enumeration value="EcmaScript2020" />
           <xs:enumeration value="EcmaScript2021" />
           <xs:enumeration value="EcmaScript2022" />
+          <xs:enumeration value="EcmaScript2023" />
+          <xs:enumeration value="EcmaScript2024" />
           <xs:enumeration value="EcmaScriptNext" />
         </xs:restriction>
       </xs:simpleType>
