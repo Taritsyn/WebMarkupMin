@@ -17,10 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Services required by WebMarkupMin are now conditionally registered using the
-      `TryAdd` methods;
-   2. Added a `AspNetCoreLogger` class, which is a wrapper around the standard
-      ASP.NET Core logger.
+   Fixed a error in the `AspNetCoreLogger` class.
 
    =============
    DOCUMENTATION

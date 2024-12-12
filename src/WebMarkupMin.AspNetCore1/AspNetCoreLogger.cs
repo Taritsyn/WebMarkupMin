@@ -79,6 +79,11 @@ Minification duration: {MinificationDuration:N0} ms";
 		/// <returns>Source line</returns>
 		private static string GetSourceLineFromFragment(string sourceFragment, int lineNumber)
 		{
+			if (string.IsNullOrWhiteSpace(sourceFragment))
+			{
+				return string.Empty;
+			}
+
 			string linePrefix = string.Format("Line {0}: ", lineNumber);
 			int lineBeginPosition = sourceFragment.IndexOf(linePrefix, StringComparison.Ordinal);
 
@@ -93,9 +98,9 @@ Minification duration: {MinificationDuration:N0} ms";
 
 			int newLinePosition = sourceFragment.IndexOfAny(_newLineChars, lineContentBeginPosition);
 			int lineContentLength = newLinePosition != -1 ?
-				newLinePosition - linePrefixLength
+				newLinePosition - lineContentBeginPosition
 				:
-				sourceFragment.Length - linePrefixLength
+				sourceFragment.Length - lineContentBeginPosition
 				;
 
 			string sourceLine = sourceFragment.Substring(lineContentBeginPosition, lineContentLength);

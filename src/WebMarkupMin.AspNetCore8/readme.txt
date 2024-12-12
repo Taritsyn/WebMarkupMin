@@ -17,7 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   This package has been replaced by the WebMarkupMin.AspNetCoreLatest package.
+   Fixed a error in the `AspNetCoreLogger` class.
 
    =============
    DOCUMENTATION

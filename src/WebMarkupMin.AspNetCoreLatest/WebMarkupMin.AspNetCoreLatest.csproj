@@ -19,7 +19,7 @@
   <PropertyGroup>
     <Description>WebMarkupMin.AspNetCoreLatest contains one Middleware for ASP.NET Core 8 and 9 - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
-    <PackageReleaseNotes>Added support for the ASP.NET Core 8.0.11 and 9.0.0.</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixed a error in the `AspNetCoreLogger` class.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
