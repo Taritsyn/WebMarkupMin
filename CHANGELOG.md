@@ -1,6 +1,10 @@
 Change log
 ==========
 
+## v2.18.1 - December 12, 2024
+ * In WebMarkupMin.NUglify added support for the NUglify version 1.21.11
+ * In ASP.NET Core extensions, fixed a error in the `AspNetCoreLogger` class
+
 ## v2.18.0 - November 14, 2024
  * In WebMarkupMin.NUglify added support for the NUglify version 1.21.10
  * In ASP.NET Core extensions:
