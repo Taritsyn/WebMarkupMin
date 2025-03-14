@@ -17,7 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a error in the `AspNetCoreLogger` class.
+   Added support for the ASP.NET Core 8.0.14 and 9.0.3.
 
    =============
    DOCUMENTATION
