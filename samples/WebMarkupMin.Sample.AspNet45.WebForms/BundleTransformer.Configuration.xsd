@@ -504,6 +504,19 @@
         <xs:documentation>Flag for whether to allow the use of native minification</xs:documentation>
       </xs:annotation>
     </xs:attribute>
+    <xs:attribute name="fatalDeprecations" type="xs:string" use="optional" default="">
+      <xs:annotation>
+        <xs:documentation>Comma-separated list of deprecations to treat as fatal.
+If a deprecation warning of any provided ID is encountered during compilation, the compiler will error instead.
+If a version is provided, then all deprecations that were active in that compiler version will be treated as fatal.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="futureDeprecations" type="xs:string" use="optional" default="">
+      <xs:annotation>
+        <xs:documentation>Comma-separated list of future deprecations to opt into early.
+Future deprecations, whose IDs have been passed here, will be treated as active by the compiler, emitting warnings as necessary.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
     <xs:attribute name="indentType" use="optional" default="Space">
       <xs:annotation>
         <xs:documentation>Indent type</xs:documentation>
@@ -538,6 +551,17 @@
           <xs:enumeration value="LfCr" />
         </xs:restriction>
       </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="quietDependencies" type="Boolean_SchemaType" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>Flag for whether to silence compiler warnings from stylesheets loaded by using the `includePaths` property</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="silenceDeprecations" type="xs:string" use="optional" default="">
+      <xs:annotation>
+        <xs:documentation>Comma-separated list of active deprecations to ignore.
+If a deprecation warning of any provided ID is encountered during compilation, the compiler will ignore it instead.</xs:documentation>
+      </xs:annotation>
     </xs:attribute>
     <xs:attribute name="severity" use="optional" default="0">
       <xs:annotation>
