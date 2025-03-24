@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+using WebMarkupMin.Core;
 using WebMarkupMin.Sample.Resources;
 
 namespace WebMarkupMin.Sample.Logic.Models
@@ -29,6 +30,13 @@ namespace WebMarkupMin.Sample.Logic.Models
 
 		[Display(Name = "DisplayName_CollapseTagsWithoutContent", ResourceType = typeof(XmlMinificationStrings))]
 		public bool CollapseTagsWithoutContent
+		{
+			get;
+			set;
+		}
+
+		[Display(Name = "DisplayName_AttributeQuotesStyle", ResourceType = typeof(MinificationStrings))]
+		public XmlAttributeQuotesStyle AttributeQuotesStyle
 		{
 			get;
 			set;

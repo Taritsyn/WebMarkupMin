@@ -3,9 +3,9 @@
 namespace WebMarkupMin.Core
 {
 	/// <summary>
-	/// Style of the HTML attribute quotes
+	/// Style of the XML attribute quotes
 	/// </summary>
-	public enum HtmlAttributeQuotesStyle : byte
+	public enum XmlAttributeQuotesStyle : byte
 	{
 		/// <summary>
 		/// Auto-detect style for attribute quotes based on the source input

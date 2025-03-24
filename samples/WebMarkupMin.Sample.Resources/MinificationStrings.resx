@@ -120,6 +120,9 @@
   <data name="ButtonText_Minify" xml:space="preserve">
     <value>Minify</value>
   </data>
+  <data name="DisplayName_AttributeQuotesStyle" xml:space="preserve">
+    <value>Style of the HTML attribute quotes</value>
+  </data>
   <data name="DisplayName_MinificationDuration" xml:space="preserve">
     <value>Minification duration</value>
   </data>
@@ -149,6 +152,18 @@
   </data>
   <data name="ErrorMessage_FormFieldValueTooLong" xml:space="preserve">
     <value>The field "{0}" must be a string with a maximum length of {1:N0}.</value>
+  </data>
+  <data name="ListItem_AttributeQuotesStyle_Auto" xml:space="preserve">
+    <value>Auto-detect style for attribute quotes based on the source input</value>
+  </data>
+  <data name="ListItem_AttributeQuotesStyle_Double" xml:space="preserve">
+    <value>Double quotes</value>
+  </data>
+  <data name="ListItem_AttributeQuotesStyle_Optimal" xml:space="preserve">
+    <value>Optimal style for attribute quotes based on the attribute value</value>
+  </data>
+  <data name="ListItem_AttributeQuotesStyle_Single" xml:space="preserve">
+    <value>Single quotes</value>
   </data>
   <data name="ListItem_NewLineStyle_Auto" xml:space="preserve">
     <value>Auto-detect style for newline based on the source input</value>

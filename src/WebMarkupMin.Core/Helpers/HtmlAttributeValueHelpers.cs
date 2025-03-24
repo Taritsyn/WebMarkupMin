@@ -4,7 +4,6 @@ using System.Text;
 
 using AdvancedStringBuilder;
 
-using WebMarkupMin.Core.Parsers;
 using WebMarkupMin.Core.Utilities;
 
 namespace WebMarkupMin.Core.Helpers
@@ -85,94 +84,6 @@ namespace WebMarkupMin.Core.Helpers
 		}
 
 		/// <summary>
-		/// Gets a HTML attribute quote character by the quote style enum
-		/// </summary>
-		/// <param name="quoteStyle">Style of the attribute quotes</param>
-		/// <param name="attributeValue">Attribute value</param>
-		/// <param name="originalQuoteChar">Original attribute quote character</param>
-		/// <param name="defaultQuoteChar">Default attribute quote character</param>
-		/// <returns>Attribute quote character</returns>
-		public static char GetAttributeQuoteCharByStyleEnum(HtmlAttributeQuotesStyle quoteStyle, string attributeValue,
-			char originalQuoteChar, char defaultQuoteChar)
-		{
-			char quoteChar;
-
-			switch (quoteStyle)
-			{
-				case HtmlAttributeQuotesStyle.Auto:
-					quoteChar = GetDefaultAttributeQuoteChar(originalQuoteChar, defaultQuoteChar);
-					break;
-				case HtmlAttributeQuotesStyle.Optimal:
-					bool containsDoubleQuote = attributeValue.IndexOf('"') != -1;
-					bool containsSingleQuote = attributeValue.IndexOf('\'') != -1;
-
-					if (containsDoubleQuote || containsSingleQuote)
-					{
-						if (containsDoubleQuote && containsSingleQuote)
-						{
-							quoteChar = GetDefaultAttributeQuoteChar(originalQuoteChar, defaultQuoteChar);
-						}
-						else if (containsDoubleQuote)
-						{
-							quoteChar = '\'';
-						}
-						else
-						{
-							quoteChar = '"';
-						}
-					}
-					else
-					{
-						quoteChar = GetDefaultAttributeQuoteChar(originalQuoteChar, defaultQuoteChar);
-					}
-
-					break;
-				case HtmlAttributeQuotesStyle.Single:
-					quoteChar = '\'';
-					break;
-				case HtmlAttributeQuotesStyle.Double:
-					quoteChar = '"';
-					break;
-				default:
-					quoteChar = '\0';
-					break;
-			}
-
-			return quoteChar;
-		}
-
-		private static char GetDefaultAttributeQuoteChar(char originalQuoteChar, char defaultQuoteChar)
-		{
-			char quoteChar = originalQuoteChar;
-			if (originalQuoteChar == '\0')
-			{
-				quoteChar = defaultQuoteChar != '\0' ? defaultQuoteChar : '"';
-			}
-
-			return quoteChar;
-		}
-
-		public static string ConvertAttributeQuoteCharToString(char quoteChar)
-		{
-			string quoteString;
-
-			switch (quoteChar)
-			{
-				case '"':
-					quoteString = "\"";
-					break;
-				case '\'':
-					quoteString = "'";
-					break;
-				default:
-					quoteString = string.Empty;
-					break;
-			}
-
-			return quoteString;
-		}
-
-		/// <summary>
 		/// Converts a string that has been HTML-encoded into a decoded string
 		/// </summary>
 		/// <param name="value">The string to decode</param>
@@ -228,7 +139,7 @@ namespace WebMarkupMin.Core.Helpers
 						case '\'':
 							if (quoteChar == '\'' || quoteChar == '\0')
 							{
-								writer.Write("&#39;");
+								writer.Write("&#39;"); // use `&#39;` instead of `&apos;`, because it is shorter
 							}
 							else
 							{

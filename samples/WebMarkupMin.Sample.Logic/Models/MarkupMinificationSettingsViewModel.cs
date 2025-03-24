@@ -19,6 +19,7 @@ namespace WebMarkupMin.Sample.Logic.Models
 	public abstract class MarkupMinificationSettingsViewModel
 	{
 		private static readonly IEnumerable<SelectListItem> _newLineStyles;
+		private static readonly IEnumerable<SelectListItem> _attributeQuotesStyles;
 
 
 		[Display(Name = "DisplayName_PreserveNewLines", ResourceType = typeof(MinificationStrings))]
@@ -38,6 +39,11 @@ namespace WebMarkupMin.Sample.Logic.Models
 		public IEnumerable<SelectListItem> NewLineStyleList
 		{
 			get { return _newLineStyles; }
+		}
+
+		public IEnumerable<SelectListItem> AttributeQuotesStyleList
+		{
+			get { return _attributeQuotesStyles; }
 		}
 
 
@@ -69,6 +75,30 @@ namespace WebMarkupMin.Sample.Logic.Models
 				{
 					Value = NewLineStyle.Unix.ToString(),
 					Text = MinificationStrings.ListItem_NewLineStyle_Unix
+				}
+			};
+
+			_attributeQuotesStyles = new List<SelectListItem>
+			{
+				new SelectListItem
+				{
+					Value = MarkupAttributeQuotesStyle.Auto.ToString(),
+					Text = MinificationStrings.ListItem_AttributeQuotesStyle_Auto
+				},
+				new SelectListItem
+				{
+					Value = MarkupAttributeQuotesStyle.Optimal.ToString(),
+					Text = MinificationStrings.ListItem_AttributeQuotesStyle_Optimal
+				},
+				new SelectListItem
+				{
+					Value = MarkupAttributeQuotesStyle.Single.ToString(),
+					Text = MinificationStrings.ListItem_AttributeQuotesStyle_Single
+				},
+				new SelectListItem
+				{
+					Value = MarkupAttributeQuotesStyle.Double.ToString(),
+					Text = MinificationStrings.ListItem_AttributeQuotesStyle_Double
 				}
 			};
 		}

@@ -42,6 +42,15 @@
 			set;
 		}
 
+		/// <summary>
+		/// Gets or sets a style of the XML attribute quotes
+		/// </summary>
+		public XmlAttributeQuotesStyle AttributeQuotesStyle
+		{
+			get;
+			set;
+		}
+
 
 		/// <summary>
 		/// Constructs instance of XML minification settings
@@ -69,6 +78,7 @@
 			PreserveNewLines = false;
 			CollapseTagsWithoutContent = false;
 			RenderEmptyTagsWithSpace = false;
+			AttributeQuotesStyle = XmlAttributeQuotesStyle.Auto;
 		}
 	}
 }

@@ -574,14 +574,20 @@ namespace WebMarkupMin.Core
 			for (int attributeIndex = 0; attributeIndex < attributeCount; attributeIndex++)
 			{
 				XmlAttribute attribute = attributes[attributeIndex];
-				string encodedAttributeValue = XmlAttributeValueHelpers.Encode(attribute.Value);
+
+				char quoteChar = MarkupAttributeValueHelpers.GetAttributeQuoteCharByStyleEnum(
+					(MarkupAttributeQuotesStyle)_settings.AttributeQuotesStyle, attribute.Value,
+					attribute.QuoteChar, '"');
+				string quote = MarkupAttributeValueHelpers.ConvertAttributeQuoteCharToString(quoteChar);
+				string encodedAttributeValue = XmlAttributeValueHelpers.Encode(attribute.Value, quoteChar);
 
 				XmlMinificationOutputWriter output = _output;
 				output.Write(" ");
 				output.Write(attribute.Name);
-				output.Write("=\"");
+				output.Write("=");
+				output.Write(quote);
 				output.Write(encodedAttributeValue);
-				output.Write("\"");
+				output.Write(quote);
 			}
 		}
 

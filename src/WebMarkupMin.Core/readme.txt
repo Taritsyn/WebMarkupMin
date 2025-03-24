@@ -46,8 +46,8 @@
    =============
    RELEASE NOTES
    =============
-   In HTML and XHTML minification settings was added one new property -
-   `PreservableHtmlCommentList` (default is empty).
+   In XML minification settings was added one new property - `AttributeQuotesStyle`
+   (default `Auto`).
 
    =============
    DOCUMENTATION

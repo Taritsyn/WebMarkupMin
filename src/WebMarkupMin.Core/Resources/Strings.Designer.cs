@@ -250,6 +250,14 @@ namespace WebMarkupMin.Core.Resources
 		}
 
 		/// <summary>
+		/// Looks up a localized string similar to "Quote expected, found '{0}'."
+		/// </summary>
+		public static string ErrorMessage_QuoteExpected
+		{
+			get { return GetString("ErrorMessage_QuoteExpected"); }
+		}
+
+		/// <summary>
 		/// Looks up a localized string similar to "It is impossible to parse a end ignoring comment tag, because not declared the start ignoring..."
 		/// </summary>
 		public static string ErrorMessage_StartIgnoringCommentTagNotDeclared

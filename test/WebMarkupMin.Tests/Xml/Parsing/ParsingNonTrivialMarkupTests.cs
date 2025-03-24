@@ -12,7 +12,7 @@ namespace WebMarkupMin.Tests.Xml.Parsing
 			// Arrange
 			var minifier = new XmlMinifier(new XmlMinificationSettings(true));
 
-			const string input1 = "<?xml	   version=\'1.0\'   encoding=\"UTF-8\"		  \n  \t  ?>\n" +
+			const string input1 = "<?xml	   version='1.0'   encoding=\"UTF-8\"		  \n  \t  ?>\n" +
 				"<?xml-stylesheet  	 type=\"text/xsl\"    href=\"http://feeds.example.com/feed-rss.xslt\"  \n \t ?>\n" +
 				"<rss	 version  =   \"2.0\"  \n>\n" +
 				"	<channel  >\n" +
@@ -40,7 +40,7 @@ namespace WebMarkupMin.Tests.Xml.Parsing
 				"	</channel>\n" +
 				"</rss>"
 				;
-			const string targetOutput1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+			const string targetOutput1 = "<?xml version='1.0' encoding=\"UTF-8\"?>\n" +
 				"<?xml-stylesheet type=\"text/xsl\" href=\"http://feeds.example.com/feed-rss.xslt\"?>\n" +
 				"<rss version=\"2.0\">\n" +
 				"	<channel>\n" +

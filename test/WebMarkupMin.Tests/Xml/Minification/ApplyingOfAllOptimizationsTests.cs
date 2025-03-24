@@ -27,8 +27,8 @@ namespace WebMarkupMin.Tests.Xml.Minification
 					RenderEmptyTagsWithSpace = true
 				});
 
-			const string input1 = "  \n	\n  <?xml	 version=\"1.0\"	encoding=\'utf-8\' \n ?>\n" +
-				"<xsl:stylesheet  xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\"	version=\'1.0\'>\n" +
+			const string input1 = "  \n	\n  <?xml	 version=\"1.0\"	encoding='utf-8' \n ?>\n" +
+				"<xsl:stylesheet  xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\"	version='1.0'>\n" +
 				"	<xsl:output   method=\"xml\"   indent=\"yes\"   />\n\n" +
 				"	<!-- List of persons template -->\n" +
 				"	<xsl:template   match=\"/persons\"  >\n" +
@@ -51,8 +51,8 @@ namespace WebMarkupMin.Tests.Xml.Minification
 				"	<!-- /Person template -->\n\n" +
 				"</xsl:stylesheet>  \n	 \n"
 				;
-			const string targetOutput1A = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
-				"<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" version=\"1.0\">" +
+			const string targetOutput1A = "<?xml version=\"1.0\" encoding='utf-8'?>" +
+				"<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" version='1.0'>" +
 				"<xsl:output method=\"xml\" indent=\"yes\"/>" +
 				"<xsl:template match=\"/persons\">" +
 				"<root>" +
@@ -69,8 +69,8 @@ namespace WebMarkupMin.Tests.Xml.Minification
 				"</xsl:template>" +
 				"</xsl:stylesheet>"
 				;
-			const string targetOutput1B = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
-				"<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" version=\"1.0\">" +
+			const string targetOutput1B = "<?xml version=\"1.0\" encoding='utf-8'?>" +
+				"<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" version='1.0'>" +
 				"<xsl:output method=\"xml\" indent=\"yes\" />" +
 				"<xsl:template match=\"/persons\">" +
 				"<root>" +

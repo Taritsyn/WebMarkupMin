@@ -1,7 +1,5 @@
 ﻿using Xunit;
 
-using WebMarkupMin.Core;
-
 namespace WebMarkupMin.Core.Tests.Xml.Minification
 {
 	public class EncodingAttributeValuesTests
@@ -16,10 +14,10 @@ namespace WebMarkupMin.Core.Tests.Xml.Minification
 			const string targetOutput1 = "<product url=\"/product.asp?id=12&amp;category=5&amp;returnUrl=%2Fdefault.asp\"></product>";
 
 			const string input2 = "<product url='/product.asp?id=12&category=5&returnUrl=%2Fdefault.asp'></product>";
-			const string targetOutput2 = "<product url=\"/product.asp?id=12&amp;category=5&amp;returnUrl=%2Fdefault.asp\"></product>";
+			const string targetOutput2 = "<product url='/product.asp?id=12&amp;category=5&amp;returnUrl=%2Fdefault.asp'></product>";
 
-			const string input3 = "<article description=\'Знаменитая статья Артемия Лебедева \"Паранойя оптимизатора\"\'/>";
-			const string targetOutput3 = "<article description=\"Знаменитая статья Артемия Лебедева &quot;Паранойя оптимизатора&quot;\"/>";
+			const string input3 = "<article description='Знаменитая статья Артемия Лебедева \"Паранойя оптимизатора\"'/>";
+			const string targetOutput3 = input3;
 
 			const string input4 = "<article description=\"Знаменитая статья Артемия Лебедева 'Паранойя оптимизатора'\"/>";
 			const string targetOutput4 = input4;
@@ -34,9 +32,9 @@ namespace WebMarkupMin.Core.Tests.Xml.Minification
 				"</minifiers>"
 				;
 			const string targetOutput6 = "<minifiers>\n" +
-				"	<add displayName=\"Douglas Crockford's JS Minifier\"/>\n" +
-				"	<add displayName=\"Microsoft Ajax JS Minifier\"/>\n" +
-				"	<add displayName=\"YUI JS Minifier\"/>\n" +
+				"	<add displayName='Douglas Crockford&#39;s JS Minifier'/>\n" +
+				"	<add displayName='Microsoft Ajax JS Minifier'/>\n" +
+				"	<add displayName='YUI JS Minifier'/>\n" +
 				"</minifiers>"
 				;
 

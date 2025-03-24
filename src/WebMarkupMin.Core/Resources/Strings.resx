@@ -189,6 +189,9 @@
   <data name="ErrorMessage_NotClosedTag" xml:space="preserve">
     <value>Tag &lt;{0}&gt; is not closed.</value>
   </data>
+  <data name="ErrorMessage_QuoteExpected" xml:space="preserve">
+    <value>Quote expected, found '{0}'.</value>
+  </data>
   <data name="ErrorMessage_StartIgnoringCommentTagNotDeclared" xml:space="preserve">
     <value>It is impossible to parse a end ignoring comment tag, because not declared the start ignoring comment tag.</value>
   </data>

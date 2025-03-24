@@ -463,12 +463,33 @@ namespace WebMarkupMin.Core.Parsers
 				GroupCollection groups = match.Groups;
 
 				string attributeName = groups["attributeName"].Value;
-				string attributeValue = groups["attributeValue"].Value;
+				Group valueGroup = groups["attributeValue"];
+				string attributeValue = valueGroup.Value;
 				if (!string.IsNullOrWhiteSpace(attributeValue))
 				{
 					attributeValue = XmlAttributeValueHelpers.Decode(attributeValue);
 				}
-				var attribute = new XmlAttribute(attributeName, attributeValue);
+
+				int quoteCharPosition = valueGroup.Index - 1;
+				char quoteChar;
+
+				if (!content.TryGetChar(quoteCharPosition, out quoteChar)
+					|| !(quoteChar == '"' || quoteChar == '\''))
+				{
+					int currentPosition = _innerContext.Position;
+					int quoteCharOffset = quoteCharPosition - currentPosition;
+
+					if (quoteCharOffset > 0)
+					{
+						_innerContext.IncreasePosition(quoteCharOffset);
+					}
+
+					throw new MarkupParsingException(
+						string.Format(Strings.ErrorMessage_QuoteExpected, quoteChar),
+						_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
+				}
+
+				var attribute = new XmlAttribute(attributeName, attributeValue, quoteChar);
 
 				attributes.Add(attribute);
 

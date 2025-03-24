@@ -1548,8 +1548,9 @@ namespace WebMarkupMin.Core
 		private HtmlAttributeViewModel InnerBuildAttributeViewModel(HtmlAttribute attribute, bool omitValue,
 			bool addQuotes)
 		{
-			char recommendedQuoteChar = HtmlAttributeValueHelpers.GetAttributeQuoteCharByStyleEnum(
-				_settings.AttributeQuotesStyle, attribute.Value, attribute.QuoteChar, _defaultQuoteChar);
+			char recommendedQuoteChar = MarkupAttributeValueHelpers.GetAttributeQuoteCharByStyleEnum(
+				(MarkupAttributeQuotesStyle)_settings.AttributeQuotesStyle, attribute.Value,
+				attribute.QuoteChar, _defaultQuoteChar);
 			char quoteChar = addQuotes ? recommendedQuoteChar : '\0';
 			string displayAttributeName = CanPreserveCase() ? attribute.Name : attribute.NameInLowercase;
 			string encodedAttributeValue = !omitValue ?
@@ -3257,7 +3258,7 @@ namespace WebMarkupMin.Core
 						Value = string.Empty;
 						HasValue = false;
 					}
-					Quote = HtmlAttributeValueHelpers.ConvertAttributeQuoteCharToString(quoteChar);
+					Quote = MarkupAttributeValueHelpers.ConvertAttributeQuoteCharToString(quoteChar);
 					HasQuotes = quoteChar != '\0';
 					IsEmpty = false;
 				}

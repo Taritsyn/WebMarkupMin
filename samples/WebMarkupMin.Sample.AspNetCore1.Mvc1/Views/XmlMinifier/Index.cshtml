@@ -54,6 +54,12 @@
 							@Html.DisplayNameFor(m => m.Settings.CollapseTagsWithoutContent)
 						</label>
 					</div>
+					<div class="form-group">
+						<select asp-for="Settings.AttributeQuotesStyle"
+							asp-items="Model.Settings.AttributeQuotesStyleList"
+							class="form-control">
+						</select>
+					</div>
 				</fieldset>
 			</div>
 		</div>
