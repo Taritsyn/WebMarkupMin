@@ -64,6 +64,7 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
  * [Colorful.CMS.Core](https://www.nuget.org/packages/Colorful.CMS.Core/)
  * [Constellation.Foundation.Mvc](https://github.com/constellation4sitecore/constellation-sitecore9) by Rick Cabral
  * [Constellation.Sitecore.Presentation.Mvc](https://github.com/sitecorerick/constellation.sitecore.presentation.mvc) by Rick Cabral
+ * [Dyfort Umbraco Html Minifier](https://www.dyfort.com/products/html-minifier/)
  * [Elect AspNetCore Useful Middlewares](https://github.com/topnguyen/Elect/tree/master/src/Web/Elect.Web.Middlewares) by Top Nguyen
  * [FAV Rocks](https://github.com/billbogaiv/fav-rocks) by Bill Boga
  * [File Sharing Application](http://bitbucket.org/Artur2/filesharingapplication) by Artur N
@@ -75,7 +76,6 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
  * [Lightweight NetCore MVC Template](https://marketplace.visualstudio.com/items?itemName=PabloMorelli.LightweightNetCoreMVCTemplate) by Pablo Morelli
  * [MiniBlog](https://github.com/madskristensen/MiniBlog) by Mads Kristensen
  * [Miniblog.Core](https://github.com/madskristensen/Miniblog.Core) by Mads Kristensen
- * [MissingCode.Umbraco.HtmlMinifier](https://our.umbraco.org/projects/developer-tools/html-minifier/) by Yakov Lebski
  * [nopCommerce](https://www.nopcommerce.com/)
  * [Razor Minification](https://github.com/guardrex/RazorMinification) by Luke Latham
  * [StaticWebHelper](https://github.com/madskristensen/StaticWebHelper) by Mads Kristensen
