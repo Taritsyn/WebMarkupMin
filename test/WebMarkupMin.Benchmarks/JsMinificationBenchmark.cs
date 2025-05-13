@@ -25,7 +25,7 @@ namespace WebMarkupMin.Benchmarks
 		{
 			{ "finmarket.ru", new Document("http://www.finmarket.ru/") },
 			{ "moskva.mts.ru", new Document("https://moskva.mts.ru/") },
-			{ "pochtabank.ru", new Document("https://www.pochtabank.ru/") }
+			{ "web.archive.org", new Document("https://web.archive.org/") }
 		};
 
 		[ParamsSource(nameof(DocumentNames))]

@@ -24,8 +24,8 @@ namespace WebMarkupMin.Benchmarks
 		private static readonly Dictionary<string, Document> s_documents = new Dictionary<string, Document>
 		{
 			{ "finmarket.ru", new Document("http://www.finmarket.ru/") },
-			{ "hitfm.ru", new Document("http://hitfm.ru/") },
-			{ "moskva.beeline.ru", new Document("https://moskva.beeline.ru/") }
+			{ "moskva.beeline.ru", new Document("https://moskva.beeline.ru/") },
+			{ "web.archive.org", new Document("https://web.archive.org/") }
 		};
 
 		[ParamsSource(nameof(DocumentNames))]

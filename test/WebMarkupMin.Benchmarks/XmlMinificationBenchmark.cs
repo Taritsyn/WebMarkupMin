@@ -21,7 +21,8 @@ namespace WebMarkupMin.Benchmarks
 		private static readonly Dictionary<string, Document> s_documents = new Dictionary<string, Document>
 		{
 			{ "commerce-ml-sample", new Document() },
-			{ "isv-team-rss", new Document("https://blogs.technet.microsoft.com/isv_team/feed/") },
+			{ "lea-verou-atom", new Document("https://lea.verou.me/feed.xml") },
+			{ "meyerweb-rss2", new Document("https://meyerweb.com/eric/thoughts/category/tech/rss2/full/") },
 			{ "software2cents-sitemap", new Document("https://software2cents.wordpress.com/sitemap.xml") },
 			{ "yandex-ml-sample", new Document() }
 		};

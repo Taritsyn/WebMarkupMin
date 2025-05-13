@@ -27,13 +27,7 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
-    <PackageReference Include="ZetaProducerHtmlCompressor" Version="1.0.3" />
-
     <ProjectReference Include="../../src/WebMarkupMin.AspNetCore1/WebMarkupMin.AspNetCore1.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' != 'net462' ">
-    <PackageReference Include="ZetaProducerHtmlCompressorStandard" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' Or '$(TargetFramework)' == 'net5.0' ">

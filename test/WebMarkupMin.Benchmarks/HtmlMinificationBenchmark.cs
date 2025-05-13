@@ -11,9 +11,6 @@ using WmmMinifier = WebMarkupMin.Core.HtmlMinifier;
 using WmmNullCssMinifier = WebMarkupMin.Core.NullCssMinifier;
 using WmmNullJsMinifier = WebMarkupMin.Core.NullJsMinifier;
 using WmmSettings = WebMarkupMin.Core.HtmlMinificationSettings;
-#if HTML_MINIFIER_COMPARISON
-using ZphcMinifier = ZetaProducerHtmlCompressor.HtmlContentCompressor;
-#endif
 
 namespace WebMarkupMin.Benchmarks
 {
@@ -22,11 +19,11 @@ namespace WebMarkupMin.Benchmarks
 	{
 		private static readonly Dictionary<string, Document> s_documents = new Dictionary<string, Document>
 		{
-			{ "afisha.ru", new Document("https://www.afisha.ru/") },
 			{ "dotnet.ru", new Document("http://dotnet.ru/") },
-			{ "html50-specification", new Document("https://www.w3.org/TR/html50/single-page.html") },
+			{ "finmarket.ru", new Document("https://www.finmarket.ru/") },
+			{ "html50-specification", new Document("https://html.spec.whatwg.org/") },
 			{ "moskva.mts.ru", new Document("https://moskva.mts.ru/") },
-			{ "ozon.ru", new Document("https://www.ozon.ru/") }
+			{ "tc39.es", new Document("https://tc39.es/") }
 		};
 
 		[ParamsSource(nameof(DocumentNames))]
@@ -74,14 +71,5 @@ namespace WebMarkupMin.Benchmarks
 			var minifier = new WmmMinifier(settings, new WmmNullCssMinifier(), new WmmNullJsMinifier());
 			string minifiedContent = minifier.Minify(s_documents[DocumentName].Content).MinifiedContent;
 		}
-#if HTML_MINIFIER_COMPARISON
-
-		[Benchmark]
-		public void ZetaProducerHtmlCompressor()
-		{
-			var minifier = new ZphcMinifier();
-			string minifiedContent = minifier.Compress(s_documents[DocumentName].Content);
-		}
-#endif
 	}
 }

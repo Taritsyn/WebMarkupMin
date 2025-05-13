@@ -15,11 +15,11 @@ namespace WebMarkupMin.Benchmarks
 	{
 		private static readonly Dictionary<string, Document> s_documents = new Dictionary<string, Document>
 		{
-			{ "ibm.com", new Document("https://www.ibm.com/ru-ru/") },
-			{ "microformats.org", new Document("http://microformats.org/") },
-			{ "moskva.beeline.ru", new Document("https://moskva.beeline.ru/") },
-			{ "ozon.ru", new Document("https://www.ozon.ru/") },
-			{ "prettydiff.com", new Document("https://prettydiff.com/") }
+			{ "javascript.ru", new Document("https://javascript.ru/") },
+			{ "prettydiff.com", new Document("https://prettydiff.com/tool.xhtml") },
+			{ "ubl.xml.org", new Document("https://ubl.xml.org/") },
+			{ "webmascon.com", new Document("https://webmascon.com/") },
+			{ "webstandards.org", new Document("https://www.webstandards.org/") },
 		};
 
 		[ParamsSource(nameof(DocumentNames))]
@@ -28,7 +28,7 @@ namespace WebMarkupMin.Benchmarks
 
 		static XhtmlMinificationBenchmark()
 		{
-			Utils.PopulateTestData("../../../Files/html", s_documents, ".html");
+			Utils.PopulateTestData("../../../Files/xhtml", s_documents, ".html");
 		}
 
 
