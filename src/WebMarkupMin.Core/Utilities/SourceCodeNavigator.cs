@@ -351,6 +351,8 @@ namespace WebMarkupMin.Core.Utilities
 							new SourceCodeNodeCoordinates(nextLineNumber, 0),
 							lineNumberSize, fragmentStartPosition, fragmentLength, tabSize));
 					}
+
+					sourceFragmentBuilder.TrimEnd();
 				}
 
 				sourceFragment = sourceFragmentBuilder.ToString();
@@ -459,7 +461,7 @@ namespace WebMarkupMin.Core.Utilities
 
 				result += Environment.NewLine + string.Empty
 					.PadRight(
-						(cursorOffset < processedLine.Length ?
+						(cursorOffset <= processedLine.Length ?
 							processedLine.Substring(0, cursorOffset - 1) : processedLine
 						).TabsToSpaces(tabSize).Length + lineNumberSize + leftPaddingSize
 					)

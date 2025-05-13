@@ -646,7 +646,7 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		/// <param name="context">Markup parsing context</param>
 		/// <param name="doctype">Document type declaration</param>
-		private void DoctypeHandler(MarkupParsingContext context, string doctype)
+		private void DoctypeHandler(MarkupParsingContext context, HtmlDoctype doctype)
 		{
 			_currentNodeType = HtmlNodeType.Doctype;
 
@@ -665,7 +665,68 @@ namespace WebMarkupMin.Core
 				shortDoctype = CANONICAL_HTML5_DOCTYPE;
 			}
 
-			output.Write(_settings.UseShortDoctype ? shortDoctype : doctype.CollapseWhitespace());
+			if (_settings.UseShortDoctype)
+			{
+				output.Write(shortDoctype);
+			}
+			else
+			{
+				output.Write("<!");
+				output.Write(doctype.Instruction);
+				if (doctype.SpaceBeforeRootElement)
+				{
+					output.Write(" ");
+				}
+				output.Write(doctype.RootElement);
+
+				string publicity = doctype.Publicity;
+				if (publicity.Length > 0)
+				{
+					output.Write(" ");
+					output.Write(publicity);
+
+					HtmlFormalPublicId publicId = doctype.PublicId;
+					if (publicId != null)
+					{
+						string quoteString = publicId.QuoteChar.ToString();
+
+						output.Write(" ");
+						output.Write(quoteString);
+						string registration = publicId.Registration;
+						if (registration.Length > 0)
+						{
+							output.Write(registration);
+							output.Write("//");
+						}
+						output.Write(publicId.Organization);
+						output.Write("//");
+						output.Write(publicId.Type);
+						output.Write(" ");
+						output.Write(publicId.Name);
+						output.Write("//");
+						output.Write(publicId.Language);
+						string version = publicId.Version;
+						if (version.Length > 0)
+						{
+							output.Write("//");
+							output.Write(version);
+						}
+						output.Write(quoteString);
+					}
+
+					HtmlSystemId systemId = doctype.SystemId;
+					if (systemId != null)
+					{
+						string quoteString = systemId.QuoteChar.ToString();
+
+						output.Write(" ");
+						output.Write(quoteString);
+						output.Write(systemId.Url);
+						output.Write(quoteString);
+					}
+				}
+				output.Write(">");
+			}
 			output.Flush();
 
 			_previousNodeRemoved = false;

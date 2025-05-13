@@ -20,7 +20,8 @@
   <PropertyGroup>
     <Description>The Web Markup Minifier (abbreviated WebMarkupMin) is a .NET library that contains a set of markup minifiers. The objective of this project is to improve the performance of web applications by reducing the size of HTML, XHTML and XML code.</Description>
     <PackageTags>$(PackageCommonTags);XML;Performance;Optimization;Compression</PackageTags>
-    <PackageReleaseNotes>In XML minification settings was added one new property - `AttributeQuotesStyle` (default `Auto`).</PackageReleaseNotes>
+    <PackageReleaseNotes>1. In XML minification settings was added one new property - `AttributeQuotesStyle` (default `Auto`);
+2. Improved a parsing of the `DOCTYPE` declaration for HTML/XHTML documents.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

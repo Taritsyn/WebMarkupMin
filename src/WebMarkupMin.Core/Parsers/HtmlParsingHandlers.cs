@@ -15,6 +15,15 @@
 		}
 
 		/// <summary>
+		/// Document type declaration handler
+		/// </summary>
+		public DoctypeDelegate Doctype
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// If conditional comments handler
 		/// </summary>
 		public IfConditionalCommentDelegate IfConditionalComment
@@ -75,6 +84,13 @@
 		/// <param name="context">Markup parsing context</param>
 		/// <param name="xmlDeclaration">XML declaration</param>
 		public delegate void XmlDeclarationDelegate(MarkupParsingContext context, string xmlDeclaration);
+
+		/// <summary>
+		/// Document type declaration delegate
+		/// </summary>
+		/// <param name="context">Markup parsing context</param>
+		/// <param name="doctype">Document type declaration</param>
+		public delegate void DoctypeDelegate(MarkupParsingContext context, HtmlDoctype doctype);
 
 		/// <summary>
 		/// If conditional comments delegate

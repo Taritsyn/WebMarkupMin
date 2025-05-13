@@ -6,15 +6,6 @@
 	internal abstract class MarkupParsingHandlersBase
 	{
 		/// <summary>
-		/// Document type declaration handler
-		/// </summary>
-		public DoctypeDelegate Doctype
-		{
-			get;
-			set;
-		}
-
-		/// <summary>
 		/// Comments handler
 		/// </summary>
 		public CommentDelegate Comment
@@ -50,13 +41,6 @@
 			set;
 		}
 
-
-		/// <summary>
-		/// Document type declaration delegate
-		/// </summary>
-		/// <param name="context">Markup parsing context</param>
-		/// <param name="doctype">Document type declaration</param>
-		public delegate void DoctypeDelegate(MarkupParsingContext context, string doctype);
 
 		/// <summary>
 		/// Comments delegate

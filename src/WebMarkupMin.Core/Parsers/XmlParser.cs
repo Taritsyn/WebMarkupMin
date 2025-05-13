@@ -15,7 +15,7 @@ namespace WebMarkupMin.Core.Parsers
 	/// </summary>
 	internal sealed class XmlParser : MarkupParserBase
 	{
-		#region Regular expressions for parsing tags and attributes
+		#region Regular expressions for parsing a XML document nodes
 
 		private const string NAME_PATTERN = @"[\w-:.]+";
 
@@ -284,7 +284,7 @@ namespace WebMarkupMin.Core.Parsers
 			if (match.Success)
 			{
 				string doctype = match.Value;
-				CommonHandlers.Doctype?.Invoke(_context, doctype);
+				_handlers.Doctype?.Invoke(_context, doctype);
 
 				_innerContext.IncreasePosition(match.Length);
 				isProcessed = true;

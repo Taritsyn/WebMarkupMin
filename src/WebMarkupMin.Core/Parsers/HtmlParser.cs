@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 using WebMarkupMin.Core.Helpers;
+using WebMarkupMin.Core.Parsers.Processors;
 using WebMarkupMin.Core.Resources;
 using WebMarkupMin.Core.Utilities;
 
@@ -26,11 +27,9 @@ namespace WebMarkupMin.Core.Parsers
 	/// </summary>
 	internal sealed class HtmlParser : MarkupParserBase
 	{
-		#region Regular expressions for parsing tags and attributes
+		#region Regular expressions for parsing a HTML document nodes
 
 		private static readonly Regex _xmlDeclarationRegex = new Regex(@"^<\?xml\s+[^>]+\s*\?>",
-			RegexOptions.IgnoreCase | TargetFrameworkShortcuts.PerformanceRegexOptions);
-		private static readonly Regex _doctypeRegex = new Regex(@"^<!DOCTYPE\s?[^>]+?>",
 			RegexOptions.IgnoreCase | TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _startTagBeginPartRegex = new Regex(@"^<(?<tagName>" + CommonRegExps.HtmlTagNamePattern + ")",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
@@ -116,6 +115,11 @@ namespace WebMarkupMin.Core.Parsers
 		private bool _xmlTagOpened;
 
 		/// <summary>
+		/// HTML document type processor
+		/// </summary>
+		private HtmlDoctypeProcessor _doctypeProcessor;
+
+		/// <summary>
 		/// Gets a common markup parsing handlers
 		/// </summary>
 		protected override MarkupParsingHandlersBase CommonHandlers
@@ -150,6 +154,7 @@ namespace WebMarkupMin.Core.Parsers
 			{
 				_innerContext = new InnerMarkupParsingContext(content);
 				_context = new MarkupParsingContext(_innerContext);
+				_doctypeProcessor = new HtmlDoctypeProcessor(_innerContext);
 
 				int endPosition = contentLength - 1;
 				int previousPosition = -1;
@@ -304,6 +309,12 @@ namespace WebMarkupMin.Core.Parsers
 					_xmlTagOpened = false;
 					_context = null;
 					_innerContext = null;
+
+					if (_doctypeProcessor != null)
+					{
+						_doctypeProcessor.Dispose();
+						_doctypeProcessor = null;
+					}
 				}
 			}
 		}
@@ -334,23 +345,15 @@ namespace WebMarkupMin.Core.Parsers
 		}
 
 		/// <summary>
-		/// Process a doctype declaration
+		/// Process a document type declaration
 		/// </summary>
 		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		protected override bool ProcessDoctype()
 		{
-			bool isProcessed = false;
-			string content = _innerContext.SourceCode;
-			int contentRemainderLength = _innerContext.RemainderLength;
-
-			var match = _doctypeRegex.Match(content, _innerContext.Position, contentRemainderLength);
-			if (match.Success)
+			bool isProcessed = _doctypeProcessor.Process(out HtmlDoctype doctype);
+			if (isProcessed)
 			{
-				string doctype = match.Value;
-				CommonHandlers.Doctype?.Invoke(_context, doctype);
-
-				_innerContext.IncreasePosition(match.Length);
-				isProcessed = true;
+				_handlers.Doctype?.Invoke(_context, doctype);
 			}
 
 			return isProcessed;

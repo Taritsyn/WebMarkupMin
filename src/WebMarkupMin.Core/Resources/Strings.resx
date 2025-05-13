@@ -147,6 +147,9 @@
   <data name="ErrorMessage_BindingExpressionMinificationFailed" xml:space="preserve">
     <value>During minification of {0} binding expression error has occurred: {1}.</value>
   </data>
+  <data name="ErrorMessage_BogusDoctype" xml:space="preserve">
+    <value>Bogus doctype.</value>
+  </data>
   <data name="ErrorMessage_IfConditionalCommentNotDeclared" xml:space="preserve">
     <value>It is impossible to parse a "End If conditional comment", because not declared "If conditional comment".</value>
   </data>
@@ -173,6 +176,9 @@
   </data>
   <data name="ErrorMessage_MarkupParsingFailed" xml:space="preserve">
     <value>During parsing of {0}-code error has occurred.</value>
+  </data>
+  <data name="ErrorMessage_DoctypeNotContainRootElement" xml:space="preserve">
+    <value>Doctype does not contain a root element.</value>
   </data>
   <data name="ErrorMessage_NotClosedCdataSection" xml:space="preserve">
     <value>CDATA section is not closed.</value>
@@ -204,6 +210,9 @@
   <data name="ErrorMessage_XmlDeclarationMinificationFailed" xml:space="preserve">
     <value>During minification of the XML declaration error has occurred.</value>
   </data>
+  <data name="ErrorMessage_MissingSpaceBeforeDoctypeRootElement" xml:space="preserve">
+    <value>Missing space before the doctype root element.</value>
+  </data>
   <data name="SuccesMessage_MarkupMinificationComplete" xml:space="preserve">
     <value>Minification of the {0} code has been completed successfully.</value>
   </data>
@@ -212,5 +221,26 @@
   </data>
   <data name="WarningMessage_XmlDeclarationNotAllowed" xml:space="preserve">
     <value>XML declaration not allowed here. If you want to use XHTML syntax, it is better to use the XHTML Minifier for minification of this document.</value>
+  </data>
+  <data name="ErrorMessage_NoSpaceBetweenDoctypePublicityAndId" xml:space="preserve">
+    <value>No space between the doctype `{0}` keyword and the quote.</value>
+  </data>
+  <data name="ErrorMessage_InvalidFormalPublicId" xml:space="preserve">
+    <value>Invalid formal public identifier.</value>
+  </data>
+  <data name="ErrorMessage_EmptyFormalPublicId" xml:space="preserve">
+    <value>Empty formal public identifier.</value>
+  </data>
+  <data name="ErrorMessage_EmptySystemId" xml:space="preserve">
+    <value>Empty system identifier.</value>
+  </data>
+  <data name="ErrorMessage_InvalidSystemId" xml:space="preserve">
+    <value>Invalid system identifier.</value>
+  </data>
+  <data name="ErrorMessage_FormalPublicIdNotFound" xml:space="preserve">
+    <value>Expected a formal public identifier but the doctype ended.</value>
+  </data>
+  <data name="ErrorMessage_SystemIdNotFound" xml:space="preserve">
+    <value>Expected a system identifier but the doctype ended.</value>
   </data>
 </root>

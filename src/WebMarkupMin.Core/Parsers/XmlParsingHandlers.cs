@@ -26,6 +26,15 @@ namespace WebMarkupMin.Core.Parsers
 		}
 
 		/// <summary>
+		/// Document type declaration handler
+		/// </summary>
+		public DoctypeDelegate Doctype
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Start tags handler
 		/// </summary>
 		public StartTagDelegate StartTag
@@ -68,6 +77,13 @@ namespace WebMarkupMin.Core.Parsers
 		/// <param name="attributes">List of attributes</param>
 		public delegate void ProcessingInstructionDelegate(MarkupParsingContext context, string instructionName,
 			List<XmlAttribute> attributes);
+
+		/// <summary>
+		/// Document type declaration delegate
+		/// </summary>
+		/// <param name="context">Markup parsing context</param>
+		/// <param name="doctype">Document type declaration</param>
+		public delegate void DoctypeDelegate(MarkupParsingContext context, string doctype);
 
 		/// <summary>
 		/// Start tags delegate

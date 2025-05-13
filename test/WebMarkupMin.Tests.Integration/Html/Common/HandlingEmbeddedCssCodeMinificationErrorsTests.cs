@@ -8,7 +8,7 @@ using WebMarkupMin.MsAjax;
 using WebMarkupMin.NUglify;
 using WebMarkupMin.Yui;
 
-namespace WebMarkupMin.Tests.Html.Common.Minification
+namespace WebMarkupMin.Tests.Integration.Html.Common.Minification
 {
 	public class HandlingEmbeddedCssCodeMinificationErrorsTests : IDisposable
 	{

@@ -395,19 +395,20 @@ namespace WebMarkupMin.Core.Utilities
 
 		private static int InternalIndexOfNonWhitespace(string value, int startIndex, int count)
 		{
-			int charIndex;
+			int result = -1;
 			int endIndex = startIndex + count - 1;
 
-			for (charIndex = startIndex; charIndex <= endIndex; charIndex++)
+			for (int charIndex = startIndex; charIndex <= endIndex; charIndex++)
 			{
 				char charValue = value[charIndex];
 				if (!char.IsWhiteSpace(charValue))
 				{
+					result = charIndex;
 					break;
 				}
 			}
 
-			return charIndex;
+			return result;
 		}
 
 		/// <summary>

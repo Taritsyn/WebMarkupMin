@@ -1,0 +1,7 @@
+﻿using System.Runtime.CompilerServices;
+
+// Tests need access to internal members
+[assembly: InternalsVisibleTo("WebMarkupMin.Tests, PublicKey=00240000048000009400000006020000002400005253" +
+	"41310004000001000100754c716ecc32a23d562f00191419351f9624ff615fb0fb475b9ec2d2f8c04adf42d413fc" +
+	"2ef01150becc23ed216f67b107b299b6b2919c0ac9964481267b4a8c2fd82f929be5be27f49e971da8793ed8faa4" +
+	"0c26e4c5ef6e4e39dc95a5f0b0128f6fd07c69d1c2da35826956e53aa360b7cd6c6488574fc13a0cefec94b7e68f")]

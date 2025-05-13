@@ -138,6 +138,14 @@ namespace WebMarkupMin.Core.Resources
 		}
 
 		/// <summary>
+		/// Looks up a localized string similar to "Bogus doctype."
+		/// </summary>
+		public static string ErrorMessage_BogusDoctype
+		{
+			get { return GetString("ErrorMessage_BogusDoctype"); }
+		}
+
+		/// <summary>
 		/// Looks up a localized string similar to "It is impossible to parse a &quot;End If conditional comment&quot;, because not declared &quot;If conditional..."
 		/// </summary>
 		public static string ErrorMessage_IfConditionalCommentNotDeclared
@@ -207,6 +215,14 @@ namespace WebMarkupMin.Core.Resources
 		public static string ErrorMessage_MarkupParsingFailed
 		{
 			get { return GetString("ErrorMessage_MarkupParsingFailed"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Doctype does not contain a root element."
+		/// </summary>
+		public static string ErrorMessage_DoctypeNotContainRootElement
+		{
+			get { return GetString("ErrorMessage_DoctypeNotContainRootElement"); }
 		}
 
 		/// <summary>
@@ -290,6 +306,14 @@ namespace WebMarkupMin.Core.Resources
 		}
 
 		/// <summary>
+		/// Looks up a localized string similar to "Missing space before the doctype root element."
+		/// </summary>
+		public static string ErrorMessage_MissingSpaceBeforeDoctypeRootElement
+		{
+			get { return GetString("ErrorMessage_MissingSpaceBeforeDoctypeRootElement"); }
+		}
+
+		/// <summary>
 		/// Looks up a localized string similar to "Minification of the {0} code has been completed successfully."
 		/// </summary>
 		public static string SuccesMessage_MarkupMinificationComplete
@@ -311,6 +335,62 @@ namespace WebMarkupMin.Core.Resources
 		public static string WarningMessage_XmlDeclarationNotAllowed
 		{
 			get { return GetString("WarningMessage_XmlDeclarationNotAllowed"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "No space between the doctype `{0}` keyword and the quote."
+		/// </summary>
+		public static string ErrorMessage_NoSpaceBetweenDoctypePublicityAndId
+		{
+			get { return GetString("ErrorMessage_NoSpaceBetweenDoctypePublicityAndId"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Invalid formal public identifier."
+		/// </summary>
+		public static string ErrorMessage_InvalidFormalPublicId
+		{
+			get { return GetString("ErrorMessage_InvalidFormalPublicId"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Empty formal public identifier."
+		/// </summary>
+		public static string ErrorMessage_EmptyFormalPublicId
+		{
+			get { return GetString("ErrorMessage_EmptyFormalPublicId"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Empty system identifier."
+		/// </summary>
+		public static string ErrorMessage_EmptySystemId
+		{
+			get { return GetString("ErrorMessage_EmptySystemId"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Invalid system identifier."
+		/// </summary>
+		public static string ErrorMessage_InvalidSystemId
+		{
+			get { return GetString("ErrorMessage_InvalidSystemId"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Expected a formal public identifier but the doctype ended."
+		/// </summary>
+		public static string ErrorMessage_FormalPublicIdNotFound
+		{
+			get { return GetString("ErrorMessage_FormalPublicIdNotFound"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Expected a system identifier but the doctype ended."
+		/// </summary>
+		public static string ErrorMessage_SystemIdNotFound
+		{
+			get { return GetString("ErrorMessage_SystemIdNotFound"); }
 		}
 
 		private static string GetString(string name)

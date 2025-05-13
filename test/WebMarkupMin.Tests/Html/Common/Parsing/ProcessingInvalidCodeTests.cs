@@ -40,7 +40,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 			Assert.Equal(120, errors[0].ColumnNumber);
 			Assert.Equal(
 				"Line 1: … недвижимость и квартиры в Москве и РФ \"Хата.ру\" – Аналитика и цены на недвижимость онлайн, п…" + Environment.NewLine +
-				"--------------------------------------------------------^" + Environment.NewLine,
+				"--------------------------------------------------------^",
 				errors[0].SourceFragment
 			);
 		}
@@ -61,7 +61,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 			Assert.Equal(25, errors[0].ColumnNumber);
 			Assert.Equal(
 				"Line 1: <link id=\"favicon\" rel=?\"shortcut icon\" type=?\"image/?png\" href=?\"#\">" + Environment.NewLine +
-				"--------------------------------^" + Environment.NewLine,
+				"--------------------------------^",
 				errors[0].SourceFragment
 			);
 		}
@@ -82,7 +82,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 			Assert.Equal(8, errors[0].ColumnNumber);
 			Assert.Equal(
 				"Line 1: <header\"></header>" + Environment.NewLine +
-				"---------------^" + Environment.NewLine,
+				"---------------^",
 				errors[0].SourceFragment
 			);
 		}
@@ -114,7 +114,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 				"Line 3:         Level 1 of column" + Environment.NewLine +
 				"Line 4:         <div class=\"row\">" + Environment.NewLine +
 				"-------------------------------^" + Environment.NewLine +
-				"Line 5:             <div class=\"span6\">Level 2</div>" + Environment.NewLine,
+				"Line 5:             <div class=\"span6\">Level 2</div>",
 				errors[0].SourceFragment
 			);
 
@@ -136,7 +136,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 			Assert.Equal(40, errors[0].ColumnNumber);
 			Assert.Equal(
 				"Line 1: <span class=\"b-form-input_size_l i-bem\"\">Some text...</span>" + Environment.NewLine +
-				"-----------------------------------------------^" + Environment.NewLine,
+				"-----------------------------------------------^",
 				errors[0].SourceFragment
 			);
 		}
@@ -162,7 +162,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 			Assert.Equal(41, errors1[0].ColumnNumber);
 			Assert.Equal(
 				"Line 1: <A HREF='/cgi-bin/user.cgi?user=O'Connor'>O'Connor</A>" + Environment.NewLine +
-				"------------------------------------------------^" + Environment.NewLine,
+				"------------------------------------------------^",
 				errors1[0].SourceFragment
 			);
 
@@ -174,7 +174,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 				"Line 1: <li>" + Environment.NewLine +
 				"Line 2:     <a data-bind=\"href:'@Url.Action(\"GetInvoices\", \"ListUsers\")'+'/?eMail='+ Login\">Invoices</a>" + Environment.NewLine +
 				"--------------------------------------------------------^" + Environment.NewLine +
-				"Line 3: </li>" + Environment.NewLine,
+				"Line 3: </li>",
 				errors2[0].SourceFragment
 			);
 		}
@@ -220,7 +220,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 			Assert.Equal(35, errors1[0].ColumnNumber);
 			Assert.Equal(
 				"Line 1: <img src=\"/images/39.gif\" width=80\" height=\"60\">" + Environment.NewLine +
-				"------------------------------------------^" + Environment.NewLine,
+				"------------------------------------------^",
 				errors1[0].SourceFragment
 			);
 
@@ -230,7 +230,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 			Assert.Equal(135, errors2[0].ColumnNumber);
 			Assert.Equal(
 				"Line 1: …ние на COBOL, 14-е издание, I том (файл PDF) \" / alt=\"Программирование на COBOL, 14-е издание…" + Environment.NewLine +
-				"--------------------------------------------------------^" + Environment.NewLine,
+				"--------------------------------------------------------^",
 				errors2[0].SourceFragment
 			);
 
@@ -242,7 +242,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 				"Line 2:     <div>" + Environment.NewLine +
 				"Line 3:         <img src=\"//mk.tyndex.ru/watch/6740060\" style=\"position:absolute; left:-9999px;\" alt=\"\"\" />" + Environment.NewLine +
 				"-------------------------------------------------------------------------------------------------------^" + Environment.NewLine +
-				"Line 4:     </div>" + Environment.NewLine,
+				"Line 4:     </div>",
 				errors3[0].SourceFragment
 			);
 
@@ -254,7 +254,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 				"Line 3: " + Environment.NewLine +
 				"Line 4: …му Общему собранию акционеров ОАО Рога и копыта' alt='Материалы к годовому Общему собранию ак…" + Environment.NewLine +
 				"--------------------------------------------------------^" + Environment.NewLine +
-				"Line 5: …та</a></td>" + Environment.NewLine,
+				"Line 5: …та</a></td>",
 				errors4[0].SourceFragment
 			);
 		}
@@ -281,7 +281,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 			Assert.Equal(
 				"Line 4:     </tr>" + Environment.NewLine +
 				"Line 5: </table." + Environment.NewLine +
-				"--------^" + Environment.NewLine,
+				"--------^",
 				errors[0].SourceFragment
 			);
 		}
@@ -302,7 +302,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 			Assert.Equal(1, errors[0].ColumnNumber);
 			Assert.Equal(
 				"Line 1: <!-->" + Environment.NewLine +
-				"--------^" + Environment.NewLine,
+				"--------^",
 				errors[0].SourceFragment
 			);
 		}
@@ -324,7 +324,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 			Assert.Equal(9, errors[0].ColumnNumber);
 			Assert.Equal(
 				"Line 1: <C�\u0003�tmh</`\u0018\u001al@\0OCTYPE \0O|�\0\0\u0010\0htmh</`�\u0001\0\0h<+`\u0006OCTFPE ElE Ml@\0\0\u0010|J\u0017h\0\u0010h1?html" + Environment.NewLine +
-				"----------------^" + Environment.NewLine,
+				"----------------^",
 				errors[0].SourceFragment
 			);
 		}
