@@ -1,11 +1,11 @@
 
 
    --------------------------------------------------------------------------------
-           README file for Web Markup Minifier: ASP.NET Core Latest v2.18.1
+           README file for Web Markup Minifier: ASP.NET Core Latest v2.19.0
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2024 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2025 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========

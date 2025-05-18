@@ -1,6 +1,12 @@
 Change log
 ==========
 
+## v2.19.0 - May 18, 2025
+ * In XML minification settings was added one new property - `AttributeQuotesStyle` (default `Auto`)
+ * Improved a parsing of the `DOCTYPE` declaration for HTML/XHTML documents
+ * In WebMarkupMin.NUglify added support for the NUglify version 1.21.15
+ * In WebMarkupMin.AspNetCoreLatest added support for the ASP.NET Core 8.0.16 and 9.0.5
+
 ## v2.18.1 - December 12, 2024
  * In WebMarkupMin.NUglify added support for the NUglify version 1.21.11
  * In ASP.NET Core extensions, fixed a error in the `AspNetCoreLogger` class

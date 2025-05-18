@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: ASP.NET Core 2.X</Product>
-    <VersionPrefix>2.18.1</VersionPrefix>
+    <VersionPrefix>2.19.0</VersionPrefix>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <OutputType>Library</OutputType>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
@@ -19,7 +19,6 @@
   <PropertyGroup>
     <Description>WebMarkupMin.AspNetCore2 contains one Middleware for ASP.NET Core 2.X - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
-    <PackageReleaseNotes>Fixed a error in the `AspNetCoreLogger` class.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
