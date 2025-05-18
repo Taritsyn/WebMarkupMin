@@ -19,7 +19,7 @@
   <PropertyGroup>
     <Description>WebMarkupMin.AspNetCoreLatest contains one Middleware for ASP.NET Core 8 and 9 - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
-    <PackageReleaseNotes>Added support for the ASP.NET Core 8.0.14 and 9.0.3.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added support for the ASP.NET Core 8.0.16 and 9.0.5.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,11 +29,11 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
-    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="8.0.14" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="8.0.16" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
-    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="9.0.3" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="9.0.5" />
   </ItemGroup>
 
   <Target Name="ConvertResxToCs" BeforeTargets="BeforeCompile">
