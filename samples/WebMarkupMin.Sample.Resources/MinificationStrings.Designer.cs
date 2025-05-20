@@ -66,7 +66,7 @@ namespace WebMarkupMin.Sample.Resources
 		}
 
 		/// <summary>
-		/// Looks up a localized string similar to "Style of the HTML attribute quotes"
+		/// Looks up a localized string similar to "Style of the attribute quotes"
 		/// </summary>
 		public static string DisplayName_AttributeQuotesStyle
 		{

@@ -121,7 +121,7 @@
     <value>Minify</value>
   </data>
   <data name="DisplayName_AttributeQuotesStyle" xml:space="preserve">
-    <value>Style of the HTML attribute quotes</value>
+    <value>Style of the attribute quotes</value>
   </data>
   <data name="DisplayName_MinificationDuration" xml:space="preserve">
     <value>Minification duration</value>
