@@ -107,6 +107,7 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
  * [ChannelEngine.com](https://www.channelengine.com/)
  * [CityOfBoise.org](https://www.cityofboise.org/)
  * [ClientEarth.org](https://www.clientearth.org/)
+ * [CloudParser.ru](https://cloudparser.ru/)
  * [CLS.vn](https://cls.vn/)
  * [CollectOffers.com](https://www.collectoffers.com/)
  * [Crossmedial.be](https://www.crossmedial.be/)
