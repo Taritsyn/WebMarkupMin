@@ -17,7 +17,7 @@ Also supports minification of views of popular JavaScript template engines: [Kno
 
 In addition, there are several modules that integrate this library into ASP.NET: WebMarkupMin.AspNet4.HttpModules (for ASP.NET 4.X and ASP.NET Web Pages), WebMarkupMin.AspNet4.Mvc (for ASP.NET MVC 3, 4 or 5), WebMarkupMin.AspNet4.WebForms (for ASP.NET Web Forms 4.X), WebMarkupMin.AspNetCore1 (for ASP.NET Core 1.X), WebMarkupMin.AspNetCore2 (for ASP.NET Core 2.X), WebMarkupMin.AspNetCore3 (for ASP.NET Core 3.1 and 5), WebMarkupMin.AspNetCore6 (for ASP.NET Core 6 and 7) and WebMarkupMin.AspNetCoreLatest (for ASP.NET Core 8 and 9).
 
-You can try WebMarkupMin in action and experiment with different minification settings live on the [WebMarkupMin Online](https://webmarkupmin.bsite.net/) site.
+You can try WebMarkupMin in action and experiment with different minification settings live on the [WebMarkupMin Online](https://webmarkupmin.rsite.net/) site.
 
 ## NuGet Packages
 
