@@ -67,6 +67,27 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 		}
 
 		[Fact]
+		public void ProcessingInvalidCharactersInScriptEndTag()
+		{
+			// Arrange
+			const string input = "<script>alert(\"Hello!\");</<% %>script>";
+
+			// Act
+			IList<MinificationErrorInfo> errors = _minifier.Minify(input).Errors;
+
+			// Assert
+			Assert.Equal(1, errors.Count);
+			Assert.Equal("Tag <script> is not closed.", errors[0].Message);
+			Assert.Equal(1, errors[0].LineNumber);
+			Assert.Equal(9, errors[0].ColumnNumber);
+			Assert.Equal(
+				"Line 1: <script>alert(\"Hello!\");</<% %>script>" + Environment.NewLine +
+				"----------------^",
+				errors[0].SourceFragment
+			);
+		}
+
+		[Fact]
 		public void ProcessingInvalidCharactersInHeaderStartTag()
 		{
 			// Arrange

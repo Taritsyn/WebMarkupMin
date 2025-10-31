@@ -686,6 +686,12 @@ namespace WebMarkupMin.Core.Parsers
 
 						_innerContext.IncreasePosition(codeAndEndTagLength);
 					}
+					else
+					{
+						throw new MarkupParsingException(
+							string.Format(Strings.ErrorMessage_NotClosedTag, stackedTagName),
+							_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
+					}
 				}
 				while (!endTagFound);
 			}

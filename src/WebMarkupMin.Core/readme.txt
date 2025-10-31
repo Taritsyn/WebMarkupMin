@@ -46,9 +46,8 @@
    =============
    RELEASE NOTES
    =============
-   1. In XML minification settings was added one new property -
-      `AttributeQuotesStyle` (default `Auto`);
-   2. Improved a parsing of the `DOCTYPE` declaration for HTML/XHTML documents.
+   Prevented a occurrence of endless loop during minification of the
+   `<script type="text/html">…</script>` tag contents.
 
    =============
    DOCUMENTATION
