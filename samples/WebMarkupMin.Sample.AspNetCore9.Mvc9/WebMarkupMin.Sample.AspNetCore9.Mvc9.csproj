@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: Sample ASP.NET Core 9 MVC 9 Site</Product>
-    <VersionPrefix>2.19.0</VersionPrefix>
+    <VersionPrefix>2.19.1</VersionPrefix>
     <TargetFramework>net9.0</TargetFramework>
     <OutputType>Exe</OutputType>
     <Nullable>enable</Nullable>

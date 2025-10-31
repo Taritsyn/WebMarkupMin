@@ -1,6 +1,10 @@
 Change log
 ==========
 
+## v2.19.1 - October 31, 2025
+ * Prevented a occurrence of endless loop during minification of the `<script type="text/html">…</script>` tag contents
+ * In WebMarkupMin.NUglify added support for the NUglify version 1.21.17
+
 ## v2.19.0 - May 18, 2025
  * In XML minification settings was added one new property - `AttributeQuotesStyle` (default `Auto`)
  * Improved a parsing of the `DOCTYPE` declaration for HTML/XHTML documents
