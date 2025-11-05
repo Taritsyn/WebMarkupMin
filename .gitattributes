@@ -3,7 +3,7 @@
 
 # Custom for Visual Studio
 *.cs     diff=csharp
-*.sln    merge=union
+*.slnx   merge=union
 *.csproj merge=union
 
 # Standard to msysgit

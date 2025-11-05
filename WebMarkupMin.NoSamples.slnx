@@ -1,0 +1,51 @@
+﻿<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="CHANGELOG.md" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/build/">
+    <File Path="build/common.props" />
+    <File Path="build/Key.snk" />
+    <File Path="build/net40-client-target.props" />
+    <File Path="build/nuget-common.props" />
+    <File Path="build/nuget-metadata.props" />
+    <File Path="build/strong-name-signing.props" />
+  </Folder>
+  <Folder Name="/licenses/">
+    <File Path="licenses/brotli-license.txt" />
+    <File Path="licenses/brotli-sharp-lib-license.txt" />
+    <File Path="licenses/html-minifier.txt" />
+    <File Path="licenses/htmlcompressor.txt" />
+    <File Path="licenses/jsmin-license.txt" />
+    <File Path="licenses/microsoft-ajax-minifier-license.txt" />
+    <File Path="licenses/nuglify-license.txt" />
+    <File Path="licenses/yui-compressor-for-net-license.txt" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/WebMarkupMin.Core/WebMarkupMin.Core.csproj" />
+    <Project Path="src/WebMarkupMin.MsAjax/WebMarkupMin.MsAjax.csproj" />
+    <Project Path="src/WebMarkupMin.Yui/WebMarkupMin.Yui.csproj" />
+    <Project Path="src/WebMarkupMin.NUglify/WebMarkupMin.NUglify.csproj" />
+    <Project Path="src/WebMarkupMin.AspNet.Common/WebMarkupMin.AspNet.Common.csproj" />
+    <Project Path="src/WebMarkupMin.AspNet.Brotli/WebMarkupMin.AspNet.Brotli.csproj" />
+    <Project Path="src/WebMarkupMin.AspNet4.Common/WebMarkupMin.AspNet4.Common.csproj" />
+    <Project Path="src/WebMarkupMin.AspNet4.HttpModules/WebMarkupMin.AspNet4.HttpModules.csproj" />
+    <Project Path="src/WebMarkupMin.AspNet4.Mvc/WebMarkupMin.AspNet4.Mvc.csproj" />
+    <Project Path="src/WebMarkupMin.AspNet4.WebForms/WebMarkupMin.AspNet4.WebForms.csproj" />
+    <Project Path="src/WebMarkupMin.AspNetCore1/WebMarkupMin.AspNetCore1.csproj" />
+    <Project Path="src/WebMarkupMin.AspNetCore2/WebMarkupMin.AspNetCore2.csproj" />
+    <Project Path="src/WebMarkupMin.AspNetCore3/WebMarkupMin.AspNetCore3.csproj" />
+    <Project Path="src/WebMarkupMin.AspNetCore5/WebMarkupMin.AspNetCore5.csproj" />
+    <Project Path="src/WebMarkupMin.AspNetCore6/WebMarkupMin.AspNetCore6.csproj" />
+    <Project Path="src/WebMarkupMin.AspNetCore7/WebMarkupMin.AspNetCore7.csproj" />
+    <Project Path="src/WebMarkupMin.AspNetCore8/WebMarkupMin.AspNetCore8.csproj" />
+    <Project Path="src/WebMarkupMin.AspNetCoreLatest/WebMarkupMin.AspNetCoreLatest.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/WebMarkupMin.Benchmarks/WebMarkupMin.Benchmarks.csproj" />
+    <Project Path="test/WebMarkupMin.Tests/WebMarkupMin.Tests.csproj" />
+    <Project Path="test/WebMarkupMin.Tests.Integration/WebMarkupMin.Tests.Integration.csproj" />
+  </Folder>
+</Solution>

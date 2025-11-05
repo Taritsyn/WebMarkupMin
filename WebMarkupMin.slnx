@@ -1,0 +1,96 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="CHANGELOG.md" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/build/">
+    <File Path="build/common.props" />
+    <File Path="build/Key.snk" />
+    <File Path="build/net40-client-target.props" />
+    <File Path="build/nuget-common.props" />
+    <File Path="build/nuget-metadata.props" />
+    <File Path="build/strong-name-signing.props" />
+  </Folder>
+  <Folder Name="/licenses/">
+    <File Path="licenses/brotli-license.txt" />
+    <File Path="licenses/brotli-sharp-lib-license.txt" />
+    <File Path="licenses/html-minifier.txt" />
+    <File Path="licenses/htmlcompressor.txt" />
+    <File Path="licenses/jsmin-license.txt" />
+    <File Path="licenses/microsoft-ajax-minifier-license.txt" />
+    <File Path="licenses/nuglify-license.txt" />
+    <File Path="licenses/yui-compressor-for-net-license.txt" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/WebMarkupMin.Core/WebMarkupMin.Core.csproj" />
+    <Project Path="src/WebMarkupMin.MsAjax/WebMarkupMin.MsAjax.csproj" />
+    <Project Path="src/WebMarkupMin.Yui/WebMarkupMin.Yui.csproj" />
+    <Project Path="src/WebMarkupMin.NUglify/WebMarkupMin.NUglify.csproj" />
+    <Project Path="src/WebMarkupMin.AspNet.Common/WebMarkupMin.AspNet.Common.csproj" />
+    <Project Path="src/WebMarkupMin.AspNet.Brotli/WebMarkupMin.AspNet.Brotli.csproj" />
+    <Project Path="src/WebMarkupMin.AspNet4.Common/WebMarkupMin.AspNet4.Common.csproj" />
+    <Project Path="src/WebMarkupMin.AspNet4.HttpModules/WebMarkupMin.AspNet4.HttpModules.csproj" />
+    <Project Path="src/WebMarkupMin.AspNet4.Mvc/WebMarkupMin.AspNet4.Mvc.csproj" />
+    <Project Path="src/WebMarkupMin.AspNet4.WebForms/WebMarkupMin.AspNet4.WebForms.csproj" />
+    <Project Path="src/WebMarkupMin.AspNetCore1/WebMarkupMin.AspNetCore1.csproj" />
+    <Project Path="src/WebMarkupMin.AspNetCore2/WebMarkupMin.AspNetCore2.csproj" />
+    <Project Path="src/WebMarkupMin.AspNetCore3/WebMarkupMin.AspNetCore3.csproj" />
+    <Project Path="src/WebMarkupMin.AspNetCore5/WebMarkupMin.AspNetCore5.csproj" />
+    <Project Path="src/WebMarkupMin.AspNetCore6/WebMarkupMin.AspNetCore6.csproj" />
+    <Project Path="src/WebMarkupMin.AspNetCore7/WebMarkupMin.AspNetCore7.csproj" />
+    <Project Path="src/WebMarkupMin.AspNetCore8/WebMarkupMin.AspNetCore8.csproj" />
+    <Project Path="src/WebMarkupMin.AspNetCoreLatest/WebMarkupMin.AspNetCoreLatest.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/WebMarkupMin.Benchmarks/WebMarkupMin.Benchmarks.csproj" />
+    <Project Path="test/WebMarkupMin.Tests/WebMarkupMin.Tests.csproj" />
+    <Project Path="test/WebMarkupMin.Tests.Integration/WebMarkupMin.Tests.Integration.csproj" />
+  </Folder>
+  <Folder Name="/samples/SharedData/" />
+  <Folder Name="/samples/SharedData/text-content/">
+    <File Path="samples/SharedData/text-content/change-log.html" />
+    <File Path="samples/SharedData/text-content/contact.html" />
+    <File Path="samples/SharedData/text-content/index.html" />
+  </Folder>
+  <Folder Name="/samples/">
+    <Project Path="samples/WebMarkupMin.Sample.Resources/WebMarkupMin.Sample.Resources.csproj" />
+    <Project Path="samples/WebMarkupMin.Sample.Logic/WebMarkupMin.Sample.Logic.csproj" />
+    <Project Path="samples/WebMarkupMin.Sample.AspNet4.Mvc4/WebMarkupMin.Sample.AspNet4.Mvc4.csproj" Id="5cf180f1-8a21-4da6-9550-85f6210389a4" />
+    <Project Path="samples/WebMarkupMin.Sample.AspNet4.WebPages2/" Type="Website" DisplayName="WebMarkupMin.Sample.AspNet4.WebPages2" Id="90b64798-5f93-4132-ace9-a3a4bb05451d">
+      <BuildType Project="Debug" />
+      <Properties Name="WebsiteProperties">
+        <Property Name="TargetFrameworkMoniker" Value="&quot;.NETFramework,Version%3Dv4.0&quot;" />
+        <Property Name="ProjectReferences" Value="&quot;{dfce4d45-cfd5-40c2-8e1e-9276b589a3ff}|WebMarkupMin.AspNet.Common.dll;{b9908e9f-c933-46fa-a8d0-55938fdb5cc6}|WebMarkupMin.AspNet4.Common.dll;{23c293bd-171b-47ce-936e-16b41bbf666b}|WebMarkupMin.AspNet4.HttpModules.dll;{b13de315-c4a0-4bbf-86b1-d916483f5c63}|WebMarkupMin.Core.dll;{16e16699-8950-45b3-9fc9-0e06a2aa0385}|WebMarkupMin.MsAjax.dll;{d29e22ef-eaf3-4056-bc7b-e02bb4048281}|WebMarkupMin.Sample.Logic.dll;{8efc1c84-d831-45ce-926a-a9cf99b2164c}|WebMarkupMin.Sample.Resources.dll;{43f35909-cf70-4369-a31d-bd597a3a6615}|WebMarkupMin.AspNet.Brotli.dll;&quot;" />
+        <Property Name="Debug.AspNetCompiler.VirtualPath" Value="&quot;/localhost_47959&quot;" />
+        <Property Name="Debug.AspNetCompiler.PhysicalPath" Value="&quot;samples\WebMarkupMin.Sample.AspNet4.WebPages2\&quot;" />
+        <Property Name="Debug.AspNetCompiler.TargetPath" Value="&quot;PrecompiledWeb\localhost_47959\&quot;" />
+        <Property Name="Debug.AspNetCompiler.Updateable" Value="&quot;true&quot;" />
+        <Property Name="Debug.AspNetCompiler.ForceOverwrite" Value="&quot;true&quot;" />
+        <Property Name="Debug.AspNetCompiler.FixedNames" Value="&quot;false&quot;" />
+        <Property Name="Debug.AspNetCompiler.Debug" Value="&quot;True&quot;" />
+        <Property Name="Release.AspNetCompiler.VirtualPath" Value="&quot;/localhost_47959&quot;" />
+        <Property Name="Release.AspNetCompiler.PhysicalPath" Value="&quot;samples\WebMarkupMin.Sample.AspNet4.WebPages2\&quot;" />
+        <Property Name="Release.AspNetCompiler.TargetPath" Value="&quot;PrecompiledWeb\localhost_47959\&quot;" />
+        <Property Name="Release.AspNetCompiler.Updateable" Value="&quot;true&quot;" />
+        <Property Name="Release.AspNetCompiler.ForceOverwrite" Value="&quot;true&quot;" />
+        <Property Name="Release.AspNetCompiler.FixedNames" Value="&quot;false&quot;" />
+        <Property Name="Release.AspNetCompiler.Debug" Value="&quot;False&quot;" />
+        <Property Name="VWDPort" Value="&quot;47959&quot;" />
+        <Property Name="SlnRelativePath" Value="&quot;samples\WebMarkupMin.Sample.AspNet4.WebPages2\&quot;" />
+      </Properties>
+    </Project>
+    <Project Path="samples/WebMarkupMin.Sample.AspNet45.WebForms/WebMarkupMin.Sample.AspNet45.WebForms.csproj" Id="e7808547-e984-4f80-97b8-b19e99be3a76" />
+    <Project Path="samples/WebMarkupMin.Sample.AspNetCore.Infrastructure/WebMarkupMin.Sample.AspNetCore.Infrastructure.csproj" />
+    <Project Path="samples/WebMarkupMin.Sample.AspNetCore1.Mvc1/WebMarkupMin.Sample.AspNetCore1.Mvc1.csproj" />
+    <Project Path="samples/WebMarkupMin.Sample.AspNetCore1Full.Mvc1/WebMarkupMin.Sample.AspNetCore1Full.Mvc1.csproj" />
+    <Project Path="samples/WebMarkupMin.Sample.AspNetCore21.Mvc21/WebMarkupMin.Sample.AspNetCore21.Mvc21.csproj" />
+    <Project Path="samples/WebMarkupMin.Sample.AspNetCore31.Mvc31/WebMarkupMin.Sample.AspNetCore31.Mvc31.csproj" />
+    <Project Path="samples/WebMarkupMin.Sample.AspNetCore5.Mvc5/WebMarkupMin.Sample.AspNetCore5.Mvc5.csproj" />
+    <Project Path="samples/WebMarkupMin.Sample.AspNetCore6.Mvc6/WebMarkupMin.Sample.AspNetCore6.Mvc6.csproj" />
+    <Project Path="samples/WebMarkupMin.Sample.AspNetCore7.Mvc7/WebMarkupMin.Sample.AspNetCore7.Mvc7.csproj" />
+    <Project Path="samples/WebMarkupMin.Sample.AspNetCore8.Mvc8/WebMarkupMin.Sample.AspNetCore8.Mvc8.csproj" />
+    <Project Path="samples/WebMarkupMin.Sample.AspNetCore9.Mvc9/WebMarkupMin.Sample.AspNetCore9.Mvc9.csproj" />
+  </Folder>
+</Solution>
