@@ -62,7 +62,7 @@
       <BuildType Project="Debug" />
       <Properties Name="WebsiteProperties">
         <Property Name="TargetFrameworkMoniker" Value="&quot;.NETFramework,Version%3Dv4.0&quot;" />
-        <Property Name="ProjectReferences" Value="&quot;{dfce4d45-cfd5-40c2-8e1e-9276b589a3ff}|WebMarkupMin.AspNet.Common.dll;{b9908e9f-c933-46fa-a8d0-55938fdb5cc6}|WebMarkupMin.AspNet4.Common.dll;{23c293bd-171b-47ce-936e-16b41bbf666b}|WebMarkupMin.AspNet4.HttpModules.dll;{b13de315-c4a0-4bbf-86b1-d916483f5c63}|WebMarkupMin.Core.dll;{16e16699-8950-45b3-9fc9-0e06a2aa0385}|WebMarkupMin.MsAjax.dll;{d29e22ef-eaf3-4056-bc7b-e02bb4048281}|WebMarkupMin.Sample.Logic.dll;{8efc1c84-d831-45ce-926a-a9cf99b2164c}|WebMarkupMin.Sample.Resources.dll;{43f35909-cf70-4369-a31d-bd597a3a6615}|WebMarkupMin.AspNet.Brotli.dll;&quot;" />
+        <Property Name="ProjectReferences" Value="&quot;{97df1c55-a83c-2684-80a2-78661e0b634f}|WebMarkupMin.Core.dll;{8964e839-b699-5a99-63d9-6792fd1d3e97}|WebMarkupMin.MsAjax.dll;{52e15171-4ebf-f848-abd8-b22e88d93cd5}|WebMarkupMin.AspNet.Common.dll;{ba8226d6-ace8-7317-bcd2-794fa7e63450}|WebMarkupMin.AspNet.Brotli.dll;{e14fab2f-f19e-7f96-07fe-e6b989b9a39c}|WebMarkupMin.AspNet4.Common.dll;{8526aa09-b22c-cc64-54e0-39148b8ef947}|WebMarkupMin.AspNet4.HttpModules.dll;{d80efdba-55c8-fa7e-8e76-d05f3577afb7}|WebMarkupMin.Sample.Resources.dll;{5d65d4e8-de3f-89e2-1103-06fc12a7295c}|WebMarkupMin.Sample.Logic.dll;&quot;" />
         <Property Name="Debug.AspNetCompiler.VirtualPath" Value="&quot;/localhost_47959&quot;" />
         <Property Name="Debug.AspNetCompiler.PhysicalPath" Value="&quot;samples\WebMarkupMin.Sample.AspNet4.WebPages2\&quot;" />
         <Property Name="Debug.AspNetCompiler.TargetPath" Value="&quot;PrecompiledWeb\localhost_47959\&quot;" />
@@ -92,5 +92,6 @@
     <Project Path="samples/WebMarkupMin.Sample.AspNetCore7.Mvc7/WebMarkupMin.Sample.AspNetCore7.Mvc7.csproj" />
     <Project Path="samples/WebMarkupMin.Sample.AspNetCore8.Mvc8/WebMarkupMin.Sample.AspNetCore8.Mvc8.csproj" />
     <Project Path="samples/WebMarkupMin.Sample.AspNetCore9.Mvc9/WebMarkupMin.Sample.AspNetCore9.Mvc9.csproj" />
+    <Project Path="samples/WebMarkupMin.Sample.AspNetCore10.Mvc10/WebMarkupMin.Sample.AspNetCore10.Mvc10.csproj" />
   </Folder>
 </Solution>
