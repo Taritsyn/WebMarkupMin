@@ -52,7 +52,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 
 		public override void Configure(WebMarkupMinOptions options)
 		{
-			if (options == null)
+			if (options is null)
 			{
 				throw new ArgumentNullException(nameof(options));
 			}

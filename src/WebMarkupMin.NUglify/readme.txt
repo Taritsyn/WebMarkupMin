@@ -19,7 +19,7 @@
    =============
    RELEASE NOTES
    =============
-   Added support for the NUglify version 1.21.17.
+   Performed a migration to the modern C# null/not-null checks.
 
    =============
    DOCUMENTATION

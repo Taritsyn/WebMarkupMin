@@ -25,7 +25,7 @@ namespace WebMarkupMin.Sample.Logic.Models
 		/// <param name="items">A collection of <see cref="SitemapItem" /> objects</param>
 		public Sitemap(IList<SitemapItem> items)
 		{
-			if (items == null)
+			if (items is null)
 			{
 				throw new ArgumentNullException(nameof(items));
 			}

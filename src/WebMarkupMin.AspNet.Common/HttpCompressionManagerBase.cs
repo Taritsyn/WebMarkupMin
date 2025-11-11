@@ -69,7 +69,7 @@ namespace WebMarkupMin.AspNet.Common
 			IList<ICompressorFactory> factories = CompressorFactories;
 			int factoryCount = factories.Count;
 
-			if (acceptEncoding != null && factoryCount > 0)
+			if (acceptEncoding is not null && factoryCount > 0)
 			{
 				string[] encodingTokens = acceptEncoding
 					.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
@@ -88,7 +88,7 @@ namespace WebMarkupMin.AspNet.Common
 				}
 			}
 
-			bool result = compressor != null;
+			bool result = compressor is not null;
 
 			return result;
 		}

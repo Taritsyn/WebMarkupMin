@@ -16,6 +16,7 @@
   <PropertyGroup>
     <Description>WebMarkupMin.Yui contains 2 minifier-adapters: `YuiCssMinifier` (for minification of CSS code) and `YuiJsMinifier` (for minification of JS code). These adapters perform minification using the YUI Compressor for .NET.</Description>
     <PackageTags>$(PackageCommonTags);CSS;JavaScript;JS;Obfuscation;YUICompressor</PackageTags>
+    <PackageReleaseNotes>Performed a migration to the modern C# null/not-null checks.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

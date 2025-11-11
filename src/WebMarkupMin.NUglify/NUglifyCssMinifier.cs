@@ -133,14 +133,14 @@ namespace WebMarkupMin.NUglify
 
 			lock (_minificationSynchronizer)
 			{
-				if (_errorReporter == null)
+				if (_errorReporter is null)
 				{
 					_errorReporter = new NUglifyErrorReporter(_settings.WarningLevel);
 				}
 
 				CssParser originalCssParser = isInlineCode ?
 					_originalInlineCssParser : _originalEmbeddedCssParser;
-				if (originalCssParser == null)
+				if (originalCssParser is null)
 				{
 					originalCssParser = CreateOriginalCssParserInstance(_settings, isInlineCode);
 					if (isInlineCode)

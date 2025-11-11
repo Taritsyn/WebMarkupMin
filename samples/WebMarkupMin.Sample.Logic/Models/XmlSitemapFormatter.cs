@@ -32,7 +32,7 @@ namespace WebMarkupMin.Sample.Logic.Models
 		/// <param name="sitemap">The <see cref="Sitemap" /> to serialize</param>
 		public XmlSitemapFormatter(Sitemap sitemap)
 		{
-			if (sitemap == null)
+			if (sitemap is null)
 			{
 				throw new ArgumentNullException(nameof(sitemap));
 			}
@@ -59,7 +59,7 @@ namespace WebMarkupMin.Sample.Logic.Models
 		/// <param name="writer">The <see cref="XmlWriter" /> to write the <see cref="Sitemap" /> to</param>
 		public void WriteXml(XmlWriter writer)
 		{
-			if (writer == null)
+			if (writer is null)
 			{
 				throw new ArgumentNullException(nameof(writer));
 			}

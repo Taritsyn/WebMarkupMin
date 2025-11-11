@@ -18,6 +18,7 @@
   <PropertyGroup>
     <Description>WebMarkupMin.MsAjax contains 2 minifier-adapters: `MsAjaxCssMinifier` (for minification of CSS code) and `MsAjaxJsMinifier` (for minification of JS code). These adapters perform minification using the Microsoft Ajax Minifier.</Description>
     <PackageTags>$(PackageCommonTags);CSS;JavaScript;JS;Microsoft;AjaxMin</PackageTags>
+    <PackageReleaseNotes>Performed a migration to the modern C# null/not-null checks.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

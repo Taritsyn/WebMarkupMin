@@ -686,7 +686,7 @@ namespace WebMarkupMin.Core
 					output.Write(publicity);
 
 					HtmlFormalPublicId publicId = doctype.PublicId;
-					if (publicId != null)
+					if (publicId is not null)
 					{
 						string quoteString = publicId.QuoteChar.ToString();
 
@@ -715,7 +715,7 @@ namespace WebMarkupMin.Core
 					}
 
 					HtmlSystemId systemId = doctype.SystemId;
-					if (systemId != null)
+					if (systemId is not null)
 					{
 						string quoteString = systemId.QuoteChar.ToString();
 
@@ -2090,7 +2090,7 @@ namespace WebMarkupMin.Core
 			HtmlTag upgradedTag = tag;
 
 			HtmlAttribute contentAttribute = tag.Attributes.FirstOrDefault(a => a.NameInLowercase == "content");
-			if (contentAttribute != null)
+			if (contentAttribute is not null)
 			{
 				string content = contentAttribute.Value.Trim();
 				if (content.Length > 0)
@@ -3306,10 +3306,10 @@ namespace WebMarkupMin.Core
 
 			public HtmlAttributeViewModel(string name, string value, char quoteChar)
 			{
-				if (name != null)
+				if (name is not null)
 				{
 					Name = name;
-					if (value != null)
+					if (value is not null)
 					{
 						Value = value;
 						HasValue = true;

@@ -46,7 +46,7 @@ namespace WebMarkupMin.Core.Parsers
 			}
 			set
 			{
-				if (value != null)
+				if (value is not null)
 				{
 					_value = value;
 					_hasValue = true;

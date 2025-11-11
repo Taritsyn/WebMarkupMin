@@ -310,7 +310,7 @@ namespace WebMarkupMin.Core.Parsers
 					_context = null;
 					_innerContext = null;
 
-					if (_doctypeProcessor != null)
+					if (_doctypeProcessor is not null)
 					{
 						_doctypeProcessor.Dispose();
 						_doctypeProcessor = null;
@@ -961,7 +961,7 @@ namespace WebMarkupMin.Core.Parsers
 					}
 				}
 
-				if (optionalEndTag != null)
+				if (optionalEndTag is not null)
 				{
 					ParseEndTag(optionalEndTag.Name, optionalEndTag.NameInLowercase);
 				}
@@ -1017,7 +1017,7 @@ namespace WebMarkupMin.Core.Parsers
 			{
 				HtmlTag currentStackedTag = _tagStack.GetFirstTagByNameInLowercase(tagNameInLowercase);
 
-				if (currentStackedTag != null)
+				if (currentStackedTag is not null)
 				{
 					while (_tagStack.Count > 0)
 					{
@@ -1036,7 +1036,7 @@ namespace WebMarkupMin.Core.Parsers
 				}
 			}
 
-			if (tag == null)
+			if (tag is null)
 			{
 				tag = new HtmlTag(tagName, tagNameInLowercase, GetTagFlagsByName(tagNameInLowercase));
 				InternalParseEndTag(tag);

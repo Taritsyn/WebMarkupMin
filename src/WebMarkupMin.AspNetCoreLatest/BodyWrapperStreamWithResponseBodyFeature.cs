@@ -72,7 +72,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 				await InternalFinishAsync();
 				_httpHeadersModificationRequired = false;
 
-				if (_pipeAdapter != null)
+				if (_pipeAdapter is not null)
 				{
 					await _pipeAdapter.CompleteAsync();
 				}
@@ -91,7 +91,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 		{
 			get
 			{
-				if (_pipeAdapter == null)
+				if (_pipeAdapter is null)
 				{
 					_pipeAdapter = PipeWriter.Create(Stream, new StreamPipeWriterOptions(leaveOpen: true));
 				}

@@ -66,7 +66,7 @@ namespace WebMarkupMin.Sample.AspNetCore.Infrastructure.ActionResults
 
 		public override void ExecuteResult(ActionContext context)
 		{
-			if (context == null)
+			if (context is null)
 			{
 				throw new ArgumentNullException(nameof(context));
 			}
@@ -83,7 +83,7 @@ namespace WebMarkupMin.Sample.AspNetCore.Infrastructure.ActionResults
 
 			response.ContentType = resolvedContentType;
 
-			if (Value != null)
+			if (Value is not null)
 			{
 				var settings = new XmlWriterSettings()
 				{

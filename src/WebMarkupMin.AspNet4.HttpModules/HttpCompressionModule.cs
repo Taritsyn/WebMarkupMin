@@ -97,10 +97,10 @@ namespace WebMarkupMin.AspNet4.HttpModules
 		private void ProcessError(object sender, EventArgs e)
 		{
 			HttpContext context = ((HttpApplication)sender).Context;
-			if (context.Error != null && context.Items.Contains("originalResponseFilter"))
+			if (context.Error is not null && context.Items.Contains("originalResponseFilter"))
 			{
 				var originalResponseFilter = context.Items["originalResponseFilter"] as Stream;
-				if (originalResponseFilter != null)
+				if (originalResponseFilter is not null)
 				{
 					context.Response.Filter = originalResponseFilter;
 				}

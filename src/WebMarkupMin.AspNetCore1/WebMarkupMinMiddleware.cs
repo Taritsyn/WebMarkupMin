@@ -38,7 +38,7 @@ namespace WebMarkupMin.AspNetCore2
 		public async Task Invoke(HttpContext context)
 		{
 			bool useMinification = _options.IsMinificationEnabled() && _minificationManagers.Count > 0;
-			bool useCompression = _options.IsCompressionEnabled() && _compressionManager != null;
+			bool useCompression = _options.IsCompressionEnabled() && _compressionManager is not null;
 
 			if (!useMinification && !useCompression)
 			{

@@ -40,7 +40,7 @@ namespace WebMarkupMin.Sample.AspNetCore.Infrastructure.Internal
 			Encoding defaultContentTypeEncoding = MediaType.GetEncoding(defaultContentType);
 
 			// 1. User sets the ContentType property on the action result
-			if (actionResultContentType != null)
+			if (actionResultContentType is not null)
 			{
 				resolvedContentType = actionResultContentType;
 				Encoding actionResultEncoding = MediaType.GetEncoding(actionResultContentType);
@@ -52,7 +52,7 @@ namespace WebMarkupMin.Sample.AspNetCore.Infrastructure.Internal
 			if (!string.IsNullOrEmpty(httpResponseContentType))
 			{
 				Encoding mediaTypeEncoding = MediaType.GetEncoding(httpResponseContentType);
-				if (mediaTypeEncoding != null)
+				if (mediaTypeEncoding is not null)
 				{
 					resolvedContentType = httpResponseContentType;
 					resolvedContentTypeEncoding = mediaTypeEncoding;

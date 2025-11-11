@@ -23,7 +23,7 @@ namespace WebMarkupMin.AspNet.Common
 			}
 
 			Func<string, bool> supportedMediaTypePredicate = compressionManager.SupportedMediaTypePredicate;
-			if (supportedMediaTypePredicate != null)
+			if (supportedMediaTypePredicate is not null)
 			{
 				return supportedMediaTypePredicate(mediaType);
 			}

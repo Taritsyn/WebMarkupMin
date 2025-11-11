@@ -175,7 +175,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 				string mediaType = null;
 				Encoding encoding = null;
 
-				if (contentType != null)
+				if (contentType is not null)
 				{
 					MediaTypeHeaderValue mediaTypeHeader;
 
@@ -203,7 +203,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 						IMarkupMinificationManager minificationManager = _minificationManagers[managerIndex];
 						if (minificationManager.IsSupportedHttpStatusCode(httpStatusCode)
 							&& minificationManager.IsSupportedHttpMethod(httpMethod)
-							&& mediaType != null && minificationManager.IsSupportedMediaType(mediaType)
+							&& mediaType is not null && minificationManager.IsSupportedMediaType(mediaType)
 							&& minificationManager.IsProcessablePage(currentUrl))
 						{
 							if (isEncodedContent)
@@ -225,7 +225,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 					}
 				}
 
-				if (_compressionManager != null && !isEncodedContent
+				if (_compressionManager is not null && !isEncodedContent
 					&& _compressionManager.IsSupportedHttpStatusCode(httpStatusCode)
 					&& _compressionManager.IsSupportedHttpMethod(httpMethod)
 					&& _compressionManager.IsSupportedMediaType(mediaType)
@@ -295,7 +295,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 			if (_currentCompressorInitializedFlag.Set())
 			{
 				_compressionManager?.TryCreateCompressor(acceptEncoding, out _currentCompressor);
-				_compressionEnabled = _currentCompressor != null;
+				_compressionEnabled = _currentCompressor is not null;
 			}
 
 			return _currentCompressor;
@@ -605,7 +605,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 			{
 				if (disposing)
 				{
-					if (_compressionStream != null)
+					if (_compressionStream is not null)
 					{
 						_compressionStream.Dispose();
 						_compressionStream = null;
@@ -613,7 +613,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 
 					_currentCompressor = null;
 
-					if (_cachedStream != null)
+					if (_cachedStream is not null)
 					{
 						_cachedStream.Dispose();
 						_cachedStream = null;
@@ -631,7 +631,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 		{
 			if (_disposedFlag.Set())
 			{
-				if (_compressionStream != null)
+				if (_compressionStream is not null)
 				{
 					await _compressionStream.DisposeAsync();
 					_compressionStream = null;
@@ -639,7 +639,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 
 				_currentCompressor = null;
 
-				if (_cachedStream != null)
+				if (_cachedStream is not null)
 				{
 					await _cachedStream.DisposeAsync();
 					_cachedStream = null;

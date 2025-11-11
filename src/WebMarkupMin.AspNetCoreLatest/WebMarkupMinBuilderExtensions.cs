@@ -39,7 +39,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 		/// <returns>The <paramref name="app"/></returns>
 		public static IApplicationBuilder UseWebMarkupMin(this IApplicationBuilder app)
 		{
-			if (app == null)
+			if (app is null)
 			{
 				throw new ArgumentNullException(nameof(app));
 			}

@@ -41,7 +41,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns>String value without ending semicolons</returns>
 		internal static string RemoveEndingSemicolons(string value)
 		{
-			if (value == null)
+			if (value is null)
 			{
 				throw new ArgumentNullException(nameof(value));
 			}
@@ -91,17 +91,17 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns>String value without prefix and postfix</returns>
 		internal static string RemovePrefixAndPostfix(string value, Regex prefixRegex, Regex postfixRegex)
 		{
-			if (value == null)
+			if (value is null)
 			{
 				throw new ArgumentNullException(nameof(value));
 			}
 
-			if (prefixRegex == null)
+			if (prefixRegex is null)
 			{
 				throw new ArgumentNullException(nameof(prefixRegex));
 			}
 
-			if (postfixRegex == null)
+			if (postfixRegex is null)
 			{
 				throw new ArgumentNullException(nameof(postfixRegex));
 			}
@@ -180,7 +180,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns>String value without BOM</returns>
 		internal static string RemoveByteOrderMark(string value)
 		{
-			if (value == null)
+			if (value is null)
 			{
 				throw new ArgumentNullException(nameof(value));
 			}
@@ -203,7 +203,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns><c>true</c> if the value contains an upper case letters; otherwise, <c>false</c></returns>
 		internal static bool ContainsUppercaseChars(string value)
 		{
-			if (value == null)
+			if (value is null)
 			{
 				throw new ArgumentNullException(nameof(value));
 			}

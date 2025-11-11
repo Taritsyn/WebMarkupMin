@@ -38,7 +38,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 		public Task Invoke(HttpContext context)
 		{
 			bool useMinification = _options.IsMinificationEnabled() && _minificationManagers.Count > 0;
-			bool useCompression = _options.IsCompressionEnabled() && _compressionManager != null;
+			bool useCompression = _options.IsCompressionEnabled() && _compressionManager is not null;
 
 			if (!useMinification && !useCompression)
 			{
@@ -53,7 +53,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 			IFeatureCollection features = context.Features;
 			IHttpResponseBodyFeature originalBodyFeature = features.Get<IHttpResponseBodyFeature>();
 
-			Debug.Assert(originalBodyFeature != null);
+			Debug.Assert(originalBodyFeature is not null);
 
 			var bodyWrapperStream = new BodyWrapperStreamWithResponseBodyFeature(context, _options,
 				useMinification ? _minificationManagers : new List<IMarkupMinificationManager>(),

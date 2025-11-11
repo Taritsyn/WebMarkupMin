@@ -54,7 +54,7 @@ namespace WebMarkupMin.AspNet4.Mvc
 			string httpMethod = request.HttpMethod;
 			string currentUrl = request.RawUrl;
 
-			if (response.Filter != null
+			if (response.Filter is not null
 				&& compressionManager.IsSupportedHttpStatusCode(response.StatusCode)
 				&& compressionManager.IsSupportedHttpMethod(httpMethod)
 				&& compressionManager.IsProcessablePage(currentUrl))
@@ -72,13 +72,13 @@ namespace WebMarkupMin.AspNet4.Mvc
 		/// <param name="filterContext">Filter context</param>
 		public override void OnResultExecuted(ResultExecutedContext filterContext)
 		{
-			if (filterContext.Exception != null)
+			if (filterContext.Exception is not null)
 			{
 				HttpContextBase context = filterContext.HttpContext;
 				if (context.Items.Contains("originalResponseFilter"))
 				{
 					var originalResponseFilter = context.Items["originalResponseFilter"] as Stream;
-					if (originalResponseFilter != null)
+					if (originalResponseFilter is not null)
 					{
 						context.Response.Filter = originalResponseFilter;
 					}

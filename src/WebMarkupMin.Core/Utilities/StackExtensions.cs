@@ -11,7 +11,7 @@ namespace WebMarkupMin.Core.Utilities
 	{
 		public static bool TryPeek<T>(this Stack<T> source, out T result)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}

@@ -199,7 +199,7 @@ namespace WebMarkupMin.AspNet4.Common
 		{
 			if (disposing)
 			{
-				if (_cachedStream != null)
+				if (_cachedStream is not null)
 				{
 					_cachedStream.Dispose();
 					_cachedStream = null;

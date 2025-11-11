@@ -106,7 +106,7 @@ namespace WebMarkupMin.Yui
 			{
 				lock (_minificationSynchronizer)
 				{
-					if (_originalCssMinifier == null)
+					if (_originalCssMinifier is null)
 					{
 						_originalCssMinifier = CreateOriginalCssMinifierInstance(_settings);
 					}

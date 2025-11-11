@@ -10,7 +10,7 @@ namespace WebMarkupMin.Core.Parsers
 	{
 		internal static HtmlTag GetFirstTagByNameInLowercase(this Stack<HtmlTag> source, string nameInLowercase)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}

@@ -46,8 +46,7 @@
    =============
    RELEASE NOTES
    =============
-   Prevented a occurrence of endless loop during minification of the
-   `<script type="text/html">…</script>` tag contents.
+   Performed a migration to the modern C# null/not-null checks.
 
    =============
    DOCUMENTATION

@@ -154,7 +154,7 @@ Minification duration: {MinificationDuration:N0} ms";
 		public void Info(string category, string message, string filePath = "",
 			MinificationStatistics statistics = null)
 		{
-			if (statistics != null)
+			if (statistics is not null)
 			{
 				_logger.LogInformation(MESSAGE_TEMPLATE_WITH_MINIFICATION_STATISTICS, category, message, filePath,
 					statistics.OriginalSize, statistics.MinifiedSize, statistics.SavedInBytes,

@@ -67,7 +67,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 			get { return _defaultEncoding; }
 			set
 			{
-				if (value == null)
+				if (value is null)
 				{
 					throw new ArgumentNullException(nameof(value));
 				}

@@ -28,7 +28,7 @@ namespace WebMarkupMin.AspNet.Common.UrlMatchers
 		/// should be case-sensitive</param>
 		public ExactUrlMatcher(string pattern, bool caseSensitive = false)
 		{
-			if (pattern == null)
+			if (pattern is null)
 			{
 				throw new ArgumentNullException(nameof(pattern));
 			}
@@ -50,7 +50,7 @@ namespace WebMarkupMin.AspNet.Common.UrlMatchers
 		/// <returns><c>true</c> if the matching rule finds a match; otherwise, <c>false</c>.</returns>
 		public bool IsMatch(string url)
 		{
-			if (url == null)
+			if (url is null)
 			{
 				throw new ArgumentNullException(nameof(url));
 			}

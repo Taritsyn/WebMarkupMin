@@ -130,7 +130,7 @@ namespace WebMarkupMin.Core
 		public HtmlAttributeExpression(string tagName, string attributeName, string attributeValue = null,
 			bool caseInsensitive = false)
 		{
-			if (attributeName == null)
+			if (attributeName is null)
 			{
 				throw new ArgumentNullException(nameof(attributeName));
 			}
@@ -144,7 +144,7 @@ namespace WebMarkupMin.Core
 			}
 
 			_tagName = processedTagName;
-			if (processedTagName != null)
+			if (processedTagName is not null)
 			{
 				_tagNameInLowercase = processedTagName.ToLowerInvariant();
 			}
@@ -163,13 +163,13 @@ namespace WebMarkupMin.Core
 		/// <exception cref="FormatException"><paramref name="attributeExpressionString"/> have an incorrect format</exception>
 		public static HtmlAttributeExpression Parse(string attributeExpressionString)
 		{
-			if (attributeExpressionString == null)
+			if (attributeExpressionString is null)
 			{
 				throw new ArgumentNullException(nameof(attributeExpressionString));
 			}
 
 			HtmlAttributeExpression expression = InternalParse(attributeExpressionString);
-			if (expression == null)
+			if (expression is null)
 			{
 				throw new FormatException(Strings.ErrorMessage_InvalidHtmlAttributeExpression);
 			}
@@ -185,7 +185,7 @@ namespace WebMarkupMin.Core
 		/// <returns><c>true</c> if <paramref name="attributeExpressionString"/> was parsed successfully; otherwise, <c>false</c></returns>
 		public static bool TryParse(string attributeExpressionString, out HtmlAttributeExpression result)
 		{
-			if (attributeExpressionString == null)
+			if (attributeExpressionString is null)
 			{
 				result = null;
 				return false;
@@ -193,7 +193,7 @@ namespace WebMarkupMin.Core
 
 			result = InternalParse(attributeExpressionString);
 
-			return result != null;
+			return result is not null;
 		}
 
 		private static HtmlAttributeExpression InternalParse(string attributeExpressionString)
@@ -233,7 +233,7 @@ namespace WebMarkupMin.Core
 		public bool IsMatch(string tagNameInLowercase, string attributeNameInLowercase,
 			string attributeValue)
 		{
-			if (attributeNameInLowercase == null)
+			if (attributeNameInLowercase is null)
 			{
 				throw new ArgumentNullException(nameof(attributeNameInLowercase));
 			}
@@ -244,8 +244,8 @@ namespace WebMarkupMin.Core
 			}
 
 			bool result = _attributeNameInLowercase == attributeNameInLowercase
-				&& (_tagNameInLowercase == null || _tagNameInLowercase == tagNameInLowercase)
-				&& (_attributeValue == null || _attributeValue.Equals(attributeValue,
+				&& (_tagNameInLowercase is null || _tagNameInLowercase == tagNameInLowercase)
+				&& (_attributeValue is null || _attributeValue.Equals(attributeValue,
 					_caseInsensitive ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal))
 				;
 
@@ -334,9 +334,9 @@ namespace WebMarkupMin.Core
 			unchecked
 			{
 				int hash = 17;
-				hash = hash * 23 + (_tagNameInLowercase != null ? _tagNameInLowercase.GetHashCode() : 0);
-				hash = hash * 23 + (_attributeNameInLowercase != null ? _attributeNameInLowercase.GetHashCode() : 0);
-				hash = hash * 23 + (_attributeValue != null ? _attributeValue.GetHashCode() : 0);
+				hash = hash * 23 + (_tagNameInLowercase is not null ? _tagNameInLowercase.GetHashCode() : 0);
+				hash = hash * 23 + (_attributeNameInLowercase is not null ? _attributeNameInLowercase.GetHashCode() : 0);
+				hash = hash * 23 + (_attributeValue is not null ? _attributeValue.GetHashCode() : 0);
 				hash = hash * 23 + _caseInsensitive.GetHashCode();
 
 				return hash;
@@ -358,7 +358,7 @@ namespace WebMarkupMin.Core
 			}
 			sb.Append("[");
 			sb.Append(Regex.Escape(_attributeNameInLowercase));
-			if (_attributeValue != null)
+			if (_attributeValue is not null)
 			{
 				string quote = GetQuoteForAttributeValue(_attributeValue);
 

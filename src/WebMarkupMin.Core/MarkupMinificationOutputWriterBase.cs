@@ -70,7 +70,7 @@ namespace WebMarkupMin.Core
 		{
 			_items = new string[initialBufferCapacity];
 			_newLine = GetNewLineByStyleEnum(newLineStyle);
-			_appendItem = _newLine != null ? (Action<string>)AppendItemWithNewLineNormalization : AppendItem;
+			_appendItem = _newLine is not null ? (Action<string>)AppendItemWithNewLineNormalization : AppendItem;
 		}
 
 		/// <summary>
@@ -151,7 +151,7 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		public void Flush()
 		{
-			if (_sb == null)
+			if (_sb is null)
 			{
 				throw new InvalidOperationException();
 			}
@@ -240,7 +240,7 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		public void TrimEnd()
 		{
-			if (_sb == null)
+			if (_sb is null)
 			{
 				throw new InvalidOperationException();
 			}
@@ -253,7 +253,7 @@ namespace WebMarkupMin.Core
 		/// </summary>
 		public void Clear()
 		{
-			if (_sb == null)
+			if (_sb is null)
 			{
 				throw new InvalidOperationException();
 			}
@@ -275,7 +275,7 @@ namespace WebMarkupMin.Core
 		/// <returns>The string containing the items written to the current output writer</returns>
 		public override string ToString()
 		{
-			if (_sb == null)
+			if (_sb is null)
 			{
 				throw new InvalidOperationException();
 			}

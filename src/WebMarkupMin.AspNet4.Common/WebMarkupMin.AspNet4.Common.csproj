@@ -17,6 +17,7 @@
   <PropertyGroup>
     <Description>WebMarkupMin.AspNet4.Common is auxiliary package, that contains classes for ASP.NET 4.X extensions.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;XML</PackageTags>
+    <PackageReleaseNotes>Performed a migration to the modern C# null/not-null checks.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

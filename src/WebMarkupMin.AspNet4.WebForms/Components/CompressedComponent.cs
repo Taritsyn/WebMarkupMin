@@ -96,7 +96,7 @@ namespace WebMarkupMin.AspNet4.WebForms.Components
 			if (context.Items.Contains("originalResponseFilter"))
 			{
 				var originalResponseFilter = context.Items["originalResponseFilter"] as Stream;
-				if (originalResponseFilter != null)
+				if (originalResponseFilter is not null)
 				{
 					context.Response.Filter = originalResponseFilter;
 				}

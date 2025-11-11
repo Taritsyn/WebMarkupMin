@@ -29,7 +29,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns>Processed string value</returns>
 		public static string TabsToSpaces(this string source, int tabSize)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}
@@ -52,7 +52,7 @@ namespace WebMarkupMin.Core.Utilities
 		public static bool CustomStartsWith(this string source, string value, int startIndex,
 			StringComparison comparisonType)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}
@@ -76,7 +76,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns><c>true</c> if the value of the value parameter is the same as this string; otherwise, <c>false</c></returns>
 		public static bool IgnoreCaseEquals(this string source, string value)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}
@@ -96,7 +96,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns><c>true</c> if the character was received successfully; otherwise, <c>false</c></returns>
 		public static bool TryGetChar(this string source, int index, out char result)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}
@@ -125,7 +125,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns>Newline string</returns>
 		public static string GetNewLine(this string source)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}
@@ -154,7 +154,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns>Newline string</returns>
 		public static string GetNewLine(this string source, int startIndex)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}
@@ -190,7 +190,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns>Newline string</returns>
 		public static string GetNewLine(this string source, int startIndex, int count)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}
@@ -252,7 +252,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns><c>true</c> if the newline character matches the beginning of this string; otherwise, <c>false</c></returns>
 		public static bool StartsWithNewLine(this string source)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}
@@ -274,7 +274,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns><c>true</c> if the newline character matches the end of this instance; otherwise, <c>false</c></returns>
 		public static bool EndsWithNewLine(this string source)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}
@@ -299,7 +299,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// or <c>-1</c> if it is not</returns>
 		public static int IndexOfNonWhitespace(this string source)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}
@@ -329,7 +329,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// </exception>
 		public static int IndexOfNonWhitespace(this string source, int startIndex)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}
@@ -369,7 +369,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// </exception>
 		public static int IndexOfNonWhitespace(this string source, int startIndex, int count)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}
@@ -420,7 +420,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// or <c>-1</c> if it is not</returns>
 		public static int LastIndexOfNonWhitespace(this string source)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}
@@ -452,7 +452,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// </exception>
 		public static int LastIndexOfNonWhitespace(this string source, int startIndex)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}
@@ -493,7 +493,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// </exception>
 		public static int LastIndexOfNonWhitespace(this string source, int startIndex, int count)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}
@@ -543,7 +543,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// the current instance unchanged.</returns>
 		public static string TrimStart(this string source, bool preserveNewLines)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}
@@ -571,7 +571,7 @@ namespace WebMarkupMin.Core.Utilities
 
 			for (charIndex = 0; charIndex < charCount && char.IsWhiteSpace(value[charIndex]); charIndex++)
 			{
-				if (newLine == null)
+				if (newLine is null)
 				{
 					newLine = InternalGetNewLineByIndex(value, charIndex, true);
 				}
@@ -582,7 +582,7 @@ namespace WebMarkupMin.Core.Utilities
 				return value;
 			}
 
-			if (newLine != null)
+			if (newLine is not null)
 			{
 				if (charIndex == newLine.Length)
 				{
@@ -616,7 +616,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// the current instance unchanged.</returns>
 		public static string TrimEnd(this string source, bool preserveNewLines)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}
@@ -655,7 +655,7 @@ namespace WebMarkupMin.Core.Utilities
 			int whitespaceCharIndex = charIndex + 1;
 			string newLine = value.GetNewLine(whitespaceCharIndex);
 
-			if (newLine != null)
+			if (newLine is not null)
 			{
 				if (charCount - whitespaceCharIndex == newLine.Length)
 				{
@@ -689,7 +689,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// the current instance unchanged.</returns>
 		public static string Trim(this string source, bool preserveNewLines)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}
@@ -743,10 +743,10 @@ namespace WebMarkupMin.Core.Utilities
 			string rightNewLine = allowTrimEnd ?
 				value.GetNewLine(rightCharIndex + 1, lastCharIndex - rightCharIndex) : null;
 
-			if (leftNewLine != null || rightNewLine != null)
+			if (leftNewLine is not null || rightNewLine is not null)
 			{
-				int leftNewLineLength = leftNewLine != null ? leftNewLine.Length : 0;
-				int rightNewLineLength = rightNewLine != null ? rightNewLine.Length : 0;
+				int leftNewLineLength = leftNewLine is not null ? leftNewLine.Length : 0;
+				int rightNewLineLength = rightNewLine is not null ? rightNewLine.Length : 0;
 
 				if (leftCharIndex == leftNewLineLength && lastCharIndex - rightCharIndex == rightNewLineLength)
 				{
@@ -755,12 +755,12 @@ namespace WebMarkupMin.Core.Utilities
 
 				var stringBuilderPool = StringBuilderPool.Shared;
 				StringBuilder sb = stringBuilderPool.Rent();
-				if (leftNewLine != null)
+				if (leftNewLine is not null)
 				{
 					sb.Append(leftNewLine);
 				}
 				sb.Append(value, leftCharIndex, nonWhitespaceCharCount);
-				if (rightNewLine != null)
+				if (rightNewLine is not null)
 				{
 					sb.Append(rightNewLine);
 				}
@@ -806,7 +806,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns>String value without extra whitespace characters</returns>
 		public static string CollapseWhitespace(this string source, bool preserveNewLines)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}
@@ -848,7 +848,7 @@ namespace WebMarkupMin.Core.Utilities
 				{
 					if (previousWhitespace || charValue != ' ')
 					{
-						if (sb == null)
+						if (sb is null)
 						{
 							sb = stringBuilderPool.Rent();
 						}
@@ -870,7 +870,7 @@ namespace WebMarkupMin.Core.Utilities
 				previousWhitespace = currentWhitespace;
 			}
 
-			if (sb == null)
+			if (sb is null)
 			{
 				return value;
 			}
@@ -908,10 +908,10 @@ namespace WebMarkupMin.Core.Utilities
 						whitespaceCharIndex = charIndex;
 					}
 
-					if (newLine == null)
+					if (newLine is null)
 					{
 						newLine = InternalGetNewLineByIndex(value, charIndex, true);
-						int newLineLength = newLine != null ? newLine.Length : 0;
+						int newLineLength = newLine is not null ? newLine.Length : 0;
 						if (newLineLength > 1)
 						{
 							whitespaceCharCount += newLineLength;
@@ -930,10 +930,10 @@ namespace WebMarkupMin.Core.Utilities
 						return newLine ?? " ";
 					}
 
-					if (sb == null && whitespaceCharCount > 0)
+					if (sb is null && whitespaceCharCount > 0)
 					{
 						bool whitespaceAlreadyCollapsed = false;
-						if (newLine != null)
+						if (newLine is not null)
 						{
 							whitespaceAlreadyCollapsed = whitespaceCharCount == newLine.Length;
 						}
@@ -952,7 +952,7 @@ namespace WebMarkupMin.Core.Utilities
 						}
 					}
 
-					if (sb != null)
+					if (sb is not null)
 					{
 						if (whitespaceCharCount > 0)
 						{
@@ -970,7 +970,7 @@ namespace WebMarkupMin.Core.Utilities
 				}
 			}
 
-			if (sb == null)
+			if (sb is null)
 			{
 				return value;
 			}

@@ -82,7 +82,7 @@ namespace WebMarkupMin.Core
 		/// <param name="caseInsensitive">Flag for whether to allow case-insensitive matching</param>
 		public SimpleRegex(string pattern, bool caseInsensitive)
 		{
-			if (pattern == null)
+			if (pattern is null)
 			{
 				throw new ArgumentNullException(nameof(pattern));
 			}
@@ -114,13 +114,13 @@ namespace WebMarkupMin.Core
 		/// <exception cref="FormatException"><paramref name="regularExpressionString"/> have an incorrect format</exception>
 		public static SimpleRegex Parse(string regularExpressionString)
 		{
-			if (regularExpressionString == null)
+			if (regularExpressionString is null)
 			{
 				throw new ArgumentNullException(nameof(regularExpressionString));
 			}
 
 			SimpleRegex regularExpression = InternalParse(regularExpressionString);
-			if (regularExpression == null)
+			if (regularExpression is null)
 			{
 				throw new FormatException(Strings.ErrorMessage_InvalidSimpleRegularExpression);
 			}
@@ -137,7 +137,7 @@ namespace WebMarkupMin.Core
 		/// <returns><c>true</c> if <paramref name="regularExpressionString"/> was parsed successfully; otherwise, <c>false</c></returns>
 		public static bool TryParse(string regularExpressionString, out SimpleRegex result)
 		{
-			if (regularExpressionString == null)
+			if (regularExpressionString is null)
 			{
 				result = null;
 				return false;
@@ -145,7 +145,7 @@ namespace WebMarkupMin.Core
 
 			result = InternalParse(regularExpressionString);
 
-			return result != null;
+			return result is not null;
 		}
 
 		private static SimpleRegex InternalParse(string regularExpressionString)
@@ -179,13 +179,13 @@ namespace WebMarkupMin.Core
 		/// <exception cref="FormatException"><paramref name="regularExpressionsString"/> have an incorrect format</exception>
 		public static List<SimpleRegex> ParseList(string regularExpressionsString)
 		{
-			if (regularExpressionsString == null)
+			if (regularExpressionsString is null)
 			{
 				throw new ArgumentNullException(nameof(regularExpressionsString));
 			}
 
 			List<SimpleRegex> result = InternalParseList(regularExpressionsString);
-			if (result == null)
+			if (result is null)
 			{
 				throw new FormatException(Strings.ErrorMessage_InvalidSimpleRegularExpressionList);
 			}
@@ -202,7 +202,7 @@ namespace WebMarkupMin.Core
 		/// <returns><c>true</c> if <paramref name="regularExpressionsString"/> was parsed successfully; otherwise, <c>false</c></returns>
 		public static bool TryParseList(string regularExpressionsString, out List<SimpleRegex> result)
 		{
-			if (regularExpressionsString == null)
+			if (regularExpressionsString is null)
 			{
 				result = null;
 				return false;
@@ -210,7 +210,7 @@ namespace WebMarkupMin.Core
 
 			result = InternalParseList(regularExpressionsString);
 
-			return result != null;
+			return result is not null;
 		}
 
 		private static List<SimpleRegex> InternalParseList(string regularExpressionsString)
@@ -229,7 +229,7 @@ namespace WebMarkupMin.Core
 
 			while (regularExpressionMatch.Success)
 			{
-				if (result == null)
+				if (result is null)
 				{
 					result = new List<SimpleRegex>();
 				}
@@ -276,7 +276,7 @@ namespace WebMarkupMin.Core
 		/// <returns><c>true</c> if the simple regular expression finds a match; otherwise, <c>false</c></returns>
 		public bool IsMatch(string input)
 		{
-			if (input == null)
+			if (input is null)
 			{
 				throw new ArgumentNullException(nameof(input));
 			}
@@ -349,7 +349,7 @@ namespace WebMarkupMin.Core
 			unchecked
 			{
 				int hash = 17;
-				hash = hash * 23 + (_pattern != null ? _pattern.GetHashCode() : 0);
+				hash = hash * 23 + (_pattern is not null ? _pattern.GetHashCode() : 0);
 				hash = hash * 23 + _caseInsensitive.GetHashCode();
 
 				return hash;

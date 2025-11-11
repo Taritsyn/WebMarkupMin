@@ -58,17 +58,17 @@ namespace WebMarkupMin.AspNetCoreLatest
 			IOptions<WebMarkupMinOptions> options,
 			IServiceProvider services)
 		{
-			if (next == null)
+			if (next is null)
 			{
 				throw new ArgumentNullException(nameof(next));
 			}
 
-			if (options == null)
+			if (options is null)
 			{
 				throw new ArgumentNullException(nameof(options));
 			}
 
-			if (services == null)
+			if (services is null)
 			{
 				throw new ArgumentNullException(nameof(services));
 			}
@@ -79,19 +79,19 @@ namespace WebMarkupMin.AspNetCoreLatest
 			var minificationManagers = new List<IMarkupMinificationManager>();
 
 			var htmlMinificationManager = services.GetService<IHtmlMinificationManager>();
-			if (htmlMinificationManager != null)
+			if (htmlMinificationManager is not null)
 			{
 				minificationManagers.Add(htmlMinificationManager);
 			}
 
 			var xhtmlMinificationManager = services.GetService<IXhtmlMinificationManager>();
-			if (xhtmlMinificationManager != null)
+			if (xhtmlMinificationManager is not null)
 			{
 				minificationManagers.Add(xhtmlMinificationManager);
 			}
 
 			var xmlMinificationManager = services.GetService<IXmlMinificationManager>();
-			if (xmlMinificationManager != null)
+			if (xmlMinificationManager is not null)
 			{
 				minificationManagers.Add(xmlMinificationManager);
 			}
@@ -99,7 +99,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 			_minificationManagers = minificationManagers;
 
 			var compressionManager = services.GetService<IHttpCompressionManager>();
-			if (compressionManager != null)
+			if (compressionManager is not null)
 			{
 				_compressionManager = compressionManager;
 			}

@@ -121,12 +121,12 @@ namespace WebMarkupMin.Yui
 
 			lock (_minificationSynchronizer)
 			{
-				if (_errorReporter == null)
+				if (_errorReporter is null)
 				{
 					_errorReporter = new YuiJsErrorReporter(_settings.WarningLevel);
 				}
 
-				if (_originalJsMinifier == null)
+				if (_originalJsMinifier is null)
 				{
 					_originalJsMinifier = CreateOriginalJsMinifierInstance(_settings);
 				}

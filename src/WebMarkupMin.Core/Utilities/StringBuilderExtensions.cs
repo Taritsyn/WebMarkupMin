@@ -15,7 +15,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns><c>true</c> if the newline character matches the beginning of this instance; otherwise, <c>false</c></returns>
 		public static bool StartsWithNewLine(this StringBuilder source)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}
@@ -37,7 +37,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// <returns><c>true</c> if the newline character matches the end of this instance; otherwise, <c>false</c></returns>
 		public static bool EndsWithNewLine(this StringBuilder source)
 		{
-			if (source == null)
+			if (source is null)
 			{
 				throw new ArgumentNullException(nameof(source));
 			}

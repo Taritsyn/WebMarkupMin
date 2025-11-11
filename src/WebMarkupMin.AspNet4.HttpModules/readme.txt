@@ -19,6 +19,11 @@
    Deflate).
 
    =============
+   RELEASE NOTES
+   =============
+   Performed a migration to the modern C# null/not-null checks.
+
+   =============
    DOCUMENTATION
    =============
    See documentation on GitHub - https://github.com/Taritsyn/WebMarkupMin/wiki

@@ -62,7 +62,7 @@ namespace WebMarkupMin.AspNet4.Mvc
 			string mediaType = response.ContentType;
 			string currentUrl = request.RawUrl;
 
-			if (response.Filter != null
+			if (response.Filter is not null
 				&& minificationManager.IsSupportedHttpStatusCode(response.StatusCode)
 				&& minificationManager.IsSupportedHttpMethod(httpMethod)
 				&& minificationManager.IsSupportedMediaType(mediaType)

@@ -124,7 +124,7 @@ namespace WebMarkupMin.AspNet4.Common
 
 		private void AppendHttpHeadersOnce()
 		{
-			if (_httpHeadersAppendedFlag.Set() && _compressor != null)
+			if (_httpHeadersAppendedFlag.Set() && _compressor is not null)
 			{
 				_compressor.AppendHttpHeaders((key, value) =>
 				{
@@ -170,7 +170,7 @@ namespace WebMarkupMin.AspNet4.Common
 		{
 			if (disposing)
 			{
-				if (_outputStream != null)
+				if (_outputStream is not null)
 				{
 					_outputStream.Dispose();
 					_outputStream = null;

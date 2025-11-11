@@ -44,12 +44,12 @@ namespace WebMarkupMin.AspNetCoreLatest
 		public static IServiceCollection ConfigureWebMarkupMin(this IServiceCollection services,
 			Action<WebMarkupMinOptions> configure)
 		{
-			if (services == null)
+			if (services is null)
 			{
 				throw new ArgumentNullException(nameof(services));
 			}
 
-			if (configure == null)
+			if (configure is null)
 			{
 				throw new ArgumentNullException(nameof(configure));
 			}
@@ -64,7 +64,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 		/// <returns>A builder that allows further WebMarkupMin specific setup of <see cref="IServiceCollection"/></returns>
 		public static WebMarkupMinServicesBuilder AddWebMarkupMin(this IServiceCollection services)
 		{
-			if (services == null)
+			if (services is null)
 			{
 				throw new ArgumentNullException(nameof(services));
 			}
@@ -81,14 +81,14 @@ namespace WebMarkupMin.AspNetCoreLatest
 		public static WebMarkupMinServicesBuilder AddWebMarkupMin(this IServiceCollection services,
 			Action<WebMarkupMinOptions> configure)
 		{
-			if (services == null)
+			if (services is null)
 			{
 				throw new ArgumentNullException(nameof(services));
 			}
 
 			services.AddSingleton<IConfigureOptions<WebMarkupMinOptions>, WebMarkupMinOptionsSetup>();
 
-			if (configure != null)
+			if (configure is not null)
 			{
 				services.Configure(configure);
 			}

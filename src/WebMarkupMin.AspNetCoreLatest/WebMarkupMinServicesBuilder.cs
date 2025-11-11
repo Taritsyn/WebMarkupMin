@@ -87,7 +87,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 		{
 			_services.AddSingleton<IConfigureOptions<HtmlMinificationOptions>, HtmlMinificationOptionsSetup>();
 
-			if (configure != null)
+			if (configure is not null)
 			{
 				_services.Configure(configure);
 			}
@@ -106,7 +106,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 		{
 			_services.AddSingleton<IConfigureOptions<XhtmlMinificationOptions>, XhtmlMinificationOptionsSetup>();
 
-			if (configure != null)
+			if (configure is not null)
 			{
 				_services.Configure(configure);
 			}
@@ -123,7 +123,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 
 		public WebMarkupMinServicesBuilder AddXmlMinification(Action<XmlMinificationOptions> configure)
 		{
-			if (configure != null)
+			if (configure is not null)
 			{
 				_services.Configure(configure);
 			}
@@ -140,7 +140,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 
 		public WebMarkupMinServicesBuilder AddHttpCompression(Action<HttpCompressionOptions> configure)
 		{
-			if (configure != null)
+			if (configure is not null)
 			{
 				_services.Configure(configure);
 			}

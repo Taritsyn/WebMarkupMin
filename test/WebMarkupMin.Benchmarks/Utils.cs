@@ -32,7 +32,7 @@ namespace WebMarkupMin.Benchmarks
 			foreach (string documentName in documents.Keys)
 			{
 				Document document = documents[documentName];
-				if (document.Content == null)
+				if (document.Content is null)
 				{
 					string path = Path.Combine(absoluteDirectoryPath, $"{documentName}{fileExtension}");
 					document.Path = path;
@@ -43,7 +43,7 @@ namespace WebMarkupMin.Benchmarks
 					}
 					else
 					{
-						if (nonExistentDocuments == null)
+						if (nonExistentDocuments is null)
 						{
 							nonExistentDocuments = new List<Document>();
 						}
@@ -52,7 +52,7 @@ namespace WebMarkupMin.Benchmarks
 				}
 			}
 
-			if (nonExistentDocuments == null || nonExistentDocuments.Count == 0)
+			if (nonExistentDocuments is null || nonExistentDocuments.Count == 0)
 			{
 				return;
 			}
@@ -63,7 +63,7 @@ namespace WebMarkupMin.Benchmarks
 			{
 				foreach (Document document in nonExistentDocuments)
 				{
-					if (httpClient == null)
+					if (httpClient is null)
 					{
 						httpClient = new HttpClient();
 					}

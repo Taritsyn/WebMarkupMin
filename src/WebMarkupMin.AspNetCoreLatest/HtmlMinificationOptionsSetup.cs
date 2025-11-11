@@ -57,7 +57,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 
 		public override void Configure(HtmlMinificationOptions options)
 		{
-			if (options == null)
+			if (options is null)
 			{
 				throw new ArgumentNullException(nameof(options));
 			}

@@ -19,6 +19,7 @@
   <PropertyGroup>
     <Description>WebMarkupMin.AspNet.Common is auxiliary package, that contains classes and interfaces for all ASP.NET extensions.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;XML</PackageTags>
+    <PackageReleaseNotes>Performed a migration to the modern C# null/not-null checks.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

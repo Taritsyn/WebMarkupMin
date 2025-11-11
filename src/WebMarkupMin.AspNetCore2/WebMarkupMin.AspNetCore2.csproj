@@ -19,6 +19,7 @@
   <PropertyGroup>
     <Description>WebMarkupMin.AspNetCore2 contains one Middleware for ASP.NET Core 2.X - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
+    <PackageReleaseNotes>Performed a migration to the modern C# null/not-null checks.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

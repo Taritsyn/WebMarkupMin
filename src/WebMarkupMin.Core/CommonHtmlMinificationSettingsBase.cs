@@ -55,7 +55,7 @@ namespace WebMarkupMin.Core
 		{
 			_preservableHtmlComments.Clear();
 
-			if (regularExpressions != null)
+			if (regularExpressions is not null)
 			{
 				foreach (SimpleRegex regularExpression in regularExpressions)
 				{
@@ -92,7 +92,7 @@ namespace WebMarkupMin.Core
 		/// <param name="regularExpression">Simple regular expression, that define what HTML comments can not be removed</param>
 		public void AddPreservableHtmlComment(SimpleRegex regularExpression)
 		{
-			if (regularExpression != null && !_preservableHtmlComments.Contains(regularExpression))
+			if (regularExpression is not null && !_preservableHtmlComments.Contains(regularExpression))
 			{
 				_preservableHtmlComments.Add(regularExpression);
 			}
@@ -257,7 +257,7 @@ namespace WebMarkupMin.Core
 		{
 			_preservableAttributes.Clear();
 
-			if (attributeExpressions != null)
+			if (attributeExpressions is not null)
 			{
 				foreach (HtmlAttributeExpression attributeExpression in attributeExpressions)
 				{
@@ -456,7 +456,7 @@ namespace WebMarkupMin.Core
 		{
 			_processableScriptTypes.Clear();
 
-			if (scriptTypes != null)
+			if (scriptTypes is not null)
 			{
 				foreach (string scriptType in scriptTypes)
 				{
@@ -579,7 +579,7 @@ namespace WebMarkupMin.Core
 		{
 			_customAngularDirectives.Clear();
 
-			if (directiveNames != null)
+			if (directiveNames is not null)
 			{
 				foreach (string directiveName in directiveNames)
 				{

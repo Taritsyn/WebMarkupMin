@@ -36,7 +36,7 @@ namespace WebMarkupMin.AspNetCoreLatest.Internal
 		/// <param name="services">The list of services</param>
 		public static void ThrowIfWebMarkupMinNotRegistered(IServiceProvider services)
 		{
-			if (services.GetService(typeof(WebMarkupMinMarkerService)) == null)
+			if (services.GetService(typeof(WebMarkupMinMarkerService)) is null)
 			{
 				throw new InvalidOperationException(string.Format(
 					AspNetCoreStrings.UnableToFindServices,

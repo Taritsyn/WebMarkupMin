@@ -157,14 +157,14 @@ namespace WebMarkupMin.NUglify
 
 			lock (_minificationSynchronizer)
 			{
-				if (_errorReporter == null)
+				if (_errorReporter is null)
 				{
 					_errorReporter = new NUglifyErrorReporter(_settings.WarningLevel);
 				}
 
 				JSParser originalJsParser = isInlineCode ?
 					_originalInlineJsParser : _originalEmbeddedJsParser;
-				if (originalJsParser == null)
+				if (originalJsParser is null)
 				{
 					originalJsParser = CreateOriginalJsParserInstance(_settings, isInlineCode);
 					if (isInlineCode)
@@ -192,7 +192,7 @@ namespace WebMarkupMin.NUglify
 					{
 						// Parse the input
 						BlockStatement scriptBlock = originalJsParser.Parse(documentContext);
-						if (scriptBlock != null)
+						if (scriptBlock is not null)
 						{
 							// Use normal output visitor
 							OutputVisitor.Apply(stringWriter, scriptBlock, originalJsParser.Settings);

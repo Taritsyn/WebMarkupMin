@@ -85,7 +85,7 @@ namespace WebMarkupMin.Core
 		{
 			_preservableOptionalTags.Clear();
 
-			if (optionalTags != null)
+			if (optionalTags is not null)
 			{
 				foreach (string optionalTag in optionalTags)
 				{
