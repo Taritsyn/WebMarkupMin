@@ -46,7 +46,8 @@
    =============
    RELEASE NOTES
    =============
-   Performed a migration to the modern C# null/not-null checks.
+   1. Performed a migration to the modern C# null/not-null checks;
+   2. `HtmlParser` and `XmlParser` сlasses are no longer thread-safe.
 
    =============
    DOCUMENTATION

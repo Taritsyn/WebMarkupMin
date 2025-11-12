@@ -25,6 +25,9 @@ namespace WebMarkupMin.Core.Parsers
 	/// <summary>
 	/// HTML parser
 	/// </summary>
+	/// <remarks>
+	/// Instances of this class are not thread-safe and they should not accessed from multiple threads simultaneously.
+	/// </remarks>
 	internal sealed class HtmlParser : MarkupParserBase
 	{
 		#region Regular expressions for parsing a HTML document nodes
@@ -150,171 +153,168 @@ namespace WebMarkupMin.Core.Parsers
 				return;
 			}
 
-			lock (_parsingSynchronizer)
+			_innerContext = new InnerMarkupParsingContext(content);
+			_context = new MarkupParsingContext(_innerContext);
+			_doctypeProcessor = new HtmlDoctypeProcessor(_innerContext);
+
+			int endPosition = contentLength - 1;
+			int previousPosition = -1;
+
+			try
 			{
-				_innerContext = new InnerMarkupParsingContext(content);
-				_context = new MarkupParsingContext(_innerContext);
-				_doctypeProcessor = new HtmlDoctypeProcessor(_innerContext);
-
-				int endPosition = contentLength - 1;
-				int previousPosition = -1;
-
-				try
+				while (_innerContext.Position <= endPosition)
 				{
-					while (_innerContext.Position <= endPosition)
+					bool isProcessed = false;
+					HtmlTag lastStackedTag;
+
+					// Make sure we're not in a tag, that contains embedded code
+					if (!_tagStack.TryPeek(out lastStackedTag) || !lastStackedTag.Flags.IsSet(HtmlTagFlags.EmbeddedCode))
 					{
-						bool isProcessed = false;
-						HtmlTag lastStackedTag;
-
-						// Make sure we're not in a tag, that contains embedded code
-						if (!_tagStack.TryPeek(out lastStackedTag) || !lastStackedTag.Flags.IsSet(HtmlTagFlags.EmbeddedCode))
+						if (_innerContext.PeekCurrentChar() == '<')
 						{
-							if (_innerContext.PeekCurrentChar() == '<')
+							switch (_innerContext.PeekNextChar())
 							{
-								switch (_innerContext.PeekNextChar())
-								{
-									case char c when c.IsAlphaNumeric():
-										// Start tag
-										isProcessed = ProcessStartTag();
-										break;
+								case char c when c.IsAlphaNumeric():
+									// Start tag
+									isProcessed = ProcessStartTag();
+									break;
 
-									case '/':
-										if (_innerContext.PeekNextChar().IsAlphaNumeric())
-										{
-											// End tag
-											isProcessed = ProcessEndTag();
-										}
-										break;
+								case '/':
+									if (_innerContext.PeekNextChar().IsAlphaNumeric())
+									{
+										// End tag
+										isProcessed = ProcessEndTag();
+									}
+									break;
 
-									case '!':
-										switch (_innerContext.PeekNextChar())
-										{
-											case '-':
-												if (_innerContext.PeekNextChar() == '-')
+								case '!':
+									switch (_innerContext.PeekNextChar())
+									{
+										case '-':
+											if (_innerContext.PeekNextChar() == '-')
+											{
+												// Comments
+												if (_innerContext.PeekNextChar() == '[')
 												{
-													// Comments
-													if (_innerContext.PeekNextChar() == '[')
-													{
-														// Revealed validating If conditional comments
-														// (e.g. <!--[if ... ]><!--> or <!--[if ... ]>-->)
-														isProcessed = ProcessRevealedValidatingIfComment();
-
-														if (!isProcessed)
-														{
-															// Hidden If conditional comments (e.g. <!--[if ... ]>)
-															isProcessed = ProcessHiddenIfComment();
-														}
-													}
-													else
-													{
-														// Revealed validating End If conditional comments
-														// (e.g. <!--<![endif]-->)
-														isProcessed = ProcessRevealedValidatingEndIfComment();
-													}
+													// Revealed validating If conditional comments
+													// (e.g. <!--[if ... ]><!--> or <!--[if ... ]>-->)
+													isProcessed = ProcessRevealedValidatingIfComment();
 
 													if (!isProcessed)
 													{
-														// HTML comments
-														isProcessed = ProcessComment();
+														// Hidden If conditional comments (e.g. <!--[if ... ]>)
+														isProcessed = ProcessHiddenIfComment();
 													}
 												}
-												break;
-
-											case '[':
-												switch (_innerContext.PeekNextChar())
+												else
 												{
-													case 'i':
-													case 'I':
-														// Revealed If conditional comment (e.g. <![if ... ]>)
-														isProcessed = ProcessRevealedIfComment();
-														break;
-
-													case 'e':
-													case 'E':
-														// Hidden End If conditional comment (e.g. <![endif]-->)
-														isProcessed = ProcessHiddenEndIfComment();
-
-														if (!isProcessed)
-														{
-															// Revealed End If conditional comment (e.g. <![endif]>)
-															isProcessed = ProcessRevealedEndIfComment();
-														}
-														break;
-
-													case 'C':
-														// CDATA sections
-														isProcessed = ProcessCdataSection();
-														break;
+													// Revealed validating End If conditional comments
+													// (e.g. <!--<![endif]-->)
+													isProcessed = ProcessRevealedValidatingEndIfComment();
 												}
-												break;
 
-											case 'D':
-											case 'd':
-												// Doctype declaration
-												isProcessed = ProcessDoctype();
-												break;
-										}
-										break;
+												if (!isProcessed)
+												{
+													// HTML comments
+													isProcessed = ProcessComment();
+												}
+											}
+											break;
 
-									case '?':
-										// XML declaration
-										isProcessed = ProcessXmlDeclaration();
-										break;
-								}
+										case '[':
+											switch (_innerContext.PeekNextChar())
+											{
+												case 'i':
+												case 'I':
+													// Revealed If conditional comment (e.g. <![if ... ]>)
+													isProcessed = ProcessRevealedIfComment();
+													break;
+
+												case 'e':
+												case 'E':
+													// Hidden End If conditional comment (e.g. <![endif]-->)
+													isProcessed = ProcessHiddenEndIfComment();
+
+													if (!isProcessed)
+													{
+														// Revealed End If conditional comment (e.g. <![endif]>)
+														isProcessed = ProcessRevealedEndIfComment();
+													}
+													break;
+
+												case 'C':
+													// CDATA sections
+													isProcessed = ProcessCdataSection();
+													break;
+											}
+											break;
+
+										case 'D':
+										case 'd':
+											// Doctype declaration
+											isProcessed = ProcessDoctype();
+											break;
+									}
+									break;
+
+								case '?':
+									// XML declaration
+									isProcessed = ProcessXmlDeclaration();
+									break;
 							}
-
-							if (!isProcessed)
-							{
-								// Text
-								ProcessText();
-							}
 						}
-						else
+
+						if (!isProcessed)
 						{
-							// Embedded code
-							ProcessEmbeddedCode();
+							// Text
+							ProcessText();
 						}
-
-						if (_innerContext.Position == previousPosition)
-						{
-							throw new MarkupParsingException(
-								string.Format(Strings.ErrorMessage_MarkupParsingFailed, "HTML"),
-								_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
-						}
-
-						previousPosition = _innerContext.Position;
+					}
+					else
+					{
+						// Embedded code
+						ProcessEmbeddedCode();
 					}
 
-					// Clean up any remaining tags
-					ParseRemainingEndTags();
-
-					// Check whether there were not closed conditional comment
-					if (_conditionalCommentTypeStack.Count > 0)
+					if (_innerContext.Position == previousPosition)
 					{
 						throw new MarkupParsingException(
-							Strings.ErrorMessage_NotClosedConditionalComment,
+							string.Format(Strings.ErrorMessage_MarkupParsingFailed, "HTML"),
 							_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 					}
-				}
-				catch (MarkupParsingException)
-				{
-					throw;
-				}
-				finally
-				{
-					_tagStack.Clear();
-					_tempAttributes.Clear();
-					_conditionalCommentTypeStack.Clear();
-					_nonValidatingConditionalCommentOpened = false;
-					_xmlTagOpened = false;
-					_context = null;
-					_innerContext = null;
 
-					if (_doctypeProcessor is not null)
-					{
-						_doctypeProcessor.Dispose();
-						_doctypeProcessor = null;
-					}
+					previousPosition = _innerContext.Position;
+				}
+
+				// Clean up any remaining tags
+				ParseRemainingEndTags();
+
+				// Check whether there were not closed conditional comment
+				if (_conditionalCommentTypeStack.Count > 0)
+				{
+					throw new MarkupParsingException(
+						Strings.ErrorMessage_NotClosedConditionalComment,
+						_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
+				}
+			}
+			catch (MarkupParsingException)
+			{
+				throw;
+			}
+			finally
+			{
+				_tagStack.Clear();
+				_tempAttributes.Clear();
+				_conditionalCommentTypeStack.Clear();
+				_nonValidatingConditionalCommentOpened = false;
+				_xmlTagOpened = false;
+				_context = null;
+				_innerContext = null;
+
+				if (_doctypeProcessor is not null)
+				{
+					_doctypeProcessor.Dispose();
+					_doctypeProcessor = null;
 				}
 			}
 		}

@@ -20,7 +20,8 @@
   <PropertyGroup>
     <Description>The Web Markup Minifier (abbreviated WebMarkupMin) is a .NET library that contains a set of markup minifiers. The objective of this project is to improve the performance of web applications by reducing the size of HTML, XHTML and XML code.</Description>
     <PackageTags>$(PackageCommonTags);XML;Performance;Optimization;Compression</PackageTags>
-    <PackageReleaseNotes>Performed a migration to the modern C# null/not-null checks.</PackageReleaseNotes>
+    <PackageReleaseNotes>1. Performed a migration to the modern C# null/not-null checks;
+2. `HtmlParser` and `XmlParser` сlasses are no longer thread-safe.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

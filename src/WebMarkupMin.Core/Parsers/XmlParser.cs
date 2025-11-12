@@ -13,6 +13,9 @@ namespace WebMarkupMin.Core.Parsers
 	/// <summary>
 	/// XML parser
 	/// </summary>
+	/// <remarks>
+	/// Instances of this class are not thread-safe and they should not accessed from multiple threads simultaneously.
+	/// </remarks>
 	internal sealed class XmlParser : MarkupParserBase
 	{
 		#region Regular expressions for parsing a XML document nodes
@@ -80,105 +83,102 @@ namespace WebMarkupMin.Core.Parsers
 				return;
 			}
 
-			lock (_parsingSynchronizer)
+			_innerContext = new InnerMarkupParsingContext(content);
+			_context = new MarkupParsingContext(_innerContext);
+
+			int endPosition = contentLength - 1;
+			int previousPosition = -1;
+
+			try
 			{
-				_innerContext = new InnerMarkupParsingContext(content);
-				_context = new MarkupParsingContext(_innerContext);
-
-				int endPosition = contentLength - 1;
-				int previousPosition = -1;
-
-				try
+				while (_innerContext.Position <= endPosition)
 				{
-					while (_innerContext.Position <= endPosition)
+					bool isProcessed = false;
+
+					if (_innerContext.PeekCurrentChar() == '<')
 					{
-						bool isProcessed = false;
-
-						if (_innerContext.PeekCurrentChar() == '<')
+						switch (_innerContext.PeekNextChar())
 						{
-							switch (_innerContext.PeekNextChar())
-							{
-								case char c when IsTagFirstChar(c):
-									// Start tag
-									isProcessed = ProcessStartTag();
-									break;
+							case char c when IsTagFirstChar(c):
+								// Start tag
+								isProcessed = ProcessStartTag();
+								break;
 
-								case '/':
-									if (IsTagFirstChar(_innerContext.PeekNextChar()))
-									{
-										// End tag
-										isProcessed = ProcessEndTag();
-									}
-									break;
+							case '/':
+								if (IsTagFirstChar(_innerContext.PeekNextChar()))
+								{
+									// End tag
+									isProcessed = ProcessEndTag();
+								}
+								break;
 
-								case '!':
-									switch (_innerContext.PeekNextChar())
-									{
-										case '-':
-											if (_innerContext.PeekNextChar() == '-')
-											{
-												// XML comments
-												isProcessed = ProcessComment();
-											}
-											break;
+							case '!':
+								switch (_innerContext.PeekNextChar())
+								{
+									case '-':
+										if (_innerContext.PeekNextChar() == '-')
+										{
+											// XML comments
+											isProcessed = ProcessComment();
+										}
+										break;
 
-										case '[':
-											// CDATA sections
-											isProcessed = ProcessCdataSection();
-											break;
+									case '[':
+										// CDATA sections
+										isProcessed = ProcessCdataSection();
+										break;
 
-										case 'D':
-											// Doctype declaration
-											isProcessed = ProcessDoctype();
-											break;
-									}
-									break;
+									case 'D':
+										// Doctype declaration
+										isProcessed = ProcessDoctype();
+										break;
+								}
+								break;
 
-								case '?':
-									// XML declaration and processing instructions
-									isProcessed = ProcessProcessingInstruction();
-									break;
-							}
+							case '?':
+								// XML declaration and processing instructions
+								isProcessed = ProcessProcessingInstruction();
+								break;
 						}
-
-						if (!isProcessed)
-						{
-							// Text
-							ProcessText();
-						}
-
-						if (_innerContext.Position == previousPosition)
-						{
-							throw new MarkupParsingException(
-								string.Format(Strings.ErrorMessage_MarkupParsingFailed, "XML"),
-								_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
-						}
-
-						previousPosition = _innerContext.Position;
 					}
 
-					// Check whether there were not closed tags
-					if (_tagStack.Count > 0)
+					if (!isProcessed)
 					{
-						StackedXmlTag stackedTag = _tagStack.Pop();
+						// Text
+						ProcessText();
+					}
 
+					if (_innerContext.Position == previousPosition)
+					{
 						throw new MarkupParsingException(
-							string.Format(Strings.ErrorMessage_NotClosedTag, stackedTag.Name),
-							stackedTag.Coordinates,
-							SourceCodeNavigator.GetSourceFragment(_innerContext.SourceCode, stackedTag.Coordinates));
+							string.Format(Strings.ErrorMessage_MarkupParsingFailed, "XML"),
+							_innerContext.NodeCoordinates, _innerContext.GetSourceFragment());
 					}
-				}
-				catch (MarkupParsingException)
-				{
-					throw;
-				}
-				finally
-				{
-					_tagStack.Clear();
 
-					_context = null;
-					_innerContext = null;
+					previousPosition = _innerContext.Position;
 				}
+
+				// Check whether there were not closed tags
+				if (_tagStack.Count > 0)
+				{
+					StackedXmlTag stackedTag = _tagStack.Pop();
+
+					throw new MarkupParsingException(
+						string.Format(Strings.ErrorMessage_NotClosedTag, stackedTag.Name),
+						stackedTag.Coordinates,
+						SourceCodeNavigator.GetSourceFragment(_innerContext.SourceCode, stackedTag.Coordinates));
+				}
+			}
+			catch (MarkupParsingException)
+			{
+				throw;
+			}
+			finally
+			{
+				_tagStack.Clear();
+
+				_context = null;
+				_innerContext = null;
 			}
 		}
 

@@ -56,11 +56,6 @@ namespace WebMarkupMin.Core.Parsers
 		protected MarkupParsingContext _context;
 
 		/// <summary>
-		/// Synchronizer of parsing
-		/// </summary>
-		protected readonly object _parsingSynchronizer = new object();
-
-		/// <summary>
 		/// Gets a common markup parsing handlers
 		/// </summary>
 		protected abstract MarkupParsingHandlersBase CommonHandlers
