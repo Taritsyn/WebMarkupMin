@@ -18,7 +18,7 @@
    RELEASE NOTES
    =============
    1. Performed a migration to the modern C# null/not-null checks;
-   2. Added support for the ASP.NET Core 8.0.21, 9.0.10 and 10 RC 2.
+   2. Added support for the ASP.NET Core 8.0.22, 9.0.11 and 10.0.0.
 
    =============
    DOCUMENTATION
