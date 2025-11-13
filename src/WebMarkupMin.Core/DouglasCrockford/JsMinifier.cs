@@ -36,6 +36,12 @@ using System.Text;
 
 using AdvancedStringBuilder;
 
+#if NET9_0_OR_GREATER
+using Lock = System.Threading.Lock;
+#else
+using Lock = System.Object;
+#endif
+
 namespace WebMarkupMin.Core.DouglasCrockford
 {
 	/// <summary>
@@ -57,7 +63,7 @@ namespace WebMarkupMin.Core.DouglasCrockford
 		/// <summary>
 		/// Synchronizer of minification
 		/// </summary>
-		private readonly object _minificationSynchronizer = new object();
+		private readonly Lock _minificationSynchronizer = new Lock();
 
 
 		/// <summary>

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Product>Web Markup Minifier: YUI</Product>
     <VersionPrefix>2.19.0</VersionPrefix>
-    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net452;netstandard2.0;net9.0</TargetFrameworks>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
@@ -16,7 +16,9 @@
   <PropertyGroup>
     <Description>WebMarkupMin.Yui contains 2 minifier-adapters: `YuiCssMinifier` (for minification of CSS code) and `YuiJsMinifier` (for minification of JS code). These adapters perform minification using the YUI Compressor for .NET.</Description>
     <PackageTags>$(PackageCommonTags);CSS;JavaScript;JS;Obfuscation;YUICompressor</PackageTags>
-    <PackageReleaseNotes>Performed a migration to the modern C# null/not-null checks.</PackageReleaseNotes>
+    <PackageReleaseNotes>1. Performed a migration to the modern C# null/not-null checks;
+2. Added support for .NET 9;
+3. In the `lock` statements for .NET 9 target now uses a instances of the `System.Threading.Lock` class.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

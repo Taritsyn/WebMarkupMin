@@ -23,7 +23,7 @@ namespace WebMarkupMin.Core.Utilities
 		/// Gets a regular expression options for improving performance
 		/// </summary>
 		internal static readonly RegexOptions PerformanceRegexOptions = RegexOptions.CultureInvariant
-#if NETSTANDARD2_1
+#if NETSTANDARD2_1 || NET9_0_OR_GREATER
 			| RegexOptions.Compiled
 #endif
 			;

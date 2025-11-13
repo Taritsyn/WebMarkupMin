@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Product>Web Markup Minifier: Core</Product>
     <VersionPrefix>2.19.1</VersionPrefix>
-    <TargetFrameworks>net40-client;net45;netstandard1.3;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net40-client;net45;netstandard1.3;netstandard2.0;netstandard2.1;net9.0</TargetFrameworks>
     <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.3' ">1.6.0</NetStandardImplicitPackageVersion>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -21,7 +21,9 @@
     <Description>The Web Markup Minifier (abbreviated WebMarkupMin) is a .NET library that contains a set of markup minifiers. The objective of this project is to improve the performance of web applications by reducing the size of HTML, XHTML and XML code.</Description>
     <PackageTags>$(PackageCommonTags);XML;Performance;Optimization;Compression</PackageTags>
     <PackageReleaseNotes>1. Performed a migration to the modern C# null/not-null checks;
-2. `HtmlParser` and `XmlParser` сlasses are no longer thread-safe.</PackageReleaseNotes>
+2. `HtmlParser` and `XmlParser` сlasses are no longer thread-safe;
+3. Added support for .NET 9;
+4. In the `lock` statements for .NET 9 target now uses a instances of the `System.Threading.Lock` class.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

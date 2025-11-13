@@ -1,4 +1,4 @@
-﻿#if !NETSTANDARD2_1_OR_GREATER
+﻿#if !NETSTANDARD2_1_OR_GREATER && !NET9_0_OR_GREATER
 using System;
 using System.Collections.Generic;
 

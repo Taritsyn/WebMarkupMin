@@ -9,6 +9,12 @@ using WebMarkupMin.Core.Parsers;
 using WebMarkupMin.Core.Resources;
 using WebMarkupMin.Core.Utilities;
 
+#if NET9_0_OR_GREATER
+using Lock = System.Threading.Lock;
+#else
+using Lock = System.Object;
+#endif
+
 namespace WebMarkupMin.Core
 {
 	/// <summary>
@@ -89,7 +95,7 @@ namespace WebMarkupMin.Core
 		/// <summary>
 		/// Synchronizer of minification
 		/// </summary>
-		private readonly object _minificationSynchronizer = new object();
+		private readonly Lock _minificationSynchronizer = new Lock();
 
 
 		/// <summary>

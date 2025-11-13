@@ -1,5 +1,5 @@
 ﻿using System;
-#if NET45 || NETSTANDARD
+#if NET45 || NETSTANDARD || NET9_0_OR_GREATER
 using System.Buffers;
 #endif
 using System.IO;

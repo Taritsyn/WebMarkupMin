@@ -2,6 +2,11 @@
 using System.Globalization;
 using System.IO;
 using System.Text;
+#if NET9_0_OR_GREATER
+using Lock = System.Threading.Lock;
+#else
+using Lock = System.Object;
+#endif
 
 using AdvancedStringBuilder;
 using NUglify.JavaScript;
@@ -46,7 +51,7 @@ namespace WebMarkupMin.NUglify
 		/// <summary>
 		/// Synchronizer of minification
 		/// </summary>
-		private readonly object _minificationSynchronizer = new object();
+		private readonly Lock _minificationSynchronizer = new Lock();
 
 
 		/// <summary>

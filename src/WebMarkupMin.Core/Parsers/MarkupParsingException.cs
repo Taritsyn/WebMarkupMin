@@ -93,6 +93,9 @@ namespace WebMarkupMin.Core.Parsers
 		/// </summary>
 		/// <param name="info">The object that holds the serialized data</param>
 		/// <param name="context">The contextual information about the source or destination</param>
+#if NET9_0_OR_GREATER
+		[Obsolete(DiagnosticId = "SYSLIB0051")]
+#endif
 		private MarkupParsingException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{ }
