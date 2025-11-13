@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-          README file for Web Markup Minifier: ASP.NET 4.X Web Forms v2.19.0
+          README file for Web Markup Minifier: ASP.NET 4.X Web Forms v2.20.0
 
    --------------------------------------------------------------------------------
 

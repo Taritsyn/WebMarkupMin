@@ -17,7 +17,6 @@ namespace WebMarkupMin.Benchmarks
 		{
 			{ "javascript.ru", new Document("https://javascript.ru/") },
 			{ "prettydiff.com", new Document("https://prettydiff.com/tool.xhtml") },
-			{ "ubl.xml.org", new Document("https://ubl.xml.org/") },
 			{ "webmascon.com", new Document("https://webmascon.com/") },
 			{ "webstandards.org", new Document("https://www.webstandards.org/") },
 		};

@@ -1,6 +1,14 @@
 Change log
 ==========
 
+## v2.20.0 - November 13, 2025
+ * Performed a migration to the modern C# null/not-null checks
+ * `HtmlParser` and `XmlParser` сlasses are no longer thread-safe
+ * In WebMarkupMin.Core, WebMarkupMin.MsAjax, WebMarkupMin.Yui and WebMarkupMin.NUglify:
+     * Added support for .NET 9
+     * In the `lock` statements for .NET 9 targets now uses a instances of the `System.Threading.Lock` class
+ * In WebMarkupMin.AspNetCoreLatest added support for the ASP.NET Core 8.0.22, 9.0.11 and 10.0.0
+
 ## v2.19.1 - October 31, 2025
  * Prevented a occurrence of endless loop during minification of the `<script type="text/html">…</script>` tag contents
  * In WebMarkupMin.NUglify added support for the NUglify version 1.21.17

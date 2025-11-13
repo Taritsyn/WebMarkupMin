@@ -1,5 +1,18 @@
 ﻿<p>An overview of new features and fixes:</p>
 
+<h3>2.20.0 - November 13, 2025</h3>
+<ul>
+	<li>Performed a migration to the modern C# null/not-null checks</li>
+	<li><code>HtmlParser</code> and <code>XmlParser</code> сlasses are no longer thread-safe</li>
+	<li>In WebMarkupMin.Core, WebMarkupMin.MsAjax, WebMarkupMin.Yui and WebMarkupMin.NUglify:
+		<ul>
+			<li>Added support for .NET 9</li>
+			<li>In the <code>lock</code> statements for .NET 9 targets now uses a instances of the <code>System.Threading.Lock</code> class</li>
+		</ul>
+	</li>
+	<li>In WebMarkupMin.AspNetCoreLatest added support for the ASP.NET Core 8.0.22, 9.0.11 and 10.0.0</li>
+</ul>
+
 <h3>2.19.1 - October 31, 2025</h3>
 <ul>
 	<li>Prevented a occurrence of endless loop during minification of the <code>&lt;script type="text/html"&gt;…&lt;/script&gt;</code> tag contents</li>

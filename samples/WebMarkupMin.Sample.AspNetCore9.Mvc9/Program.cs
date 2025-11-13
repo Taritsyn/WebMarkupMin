@@ -1,5 +1,3 @@
-using System.IO.Compression;
-
 using WebMarkupMin.AspNet.Common.Compressors;
 using WebMarkupMin.AspNetCoreLatest;
 using WebMarkupMin.Core;
