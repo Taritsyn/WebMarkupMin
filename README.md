@@ -93,10 +93,6 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
  * [AspCore.net](http://aspcore.net/)
  * [ASP-MVC.ir](http://asp-mvc.ir/)
  * [Assist2Sell.com](https://assist2sell.com/) by Christopher Dengler
- * [Astalegale.Net](https://www.astalegale.net/)
- * [AsteImmobili.it](https://www.asteimmobili.it/)
- * [Aztual.es](https://www.aztual.es/)
- * [BaseballAmerica.com](https://www.baseballamerica.com/)
  * [BeautifyCode.net](https://beautifycode.net/) by Anghel Valentin
  * [BillerudKorsnas.se](https://www.billerudkorsnas.se/)
  * [Bridge-Direct.com](https://www.bridge-direct.com/)
