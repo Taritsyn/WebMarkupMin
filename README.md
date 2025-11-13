@@ -93,6 +93,7 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
  * [AspCore.net](http://aspcore.net/)
  * [ASP-MVC.ir](http://asp-mvc.ir/)
  * [Assist2Sell.com](https://assist2sell.com/) by Christopher Dengler
+ * [BBB.org](https://www.bbb.org/)
  * [BeautifyCode.net](https://beautifycode.net/) by Anghel Valentin
  * [BillerudKorsnas.se](https://www.billerudkorsnas.se/)
  * [Bridge-Direct.com](https://www.bridge-direct.com/)
@@ -151,6 +152,7 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
  * [KamKan.ru](https://www.kamkan.ru/)
  * [KCEBV.nl](https://www.kcebv.nl/)
  * [KeyToSteel.com](http://www.keytosteel.com/)
+ * [King.com](https://www.king.com/)
  * [Kleisma.com](https://www.kleisma.com/)
  * [KnaufLaw.com](https://www.knauflaw.com/)
  * [KonyaSeker.com.tr](http://konyaseker.com.tr/)
