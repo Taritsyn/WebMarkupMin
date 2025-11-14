@@ -65,6 +65,7 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
  * [Constellation.Sitecore.Presentation.Mvc](https://github.com/sitecorerick/constellation.sitecore.presentation.mvc) by Rick Cabral
  * [Dyfort Umbraco Html Minifier](https://www.dyfort.com/products/html-minifier/)
  * [Elect AspNetCore Useful Middlewares](https://github.com/topnguyen/Elect/tree/master/src/Web/Elect.Web.Middlewares) by Top Nguyen
+ * [ErsatzTV](https://github.com/ErsatzTV/ErsatzTV) by Jason Dove
  * [FAV Rocks](https://github.com/billbogaiv/fav-rocks) by Bill Boga
  * [File Sharing Application](http://bitbucket.org/Artur2/filesharingapplication) by Artur N
  * [GeeksCoreLibrary](https://github.com/happy-geeks/geeks-core-library)
