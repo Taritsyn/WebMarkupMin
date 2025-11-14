@@ -46,12 +46,6 @@ using WebMarkupMin.Core.Parsers;
 using WebMarkupMin.Core.Resources;
 using WebMarkupMin.Core.Utilities;
 
-#if NET9_0_OR_GREATER
-using Lock = System.Threading.Lock;
-#else
-using Lock = System.Object;
-#endif
-
 namespace WebMarkupMin.Core
 {
 	/// <summary>

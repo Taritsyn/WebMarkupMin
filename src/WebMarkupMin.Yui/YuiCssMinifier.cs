@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-#if NET9_0_OR_GREATER
-using Lock = System.Threading.Lock;
-#else
-using Lock = System.Object;
-#endif
 
 using Yahoo.Yui.Compressor;
 

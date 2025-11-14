@@ -1,11 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
-#if NET9_0_OR_GREATER
-using Lock = System.Threading.Lock;
-#else
-using Lock = System.Object;
-#endif
 
 using EcmaScript.NET;
 using Yahoo.Yui.Compressor;
