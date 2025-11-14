@@ -59,7 +59,6 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
 ### Software
  * [AngularTemplates.Compile](https://github.com/vadimi/AngularTemplates.Compile) by Vadim Ivanou
  * [AspNetStatic](https://github.com/ZarehD/AspNetStatic)
- * [Blog-Umbraco](https://github.com/radyz/Blog-Umbraco) by Ernesto Chavez Sanchez
  * [Colorful.Cache.Web](https://www.nuget.org/packages/Colorful.Cache.Web)
  * [Colorful.CMS.Core](https://www.nuget.org/packages/Colorful.CMS.Core/)
  * [Constellation.Foundation.Mvc](https://github.com/constellation4sitecore/constellation-sitecore9) by Rick Cabral
@@ -70,7 +69,6 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
  * [File Sharing Application](http://bitbucket.org/Artur2/filesharingapplication) by Artur N
  * [GeeksCoreLibrary](https://github.com/happy-geeks/geeks-core-library)
  * [Google Pagespeed Tools for NopCommerce](https://www.foxnetsoft.com/noppagespeedtools) by FoxNetSoft
- * [GrandNode](https://github.com/grandnode/grandnode2)
  * [iTEAMConsulting.FormHandler](https://github.com/iteam-consulting/csharp-form-handler)
  * [Karambolo.AspNetCore.Bundling.WebMarkupMin](https://github.com/adams85/bundling)
  * [Lightweight NetCore MVC Template](https://marketplace.visualstudio.com/items?itemName=PabloMorelli.LightweightNetCoreMVCTemplate) by Pablo Morelli
