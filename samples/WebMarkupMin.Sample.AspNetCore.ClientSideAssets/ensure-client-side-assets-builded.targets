@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="EnsureClientSideAssetsBuilded" BeforeTargets="BeforeBuild">
+    <Error
+      Condition=" !Exists('$(MSBuildThisFileDirectory)wwwroot/styles/build/common-styles.min.css') Or !Exists('$(MSBuildThisFileDirectory)wwwroot/lib/jquery/jquery.min.js') Or !Exists('$(MSBuildThisFileDirectory)wwwroot/scripts/build/common-scripts.min.js') "
+      Text="You need to build client-side assets for ASP.NET Core samples. To do this, run a `build-frontend.cmd` or `build-frontend.sh` script in the `$(MSBuildThisFileDirectory)` directory." />
+  </Target>
+</Project>

@@ -36,22 +36,6 @@
     </None>
   </ItemGroup>
 
-  <Target Name="NodePackageInstallation" BeforeTargets="BeforeBuild;BeforeClean">
-    <Exec Command="npm install" />
-  </Target>
-  <Target Name="BowerPackagesInstallation" AfterTargets="AfterBuild">
-    <Exec Command="bower install" />
-  </Target>
-  <Target Name="GulpClean" AfterTargets="AfterClean">
-    <Exec Command="gulp cleanBuildedAssets" />
-  </Target>
-  <Target Name="GulpBuild" AfterTargets="BowerPackagesInstallation">
-    <Exec Command="gulp buildAssets" />
-  </Target>
-  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
-    <Exec Command="npm install" />
-    <Exec Command="bower install" />
-    <Exec Command="gulp" />
-  </Target>
+  <Import Project="../WebMarkupMin.Sample.AspNetCore.ClientSideAssets/ensure-client-side-assets-builded.targets" />
 
 </Project>

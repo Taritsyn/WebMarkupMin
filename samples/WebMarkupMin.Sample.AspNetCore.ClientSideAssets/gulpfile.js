@@ -33,7 +33,7 @@ let cleanBuildedAssets = parallel(cleanBuildedStyles, cleanBuildedScripts);
 //#region Build assets
 //#region Build styles
 let autoprefixerOptions = {
-	browsers: ['> 1%', 'last 3 versions', 'Firefox ESR', 'Opera 12.1'],
+	overrideBrowserslist: ['> 1%', 'last 3 versions', 'Firefox ESR', 'Opera 12.1'],
 	cascade: true
 };
 let cssCleanOptions = { specialComments: '*' };

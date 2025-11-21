@@ -82,6 +82,7 @@
       </Properties>
     </Project>
     <Project Path="samples/WebMarkupMin.Sample.AspNet45.WebForms/WebMarkupMin.Sample.AspNet45.WebForms.csproj" Id="e7808547-e984-4f80-97b8-b19e99be3a76" />
+    <Project Path="samples/WebMarkupMin.Sample.AspNetCore.ClientSideAssets/WebMarkupMin.Sample.AspNetCore.ClientSideAssets.csproj" />
     <Project Path="samples/WebMarkupMin.Sample.AspNetCore.Infrastructure/WebMarkupMin.Sample.AspNetCore.Infrastructure.csproj" />
     <Project Path="samples/WebMarkupMin.Sample.AspNetCore1.Mvc1/WebMarkupMin.Sample.AspNetCore1.Mvc1.csproj" />
     <Project Path="samples/WebMarkupMin.Sample.AspNetCore1Full.Mvc1/WebMarkupMin.Sample.AspNetCore1Full.Mvc1.csproj" />

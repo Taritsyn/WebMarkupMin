@@ -323,17 +323,10 @@
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
   </Target>
-  <Target Name="NodePackageInstallation" BeforeTargets="BeforeBuild;BeforeClean">
-    <Exec Command="npm install" />
-  </Target>
-  <Target Name="BowerPackagesInstallation" AfterTargets="AfterBuild">
-    <Exec Command="bower install" />
-  </Target>
-  <Target Name="GulpClean" AfterTargets="AfterClean">
-    <Exec Command="gulp cleanBuildedAssets" />
-  </Target>
-  <Target Name="GulpBuild" AfterTargets="BowerPackagesInstallation">
-    <Exec Command="gulp buildAssets" />
+  <Target Name="EnsureClientSideAssetsBuilded" BeforeTargets="BeforeBuild">
+    <Error
+      Condition=" !Exists('./styles/build/common-styles.min.css') Or !Exists('./lib/jquery/jquery.min.js') Or !Exists('./scripts/build/common-scripts.min.js') "
+      Text="You need to build client-side assets for ASP.NET MVC 4 sample. To do this, run a `build-frontend.cmd` or `build-frontend.sh` script in the `$(ProjectDir)` directory." />
   </Target>
   <ProjectExtensions>
     <VisualStudio>
