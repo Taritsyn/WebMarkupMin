@@ -151,7 +151,7 @@ namespace WebMarkupMin.Core
 
 		private static readonly HashSet<string> _unremovableEmptyTags = new HashSet<string>
 		{
-			"textarea", "tr", "th", "td"
+			"textarea", "option", "tr", "th", "td"
 		};
 
 		private static readonly HashSet<string> _unremovableEmptyTagAttributes = new HashSet<string>

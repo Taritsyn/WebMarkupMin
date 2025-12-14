@@ -193,9 +193,9 @@ namespace WebMarkupMin.Core
 
 		/// <summary>
 		/// Gets or sets a flag for whether to remove tags without content
-		/// (except for <c>textarea</c>, <c>tr</c>, <c>th</c> and <c>td</c> tags,
-		/// and tags with <c>class</c>, <c>id</c>, <c>name</c>, <c>role</c>,
-		/// <c>src</c> and custom attributes)
+		/// (except for <c>textarea</c>, <c>option</c>, <c>tr</c>, <c>th</c>
+		/// and <c>td</c> tags, and tags with <c>class</c>, <c>id</c>,
+		/// <c>name</c>, <c>role</c>, <c>src</c> and custom attributes)
 		/// </summary>
 		public bool RemoveTagsWithoutContent
 		{

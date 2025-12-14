@@ -46,11 +46,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Performed a migration to the modern C# null/not-null checks;
-   2. `HtmlParser` and `XmlParser` сlasses are no longer thread-safe;
-   3. Added support for .NET 9;
-   4. In the `lock` statements for .NET 9 target now uses a instances of the
-      `System.Threading.Lock` class.
+   Fixed a error “Empty option in datalist removed”.
 
    =============
    DOCUMENTATION
