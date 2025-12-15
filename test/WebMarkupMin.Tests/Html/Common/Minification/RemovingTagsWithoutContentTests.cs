@@ -38,8 +38,8 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 			const string targetOutput3B = "<p>Some text...</p>";
 
 			// Act
-			string outputA = _keepingTagsWithoutContentMinifier.Minify(input1).MinifiedContent;
-			string outputB = _removingTagsWithoutContentMinifier.Minify(input1).MinifiedContent;
+			string output1A = _keepingTagsWithoutContentMinifier.Minify(input1).MinifiedContent;
+			string output1B = _removingTagsWithoutContentMinifier.Minify(input1).MinifiedContent;
 
 			string output2A = _keepingTagsWithoutContentMinifier.Minify(input2).MinifiedContent;
 			string output2B = _removingTagsWithoutContentMinifier.Minify(input2).MinifiedContent;
@@ -48,8 +48,8 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 			string output3B = _removingTagsWithoutContentMinifier.Minify(input3).MinifiedContent;
 
 			// Assert
-			Assert.Equal(targetOutput1A, outputA);
-			Assert.Equal(targetOutput1B, outputB);
+			Assert.Equal(targetOutput1A, output1A);
+			Assert.Equal(targetOutput1B, output1B);
 
 			Assert.Equal(input2, output2A);
 			Assert.Equal(input2, output2B);
@@ -233,8 +233,8 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 			string output3A = _keepingTagsWithoutContentMinifier.Minify(input3).MinifiedContent;
 			string output3B = _removingTagsWithoutContentMinifier.Minify(input3).MinifiedContent;
 
-			string output4B = _removingTagsWithoutContentMinifier.Minify(input4).MinifiedContent;
 			string output4A = _keepingTagsWithoutContentMinifier.Minify(input4).MinifiedContent;
+			string output4B = _removingTagsWithoutContentMinifier.Minify(input4).MinifiedContent;
 
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
@@ -251,18 +251,33 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void RemovingTagsWithoutContentInForms()
+		public void RemovingTextareaTagsWithoutContent()
 		{
 			// Arrange
-			const string input1 = "<textarea cols=\"80\" rows=\"10\"></textarea>";
-			const string input2 = "<select name=\"city\">\n" +
+			const string input = "<textarea cols=\"80\" rows=\"10\"></textarea>";
+
+			// Act
+			string outputA = _keepingTagsWithoutContentMinifier.Minify(input).MinifiedContent;
+			string outputB = _removingTagsWithoutContentMinifier.Minify(input).MinifiedContent;
+
+			// Assert
+			Assert.Equal(input, outputA);
+			Assert.Equal(input, outputB);
+		}
+
+		[Fact]
+		public void RemovingOptionTagsWithoutContent()
+		{
+			// Arrange
+			const string input1 = "<select name=\"city\">\n" +
 				"	<option value=\"\"></option>\n" +
 				"	<option value=\"msk\">Moscow</option>\n" +
 				"	<option value=\"spb\">St. Petersburg</option>\n" +
 				"	<option value=\"ekb\">Yekaterinburg</option>\n" +
 				"</select>"
 				;
-			const string input3 = "<input list=\"browsers\" id=\"browser\" name=\"browser\">\n" +
+
+			const string input2 = "<input list=\"browsers\" id=\"browser\" name=\"browser\">\n" +
 				"<datalist id=\"browsers\">\n" +
 				"	<option value=\"Chrome\"></option>\n" +
 				"	<option value=\"Edge\"></option>\n" +
@@ -279,18 +294,45 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 			string output2A = _keepingTagsWithoutContentMinifier.Minify(input2).MinifiedContent;
 			string output2B = _removingTagsWithoutContentMinifier.Minify(input2).MinifiedContent;
 
-			string output3A = _keepingTagsWithoutContentMinifier.Minify(input3).MinifiedContent;
-			string output3B = _removingTagsWithoutContentMinifier.Minify(input3).MinifiedContent;
-
 			// Assert
 			Assert.Equal(input1, output1A);
 			Assert.Equal(input1, output1B);
 
 			Assert.Equal(input2, output2A);
 			Assert.Equal(input2, output2B);
+		}
 
-			Assert.Equal(input3, output3A);
-			Assert.Equal(input3, output3B);
+		[Fact]
+		public void RemovingTagsWithoutContentInTables()
+		{
+			// Arrange
+			const string input = "<table>\n" +
+				"	<tr>\n" +
+				"		<th>Organization</th>\n" +
+				"		<th>Country</th>\n" +
+				"		<th></th>\n" +
+				"	</tr>\n" +
+				"	<tr>\n" +
+				"		<td>Cronos Corporation</td>\n" +
+				"		<td>Japan</td>\n" +
+				"		<td></td>\n" +
+				"	</tr>\n" +
+				"	<tr>\n" +
+				"		<td>Speedwagon Foundation</td>\n" +
+				"		<td>USA</td>\n" +
+				"		<td></td>\n" +
+				"	</tr>\n" +
+				"	<tr></tr>\n" +
+				"</table>"
+				;
+
+			// Act
+			string outputA = _keepingTagsWithoutContentMinifier.Minify(input).MinifiedContent;
+			string outputB = _removingTagsWithoutContentMinifier.Minify(input).MinifiedContent;
+
+			// Assert
+			Assert.Equal(input, outputA);
+			Assert.Equal(input, outputB);
 		}
 
 		[Fact]
@@ -336,7 +378,7 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
-		public void RemovingXmlBasedTagsWithoutContent()
+		public void RemovingSvgTagsWithoutContent()
 		{
 			// Arrange
 			const string input1 = "<div>\n" +
@@ -363,8 +405,52 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 				"</div>"
 				;
 
-			const string input4 = "<div>" +
-				"<math><infinity /></math>" +
+			// Act
+			string output1A = _keepingTagsWithoutContentMinifier.Minify(input1).MinifiedContent;
+			string output1B = _removingTagsWithoutContentMinifier.Minify(input1).MinifiedContent;
+
+			string output2A = _keepingTagsWithoutContentMinifier.Minify(input2).MinifiedContent;
+			string output2B = _removingTagsWithoutContentMinifier.Minify(input2).MinifiedContent;
+
+			string output3A = _keepingTagsWithoutContentMinifier.Minify(input3).MinifiedContent;
+			string output3B = _removingTagsWithoutContentMinifier.Minify(input3).MinifiedContent;
+
+			// Assert
+			Assert.Equal(targetOutput1A, output1A);
+			Assert.Equal(targetOutput1B, output1B);
+
+			Assert.Equal(input2, output2A);
+			Assert.Equal(input2, output2B);
+
+			Assert.Equal(input3, output3A);
+			Assert.Equal(input3, output3B);
+		}
+
+		[Fact]
+		public void RemovingMathMlTagsWithoutContent()
+		{
+			// Arrange
+			const string input1 = "<div>\n" +
+				"	<math xmlns=\"http://www.w3.org/1998/Math/MathML\"></math>\n" +
+				"</div>"
+				;
+			const string targetOutput1A = input1;
+			const string targetOutput1B = "<div>\n" +
+				"	\n" +
+				"</div>"
+				;
+
+			const string input2 = "<div>\n" +
+				"	<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" +
+				"		<mtext></mtext>\n" +
+				"	</math>\n" +
+				"</div>"
+				;
+
+			const string input3 = "<div>\n" +
+				"	<math>\n" +
+				"		<infinity />\n" +
+				"	</math>\n" +
 				"</div>"
 				;
 
@@ -378,9 +464,6 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 			string output3A = _keepingTagsWithoutContentMinifier.Minify(input3).MinifiedContent;
 			string output3B = _removingTagsWithoutContentMinifier.Minify(input3).MinifiedContent;
 
-			string output4A = _keepingTagsWithoutContentMinifier.Minify(input4).MinifiedContent;
-			string output4B = _removingTagsWithoutContentMinifier.Minify(input4).MinifiedContent;
-
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
@@ -390,9 +473,6 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 
 			Assert.Equal(input3, output3A);
 			Assert.Equal(input3, output3B);
-
-			Assert.Equal(input4, output4A);
-			Assert.Equal(input4, output4B);
 		}
 
 		#region IDisposable implementation
