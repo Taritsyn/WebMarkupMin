@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                   README file for Web Markup Minifier: Core v2.20.0
+                   README file for Web Markup Minifier: Core v2.20.1
 
    --------------------------------------------------------------------------------
 
@@ -46,7 +46,8 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a error “Empty option in datalist removed”.
+   Empty `option` tags are no longer removed, even if the `RemoveTagsWithoutContent`
+   property is set to `true`.
 
    =============
    DOCUMENTATION

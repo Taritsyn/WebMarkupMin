@@ -1,7 +1,7 @@
 {
   "name": "webmarkupmin.sample.aspnetcore.clientsideassets",
   "private": true,
-  "version": "2.20.0",
+  "version": "2.20.1",
   "devDependencies": {
     "gulp": "4.0.2",
     "del": "5.1.0",

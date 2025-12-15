@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## v2.20.1 - December 15, 2025
+ * Empty `option` tags are no longer removed, even if the `RemoveTagsWithoutContent` property is set to `true`
+
 ## v2.20.0 - November 13, 2025
  * Performed a migration to the modern C# null/not-null checks
  * `HtmlParser` and `XmlParser` сlasses are no longer thread-safe
