@@ -1,11 +1,11 @@
 
 
    --------------------------------------------------------------------------------
-             README file for Web Markup Minifier: ASP.NET 4.X MVC v2.20.0
+             README file for Web Markup Minifier: ASP.NET 4.X MVC v2.20.2
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2025 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2026 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========
@@ -16,11 +16,6 @@
    code), `MinifyXmlAttribute` (for minification of XML code) and
    `CompressContentAttribute` (for compression of text content by using GZIP or
    Deflate).
-
-   =============
-   RELEASE NOTES
-   =============
-   Performed a migration to the modern C# null/not-null checks.
 
    =============
    DOCUMENTATION

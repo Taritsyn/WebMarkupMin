@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <Copyright>Copyright © 2013-2025 Andrey Taritsyn</Copyright>
+    <Copyright>Copyright © 2013-2026 Andrey Taritsyn</Copyright>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
     <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
     <LangVersion>latest</LangVersion>

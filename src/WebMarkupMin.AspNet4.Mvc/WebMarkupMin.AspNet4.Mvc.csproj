@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: ASP.NET 4.X MVC</Product>
-    <VersionPrefix>2.20.0</VersionPrefix>
+    <VersionPrefix>2.20.2</VersionPrefix>
     <TargetFrameworks>net40;net45</TargetFrameworks>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -17,7 +17,6 @@
   <PropertyGroup>
     <Description>WebMarkupMin.AspNet4.Mvc contains 4 action filters: `MinifyHtmlAttribute` (for minification of HTML code), `MinifyXhtmlAttribute` (for minification of XHTML code), `MinifyXmlAttribute` (for minification of XML code) and `CompressContentAttribute` (for compression of text content by using GZIP or Deflate).</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;MVC;XML</PackageTags>
-    <PackageReleaseNotes>Performed a migration to the modern C# null/not-null checks.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

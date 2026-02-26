@@ -1,11 +1,11 @@
 
 
    --------------------------------------------------------------------------------
-          README file for Web Markup Minifier: ASP.NET 4.X Web Forms v2.20.0
+          README file for Web Markup Minifier: ASP.NET 4.X Web Forms v2.20.2
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2025 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2026 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========
@@ -24,11 +24,6 @@
    minification and HTTP compression).
 
    Classes of the Web Forms pages and master pages cannot be used together.
-
-   =============
-   RELEASE NOTES
-   =============
-   Performed a migration to the modern C# null/not-null checks.
 
    =============
    DOCUMENTATION

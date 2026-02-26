@@ -1,11 +1,11 @@
 
 
    --------------------------------------------------------------------------------
-                    README file for Web Markup Minifier: YUI v2.20.0
+                    README file for Web Markup Minifier: YUI v2.20.2
 
    --------------------------------------------------------------------------------
 
-           Copyright (c) 2013-2025 Andrey Taritsyn - http://www.taritsyn.ru
+           Copyright (c) 2013-2026 Andrey Taritsyn - http://www.taritsyn.ru
 
 
    ===========
@@ -15,14 +15,6 @@
    of CSS code) and `YuiJsMinifier` (for minification of JS code). These adapters
    perform minification using the YUI Compressor for .NET
    (https://github.com/YUICompressor-NET/YUICompressor.NET).
-
-   =============
-   RELEASE NOTES
-   =============
-   1. Performed a migration to the modern C# null/not-null checks;
-   2. Added support for .NET 9;
-   3. In the `lock` statements for .NET 9 target now uses a instances of the
-      `System.Threading.Lock` class.
 
    =============
    DOCUMENTATION

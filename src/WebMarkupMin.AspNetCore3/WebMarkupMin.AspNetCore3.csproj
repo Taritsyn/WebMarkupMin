@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: ASP.NET Core 3.1+</Product>
-    <VersionPrefix>2.20.0</VersionPrefix>
+    <VersionPrefix>2.20.2</VersionPrefix>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>Library</OutputType>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
@@ -19,7 +19,6 @@
   <PropertyGroup>
     <Description>WebMarkupMin.AspNetCore3 contains one Middleware for ASP.NET Core 3.1 and 5 - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
-    <PackageReleaseNotes>Performed a migration to the modern C# null/not-null checks.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

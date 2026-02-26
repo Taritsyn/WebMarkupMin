@@ -1,6 +1,10 @@
 Change log
 ==========
 
+## v2.20.2 - February 26, 2026
+ * Added support for the Douglas Crockford's JSMin version of February 25, 2026
+ * In WebMarkupMin.AspNetCoreLatest added support for the ASP.NET Core 8.0.24, 9.0.13 and 10.0.3
+
 ## v2.20.1 - December 15, 2025
  * Empty `option` tags are no longer removed, even if the `RemoveTagsWithoutContent` property is set to `true`
 

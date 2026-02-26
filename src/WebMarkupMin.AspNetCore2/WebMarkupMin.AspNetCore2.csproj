@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: ASP.NET Core 2.X</Product>
-    <VersionPrefix>2.20.0</VersionPrefix>
+    <VersionPrefix>2.20.2</VersionPrefix>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <OutputType>Library</OutputType>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
@@ -19,7 +19,6 @@
   <PropertyGroup>
     <Description>WebMarkupMin.AspNetCore2 contains one Middleware for ASP.NET Core 2.X - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
-    <PackageReleaseNotes>Performed a migration to the modern C# null/not-null checks.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

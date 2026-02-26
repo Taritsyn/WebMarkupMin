@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: MS Ajax</Product>
-    <VersionPrefix>2.20.0</VersionPrefix>
+    <VersionPrefix>2.20.2</VersionPrefix>
     <TargetFrameworks>net40-client;net45;netstandard2.0;net9.0</TargetFrameworks>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -18,9 +18,6 @@
   <PropertyGroup>
     <Description>WebMarkupMin.MsAjax contains 2 minifier-adapters: `MsAjaxCssMinifier` (for minification of CSS code) and `MsAjaxJsMinifier` (for minification of JS code). These adapters perform minification using the Microsoft Ajax Minifier.</Description>
     <PackageTags>$(PackageCommonTags);CSS;JavaScript;JS;Microsoft;AjaxMin</PackageTags>
-    <PackageReleaseNotes>1. Performed a migration to the modern C# null/not-null checks;
-2. Added support for .NET 9;
-3. In the `lock` statements for .NET 9 target now uses a instances of the `System.Threading.Lock` class.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
