@@ -46,8 +46,7 @@
    =============
    RELEASE NOTES
    =============
-   Empty `option` tags are no longer removed, even if the `RemoveTagsWithoutContent`
-   property is set to `true`.
+   Added support for the Douglas Crockford's JSMin version of February 25, 2026.
 
    =============
    DOCUMENTATION

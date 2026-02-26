@@ -20,7 +20,7 @@
   <PropertyGroup>
     <Description>The Web Markup Minifier (abbreviated WebMarkupMin) is a .NET library that contains a set of markup minifiers. The objective of this project is to improve the performance of web applications by reducing the size of HTML, XHTML and XML code.</Description>
     <PackageTags>$(PackageCommonTags);XML;Performance;Optimization;Compression</PackageTags>
-    <PackageReleaseNotes>Empty `option` tags are no longer removed, even if the `RemoveTagsWithoutContent` property is set to `true`.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added support for the Douglas Crockford's JSMin version of February 25, 2026.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

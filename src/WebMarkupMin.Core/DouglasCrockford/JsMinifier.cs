@@ -6,7 +6,7 @@
  */
 
 /* jsmin.c
-   2019-10-30
+   2026-02-25
 
 Copyright (C) 2002 Douglas Crockford  (www.crockford.com)
 
@@ -295,7 +295,7 @@ namespace WebMarkupMin.Core.DouglasCrockford
 					|| _theA == '[' || _theA == '!' || _theA == '&' || _theA == '|'
 					|| _theA == '?' || _theA == '+' || _theA == '-' || _theA == '~'
 					|| _theA == '*' || _theA == '/' || _theA == '{' || _theA == '}'
-					|| _theA == ';'
+					|| _theA == ';' || _theA == '\n'
 				))
 				{
 					Put(_theA);
