@@ -1919,10 +1919,7 @@ namespace WebMarkupMin.Core
 							);
 
 							// Remove a trailing whitespaces
-							classNameBuilder
-								.TrimStart()
-								.TrimEnd()
-								;
+							classNameBuilder.Trim();
 
 							// Remove a ending semicolon
 							int classNameBuilderLength = classNameBuilder.Length;

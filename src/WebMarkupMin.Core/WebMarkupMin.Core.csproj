@@ -24,12 +24,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AdvancedStringBuilder" Version="0.1.1" />
+    <PackageReference Include="AdvancedStringBuilder" Version="0.2.0" />
     <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha7" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net40-client' ">
-    <PackageReference Include="PolyfillsForOldDotNet.System.Buffers" Version="0.1.2" />
+    <PackageReference Include="PolyfillsForOldDotNet.System.Buffers" Version="0.1.3" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' Or '$(TargetFramework)' == 'netstandard1.3' ">
