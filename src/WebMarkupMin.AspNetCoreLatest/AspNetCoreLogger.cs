@@ -108,7 +108,7 @@ Minification duration: {MinificationDuration:N0} ms";
 			return sourceLine;
 		}
 
-		#region IJsEngine implementation
+		#region ILogger implementation
 
 		/// <inheritdoc/>
 		public void Error(string category, string message, string filePath = "", int lineNumber = 0,
