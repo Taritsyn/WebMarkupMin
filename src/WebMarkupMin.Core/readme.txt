@@ -30,7 +30,7 @@
    JavaScript minifier based on the Douglas Crockford's JSMin
    (https://github.com/douglascrockford/JSMin) and built-in CSS minifier based on
    the Mads Kristensen's Efficient stylesheet minifier
-   (https://madskristensen.net/blog/Efficient-stylesheet-minification-in-C).
+   (https://www.madskristensen.net/blog/efficient-stylesheet-minification-in-c).
    The above mentioned minifiers produce only the most simple minifications of
    CSS and JavaScript code, but you can always install additional modules that
    support the more powerful algorithms of minification: WebMarkupMin.MsAjax
@@ -46,7 +46,9 @@
    =============
    RELEASE NOTES
    =============
-   Added support for the Douglas Crockford's JSMin version of February 25, 2026.
+   1. It is now possible to configure the Mads Kristensen's CSS Minifier;
+   2. In configuration settings of Mads Kristensen's CSS Minifier was added one
+      property - `RemoveUnitsFromZeroValues` (default `false`).
 
    =============
    DOCUMENTATION

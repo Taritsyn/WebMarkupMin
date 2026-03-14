@@ -1,5 +1,5 @@
 ﻿/* This minifier based on the code of Efficient stylesheet minifier
- * (https://madskristensen.net/blog/Efficient-stylesheet-minification-in-C)
+ * (https://www.madskristensen.net/blog/efficient-stylesheet-minification-in-c/)
  */
 
 /* Feb 28, 2010
@@ -31,6 +31,28 @@ namespace WebMarkupMin.Core
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _zeroValue = new Regex(@"(?<=[ :])0(?:px|em|ex|cm|mm|in|pt|pc|%|ch|rem|vh|vm(?:ax|in)?|vw)",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
+
+		/// <summary>
+		/// Mads Kristensen's CSS Minifier settings
+		/// </summary>
+		private readonly KristensenCssMinificationSettings _settings;
+
+
+		/// <summary>
+		/// Constructs an instance of the Mads Kristensen's CSS Minifier
+		/// </summary>
+		public KristensenCssMinifier()
+			: this(new KristensenCssMinificationSettings())
+		{ }
+
+		/// <summary>
+		/// Constructs an instance of the Mads Kristensen's CSS Minifier
+		/// </summary>
+		/// <param name="settings">Mads Kristensen's CSS Minifier settings</param>
+		public KristensenCssMinifier(KristensenCssMinificationSettings settings)
+		{
+			_settings = settings;
+		}
 
 		#region ICssMinifier implementation
 
@@ -97,7 +119,10 @@ namespace WebMarkupMin.Core
 			}
 
 			// Remove units from zero values
-			newContent = _zeroValue.Replace(newContent, "0");
+			if (_settings.RemoveUnitsFromZeroValues)
+			{
+				newContent = _zeroValue.Replace(newContent, "0");
+			}
 
 			return new CodeMinificationResult(newContent);
 		}

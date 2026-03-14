@@ -5,6 +5,8 @@
 	/// </summary>
 	public sealed class CrockfordJsMinifierFactory : IJsMinifierFactory
 	{
+		#region IJsMinifierFactory implementation
+
 		/// <summary>
 		/// Creates a instance of Douglas Crockford's JS minifier
 		/// </summary>
@@ -13,5 +15,7 @@
 		{
 			return new CrockfordJsMinifier();
 		}
+
+		#endregion
 	}
 }
