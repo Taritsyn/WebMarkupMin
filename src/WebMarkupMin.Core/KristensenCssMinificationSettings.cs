@@ -6,6 +6,16 @@
 	public sealed class KristensenCssMinificationSettings
 	{
 		/// <summary>
+		/// Gets or sets a flag for whether to remove redundant selectors
+		/// (e.g. <c>a#btnResetPassword</c> → <c>#btnResetPassword</c>)
+		/// </summary>
+		public bool RemoveRedundantSelectors
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets a flag for whether to remove units from zero values
 		/// </summary>
 		public bool RemoveUnitsFromZeroValues
@@ -20,6 +30,7 @@
 		/// </summary>
 		public KristensenCssMinificationSettings()
 		{
+			RemoveRedundantSelectors = false;
 			RemoveUnitsFromZeroValues = false;
 		}
 	}

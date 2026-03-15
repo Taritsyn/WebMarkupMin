@@ -47,8 +47,9 @@
    RELEASE NOTES
    =============
    1. It is now possible to configure the Mads Kristensen's CSS Minifier;
-   2. In configuration settings of Mads Kristensen's CSS Minifier was added one
-      property - `RemoveUnitsFromZeroValues` (default `false`).
+   2. In configuration settings of Mads Kristensen's CSS Minifier was added two new
+      properties - `RemoveRedundantSelectors` (default `false`) and
+      `RemoveUnitsFromZeroValues` (default `false`).
 
    =============
    DOCUMENTATION

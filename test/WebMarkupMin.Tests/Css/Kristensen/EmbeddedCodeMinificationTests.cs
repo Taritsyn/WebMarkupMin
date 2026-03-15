@@ -152,23 +152,38 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 		public void RemovingRedundantSelectors()
 		{
 			// Arrange
-			var minifier = new KristensenCssMinifier();
+			var keepingRedundantSelectorsMinifier = new KristensenCssMinifier(
+				new KristensenCssMinificationSettings { RemoveRedundantSelectors = false });
+			var removingRedundantSelectorsMinifier = new KristensenCssMinifier(
+				new KristensenCssMinificationSettings { RemoveRedundantSelectors = true });
 
 			const string input1 = "div#idDiv{border:2px solid blue;color:red;margin-top:15px}";
-			const string targetOutput1 = "#idDiv{border:2px solid blue;color:red;margin-top:15px}";
+			const string targetOutput1A = input1;
+			const string targetOutput1B = "#idDiv{border:2px solid blue;color:red;margin-top:15px}";
 
 			const string input2 = "#content.sectionA{background-color:yellow}";
+
 			const string input3 = "* html #someblock{width:100px;padding:10px}";
 
 			// Act
-			string output1 = minifier.Minify(input1, false).MinifiedContent;
-			string output2 = minifier.Minify(input2, false).MinifiedContent;
-			string output3 = minifier.Minify(input3, false).MinifiedContent;
+			string output1A = keepingRedundantSelectorsMinifier.Minify(input1, false).MinifiedContent;
+			string output1B = removingRedundantSelectorsMinifier.Minify(input1, false).MinifiedContent;
+
+			string output2A = keepingRedundantSelectorsMinifier.Minify(input2, false).MinifiedContent;
+			string output2B = removingRedundantSelectorsMinifier.Minify(input2, false).MinifiedContent;
+
+			string output3A = keepingRedundantSelectorsMinifier.Minify(input3, false).MinifiedContent;
+			string output3B = removingRedundantSelectorsMinifier.Minify(input3, false).MinifiedContent;
 
 			// Assert
-			Assert.Equal(targetOutput1, output1);
-			Assert.Equal(input2, output2);
-			Assert.Equal(input3, output3);
+			Assert.Equal(targetOutput1A, output1A);
+			Assert.Equal(targetOutput1B, output1B);
+
+			Assert.Equal(input2, output2A);
+			Assert.Equal(input2, output2B);
+
+			Assert.Equal(input3, output3A);
+			Assert.Equal(input3, output3B);
 		}
 
 		[Fact]
@@ -348,9 +363,17 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 		{
 			// Arrange
 			var minifierWithoutAdditionalOptimizations = new KristensenCssMinifier(
-				new KristensenCssMinificationSettings { RemoveUnitsFromZeroValues = false });
+				new KristensenCssMinificationSettings
+				{
+					RemoveRedundantSelectors = false,
+					RemoveUnitsFromZeroValues = false
+				});
 			var minifierWithAdditionalOptimizations = new KristensenCssMinifier(
-				new KristensenCssMinificationSettings { RemoveUnitsFromZeroValues = true });
+				new KristensenCssMinificationSettings
+				{
+					RemoveRedundantSelectors = true,
+					RemoveUnitsFromZeroValues = true
+				});
 
 			const string input = "  	div#idDiv\n" +
 				"{\n" +
@@ -377,7 +400,7 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 				"	font-size: 32px;\n" +
 				"}	  "
 				;
-			const string targetOutputA = "#idDiv" +
+			const string targetOutputA = "div#idDiv" +
 				"{" +
 				"margin:10px 0px;" +
 				"border:4px double black;" +

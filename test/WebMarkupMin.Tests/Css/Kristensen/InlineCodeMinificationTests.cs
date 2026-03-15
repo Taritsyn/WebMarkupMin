@@ -90,9 +90,17 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 		{
 			// Arrange
 			var keepingZeroUnitsMinifier = new KristensenCssMinifier(
-				new KristensenCssMinificationSettings { RemoveUnitsFromZeroValues = false });
+				new KristensenCssMinificationSettings
+				{
+					RemoveRedundantSelectors = false,
+					RemoveUnitsFromZeroValues = false
+				});
 			var removingZeroUnitsMinifier = new KristensenCssMinifier(
-				new KristensenCssMinificationSettings { RemoveUnitsFromZeroValues = true });
+				new KristensenCssMinificationSettings
+				{
+					RemoveRedundantSelectors = true,
+					RemoveUnitsFromZeroValues = true
+				});
 
 			const string input1 = "width:0px;margin:10px 0px";
 			const string targetOutput1A = input1;

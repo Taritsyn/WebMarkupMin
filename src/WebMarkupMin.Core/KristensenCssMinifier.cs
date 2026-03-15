@@ -27,7 +27,7 @@ namespace WebMarkupMin.Core
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _separatingChars = new Regex(@" ?([:,;{}]) ?",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
-		private static readonly Regex _redundantSelectorRegex = new Regex(@"[a-zA-Z]+#",
+		private static readonly Regex _redundantCompoundSelectorRegex = new Regex(@"[a-zA-Z]+#",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _zeroValue = new Regex(@"(?<=[ :])0(?:px|em|ex|cm|mm|in|pt|pc|%|ch|rem|vh|vm(?:ax|in)?|vw)",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
@@ -112,10 +112,10 @@ namespace WebMarkupMin.Core
 				newContent = newContent.Replace(";}", "}");
 			}
 
-			if (!isInlineCode)
+			// Remove redundant selectors
+			if (_settings.RemoveRedundantSelectors && !isInlineCode)
 			{
-				// Remove redundant selectors
-				newContent = _redundantSelectorRegex.Replace(newContent, "#");
+				newContent = _redundantCompoundSelectorRegex.Replace(newContent, "#");
 			}
 
 			// Remove units from zero values
