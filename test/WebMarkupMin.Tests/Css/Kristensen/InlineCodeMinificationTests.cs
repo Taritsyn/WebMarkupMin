@@ -65,24 +65,35 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 		}
 
 		[Fact]
-		public void RemovingLastSemicolons()
+		public void RemovingTrailingSemicolons()
 		{
 			// Arrange
-			var minifier = new KristensenCssMinifier();
+			var keepingSemicolonsMinifier = new KristensenCssMinifier(
+				new KristensenCssMinificationSettings { RemoveTrailingSemicolons = false });
+			var removingSemicolonsMinifier = new KristensenCssMinifier(
+				new KristensenCssMinificationSettings { RemoveTrailingSemicolons = true });
 
 			const string input1 = "color:blue;";
-			const string targetOutput1 = "color:blue";
+			const string targetOutput1A = input1;
+			const string targetOutput1B = "color:blue";
 
 			const string input2 = "color:red;background-color:yellow;font-weight:bold;";
-			const string targetOutput2 = "color:red;background-color:yellow;font-weight:bold";
+			const string targetOutput2A = input2;
+			const string targetOutput2B = "color:red;background-color:yellow;font-weight:bold";
 
 			// Act
-			string output1 = minifier.Minify(input1, true).MinifiedContent;
-			string output2 = minifier.Minify(input2, true).MinifiedContent;
+			string output1A = keepingSemicolonsMinifier.Minify(input1, true).MinifiedContent;
+			string output1B = removingSemicolonsMinifier.Minify(input1, true).MinifiedContent;
+
+			string output2A = keepingSemicolonsMinifier.Minify(input2, true).MinifiedContent;
+			string output2B = removingSemicolonsMinifier.Minify(input2, true).MinifiedContent;
 
 			// Assert
-			Assert.Equal(targetOutput1, output1);
-			Assert.Equal(targetOutput2, output2);
+			Assert.Equal(targetOutput1A, output1A);
+			Assert.Equal(targetOutput1B, output1B);
+
+			Assert.Equal(targetOutput2A, output2A);
+			Assert.Equal(targetOutput2B, output2B);
 		}
 
 		[Fact]
@@ -90,17 +101,9 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 		{
 			// Arrange
 			var keepingZeroUnitsMinifier = new KristensenCssMinifier(
-				new KristensenCssMinificationSettings
-				{
-					RemoveRedundantSelectors = false,
-					RemoveUnitsFromZeroValues = false
-				});
+				new KristensenCssMinificationSettings { RemoveUnitsFromZeroValues = false });
 			var removingZeroUnitsMinifier = new KristensenCssMinifier(
-				new KristensenCssMinificationSettings
-				{
-					RemoveRedundantSelectors = true,
-					RemoveUnitsFromZeroValues = true
-				});
+				new KristensenCssMinificationSettings { RemoveUnitsFromZeroValues = true });
 
 			const string input1 = "width:0px;margin:10px 0px";
 			const string targetOutput1A = input1;
@@ -270,9 +273,19 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 		{
 			// Arrange
 			var minifierWithoutAdditionalOptimizations = new KristensenCssMinifier(
-				new KristensenCssMinificationSettings { RemoveUnitsFromZeroValues = false });
+				new KristensenCssMinificationSettings
+				{
+					RemoveRedundantSelectors = false,
+					RemoveTrailingSemicolons = false,
+					RemoveUnitsFromZeroValues = false
+				});
 			var minifierWithAdditionalOptimizations = new KristensenCssMinifier(
-				new KristensenCssMinificationSettings { RemoveUnitsFromZeroValues = true });
+				new KristensenCssMinificationSettings
+				{
+					RemoveRedundantSelectors = true,
+					RemoveTrailingSemicolons = true,
+					RemoveUnitsFromZeroValues = true
+				});
 
 			const string input = "  	width:	640px; " +
 				"/*max-width: 1020px; */" +
@@ -287,7 +300,7 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 				"border:4px double black;" +
 				"font-size:120%;" +
 				"font-family:Verdana,Arial,Helvetica,sans-serif;" +
-				"color:#336"
+				"color:#336;"
 				;
 			const string targetOutputB = "width:640px;" +
 				"margin:10px 0;" +

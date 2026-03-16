@@ -103,13 +103,13 @@ namespace WebMarkupMin.Core
 			newContent = newContent.Trim(_space);
 
 			// Removing last semicolons
-			if (isInlineCode)
+			if (_settings.RemoveTrailingSemicolons)
 			{
-				newContent = newContent.TrimEnd(_semicolon);
-			}
-			else
-			{
-				newContent = newContent.Replace(";}", "}");
+				newContent = isInlineCode ?
+					newContent.TrimEnd(_semicolon)
+					:
+					newContent.Replace(";}", "}")
+					;
 			}
 
 			// Remove redundant selectors

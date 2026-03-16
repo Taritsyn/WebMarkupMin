@@ -128,24 +128,35 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 		}
 
 		[Fact]
-		public void RemovingLastSemicolons()
+		public void RemovingTrailingSemicolons()
 		{
 			// Arrange
-			var minifier = new KristensenCssMinifier();
+			var keepingSemicolonsMinifier = new KristensenCssMinifier(
+				new KristensenCssMinificationSettings { RemoveTrailingSemicolons = false });
+			var removingSemicolonsMinifier = new KristensenCssMinifier(
+				new KristensenCssMinificationSettings { RemoveTrailingSemicolons = true });
 
 			const string input1 = "a{color:blue;}";
-			const string targetOutput1 = "a{color:blue}";
+			const string targetOutput1A = input1;
+			const string targetOutput1B = "a{color:blue}";
 
 			const string input2 = ".note{color:red;background-color:yellow;font-weight:bold;}";
-			const string targetOutput2 = ".note{color:red;background-color:yellow;font-weight:bold}";
+			const string targetOutput2A = input2;
+			const string targetOutput2B = ".note{color:red;background-color:yellow;font-weight:bold}";
 
 			// Act
-			string output1 = minifier.Minify(input1, false).MinifiedContent;
-			string output2 = minifier.Minify(input2, false).MinifiedContent;
+			string output1A = keepingSemicolonsMinifier.Minify(input1, false).MinifiedContent;
+			string output1B = removingSemicolonsMinifier.Minify(input1, false).MinifiedContent;
+
+			string output2A = keepingSemicolonsMinifier.Minify(input2, false).MinifiedContent;
+			string output2B = removingSemicolonsMinifier.Minify(input2, false).MinifiedContent;
 
 			// Assert
-			Assert.Equal(targetOutput1, output1);
-			Assert.Equal(targetOutput2, output2);
+			Assert.Equal(targetOutput1A, output1A);
+			Assert.Equal(targetOutput1B, output1B);
+
+			Assert.Equal(targetOutput2A, output2A);
+			Assert.Equal(targetOutput2B, output2B);
 		}
 
 		[Fact]
@@ -366,12 +377,14 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 				new KristensenCssMinificationSettings
 				{
 					RemoveRedundantSelectors = false,
+					RemoveTrailingSemicolons = false,
 					RemoveUnitsFromZeroValues = false
 				});
 			var minifierWithAdditionalOptimizations = new KristensenCssMinifier(
 				new KristensenCssMinificationSettings
 				{
 					RemoveRedundantSelectors = true,
+					RemoveTrailingSemicolons = true,
 					RemoveUnitsFromZeroValues = true
 				});
 
@@ -406,15 +419,15 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 				"border:4px double black;" +
 				"font-size:120%;" +
 				"font-family:Verdana,Arial,Helvetica,sans-serif;" +
-				"color:#336" +
+				"color:#336;" +
 				"}" +
 				"a:active" +
 				"{" +
-				"color:blue" +
+				"color:blue;" +
 				"}" +
 				"p::first-letter" +
 				"{" +
-				"font-size:32px" +
+				"font-size:32px;" +
 				"}"
 				;
 			const string targetOutputB = "#idDiv" +

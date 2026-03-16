@@ -16,6 +16,15 @@
 		}
 
 		/// <summary>
+		/// Gets or sets a flag for whether to remove trailing semicolons after the last declarations
+		/// </summary>
+		public bool RemoveTrailingSemicolons
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets a flag for whether to remove units from zero values
 		/// </summary>
 		public bool RemoveUnitsFromZeroValues
@@ -31,6 +40,7 @@
 		public KristensenCssMinificationSettings()
 		{
 			RemoveRedundantSelectors = false;
+			RemoveTrailingSemicolons = true;
 			RemoveUnitsFromZeroValues = false;
 		}
 	}
