@@ -210,13 +210,13 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 			const string targetOutput1A = input1;
 			const string targetOutput1B = "div{width:0;margin:10px 0}";
 
-			const string input2 = "div{width:0em;margin:10em 0em}";
+			const string input2 = "div{width:0pt;margin:10pt 0pt}";
 			const string targetOutput2A = input2;
-			const string targetOutput2B = "div{width:0;margin:10em 0}";
+			const string targetOutput2B = "div{width:0;margin:10pt 0}";
 
-			const string input3 = "div{width:0ex;margin:10ex 0ex}";
+			const string input3 = "div{width:0pc;margin:10pc 0pc}";
 			const string targetOutput3A = input3;
-			const string targetOutput3B = "div{width:0;margin:10ex 0}";
+			const string targetOutput3B = "div{width:0;margin:10pc 0}";
 
 			const string input4 = "div{width:0cm;margin:10cm 0cm}";
 			const string targetOutput4A = input4;
@@ -230,17 +230,15 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 			const string targetOutput6A = input6;
 			const string targetOutput6B = "div{width:0;margin:10in 0}";
 
-			const string input7 = "div{width:0pt;margin:10pt 0pt}";
-			const string targetOutput7A = input7;
-			const string targetOutput7B = "div{width:0;margin:10pt 0}";
+			const string input7 = "div{width:0%;margin:10% 0%}";
 
-			const string input8 = "div{width:0pc;margin:10pc 0pc}";
+			const string input8 = "div{width:0em;margin:10em 0em}";
 			const string targetOutput8A = input8;
-			const string targetOutput8B = "div{width:0;margin:10pc 0}";
+			const string targetOutput8B = "div{width:0;margin:10em 0}";
 
-			const string input9 = "div{width:0%;margin:10% 0%}";
+			const string input9 = "div{width:0ex;margin:10ex 0ex}";
 			const string targetOutput9A = input9;
-			const string targetOutput9B = "div{width:0;margin:10% 0}";
+			const string targetOutput9B = "div{width:0;margin:10ex 0}";
 
 			const string input10 = "div{width:0ch;margin:10ch 0ch}";
 			const string targetOutput10A = input10;
@@ -250,25 +248,23 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 			const string targetOutput11A = input11;
 			const string targetOutput11B = "div{width:0;margin:10rem 0}";
 
-			const string input12 = "div{width:0vh;margin:10vh 0vh}";
+			const string input12 = "div{width:0vw;margin:10vw 0vw}";
 			const string targetOutput12A = input12;
-			const string targetOutput12B = "div{width:0;margin:10vh 0}";
+			const string targetOutput12B = "div{width:0;margin:10vw 0}";
 
-			const string input13 = "div{width:0vmax;margin:10vmax 0vmax}";
+			const string input13 = "div{width:0vh;margin:10vh 0vh}";
 			const string targetOutput13A = input13;
-			const string targetOutput13B = "div{width:0;margin:10vmax 0}";
+			const string targetOutput13B = "div{width:0;margin:10vh 0}";
 
 			const string input14 = "div{width:0vmin;margin:10vmin 0vmin}";
 			const string targetOutput14A = input14;
 			const string targetOutput14B = "div{width:0;margin:10vmin 0}";
 
-			const string input15 = "div{width:0vm;margin:10vm 0vm}";
+			const string input15 = "div{width:0vmax;margin:10vmax 0vmax}";
 			const string targetOutput15A = input15;
-			const string targetOutput15B = "div{width:0;margin:10vm 0}";
+			const string targetOutput15B = "div{width:0;margin:10vmax 0}";
 
-			const string input16 = "div{width:0vw;margin:10vw 0vw}";
-			const string targetOutput16A = input16;
-			const string targetOutput16B = "div{width:0;margin:10vw 0}";
+			const string input16 = "div{width:0vm;margin:10vm 0vm}";
 
 			// Act
 			string output1A = keepingZeroUnitsMinifier.Minify(input1, true).MinifiedContent;
@@ -338,8 +334,8 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 			Assert.Equal(targetOutput6A, output6A);
 			Assert.Equal(targetOutput6B, output6B);
 
-			Assert.Equal(targetOutput7A, output7A);
-			Assert.Equal(targetOutput7B, output7B);
+			Assert.Equal(input7, output7A);
+			Assert.Equal(input7, output7B);
 
 			Assert.Equal(targetOutput8A, output8A);
 			Assert.Equal(targetOutput8B, output8B);
@@ -365,8 +361,8 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 			Assert.Equal(targetOutput15A, output15A);
 			Assert.Equal(targetOutput15B, output15B);
 
-			Assert.Equal(targetOutput16A, output16A);
-			Assert.Equal(targetOutput16B, output16B);
+			Assert.Equal(input16, output16A);
+			Assert.Equal(input16, output16B);
 		}
 
 		[Fact]

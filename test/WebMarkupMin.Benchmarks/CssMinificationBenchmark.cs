@@ -56,7 +56,16 @@ namespace WebMarkupMin.Benchmarks
 		[Benchmark()]
 		public void Kristensen()
 		{
-			var minifier = new HtmlMinifier(_sharedSettings, new KristensenCssMinifier(), new NullJsMinifier());
+			var minifier = new HtmlMinifier(
+				_sharedSettings,
+				new KristensenCssMinifier(new KristensenCssMinificationSettings
+				{
+					RemoveRedundantSelectors = true,
+					RemoveTrailingSemicolons = true,
+					RemoveUnitsFromZeroValues = true
+				}),
+				new NullJsMinifier()
+			);
 			string minifiedContent = minifier.Minify(s_documents[DocumentName].Content).MinifiedContent;
 		}
 

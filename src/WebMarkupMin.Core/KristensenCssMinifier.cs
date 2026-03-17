@@ -29,7 +29,8 @@ namespace WebMarkupMin.Core
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _redundantCompoundSelectorRegex = new Regex(@"[a-zA-Z]+#",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
-		private static readonly Regex _zeroValue = new Regex(@"(?<=[ :])0(?:px|em|ex|cm|mm|in|pt|pc|%|ch|rem|vh|vm(?:ax|in)?|vw)",
+		private static readonly Regex _zeroValue = new Regex(
+			@"(?<=[ :])0(?:px|pt|pc|cm|mm|in|em|ex|ch|rem|vw|vh|vm(?:in|ax))(?=[ ;}]|$)",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		/// <summary>
