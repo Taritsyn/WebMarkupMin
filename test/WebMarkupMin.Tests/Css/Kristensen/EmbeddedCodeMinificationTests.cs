@@ -163,38 +163,104 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 		public void RemovingRedundantSelectors()
 		{
 			// Arrange
-			var keepingRedundantSelectorsMinifier = new KristensenCssMinifier(
+			var keepingSelectorsMinifier = new KristensenCssMinifier(
 				new KristensenCssMinificationSettings { RemoveRedundantSelectors = false });
-			var removingRedundantSelectorsMinifier = new KristensenCssMinifier(
+			var removingSelectorsMinifier = new KristensenCssMinifier(
 				new KristensenCssMinificationSettings { RemoveRedundantSelectors = true });
 
-			const string input1 = "div#idDiv{border:2px solid blue;color:red;margin-top:15px}";
+			const string input1 = "div#myDiv{border:2px solid blue;color:red;margin-top:15px}";
 			const string targetOutput1A = input1;
-			const string targetOutput1B = "#idDiv{border:2px solid blue;color:red;margin-top:15px}";
+			const string targetOutput1B = "#myDiv{border:2px solid blue;color:red;margin-top:15px}";
 
-			const string input2 = "#content.sectionA{background-color:yellow}";
+			const string input2 = "h1#myHeader{background-color:darkblue;color:black}";
+			const string targetOutput2A = input2;
+			const string targetOutput2B = "#myHeader{background-color:darkblue;color:black}";
 
-			const string input3 = "* html #someblock{width:100px;padding:10px}";
+			const string input3 = "@charset \"UTF-8\";" +
+				"FORM#frmLogon{padding:0;border:0;vertical-align:baseline}"
+				;
+			const string targetOutput3A = input3;
+			const string targetOutput3B = "@charset \"UTF-8\";" +
+				"#frmLogon{padding:0;border:0;vertical-align:baseline}"
+				;
+
+			const string input4 = ".forgot-password{position:relative;left:-8px}" +
+				"a#btnResetPassword{display:inline-block;font-size:1.6rem}"
+				;
+			const string targetOutput4A = input4;
+			const string targetOutput4B = ".forgot-password{position:relative;left:-8px}" +
+				"#btnResetPassword{display:inline-block;font-size:1.6rem}"
+				;
+
+			const string input5 = "article,main#content{font-size:1.1em}";
+			const string targetOutput5A = input5;
+			const string targetOutput5B = "article,#content{font-size:1.1em}";
+
+			const string input6 = "#content.sectionA{background-color:yellow}";
+
+			const string input7 = "* html #someblock{width:100px;padding:10px}";
+
+			const string input8 = "@font-face" +
+				"{" +
+				"font-family:'Bitstream Vera Sans Bold';" +
+				"src:url('./vera-bold-webfont.eot?');"+
+				"src:url('./vera-bold-webfont.eot?#iefix') format('embedded-opentype')," +
+				"url('./vera-bold-webfont.woff') format('woff')," +
+				"url('./vera-bold-webfont.ttf') format('truetype')," +
+				"url('./vera-bold-webfont.svg#bitstream_vera_sansbold') format('svg');" +
+				"font-weight:normal;font-style:normal"+
+				"}"
+				;
 
 			// Act
-			string output1A = keepingRedundantSelectorsMinifier.Minify(input1, false).MinifiedContent;
-			string output1B = removingRedundantSelectorsMinifier.Minify(input1, false).MinifiedContent;
+			string output1A = keepingSelectorsMinifier.Minify(input1, false).MinifiedContent;
+			string output1B = removingSelectorsMinifier.Minify(input1, false).MinifiedContent;
 
-			string output2A = keepingRedundantSelectorsMinifier.Minify(input2, false).MinifiedContent;
-			string output2B = removingRedundantSelectorsMinifier.Minify(input2, false).MinifiedContent;
+			string output2A = keepingSelectorsMinifier.Minify(input2, false).MinifiedContent;
+			string output2B = removingSelectorsMinifier.Minify(input2, false).MinifiedContent;
 
-			string output3A = keepingRedundantSelectorsMinifier.Minify(input3, false).MinifiedContent;
-			string output3B = removingRedundantSelectorsMinifier.Minify(input3, false).MinifiedContent;
+			string output3A = keepingSelectorsMinifier.Minify(input3, false).MinifiedContent;
+			string output3B = removingSelectorsMinifier.Minify(input3, false).MinifiedContent;
+
+			string output4A = keepingSelectorsMinifier.Minify(input4, false).MinifiedContent;
+			string output4B = removingSelectorsMinifier.Minify(input4, false).MinifiedContent;
+
+			string output5A = keepingSelectorsMinifier.Minify(input5, false).MinifiedContent;
+			string output5B = removingSelectorsMinifier.Minify(input5, false).MinifiedContent;
+
+			string output6A = keepingSelectorsMinifier.Minify(input6, false).MinifiedContent;
+			string output6B = removingSelectorsMinifier.Minify(input6, false).MinifiedContent;
+
+			string output7A = keepingSelectorsMinifier.Minify(input7, false).MinifiedContent;
+			string output7B = removingSelectorsMinifier.Minify(input7, false).MinifiedContent;
+
+			string output8A = keepingSelectorsMinifier.Minify(input8, false).MinifiedContent;
+			string output8B = removingSelectorsMinifier.Minify(input8, false).MinifiedContent;
 
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
 
-			Assert.Equal(input2, output2A);
-			Assert.Equal(input2, output2B);
+			Assert.Equal(targetOutput2A, output2A);
+			Assert.Equal(targetOutput2B, output2B);
 
-			Assert.Equal(input3, output3A);
-			Assert.Equal(input3, output3B);
+			Assert.Equal(targetOutput3A, output3A);
+			Assert.Equal(targetOutput3B, output3B);
+
+			Assert.Equal(targetOutput4A, output4A);
+			Assert.Equal(targetOutput4B, output4B);
+
+			Assert.Equal(targetOutput5A, output5A);
+			Assert.Equal(targetOutput5B, output5B);
+
+			Assert.Equal(input6, output6A);
+			Assert.Equal(input6, output6B);
+
+			Assert.Equal(input7, output7A);
+			Assert.Equal(input7, output7B);
+
+			Assert.Equal(input8, output8A);
+			Assert.Equal(input8, output8B);
 		}
 
 		[Fact]
