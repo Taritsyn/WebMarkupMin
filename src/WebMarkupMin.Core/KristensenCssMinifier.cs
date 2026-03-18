@@ -27,7 +27,7 @@ namespace WebMarkupMin.Core
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _separatingChars = new Regex(@" ?([:,;{}]) ?",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
-		private static readonly Regex _redundantCompoundSelectorRegex = new Regex(@"(?<=[,;}]|^)[a-zA-Z][a-zA-Z0-9]*#",
+		private static readonly Regex _redundantSelectorRegex = new Regex(@"(?<=[,;}]|^)[a-zA-Z][a-zA-Z0-9]*#",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _zeroValue = new Regex(
 			@"(?<=[ :])0(?:px|pt|pc|cm|mm|in|em|ex|ch|rem|vw|vh|vm(?:in|ax))(?=[ ;}]|$)",
@@ -53,6 +53,64 @@ namespace WebMarkupMin.Core
 		public KristensenCssMinifier(KristensenCssMinificationSettings settings)
 		{
 			_settings = settings;
+		}
+
+
+		private static string RemoveComments(string content)
+		{
+			string processedContent = _commentRegex.Replace(content, string.Empty);
+
+			return processedContent;
+		}
+
+		private static string MinifyWhitespace(string content)
+		{
+			if (string.IsNullOrWhiteSpace(content))
+			{
+				return string.Empty;
+			}
+
+			string processedContent = content;
+			processedContent = processedContent.CollapseWhitespace();
+			processedContent = _separatingChars.Replace(processedContent, "$1");
+			processedContent = processedContent.Trim(_space);
+
+			return processedContent;
+		}
+
+		private static string RemoveUnitsFromZeroValues(string content)
+		{
+			if (content.IndexOf('0') == -1)
+			{
+				return content;
+			}
+
+			string processedContent = _zeroValue.Replace(content, "0");
+
+			return processedContent;
+		}
+
+		private static string RemoveRedundantSelectors(string content)
+		{
+			if (content.IndexOf('#') == -1)
+			{
+				return content;
+			}
+
+			string processedContent = _redundantSelectorRegex.Replace(content, "#");
+
+			return processedContent;
+		}
+
+		private static string RemoveTrailingSemicolons(string content, bool isInlineCode)
+		{
+			string processedContent = isInlineCode ?
+				content.TrimEnd(_semicolon)
+				:
+				content.Replace(";}", "}")
+				;
+
+			return processedContent;
 		}
 
 		#region ICssMinifier implementation
@@ -93,39 +151,26 @@ namespace WebMarkupMin.Core
 				return new CodeMinificationResult(string.Empty);
 			}
 
-			string newContent = content;
-
-			// Remove comments
-			newContent = _commentRegex.Replace(newContent, string.Empty);
-
-			// Minify whitespace
-			newContent = newContent.CollapseWhitespace();
-			newContent = _separatingChars.Replace(newContent, "$1");
-			newContent = newContent.Trim(_space);
-
-			// Removing last semicolons
-			if (_settings.RemoveTrailingSemicolons)
+			string processedContent = content;
+			processedContent = RemoveComments(processedContent);
+			processedContent = MinifyWhitespace(processedContent);
+			if (processedContent.Length > 0)
 			{
-				newContent = isInlineCode ?
-					newContent.TrimEnd(_semicolon)
-					:
-					newContent.Replace(";}", "}")
-					;
+				if (_settings.RemoveUnitsFromZeroValues)
+				{
+					processedContent = RemoveUnitsFromZeroValues(processedContent);
+				}
+				if (_settings.RemoveRedundantSelectors && !isInlineCode)
+				{
+					processedContent = RemoveRedundantSelectors(processedContent);
+				}
+				if (_settings.RemoveTrailingSemicolons)
+				{
+					processedContent = RemoveTrailingSemicolons(processedContent, isInlineCode);
+				}
 			}
 
-			// Remove redundant selectors
-			if (_settings.RemoveRedundantSelectors && !isInlineCode)
-			{
-				newContent = _redundantCompoundSelectorRegex.Replace(newContent, "#");
-			}
-
-			// Remove units from zero values
-			if (_settings.RemoveUnitsFromZeroValues)
-			{
-				newContent = _zeroValue.Replace(newContent, "0");
-			}
-
-			return new CodeMinificationResult(newContent);
+			return new CodeMinificationResult(processedContent);
 		}
 
 		#endregion
