@@ -1,6 +1,11 @@
 Change log
 ==========
 
+## v2.21.0 - March 18, 2026
+ * It is now possible to configure the Mads Kristensen's CSS Minifier
+ * In configuration settings of the Mads Kristensen's CSS Minifier was added three properties - `RemoveRedundantSelectors` (default `false`), `RemoveTrailingSemicolons` (default `true`) and `RemoveUnitsFromZeroValues` (default `false`)
+ * In WebMarkupMin.AspNetCoreLatest added support for the ASP.NET Core 8.0.25, 9.0.14 and 10.0.5
+
 ## v2.20.2 - February 26, 2026
  * Added support for the Douglas Crockford's JSMin version of February 25, 2026
  * In WebMarkupMin.AspNetCoreLatest added support for the ASP.NET Core 8.0.24, 9.0.13 and 10.0.3
