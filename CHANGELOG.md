@@ -1,6 +1,13 @@
 Change log
 ==========
 
+## v2.22.0 - July 9, 2026
+ * In WebMarkupMin.NUglify:
+     * Added support for the NUglify version 1.21.18
+     * No longer supports a .NET Standard 1.3
+     * Added support for .NET 10
+ * In WebMarkupMin.AspNetCoreLatest added support for the ASP.NET Core 8.0.28, 9.0.17 and 10.0.9
+
 ## v2.21.0 - March 18, 2026
  * It is now possible to configure the Mads Kristensen's CSS Minifier
  * In configuration settings of the Mads Kristensen's CSS Minifier was added three properties - `RemoveRedundantSelectors` (default `false`), `RemoveTrailingSemicolons` (default `true`) and `RemoveUnitsFromZeroValues` (default `false`)
