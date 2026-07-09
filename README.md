@@ -11,7 +11,7 @@ WebMarkupMin absorbed the best of existing solutions from non-microsoft platform
 Minification of markup produces by removing extra whitespace, comments and redundant code (only for HTML and XHTML).
 In addition, HTML and XHTML minifiers supports the minification of CSS code from `style` tags and attributes, and minification of JavaScript code from `script` tags, event attributes and hyperlinks with `javascript:` protocol.
 WebMarkupMin.Core contains built-in JavaScript minifier based on the Douglas Crockford's [JSMin](https://github.com/douglascrockford/JSMin) and built-in CSS minifier based on the Mads Kristensen's [Efficient stylesheet minifier](https://www.madskristensen.net/blog/efficient-stylesheet-minification-in-c/).
-The above mentioned minifiers produce only the most simple minifications of CSS and JavaScript code, but you can always install additional modules that support the more powerful algorithms of minification: WebMarkupMin.MsAjax (contains minifier-adapters for the [Microsoft Ajax Minifier](https://github.com/microsoft/ajaxmin)), WebMarkupMin.Yui (contains minifier-adapters for the [YUI Compressor for .NET](https://github.com/YUICompressor-NET/YUICompressor.NET)) and WebMarkupMin.NUglify (contains minifier-adapters for the [NUglify](https://github.com/trullock/NUglify)).
+The above mentioned minifiers produce only the most simple minifications of CSS and JavaScript code, but you can always install additional modules that support the more powerful algorithms of minification: WebMarkupMin.MsAjax (contains minifier-adapters for the [Microsoft Ajax Minifier](https://github.com/microsoft/ajaxmin)), WebMarkupMin.Yui (contains minifier-adapters for the [YUI Compressor for .NET](https://github.com/YUICompressor-NET/YUICompressor.NET)) and WebMarkupMin.NUglify (contains minifier-adapters for the [NUglify](https://github.com/jbest84/NUglify)).
 
 Also supports minification of views of popular JavaScript template engines: [KnockoutJS](https://knockoutjs.com/), [Kendo UI MVVM](https://www.telerik.com/kendo-ui) and [AngularJS](https://angularjs.org/) 1.X.
 
@@ -27,7 +27,7 @@ You can try WebMarkupMin in action and experiment with different minification se
 ### External JS and CSS minifiers
  * [WebMarkupMin: MS Ajax](http://nuget.org/packages/WebMarkupMin.MsAjax/) (supports .NET Framework 4.0 Client, .NET Framework 4.5, .NET Standard 2.0 and .NET 9)
  * [WebMarkupMin: YUI](http://nuget.org/packages/WebMarkupMin.Yui/) (supports .NET Framework 4.5.2, .NET Standard 2.0 and .NET 9)
- * [WebMarkupMin: NUglify](http://nuget.org/packages/WebMarkupMin.NUglify/) (supports .NET Framework 4.0 Client, .NET Framework 4.5, .NET Standard 1.3, .NET Standard 2.0 and .NET 9)
+ * [WebMarkupMin: NUglify](http://nuget.org/packages/WebMarkupMin.NUglify/) (supports .NET Framework 4.0 Client, .NET Framework 4.5, .NET Standard 2.0, .NET 9 and .NET 10)
 
 ### ASP.NET Extensions
  * [WebMarkupMin: ASP.NET 4.X HTTP modules](http://nuget.org/packages/WebMarkupMin.AspNet4.HttpModules/) (supports .NET Framework 4.0 and .NET Framework 4.5)

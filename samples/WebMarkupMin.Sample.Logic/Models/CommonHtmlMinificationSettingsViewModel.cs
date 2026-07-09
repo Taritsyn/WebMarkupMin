@@ -247,11 +247,11 @@ namespace WebMarkupMin.Sample.Logic.Models
 				new SelectListItem { Value = "KristensenCssMinifier", Text = "Mads Kristensen's CSS minifier" },
 #if !NETSTANDARD1_6
 				new SelectListItem { Value = "MsAjaxCssMinifier", Text = "Microsoft Ajax CSS Minifier" },
-#endif
-#if !NET40 && !NETSTANDARD1_6
+#if !NET40
 				new SelectListItem { Value = "YuiCssMinifier", Text = "YUI CSS Minifier" },
 #endif
 				new SelectListItem { Value = "NUglifyCssMinifier", Text = "NUglify CSS Minifier" }
+#endif
 			}
 			;
 
@@ -260,11 +260,11 @@ namespace WebMarkupMin.Sample.Logic.Models
 				new SelectListItem { Value = "CrockfordJsMinifier", Text = "Douglas Crockford's JS Minifier" },
 #if !NETSTANDARD1_6
 				new SelectListItem { Value = "MsAjaxJsMinifier", Text = "Microsoft Ajax JS Minifier" },
-#endif
-#if !NET40 && !NETSTANDARD1_6
+#if !NET40
 				new SelectListItem { Value = "YuiJsMinifier", Text = "YUI JS Minifier" },
 #endif
 				new SelectListItem { Value = "NUglifyJsMinifier", Text = "NUglify JS Minifier" }
+#endif
 			}
 			;
 		}

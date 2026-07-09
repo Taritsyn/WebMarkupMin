@@ -3,10 +3,10 @@
 using WebMarkupMin.Core;
 #if !NETSTANDARD1_6
 using WebMarkupMin.MsAjax;
+#if !NET40
+using WebMarkupMin.Yui;
 #endif
 using WebMarkupMin.NUglify;
-#if !NET40 && !NETSTANDARD1_6
-using WebMarkupMin.Yui;
 #endif
 
 namespace WebMarkupMin.Sample.Logic.Services
@@ -41,8 +41,7 @@ namespace WebMarkupMin.Sample.Logic.Services
 				case "MsAjaxJsMinifier":
 					minifier = new MsAjaxJsMinifier(new MsAjaxJsMinificationSettings { WarningLevel = 2 });
 					break;
-#endif
-#if !NET40 && !NETSTANDARD1_6
+#if !NET40
 				case "YuiJsMinifier":
 					minifier = new YuiJsMinifier(new YuiJsMinificationSettings { WarningLevel = 1 });
 					break;
@@ -50,6 +49,7 @@ namespace WebMarkupMin.Sample.Logic.Services
 				case "NUglifyJsMinifier":
 					minifier = new NUglifyJsMinifier(new NUglifyJsMinificationSettings { WarningLevel = 2 });
 					break;
+#endif
 				default:
 					throw new NotSupportedException();
 			}

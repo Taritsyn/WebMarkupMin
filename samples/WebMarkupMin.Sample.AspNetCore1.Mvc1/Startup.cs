@@ -13,7 +13,6 @@ using WebMarkupMin.AspNet.Common.Compressors;
 using WebMarkupMin.AspNet.Common.UrlMatchers;
 using WebMarkupMin.AspNetCore1;
 using WebMarkupMin.Core;
-using WebMarkupMin.NUglify;
 using WebMarkupMin.Sample.Logic.Services;
 
 using IWmmLogger = WebMarkupMin.Core.Loggers.ILogger;
@@ -81,8 +80,8 @@ namespace WebMarkupMin.Sample.AspNetCore1.Mvc1
 					settings.RemoveHttpProtocolFromAttributes = true;
 					settings.RemoveHttpsProtocolFromAttributes = true;
 
-					options.CssMinifierFactory = new NUglifyCssMinifierFactory();
-					options.JsMinifierFactory = new NUglifyJsMinifierFactory();
+					options.CssMinifierFactory = new KristensenCssMinifierFactory();
+					options.JsMinifierFactory = new CrockfordJsMinifierFactory();
 				})
 				.AddXhtmlMinification(options =>
 				{
@@ -96,9 +95,6 @@ namespace WebMarkupMin.Sample.AspNetCore1.Mvc1
 					settings.RemoveRedundantAttributes = true;
 					settings.RemoveHttpProtocolFromAttributes = true;
 					settings.RemoveHttpsProtocolFromAttributes = true;
-
-					options.CssMinifierFactory = new KristensenCssMinifierFactory();
-					options.JsMinifierFactory = new CrockfordJsMinifierFactory();
 				})
 				.AddXmlMinification(options =>
 				{
