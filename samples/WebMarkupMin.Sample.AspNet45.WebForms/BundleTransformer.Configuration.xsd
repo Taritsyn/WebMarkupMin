@@ -517,41 +517,6 @@ If a version is provided, then all deprecations that were active in that compile
 Future deprecations, whose IDs have been passed here, will be treated as active by the compiler, emitting warnings as necessary.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="indentType" use="optional" default="Space">
-      <xs:annotation>
-        <xs:documentation>Indent type</xs:documentation>
-      </xs:annotation>
-      <xs:simpleType>
-        <xs:restriction base="xs:NMTOKEN">
-          <xs:enumeration value="Space" />
-          <xs:enumeration value="Tab" />
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="indentWidth" use="optional" default="2">
-      <xs:annotation>
-        <xs:documentation>Number of spaces or tabs to be used for indentation</xs:documentation>
-      </xs:annotation>
-      <xs:simpleType>
-        <xs:restriction base="xs:int">
-          <xs:minInclusive value="0" />
-          <xs:maxInclusive value="2147483647" />
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="lineFeedType" use="optional" default="CrLf">
-      <xs:annotation>
-        <xs:documentation>Line feed type</xs:documentation>
-      </xs:annotation>
-      <xs:simpleType>
-        <xs:restriction base="xs:NMTOKEN">
-          <xs:enumeration value="Cr" />
-          <xs:enumeration value="CrLf" />
-          <xs:enumeration value="Lf" />
-          <xs:enumeration value="LfCr" />
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
     <xs:attribute name="quietDependencies" type="Boolean_SchemaType" use="optional" default="false">
       <xs:annotation>
         <xs:documentation>Flag for whether to silence compiler warnings from stylesheets loaded by using the `includePaths` property</xs:documentation>
@@ -617,14 +582,9 @@ If a deprecation warning of any provided ID is encountered during compilation, t
         <xs:documentation>Flag for whether to disable error reporting for unused labels</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="alwaysStrict" type="Boolean_SchemaType" use="optional" default="false">
+    <xs:attribute name="alwaysStrict" type="Boolean_SchemaType" use="optional" default="true">
       <xs:annotation>
         <xs:documentation>Flag for whether to ensure `use strict` is always emitted</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-    <xs:attribute name="downlevelIteration" type="Boolean_SchemaType" use="optional" default="false">
-      <xs:annotation>
-        <xs:documentation>Flag for whether to emit more compliant, but verbose and less performant JavaScript for iteration</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="exactOptionalPropertyTypes" type="Boolean_SchemaType" use="optional" default="false">
@@ -683,7 +643,7 @@ If a deprecation warning of any provided ID is encountered during compilation, t
         <xs:documentation>Flag for whether to enable error reporting for fallthrough cases in switch statements</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="noImplicitAny" type="Boolean_SchemaType" use="optional" default="false">
+    <xs:attribute name="noImplicitAny" type="Boolean_SchemaType" use="optional" default="true">
       <xs:annotation>
         <xs:documentation>Flag for whether to enable error reporting for expressions and declarations with an implied `any` type</xs:documentation>
       </xs:annotation>
@@ -698,7 +658,7 @@ If a deprecation warning of any provided ID is encountered during compilation, t
         <xs:documentation>Flag for whether to enable error reporting for codepaths that do not explicitly return in a function</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="noImplicitThis" type="Boolean_SchemaType" use="optional" default="false">
+    <xs:attribute name="noImplicitThis" type="Boolean_SchemaType" use="optional" default="true">
       <xs:annotation>
         <xs:documentation>Flag for whether to enable error reporting when `this` is given the type `any`</xs:documentation>
       </xs:annotation>
@@ -753,27 +713,32 @@ If a deprecation warning of any provided ID is encountered during compilation, t
         <xs:documentation>Flag for whether to skip type checking all `.d.ts` files</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="strictBindCallApply" type="Boolean_SchemaType" use="optional" default="false">
+    <xs:attribute name="stableTypeOrdering" type="Boolean_SchemaType" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>Flag for whether to ensure types are ordered stably and deterministically across</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="strictBindCallApply" type="Boolean_SchemaType" use="optional" default="true">
       <xs:annotation>
         <xs:documentation>Flag for whether to check that the arguments for `bind`, `call`, and `apply` methods match the original function</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="strictBuiltinIteratorReturn" type="Boolean_SchemaType" use="optional" default="false">
+    <xs:attribute name="strictBuiltinIteratorReturn" type="Boolean_SchemaType" use="optional" default="true">
       <xs:annotation>
         <xs:documentation>Flag for whether to instantiate built-in iterators with a `TReturn` type of `undefined` instead of `any`</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="strictFunctionTypes" type="Boolean_SchemaType" use="optional" default="false">
+    <xs:attribute name="strictFunctionTypes" type="Boolean_SchemaType" use="optional" default="true">
       <xs:annotation>
         <xs:documentation>Flag for whether to check to ensure parameters and the return values are subtype-compatible when assigning functions</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="strictNullChecks" type="Boolean_SchemaType" use="optional" default="false">
+    <xs:attribute name="strictNullChecks" type="Boolean_SchemaType" use="optional" default="true">
       <xs:annotation>
         <xs:documentation>Flag for whether to take into account `null` and `undefined` when type checking</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="strictPropertyInitialization" type="Boolean_SchemaType" use="optional" default="false">
+    <xs:attribute name="strictPropertyInitialization" type="Boolean_SchemaType" use="optional" default="true">
       <xs:annotation>
         <xs:documentation>Flag for whether to check for class properties that are declared but not set in the constructor</xs:documentation>
       </xs:annotation>
@@ -788,13 +753,12 @@ If a deprecation warning of any provided ID is encountered during compilation, t
         <xs:documentation>Flag for whether to suppress type checking errors. Non-standard option.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="target" use="optional" default="EcmaScript5">
+    <xs:attribute name="target" use="optional" default="EcmaScript2015">
       <xs:annotation>
         <xs:documentation>JavaScript language version for emitted JavaScript and include compatible library declarations</xs:documentation>
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:NMTOKEN">
-          <xs:enumeration value="EcmaScript5" />
           <xs:enumeration value="EcmaScript6" />
           <xs:enumeration value="EcmaScript2015" />
           <xs:enumeration value="EcmaScript2016" />
@@ -806,6 +770,7 @@ If a deprecation warning of any provided ID is encountered during compilation, t
           <xs:enumeration value="EcmaScript2022" />
           <xs:enumeration value="EcmaScript2023" />
           <xs:enumeration value="EcmaScript2024" />
+          <xs:enumeration value="EcmaScript2025" />
           <xs:enumeration value="EcmaScriptNext" />
         </xs:restriction>
       </xs:simpleType>
@@ -820,7 +785,7 @@ If a deprecation warning of any provided ID is encountered during compilation, t
         <xs:documentation>Flag for whether to emit ECMAScript-standard-compliant class fields</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="useUnknownInCatchVariables" type="Boolean_SchemaType" use="optional" default="false">
+    <xs:attribute name="useUnknownInCatchVariables" type="Boolean_SchemaType" use="optional" default="true">
       <xs:annotation>
         <xs:documentation>Flag for whether to use a default catch clause variables as `unknown` instead of `any`</xs:documentation>
       </xs:annotation>

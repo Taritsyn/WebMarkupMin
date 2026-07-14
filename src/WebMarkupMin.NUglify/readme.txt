@@ -19,9 +19,7 @@
    =============
    RELEASE NOTES
    =============
-   1. Added support for the NUglify version 1.21.18;
-   2. No longer supports a .NET Standard 1.3;
-   3. Added support for .NET 10.
+   Added support for the NUglify version 1.22.0.
 
    =============
    DOCUMENTATION
