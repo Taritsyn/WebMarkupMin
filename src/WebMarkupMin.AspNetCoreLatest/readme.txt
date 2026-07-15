@@ -17,7 +17,7 @@
    =============
    RELEASE NOTES
    =============
-   Added support for the ASP.NET Core 8.0.28, 9.0.17 and 10.0.9.
+   Added support for the ASP.NET Core 8.0.29, 9.0.18 and 10.0.10.
 
    =============
    DOCUMENTATION
