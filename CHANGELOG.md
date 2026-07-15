@@ -1,6 +1,10 @@
 Change log
 ==========
 
+## v2.22.1 - July 15, 2026
+ * In WebMarkupMin.NUglify added support for the NUglify version 1.22.0
+ * In WebMarkupMin.AspNetCoreLatest added support for the ASP.NET Core 8.0.29, 9.0.18 and 10.0.10
+
 ## v2.22.0 - July 9, 2026
  * In WebMarkupMin.NUglify:
      * Added support for the NUglify version 1.21.18
@@ -468,7 +472,7 @@ Change log
  * In ASP.NET 4.X Extensions was changed a mechanism of using default instances of loggers, factories and managers
 
 ## v2.0.2 - July 12, 2016
- * Added module based on the [NUglify](https://github.com/trullock/NUglify)
+ * Added module based on the [NUglify](https://github.com/jbest84/NUglify)
  * In WebMarkupMin.MsAjax and WebMarkupMin.Yui was made refactoring
 
 ## v2.0.1 - July 9, 2016
