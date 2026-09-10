@@ -1,6 +1,10 @@
 Change log
 ==========
 
+## v2.22.4 - September 10, 2026
+ * In WebMarkupMin.NUglify added support for the NUglify version 1.23.0
+ * In WebMarkupMin.AspNetCoreLatest added support for the ASP.NET Core 8.0.31, 9.0.20 and 10.0.12
+
 ## v2.22.3 - August 25, 2026
  * In WebMarkupMin.NUglify added support for the NUglify version 1.22.4
  * In WebMarkupMin.AspNetCoreLatest added support for the ASP.NET Core 8.0.30, 9.0.19 and 10.0.11
