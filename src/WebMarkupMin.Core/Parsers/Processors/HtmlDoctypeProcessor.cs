@@ -13,13 +13,11 @@ namespace WebMarkupMin.Core.Parsers.Processors
 	{
 		const string DOCTYPE_BEGIN_PART = "<!DOCTYPE";
 		const string DOCTYPE_END_PART = ">";
-		const string PUBLICITY_PUBLIC = "PUBLIC";
-		const string PUBLICITY_SYSTEM = "SYSTEM";
 		const string PUBLIC_NAME_PATTERN = @"[a-zA-Z][a-zA-Z0-9\s._:/'""+-]*";
 
 		private static readonly Regex _rootElementRegex = new Regex(@"^" + CommonRegExps.HtmlTagNamePattern,
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
-		private static readonly string[] _publicities = { PUBLICITY_PUBLIC, PUBLICITY_SYSTEM };
+		private static readonly string[] _publicities = { HtmlPublicity.Public, HtmlPublicity.System };
 		private static readonly Regex _publicIdRegex = new Regex("^" +
 			"(?:" +
 				@"(?:(?<registration>[-+])//(?<organization>" + PUBLIC_NAME_PATTERN + "))" +
@@ -96,7 +94,7 @@ namespace WebMarkupMin.Core.Parsers.Processors
 					HtmlFormalPublicId publicId = null;
 					HtmlSystemId systemId = null;
 
-					if (publicity.IgnoreCaseEquals(PUBLICITY_PUBLIC))
+					if (publicity.IgnoreCaseEquals(HtmlPublicity.Public))
 					{
 						bool spaceBeforePublicId = ProcessWhitespace();
 						SourceCodeNodeCoordinates publicIdCoordinates = _innerContext.NodeCoordinates;
@@ -126,7 +124,7 @@ namespace WebMarkupMin.Core.Parsers.Processors
 
 					if (ProcessSystemId(out systemId))
 					{
-						if (!spaceBeforeSystemId && publicity.IgnoreCaseEquals(PUBLICITY_SYSTEM))
+						if (!spaceBeforeSystemId && publicity.IgnoreCaseEquals(HtmlPublicity.System))
 						{
 							throw new MarkupParsingException(
 								string.Format(Strings.ErrorMessage_NoSpaceBetweenDoctypePublicityAndId, publicity),
@@ -135,7 +133,7 @@ namespace WebMarkupMin.Core.Parsers.Processors
 							);
 						}
 					}
-					else if (publicity.IgnoreCaseEquals(PUBLICITY_SYSTEM))
+					else if (publicity.IgnoreCaseEquals(HtmlPublicity.System))
 					{
 						throw new MarkupParsingException(
 							Strings.ErrorMessage_SystemIdNotFound,

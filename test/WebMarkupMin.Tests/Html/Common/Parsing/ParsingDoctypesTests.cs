@@ -102,17 +102,40 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput1, output1, true);
+			Assert.False(output1.IsXhtml());
+
 			Assert.Equivalent(targetOutput2, output2, true);
+			Assert.False(output2.IsXhtml());
+
 			Assert.Equivalent(targetOutput3, output3, true);
+			Assert.False(output3.IsXhtml());
+
 			Assert.Equivalent(targetOutput4, output4, true);
+			Assert.False(output4.IsXhtml());
+
 			Assert.Equivalent(targetOutput5, output5, true);
+			Assert.False(output5.IsXhtml());
+
 			Assert.Equivalent(targetOutput6, output6, true);
+			Assert.False(output6.IsXhtml());
+
 			Assert.Equivalent(targetOutput7, output7, true);
+			Assert.False(output7.IsXhtml());
+
 			Assert.Equivalent(targetOutput8, output8, true);
+			Assert.False(output8.IsXhtml());
+
 			Assert.Equivalent(targetOutput9, output9, true);
+			Assert.False(output9.IsXhtml());
+
 			Assert.Equivalent(targetOutput10, output10, true);
+			Assert.False(output10.IsXhtml());
+
 			Assert.Equivalent(targetOutput11, output11, true);
+			Assert.False(output11.IsXhtml());
+
 			Assert.Equivalent(targetOutput12, output12, true);
+			Assert.False(output12.IsXhtml());
 
 		}
 
@@ -190,16 +213,37 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput1, output1, true);
+			Assert.False(output1.IsXhtml());
+
 			Assert.Equivalent(targetOutput2, output2, true);
+			Assert.False(output2.IsXhtml());
+
 			Assert.Equivalent(targetOutput3, output3, true);
+			Assert.False(output3.IsXhtml());
+
 			Assert.Equivalent(targetOutput4, output4, true);
+			Assert.False(output4.IsXhtml());
+
 			Assert.Equivalent(targetOutput5, output5, true);
+			Assert.False(output5.IsXhtml());
+
 			Assert.Equivalent(targetOutput6, output6, true);
+			Assert.False(output6.IsXhtml());
+
 			Assert.Equivalent(targetOutput7, output7, true);
+			Assert.False(output7.IsXhtml());
+
 			Assert.Equivalent(targetOutput8, output8, true);
+			Assert.False(output8.IsXhtml());
+
 			Assert.Equivalent(targetOutput9, output9, true);
+			Assert.False(output9.IsXhtml());
+
 			Assert.Equivalent(targetOutput10, output10, true);
+			Assert.False(output10.IsXhtml());
+
 			Assert.Equivalent(targetOutput11, output11, true);
+			Assert.False(output11.IsXhtml());
 		}
 
 		[Fact]
@@ -216,6 +260,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput, output, true);
+			Assert.False(output.IsXhtml());
 		}
 
 		[Fact]
@@ -286,15 +331,34 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput1, output1, true);
+			Assert.False(output1.IsXhtml());
+
 			Assert.Equivalent(targetOutput2, output2, true);
+			Assert.False(output2.IsXhtml());
+
 			Assert.Equivalent(targetOutput3, output3, true);
+			Assert.False(output3.IsXhtml());
+
 			Assert.Equivalent(targetOutput4, output4, true);
+			Assert.False(output4.IsXhtml());
+
 			Assert.Equivalent(targetOutput5, output5, true);
+			Assert.False(output5.IsXhtml());
+
 			Assert.Equivalent(targetOutput6, output6, true);
+			Assert.False(output6.IsXhtml());
+
 			Assert.Equivalent(targetOutput7, output7, true);
+			Assert.False(output7.IsXhtml());
+
 			Assert.Equivalent(targetOutput8, output8, true);
+			Assert.False(output8.IsXhtml());
+
 			Assert.Equivalent(targetOutput9, output9, true);
+			Assert.False(output9.IsXhtml());
+
 			Assert.Equivalent(targetOutput10, output10, true);
+			Assert.False(output10.IsXhtml());
 		}
 
 		[Fact]
@@ -329,9 +393,16 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput1, output1, true);
+			Assert.False(output1.IsXhtml());
+
 			Assert.Equivalent(targetOutput2, output2, true);
+			Assert.False(output2.IsXhtml());
+
 			Assert.Equivalent(targetOutput3, output3, true);
+			Assert.False(output3.IsXhtml());
+
 			Assert.Equivalent(targetOutput4, output4, true);
+			Assert.False(output4.IsXhtml());
 		}
 
 		[Fact]
@@ -354,7 +425,10 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput1, output1, true);
+			Assert.False(output1.IsXhtml());
+
 			Assert.Equivalent(targetOutput2, output2, true);
+			Assert.False(output2.IsXhtml());
 		}
 
 		[Fact]
@@ -383,8 +457,13 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput1, output1, true);
+			Assert.False(output1.IsXhtml());
+
 			Assert.Equivalent(targetOutput2, output2, true);
+			Assert.False(output2.IsXhtml());
+
 			Assert.Equivalent(targetOutput3, output3, true);
+			Assert.False(output3.IsXhtml());
 		}
 
 		[Fact]
@@ -407,7 +486,10 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput1, output1, true);
+			Assert.False(output1.IsXhtml());
+
 			Assert.Equivalent(targetOutput2, output2, true);
+			Assert.False(output2.IsXhtml());
 		}
 
 		[Fact]
@@ -430,7 +512,10 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput1, output1, true);
+			Assert.False(output1.IsXhtml());
+
 			Assert.Equivalent(targetOutput2, output2, true);
+			Assert.False(output2.IsXhtml());
 		}
 
 		[Fact]
@@ -461,8 +546,13 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput1, output1, true);
+			Assert.False(output1.IsXhtml());
+
 			Assert.Equivalent(targetOutput2, output2, true);
+			Assert.False(output2.IsXhtml());
+
 			Assert.Equivalent(targetOutput3, output3, true);
+			Assert.False(output3.IsXhtml());
 		}
 
 		[Fact]
@@ -487,7 +577,10 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput1, output1, true);
+			Assert.False(output1.IsXhtml());
+
 			Assert.Equivalent(targetOutput2, output2, true);
+			Assert.False(output2.IsXhtml());
 		}
 
 		[Fact]
@@ -512,7 +605,10 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput1, output1, true);
+			Assert.False(output1.IsXhtml());
+
 			Assert.Equivalent(targetOutput2, output2, true);
+			Assert.False(output2.IsXhtml());
 		}
 
 		[Fact]
@@ -529,6 +625,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput, output, true);
+			Assert.False(output.IsXhtml());
 		}
 
 		[Fact]
@@ -551,7 +648,10 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput1, output1, true);
+			Assert.False(output1.IsXhtml());
+
 			Assert.Equivalent(targetOutput2, output2, true);
+			Assert.False(output2.IsXhtml());
 		}
 
 		[Fact]
@@ -584,8 +684,13 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput1, output1, true);
+			Assert.False(output1.IsXhtml());
+
 			Assert.Equivalent(targetOutput2, output2, true);
+			Assert.False(output2.IsXhtml());
+
 			Assert.Equivalent(targetOutput3, output3, true);
+			Assert.False(output3.IsXhtml());
 		}
 
 		[Fact]
@@ -618,8 +723,13 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput1, output1, true);
+			Assert.False(output1.IsXhtml());
+
 			Assert.Equivalent(targetOutput2, output2, true);
+			Assert.False(output2.IsXhtml());
+
 			Assert.Equivalent(targetOutput3, output3, true);
+			Assert.False(output3.IsXhtml());
 		}
 
 		[Fact]
@@ -653,8 +763,13 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput1, output1, true);
+			Assert.False(output1.IsXhtml());
+
 			Assert.Equivalent(targetOutput2, output2, true);
+			Assert.False(output2.IsXhtml());
+
 			Assert.Equivalent(targetOutput3, output3, true);
+			Assert.False(output3.IsXhtml());
 		}
 
 		[Fact]
@@ -673,6 +788,7 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput, output, true);
+			Assert.False(output.IsXhtml());
 		}
 
 		[Fact]
@@ -707,8 +823,13 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput1, output1, true);
+			Assert.False(output1.IsXhtml());
+
 			Assert.Equivalent(targetOutput2, output2, true);
+			Assert.False(output2.IsXhtml());
+
 			Assert.Equivalent(targetOutput3, output3, true);
+			Assert.False(output3.IsXhtml());
 		}
 
 		[Fact]
@@ -731,7 +852,10 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput1, output1, true);
+			Assert.False(output1.IsXhtml());
+
 			Assert.Equivalent(targetOutput2, output2, true);
+			Assert.False(output2.IsXhtml());
 		}
 
 		[Fact]
@@ -774,12 +898,25 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput1, output1, true);
+			Assert.False(output1.IsXhtml());
+
 			Assert.Equivalent(targetOutput2, output2, true);
+			Assert.False(output2.IsXhtml());
+
 			Assert.Equivalent(targetOutput3, output3, true);
+			Assert.False(output3.IsXhtml());
+
 			Assert.Equivalent(targetOutput4, output4, true);
+			Assert.False(output4.IsXhtml());
+
 			Assert.Equivalent(targetOutput5, output5, true);
+			Assert.False(output5.IsXhtml());
+
 			Assert.Equivalent(targetOutput6, output6, true);
+			Assert.False(output6.IsXhtml());
+
 			Assert.Equivalent(targetOutput7, output7, true);
+			Assert.False(output7.IsXhtml());
 		}
 
 		[Fact]
@@ -928,28 +1065,73 @@ namespace WebMarkupMin.Tests.Html.Common.Parsing
 
 			// Assert
 			Assert.Equivalent(targetOutput1, output1, true);
+			Assert.False(output1.IsXhtml());
+
 			Assert.Equivalent(targetOutput2, output2, true);
+			Assert.False(output2.IsXhtml());
+
 			Assert.Equivalent(targetOutput3, output3, true);
+			Assert.False(output3.IsXhtml());
+
 			Assert.Equivalent(targetOutput4, output4, true);
+			Assert.False(output4.IsXhtml());
+
 			Assert.Equivalent(targetOutput5, output5, true);
+			Assert.False(output5.IsXhtml());
+
 			Assert.Equivalent(targetOutput6, output6, true);
+			Assert.False(output6.IsXhtml());
+
 			Assert.Equivalent(targetOutput7, output7, true);
+			Assert.False(output7.IsXhtml());
+
 			Assert.Equivalent(targetOutput8, output8, true);
+			Assert.False(output8.IsXhtml());
+
 			Assert.Equivalent(targetOutput9, output9, true);
+			Assert.False(output9.IsXhtml());
+
 			Assert.Equivalent(targetOutput10, output10, true);
+			Assert.False(output10.IsXhtml());
+
 			Assert.Equivalent(targetOutput11, output11, true);
+			Assert.False(output11.IsXhtml());
+
 			Assert.Equivalent(targetOutput12, output12, true);
+			Assert.False(output12.IsXhtml());
+
 			Assert.Equivalent(targetOutput13, output13, true);
+			Assert.False(output13.IsXhtml());
+
 			Assert.Equivalent(targetOutput14, output14, true);
+			Assert.False(output14.IsXhtml());
+
 			Assert.Equivalent(targetOutput15, output15, true);
+			Assert.False(output15.IsXhtml());
+
 			Assert.Equivalent(targetOutput16, output16, true);
+			Assert.False(output16.IsXhtml());
+
 			Assert.Equivalent(targetOutput17, output17, true);
+			Assert.False(output17.IsXhtml());
+
 			Assert.Equivalent(targetOutput18, output18, true);
+			Assert.False(output18.IsXhtml());
+
 			Assert.Equivalent(targetOutput19, output19, true);
+			Assert.False(output19.IsXhtml());
+
 			Assert.Equivalent(targetOutput20, output20, true);
+			Assert.False(output20.IsXhtml());
+
 			Assert.Equivalent(targetOutput21, output21, true);
+			Assert.False(output21.IsXhtml());
+
 			Assert.Equivalent(targetOutput22, output22, true);
+			Assert.False(output22.IsXhtml());
+
 			Assert.Equivalent(targetOutput23, output23, true);
+			Assert.False(output23.IsXhtml());
 		}
 
 		[Fact]
