@@ -25,7 +25,18 @@ namespace WebMarkupMin.Core
 
 		private static readonly Regex _commentRegex = new Regex(@"/\*[\s\S]*?\*/",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
-		private static readonly Regex _separatingChars = new Regex(@" ?([:,;{}]) ?",
+		private static readonly Regex _separatingChars = new Regex(@" ?([,;{}]) ?",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
+		// A colon that belongs to a declaration ("property : value"): preceded, since the start of the code,
+		// a '{' or a ';', by a bare property name, and followed by a value that ends at ';', '}' or the end
+		// of inline code without an opening brace. Only there is a space before the colon insignificant.
+		// A space before a colon that starts a pseudo-class or pseudo-element ("a :where(b)", ".x :not(.y)",
+		// "p :first-child", "div ::before") is a descendant combinator and must be preserved.
+		private static readonly Regex _declarationColon = new Regex(
+			@"(?<=(?:^|[{;])\s*[-a-zA-Z_][-a-zA-Z0-9_]*) ?: ?(?=[^{};]*(?:[;}]|$))",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
+		// A space after any other colon (e.g. "@media (min-width: 100px)") is never significant.
+		private static readonly Regex _spaceAfterColon = new Regex(@": ",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _redundantSelectorRegex = new Regex(@"(?<=[,;}]|^)[a-zA-Z][a-zA-Z0-9]*#",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
@@ -73,6 +84,8 @@ namespace WebMarkupMin.Core
 			string processedContent = content;
 			processedContent = processedContent.CollapseWhitespace();
 			processedContent = _separatingChars.Replace(processedContent, "$1");
+			processedContent = _declarationColon.Replace(processedContent, ":");
+			processedContent = _spaceAfterColon.Replace(processedContent, ":");
 			processedContent = processedContent.Trim(_space);
 
 			return processedContent;
