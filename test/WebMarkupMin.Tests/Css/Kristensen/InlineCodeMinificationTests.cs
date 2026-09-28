@@ -55,13 +55,28 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 				"font-family:Verdana,Arial,Helvetica,sans-serif;" +
 				"color:#336";
 
+			const string input3 = "color : red ; margin : 0";
+			const string targetOutput3 = "color:red;margin:0";
+
+			const string input4 = "  width: 440px  ";
+			const string targetOutput4 = "width:440px";
+
+			const string input5 = "width: max(50%, 300px)";
+			const string targetOutput5 = "width:max(50%,300px)";
+
 			// Act
 			string output1 = minifier.Minify(input1, true).MinifiedContent;
 			string output2 = minifier.Minify(input2, true).MinifiedContent;
+			string output3 = minifier.Minify(input3, true).MinifiedContent;
+			string output4 = minifier.Minify(input4, true).MinifiedContent;
+			string output5 = minifier.Minify(input5, true).MinifiedContent;
 
 			// Assert
 			Assert.Equal(targetOutput1, output1);
 			Assert.Equal(targetOutput2, output2);
+			Assert.Equal(targetOutput3, output3);
+			Assert.Equal(targetOutput4, output4);
+			Assert.Equal(targetOutput5, output5);
 		}
 
 		[Fact]

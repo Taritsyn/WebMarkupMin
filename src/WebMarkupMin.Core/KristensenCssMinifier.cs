@@ -20,28 +20,27 @@ namespace WebMarkupMin.Core
 	/// </summary>
 	public sealed class KristensenCssMinifier : ICssMinifier
 	{
+		const string ZERO_VALUE_WITH_UNITS_PATTERN = @"0(?:px|pt|pc|cm|mm|in|em|ex|ch|rem|vw|vh|vm(?:in|ax))";
+
 		private static readonly char[] _space = new char[] { ' ' };
 		private static readonly char[] _semicolon = new char[] { ';' };
 
 		private static readonly Regex _commentRegex = new Regex(@"/\*[\s\S]*?\*/",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
-		private static readonly Regex _separatingChars = new Regex(@" ?([,;{}]) ?",
+		private static readonly Regex _separatingCharsInInlineCodeRegex = new Regex(@" ?([:,;]) ?",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
-		// A colon that belongs to a declaration ("property : value"): preceded, since the start of the code,
-		// a '{' or a ';', by a bare property name, and followed by a value that ends at ';', '}' or the end
-		// of inline code without an opening brace. Only there is a space before the colon insignificant.
-		// A space before a colon that starts a pseudo-class or pseudo-element ("a :where(b)", ".x :not(.y)",
-		// "p :first-child", "div ::before") is a descendant combinator and must be preserved.
-		private static readonly Regex _declarationColon = new Regex(
-			@"(?<=(?:^|[{;])\s*[-a-zA-Z_][-a-zA-Z0-9_]*) ?: ?(?=[^{};]*(?:[;}]|$))",
+		private static readonly Regex _separatingCharsInEmbeddedCodeRegex = new Regex(@" ?([,;{}]) ?",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
-		// A space after any other colon (e.g. "@media (min-width: 100px)") is never significant.
-		private static readonly Regex _spaceAfterColon = new Regex(@": ",
+		private static readonly Regex declarationSeparatingCharInEmbeddedCodeRegex = new Regex(
+			@"(?<=[{;][a-zA-Z-_][a-zA-Z0-9-_]*) ?: ?(?=[^{]+?[;}])",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _redundantSelectorRegex = new Regex(@"(?<=[,;}]|^)[a-zA-Z][a-zA-Z0-9]*#",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
-		private static readonly Regex _zeroValue = new Regex(
-			@"(?<=[ :])0(?:px|pt|pc|cm|mm|in|em|ex|ch|rem|vw|vh|vm(?:in|ax))(?=[ ;}]|$)",
+		private static readonly Regex _zeroValueInInlineCodeRegex = new Regex(
+			@"(?<=[ :])" + ZERO_VALUE_WITH_UNITS_PATTERN + "(?=[ ;]|$)",
+			TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _zeroValueInEmbeddedCodeRegex = new Regex(
+			@"(?<=[ :])" + ZERO_VALUE_WITH_UNITS_PATTERN + "(?=[ ;}])",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		/// <summary>
@@ -74,7 +73,7 @@ namespace WebMarkupMin.Core
 			return processedContent;
 		}
 
-		private static string MinifyWhitespace(string content)
+		private static string MinifyWhitespace(string content, bool isInlineCode)
 		{
 			if (string.IsNullOrWhiteSpace(content))
 			{
@@ -83,22 +82,39 @@ namespace WebMarkupMin.Core
 
 			string processedContent = content;
 			processedContent = processedContent.CollapseWhitespace();
-			processedContent = _separatingChars.Replace(processedContent, "$1");
-			processedContent = _declarationColon.Replace(processedContent, ":");
-			processedContent = _spaceAfterColon.Replace(processedContent, ":");
+			if (isInlineCode)
+			{
+				processedContent = _separatingCharsInInlineCodeRegex.Replace(processedContent, "$1");
+			}
+			else
+			{
+				processedContent = _separatingCharsInEmbeddedCodeRegex.Replace(processedContent, "$1");
+
+				// The colon in a declaration (`property : value`) serves as a separator between the property name
+				// (preceded by a opening curly brace or semicolon) and its value (followed by a semicolon or closing
+				// curly brace).
+				// In a declaration, the spaces before and after the colon are insignificant and can be removed.
+				// A space before a colon that starts a pseudo-class or pseudo-element (e.g. `a :where(b)`,
+				// `.x :not(.y)`, `p :first-child`, `div ::before`) is a descendant combinator and must be preserved.
+				processedContent = declarationSeparatingCharInEmbeddedCodeRegex.Replace(processedContent, ":");
+
+				// The space after any colon (e.g. `@media (min-width: 100px)`) is insignificant and can be removed
+				processedContent = processedContent.Replace(": ", ":");
+			}
 			processedContent = processedContent.Trim(_space);
 
 			return processedContent;
 		}
 
-		private static string RemoveUnitsFromZeroValues(string content)
+		private static string RemoveUnitsFromZeroValues(string content, bool isInlineCode)
 		{
 			if (content.IndexOf('0') == -1)
 			{
 				return content;
 			}
 
-			string processedContent = _zeroValue.Replace(content, "0");
+			Regex zeroValueRegex = isInlineCode ? _zeroValueInInlineCodeRegex : _zeroValueInEmbeddedCodeRegex;
+			string processedContent = zeroValueRegex.Replace(content, "0");
 
 			return processedContent;
 		}
@@ -166,12 +182,12 @@ namespace WebMarkupMin.Core
 
 			string processedContent = content;
 			processedContent = RemoveComments(processedContent);
-			processedContent = MinifyWhitespace(processedContent);
+			processedContent = MinifyWhitespace(processedContent, isInlineCode);
 			if (processedContent.Length > 0)
 			{
 				if (_settings.RemoveUnitsFromZeroValues)
 				{
-					processedContent = RemoveUnitsFromZeroValues(processedContent);
+					processedContent = RemoveUnitsFromZeroValues(processedContent, isInlineCode);
 				}
 				if (_settings.RemoveRedundantSelectors && !isInlineCode)
 				{

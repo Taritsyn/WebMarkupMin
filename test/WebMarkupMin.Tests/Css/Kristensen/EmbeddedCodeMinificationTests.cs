@@ -91,7 +91,7 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 				;
 
 			const string input3 = "  	p.note > b {\r " +
-				"   color: red\r" +
+				"   color : red\r" +
 				"}	  "
 				;
 			const string targetOutput3 = "p.note > b{" +
@@ -125,6 +125,57 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 			Assert.Equal(targetOutput2, output2);
 			Assert.Equal(targetOutput3, output3);
 			Assert.Equal(targetOutput4, output4);
+		}
+
+		[Fact]
+		public void PreservingSpaceBeforePseudoClassesAndPseudoElements()
+		{
+			// Arrange
+			var minifier = new KristensenCssMinifier();
+
+			const string input1 = ".wp-block-post-title :where(a) { color : red; }";
+			const string targetOutput1 = ".wp-block-post-title :where(a){color:red}";
+
+			const string input2 = ".nav :not(.open) a { color: blue }";
+			const string targetOutput2 = ".nav :not(.open) a{color:blue}";
+
+			const string input3 = "ul :is(li, p) { margin: 0 }";
+			const string targetOutput3 = "ul :is(li,p){margin:0}";
+
+			const string input4 = "p :first-child { margin: 0 }";
+			const string targetOutput4 = "p :first-child{margin:0}";
+
+			const string input5 = "div ::before { content: '' }";
+			const string targetOutput5 = "div ::before{content:''}";
+
+			const string input6 = "a:hover { color: red }";
+			const string targetOutput6 = "a:hover{color:red}";
+
+			const string input7 = "@media screen and (min-width: 100px) { a :hover { color: red } }";
+			const string targetOutput7 = "@media screen and (min-width:100px){a :hover{color:red}}";
+
+			const string input8 = ".c :where(.d :hover) { e: f }";
+			const string targetOutput8 = ".c :where(.d :hover){e:f}";
+
+			// Act
+			string output1 = minifier.Minify(input1, false).MinifiedContent;
+			string output2 = minifier.Minify(input2, false).MinifiedContent;
+			string output3 = minifier.Minify(input3, false).MinifiedContent;
+			string output4 = minifier.Minify(input4, false).MinifiedContent;
+			string output5 = minifier.Minify(input5, false).MinifiedContent;
+			string output6 = minifier.Minify(input6, false).MinifiedContent;
+			string output7 = minifier.Minify(input7, false).MinifiedContent;
+			string output8 = minifier.Minify(input8, false).MinifiedContent;
+
+			// Assert
+			Assert.Equal(targetOutput1, output1);
+			Assert.Equal(targetOutput2, output2);
+			Assert.Equal(targetOutput3, output3);
+			Assert.Equal(targetOutput4, output4);
+			Assert.Equal(targetOutput5, output5);
+			Assert.Equal(targetOutput6, output6);
+			Assert.Equal(targetOutput7, output7);
+			Assert.Equal(targetOutput8, output8);
 		}
 
 		[Fact]
@@ -333,52 +384,52 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 			const string input16 = "div{width:0vm;margin:10vm 0vm}";
 
 			// Act
-			string output1A = keepingZeroUnitsMinifier.Minify(input1, true).MinifiedContent;
+			string output1A = keepingZeroUnitsMinifier.Minify(input1, false).MinifiedContent;
 			string output1B = removingZeroUnitsMinifier.Minify(input1, false).MinifiedContent;
 
-			string output2A = keepingZeroUnitsMinifier.Minify(input2, true).MinifiedContent;
+			string output2A = keepingZeroUnitsMinifier.Minify(input2, false).MinifiedContent;
 			string output2B = removingZeroUnitsMinifier.Minify(input2, false).MinifiedContent;
 
-			string output3A = keepingZeroUnitsMinifier.Minify(input3, true).MinifiedContent;
+			string output3A = keepingZeroUnitsMinifier.Minify(input3, false).MinifiedContent;
 			string output3B = removingZeroUnitsMinifier.Minify(input3, false).MinifiedContent;
 
-			string output4A = keepingZeroUnitsMinifier.Minify(input4, true).MinifiedContent;
+			string output4A = keepingZeroUnitsMinifier.Minify(input4, false).MinifiedContent;
 			string output4B = removingZeroUnitsMinifier.Minify(input4, false).MinifiedContent;
 
-			string output5A = keepingZeroUnitsMinifier.Minify(input5, true).MinifiedContent;
+			string output5A = keepingZeroUnitsMinifier.Minify(input5, false).MinifiedContent;
 			string output5B = removingZeroUnitsMinifier.Minify(input5, false).MinifiedContent;
 
-			string output6A = keepingZeroUnitsMinifier.Minify(input6, true).MinifiedContent;
+			string output6A = keepingZeroUnitsMinifier.Minify(input6, false).MinifiedContent;
 			string output6B = removingZeroUnitsMinifier.Minify(input6, false).MinifiedContent;
 
-			string output7A = keepingZeroUnitsMinifier.Minify(input7, true).MinifiedContent;
+			string output7A = keepingZeroUnitsMinifier.Minify(input7, false).MinifiedContent;
 			string output7B = removingZeroUnitsMinifier.Minify(input7, false).MinifiedContent;
 
-			string output8A = keepingZeroUnitsMinifier.Minify(input8, true).MinifiedContent;
+			string output8A = keepingZeroUnitsMinifier.Minify(input8, false).MinifiedContent;
 			string output8B = removingZeroUnitsMinifier.Minify(input8, false).MinifiedContent;
 
-			string output9A = keepingZeroUnitsMinifier.Minify(input9, true).MinifiedContent;
+			string output9A = keepingZeroUnitsMinifier.Minify(input9, false).MinifiedContent;
 			string output9B = removingZeroUnitsMinifier.Minify(input9, false).MinifiedContent;
 
-			string output10A = keepingZeroUnitsMinifier.Minify(input10, true).MinifiedContent;
+			string output10A = keepingZeroUnitsMinifier.Minify(input10, false).MinifiedContent;
 			string output10B = removingZeroUnitsMinifier.Minify(input10, false).MinifiedContent;
 
-			string output11A = keepingZeroUnitsMinifier.Minify(input11, true).MinifiedContent;
+			string output11A = keepingZeroUnitsMinifier.Minify(input11, false).MinifiedContent;
 			string output11B = removingZeroUnitsMinifier.Minify(input11, false).MinifiedContent;
 
-			string output12A = keepingZeroUnitsMinifier.Minify(input12, true).MinifiedContent;
+			string output12A = keepingZeroUnitsMinifier.Minify(input12, false).MinifiedContent;
 			string output12B = removingZeroUnitsMinifier.Minify(input12, false).MinifiedContent;
 
-			string output13A = keepingZeroUnitsMinifier.Minify(input13, true).MinifiedContent;
+			string output13A = keepingZeroUnitsMinifier.Minify(input13, false).MinifiedContent;
 			string output13B = removingZeroUnitsMinifier.Minify(input13, false).MinifiedContent;
 
-			string output14A = keepingZeroUnitsMinifier.Minify(input14, true).MinifiedContent;
+			string output14A = keepingZeroUnitsMinifier.Minify(input14, false).MinifiedContent;
 			string output14B = removingZeroUnitsMinifier.Minify(input14, false).MinifiedContent;
 
-			string output15A = keepingZeroUnitsMinifier.Minify(input15, true).MinifiedContent;
+			string output15A = keepingZeroUnitsMinifier.Minify(input15, false).MinifiedContent;
 			string output15B = removingZeroUnitsMinifier.Minify(input15, false).MinifiedContent;
 
-			string output16A = keepingZeroUnitsMinifier.Minify(input16, true).MinifiedContent;
+			string output16A = keepingZeroUnitsMinifier.Minify(input16, false).MinifiedContent;
 			string output16B = removingZeroUnitsMinifier.Minify(input16, false).MinifiedContent;
 
 			// Assert
@@ -517,78 +568,6 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 			// Assert
 			Assert.Equal(targetOutputA, outputA);
 			Assert.Equal(targetOutputB, outputB);
-		}
-
-		[Fact]
-		public void PreservingDescendantCombinatorBeforePseudoClasses()
-		{
-			// Arrange
-			var minifier = new KristensenCssMinifier();
-
-			const string input1 = ".wp-block-post-title :where(a) { color : red; }";
-			const string targetOutput1 = ".wp-block-post-title :where(a){color:red}";
-
-			const string input2 = ".nav :not(.open) a { color: blue }";
-			const string targetOutput2 = ".nav :not(.open) a{color:blue}";
-
-			const string input3 = "ul :is(li, p) { margin: 0 }";
-			const string targetOutput3 = "ul :is(li,p){margin:0}";
-
-			const string input4 = "p :first-child { margin: 0 }";
-			const string targetOutput4 = "p :first-child{margin:0}";
-
-			const string input5 = "div ::before { content: '' }";
-			const string targetOutput5 = "div ::before{content:''}";
-
-			const string input6 = "a:hover { color: red }";
-			const string targetOutput6 = "a:hover{color:red}";
-
-			const string input7 = "@media screen and (min-width: 100px) { a :hover { color: red } }";
-			const string targetOutput7 = "@media screen and (min-width:100px){a :hover{color:red}}";
-
-			const string input8 = ".c :where(.d :hover) { e: f }";
-			const string targetOutput8 = ".c :where(.d :hover){e:f}";
-
-			// Act
-			string output1 = minifier.Minify(input1, false).MinifiedContent;
-			string output2 = minifier.Minify(input2, false).MinifiedContent;
-			string output3 = minifier.Minify(input3, false).MinifiedContent;
-			string output4 = minifier.Minify(input4, false).MinifiedContent;
-			string output5 = minifier.Minify(input5, false).MinifiedContent;
-			string output6 = minifier.Minify(input6, false).MinifiedContent;
-			string output7 = minifier.Minify(input7, false).MinifiedContent;
-			string output8 = minifier.Minify(input8, false).MinifiedContent;
-
-			// Assert
-			Assert.Equal(targetOutput1, output1);
-			Assert.Equal(targetOutput2, output2);
-			Assert.Equal(targetOutput3, output3);
-			Assert.Equal(targetOutput4, output4);
-			Assert.Equal(targetOutput5, output5);
-			Assert.Equal(targetOutput6, output6);
-			Assert.Equal(targetOutput7, output7);
-			Assert.Equal(targetOutput8, output8);
-		}
-
-		[Fact]
-		public void MinifyingWhitespaceAroundDeclarationColonsInInlineCode()
-		{
-			// Arrange
-			var minifier = new KristensenCssMinifier();
-
-			const string input1 = "color : red ; margin : 0";
-			const string targetOutput1 = "color:red;margin:0";
-
-			const string input2 = "  width: 220px  ";
-			const string targetOutput2 = "width:220px";
-
-			// Act
-			string output1 = minifier.Minify(input1, true).MinifiedContent;
-			string output2 = minifier.Minify(input2, true).MinifiedContent;
-
-			// Assert
-			Assert.Equal(targetOutput1, output1);
-			Assert.Equal(targetOutput2, output2);
 		}
 	}
 }
