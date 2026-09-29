@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-           README file for Web Markup Minifier: ASP.NET Core Latest v2.22.4
+           README file for Web Markup Minifier: ASP.NET Core Latest v2.22.5
 
    --------------------------------------------------------------------------------
 
@@ -13,11 +13,6 @@
    ===========
    WebMarkupMin.AspNetCoreLatest contains one Middleware for ASP.NET Core 8, 9 and
    10 - `WebMarkupMinMiddleware`.
-
-   =============
-   RELEASE NOTES
-   =============
-   Added support for the ASP.NET Core 8.0.31, 9.0.20 and 10.0.12.
 
    =============
    DOCUMENTATION

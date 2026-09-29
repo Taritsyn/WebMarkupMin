@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                   README file for Web Markup Minifier: Core v2.21.0
+                   README file for Web Markup Minifier: Core v2.22.5
 
    --------------------------------------------------------------------------------
 
@@ -46,11 +46,8 @@
    =============
    RELEASE NOTES
    =============
-   1. It is now possible to configure the Mads Kristensen's CSS Minifier;
-   2. In configuration settings of the Mads Kristensen's CSS Minifier was added
-      three properties - `RemoveRedundantSelectors` (default `false`),
-      `RemoveTrailingSemicolons` (default `true`) and `RemoveUnitsFromZeroValues`
-      (default `false`).
+   Fixed a error #183 “KristensenCssMinifier removes the descendant combinator
+   before pseudo-class selectors”. Special thanks to Erik Gavriluk.
 
    =============
    DOCUMENTATION

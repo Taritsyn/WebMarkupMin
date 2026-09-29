@@ -1,6 +1,10 @@
 Change log
 ==========
 
+## v2.22.5 - September 29, 2026
+ * Fixed a [error #183](https://github.com/Taritsyn/WebMarkupMin/issues/183) “KristensenCssMinifier removes the descendant combinator before pseudo-class selectors”. Special thanks to [Erik Gavriluk](https://github.com/etc-erik)
+ * In WebMarkupMin.NUglify added support for the NUglify version 1.23.3
+
 ## v2.22.4 - September 10, 2026
  * In WebMarkupMin.NUglify added support for the NUglify version 1.23.0
  * In WebMarkupMin.AspNetCoreLatest added support for the ASP.NET Core 8.0.31, 9.0.20 and 10.0.12

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: ASP.NET Core Latest</Product>
-    <VersionPrefix>2.22.4</VersionPrefix>
+    <VersionPrefix>2.22.5</VersionPrefix>
     <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
     <OutputType>Library</OutputType>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
@@ -19,7 +19,6 @@
   <PropertyGroup>
     <Description>WebMarkupMin.AspNetCoreLatest contains one Middleware for ASP.NET Core 8, 9 and 10 - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
-    <PackageReleaseNotes>Added support for the ASP.NET Core 8.0.31, 9.0.20 and 10.0.12.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

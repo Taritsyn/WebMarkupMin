@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: Client-Side Assets for ASP.NET Core Samples</Product>
-    <VersionPrefix>2.22.4</VersionPrefix>
+    <VersionPrefix>2.22.5</VersionPrefix>
     <TargetFramework>netstandard2.0</TargetFramework>
     <OutputType>Library</OutputType>
     <IsPackable>false</IsPackable>
