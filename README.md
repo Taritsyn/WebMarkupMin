@@ -76,6 +76,7 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
  * [MiniBlog](https://github.com/madskristensen/MiniBlog) by Mads Kristensen
  * [Miniblog.Core](https://github.com/madskristensen/Miniblog.Core) by Mads Kristensen
  * [nopCommerce](https://www.nopcommerce.com/)
+ * [Open VSIX Gallery](https://github.com/madskristensen/VsixGallery/) by Mads Kristensen
  * [Razor Minification](https://github.com/guardrex/RazorMinification) by Luke Latham
  * [StaticWebHelper](https://github.com/madskristensen/StaticWebHelper) by Mads Kristensen
  * [Statiq Framework](https://statiq.dev/framework) (formerly known as [Wyam](http://wyam.io/))
