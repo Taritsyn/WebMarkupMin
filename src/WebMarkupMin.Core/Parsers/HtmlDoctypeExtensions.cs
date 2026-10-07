@@ -1,5 +1,7 @@
 ﻿using System;
 
+using WebMarkupMin.Core.Utilities;
+
 namespace WebMarkupMin.Core.Parsers
 {
 	/// <summary>
@@ -7,6 +9,7 @@ namespace WebMarkupMin.Core.Parsers
 	/// </summary>
 	internal static class HtmlDoctypeExtensions
 	{
+		const string HTML_ROOT_ELEMENT = "html";
 		const string XHTML_KEYWORD = "xhtml";
 
 
@@ -23,7 +26,7 @@ namespace WebMarkupMin.Core.Parsers
 				throw new ArgumentNullException(nameof(source));
 			}
 
-			if (source.RootElement != "html")
+			if (source.RootElement != HTML_ROOT_ELEMENT)
 			{
 				return false;
 			}
@@ -52,6 +55,38 @@ namespace WebMarkupMin.Core.Parsers
 			if (systemId is not null)
 			{
 				return systemId.Url.IndexOf(XHTML_KEYWORD, StringComparison.OrdinalIgnoreCase) != -1;
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// Checks whether the HTML document type declaration is HTML5/XHTML5
+		/// </summary>
+		/// <param name="source">Instance of <see cref="HtmlDoctype"/></param>
+		/// <returns>Result of check (<c>true</c> - is HTML5/XHTML5 document type;
+		/// <c>false</c> - is not HTML5/XHTML5 document type)</returns>
+		public static bool IsShort(this HtmlDoctype source)
+		{
+			if (source is null)
+			{
+				throw new ArgumentNullException(nameof(source));
+			}
+
+			if (!source.RootElement.IgnoreCaseEquals(HTML_ROOT_ELEMENT))
+			{
+				return false;
+			}
+
+			string publicity = source.Publicity;
+			if (string.IsNullOrWhiteSpace(publicity))
+			{
+				return true;
+			}
+
+			if (publicity.IgnoreCaseEquals(HtmlPublicity.System))
+			{
+				return source.SystemId?.Url == "about:legacy-compat";
 			}
 
 			return false;
