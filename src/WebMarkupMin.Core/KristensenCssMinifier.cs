@@ -20,8 +20,6 @@ namespace WebMarkupMin.Core
 	/// </summary>
 	public sealed class KristensenCssMinifier : ICssMinifier
 	{
-		const string ZERO_VALUE_WITH_UNITS_PATTERN = @"0(?:px|pt|pc|cm|mm|in|em|ex|ch|rem|vw|vh|vm(?:in|ax))";
-
 		private static readonly char[] _space = new char[] { ' ' };
 		private static readonly char[] _semicolon = new char[] { ';' };
 
@@ -36,11 +34,8 @@ namespace WebMarkupMin.Core
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _redundantSelectorRegex = new Regex(@"(?<=[,;}]|^)[a-zA-Z][a-zA-Z0-9]*#",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
-		private static readonly Regex _zeroValueInInlineCodeRegex = new Regex(
-			@"(?<=[ :])" + ZERO_VALUE_WITH_UNITS_PATTERN + "(?=[ ;]|$)",
-			TargetFrameworkShortcuts.PerformanceRegexOptions);
-		private static readonly Regex _zeroValueInEmbeddedCodeRegex = new Regex(
-			@"(?<=[ :])" + ZERO_VALUE_WITH_UNITS_PATTERN + "(?=[ ;}])",
+		private static readonly Regex _zeroValueRegex = new Regex(
+			@"(?<=[ :])0(?:px|pt|pc|cm|mm|in|em|ex|ch|rem|vw|vh|vm(?:in|ax))(?=[ ;}]|$)",
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		/// <summary>
@@ -106,15 +101,14 @@ namespace WebMarkupMin.Core
 			return processedContent;
 		}
 
-		private static string RemoveUnitsFromZeroValues(string content, bool isInlineCode)
+		private static string RemoveUnitsFromZeroValues(string content)
 		{
 			if (content.IndexOf('0') == -1)
 			{
 				return content;
 			}
 
-			Regex zeroValueRegex = isInlineCode ? _zeroValueInInlineCodeRegex : _zeroValueInEmbeddedCodeRegex;
-			string processedContent = zeroValueRegex.Replace(content, "0");
+			string processedContent = _zeroValueRegex.Replace(content, "0");
 
 			return processedContent;
 		}
@@ -187,7 +181,7 @@ namespace WebMarkupMin.Core
 			{
 				if (_settings.RemoveUnitsFromZeroValues)
 				{
-					processedContent = RemoveUnitsFromZeroValues(processedContent, isInlineCode);
+					processedContent = RemoveUnitsFromZeroValues(processedContent);
 				}
 				if (_settings.RemoveRedundantSelectors && !isInlineCode)
 				{
