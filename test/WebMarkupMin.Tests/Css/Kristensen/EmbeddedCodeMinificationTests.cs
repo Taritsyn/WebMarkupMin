@@ -114,17 +114,30 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 				"}"
 				;
 
+			const string input5 = ":root {\n" +
+				"  --primary-bg-color : #1e90fc;\n" +
+				"  --primary-color : #fff\n" +
+				"}"
+				;
+			const string targetOutput5 = ":root{" +
+				"--primary-bg-color:#1e90fc;" +
+				"--primary-color:#fff" +
+				"}"
+				;
+
 			// Act
 			string output1 = minifier.Minify(input1, false).MinifiedContent;
 			string output2 = minifier.Minify(input2, false).MinifiedContent;
 			string output3 = minifier.Minify(input3, false).MinifiedContent;
 			string output4 = minifier.Minify(input4, false).MinifiedContent;
+			string output5 = minifier.Minify(input5, false).MinifiedContent;
 
 			// Assert
 			Assert.Equal(targetOutput1, output1);
 			Assert.Equal(targetOutput2, output2);
 			Assert.Equal(targetOutput3, output3);
 			Assert.Equal(targetOutput4, output4);
+			Assert.Equal(targetOutput5, output5);
 		}
 
 		[Fact]

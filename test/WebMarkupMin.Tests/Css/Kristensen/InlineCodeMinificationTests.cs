@@ -64,12 +64,20 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 			const string input5 = "width: max(50%, 300px)";
 			const string targetOutput5 = "width:max(50%,300px)";
 
+			const string input6 = "--lh-px : 70px; " +
+				"line-height : 70px"
+				;
+			const string targetOutput6 = "--lh-px:70px;" +
+				"line-height:70px"
+				;
+
 			// Act
 			string output1 = minifier.Minify(input1, true).MinifiedContent;
 			string output2 = minifier.Minify(input2, true).MinifiedContent;
 			string output3 = minifier.Minify(input3, true).MinifiedContent;
 			string output4 = minifier.Minify(input4, true).MinifiedContent;
 			string output5 = minifier.Minify(input5, true).MinifiedContent;
+			string output6 = minifier.Minify(input6, true).MinifiedContent;
 
 			// Assert
 			Assert.Equal(targetOutput1, output1);
@@ -77,6 +85,7 @@ namespace WebMarkupMin.Tests.Css.Kristensen
 			Assert.Equal(targetOutput3, output3);
 			Assert.Equal(targetOutput4, output4);
 			Assert.Equal(targetOutput5, output5);
+			Assert.Equal(targetOutput6, output6);
 		}
 
 		[Fact]
