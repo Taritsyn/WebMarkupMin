@@ -226,7 +226,7 @@ namespace WebMarkupMin.Core.Utilities
 				return SourceCodeNodeCoordinates.Empty;
 			}
 
-			int fragmentLength = nodePosition + 1;
+			int fragmentLength = nodePosition;
 			int lineCount;
 			int charRemainderCount;
 

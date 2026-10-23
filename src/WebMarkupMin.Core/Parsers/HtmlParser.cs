@@ -350,10 +350,11 @@ namespace WebMarkupMin.Core.Parsers
 		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
 		protected override bool ProcessDoctype()
 		{
-			bool isProcessed = _doctypeProcessor.Process(out HtmlDoctype doctype);
+			bool isProcessed = _doctypeProcessor.Process(out HtmlDoctype doctype, out int doctypeLength);
 			if (isProcessed)
 			{
 				_handlers.Doctype?.Invoke(_context, doctype);
+				_innerContext.IncreasePosition(doctypeLength);
 			}
 
 			return isProcessed;

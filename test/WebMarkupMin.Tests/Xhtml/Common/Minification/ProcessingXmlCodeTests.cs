@@ -9,12 +9,12 @@ namespace WebMarkupMin.Tests.Xhtml.Common.Minification
 	public class ProcessingXmlCodeTests
 	{
 		[Fact]
-		public void ProcessingXmlNodes()
+		public void ProcessingXhtml10StrictDocument()
 		{
 			// Arrange
 			var minifier = new XhtmlMinifier(new XhtmlMinificationSettings(true));
 
-			const string input1 = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+			const string input = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
 				"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n" +
 				"  \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n" +
 				"<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" " +
@@ -30,7 +30,7 @@ namespace WebMarkupMin.Tests.Xhtml.Common.Minification
 				"	</body>\n" +
 				"</html>"
 				;
-			const string targetOutput1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+			const string targetOutput = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
 				"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" " +
 				"\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n" +
 				"<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" " +
@@ -47,7 +47,23 @@ namespace WebMarkupMin.Tests.Xhtml.Common.Minification
 				"</html>"
 				;
 
-			const string input2 = "<svg version=\"1.1\" baseProfile=\"full\" " +
+			// Act
+			MarkupMinificationResult result = minifier.Minify(input);
+			string output = result.MinifiedContent;
+			IList<MinificationErrorInfo> warnings = result.Warnings;
+
+			// Assert
+			Assert.Equal(targetOutput, output);
+			Assert.Equal(0, warnings.Count);
+		}
+
+		[Fact]
+		public void ProcessingSvgCode()
+		{
+			// Arrange
+			var minifier = new XhtmlMinifier(new XhtmlMinificationSettings(true));
+
+			const string input = "<svg version=\"1.1\" baseProfile=\"full\" " +
 				"xmlns=\"http://www.w3.org/2000/svg\" " +
 				"xmlns:xlink=\"http://www.w3.org/1999/xlink\" " +
 				"xmlns:ev=\"http://www.w3.org/2001/xml-events\" " +
@@ -57,33 +73,75 @@ namespace WebMarkupMin.Tests.Xhtml.Common.Minification
 				"</svg>"
 				;
 
-			const string input3 = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" +
+			// Act
+			MarkupMinificationResult result = minifier.Minify(input);
+			string output = result.MinifiedContent;
+			IList<MinificationErrorInfo> warnings = result.Warnings;
+
+			// Assert
+			Assert.Equal(input, output);
+			Assert.Equal(0, warnings.Count);
+		}
+
+		[Fact]
+		public void ProcessingNestedSvgCode()
+		{
+			// Arrange
+			var minifier = new XhtmlMinifier(new XhtmlMinificationSettings(true));
+
+			// Act
+			const string input = "<svg xmlns=\"http://www.w3.org/2000/svg\" " +
+				"xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n" +
+				"	<svg x=\"10\">\n" +
+				"		<rect x=\"10\" y=\"10\" height=\"100\" width=\"100\" " +
+				"style=\"stroke:#ff0000; fill: #0000ff\"/>\n" +
+				"	</svg>\n" +
+				"	<svg x=\"200\">\n" +
+				"		<rect x=\"10\" y=\"10\" height=\"100\" width=\"100\" " +
+				"style=\"stroke:#009900; fill: #00cc00\"/>\n" +
+				"	</svg>\n" +
+				"</svg>"
+				;
+			const string targetOutput = "<svg xmlns=\"http://www.w3.org/2000/svg\" " +
+				"xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n" +
+				"	<svg x=\"10\">\n" +
+				"		<rect x=\"10\" y=\"10\" height=\"100\" width=\"100\" " +
+				"style=\"stroke:#ff0000; fill: #0000ff\" />\n" +
+				"	</svg>\n" +
+				"	<svg x=\"200\">\n" +
+				"		<rect x=\"10\" y=\"10\" height=\"100\" width=\"100\" " +
+				"style=\"stroke:#009900; fill: #00cc00\" />\n" +
+				"	</svg>\n" +
+				"</svg>";
+
+			// Assert
+			MarkupMinificationResult result = minifier.Minify(input);
+			string output = result.MinifiedContent;
+			IList<MinificationErrorInfo> warnings = result.Warnings;
+
+			Assert.Equal(targetOutput, output);
+			Assert.Equal(0, warnings.Count);
+		}
+
+		[Fact]
+		public void ProcessingMathMlCode()
+		{
+			// Arrange
+			var minifier = new XhtmlMinifier(new XhtmlMinificationSettings(true));
+
+			const string input = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" +
 				"	<infinity />\n" +
 				"</math>"
 				;
 
 			// Act
-			MarkupMinificationResult result1 = minifier.Minify(input1);
-			string output1 = result1.MinifiedContent;
-			IList<MinificationErrorInfo> warnings1 = result1.Warnings;
-
-			MarkupMinificationResult result2 = minifier.Minify(input2);
-			string output2 = result2.MinifiedContent;
-			IList<MinificationErrorInfo> warnings2 = result2.Warnings;
-
-			MarkupMinificationResult result3 = minifier.Minify(input3);
-			string output3 = result3.MinifiedContent;
-			IList<MinificationErrorInfo> warnings3 = result3.Warnings;
+			MarkupMinificationResult result = minifier.Minify(input);
+			string output = result.MinifiedContent;
+			IList<MinificationErrorInfo> warnings = result.Warnings;
 
 			// Assert
-			Assert.Equal(targetOutput1, output1);
-			Assert.Equal(0, warnings1.Count);
-
-			Assert.Equal(input2, output2);
-			Assert.Equal(0, warnings2.Count);
-
-			Assert.Equal(input3, output3);
-			Assert.Equal(0, warnings3.Count);
+			Assert.Equal(input, output);
+			Assert.Equal(0, warnings.Count);
 		}
 	}
 }

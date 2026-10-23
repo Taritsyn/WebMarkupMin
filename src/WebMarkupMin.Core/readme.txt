@@ -46,8 +46,8 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a error #183 “KristensenCssMinifier removes the descendant combinator
-   before pseudo-class selectors”. Special thanks to Erik Gavriluk.
+   HTML Minifier no longer supports a minification of XHTML document without
+   `DOCTYPE` shortening.
 
    =============
    DOCUMENTATION

@@ -32,6 +32,7 @@ namespace WebMarkupMin.Core.Parsers.Processors
 			;
 
 		private InnerMarkupParsingContext _innerContext;
+		private int _doctypeStartPosition = -1;
 
 
 		/// <summary>
@@ -41,6 +42,7 @@ namespace WebMarkupMin.Core.Parsers.Processors
 		public HtmlDoctypeProcessor(InnerMarkupParsingContext innerContext)
 		{
 			_innerContext = innerContext;
+			_doctypeStartPosition = innerContext.Position;
 		}
 
 
@@ -48,12 +50,14 @@ namespace WebMarkupMin.Core.Parsers.Processors
 		/// Process a document type declaration
 		/// </summary>
 		/// <param name="doctype">Document type declaration</param>
+		/// <param name="doctypeLength">Length of the document type declaration</param>
 		/// <returns>Result of processing (<c>true</c> - is processed; <c>false</c> - is not processed)</returns>
-		public bool Process(out HtmlDoctype doctype)
+		public bool Process(out HtmlDoctype doctype, out int doctypeLength)
 		{
 			bool isProcessed = false;
 			string content = _innerContext.SourceCode;
 			doctype = null;
+			doctypeLength = 0;
 
 			if (ProcessDoctypeBeginPart(out string instruction))
 			{
@@ -67,6 +71,7 @@ namespace WebMarkupMin.Core.Parsers.Processors
 					if (isProcessed)
 					{
 						doctype = new HtmlDoctype(instruction, spaceBeforeRootElement, rootElement);
+						RestoreDoctypeStartPosition(out doctypeLength);
 
 						return isProcessed;
 					}
@@ -147,6 +152,7 @@ namespace WebMarkupMin.Core.Parsers.Processors
 					{
 						doctype = new HtmlDoctype(instruction, spaceBeforeRootElement, rootElement, publicity,
 							publicId, systemId);
+						RestoreDoctypeStartPosition(out doctypeLength);
 
 						return isProcessed;
 					}
@@ -401,6 +407,12 @@ namespace WebMarkupMin.Core.Parsers.Processors
 			}
 		}
 
+		private void RestoreDoctypeStartPosition(out int charOffset)
+		{
+			charOffset = _innerContext.Position - _doctypeStartPosition;
+			_innerContext.Position = _doctypeStartPosition;
+		}
+
 
 		#region IDisposable implementation
 
@@ -410,6 +422,7 @@ namespace WebMarkupMin.Core.Parsers.Processors
 		public void Dispose()
 		{
 			_innerContext = null;
+			_doctypeStartPosition = -1;
 		}
 
 		#endregion

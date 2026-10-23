@@ -322,19 +322,11 @@ namespace WebMarkupMin.Core.Resources
 		}
 
 		/// <summary>
-		/// Looks up a localized string similar to "XML-based attribute {0} not allowed here. If you want to use the XHTML syntax, it is better to use..."
+		/// Looks up a localized string similar to "XML-based attribute `{0}` not allowed here."
 		/// </summary>
 		public static string WarningMessage_XmlBasedAttributeNotAllowed
 		{
 			get { return GetString("WarningMessage_XmlBasedAttributeNotAllowed"); }
-		}
-
-		/// <summary>
-		/// Looks up a localized string similar to "XML declaration not allowed here. If you want to use XHTML syntax, it is better to use the XHTML..."
-		/// </summary>
-		public static string WarningMessage_XmlDeclarationNotAllowed
-		{
-			get { return GetString("WarningMessage_XmlDeclarationNotAllowed"); }
 		}
 
 		/// <summary>
@@ -391,6 +383,30 @@ namespace WebMarkupMin.Core.Resources
 		public static string ErrorMessage_SystemIdNotFound
 		{
 			get { return GetString("ErrorMessage_SystemIdNotFound"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "XML declaration is not supported in HTML and was therefore removed."
+		/// </summary>
+		public static string WarningMessage_XmlDeclarationRemoved
+		{
+			get { return GetString("WarningMessage_XmlDeclarationRemoved"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "If you want to use XHTML syntax, it is better to use the XHTML Minifier for minification of this..."
+		/// </summary>
+		public static string Recommendation_UseXhtmlMinifierForXhtmlSyntax
+		{
+			get { return GetString("Recommendation_UseXhtmlMinifierForXhtmlSyntax"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Minification of XHTML document by the HTML Minifier without `DOCTYPE` shortening is no longer..."
+		/// </summary>
+		public static string ErrorMessage_XhtmlDocumentMinificationByHtmlMinifierWithoutDoctypeShorteningNotSupported
+		{
+			get { return GetString("ErrorMessage_XhtmlDocumentMinificationByHtmlMinifierWithoutDoctypeShorteningNotSupported"); }
 		}
 
 		private static string GetString(string name)

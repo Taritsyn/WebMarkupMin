@@ -1,4 +1,6 @@
-﻿using WebMarkupMin.Core.Utilities;
+﻿using System;
+
+using WebMarkupMin.Core.Utilities;
 
 namespace WebMarkupMin.Core.Parsers
 {
@@ -41,6 +43,17 @@ namespace WebMarkupMin.Core.Parsers
 		public int Position
 		{
 			get { return _position; }
+			set
+			{
+				if (value < 0)
+				{
+					throw new ArgumentOutOfRangeException(nameof(value));
+				}
+
+				_nodeCoordinates = SourceCodeNavigator.CalculateNodeCoordinates(_sourceCode, value);
+				_position = value;
+				_peekedCharOffset = 0;
+			}
 		}
 
 		/// <summary>

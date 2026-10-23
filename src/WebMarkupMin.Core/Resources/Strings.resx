@@ -217,10 +217,7 @@
     <value>Minification of the {0} code has been completed successfully.</value>
   </data>
   <data name="WarningMessage_XmlBasedAttributeNotAllowed" xml:space="preserve">
-    <value>XML-based attribute {0} not allowed here. If you want to use the XHTML syntax, it is better to use XHTML Minifier for minification of this document.</value>
-  </data>
-  <data name="WarningMessage_XmlDeclarationNotAllowed" xml:space="preserve">
-    <value>XML declaration not allowed here. If you want to use XHTML syntax, it is better to use the XHTML Minifier for minification of this document.</value>
+    <value>XML-based attribute `{0}` not allowed here.</value>
   </data>
   <data name="ErrorMessage_NoSpaceBetweenDoctypePublicityAndId" xml:space="preserve">
     <value>No space between the doctype `{0}` keyword and the quote.</value>
@@ -242,5 +239,14 @@
   </data>
   <data name="ErrorMessage_SystemIdNotFound" xml:space="preserve">
     <value>Expected a system identifier but the doctype ended.</value>
+  </data>
+  <data name="WarningMessage_XmlDeclarationRemoved" xml:space="preserve">
+    <value>XML declaration is not supported in HTML and was therefore removed.</value>
+  </data>
+  <data name="Recommendation_UseXhtmlMinifierForXhtmlSyntax" xml:space="preserve">
+    <value>If you want to use XHTML syntax, it is better to use the XHTML Minifier for minification of this document.</value>
+  </data>
+  <data name="ErrorMessage_XhtmlDocumentMinificationByHtmlMinifierWithoutDoctypeShorteningNotSupported" xml:space="preserve">
+    <value>Minification of XHTML document by the HTML Minifier without `DOCTYPE` shortening is no longer supported! Set the `UseShortDoctype` property to `true`, or use an XHTML Minifier.</value>
   </data>
 </root>

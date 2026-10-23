@@ -632,7 +632,9 @@ namespace WebMarkupMin.Core
 				SourceCodeNodeCoordinates xmlDeclarationCoordinates = context.NodeCoordinates;
 
 				WriteWarning(LogCategoryConstants.HtmlMinificationWarning,
-					Strings.WarningMessage_XmlDeclarationNotAllowed, _fileContext,
+					Strings.WarningMessage_XmlDeclarationRemoved + " " +
+					Strings.Recommendation_UseXhtmlMinifierForXhtmlSyntax,
+					_fileContext,
 					xmlDeclarationCoordinates.LineNumber, xmlDeclarationCoordinates.ColumnNumber,
 					SourceCodeNavigator.GetSourceFragment(sourceCode, xmlDeclarationCoordinates));
 
@@ -671,6 +673,20 @@ namespace WebMarkupMin.Core
 			}
 			else
 			{
+				if (!_settings.UseXhtmlSyntax && doctype.IsXhtml())
+				{
+					string sourceCode = context.SourceCode;
+					SourceCodeNodeCoordinates doctypeCoordinates = context.NodeCoordinates;
+
+					WriteError(
+						LogCategoryConstants.HtmlMinificationError,
+						Strings.ErrorMessage_XhtmlDocumentMinificationByHtmlMinifierWithoutDoctypeShorteningNotSupported,
+						_fileContext,
+						doctypeCoordinates.LineNumber, doctypeCoordinates.ColumnNumber,
+						SourceCodeNavigator.GetSourceFragment(sourceCode, doctypeCoordinates)
+					);
+				}
+
 				output.Write("<!");
 				output.Write(doctype.Instruction);
 				if (doctype.SpaceBeforeRootElement)
@@ -1481,7 +1497,9 @@ namespace WebMarkupMin.Core
 				SourceCodeNodeCoordinates attributeCoordinates = attribute.NameCoordinates;
 
 				WriteWarning(LogCategoryConstants.HtmlMinificationWarning,
-					string.Format(Strings.WarningMessage_XmlBasedAttributeNotAllowed, attributeName), _fileContext,
+					string.Format(Strings.WarningMessage_XmlBasedAttributeNotAllowed, attributeName) + " " +
+					Strings.Recommendation_UseXhtmlMinifierForXhtmlSyntax,
+					_fileContext,
 					attributeCoordinates.LineNumber, attributeCoordinates.ColumnNumber,
 					SourceCodeNavigator.GetSourceFragment(sourceCode, attributeCoordinates));
 			}
