@@ -46,8 +46,10 @@
    =============
    RELEASE NOTES
    =============
-   HTML Minifier no longer supports a minification of XHTML document without
-   `DOCTYPE` shortening.
+   1. HTML Minifier no longer supports a minification of XHTML document without
+      `DOCTYPE` shortening;
+   2. Fixed a error #184 “Single line script tag with HTML comment strips
+      JavaScript code”.
 
    =============
    DOCUMENTATION

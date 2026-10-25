@@ -115,6 +115,8 @@ namespace WebMarkupMin.Core
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _scriptEndHtmlCommentRegex = new Regex(@"(?:\r?\n)?[ \t\v\S]*-->\s*$",
 			RegexOptions.RightToLeft | TargetFrameworkShortcuts.PerformanceRegexOptions);
+		private static readonly Regex _scriptEscapedEndHtmlCommentRegex = new Regex(@"(?:\r?\n)?//[ \t\v\S]*-->\s*$",
+			RegexOptions.RightToLeft | TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		private static readonly Regex _scriptBeginCdataSectionRegex = new Regex(
 			@"^\s*(?://[ \t\v]*<!\[CDATA\[[ \t\v\S]*\r?\n|/\*\s*<!\[CDATA\[\s*\*/(?:[ \t\v]*\r?\n)?)",
@@ -2483,6 +2485,8 @@ namespace WebMarkupMin.Core
 					else if (_scriptBeginHtmlCommentRegex.IsMatch(content))
 					{
 						beforeCodeContent = _scriptBeginHtmlCommentRegex.Match(content).Value;
+						Regex endHtmlCommentRegex = _scriptEscapedEndHtmlCommentRegex.IsMatch(content) ?
+							_scriptEscapedEndHtmlCommentRegex : _scriptEndHtmlCommentRegex;
 
 						if (!removeHtmlComments)
 						{
@@ -2491,7 +2495,7 @@ namespace WebMarkupMin.Core
 						}
 
 						code = Utils.RemovePrefixAndPostfix(content, _scriptBeginHtmlCommentRegex,
-							_scriptEndHtmlCommentRegex);
+							endHtmlCommentRegex);
 					}
 
 					if (_settings.MinifyEmbeddedJsCode)
