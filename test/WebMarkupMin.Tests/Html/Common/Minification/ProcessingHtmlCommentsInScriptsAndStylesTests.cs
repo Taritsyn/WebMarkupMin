@@ -276,6 +276,28 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 				"</script>"
 				;
 
+			const string input3 = "<script>\r\n" +
+				"<!--\r\n" +
+				"	alert('-->'); // Shows message // -->\r\n" +
+				"</script>"
+				;
+			const string targetOutput3A = "<script>" +
+				"<!--\r\n" +
+				"	alert('-->'); // Shows message \r\n" +
+				"//-->" +
+				"</script>"
+				;
+			const string targetOutput3B = "<script>" +
+				"<!--\r\n" +
+				"alert('-->'); // Shows message\r\n" +
+				"//-->" +
+				"</script>"
+				;
+			const string targetOutput3C = "<script>" +
+				"	alert('-->'); // Shows message " +
+				"</script>"
+				;
+
 			// Act
 			string output1A = _minifier.Minify(input1).MinifiedContent;
 			string output1B = _removingWhitespaceMinifier.Minify(input1).MinifiedContent;
@@ -285,6 +307,10 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 			string output2B = _removingWhitespaceMinifier.Minify(input2).MinifiedContent;
 			string output2C = _removingHtmlCommentsMinifier.Minify(input2).MinifiedContent;
 
+			string output3A = _minifier.Minify(input3).MinifiedContent;
+			string output3B = _removingWhitespaceMinifier.Minify(input3).MinifiedContent;
+			string output3C = _removingHtmlCommentsMinifier.Minify(input3).MinifiedContent;
+
 			// Assert
 			Assert.Equal(targetOutput1A, output1A);
 			Assert.Equal(targetOutput1B, output1B);
@@ -293,6 +319,10 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 			Assert.Equal(targetOutput2A, output2A);
 			Assert.Equal(targetOutput2B, output2B);
 			Assert.Equal(targetOutput2C, output2C);
+
+			Assert.Equal(targetOutput3A, output3A);
+			Assert.Equal(targetOutput3B, output3B);
+			Assert.Equal(targetOutput3C, output3C);
 		}
 
 		[Fact]

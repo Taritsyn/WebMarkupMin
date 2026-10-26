@@ -115,7 +115,7 @@ namespace WebMarkupMin.Core
 			TargetFrameworkShortcuts.PerformanceRegexOptions);
 		private static readonly Regex _scriptEndHtmlCommentRegex = new Regex(@"(?:\r?\n)?[ \t\v\S]*-->\s*$",
 			RegexOptions.RightToLeft | TargetFrameworkShortcuts.PerformanceRegexOptions);
-		private static readonly Regex _scriptEscapedEndHtmlCommentRegex = new Regex(@"(?:\r?\n)?//[ \t\v\S]*-->\s*$",
+		private static readonly Regex _scriptEscapedEndHtmlCommentRegex = new Regex(@"(?:\r?\n)?//[ \t\v\S]*?-->\s*$",
 			RegexOptions.RightToLeft | TargetFrameworkShortcuts.PerformanceRegexOptions);
 
 		private static readonly Regex _scriptBeginCdataSectionRegex = new Regex(
