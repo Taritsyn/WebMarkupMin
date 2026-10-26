@@ -1,6 +1,12 @@
 Change log
 ==========
 
+## v2.23.0 - October 26, 2026
+ * HTML Minifier no longer supports a minification of XHTML document without `DOCTYPE` shortening
+ * Fixed a [error #184](https://github.com/Taritsyn/WebMarkupMin/issues/184) “Single line script tag with HTML comment strips JavaScript code”
+ * In WebMarkupMin.NUglify added support for the NUglify version 1.23.4
+ * In WebMarkupMin.AspNetCoreLatest added support for the ASP.NET Core 8.0.33, 9.0.22 and 10.0.14
+
 ## v2.22.5 - September 29, 2026
  * Fixed a [error #183](https://github.com/Taritsyn/WebMarkupMin/issues/183) “KristensenCssMinifier removes the descendant combinator before pseudo-class selectors”. Special thanks to [Erik Gavriluk](https://github.com/etc-erik)
  * In WebMarkupMin.NUglify added support for the NUglify version 1.23.3
