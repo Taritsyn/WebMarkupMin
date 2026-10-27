@@ -15,6 +15,13 @@
    interfaces for all ASP.NET extensions.
 
    =============
+   RELEASE NOTES
+   =============
+   1. Added a .NET 11 target;
+   2. In version for .NET 11 was added a new compressor (`ZstandardCompressor`)
+      based on the `System.IO.Compression.ZstandardStream` class.
+
+   =============
    DOCUMENTATION
    =============
    See documentation on GitHub - https://github.com/Taritsyn/WebMarkupMin/wiki

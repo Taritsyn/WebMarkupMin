@@ -38,6 +38,10 @@ services.AddWebMarkupMin(options =>
 	{
 		options.CompressorFactories = new List<ICompressorFactory>
 		{
+			new ZstandardCompressorFactory(new ZstandardCompressionSettings
+			{
+				AlternativeLevel = 2
+			}),
 			new BuiltInBrotliCompressorFactory(new BuiltInBrotliCompressionSettings
 			{
 				AlternativeLevel = 2
