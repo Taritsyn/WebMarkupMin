@@ -11,13 +11,13 @@
    ===========
    DESCRIPTION
    ===========
-   WebMarkupMin.AspNetCoreLatest contains one Middleware for ASP.NET Core 8, 9 and
-   10 - `WebMarkupMinMiddleware`.
+   WebMarkupMin.AspNetCoreLatest contains one Middleware for ASP.NET Core 8, 9, 10
+   and 11 - `WebMarkupMinMiddleware`.
 
    =============
    RELEASE NOTES
    =============
-   Added support for the ASP.NET Core 8.0.33, 9.0.22 and 10.0.14.
+   Added support for the ASP.NET Core RC 3.
 
    =============
    DOCUMENTATION

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Product>Web Markup Minifier: ASP.NET Core Latest</Product>
     <VersionPrefix>2.23.0</VersionPrefix>
-    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net9.0;net10.0;net11.0</TargetFrameworks>
     <OutputType>Library</OutputType>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <NoWarn>$(NoWarn);CS1591;NU1903</NoWarn>
@@ -17,9 +17,9 @@
   <Import Project="../../build/nuget-common.props" />
 
   <PropertyGroup>
-    <Description>WebMarkupMin.AspNetCoreLatest contains one Middleware for ASP.NET Core 8, 9 and 10 - `WebMarkupMinMiddleware`.</Description>
+    <Description>WebMarkupMin.AspNetCoreLatest contains one Middleware for ASP.NET Core 8, 9, 10 and 11 - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
-    <PackageReleaseNotes>Added support for the ASP.NET Core 8.0.33, 9.0.22 and 10.0.14.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added support for the ASP.NET Core RC 3.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,6 +38,10 @@
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net10.0' ">
     <FrameworkReference Include="Microsoft.AspNetCore.App" Version="10.0.14" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net11.0' ">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="11.0.0-rc.3.26522.148" />
   </ItemGroup>
 
   <Target Name="ConvertResxToCs" BeforeTargets="BeforeCompile">

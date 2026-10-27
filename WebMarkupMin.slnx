@@ -94,5 +94,6 @@
     <Project Path="samples/WebMarkupMin.Sample.AspNetCore8.Mvc8/WebMarkupMin.Sample.AspNetCore8.Mvc8.csproj" />
     <Project Path="samples/WebMarkupMin.Sample.AspNetCore9.Mvc9/WebMarkupMin.Sample.AspNetCore9.Mvc9.csproj" />
     <Project Path="samples/WebMarkupMin.Sample.AspNetCore10.Mvc10/WebMarkupMin.Sample.AspNetCore10.Mvc10.csproj" />
+    <Project Path="samples/WebMarkupMin.Sample.AspNetCore11.Mvc11/WebMarkupMin.Sample.AspNetCore11.Mvc11.csproj" />
   </Folder>
 </Solution>
