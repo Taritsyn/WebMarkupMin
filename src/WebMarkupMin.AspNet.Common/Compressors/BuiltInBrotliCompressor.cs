@@ -5,7 +5,7 @@ using System.IO.Compression;
 namespace WebMarkupMin.AspNet.Common.Compressors
 {
 	/// <summary>
-	/// Built-in brotli compressor
+	/// Built-in brotli compressor based on the <see cref="BrotliStream"/> class
 	/// </summary>
 	public sealed class BuiltInBrotliCompressor : ICompressor
 	{

@@ -5,9 +5,9 @@ using System.IO.Compression;
 namespace WebMarkupMin.AspNet.Common.Compressors
 {
 	/// <summary>
-	/// Zstandard compressor
+	/// Zstd (Zstandard) compressor based on the <see cref="ZstandardStream"/> class
 	/// </summary>
-	public sealed class ZstandardCompressor : ICompressor
+	public sealed class ZstdCompressor : ICompressor
 	{
 		/// <summary>
 		/// Encoding token of compressor
@@ -15,9 +15,9 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		public const string CompressorEncodingToken = "zstd";
 
 		/// <summary>
-		/// Zstandard compression settings
+		/// Zstd compression settings
 		/// </summary>
-		private readonly ZstandardCompressionSettings _settings;
+		private readonly ZstdCompressionSettings _settings;
 
 		/// <summary>
 		/// Gets a encoding token
@@ -37,23 +37,23 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 
 
 		/// <summary>
-		/// Constructs an instance of the Zstandard compressor
+		/// Constructs an instance of the Zstd compressor
 		/// </summary>
-		public ZstandardCompressor() : this(new ZstandardCompressionSettings())
+		public ZstdCompressor() : this(new ZstdCompressionSettings())
 		{ }
 
 		/// <summary>
-		/// Constructs an instance of the Zstandard compressor
+		/// Constructs an instance of the Zstd compressor
 		/// </summary>
-		/// <param name="settings">Zstandard compression settings</param>
-		public ZstandardCompressor(ZstandardCompressionSettings settings)
+		/// <param name="settings">Zstd compression settings</param>
+		public ZstdCompressor(ZstdCompressionSettings settings)
 		{
 			_settings = settings;
 		}
 
 
 		/// <summary>
-		/// Compress a stream by Zstandard algorithm
+		/// Compress a stream by the Zstd (Zstandard) algorithm
 		/// </summary>
 		/// <param name="stream">The stream</param>
 		/// <returns>The compressed stream</returns>

@@ -4,7 +4,7 @@ using System.IO.Compression;
 namespace WebMarkupMin.AspNet.Common.Compressors
 {
 	/// <summary>
-	/// GZip compressor
+	/// GZip compressor based on the <see cref="GZipStream"/> class
 	/// </summary>
 	public sealed class GZipCompressor : ICompressor
 	{

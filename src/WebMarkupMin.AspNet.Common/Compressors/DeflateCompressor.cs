@@ -4,7 +4,7 @@ using System.IO.Compression;
 namespace WebMarkupMin.AspNet.Common.Compressors
 {
 	/// <summary>
-	/// Deflate compressor
+	/// Deflate compressor based on the <see cref="DeflateStream"/> class
 	/// </summary>
 	public sealed class DeflateCompressor : ICompressor
 	{

@@ -7,9 +7,9 @@ using WebMarkupMin.AspNet.Common.Resources;
 namespace WebMarkupMin.AspNet.Common.Compressors
 {
 	/// <summary>
-	/// Zstandard compression settings
+	/// Zstd (Zstandard) compression settings
 	/// </summary>
-	public sealed class ZstandardCompressionSettings : CommonCompressionSettingsBase<ZstandardCompressionOptions>
+	public sealed class ZstdCompressionSettings : CommonCompressionSettingsBase<ZstandardCompressionOptions>
 	{
 		private static readonly int MinAltCompressionLevel = ZstandardCompressionOptions.MinQuality;
 		private static readonly int FastestAltCompressionLevel = 1;

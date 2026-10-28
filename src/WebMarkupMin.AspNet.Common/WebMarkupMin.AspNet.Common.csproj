@@ -20,7 +20,7 @@
     <Description>WebMarkupMin.AspNet.Common is auxiliary package, that contains classes and interfaces for all ASP.NET extensions.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;XML</PackageTags>
     <PackageReleaseNotes>1. Added a .NET 11 target;
-2. In version for .NET 11 was added a new compressor (`ZstandardCompressor`) based on the `System.IO.Compression.ZstandardStream` class.</PackageReleaseNotes>
+2. In version for .NET 11 was added a new compressor (`ZstdCompressor`) based on the `System.IO.Compression.ZstandardStream` class.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
