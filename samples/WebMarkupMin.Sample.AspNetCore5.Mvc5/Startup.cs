@@ -60,7 +60,7 @@ namespace WebMarkupMin.Sample.AspNetCore5.Mvc5
 				{
 					options.CompressorFactories = new List<ICompressorFactory>
 					{
-						new BuiltInBrotliCompressorFactory(new BuiltInBrotliCompressionSettings
+						new BrotliCompressorFactory(new BrotliCompressionSettings
 						{
 							Level = CompressionLevel.Fastest
 						}),

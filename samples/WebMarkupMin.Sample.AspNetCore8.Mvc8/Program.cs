@@ -40,7 +40,7 @@ services.AddWebMarkupMin(options =>
 	{
 		options.CompressorFactories = new List<ICompressorFactory>
 		{
-			new BuiltInBrotliCompressorFactory(new BuiltInBrotliCompressionSettings
+			new BrotliCompressorFactory(new BrotliCompressionSettings
 			{
 				Level = CompressionLevel.Fastest
 			}),

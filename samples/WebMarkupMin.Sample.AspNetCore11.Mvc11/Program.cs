@@ -42,7 +42,7 @@ services.AddWebMarkupMin(options =>
 			{
 				AlternativeLevel = 2
 			}),
-			new BuiltInBrotliCompressorFactory(new BuiltInBrotliCompressionSettings
+			new BrotliCompressorFactory(new BrotliCompressionSettings
 			{
 				AlternativeLevel = 2
 			}),

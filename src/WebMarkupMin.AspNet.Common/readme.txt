@@ -18,8 +18,13 @@
    RELEASE NOTES
    =============
    1. Added a .NET 11 target;
-   2. In version for .NET 11 was added a new compressor (`ZstdCompressor`) based on
-      the `System.IO.Compression.ZstandardStream` class.
+   2. In version for .NET 11 was added a new compressor (`ZstdCompressor`)
+      based on the `System.IO.Compression.ZstandardStream` class;
+   3. Three classes have been deprecated: `BuiltInBrotliCompressor` class replaced
+      by the `BrotliCompressor` class, `BuiltInBrotliCompressionSettings` class
+      replaced by the `BrotliCompressionSettings` class and
+     `BuiltInBrotliCompressorFactory` class replaced by the
+     `BrotliCompressorFactory` class.
 
    =============
    DOCUMENTATION
