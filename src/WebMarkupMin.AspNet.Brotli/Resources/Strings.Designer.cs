@@ -65,6 +65,22 @@ namespace WebMarkupMin.AspNet.Brotli.Resources
 			get { return GetString("CompressionLevelOutOfRange"); }
 		}
 
+		/// <summary>
+		/// Looks up a localized string similar to "Does not support .NET Core 3.0 or higher. Use a `BrotliCompressorFactory` class from..."
+		/// </summary>
+		internal static string CompressorFactoryNotSupportNetCore3
+		{
+			get { return GetString("CompressorFactoryNotSupportNetCore3"); }
+		}
+
+		/// <summary>
+		/// Looks up a localized string similar to "Does not support .NET Core 3.0 or higher. Use a `BrotliCompressor` class from..."
+		/// </summary>
+		internal static string CompressorNotSupportNetCore3
+		{
+			get { return GetString("CompressorNotSupportNetCore3"); }
+		}
+
 		private static string GetString(string name)
 		{
 			string value = ResourceManager.GetString(name, _resourceCulture);

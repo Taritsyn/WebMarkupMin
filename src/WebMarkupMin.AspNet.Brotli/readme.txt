@@ -16,13 +16,17 @@
    `BrotliCompressor`. `BrotliCompressor` is based on the BrotliSharpLib
    (https://github.com/master131/BrotliSharpLib) version 0.3.3.
 
-   In version for .NET Standard 2.1 and .NET 9 uses the built-in compressor from
-   the `System.IO.Compression` namespace.
+   Does not support .NET Core 3.0 or higher.
 
    If you are using extensions for ASP.NET Core 3.1 or higher, then you should use
-   a `BuiltInBrotliCompressor` class from `WebMarkupMin.AspNet.Common.Compressors`
-   namespace instead of a `BrotliCompressor` class. In this case, the
-   WebMarkupMin.Brotli package will no longer be needed and you can uninstall it.
+   a `BrotliCompressor` class from `WebMarkupMin.AspNet.Common.Compressors`
+   namespace. In this case, the WebMarkupMin.Brotli package will no longer be
+   needed and you can uninstall it.
+
+   =============
+   RELEASE NOTES
+   =============
+   No longer supports a .NET Core 3.0 or higher.
 
    =============
    DOCUMENTATION

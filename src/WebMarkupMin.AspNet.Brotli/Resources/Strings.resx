@@ -120,4 +120,10 @@
   <data name="CompressionLevelOutOfRange" xml:space="preserve">
     <value>Compression level should be a value between {0}-{1}.</value>
   </data>
+  <data name="CompressorFactoryNotSupportNetCore3" xml:space="preserve">
+    <value>Does not support .NET Core 3.0 or higher. Use a `BrotliCompressorFactory` class from `WebMarkupMin.AspNet.Common.Compressors` namespace</value>
+  </data>
+  <data name="CompressorNotSupportNetCore3" xml:space="preserve">
+    <value>Does not support .NET Core 3.0 or higher. Use a `BrotliCompressor` class from `WebMarkupMin.AspNet.Common.Compressors` namespace.</value>
+  </data>
 </root>

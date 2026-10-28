@@ -1,21 +1,21 @@
-﻿#if NETSTANDARD2_1 || NET9_0_OR_GREATER
+﻿#if NETSTANDARD2_1_OR_GREATER
 using System;
 
 #endif
 using WebMarkupMin.AspNet.Common.Compressors;
+#if NETSTANDARD2_1_OR_GREATER
+using WebMarkupMin.AspNet.Brotli.Resources;
+#endif
 
 namespace WebMarkupMin.AspNet.Brotli
 {
 	/// <summary>
 	/// Brotli compressor factory
 	/// </summary>
-#if NETSTANDARD2_1 || NET9_0_OR_GREATER
-	[Obsolete("Use a `BuiltInBrotliCompressorFactory` class from `WebMarkupMin.AspNet.Common.Compressors` namespace")]
-#endif
 	public sealed class BrotliCompressorFactory : ICompressorFactory
 	{
 		/// <summary>
-		/// Gets or sets a compression settings used to configure the brotli compressor
+		/// Gets or sets a compression settings used to configure the Brotli compressor
 		/// </summary>
 		public BrotliCompressionSettings CompressionSettings
 		{
@@ -33,26 +33,30 @@ namespace WebMarkupMin.AspNet.Brotli
 
 
 		/// <summary>
-		/// Constructs an instance of the brotli compressor factory
+		/// Constructs an instance of the Brotli compressor factory
 		/// </summary>
 		public BrotliCompressorFactory()
 			: this(new BrotliCompressionSettings())
 		{ }
 
 		/// <summary>
-		/// Constructs an instance of the brotli compressor factory
+		/// Constructs an instance of the Brotli compressor factory
 		/// </summary>
-		/// <param name="settings">Compression settings used to configure the brotli compressor</param>
+		/// <param name="settings">Compression settings used to configure the Brotli compressor</param>
 		public BrotliCompressorFactory(BrotliCompressionSettings settings)
 		{
 			CompressionSettings = settings;
+#if NETSTANDARD2_1_OR_GREATER
+
+			throw new NotSupportedException(Strings.CompressorFactoryNotSupportNetCore3);
+#endif
 		}
 
 
 		/// <summary>
-		/// Creates a instance of brotli compressor
+		/// Creates a instance of Brotli compressor
 		/// </summary>
-		/// <returns>Instance of brotli compressor</returns>
+		/// <returns>Instance of Brotli compressor</returns>
 		public ICompressor CreateCompressor()
 		{
 			return new BrotliCompressor(CompressionSettings);

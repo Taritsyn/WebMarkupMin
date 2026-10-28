@@ -1,7 +1,4 @@
 ﻿using System;
-#if NET9_0_OR_GREATER
-using System.IO.Compression;
-#endif
 
 using WebMarkupMin.AspNet.Brotli.Resources;
 
@@ -12,17 +9,10 @@ namespace WebMarkupMin.AspNet.Brotli
 	/// </summary>
 	public sealed class BrotliCompressionSettings
 	{
-#if NET9_0_OR_GREATER
-		/// <summary>
-		/// Compression options
-		/// </summary>
-		private BrotliCompressionOptions _options = new();
-#else
 		/// <summary>
 		/// Compression level
 		/// </summary>
 		private int _level;
-#endif
 
 		/// <summary>
 		/// Gets or sets a compression level
@@ -35,11 +25,7 @@ namespace WebMarkupMin.AspNet.Brotli
 		{
 			get
 			{
-#if NET9_0_OR_GREATER
-				return _options.Quality;
-#else
 				return _level;
-#endif
 			}
 			set
 			{
@@ -52,32 +38,17 @@ namespace WebMarkupMin.AspNet.Brotli
 					);
 				}
 
-#if NET9_0_OR_GREATER
-				_options.Quality = value;
-#else
 				_level = value;
-#endif
 			}
 		}
 
 
 		/// <summary>
-		/// Constructs an instance of the brotli compression settings
+		/// Constructs an instance of the Brotli compression settings
 		/// </summary>
 		public BrotliCompressionSettings()
 		{
 			Level = BrotliCompressionLevelConstants.Default;
 		}
-#if NET9_0_OR_GREATER
-
-		/// <summary>
-		/// Gets a compression options
-		/// </summary>
-		/// <returns>Compression options</returns>
-		internal BrotliCompressionOptions GetOptions()
-		{
-			return _options;
-		}
-#endif
 	}
 }
