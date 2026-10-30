@@ -111,9 +111,9 @@ namespace WebMarkupMin.Sample.AspNetCore1Full.Mvc1
 				{
 					options.CompressorFactories = new List<ICompressorFactory>
 					{
-						new BrotliCompressorFactory(new BrotliCompressionSettings
+						new LegacyBrotliCompressorFactory(new LegacyBrotliCompressionSettings
 						{
-							Level = 1
+							Level = CompressionLevel.Fastest
 						}),
 						new DeflateCompressorFactory(new DeflateCompressionSettings
 						{

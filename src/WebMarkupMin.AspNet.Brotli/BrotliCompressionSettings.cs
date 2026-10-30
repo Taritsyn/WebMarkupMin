@@ -1,18 +1,17 @@
 ﻿using System;
 
-using WebMarkupMin.AspNet.Brotli.Resources;
-
 namespace WebMarkupMin.AspNet.Brotli
 {
 	/// <summary>
 	/// Brotli compression settings
 	/// </summary>
+	[Obsolete("Use a `LegacyBrotliCompressionSettings` class instead")]
 	public sealed class BrotliCompressionSettings
 	{
 		/// <summary>
-		/// Compression level
+		/// Legacy Brotli compression settings
 		/// </summary>
-		private int _level;
+		private LegacyBrotliCompressionSettings _innerSettings = new();
 
 		/// <summary>
 		/// Gets or sets a compression level
@@ -25,30 +24,22 @@ namespace WebMarkupMin.AspNet.Brotli
 		{
 			get
 			{
-				return _level;
+				return _innerSettings.AlternativeLevel;
 			}
 			set
 			{
-				if (value < BrotliCompressionLevelConstants.Min || value > BrotliCompressionLevelConstants.Max)
-				{
-					throw new ArgumentOutOfRangeException(
-						nameof(value),
-						string.Format(Strings.CompressionLevelOutOfRange,
-							BrotliCompressionLevelConstants.Min, BrotliCompressionLevelConstants.Max)
-					);
-				}
-
-				_level = value;
+				_innerSettings.AlternativeLevel = value;
 			}
 		}
 
 
 		/// <summary>
-		/// Constructs an instance of the Brotli compression settings
+		/// Gets a legacy Brotli compression settings
 		/// </summary>
-		public BrotliCompressionSettings()
+		/// <returns>Legacy Brotli compression settings</returns>
+		internal LegacyBrotliCompressionSettings GetInnerSettings()
 		{
-			Level = BrotliCompressionLevelConstants.Default;
+			return _innerSettings;
 		}
 	}
 }

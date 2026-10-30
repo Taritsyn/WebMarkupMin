@@ -1,17 +1,16 @@
-﻿#if NETSTANDARD2_1_OR_GREATER
-using System;
+﻿using System;
 
-#endif
-using WebMarkupMin.AspNet.Common.Compressors;
 #if NETSTANDARD2_1_OR_GREATER
 using WebMarkupMin.AspNet.Brotli.Resources;
 #endif
+using WebMarkupMin.AspNet.Common.Compressors;
 
 namespace WebMarkupMin.AspNet.Brotli
 {
 	/// <summary>
 	/// Brotli compressor factory
 	/// </summary>
+	[Obsolete("Use a `LegacyBrotliCompressorFactory` class instead")]
 	public sealed class BrotliCompressorFactory : ICompressorFactory
 	{
 		/// <summary>
@@ -48,7 +47,8 @@ namespace WebMarkupMin.AspNet.Brotli
 			CompressionSettings = settings;
 #if NETSTANDARD2_1_OR_GREATER
 
-			throw new NotSupportedException(Strings.CompressorFactoryNotSupportNetCore3);
+			throw new NotSupportedException(
+				string.Format(Strings.CompressorFactoryNotSupportNetCore3, nameof(BrotliCompressorFactory)));
 #endif
 		}
 

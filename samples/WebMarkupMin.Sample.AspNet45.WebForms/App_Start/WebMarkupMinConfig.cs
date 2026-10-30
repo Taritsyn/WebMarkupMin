@@ -37,9 +37,9 @@ namespace WebMarkupMin.Sample.AspNet45.WebForms
 			IHttpCompressionManager httpCompressionManager = HttpCompressionManager.Current;
 			httpCompressionManager.CompressorFactories = new List<ICompressorFactory>
 			{
-				new BrotliCompressorFactory(new BrotliCompressionSettings
+				new LegacyBrotliCompressorFactory(new LegacyBrotliCompressionSettings
 				{
-					Level = 1
+					Level = CompressionLevel.Fastest,
 				}),
 				new DeflateCompressorFactory(new DeflateCompressionSettings
 				{

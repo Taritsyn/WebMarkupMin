@@ -66,7 +66,7 @@ namespace WebMarkupMin.AspNet.Brotli.Resources
 		}
 
 		/// <summary>
-		/// Looks up a localized string similar to "Does not support .NET Core 3.0 or higher. Use a `BrotliCompressorFactory` class from..."
+		/// Looks up a localized string similar to "`{0}` class does not support .NET Core 3.0 or higher. Use a `BrotliCompressorFactory` class from..."
 		/// </summary>
 		internal static string CompressorFactoryNotSupportNetCore3
 		{
@@ -74,7 +74,7 @@ namespace WebMarkupMin.AspNet.Brotli.Resources
 		}
 
 		/// <summary>
-		/// Looks up a localized string similar to "Does not support .NET Core 3.0 or higher. Use a `BrotliCompressor` class from..."
+		/// Looks up a localized string similar to "`{0}` class does not support .NET Core 3.0 or higher. Use a `BrotliCompressor` class from..."
 		/// </summary>
 		internal static string CompressorNotSupportNetCore3
 		{

@@ -1,37 +1,35 @@
-﻿#if NETSTANDARD2_1_OR_GREATER
-using System;
-#endif
+﻿using System;
 using System.IO;
-using System.IO.Compression;
 
-using WebMarkupMin.AspNet.Common.Compressors;
 #if NETSTANDARD2_1_OR_GREATER
 using WebMarkupMin.AspNet.Brotli.Resources;
 #endif
+using WebMarkupMin.AspNet.Common.Compressors;
 
 namespace WebMarkupMin.AspNet.Brotli
 {
 	/// <summary>
 	/// Brotli compressor based on the BrotliSharpLib library
 	/// </summary>
+	[Obsolete("Use a `LegacyBrotliCompressor` class instead")]
 	public sealed class BrotliCompressor : ICompressor
 	{
 		/// <summary>
 		/// Encoding token of compressor
 		/// </summary>
-		public const string CompressorEncodingToken = "br";
+		public const string CompressorEncodingToken = LegacyBrotliCompressor.CompressorEncodingToken;
 
 		/// <summary>
-		/// Brotli compression settings
+		/// Legacy Brotli compressor
 		/// </summary>
-		private readonly BrotliCompressionSettings _settings;
+		private readonly LegacyBrotliCompressor _innerCompressor;
 
 		/// <summary>
 		/// Gets a encoding token
 		/// </summary>
 		public string EncodingToken
 		{
-			get { return CompressorEncodingToken; }
+			get { return _innerCompressor.EncodingToken; }
 		}
 
 		/// <summary>
@@ -39,7 +37,7 @@ namespace WebMarkupMin.AspNet.Brotli
 		/// </summary>
 		public bool SupportsFlush
 		{
-			get { return true; }
+			get { return _innerCompressor.SupportsFlush; }
 		}
 
 
@@ -56,10 +54,11 @@ namespace WebMarkupMin.AspNet.Brotli
 		/// <param name="settings">Brotli compression settings</param>
 		public BrotliCompressor(BrotliCompressionSettings settings)
 		{
-			_settings = settings;
+			_innerCompressor = new LegacyBrotliCompressor(settings.GetInnerSettings());
 #if NETSTANDARD2_1_OR_GREATER
 
-			throw new NotSupportedException(Strings.CompressorNotSupportNetCore3);
+			throw new NotSupportedException(
+				string.Format(Strings.CompressorNotSupportNetCore3, nameof(BrotliCompressor)));
 #endif
 		}
 
@@ -71,10 +70,7 @@ namespace WebMarkupMin.AspNet.Brotli
 		/// <returns>The compressed stream</returns>
 		public Stream Compress(Stream stream)
 		{
-			var brotliStream = new BrotliSharpLib.BrotliStream(stream, CompressionMode.Compress);
-			brotliStream.SetQuality(_settings.Level);
-
-			return brotliStream;
+			return _innerCompressor.Compress(stream);
 		}
 	}
 }

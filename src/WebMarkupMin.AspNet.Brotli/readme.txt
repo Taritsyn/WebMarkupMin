@@ -26,7 +26,11 @@
    =============
    RELEASE NOTES
    =============
-   No longer supports a .NET Core 3.0 or higher.
+   1. No longer supports a .NET Core 3.0 or higher;
+   2. Three classes have been deprecated: `BrotliCompressor` class replaced by the
+      `LegacyBrotliCompressor` class, `BrotliCompressionSettings` class replaced by
+      the `LegacyBrotliCompressionSettings` class and `BrotliCompressorFactory`
+      class replaced by the `LegacyBrotliCompressorFactory` class.
 
    =============
    DOCUMENTATION

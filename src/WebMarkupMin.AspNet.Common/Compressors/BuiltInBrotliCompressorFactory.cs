@@ -6,7 +6,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 	/// <summary>
 	/// Built-in Brotli compressor factory
 	/// </summary>
-	[Obsolete("Use a `WebMarkupMin.AspNet.Common.Compressors.BuiltInBrotliCompressorFactory` class instead")]
+	[Obsolete("Use a `WebMarkupMin.AspNet.Common.Compressors.BrotliCompressorFactory` class instead")]
 	public sealed class BuiltInBrotliCompressorFactory : ICompressorFactory
 	{
 		/// <summary>
