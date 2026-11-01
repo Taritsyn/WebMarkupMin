@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using WebMarkupMin.AspNet.Brotli;
+using WebMarkupMin.AspNet.Zstd;
 using WebMarkupMin.AspNet.Common.Compressors;
 using WebMarkupMin.AspNet.Common.UrlMatchers;
 using WebMarkupMin.AspNetCore2;
@@ -113,6 +114,10 @@ namespace WebMarkupMin.Sample.AspNetCore21.Mvc21
 				{
 					options.CompressorFactories = new List<ICompressorFactory>
 					{
+						new LegacyZstdCompressorFactory(new LegacyZstdCompressionSettings
+						{
+							Level = CompressionLevel.Fastest
+						}),
 						new LegacyBrotliCompressorFactory(new LegacyBrotliCompressionSettings
 						{
 							Level = CompressionLevel.Fastest

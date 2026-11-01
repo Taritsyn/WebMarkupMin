@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using WebMarkupMin.AspNet.Common.Compressors;
+using WebMarkupMin.AspNet.Zstd;
 using WebMarkupMin.AspNetCore3;
 using WebMarkupMin.Core;
 using WebMarkupMin.NUglify;
@@ -60,6 +61,10 @@ namespace WebMarkupMin.Sample.AspNetCore5.Mvc5
 				{
 					options.CompressorFactories = new List<ICompressorFactory>
 					{
+						new LegacyZstdCompressorFactory(new LegacyZstdCompressionSettings
+						{
+							Level = CompressionLevel.Fastest
+						}),
 						new BrotliCompressorFactory(new BrotliCompressionSettings
 						{
 							Level = CompressionLevel.Fastest

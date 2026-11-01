@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Product>Web Markup Minifier: Zstd for ASP.NET</Product>
+    <VersionPrefix>2.23.0</VersionPrefix>
+    <TargetFrameworks>net462;netstandard2.0;netstandard2.1;netcoreapp3.1;net5.0;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);CS1591;NETSDK1215;NU1903</NoWarn>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+  </PropertyGroup>
+
+  <Import Project="../../build/common.props" />
+  <Import Project="../../build/strong-name-signing.props" />
+  <Import Project="../../build/nuget-common.props" />
+
+  <PropertyGroup>
+    <Description>WebMarkupMin.AspNet.Zstd contains one compressor-adapter for compression of text content by using the Zstd (Zstandard) algorithm - `LegacyZstdCompressor`.
+`LegacyZstdCompressor` is based on the ZstdSharp library and is intended for old versions of ASP.NET.</Description>
+    <PackageTags>WebMarkupMin;ASP.NET;Compression;Zstd;Zstandard</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ZstdSharp.Port" Version="0.8.8" />
+
+    <ProjectReference Include="../WebMarkupMin.AspNet.Common/WebMarkupMin.AspNet.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../licenses/zstd-sharp-license.txt" PackagePath="/" Pack="true" Visible="false" />
+    <None Include="../../licenses/zstd-license.txt" PackagePath="/" Pack="true" Visible="false" />
+  </ItemGroup>
+
+</Project>

@@ -9,11 +9,13 @@
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <IsPackable>false</IsPackable>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
 
   <Import Project="../../build/common.props" />
 
   <ItemGroup>
+    <ProjectReference Include="../../src/WebMarkupMin.AspNet.Zstd/WebMarkupMin.AspNet.Zstd.csproj" />
     <ProjectReference Include="../../src/WebMarkupMin.AspNetCore3/WebMarkupMin.AspNetCore3.csproj" />
     <ProjectReference Include="../WebMarkupMin.Sample.Logic/WebMarkupMin.Sample.Logic.csproj" />
     <ProjectReference Include="../WebMarkupMin.Sample.Resources/WebMarkupMin.Sample.Resources.csproj" />

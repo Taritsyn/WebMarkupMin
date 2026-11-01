@@ -30,6 +30,7 @@
     <Project Path="src/WebMarkupMin.NUglify/WebMarkupMin.NUglify.csproj" />
     <Project Path="src/WebMarkupMin.AspNet.Common/WebMarkupMin.AspNet.Common.csproj" />
     <Project Path="src/WebMarkupMin.AspNet.Brotli/WebMarkupMin.AspNet.Brotli.csproj" />
+    <Project Path="src/WebMarkupMin.AspNet.Zstd/WebMarkupMin.AspNet.Zstd.csproj" />
     <Project Path="src/WebMarkupMin.AspNet4.Common/WebMarkupMin.AspNet4.Common.csproj" />
     <Project Path="src/WebMarkupMin.AspNet4.HttpModules/WebMarkupMin.AspNet4.HttpModules.csproj" />
     <Project Path="src/WebMarkupMin.AspNet4.Mvc/WebMarkupMin.AspNet4.Mvc.csproj" />

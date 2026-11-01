@@ -1,6 +1,7 @@
 using System.IO.Compression;
 
 using WebMarkupMin.AspNet.Common.Compressors;
+using WebMarkupMin.AspNet.Zstd;
 using WebMarkupMin.AspNetCoreLatest;
 using WebMarkupMin.Core;
 using WebMarkupMin.NUglify;
@@ -40,6 +41,10 @@ services.AddWebMarkupMin(options =>
 	{
 		options.CompressorFactories = new List<ICompressorFactory>
 		{
+			new LegacyZstdCompressorFactory(new LegacyZstdCompressionSettings
+			{
+				Level = CompressionLevel.Fastest
+			}),
 			new BrotliCompressorFactory(new BrotliCompressionSettings
 			{
 				Level = CompressionLevel.Fastest
