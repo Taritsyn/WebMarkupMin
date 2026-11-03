@@ -1,4 +1,4 @@
-﻿#if NET45 || NETSTANDARD || NET9_0_OR_GREATER
+﻿#if COMPRESSION_SETTINGS
 namespace WebMarkupMin.AspNet.Common.Compressors
 {
 	/// <summary>
@@ -7,7 +7,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 	public sealed class DeflateCompressionSettings : ZLibCompressionSettingsBase
 	{
 		/// <summary>
-		/// Constructs an instance of the deflate compression settings
+		/// Constructs an instance of the Deflate compression settings
 		/// </summary>
 		public DeflateCompressionSettings() : base()
 		{ }

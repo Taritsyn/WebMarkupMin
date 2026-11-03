@@ -40,10 +40,7 @@ namespace WebMarkupMin.Sample.AspNet4.Mvc4
 			IHttpCompressionManager httpCompressionManager = HttpCompressionManager.Current;
 			httpCompressionManager.CompressorFactories = new List<ICompressorFactory>
 			{
-				new LegacyBrotliCompressorFactory(new LegacyBrotliCompressionSettings
-				{
-					AlternativeLevel = 1
-				}),
+				new LegacyBrotliCompressorFactory(),
 				new DeflateCompressorFactory(),
 				new GZipCompressorFactory()
 			};

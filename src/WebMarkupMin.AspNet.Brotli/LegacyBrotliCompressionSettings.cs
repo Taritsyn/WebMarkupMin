@@ -1,9 +1,9 @@
 ﻿using System;
-#if !NET40
+#if COMPRESSION_LEVEL_PROPERTY
 using System.IO.Compression;
 #endif
 
-using WebMarkupMin.AspNet.Brotli.Resources;
+using CommonStrings = WebMarkupMin.AspNet.Common.Resources.Strings;
 
 namespace WebMarkupMin.AspNet.Brotli
 {
@@ -12,15 +12,31 @@ namespace WebMarkupMin.AspNet.Brotli
 	/// </summary>
 	public sealed class LegacyBrotliCompressionSettings
 	{
-		private const int MIN_ALT_COMPRESSION_LEVEL = 0;
-		private const int DEFAULT_ALT_COMPRESSION_LEVEL = 4;
-		private const int MAX_ALT_COMPRESSION_LEVEL = 11;
+		/// <summary>
+		/// Gets a default alternative compression level
+		/// </summary>
+		public static readonly int DefaultAltCompressionLevel = 4;
+
+		/// <summary>
+		/// Gets a minimum alternative compression level
+		/// </summary>
+		public static readonly int MinAltCompressionLevel = 0;
+
+		/// <summary>
+		/// Gets a maximum alternative compression level
+		/// </summary>
+		public static readonly int MaxAltCompressionLevel = 11;
+
+		/// <summary>
+		/// Gets a fastest alternative compression level
+		/// </summary>
+		public static readonly int FastestAltCompressionLevel = 1;
 
 		/// <summary>
 		/// Alternative compression level
 		/// </summary>
 		private int _alternativeLevel;
-#if !NET40
+#if COMPRESSION_LEVEL_PROPERTY
 
 		/// <summary>
 		/// Gets or sets a compression level
@@ -53,12 +69,12 @@ namespace WebMarkupMin.AspNet.Brotli
 			}
 			set
 			{
-				if (value < MIN_ALT_COMPRESSION_LEVEL || value > MAX_ALT_COMPRESSION_LEVEL)
+				if (value < MinAltCompressionLevel || value > MaxAltCompressionLevel)
 				{
 					throw new ArgumentOutOfRangeException(
 						nameof(value),
-						string.Format(Strings.CompressionLevelOutOfRange,
-							MIN_ALT_COMPRESSION_LEVEL, MAX_ALT_COMPRESSION_LEVEL)
+						string.Format(CommonStrings.AlternativeCompressionLevelOutOfRange,
+							MinAltCompressionLevel, MaxAltCompressionLevel)
 					);
 				}
 
@@ -72,9 +88,9 @@ namespace WebMarkupMin.AspNet.Brotli
 		/// </summary>
 		public LegacyBrotliCompressionSettings()
 		{
-			AlternativeLevel = DEFAULT_ALT_COMPRESSION_LEVEL;
+			AlternativeLevel = DefaultAltCompressionLevel;
 		}
-#if !NET40
+#if COMPRESSION_LEVEL_PROPERTY
 
 
 		/// <summary>
@@ -87,9 +103,9 @@ namespace WebMarkupMin.AspNet.Brotli
 		{
 			int levelNumber = level switch
 			{
-				CompressionLevel.NoCompression => MIN_ALT_COMPRESSION_LEVEL,
-				CompressionLevel.Fastest => 1,
-				CompressionLevel.Optimal => DEFAULT_ALT_COMPRESSION_LEVEL,
+				CompressionLevel.NoCompression => MinAltCompressionLevel,
+				CompressionLevel.Fastest => FastestAltCompressionLevel,
+				CompressionLevel.Optimal => DefaultAltCompressionLevel,
 				_ => throw new NotSupportedException()
 			};
 
@@ -104,11 +120,16 @@ namespace WebMarkupMin.AspNet.Brotli
 		/// <exception cref="NotSupportedException"/>
 		private static CompressionLevel ConvertCompressionLevelNumberToEnum(int level)
 		{
+			if (level == DefaultAltCompressionLevel)
+			{
+				return CompressionLevel.Optimal;
+			}
+
 			CompressionLevel levelEnum = level switch
 			{
-				MIN_ALT_COMPRESSION_LEVEL => CompressionLevel.NoCompression,
-				int n when n == 1 || n == 2 => CompressionLevel.Fastest,
-				int n when n >= 3 && n <= MAX_ALT_COMPRESSION_LEVEL => CompressionLevel.Optimal,
+				int n when n == MinAltCompressionLevel => CompressionLevel.NoCompression,
+				int n when n > MinAltCompressionLevel && n <= 2 => CompressionLevel.Fastest,
+				int n when n >= 3 && n <= MaxAltCompressionLevel => CompressionLevel.Optimal,
 				_ => throw new NotSupportedException()
 			};
 

@@ -1,9 +1,9 @@
-﻿#if NETSTANDARD2_1 || NET9_0_OR_GREATER
-#if NET9_0_OR_GREATER
+﻿#if BROTLI && COMPRESSION_SETTINGS
+#if ALT_COMPRESSION_LEVEL_PROPERTY
 using System;
 #endif
 using System.IO.Compression;
-#if NET9_0_OR_GREATER
+#if ALT_COMPRESSION_LEVEL_PROPERTY
 
 using WebMarkupMin.AspNet.Common.Resources;
 #endif
@@ -14,28 +14,38 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 	/// Brotli compression settings
 	/// </summary>
 	public sealed class BrotliCompressionSettings
-#if NET9_0_OR_GREATER
+#if ALT_COMPRESSION_LEVEL_PROPERTY
 		: CommonCompressionSettingsBase<BrotliCompressionOptions>
 #else
 		: CommonCompressionSettingsBase
 #endif
 	{
-#if NET9_0_OR_GREATER
+#if ALT_COMPRESSION_LEVEL_PROPERTY
 		/// <summary>
-		/// The minimum compression level
+		/// Gets a default alternative compression level
 		/// </summary>
-		private const int MIN_ALT_COMPRESSION_LEVEL = 0;
+		public static readonly int DefaultAltCompressionLevel = 4;
 
 		/// <summary>
-		/// The maximum compression level
+		/// Gets a minimum alternative compression level
 		/// </summary>
-		private const int MAX_ALT_COMPRESSION_LEVEL = 11;
+		public static readonly int MinAltCompressionLevel = 0;
+
+		/// <summary>
+		/// Gets a maximum alternative compression level
+		/// </summary>
+		public static readonly int MaxAltCompressionLevel = 11;
+
+		/// <summary>
+		/// Gets a fastest alternative compression level
+		/// </summary>
+		public static readonly int FastestAltCompressionLevel = 1;
 
 #endif
 		/// <inheritdoc/>
 		public override CompressionLevel Level
 		{
-#if NET9_0_OR_GREATER
+#if ALT_COMPRESSION_LEVEL_PROPERTY
 			get
 			{
 				return ConvertCompressionLevelNumberToEnum(_options.Quality);
@@ -49,7 +59,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 			set;
 #endif
 		}
-#if NET9_0_OR_GREATER
+#if ALT_COMPRESSION_LEVEL_PROPERTY
 
 		/// <inheritdoc/>
 		/// <remarks>
@@ -64,18 +74,25 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 			}
 			set
 			{
-				if (value < MIN_ALT_COMPRESSION_LEVEL || value > MAX_ALT_COMPRESSION_LEVEL)
+				if (value < MinAltCompressionLevel || value > MaxAltCompressionLevel)
 				{
 					throw new ArgumentOutOfRangeException(
 						nameof(value),
 						string.Format(Strings.AlternativeCompressionLevelOutOfRange,
-							MIN_ALT_COMPRESSION_LEVEL, MAX_ALT_COMPRESSION_LEVEL)
+							MinAltCompressionLevel, MaxAltCompressionLevel)
 					);
 				}
 
 				_options.Quality = value;
 			}
 		}
+
+
+		/// <summary>
+		/// Constructs an instance of the Brotli compression settings
+		/// </summary>
+		public BrotliCompressionSettings() : base()
+		{ }
 
 
 		/// <summary>
@@ -88,10 +105,10 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		{
 			int levelNumber = level switch
 			{
-				CompressionLevel.NoCompression => MIN_ALT_COMPRESSION_LEVEL,
-				CompressionLevel.Fastest => 1,
-				CompressionLevel.Optimal => 4,
-				CompressionLevel.SmallestSize => MAX_ALT_COMPRESSION_LEVEL,
+				CompressionLevel.NoCompression => MinAltCompressionLevel,
+				CompressionLevel.Fastest => FastestAltCompressionLevel,
+				CompressionLevel.Optimal => DefaultAltCompressionLevel,
+				CompressionLevel.SmallestSize => MaxAltCompressionLevel,
 				_ => throw new NotSupportedException()
 			};
 
@@ -106,12 +123,17 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		/// <exception cref="NotSupportedException"/>
 		private static CompressionLevel ConvertCompressionLevelNumberToEnum(int level)
 		{
+			if (level == DefaultAltCompressionLevel)
+			{
+				return CompressionLevel.Optimal;
+			}
+
 			CompressionLevel levelEnum = level switch
 			{
-				MIN_ALT_COMPRESSION_LEVEL => CompressionLevel.NoCompression,
-				int n when n == 1 || n == 2 => CompressionLevel.Fastest,
+				int n when n == MinAltCompressionLevel => CompressionLevel.NoCompression,
+				int n when n > MinAltCompressionLevel && n <= 2 => CompressionLevel.Fastest,
 				int n when n >= 3 && n <= 9 => CompressionLevel.Optimal,
-				int n when n == 10 || n == MAX_ALT_COMPRESSION_LEVEL => CompressionLevel.SmallestSize,
+				int n when n >= 10 && n <= MaxAltCompressionLevel => CompressionLevel.SmallestSize,
 				_ => throw new NotSupportedException()
 			};
 

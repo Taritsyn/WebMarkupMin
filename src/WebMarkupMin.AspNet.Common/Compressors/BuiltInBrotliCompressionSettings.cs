@@ -1,4 +1,4 @@
-﻿#if NETSTANDARD2_1 || NET9_0_OR_GREATER
+﻿#if BROTLI && COMPRESSION_SETTINGS
 using System;
 using System.IO.Compression;
 
@@ -9,7 +9,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 	/// </summary>
 	[Obsolete("Use a `WebMarkupMin.AspNet.Common.Compressors.BrotliCompressionSettings` class instead")]
 	public sealed class BuiltInBrotliCompressionSettings
-#if NET9_0_OR_GREATER
+#if ALT_COMPRESSION_LEVEL_PROPERTY
 		: CommonCompressionSettingsBase<BrotliCompressionOptions>
 #else
 		: CommonCompressionSettingsBase
@@ -33,7 +33,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 				_innerSettings.Level = value;
 			}
 		}
-#if NET9_0_OR_GREATER
+#if ALT_COMPRESSION_LEVEL_PROPERTY
 
 		/// <inheritdoc/>
 		/// <remarks>

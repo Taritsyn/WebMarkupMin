@@ -1,4 +1,4 @@
-﻿#if NET11_0_OR_GREATER
+﻿#if ZSTD
 using System.IO;
 using System.IO.Compression;
 
@@ -39,7 +39,8 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		/// <summary>
 		/// Constructs an instance of the Zstd compressor
 		/// </summary>
-		public ZstdCompressor() : this(new ZstdCompressionSettings())
+		public ZstdCompressor()
+			: this(new ZstdCompressionSettings())
 		{ }
 
 		/// <summary>

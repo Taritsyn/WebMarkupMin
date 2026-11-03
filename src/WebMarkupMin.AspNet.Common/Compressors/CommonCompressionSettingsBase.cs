@@ -1,9 +1,9 @@
-﻿#if NET45 || NETSTANDARD || NET9_0_OR_GREATER
+﻿#if COMPRESSION_SETTINGS
 using System.IO.Compression;
 
 namespace WebMarkupMin.AspNet.Common.Compressors
 {
-#if NET9_0_OR_GREATER
+#if ALT_COMPRESSION_LEVEL_PROPERTY
 	/// <summary>
 	/// Base class of common compression settings
 	/// </summary>
@@ -14,11 +14,11 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 	/// </summary>
 #endif
 	public abstract class CommonCompressionSettingsBase
-#if NET9_0_OR_GREATER
+#if ALT_COMPRESSION_LEVEL_PROPERTY
 <TOptions> where TOptions : class, new()
 #endif
 	{
-#if NET9_0_OR_GREATER
+#if ALT_COMPRESSION_LEVEL_PROPERTY
 		/// <summary>
 		/// Compression options
 		/// </summary>
@@ -33,7 +33,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 			get;
 			set;
 		}
-#if NET9_0_OR_GREATER
+#if ALT_COMPRESSION_LEVEL_PROPERTY
 
 		/// <summary>
 		/// Gets or sets a alternative compression level
@@ -53,7 +53,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		{
 			Level = CompressionLevel.Optimal;
 		}
-#if NET9_0_OR_GREATER
+#if ALT_COMPRESSION_LEVEL_PROPERTY
 
 
 		/// <summary>

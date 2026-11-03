@@ -48,15 +48,16 @@ namespace WebMarkupMin.AspNet.Brotli
 #if NETSTANDARD2_1_OR_GREATER
 
 			throw new NotSupportedException(
-				string.Format(Strings.CompressorFactoryNotSupportNetCore3, nameof(BrotliCompressorFactory)));
+				string.Format(Strings.CompressorFactoryNotSupportNetCore3, nameof(BrotliCompressorFactory))
+			);
 #endif
 		}
 
 
 		/// <summary>
-		/// Creates a instance of Brotli compressor
+		/// Creates an instance of the Brotli compressor
 		/// </summary>
-		/// <returns>Instance of Brotli compressor</returns>
+		/// <returns>Instance of the Brotli compressor</returns>
 		public ICompressor CreateCompressor()
 		{
 			return new BrotliCompressor(CompressionSettings);

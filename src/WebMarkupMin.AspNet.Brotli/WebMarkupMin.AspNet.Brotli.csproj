@@ -16,10 +16,15 @@
   <Import Project="../../build/nuget-common.props" />
 
   <PropertyGroup>
-    <Description>WebMarkupMin.AspNet.Brotli contains one compressor-adapter for compression of text content by using the Brotli algorithm - `BrotliCompressor`. `BrotliCompressor` is based on the BrotliSharpLib.</Description>
+    <Description>WebMarkupMin.AspNet.Brotli contains one compressor-adapter for compression of text content by using the Brotli algorithm - `LegacyBrotliCompressor`.
+`LegacyBrotliCompressor` is based on the BrotliSharpLib library and is intended for old versions of ASP.NET.</Description>
     <PackageTags>WebMarkupMin;ASP.NET;Compression;Brotli</PackageTags>
     <PackageReleaseNotes>1. No longer supports a .NET Core 3.0 or higher;
 2. Three classes have been deprecated: `BrotliCompressor` class replaced by the `LegacyBrotliCompressor` class, `BrotliCompressionSettings` class replaced by the `LegacyBrotliCompressionSettings` class and `BrotliCompressorFactory` class replaced by the `LegacyBrotliCompressorFactory` class.</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' != 'net40' ">
+    <DefineConstants>$(DefineConstants);COMPRESSION_LEVEL_PROPERTY</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

@@ -42,20 +42,21 @@ namespace WebMarkupMin.AspNet.Brotli
 		/// <summary>
 		/// Constructs an instance of the legacy Brotli compressor factory
 		/// </summary>
-		/// <param name="settings">Compression settings used to configure the Brotli compressor</param>
+		/// <param name="settings">Compression settings used to configure the legacy Brotli compressor</param>
 		public LegacyBrotliCompressorFactory(LegacyBrotliCompressionSettings settings)
 		{
 			CompressionSettings = settings;
 #if NETSTANDARD2_1_OR_GREATER
 
 			throw new NotSupportedException(
-				string.Format(Strings.CompressorFactoryNotSupportNetCore3, nameof(LegacyBrotliCompressorFactory)));
+				string.Format(Strings.CompressorFactoryNotSupportNetCore3, nameof(LegacyBrotliCompressorFactory))
+			);
 #endif
 		}
 
 
 		/// <summary>
-		/// Creates a instance of the legacy Brotli compressor
+		/// Creates an instance of the legacy Brotli compressor
 		/// </summary>
 		/// <returns>Instance of the legacy Brotli compressor</returns>
 		public ICompressor CreateCompressor()

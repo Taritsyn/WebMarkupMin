@@ -1,4 +1,4 @@
-﻿#if NETSTANDARD2_1 || NET9_0_OR_GREATER
+﻿#if BROTLI
 namespace WebMarkupMin.AspNet.Common.Compressors
 {
 	/// <summary>
@@ -42,7 +42,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 
 
 		/// <summary>
-		/// Creates a instance of the Brotli compressor
+		/// Creates an instance of the Brotli compressor
 		/// </summary>
 		/// <returns>Instance of the Brotli compressor</returns>
 		public ICompressor CreateCompressor()

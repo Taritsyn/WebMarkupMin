@@ -58,14 +58,6 @@ namespace WebMarkupMin.AspNet.Brotli.Resources
 		}
 
 		/// <summary>
-		/// Looks up a localized string similar to "Compression level should be a value between {0}-{1}."
-		/// </summary>
-		internal static string CompressionLevelOutOfRange
-		{
-			get { return GetString("CompressionLevelOutOfRange"); }
-		}
-
-		/// <summary>
 		/// Looks up a localized string similar to "`{0}` class does not support .NET Core 3.0 or higher. Use a `BrotliCompressorFactory` class from..."
 		/// </summary>
 		internal static string CompressorFactoryNotSupportNetCore3

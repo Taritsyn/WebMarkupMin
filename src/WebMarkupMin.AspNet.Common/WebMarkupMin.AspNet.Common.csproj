@@ -24,6 +24,22 @@
 3. Three classes have been deprecated: `BuiltInBrotliCompressor` class replaced by the `BrotliCompressor` class, `BuiltInBrotliCompressionSettings` class replaced by the `BrotliCompressionSettings` class and `BuiltInBrotliCompressorFactory` class replaced by the `BrotliCompressorFactory` class.</PackageReleaseNotes>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(TargetFramework)' != 'net40' ">
+    <DefineConstants>$(DefineConstants);COMPRESSION_SETTINGS</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net9.0' Or '$(TargetFramework)' == 'net11.0' ">
+    <DefineConstants>$(DefineConstants);ALT_COMPRESSION_LEVEL_PROPERTY</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' Or '$(TargetFramework)' == 'net9.0' Or '$(TargetFramework)' == 'net11.0' ">
+    <DefineConstants>$(DefineConstants);BROTLI</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net11.0' ">
+    <DefineConstants>$(DefineConstants);ZSTD</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha7" PrivateAssets="All" />
 

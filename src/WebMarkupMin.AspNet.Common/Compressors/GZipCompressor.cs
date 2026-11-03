@@ -12,7 +12,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		/// Encoding token of compressor
 		/// </summary>
 		public const string CompressorEncodingToken = "gzip";
-#if NET45 || NETSTANDARD || NET9_0_OR_GREATER
+#if COMPRESSION_SETTINGS
 
 		/// <summary>
 		/// GZip compression settings
@@ -45,14 +45,16 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 			}
 		}
 
-#if NET45 || NETSTANDARD || NET9_0_OR_GREATER
 
 		/// <summary>
 		/// Constructs an instance of the GZip compressor
 		/// </summary>
 		public GZipCompressor()
+#if COMPRESSION_SETTINGS
 			: this(new GZipCompressionSettings())
+#endif
 		{ }
+#if COMPRESSION_SETTINGS
 
 		/// <summary>
 		/// Constructs an instance of the GZip compressor
@@ -62,21 +64,23 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 		{
 			_settings = settings;
 		}
-
 #endif
 
+
 		/// <summary>
-		/// Compress a stream by GZip algorithm
+		/// Compress a stream by the GZip algorithm
 		/// </summary>
 		/// <param name="stream">The stream</param>
 		/// <returns>The compressed stream</returns>
 		public Stream Compress(Stream stream)
 		{
-#if NET9_0_OR_GREATER
+#if COMPRESSION_SETTINGS
+	#if ALT_COMPRESSION_LEVEL_PROPERTY
 			ZLibCompressionOptions compressionOptions = _settings.GetOptions();
 			var gzipStream = new GZipStream(stream, compressionOptions);
-#elif NET45 || NETSTANDARD
+	#else
 			var gzipStream = new GZipStream(stream, _settings.Level);
+	#endif
 #else
 			var gzipStream = new GZipStream(stream, CompressionMode.Compress);
 #endif

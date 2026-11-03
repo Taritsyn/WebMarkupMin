@@ -1,4 +1,4 @@
-﻿#if NET45 || NETSTANDARD || NET9_0_OR_GREATER
+﻿#if COMPRESSION_SETTINGS
 namespace WebMarkupMin.AspNet.Common.Compressors
 {
 	/// <summary>

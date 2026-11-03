@@ -1,4 +1,4 @@
-﻿#if NET11_0_OR_GREATER
+﻿#if ZSTD
 namespace WebMarkupMin.AspNet.Common.Compressors
 {
 	/// <summary>
@@ -42,7 +42,7 @@ namespace WebMarkupMin.AspNet.Common.Compressors
 
 
 		/// <summary>
-		/// Creates a instance of the Zstd compressor
+		/// Creates an instance of the Zstd compressor
 		/// </summary>
 		/// <returns>Instance of the Zstd compressor</returns>
 		public ICompressor CreateCompressor()

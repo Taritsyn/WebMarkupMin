@@ -5,9 +5,9 @@
 	/// </summary>
 	public sealed class DeflateCompressorFactory : ICompressorFactory
 	{
-#if NET45 || NETSTANDARD || NET9_0_OR_GREATER
+#if COMPRESSION_SETTINGS
 		/// <summary>
-		/// Gets or sets a compression settings used to configure the deflate compressor
+		/// Gets or sets a compression settings used to configure the Deflate compressor
 		/// </summary>
 		public DeflateCompressionSettings CompressionSettings
 		{
@@ -24,33 +24,35 @@
 			get { return DeflateCompressor.CompressorEncodingToken; }
 		}
 
-#if NET45 || NETSTANDARD || NET9_0_OR_GREATER
 
 		/// <summary>
-		/// Constructs an instance of the deflate compressor factory
+		/// Constructs an instance of the Deflate compressor factory
 		/// </summary>
 		public DeflateCompressorFactory()
+#if COMPRESSION_SETTINGS
 			: this(new DeflateCompressionSettings())
+#endif
 		{ }
+#if COMPRESSION_SETTINGS
 
 		/// <summary>
-		/// Constructs an instance of the deflate compressor factory
+		/// Constructs an instance of the Deflate compressor factory
 		/// </summary>
-		/// <param name="settings">Compression settings used to configure the deflate compressor</param>
+		/// <param name="settings">Compression settings used to configure the Deflate compressor</param>
 		public DeflateCompressorFactory(DeflateCompressionSettings settings)
 		{
 			CompressionSettings = settings;
 		}
-
 #endif
 
+
 		/// <summary>
-		/// Creates a instance of deflate compressor
+		/// Creates an instance of the Deflate compressor
 		/// </summary>
-		/// <returns>Instance of deflate compressor</returns>
+		/// <returns>Instance of the Deflate compressor</returns>
 		public ICompressor CreateCompressor()
 		{
-#if NET45 || NETSTANDARD || NET9_0_OR_GREATER
+#if COMPRESSION_SETTINGS
 			return new DeflateCompressor(CompressionSettings);
 #else
 			return new DeflateCompressor();

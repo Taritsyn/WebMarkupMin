@@ -1,4 +1,4 @@
-﻿#if NETSTANDARD2_1 || NET9_0_OR_GREATER
+﻿#if BROTLI
 using System;
 using System.IO;
 using System.IO.Compression;

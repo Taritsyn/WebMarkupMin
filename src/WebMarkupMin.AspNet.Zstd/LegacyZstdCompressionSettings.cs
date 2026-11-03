@@ -12,13 +12,25 @@ namespace WebMarkupMin.AspNet.Zstd
 	/// </summary>
 	public sealed class LegacyZstdCompressionSettings
 	{
-		private static readonly int MinAltCompressionLevel = Compressor.MinCompressionLevel;
-		private static readonly int FastestAltCompressionLevel = 1;
-		private static readonly int DefaultAltCompressionLevel = Compressor.DefaultCompressionLevel;
-#if NET6_0_OR_GREATER
-		private static readonly int HighAltCompressionLevel = 20;
-#endif
-		private static readonly int MaxAltCompressionLevel = Compressor.MaxCompressionLevel;
+		/// <summary>
+		/// Gets a default alternative compression level
+		/// </summary>
+		public static readonly int DefaultAltCompressionLevel = Compressor.DefaultCompressionLevel;
+
+		/// <summary>
+		/// Gets a minimum alternative compression level
+		/// </summary>
+		public static readonly int MinAltCompressionLevel = Compressor.MinCompressionLevel;
+
+		/// <summary>
+		/// Gets a maximum alternative compression level
+		/// </summary>
+		public static readonly int MaxAltCompressionLevel = Compressor.MaxCompressionLevel;
+
+		/// <summary>
+		/// Gets a fastest alternative compression level
+		/// </summary>
+		public static readonly int FastestAltCompressionLevel = 1;
 
 		/// <summary>
 		/// Alternative compression level
@@ -48,13 +60,12 @@ namespace WebMarkupMin.AspNet.Zstd
 		/// Negative values extend the range of speed versus ratio preferences, where lower levels are faster, but
 		/// provide less compression.
 		/// Value 0 indicates the implementation-defined default compression level.
-		/// Values 1-22 are normal compression levels, with <see cref="Compressor.DefaultCompressionLevel"/>
+		/// Values 1-22 are normal compression levels, with <see cref="DefaultAltCompressionLevel"/>
 		/// being the default.
 		/// Values 20-22 require more memory and should be used with caution.
 		/// </remarks>
 		/// <exception cref="ArgumentOutOfRangeException">The value is not 0 and is not between
-		/// <see cref="Compressor.MinCompressionLevel"/> and
-		/// <see cref="Compressor.MaxCompressionLevel"/>.</exception>
+		/// <see cref="MinAltCompressionLevel"/> and <see cref="MaxAltCompressionLevel"/>.</exception>
 		public int AlternativeLevel
 		{
 			get
@@ -77,6 +88,15 @@ namespace WebMarkupMin.AspNet.Zstd
 
 				_alternativeLevel = value;
 			}
+		}
+
+
+		/// <summary>
+		/// Constructs an instance of the legacy Zstd compression settings
+		/// </summary>
+		public LegacyZstdCompressionSettings()
+		{
+			AlternativeLevel = DefaultAltCompressionLevel;
 		}
 
 
@@ -110,16 +130,20 @@ namespace WebMarkupMin.AspNet.Zstd
 		/// <exception cref="NotSupportedException"/>
 		private static CompressionLevel ConvertCompressionLevelNumberToEnum(int level)
 		{
+			if (level == 0 || level == DefaultAltCompressionLevel)
+			{
+				return CompressionLevel.Optimal;
+			}
+
 			CompressionLevel levelEnum = level switch
 			{
 				int n when n == MinAltCompressionLevel => CompressionLevel.NoCompression,
-				int n when n > MinAltCompressionLevel && n <= FastestAltCompressionLevel => CompressionLevel.Fastest,
-				int n when n == DefaultAltCompressionLevel => CompressionLevel.Optimal,
+				int n when n > MinAltCompressionLevel && n <= 1 => CompressionLevel.Fastest,
 #if NET6_0_OR_GREATER
-				int n when n > FastestAltCompressionLevel && n < HighAltCompressionLevel => CompressionLevel.Optimal,
-				int n when n >= HighAltCompressionLevel && n <= MaxAltCompressionLevel => CompressionLevel.SmallestSize,
+				int n when n >= 2 && n <= 19 => CompressionLevel.Optimal,
+				int n when n >= 20 && n <= MaxAltCompressionLevel => CompressionLevel.SmallestSize,
 #else
-				int n when n > FastestAltCompressionLevel && n <= MaxAltCompressionLevel => CompressionLevel.Optimal,
+				int n when n >= 2 && n <= MaxAltCompressionLevel => CompressionLevel.Optimal,
 #endif
 				_ => throw new NotSupportedException()
 			};

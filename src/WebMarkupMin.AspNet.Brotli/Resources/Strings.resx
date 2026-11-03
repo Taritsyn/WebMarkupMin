@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CompressionLevelOutOfRange" xml:space="preserve">
-    <value>Compression level should be a value between {0}-{1}.</value>
-  </data>
   <data name="CompressorFactoryNotSupportNetCore3" xml:space="preserve">
     <value>`{0}` class does not support .NET Core 3.0 or higher. Use a `BrotliCompressorFactory` class from `WebMarkupMin.AspNet.Common.Compressors` namespace</value>
   </data>

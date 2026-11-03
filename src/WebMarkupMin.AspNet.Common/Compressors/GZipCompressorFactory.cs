@@ -5,7 +5,7 @@
 	/// </summary>
 	public sealed class GZipCompressorFactory : ICompressorFactory
 	{
-#if NET45 || NETSTANDARD || NET9_0_OR_GREATER
+#if COMPRESSION_SETTINGS
 		/// <summary>
 		/// Gets or sets a compression settings used to configure the GZip compressor
 		/// </summary>
@@ -24,14 +24,16 @@
 			get { return GZipCompressor.CompressorEncodingToken; }
 		}
 
-#if NET45 || NETSTANDARD || NET9_0_OR_GREATER
 
 		/// <summary>
 		/// Constructs an instance of the GZip compressor factory
 		/// </summary>
 		public GZipCompressorFactory()
+#if COMPRESSION_SETTINGS
 			: this(new GZipCompressionSettings())
+#endif
 		{ }
+#if COMPRESSION_SETTINGS
 
 		/// <summary>
 		/// Constructs an instance of the GZip compressor factory
@@ -41,16 +43,16 @@
 		{
 			CompressionSettings = settings;
 		}
-
 #endif
 
+
 		/// <summary>
-		/// Creates a instance of GZip compressor
+		/// Creates an instance of the GZip compressor
 		/// </summary>
-		/// <returns>Instance of GZip compressor</returns>
+		/// <returns>Instance of the GZip compressor</returns>
 		public ICompressor CreateCompressor()
 		{
-#if NET45 || NETSTANDARD || NET9_0_OR_GREATER
+#if COMPRESSION_SETTINGS
 			return new GZipCompressor(CompressionSettings);
 #else
 			return new GZipCompressor();

@@ -58,13 +58,14 @@ namespace WebMarkupMin.AspNet.Brotli
 #if NETSTANDARD2_1_OR_GREATER
 
 			throw new NotSupportedException(
-				string.Format(Strings.CompressorNotSupportNetCore3, nameof(BrotliCompressor)));
+				string.Format(Strings.CompressorNotSupportNetCore3, nameof(BrotliCompressor))
+			);
 #endif
 		}
 
 
 		/// <summary>
-		/// Compress a stream by Brotli algorithm
+		/// Compress a stream by the Brotli algorithm
 		/// </summary>
 		/// <param name="stream">The stream</param>
 		/// <returns>The compressed stream</returns>

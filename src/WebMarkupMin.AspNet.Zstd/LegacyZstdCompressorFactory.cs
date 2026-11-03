@@ -43,7 +43,7 @@ namespace WebMarkupMin.AspNet.Zstd
 
 
 		/// <summary>
-		/// Creates a instance of the legacy Zstd compressor
+		/// Creates an instance of the legacy Zstd compressor
 		/// </summary>
 		/// <returns>Instance of the legacy Zstd compressor</returns>
 		public ICompressor CreateCompressor()
