@@ -1,1 +1,1 @@
-WebMarkupMin.AspNetCoreLatest contains one Middleware for ASP.NET Core 8, 9, 10 and 11 - `WebMarkupMinMiddleware`.
+WebMarkupMin.AspNetCoreLatest contains one Middleware for ASP.NET Core 9, 10 and 11 - `WebMarkupMinMiddleware`.

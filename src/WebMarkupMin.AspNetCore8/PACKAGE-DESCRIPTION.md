@@ -1,2 +1,2 @@
 This package is deprecated.
-Instead, it is recommended to use a [WebMarkupMin.AspNetCoreLatest](https://www.nuget.org/packages/WebMarkupMin.AspNetCoreLatest/) package.
+Instead, it is recommended to use a [WebMarkupMin.AspNetCoreLatest](https://www.nuget.org/packages/WebMarkupMin.AspNetCoreLatest/) or [WebMarkupMin.AspNetCore6](https://www.nuget.org/packages/WebMarkupMin.AspNetCore6/) package.

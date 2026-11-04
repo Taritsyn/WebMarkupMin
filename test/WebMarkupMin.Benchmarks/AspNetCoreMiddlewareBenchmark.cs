@@ -23,9 +23,9 @@ using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.AspNetCore1;
 #elif NETCOREAPP3_1 || NET5_0
 using WebMarkupMin.AspNetCore3;
-#elif NET6_0 || NET7_0
+#elif NET6_0 || NET7_0 || NET8_0
 using WebMarkupMin.AspNetCore6;
-#elif NET8_0 || NET9_0 || NET10_0 || NET11_0
+#elif NET9_0 || NET10_0 || NET11_0
 using WebMarkupMin.AspNetCoreLatest;
 #else
 #error No implementation for this target

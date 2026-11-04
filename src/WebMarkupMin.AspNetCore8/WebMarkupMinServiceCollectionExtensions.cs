@@ -2,9 +2,9 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
-using OriginalOptions = WebMarkupMin.AspNetCoreLatest.WebMarkupMinOptions;
-using OriginalServicesBuilder = WebMarkupMin.AspNetCoreLatest.WebMarkupMinServicesBuilder;
-using OriginalServiceCollectionExtensions = WebMarkupMin.AspNetCoreLatest.WebMarkupMinServiceCollectionExtensions;
+using OriginalOptions = WebMarkupMin.AspNetCore6.WebMarkupMinOptions;
+using OriginalServicesBuilder = WebMarkupMin.AspNetCore6.WebMarkupMinServicesBuilder;
+using OriginalServiceCollectionExtensions = WebMarkupMin.AspNetCore6.WebMarkupMinServiceCollectionExtensions;
 
 namespace WebMarkupMin.AspNetCore8
 {
@@ -15,7 +15,7 @@ namespace WebMarkupMin.AspNetCore8
 		/// </summary>
 		/// <param name="services">The services available in the application</param>
 		/// <param name="configure">The <see cref="OriginalOptions"/> which need to be configured</param>
-		[Obsolete("Use a WebMarkupMin.AspNetCoreLatest package")]
+		[Obsolete("Use a WebMarkupMin.AspNetCoreLatest or WebMarkupMin.AspNetCore6 package")]
 		public static IServiceCollection ConfigureWebMarkupMin(this IServiceCollection services,
 			Action<OriginalOptions> configure)
 		{
@@ -27,7 +27,7 @@ namespace WebMarkupMin.AspNetCore8
 		/// </summary>
 		/// <param name="services">The services available in the application</param>
 		/// <returns>A builder that allows further WebMarkupMin specific setup of <see cref="IServiceCollection"/></returns>
-		[Obsolete("Use a WebMarkupMin.AspNetCoreLatest package")]
+		[Obsolete("Use a WebMarkupMin.AspNetCoreLatest or WebMarkupMin.AspNetCore6 package")]
 		public static OriginalServicesBuilder AddWebMarkupMin(this IServiceCollection services)
 		{
 			return OriginalServiceCollectionExtensions.AddWebMarkupMin(services);
@@ -39,7 +39,7 @@ namespace WebMarkupMin.AspNetCore8
 		/// <param name="services">The services available in the application</param>
 		/// <param name="configure">The <see cref="OriginalOptions"/> which need to be configured</param>
 		/// <returns>A builder that allows further WebMarkupMin specific setup of <see cref="IServiceCollection"/></returns>
-		[Obsolete("Use a WebMarkupMin.AspNetCoreLatest package")]
+		[Obsolete("Use a WebMarkupMin.AspNetCoreLatest or WebMarkupMin.AspNetCore6 package")]
 		public static OriginalServicesBuilder AddWebMarkupMin(this IServiceCollection services,
 			Action<OriginalOptions> configure)
 		{

@@ -15,12 +15,12 @@
   <Import Project="../../build/nuget-common.props" />
 
   <PropertyGroup>
-    <Description>This package is deprecated. Instead, it is recommended to use a WebMarkupMin.AspNetCoreLatest package.</Description>
+    <Description>This package is deprecated. Instead, it is recommended to use a WebMarkupMin.AspNetCoreLatest or WebMarkupMin.AspNetCore6 package.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../WebMarkupMin.AspNetCoreLatest/WebMarkupMin.AspNetCoreLatest.csproj" />
+    <ProjectReference Include="../WebMarkupMin.AspNetCore6/WebMarkupMin.AspNetCore6.csproj" />
   </ItemGroup>
 
 </Project>

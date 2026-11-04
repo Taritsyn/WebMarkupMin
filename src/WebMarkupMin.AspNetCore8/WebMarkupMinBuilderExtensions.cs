@@ -2,7 +2,7 @@
 
 using Microsoft.AspNetCore.Builder;
 
-using OriginalBuilderExtensions = WebMarkupMin.AspNetCoreLatest.WebMarkupMinBuilderExtensions;
+using OriginalBuilderExtensions = WebMarkupMin.AspNetCore6.WebMarkupMinBuilderExtensions;
 
 namespace WebMarkupMin.AspNetCore8
 {
@@ -17,7 +17,7 @@ namespace WebMarkupMin.AspNetCore8
 		/// </summary>
 		/// <param name="app">The <see cref="IApplicationBuilder"/></param>
 		/// <returns>The <paramref name="app"/></returns>
-		[Obsolete("Use a WebMarkupMin.AspNetCoreLatest package")]
+		[Obsolete("Use a WebMarkupMin.AspNetCoreLatest or WebMarkupMin.AspNetCore6 package")]
 		public static IApplicationBuilder UseWebMarkupMin(this IApplicationBuilder app)
 		{
 			return OriginalBuilderExtensions.UseWebMarkupMin(app);

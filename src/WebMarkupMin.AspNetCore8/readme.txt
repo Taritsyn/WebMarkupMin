@@ -12,7 +12,7 @@
    DESCRIPTION
    ===========
    This package is deprecated. Instead, it is recommended to use a
-   WebMarkupMin.AspNetCoreLatest package.
+   WebMarkupMin.AspNetCoreLatest or WebMarkupMin.AspNetCore6 package.
 
    =============
    DOCUMENTATION

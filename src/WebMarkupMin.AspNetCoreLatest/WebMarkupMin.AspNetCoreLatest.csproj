@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Product>Web Markup Minifier: ASP.NET Core Latest</Product>
     <VersionPrefix>2.23.0</VersionPrefix>
-    <TargetFrameworks>net8.0;net9.0;net10.0;net11.0</TargetFrameworks>
+    <TargetFrameworks>net9.0;net10.0;net11.0</TargetFrameworks>
     <OutputType>Library</OutputType>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <NoWarn>$(NoWarn);CS1591;NU1903</NoWarn>
@@ -17,19 +17,16 @@
   <Import Project="../../build/nuget-common.props" />
 
   <PropertyGroup>
-    <Description>WebMarkupMin.AspNetCoreLatest contains one Middleware for ASP.NET Core 8, 9, 10 and 11 - `WebMarkupMinMiddleware`.</Description>
+    <Description>WebMarkupMin.AspNetCoreLatest contains one Middleware for ASP.NET Core 9, 10 and 11 - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
-    <PackageReleaseNotes>Added support for the ASP.NET Core RC 3.</PackageReleaseNotes>
+    <PackageReleaseNotes>1. Added support for the ASP.NET Core RC 3;
+2. Removed a .NET 6 target.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha7" PrivateAssets="All" />
 
     <ProjectReference Include="../WebMarkupMin.AspNet.Common/WebMarkupMin.AspNet.Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
-    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="8.0.33" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
