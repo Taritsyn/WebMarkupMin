@@ -13,20 +13,14 @@ using Microsoft.Net.Http.Headers;
 
 using WebMarkupMin.AspNet.Common;
 using WebMarkupMin.AspNet.Common.Compressors;
-#if ASPNETCORE1
-#if NET451
-using WebMarkupMin.AspNetCore1.Helpers;
-#endif
+#if ASPNETCORE1 && NET451
+using WebMarkupMin.AspNetCore1.Polyfills.System.Threading.Tasks;
 #elif ASPNETCORE2
-using WebMarkupMin.AspNetCore2.Helpers;
+using WebMarkupMin.AspNetCore2.Polyfills.System.Threading.Tasks;
 #elif ASPNETCORE3
-using WebMarkupMin.AspNetCore3.Helpers;
+using WebMarkupMin.AspNetCore3.Polyfills.System.Threading.Tasks;
 #elif ASPNETCORE6
-using WebMarkupMin.AspNetCore6.Helpers;
-#elif ASPNETCORE_LATEST
-using WebMarkupMin.AspNetCoreLatest.Helpers;
-#else
-#error No implementation for this target
+using WebMarkupMin.AspNetCore6.Polyfills.System.Threading.Tasks;
 #endif
 using WebMarkupMin.Core;
 using WebMarkupMin.Core.Utilities;
@@ -465,12 +459,12 @@ namespace WebMarkupMin.AspNetCoreLatest
 		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback,
 			object state)
 		{
-			return TaskToApmHelpers.Begin(WriteAsync(buffer, offset, count, CancellationToken.None), callback, state);
+			return TaskToAsyncResult.Begin(WriteAsync(buffer, offset, count, CancellationToken.None), callback, state);
 		}
 
 		public override void EndWrite(IAsyncResult asyncResult)
 		{
-			TaskToApmHelpers.End(asyncResult);
+			TaskToAsyncResult.End(asyncResult);
 		}
 
 #endif

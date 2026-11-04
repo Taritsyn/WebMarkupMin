@@ -36,8 +36,7 @@
   <ItemGroup>
     <Compile Include="../WebMarkupMin.AspNetCoreLatest/Internal/WebMarkupMinMarkerService.cs" Link="Internal/WebMarkupMinMarkerService.cs" />
     <Compile Include="../WebMarkupMin.AspNetCoreLatest/Internal/WebMarkupMinServicesHelper.cs" Link="Internal/WebMarkupMinServicesHelper.cs" />
-    <Compile Include="../WebMarkupMin.AspNetCoreLatest/Helpers/TaskAsyncResult.cs" Link="Helpers/TaskAsyncResult.cs" />
-    <Compile Include="../WebMarkupMin.AspNetCoreLatest/Helpers/TaskToApmHelpers.cs" Link="Helpers/TaskToApmHelpers.cs" />
+    <Compile Include="../WebMarkupMin.AspNetCore1/Polyfills/System/Threading/Tasks/TaskToAsyncResult.cs" Link="Polyfills/System/Threading/Tasks/TaskToAsyncResult.cs" />
     <Compile Include="../WebMarkupMin.AspNetCoreLatest/AspNetCoreLogger.cs" Link="AspNetCoreLogger.cs" />
     <Compile Include="../WebMarkupMin.AspNetCoreLatest/BodyWrapperStreamBase.cs" Link="BodyWrapperStreamBase.cs" />
     <Compile Include="../WebMarkupMin.AspNetCore1/BodyWrapperStreamWithBufferingFeature.cs" Link="BodyWrapperStreamWithBufferingFeature.cs" />
