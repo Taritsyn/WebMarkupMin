@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-           README file for Web Markup Minifier: ASP.NET Core Latest v2.23.0
+        README file for Web Markup Minifier: ASP.NET Core Latest v2.24.0 RC 1
 
    --------------------------------------------------------------------------------
 
@@ -17,8 +17,8 @@
    =============
    RELEASE NOTES
    =============
-   1. Added support for the ASP.NET Core RC 3;
-   2. Removed a .NET 6 target.
+   1. Added support for the ASP.NET Core 11 RC 3;
+   2. Removed a .NET 8 target.
 
    =============
    DOCUMENTATION

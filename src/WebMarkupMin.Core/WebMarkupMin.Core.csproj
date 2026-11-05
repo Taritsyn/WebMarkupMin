@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <Product>Web Markup Minifier: Core</Product>
-    <VersionPrefix>2.23.0</VersionPrefix>
+    <VersionPrefix>2.24.0</VersionPrefix>
+    <VersionSuffix>rc1</VersionSuffix>
     <TargetFrameworks>net40-client;net45;netstandard1.3;netstandard2.0;netstandard2.1;net9.0</TargetFrameworks>
     <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.3' ">1.6.0</NetStandardImplicitPackageVersion>
     <OutputType>Library</OutputType>
@@ -20,8 +21,6 @@
   <PropertyGroup>
     <Description>The Web Markup Minifier (abbreviated WebMarkupMin) is a .NET library that contains a set of markup minifiers. The objective of this project is to improve the performance of web applications by reducing the size of HTML, XHTML and XML code.</Description>
     <PackageTags>$(PackageCommonTags);XML;Performance;Optimization;Compression</PackageTags>
-    <PackageReleaseNotes>1. HTML Minifier no longer supports a minification of XHTML document without `DOCTYPE` shortening;
-2. Fixed a error #184 “Single line script tag with HTML comment strips JavaScript code”.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

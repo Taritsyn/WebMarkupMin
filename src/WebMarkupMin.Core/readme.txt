@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-                   README file for Web Markup Minifier: Core v2.23.0
+                README file for Web Markup Minifier: Core v2.24.0 RC 1
 
    --------------------------------------------------------------------------------
 
@@ -42,14 +42,6 @@
 
    Also supports minification of views of popular JavaScript template engines:
    KnockoutJS, Kendo UI MVVM and AngularJS 1.X.
-
-   =============
-   RELEASE NOTES
-   =============
-   1. HTML Minifier no longer supports a minification of XHTML document without
-      `DOCTYPE` shortening;
-   2. Fixed a error #184 “Single line script tag with HTML comment strips
-      JavaScript code”.
 
    =============
    DOCUMENTATION
