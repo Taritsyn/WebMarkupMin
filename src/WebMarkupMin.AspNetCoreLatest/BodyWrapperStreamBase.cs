@@ -126,11 +126,6 @@ namespace WebMarkupMin.AspNetCoreLatest
 		private StatedFlag _currentCompressorInitializedFlag = new StatedFlag();
 
 		/// <summary>
-		/// Flag that indicates if the HTTP headers is modified for compression
-		/// </summary>
-		private StatedFlag _httpHeadersModifiedForCompressionFlag = new StatedFlag();
-
-		/// <summary>
 		/// Flag that the stream wrapper is destroyed
 		/// </summary>
 		private StatedFlag _disposedFlag = new StatedFlag();
@@ -163,81 +158,42 @@ namespace WebMarkupMin.AspNetCoreLatest
 				HttpRequest request = _context.Request;
 				HttpResponse response = _context.Response;
 
-				int httpStatusCode = response.StatusCode;
 				string httpMethod = request.Method;
+				int httpStatusCode = response.StatusCode;
 				string contentType = response.ContentType;
-				string mediaType = null;
-				Encoding encoding = null;
 
-				if (contentType is not null)
-				{
-					MediaTypeHeaderValue mediaTypeHeader;
-
-					if (MediaTypeHeaderValue.TryParse(contentType, out mediaTypeHeader))
-					{
-						mediaType = mediaTypeHeader.MediaType
-#if NETSTANDARD2_0 || NETCOREAPP3_1_OR_GREATER
-							.Value
-#endif
-							.ToLowerInvariant()
-							;
-						encoding = mediaTypeHeader.Encoding;
-					}
-				}
+				ParseContentType(contentType, out string mediaType, out Encoding encoding);
 
 				string currentUrl = GetCurrentUrl(request);
-				IHeaderDictionary responseHeaders = response.Headers;
-				bool isEncodedContent = responseHeaders.IsEncodedContent();
-
-				int minificationManagerCount = _minificationManagers.Count;
-				if (minificationManagerCount > 0)
-				{
-					for (int managerIndex = 0; managerIndex < minificationManagerCount; managerIndex++)
-					{
-						IMarkupMinificationManager minificationManager = _minificationManagers[managerIndex];
-						if (minificationManager.IsSupportedHttpStatusCode(httpStatusCode)
-							&& minificationManager.IsSupportedHttpMethod(httpMethod)
-							&& mediaType is not null && minificationManager.IsSupportedMediaType(mediaType)
-							&& minificationManager.IsProcessablePage(currentUrl))
-						{
-							if (isEncodedContent)
-							{
-								throw new InvalidOperationException(
-									string.Format(
-										AspNetCommonStrings.MarkupMinificationIsNotApplicableToEncodedContent,
-										responseHeaders[HeaderNames.ContentEncoding]
-									)
-								);
-							}
-
-							_currentMinificationManager = minificationManager;
-							_cachedStream = new MemoryStream();
-							_minificationEnabled = true;
-
-							break;
-						}
-					}
-				}
-
-				if (_compressionManager is not null && !isEncodedContent
-					&& _compressionManager.IsSupportedHttpStatusCode(httpStatusCode)
-					&& _compressionManager.IsSupportedHttpMethod(httpMethod)
-					&& _compressionManager.IsSupportedMediaType(mediaType)
-					&& _compressionManager.IsProcessablePage(currentUrl))
-				{
-					string acceptEncoding = request.Headers[HeaderNames.AcceptEncoding];
-					ICompressor currentCompressor = ResolveCurrentCompressor(acceptEncoding);
-
-					if (_compressionEnabled && !_minificationEnabled)
-					{
-						// If markup minification is disabled, then initialize the compression stream.
-						// Otherwise, initialize the compression stream after minification.
-						_compressionStream = currentCompressor.Compress(_originalStream);
-					}
-				}
+				bool isEncodedContent = response.Headers.IsEncodedContent();
 
 				_currentUrl = currentUrl;
 				_encoding = encoding;
+
+				InitializeMinification(httpMethod, httpStatusCode, mediaType, isEncodedContent);
+				InitializeCompression(httpMethod, httpStatusCode, mediaType, isEncodedContent);
+			}
+		}
+
+		private static void ParseContentType(string contentType, out string mediaType, out Encoding encoding)
+		{
+			mediaType = null;
+			encoding = null;
+
+			if (contentType is not null)
+			{
+				MediaTypeHeaderValue mediaTypeHeader;
+
+				if (MediaTypeHeaderValue.TryParse(contentType, out mediaTypeHeader))
+				{
+					mediaType = mediaTypeHeader.MediaType
+#if NETSTANDARD2_0 || NETCOREAPP3_1_OR_GREATER
+						.Value
+#endif
+						.ToLowerInvariant()
+						;
+					encoding = mediaTypeHeader.Encoding;
+				}
 			}
 		}
 
@@ -284,6 +240,68 @@ namespace WebMarkupMin.AspNetCoreLatest
 			return currentUrl;
 		}
 
+		private void InitializeMinification(string httpMethod, int httpStatusCode, string mediaType, bool isEncodedContent)
+		{
+			int minificationManagerCount = _minificationManagers.Count;
+			if (minificationManagerCount > 0)
+			{
+				for (int managerIndex = 0; managerIndex < minificationManagerCount; managerIndex++)
+				{
+					IMarkupMinificationManager minificationManager = _minificationManagers[managerIndex];
+					if (minificationManager.IsSupportedHttpStatusCode(httpStatusCode)
+						&& minificationManager.IsSupportedHttpMethod(httpMethod)
+						&& mediaType is not null && minificationManager.IsSupportedMediaType(mediaType)
+						&& minificationManager.IsProcessablePage(_currentUrl))
+					{
+						if (isEncodedContent)
+						{
+							throw new InvalidOperationException(
+								string.Format(
+									AspNetCommonStrings.MarkupMinificationIsNotApplicableToEncodedContent,
+									_context.Response.Headers[HeaderNames.ContentEncoding]
+								)
+							);
+						}
+
+						_currentMinificationManager = minificationManager;
+						_cachedStream = new MemoryStream();
+						_minificationEnabled = true;
+
+						break;
+					}
+				}
+			}
+		}
+
+		private void InitializeCompression(string httpMethod, int httpStatusCode, string mediaType, bool isEncodedContent)
+		{
+			if (_compressionManager is not null && !isEncodedContent
+				&& _compressionManager.IsSupportedHttpStatusCode(httpStatusCode)
+				&& _compressionManager.IsSupportedHttpMethod(httpMethod)
+				&& _compressionManager.IsSupportedMediaType(mediaType)
+				&& _compressionManager.IsProcessablePage(_currentUrl))
+			{
+				string acceptEncoding = _context.Request.Headers[HeaderNames.AcceptEncoding];
+				ICompressor currentCompressor = ResolveCurrentCompressor(acceptEncoding);
+
+				if (_compressionEnabled && !_minificationEnabled)
+				{
+					// If markup minification is disabled, then initialize the compression stream and modify the HTTP
+					// headers for compression.
+					// Otherwise, initialize the compression stream after minification.
+					_compressionStream = currentCompressor.Compress(_originalStream);
+
+					IHeaderDictionary responseHeaders = _context.Response.Headers;
+					currentCompressor.AppendHttpHeaders((key, value) =>
+					{
+						responseHeaders.Append(key, new StringValues(value));
+					});
+					responseHeaders.ResetContentMD5();
+					responseHeaders.ResetContentLength();
+				}
+			}
+		}
+
 		protected ICompressor ResolveCurrentCompressor(string acceptEncoding)
 		{
 			if (_currentCompressorInitializedFlag.Set())
@@ -299,25 +317,6 @@ namespace WebMarkupMin.AspNetCoreLatest
 		{
 			_compressionEnabled = false;
 			_currentCompressor = null;
-		}
-
-		private void ModifyHttpHeadersForCompressionOnce()
-		{
-			if (_httpHeadersModifiedForCompressionFlag.Set())
-			{
-				IHeaderDictionary responseHeaders = _context.Response.Headers;
-				_currentCompressor.AppendHttpHeaders((key, value) =>
-				{
-					responseHeaders.Append(key, new StringValues(value));
-				});
-#if NET6_0_OR_GREATER
-				responseHeaders.ContentMD5 = default;
-				responseHeaders.ContentLength = default;
-#else
-				responseHeaders.Remove(HeaderNames.ContentMD5);
-				responseHeaders.Remove(HeaderNames.ContentLength);
-#endif
-			}
 		}
 
 		protected async Task InternalFinishAsync()
@@ -353,11 +352,7 @@ namespace WebMarkupMin.AspNetCoreLatest
 						{
 							_currentMinificationManager.AppendPoweredByHttpHeader(appendHttpHeader);
 						}
-#if NET6_0_OR_GREATER
-						responseHeaders.ContentMD5 = default;
-#else
-						responseHeaders.Remove(HeaderNames.ContentMD5);
-#endif
+						responseHeaders.ResetContentMD5();
 
 						string processedContent = minificationResult.MinifiedContent;
 						var byteArrayPool = ArrayPool<byte>.Shared;
@@ -375,11 +370,8 @@ namespace WebMarkupMin.AspNetCoreLatest
 
 								_compressionStream = _currentCompressor.Compress(_originalStream);
 								_currentCompressor.AppendHttpHeaders(appendHttpHeader);
-#if NET6_0_OR_GREATER
-								responseHeaders.ContentLength = default;
-#else
-								responseHeaders.Remove(HeaderNames.ContentLength);
-#endif
+								responseHeaders.ResetContentLength();
+
 								await _compressionStream.WriteAsync(processedBytes, 0, processedByteCount);
 							}
 							else
@@ -527,7 +519,6 @@ namespace WebMarkupMin.AspNetCoreLatest
 			}
 			else if (_compressionEnabled)
 			{
-				ModifyHttpHeadersForCompressionOnce();
 				_compressionStream.Write(buffer, offset, count);
 				if (_autoFlushCompressionStream)
 				{
@@ -554,7 +545,6 @@ namespace WebMarkupMin.AspNetCoreLatest
 			}
 			else if (_compressionEnabled)
 			{
-				ModifyHttpHeadersForCompressionOnce();
 				await _compressionStream.WriteAsync(buffer, offset, count, cancellationToken);
 				if (_autoFlushCompressionStream)
 				{
@@ -579,7 +569,6 @@ namespace WebMarkupMin.AspNetCoreLatest
 			}
 			else if (_compressionEnabled)
 			{
-				ModifyHttpHeadersForCompressionOnce();
 				await _compressionStream.WriteAsync(buffer, cancellationToken);
 				if (_autoFlushCompressionStream)
 				{

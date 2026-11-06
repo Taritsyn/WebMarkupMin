@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
@@ -31,6 +32,34 @@ namespace WebMarkupMin.AspNetCoreLatest
 		{
 			return headers.ContainsKey(HeaderNames.ContentEncoding)
 				&& !headers[HeaderNames.ContentEncoding].ToString().Equals("identity", StringComparison.OrdinalIgnoreCase);
+		}
+
+		/// <summary>
+		/// Resets a <c>Content-MD5</c> HTTP header
+		/// </summary>
+		/// <param name="headers">The <see cref="IHeaderDictionary"/> to use</param>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void ResetContentMD5(this IHeaderDictionary headers)
+		{
+#if NET6_0_OR_GREATER
+			headers.ContentMD5 = default;
+#else
+			headers.Remove(HeaderNames.ContentMD5);
+#endif
+		}
+
+		/// <summary>
+		/// Resets a <c>Content-Length</c> HTTP header
+		/// </summary>
+		/// <param name="headers">The <see cref="IHeaderDictionary"/> to use</param>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void ResetContentLength(this IHeaderDictionary headers)
+		{
+#if NET6_0_OR_GREATER
+			headers.ContentLength = default;
+#else
+			headers.Remove(HeaderNames.ContentLength);
+#endif
 		}
 	}
 }
