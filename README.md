@@ -202,6 +202,7 @@ If you use WebMarkupMin in some project, please send me a message so I can inclu
  * [research.ox.ac.uk](https://www.research.ox.ac.uk/)
  * [RevelDigital.com](https://www.reveldigital.com/)
  * [RewardPay.com](https://www.rewardpay.com/)
+ * [rexTexTau.com](https://rextextau.com/) by George Volsky
  * [RosKvartal.ru](https://roskvartal.ru/)
  * [RystadEnergy.com](https://www.rystadenergy.com/)
  * [Sazas.nl](https://www.sazas.nl/)
