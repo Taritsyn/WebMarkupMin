@@ -464,34 +464,16 @@ namespace WebMarkupMin.AspNetCoreLatest
 		{
 			Initialize();
 
-			if (_minificationEnabled)
-			{
-				_cachedStream.Flush();
-			}
-			else if (_compressionEnabled)
-			{
-				_compressionStream.Flush();
-			}
-			else
-			{
-				_originalStream.Flush();
-			}
+			Stream currentStream = GetCurrentStream();
+			currentStream.Flush();
 		}
 
 		public override Task FlushAsync(CancellationToken cancellationToken)
 		{
 			Initialize();
 
-			if (_minificationEnabled)
-			{
-				return _cachedStream.FlushAsync(cancellationToken);
-			}
-			else if (_compressionEnabled)
-			{
-				return _compressionStream.FlushAsync(cancellationToken);
-			}
-
-			return _originalStream.FlushAsync(cancellationToken);
+			Stream currentStream = GetCurrentStream();
+			return currentStream.FlushAsync(cancellationToken);
 		}
 
 		public override int Read(byte[] buffer, int offset, int count)
@@ -513,21 +495,11 @@ namespace WebMarkupMin.AspNetCoreLatest
 		{
 			Initialize();
 
-			if (_minificationEnabled)
+			Stream currentStream = GetCurrentStream();
+			currentStream.Write(buffer, offset, count);
+			if (CanFlushCompressionStream())
 			{
-				_cachedStream.Write(buffer, offset, count);
-			}
-			else if (_compressionEnabled)
-			{
-				_compressionStream.Write(buffer, offset, count);
-				if (_autoFlushCompressionStream)
-				{
-					_compressionStream.Flush();
-				}
-			}
-			else
-			{
-				_originalStream.Write(buffer, offset, count);
+				currentStream.Flush();
 			}
 		}
 
@@ -539,21 +511,11 @@ namespace WebMarkupMin.AspNetCoreLatest
 #else
 			Initialize();
 
-			if (_minificationEnabled)
+			Stream currentStream = GetCurrentStream();
+			await currentStream.WriteAsync(buffer, offset, count, cancellationToken);
+			if (CanFlushCompressionStream())
 			{
-				await _cachedStream.WriteAsync(buffer, offset, count, cancellationToken);
-			}
-			else if (_compressionEnabled)
-			{
-				await _compressionStream.WriteAsync(buffer, offset, count, cancellationToken);
-				if (_autoFlushCompressionStream)
-				{
-					await _compressionStream.FlushAsync(cancellationToken);
-				}
-			}
-			else
-			{
-				await _originalStream.WriteAsync(buffer, offset, count, cancellationToken);
+				await currentStream.FlushAsync(cancellationToken);
 			}
 #endif
 		}
@@ -563,24 +525,41 @@ namespace WebMarkupMin.AspNetCoreLatest
 		{
 			Initialize();
 
-			if (_minificationEnabled)
+			Stream currentStream = GetCurrentStream();
+			await currentStream.WriteAsync(buffer, cancellationToken);
+			if (CanFlushCompressionStream())
 			{
-				await _cachedStream.WriteAsync(buffer, cancellationToken);
-			}
-			else if (_compressionEnabled)
-			{
-				await _compressionStream.WriteAsync(buffer, cancellationToken);
-				if (_autoFlushCompressionStream)
-				{
-					await _compressionStream.FlushAsync(cancellationToken);
-				}
-			}
-			else
-			{
-				await _originalStream.WriteAsync(buffer, cancellationToken);
+				await currentStream.FlushAsync(cancellationToken);
 			}
 		}
 #endif
+
+		private Stream GetCurrentStream()
+		{
+			Stream currentStream;
+
+			if (_minificationEnabled)
+			{
+				currentStream = _cachedStream;
+			}
+			else if (_compressionEnabled)
+			{
+				currentStream = _compressionStream;
+			}
+			else
+			{
+				currentStream = _originalStream;
+			}
+
+			return currentStream;
+		}
+
+		private bool CanFlushCompressionStream()
+		{
+			bool result = _compressionEnabled && _autoFlushCompressionStream;
+
+			return result;
+		}
 
 		protected override void Dispose(bool disposing)
 		{
