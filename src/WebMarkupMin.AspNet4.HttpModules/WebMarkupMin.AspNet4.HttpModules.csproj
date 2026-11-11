@@ -3,7 +3,6 @@
   <PropertyGroup>
     <Product>Web Markup Minifier: ASP.NET 4.X HTTP modules</Product>
     <VersionPrefix>2.24.0</VersionPrefix>
-    <VersionSuffix>rc1</VersionSuffix>
     <TargetFrameworks>net40;net45</TargetFrameworks>
     <OutputType>Library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>

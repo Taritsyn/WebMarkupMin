@@ -3,7 +3,6 @@
   <PropertyGroup>
     <Product>Web Markup Minifier: Sample ASP.NET Core 11 MVC 11 Site</Product>
     <VersionPrefix>2.24.0</VersionPrefix>
-    <VersionSuffix>rc1</VersionSuffix>
     <TargetFramework>net11.0</TargetFramework>
     <OutputType>Exe</OutputType>
     <Nullable>enable</Nullable>

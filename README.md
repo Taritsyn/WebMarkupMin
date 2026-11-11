@@ -22,23 +22,24 @@ You can try WebMarkupMin in action and experiment with different minification se
 ## NuGet Packages
 
 ### Core
- * [WebMarkupMin: Core](http://nuget.org/packages/WebMarkupMin.Core/) (supports .NET Framework 4.0 Client, .NET Framework 4.5, .NET Standard 1.3, .NET Standard 2.0, .NET Standard 2.1 and .NET 9)
+ * [WebMarkupMin: Core](https://www.nuget.org/packages/WebMarkupMin.Core/) (supports .NET Framework 4.0 Client, .NET Framework 4.5, .NET Standard 1.3, .NET Standard 2.0, .NET Standard 2.1 and .NET 9)
 
 ### External JS and CSS minifiers
- * [WebMarkupMin: MS Ajax](http://nuget.org/packages/WebMarkupMin.MsAjax/) (supports .NET Framework 4.0 Client, .NET Framework 4.5, .NET Standard 2.0 and .NET 9)
- * [WebMarkupMin: YUI](http://nuget.org/packages/WebMarkupMin.Yui/) (supports .NET Framework 4.5.2, .NET Standard 2.0 and .NET 9)
- * [WebMarkupMin: NUglify](http://nuget.org/packages/WebMarkupMin.NUglify/) (supports .NET Framework 4.0 Client, .NET Framework 4.5, .NET Standard 2.0, .NET 9 and .NET 10)
+ * [WebMarkupMin: MS Ajax](https://www.nuget.org/packages/WebMarkupMin.MsAjax/) (supports .NET Framework 4.0 Client, .NET Framework 4.5, .NET Standard 2.0 and .NET 9)
+ * [WebMarkupMin: YUI](https://www.nuget.org/packages/WebMarkupMin.Yui/) (supports .NET Framework 4.5.2, .NET Standard 2.0 and .NET 9)
+ * [WebMarkupMin: NUglify](https://www.nuget.org/packages/WebMarkupMin.NUglify/) (supports .NET Framework 4.0 Client, .NET Framework 4.5, .NET Standard 2.0, .NET 9 and .NET 10)
 
 ### ASP.NET Extensions
- * [WebMarkupMin: ASP.NET 4.X HTTP modules](http://nuget.org/packages/WebMarkupMin.AspNet4.HttpModules/) (supports .NET Framework 4.0 and .NET Framework 4.5)
- * [WebMarkupMin: ASP.NET 4.X MVC](http://nuget.org/packages/WebMarkupMin.AspNet4.Mvc/) (supports .NET Framework 4.0 and .NET Framework 4.5)
- * [WebMarkupMin: ASP.NET 4.X Web Forms](http://nuget.org/packages/WebMarkupMin.AspNet4.WebForms/) (supports .NET Framework 4.0 and .NET Framework 4.5)
- * [WebMarkupMin: ASP.NET Core 1.X](http://nuget.org/packages/WebMarkupMin.AspNetCore1/) (supports .NET Framework 4.5.1 and .NET Standard 1.3)
- * [WebMarkupMin: ASP.NET Core 2.X](http://nuget.org/packages/WebMarkupMin.AspNetCore2/) (supports .NET Standard 2.0)
- * [WebMarkupMin: ASP.NET Core 3.1+](http://nuget.org/packages/WebMarkupMin.AspNetCore3/) (supports .NET Core App 3.1)
- * [WebMarkupMin: ASP.NET Core 6+](http://nuget.org/packages/WebMarkupMin.AspNetCore6/) (supports .NET 6)
- * [WebMarkupMin: ASP.NET Core Latest](https://www.nuget.org/packages/WebMarkupMin.AspNetCoreLatest/) (supports .NET 8, .NET 9 and .NET 10)
- * [WebMarkupMin: Brotli for ASP.NET](http://nuget.org/packages/WebMarkupMin.AspNet.Brotli/) (supports .NET Framework 4.0, .NET Framework 4.5, .NET Standard 1.3, .NET Standard 2.0, .NET Standard 2.1 and .NET 9)
+ * [WebMarkupMin: ASP.NET 4.X HTTP modules](https://www.nuget.org/packages/WebMarkupMin.AspNet4.HttpModules/) (supports .NET Framework 4.0 and .NET Framework 4.5)
+ * [WebMarkupMin: ASP.NET 4.X MVC](https://www.nuget.org/packages/WebMarkupMin.AspNet4.Mvc/) (supports .NET Framework 4.0 and .NET Framework 4.5)
+ * [WebMarkupMin: ASP.NET 4.X Web Forms](https://www.nuget.org/packages/WebMarkupMin.AspNet4.WebForms/) (supports .NET Framework 4.0 and .NET Framework 4.5)
+ * [WebMarkupMin: ASP.NET Core 1.X](https://www.nuget.org/packages/WebMarkupMin.AspNetCore1/) (supports .NET Framework 4.5.1 and .NET Standard 1.3)
+ * [WebMarkupMin: ASP.NET Core 2.X](https://www.nuget.org/packages/WebMarkupMin.AspNetCore2/) (supports .NET Standard 2.0)
+ * [WebMarkupMin: ASP.NET Core 3.1+](https://www.nuget.org/packages/WebMarkupMin.AspNetCore3/) (supports .NET Core App 3.1)
+ * [WebMarkupMin: ASP.NET Core 6+](https://www.nuget.org/packages/WebMarkupMin.AspNetCore6/) (supports .NET 6)
+ * [WebMarkupMin: ASP.NET Core Latest](https://www.nuget.org/packages/WebMarkupMin.AspNetCoreLatest/) (supports .NET 9, .NET 10 and .NET 11)
+ * [WebMarkupMin: Brotli for ASP.NET](https://www.nuget.org/packages/WebMarkupMin.AspNet.Brotli/) (supports .NET Framework 4.0, .NET Framework 4.5, .NET Standard 1.3 and .NET Standard 2.0)
+ * [WebMarkupMin: Zstd for ASP.NET](https://www.nuget.org/packages/WebMarkupMin.AspNet.Zstd/) (supports .NET Framework 4.6.2, .NET Standard 2.0, .NET Standard 2.1, .NET Core App 3.1, NET 5, NET 6, NET 7, NET 8 and NET 9)
 
 ### Unofficial modules
  * [Syku.WebMarkupMin.Config](https://www.nuget.org/packages/Syku.WebMarkupMin.Config/) (supports .NET Standard 2.0) by Michał Sykutera

@@ -1,7 +1,7 @@
 
 
    --------------------------------------------------------------------------------
-          README file for Web Markup Minifier: Zstd for ASP.NET v2.24.0 RC 1
+            README file for Web Markup Minifier: Zstd for ASP.NET v2.24.0
 
    --------------------------------------------------------------------------------
 

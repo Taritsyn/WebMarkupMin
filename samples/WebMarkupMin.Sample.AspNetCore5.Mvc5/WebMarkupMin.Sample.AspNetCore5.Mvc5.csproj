@@ -3,7 +3,6 @@
   <PropertyGroup>
     <Product>Web Markup Minifier: Sample ASP.NET Core 5 MVC 5 Site</Product>
     <VersionPrefix>2.24.0</VersionPrefix>
-    <VersionSuffix>rc1</VersionSuffix>
     <TargetFramework>net5.0</TargetFramework>
     <OutputType>Exe</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>

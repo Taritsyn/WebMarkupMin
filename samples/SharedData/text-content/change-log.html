@@ -1,5 +1,43 @@
 ﻿<p>An overview of new features and fixes:</p>
 
+<h3>2.24.0 - November 11, 2026</h3>
+<ul>
+	<li>In WebMarkupMin.NUglify added support for the NUglify version 1.23.7</li>
+	<li>In WebMarkupMin.AspNet.Common:
+		<ul>
+			<li>Added a .NET 11 target</li>
+			<li>In version for .NET 11 was added a new compressor (<code>ZstdCompressor</code>) based on the <code>System.IO.Compression.ZstandardStream</code> class</li>
+			<li>Three classes have been deprecated:
+				<ul>
+					<li><code>BuiltInBrotliCompressor</code> class replaced by the <code>BrotliCompressor</code> class</li>
+					<li><code>BuiltInBrotliCompressionSettings</code> class replaced by the <code>BrotliCompressionSettings</code> class</li>
+					<li><code>BuiltInBrotliCompressorFactory</code> class replaced by the <code>BrotliCompressorFactory</code> class</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>In WebMarkupMin.AspNetCoreLatest:
+		<ul>
+			<li>Added a .NET 11 target</li>
+			<li>Removed a .NET 8 target</li>
+			<li>Added support for the ASP.NET Core 9.0.23 and 10.0.15</li>
+		</ul>
+	</li>
+	<li>In WebMarkupMin.AspNet.Brotli:
+		<ul>
+			<li>No longer supports a .NET Core 3.0 or higher</li>
+			<li>Three classes have been deprecated:
+				<ul>
+					<li><code>BrotliCompressor</code> class replaced by the <code>LegacyBrotliCompressor</code> class</li>
+					<li><code>BrotliCompressionSettings</code> class replaced by the <code>LegacyBrotliCompressionSettings</code> class</li>
+					<li><code>BrotliCompressorFactory</code> class replaced by the <code>LegacyBrotliCompressorFactory</code> class</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>Created the WebMarkupMin.AspNet.Zstd module based on the <a href="https://github.com/oleg-st/ZstdSharp" target="_blank">ZstdSharp</a> library</li>
+</ul>
+
 <h3>2.24.0 RC 1 - November 5, 2026</h3>
 <ul>
 	<li>In WebMarkupMin.NUglify added support for the NUglify version 1.23.6</li>
