@@ -11,7 +11,7 @@
    ===========
    DESCRIPTION
    ===========
-   WebMarkupMin.AspNetCore6 contains one Middleware for ASP.NET Core 6 and 7 -
+   WebMarkupMin.AspNetCore6 contains one Middleware for ASP.NET Core 6, 7 and 8 -
    `WebMarkupMinMiddleware`.
 
    =============
