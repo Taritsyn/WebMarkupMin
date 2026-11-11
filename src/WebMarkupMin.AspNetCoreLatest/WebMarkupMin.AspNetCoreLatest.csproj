@@ -20,8 +20,9 @@
   <PropertyGroup>
     <Description>WebMarkupMin.AspNetCoreLatest contains one Middleware for ASP.NET Core 9, 10 and 11 - `WebMarkupMinMiddleware`.</Description>
     <PackageTags>$(PackageCommonTags);ASP.NET;Middleware;XML</PackageTags>
-    <PackageReleaseNotes>1. Added support for the ASP.NET Core 11 RC 3;
-2. Removed a .NET 8 target.</PackageReleaseNotes>
+    <PackageReleaseNotes>1. Added a .NET 11 target;
+2. Removed a .NET 8 target;
+3. Added support for the ASP.NET Core 9.0.23 and 10.0.15.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,15 +32,15 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
-    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="9.0.22" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="9.0.23" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net10.0' ">
-    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="10.0.14" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="10.0.15" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net11.0' ">
-    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="11.0.0-rc.3.26522.148" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="11.0.0" />
   </ItemGroup>
 
   <Target Name="ConvertResxToCs" BeforeTargets="BeforeCompile">

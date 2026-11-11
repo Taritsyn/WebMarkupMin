@@ -17,8 +17,9 @@
    =============
    RELEASE NOTES
    =============
-   1. Added support for the ASP.NET Core 11 RC 3;
-   2. Removed a .NET 8 target.
+   1. Added a .NET 11 target;
+   2. Removed a .NET 8 target;
+   3. Added support for the ASP.NET Core 9.0.23 and 10.0.15.
 
    =============
    DOCUMENTATION
