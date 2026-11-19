@@ -44,6 +44,12 @@
    KnockoutJS, Kendo UI MVVM and AngularJS 1.X.
 
    =============
+   RELEASE NOTES
+   =============
+   Fixed a error #185 “HTML minifier rewrites `hidden="until-found"`, which breaks
+   find in page”.
+
+   =============
    DOCUMENTATION
    =============
    See documentation on GitHub - https://github.com/Taritsyn/WebMarkupMin/wiki

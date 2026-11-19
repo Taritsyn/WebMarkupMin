@@ -1603,6 +1603,14 @@ namespace WebMarkupMin.Core
 
 				attribute.Value = attributeName;
 			}
+			else if (attributeType == HtmlAttributeType.Enumerated)
+			{
+				if (_settings.CollapseBooleanAttributes && CanCollapseEnumeratedAttribute(attribute))
+				{
+					attributeViewModel = InnerBuildAttributeViewModel(attribute, true, false);
+					return attributeViewModel;
+				}
+			}
 			else
 			{
 				if (!attributeHasEmptyValue)
@@ -2004,6 +2012,23 @@ namespace WebMarkupMin.Core
 		private bool CanPreserveCase()
 		{
 			return _settings.PreserveCase || _currentTag.Flags.IsSet(HtmlTagFlags.Xml);
+		}
+
+		/// <summary>
+		/// Checks whether collapse an the enumerated attribute
+		/// </summary>
+		/// <param name="attribute">Enumerated attribute</param>
+		/// <returns>Result of check (<c>true</c> - can be collapsed; <c>false</c> - can not be collapsed)</returns>
+		private bool CanCollapseEnumeratedAttribute(HtmlAttribute attribute)
+		{
+			if (!attribute.HasValue || attribute.Value.Length == 0)
+			{
+				return true;
+			}
+
+			bool result = !(attribute.Name == "hidden" && attribute.Value.IgnoreCaseEquals("until-found"));
+
+			return result;
 		}
 
 		/// <summary>

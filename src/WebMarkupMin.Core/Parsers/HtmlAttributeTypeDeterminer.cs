@@ -29,7 +29,6 @@ namespace WebMarkupMin.Core.Parsers
 			"checked", "controls",
 			"default", "defer", "disabled",
 			"formnovalidate",
-			"hidden",
 			"ismap", "itemscope",
 			"loop",
 			"multiple", "muted",
@@ -47,6 +46,18 @@ namespace WebMarkupMin.Core.Parsers
 			"pubdate",
 			"seamless", "sortable",
 			"truespeed"
+		};
+
+		#endregion
+
+		#region Enumerated attributes
+
+		/// <summary>
+		/// List of enumerated attributes
+		/// </summary>
+		private readonly HashSet<string> _enumeratedAttributes = new HashSet<string>
+		{
+			"hidden"
 		};
 
 		#endregion
@@ -264,6 +275,10 @@ namespace WebMarkupMin.Core.Parsers
 				{
 					attributeType = HtmlAttributeType.Boolean;
 				}
+				else if (IsEnumeratedAttribute(attributeNameInLowercase))
+				{
+					attributeType = HtmlAttributeType.Enumerated;
+				}
 				else if (IsNumericAttribute(tagNameInLowercase, attributeNameInLowercase))
 				{
 					attributeType = HtmlAttributeType.Numeric;
@@ -292,6 +307,16 @@ namespace WebMarkupMin.Core.Parsers
 		private bool IsBooleanAttribute(string attributeNameInLowercase)
 		{
 			return _booleanAttributes.Contains(attributeNameInLowercase);
+		}
+
+		/// <summary>
+		/// Checks whether the attribute is enumerated
+		/// </summary>
+		/// <param name="attributeNameInLowercase">Attribute name in lowercase</param>
+		/// <returns>Result of check (<c>true</c> - enumerated; <c>false</c> - not enumerated)</returns>
+		private bool IsEnumeratedAttribute(string attributeNameInLowercase)
+		{
+			return _enumeratedAttributes.Contains(attributeNameInLowercase);
 		}
 
 		/// <summary>

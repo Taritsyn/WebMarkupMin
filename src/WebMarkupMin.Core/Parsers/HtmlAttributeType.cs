@@ -7,6 +7,7 @@
 	{
 		Unknown = 0,
 		Boolean,
+		Enumerated,
 		Numeric,
 		Uri,
 		Event,
