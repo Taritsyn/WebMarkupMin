@@ -2021,12 +2021,17 @@ namespace WebMarkupMin.Core
 		/// <returns>Result of check (<c>true</c> - can be collapsed; <c>false</c> - can not be collapsed)</returns>
 		private bool CanCollapseEnumeratedAttribute(HtmlAttribute attribute)
 		{
-			if (!attribute.HasValue || attribute.Value.Length == 0)
-			{
-				return true;
-			}
+			bool result = false;
 
-			bool result = !(attribute.Name == "hidden" && attribute.Value.IgnoreCaseEquals("until-found"));
+			if (attribute.Name == "hidden")
+			{
+				if (!attribute.HasValue || attribute.Value.Length == 0)
+				{
+					return true;
+				}
+
+				result = !attribute.Value.IgnoreCaseEquals("until-found");
+			}
 
 			return result;
 		}

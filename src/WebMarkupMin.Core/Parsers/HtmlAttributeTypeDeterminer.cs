@@ -50,18 +50,6 @@ namespace WebMarkupMin.Core.Parsers
 
 		#endregion
 
-		#region Enumerated attributes
-
-		/// <summary>
-		/// List of enumerated attributes
-		/// </summary>
-		private readonly HashSet<string> _enumeratedAttributes = new HashSet<string>
-		{
-			"hidden"
-		};
-
-		#endregion
-
 		#region Event attributes
 
 		/// <summary>
@@ -316,7 +304,9 @@ namespace WebMarkupMin.Core.Parsers
 		/// <returns>Result of check (<c>true</c> - enumerated; <c>false</c> - not enumerated)</returns>
 		private bool IsEnumeratedAttribute(string attributeNameInLowercase)
 		{
-			return _enumeratedAttributes.Contains(attributeNameInLowercase);
+			bool isEnumerated = attributeNameInLowercase == "hidden";
+
+			return isEnumerated;
 		}
 
 		/// <summary>
