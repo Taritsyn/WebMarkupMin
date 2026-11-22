@@ -1,6 +1,9 @@
 Change log
 ==========
 
+## v2.24.2 - November 22, 2026
+ * Fixed a error that occurred when restoring the initial position of the HTML document type declaration
+
 ## v2.24.1 - November 19, 2026
  * Fixed a [error #185](https://github.com/Taritsyn/WebMarkupMin/issues/185) “HTML minifier rewrites `hidden="until-found"`, which breaks find in page”
  * In WebMarkupMin.NUglify added support for the NUglify version 1.24.0
