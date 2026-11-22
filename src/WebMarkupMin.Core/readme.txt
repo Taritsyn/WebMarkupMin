@@ -46,8 +46,8 @@
    =============
    RELEASE NOTES
    =============
-   Fixed a error #185 “HTML minifier rewrites `hidden="until-found"`, which breaks
-   find in page”.
+   Fixed a error that occurred when restoring the initial position of the HTML
+   document type declaration.
 
    =============
    DOCUMENTATION

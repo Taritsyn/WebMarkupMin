@@ -72,6 +72,23 @@ namespace WebMarkupMin.Tests.Html.Common.Minification
 		}
 
 		[Fact]
+		public void ProcessingDoctypeAfterHtmlComment()
+		{
+			// Arrange
+			var minifier = new HtmlMinifier(new HtmlMinificationSettings(true));
+
+			const string input = "<!-- Site-Version: 2026.11.22.1087 -->\r\n" +
+				"<!DOCTYPE html>"
+				;
+
+			// Act
+			string output = minifier.Minify(input).MinifiedContent;
+
+			// Assert
+			Assert.Equal(input, output);
+		}
+
+		[Fact]
 		public void ShorteningDoctype()
 		{
 			// Arrange

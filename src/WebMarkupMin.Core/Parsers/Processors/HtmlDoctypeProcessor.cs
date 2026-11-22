@@ -9,7 +9,7 @@ namespace WebMarkupMin.Core.Parsers.Processors
 	/// <summary>
 	/// HTML document type processor
 	/// </summary>
-	internal sealed class HtmlDoctypeProcessor : IDisposable
+	internal sealed class HtmlDoctypeProcessor : MarkupProcessorBase
 	{
 		const string DOCTYPE_BEGIN_PART = "<!DOCTYPE";
 		const string DOCTYPE_END_PART = ">";
@@ -31,19 +31,14 @@ namespace WebMarkupMin.Core.Parsers.Processors
 			TargetFrameworkShortcuts.PerformanceRegexOptions)
 			;
 
-		private InnerMarkupParsingContext _innerContext;
-		private int _doctypeStartPosition = -1;
-
 
 		/// <summary>
 		/// Constructs an instance of the HTML document type processor
 		/// </summary>
 		/// <param name="innerContext">Inner markup parsing context</param>
 		public HtmlDoctypeProcessor(InnerMarkupParsingContext innerContext)
-		{
-			_innerContext = innerContext;
-			_doctypeStartPosition = innerContext.Position;
-		}
+			: base(innerContext)
+		{ }
 
 
 		/// <summary>
@@ -59,6 +54,8 @@ namespace WebMarkupMin.Core.Parsers.Processors
 			doctype = null;
 			doctypeLength = 0;
 
+			SaveInitialPosition();
+
 			if (ProcessDoctypeBeginPart(out string instruction))
 			{
 				bool spaceBeforeRootElement = ProcessWhitespace();
@@ -71,7 +68,7 @@ namespace WebMarkupMin.Core.Parsers.Processors
 					if (isProcessed)
 					{
 						doctype = new HtmlDoctype(instruction, spaceBeforeRootElement, rootElement);
-						RestoreDoctypeStartPosition(out doctypeLength);
+						RestoreInitialPosition(out doctypeLength);
 
 						return isProcessed;
 					}
@@ -152,7 +149,7 @@ namespace WebMarkupMin.Core.Parsers.Processors
 					{
 						doctype = new HtmlDoctype(instruction, spaceBeforeRootElement, rootElement, publicity,
 							publicId, systemId);
-						RestoreDoctypeStartPosition(out doctypeLength);
+						RestoreInitialPosition(out doctypeLength);
 
 						return isProcessed;
 					}
@@ -187,27 +184,6 @@ namespace WebMarkupMin.Core.Parsers.Processors
 
 				_innerContext.IncreasePosition(doctypeBeginPartLength);
 				isProcessed = true;
-			}
-
-			return isProcessed;
-		}
-
-		private bool ProcessWhitespace()
-		{
-			bool isProcessed = false;
-			string content = _innerContext.SourceCode;
-			int currentPosition = _innerContext.Position;
-
-			int nonWhitespaceCharPosition = content.IndexOfNonWhitespace(currentPosition,
-				_innerContext.RemainderLength);
-			if (nonWhitespaceCharPosition != -1)
-			{
-				int whitespaceLength = nonWhitespaceCharPosition - currentPosition;
-				if (whitespaceLength > 0)
-				{
-					_innerContext.IncreasePosition(whitespaceLength);
-					isProcessed = true;
-				}
 			}
 
 			return isProcessed;
@@ -406,25 +382,5 @@ namespace WebMarkupMin.Core.Parsers.Processors
 				}
 			}
 		}
-
-		private void RestoreDoctypeStartPosition(out int charOffset)
-		{
-			charOffset = _innerContext.Position - _doctypeStartPosition;
-			_innerContext.Position = _doctypeStartPosition;
-		}
-
-
-		#region IDisposable implementation
-
-		/// <summary>
-		/// Disposes the HTML document type processor
-		/// </summary>
-		public void Dispose()
-		{
-			_innerContext = null;
-			_doctypeStartPosition = -1;
-		}
-
-		#endregion
 	}
 }
